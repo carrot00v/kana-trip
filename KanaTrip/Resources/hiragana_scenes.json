@@ -1,0 +1,229 @@
+{
+  "script": "hiragana",
+  "title": "히라가나",
+  "scenes": [
+    {
+      "id": "airport",
+      "order": 1,
+      "name": "공항",
+      "icon": "airplane.arrival",
+      "kana": [
+        "よ",
+        "う",
+        "こ",
+        "そ",
+        "く"
+      ],
+      "words": [
+        {
+          "text": "ようこそ",
+          "units": [
+            {
+              "kana": "よ",
+              "romaji": "yo"
+            },
+            {
+              "kana": "う",
+              "romaji": "u"
+            },
+            {
+              "kana": "こ",
+              "romaji": "ko"
+            },
+            {
+              "kana": "そ",
+              "romaji": "so"
+            }
+          ],
+          "reading": "yōkoso",
+          "meaning": "환영합니다",
+          "note": "よう는 yo, u로 끊지 않고 yō로 길게 읽어요"
+        },
+        {
+          "text": "くうこう",
+          "units": [
+            {
+              "kana": "く",
+              "romaji": "ku"
+            },
+            {
+              "kana": "う",
+              "romaji": "u"
+            },
+            {
+              "kana": "こ",
+              "romaji": "ko"
+            },
+            {
+              "kana": "う",
+              "romaji": "u"
+            }
+          ],
+          "reading": "kūkō",
+          "meaning": "공항",
+          "note": "くう는 kū, こう는 kō로 길게 읽어요"
+        },
+        {
+          "text": "のりば",
+          "units": [
+            {
+              "kana": "の",
+              "romaji": "no"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            },
+            {
+              "kana": "ば",
+              "romaji": "ba"
+            }
+          ],
+          "reading": "noriba",
+          "meaning": "타는 곳",
+          "note": "버스·택시 승강장 표지"
+        },
+        {
+          "text": "おみやげ",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "み",
+              "romaji": "mi"
+            },
+            {
+              "kana": "や",
+              "romaji": "ya"
+            },
+            {
+              "kana": "げ",
+              "romaji": "ge"
+            }
+          ],
+          "reading": "omiyage",
+          "meaning": "기념품, 선물"
+        },
+        {
+          "text": "おてあらい",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "て",
+              "romaji": "te"
+            },
+            {
+              "kana": "あ",
+              "romaji": "a"
+            },
+            {
+              "kana": "ら",
+              "romaji": "ra"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            }
+          ],
+          "reading": "otearai",
+          "meaning": "화장실"
+        }
+      ]
+    },
+    {
+      "id": "station",
+      "order": 2,
+      "name": "역",
+      "kana": [
+        "え",
+        "き",
+        "の",
+        "り",
+        "か",
+        "お"
+      ]
+    },
+    {
+      "id": "street",
+      "order": 3,
+      "name": "거리",
+      "kana": [
+        "い",
+        "ち",
+        "と",
+        "ま",
+        "れ",
+        "す"
+      ]
+    },
+    {
+      "id": "eatery",
+      "order": 4,
+      "name": "밥집",
+      "kana": [
+        "た",
+        "ぬ",
+        "ね",
+        "つ",
+        "ん",
+        "し"
+      ]
+    },
+    {
+      "id": "shrine",
+      "order": 5,
+      "name": "신사",
+      "kana": [
+        "み",
+        "も",
+        "む",
+        "さ",
+        "せ",
+        "な"
+      ]
+    },
+    {
+      "id": "festival",
+      "order": 6,
+      "name": "축제",
+      "kana": [
+        "や",
+        "わ",
+        "あ",
+        "め",
+        "は",
+        "ら"
+      ]
+    },
+    {
+      "id": "onsen",
+      "order": 7,
+      "name": "온천",
+      "kana": [
+        "ゆ",
+        "け",
+        "る",
+        "ひ",
+        "に",
+        "を"
+      ]
+    },
+    {
+      "id": "ryokan",
+      "order": 8,
+      "name": "료칸",
+      "kana": [
+        "ふ",
+        "へ",
+        "ほ",
+        "ろ",
+        "て"
+      ]
+    }
+  ]
+}
