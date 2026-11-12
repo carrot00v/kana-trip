@@ -52,7 +52,8 @@ struct SceneProgress: Codable, Equatable {
 struct ProgressState: Codable, Equatable {
     /// 저장 형식 버전. 장면 id나 글자 배정이 바뀌어 예전 진도가 맞지 않게 되면 올린다.
     /// 1: 장면 1이 공항(よ う こ そ く)이던 때. 2: 장면 1이 밥집 간판(す し と ん か つ).
-    static let currentVersion = 2
+    /// 3: 장면 2~8 재배정, 옛 밥집(eatery) 장면을 빼고 이자카야(izakaya) 추가.
+    static let currentVersion = 3
 
     var version = ProgressState.currentVersion
     var soundOn = false
