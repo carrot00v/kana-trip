@@ -68,6 +68,7 @@ struct SceneDoneView: View {
 
     var body: some View {
         let next = ContentLibrary.shared.scene(after: scene)
+        let goalWords = ContentLibrary.shared.wordGroups(for: scene).goal
         CompletionLayout {
             Image(systemName: scene.icon ?? "checkmark.circle.fill")
                 .font(.system(size: 64))
@@ -85,6 +86,18 @@ struct SceneDoneView: View {
             Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(.secondary)
         } detail: {
             KanaRow(kana: scene.kana, marked: [])
+            if !goalWords.isEmpty {
+                VStack(spacing: 8) {
+                    Text(L.readableWords(scene.name))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    CenteredFlow(spacing: 16, lineSpacing: 8) {
+                        ForEach(goalWords) { word in
+                            KanaText(text: word.text, size: 22, weight: .bold)
+                        }
+                    }
+                }
+            }
             if let next {
                 VStack(spacing: 8) {
                     Text(L.nextSceneOpened(next.name)).font(.body)

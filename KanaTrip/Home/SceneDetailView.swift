@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// S 장면 진입. 새 글자와 세션 3개의 상태를 보여 준다.
+/// S 장면 진입. 이 장면에서 읽게 될 단어, 새 글자, 세션 3개의 상태를 보여 준다.
 struct SceneDetailView: View {
     let scene: TripScene
     let onStart: (SessionKind) -> Void
@@ -14,8 +14,10 @@ struct SceneDetailView: View {
 
     var body: some View {
         List {
+            goalWordSection
+
             Section {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text(L.newKanaCount(scene.kana.count))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -32,6 +34,8 @@ struct SceneDetailView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .listSectionSpacing(16)
+        .contentMargins(.top, 8, for: .scrollContent)
         .navigationTitle(scene.name)
         .navigationBarTitleDisplayMode(.large)
         .safeAreaInset(edge: .bottom) {
@@ -48,6 +52,87 @@ struct SceneDetailView: View {
             .padding(.vertical, 8)
         }
     }
+
+    // MARK: - 목표 단어 카드
+
+    /// 이 장면의 글자를 배우면 읽게 되는 단어. 배운 글자만 진하게 채운다. 누를 수 없다.
+    @ViewBuilder
+    private var goalWordSection: some View {
+        let library = ContentLibrary.shared
+        let groups = library.wordGroups(for: scene)
+        let learned = library.learnedKana(in: scene, progress: store.progress(for: scene.id))
+        let style: (String) -> WordGlyphStyle = { learned.contains($0) ? .learned : .unlearned }
+
+        if !groups.goal.isEmpty || !groups.rest.isEmpty {
+            Section {
+                ForEach(groups.goal) { word in
+                    goalWordRow(word, learnedCount: word.count(in: learned), style: style)
+                }
+                if !groups.rest.isEmpty {
+                    unreadableRow(groups.rest, style: style)
+                }
+            } header: {
+                Text(L.goalWordsHeader(scene: scene.name, allLearned: scene.kana.allSatisfy(learned.contains)))
+                    .font(.footnote)
+                    .textCase(nil)
+            }
+        }
+    }
+
+    private func goalWordRow(_ word: TripWord, learnedCount: Int, style: @escaping (String) -> WordGlyphStyle) -> some View {
+        let total = word.units.count
+        let readable = learnedCount == total
+        return HStack(spacing: 12) {
+            WordGlyphs(word: word, size: 28, style: style)
+            Spacer(minLength: 0)
+            VStack(alignment: .trailing, spacing: 2) {
+                Text(word.meaning)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                if readable {
+                    HStack(spacing: 4) {
+                        Image(systemName: "checkmark").foregroundStyle(.green)
+                        Text(L.canRead)
+                    }
+                    .font(.footnote)
+                } else {
+                    Text(L.learnedCount(learnedCount, of: total))
+                        .font(.footnote.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .frame(minHeight: 40)
+        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(
+            KanaText.japanese(word.text)
+                + AttributedString(", \(word.meaning), \(readable ? L.canRead : L.learnedCountLabel(learnedCount, of: total))")
+        ))
+    }
+
+    private func unreadableRow(_ words: [TripWord], style: @escaping (String) -> WordGlyphStyle) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(L.unreadableWords)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            HStack(spacing: 16) {
+                ForEach(words) { word in
+                    WordGlyphs(word: word, size: 17, spacing: 0, style: style)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(
+            AttributedString("\(L.unreadableWords), ")
+                + KanaText.japanese(words.map(\.text).joined(separator: ", "))
+        ))
+    }
+
+    // MARK: - 새 글자와 세션 행
 
     /// 새 글자를 같은 폭으로 나눠 놓고 아래에 발음을 붙인다.
     private var kanaRow: some View {
@@ -130,7 +215,7 @@ struct SceneDetailView: View {
                         .accessibilityHidden(true)
                 }
             }
-            .frame(minHeight: 56)
+            .frame(minHeight: 50)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

@@ -17,6 +17,13 @@ enum L {
     }
 
     // MARK: 장면 진입
+    static func goalWordsHeader(scene: String, allLearned: Bool) -> String {
+        allLearned ? readableWords(scene) : "글자를 배우면 읽는 \(scene) 단어"
+    }
+    static func readableWords(_ scene: String) -> String { "이제 읽을 수 있는 \(scene) 단어" }
+    static func learnedCount(_ learned: Int, of total: Int) -> String { "배운 글자 \(learned) / \(total)" }
+    static let canRead = "읽을 수 있어요"
+    static let unreadableWords = "아직 못 읽는 글자가 있는 단어"
     static func newKanaCount(_ n: Int) -> String { "새 글자 \(n)자" }
 
     static func sessionTitle(_ kind: SessionKind) -> String {
@@ -55,6 +62,7 @@ enum L {
     // MARK: 배우기
     static let newKana = "새 글자"
     static func strokeCount(_ n: Int) -> String { "\(n)획" }
+    static func sceneWords(_ scene: String) -> String { "\(scene) 단어" }
     static let tryWriting = "써 보기"
     static func traceRound(_ round: Int, of total: Int) -> String { "따라 쓰기 \(round)/\(total)" }
     static let traceHint = "번호가 있는 점에서 시작해 따라 쓰세요"
@@ -128,6 +136,9 @@ enum L {
     static func sceneRowLabel(order: Int, name: String, kana: [String], done: Int) -> String {
         "\(order)번 \(name), 새 글자 \(kana.joined(separator: " ")), 세션 3개 중 \(done)개 완료"
     }
+    static func learnedCountLabel(_ learned: Int, of total: Int) -> String { "글자 \(total)개 중 \(learned)개 배움" }
+    /// "ようこそ의 よ"에서 단어와 글자를 잇는 말.
+    static let possessive = "의 "
     static func sceneRowLocked(order: Int, name: String) -> String { "\(order)번 \(name), \(locked)" }
 
     /// 한글 낱말이 받침으로 끝나는지. 조사를 고를 때 쓴다.

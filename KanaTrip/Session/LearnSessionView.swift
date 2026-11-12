@@ -78,15 +78,20 @@ struct LearnSessionView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
-                .padding(.top, 16)
+                .padding(.top, 8)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel("\(kana.char), \(kana.romaji), \(L.strokeCount(kana.strokes.count))")
                 .speaks(kana.char, enabled: store.soundOn)
 
+                if let word = ContentLibrary.shared.introWord(for: kana.char, in: scene) {
+                    SceneWordCard(scene: scene, char: kana.char, intro: word)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 4)
+                }
+
                 if let tip = kana.tip {
                     TipBox(text: tip)
                         .padding(.horizontal, 16)
-                        .padding(.top, 16)
                 }
             }
         }

@@ -140,10 +140,11 @@ struct TipBox: View {
 struct KanaText: View {
     let text: String
     let size: CGFloat
+    var weight: Font.Weight = .regular
 
     var body: some View {
         Text(Self.japanese(text))
-            .font(.system(size: size))
+            .font(.system(size: size, weight: weight))
             .environment(\.locale, Locale(identifier: "ja"))
     }
 
