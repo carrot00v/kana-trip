@@ -3,135 +3,134 @@
   "title": "히라가나",
   "scenes": [
     {
-      "id": "airport",
+      "id": "eatery_sign",
       "order": 1,
-      "name": "공항",
-      "icon": "airplane.arrival",
+      "name": "밥집 간판",
+      "icon": "fork.knife",
       "kana": [
-        "よ",
-        "う",
-        "こ",
-        "そ",
-        "く"
+        "す",
+        "し",
+        "と",
+        "ん",
+        "か",
+        "つ"
       ],
       "words": [
         {
-          "text": "ようこそ",
+          "text": "すし",
           "units": [
             {
-              "kana": "よ",
-              "romaji": "yo"
+              "kana": "す",
+              "romaji": "su"
             },
             {
-              "kana": "う",
-              "romaji": "u"
+              "kana": "し",
+              "romaji": "shi"
+            }
+          ],
+          "reading": "sushi",
+          "meaning": "초밥",
+          "note": "寿司, 鮨로도 써요. 가게 이름에도 히라가나로 많이 써요"
+        },
+        {
+          "text": "とんかつ",
+          "units": [
+            {
+              "kana": "と",
+              "romaji": "to"
             },
             {
-              "kana": "こ",
-              "romaji": "ko"
+              "kana": "ん",
+              "romaji": "n"
             },
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            }
+          ],
+          "reading": "tonkatsu",
+          "meaning": "돈가스",
+          "note": "豚カツ, トンカツ로도 써요"
+        },
+        {
+          "text": "かつ",
+          "units": [
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            }
+          ],
+          "reading": "katsu",
+          "meaning": "커틀릿 (かつ丼의 かつ)",
+          "note": "かつ丼처럼 써요. カツ丼으로 쓰는 가게도 많아요"
+        },
+        {
+          "text": "そば",
+          "units": [
             {
               "kana": "そ",
               "romaji": "so"
-            }
-          ],
-          "reading": "yōkoso",
-          "meaning": "환영합니다",
-          "note": "よう는 yo, u로 끊지 않고 yō로 길게 읽어요"
-        },
-        {
-          "text": "くうこう",
-          "units": [
-            {
-              "kana": "く",
-              "romaji": "ku"
-            },
-            {
-              "kana": "う",
-              "romaji": "u"
-            },
-            {
-              "kana": "こ",
-              "romaji": "ko"
-            },
-            {
-              "kana": "う",
-              "romaji": "u"
-            }
-          ],
-          "reading": "kūkō",
-          "meaning": "공항",
-          "note": "くう는 kū, こう는 kō로 길게 읽어요"
-        },
-        {
-          "text": "のりば",
-          "units": [
-            {
-              "kana": "の",
-              "romaji": "no"
-            },
-            {
-              "kana": "り",
-              "romaji": "ri"
             },
             {
               "kana": "ば",
               "romaji": "ba"
             }
           ],
-          "reading": "noriba",
-          "meaning": "타는 곳",
-          "note": "버스·택시 승강장 표지"
+          "reading": "soba",
+          "meaning": "메밀국수",
+          "note": "한자 蕎麦는 예스러운 표기예요"
         },
         {
-          "text": "おみやげ",
+          "text": "うどん",
           "units": [
             {
-              "kana": "お",
-              "romaji": "o"
+              "kana": "う",
+              "romaji": "u"
             },
             {
-              "kana": "み",
-              "romaji": "mi"
+              "kana": "ど",
+              "romaji": "do"
             },
             {
-              "kana": "や",
-              "romaji": "ya"
-            },
-            {
-              "kana": "げ",
-              "romaji": "ge"
+              "kana": "ん",
+              "romaji": "n"
             }
           ],
-          "reading": "omiyage",
-          "meaning": "기념품, 선물"
+          "reading": "udon",
+          "meaning": "우동",
+          "note": "한자 饂飩은 드물어요"
         },
         {
-          "text": "おてあらい",
+          "text": "とんこつ",
           "units": [
             {
-              "kana": "お",
-              "romaji": "o"
+              "kana": "と",
+              "romaji": "to"
             },
             {
-              "kana": "て",
-              "romaji": "te"
+              "kana": "ん",
+              "romaji": "n"
             },
             {
-              "kana": "あ",
-              "romaji": "a"
+              "kana": "こ",
+              "romaji": "ko"
             },
             {
-              "kana": "ら",
-              "romaji": "ra"
-            },
-            {
-              "kana": "い",
-              "romaji": "i"
+              "kana": "つ",
+              "romaji": "tsu"
             }
           ],
-          "reading": "otearai",
-          "meaning": "화장실"
+          "reading": "tonkotsu",
+          "meaning": "돼지뼈 육수 (라멘)",
+          "note": "豚骨로도 많이 써요"
         }
       ]
     },

@@ -137,7 +137,7 @@ enum L {
         "\(order)번 \(name), 새 글자 \(kana.joined(separator: " ")), 세션 3개 중 \(done)개 완료"
     }
     static func learnedCountLabel(_ learned: Int, of total: Int) -> String { "글자 \(total)개 중 \(learned)개 배움" }
-    /// "ようこそ의 よ"에서 단어와 글자를 잇는 말.
+    /// "すし의 す"에서 단어와 글자를 잇는 말.
     static let possessive = "의 "
     static func sceneRowLocked(order: Int, name: String) -> String { "\(order)번 \(name), \(locked)" }
 

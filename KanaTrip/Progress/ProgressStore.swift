@@ -50,7 +50,11 @@ struct SceneProgress: Codable, Equatable {
 }
 
 struct ProgressState: Codable, Equatable {
-    var version = 1
+    /// 저장 형식 버전. 장면 id나 글자 배정이 바뀌어 예전 진도가 맞지 않게 되면 올린다.
+    /// 1: 장면 1이 공항(よ う こ そ く)이던 때. 2: 장면 1이 밥집 간판(す し と ん か つ).
+    static let currentVersion = 2
+
+    var version = ProgressState.currentVersion
     var soundOn = false
     var scenes: [String: SceneProgress] = [:]
 }
@@ -89,7 +93,19 @@ final class ProgressStore {
 
     init(storage: ProgressStorage = FileProgressStorage()) {
         self.storage = storage
-        state = storage.load() ?? ProgressState()
+        let loaded = storage.load()
+        state = Self.migrated(loaded)
+        if let loaded, loaded != state { storage.save(state) }
+    }
+
+    /// 버전이 다른 진도는 장면 진행을 비우고 새로 시작한다. 공개 전이라 옮겨 담지 않는다.
+    /// 소리 설정만 남긴다. 비운 결과는 바로 저장해 예전 장면 id가 남지 않게 한다.
+    private static func migrated(_ loaded: ProgressState?) -> ProgressState {
+        guard let loaded else { return ProgressState() }
+        guard loaded.version != ProgressState.currentVersion else { return loaded }
+        var fresh = ProgressState()
+        fresh.soundOn = loaded.soundOn
+        return fresh
     }
 
     // MARK: - 설정
