@@ -5,6 +5,10 @@ struct TripWord: Decodable, Identifiable {
     struct Unit: Decodable {
         let kana: String
         let romaji: String
+        /// 현지 표기대로 붙여 쓴 한자(かつ丼의 丼 등). 가르치지 않고, 배운 글자 계산에서 빠지며, 늘 발음을 위에 표기한다.
+        let kanji: Bool?
+
+        var isKanji: Bool { kanji == true }
     }
 
     let text: String
@@ -16,6 +20,9 @@ struct TripWord: Decodable, Identifiable {
     let note: String?
 
     var id: String { text }
+
+    /// 한자 칸을 뺀 가나 칸. 읽을 수 있는지와 채워진 정도는 이 칸들로만 계산한다.
+    var kanaUnits: [Unit] { units.filter { !$0.isKanji } }
 }
 
 /// 장면 하나. 단어가 없으면 아직 내용이 준비되지 않은 장면이다.

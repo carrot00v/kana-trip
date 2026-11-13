@@ -75,7 +75,7 @@ struct WordSessionView: View {
     }
 
     /// 글자마다 위에 발음 표기 칸, 아래에 글자 칸을 쌓는다.
-    /// 이 장면까지 배운 글자는 위 칸을 비워 두고, 배우지 않은 글자와 탁음 글자에만 표기를 붙인다.
+    /// 이 장면까지 배운 글자는 위 칸을 비워 두고, 배우지 않은 글자와 탁음 글자, 한자에는 표기를 붙인다.
     private func wordRow(_ word: TripWord) -> some View {
         let learned = ContentLibrary.shared.learnedKana(through: scene)
         let compact = word.units.count >= 6
@@ -92,7 +92,7 @@ struct WordSessionView: View {
                 .frame(width: compact ? 52 : 64)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text(KanaText.japanese(unit.kana)) + Text(ruby.map { ", \($0)" } ?? ""))
-                .speaks(unit.kana, enabled: store.soundOn)
+                .speaks(unit.kana, enabled: store.soundOn && !unit.isKanji)
             }
         }
     }

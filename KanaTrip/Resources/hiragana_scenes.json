@@ -57,7 +57,7 @@
           "note": "豚カツ, トンカツ로도 써요"
         },
         {
-          "text": "かつ",
+          "text": "かつ丼",
           "units": [
             {
               "kana": "か",
@@ -66,11 +66,16 @@
             {
               "kana": "つ",
               "romaji": "tsu"
+            },
+            {
+              "kana": "丼",
+              "romaji": "don",
+              "kanji": true
             }
           ],
-          "reading": "katsu",
-          "meaning": "커틀릿 (かつ丼의 かつ)",
-          "note": "かつ丼처럼 써요. カツ丼으로 쓰는 가게도 많아요"
+          "reading": "katsudon",
+          "meaning": "돈가스덮밥",
+          "note": "丼(don)은 덮밥을 뜻하는 한자예요. 외우지 않아도 돼요"
         },
         {
           "text": "そば",
@@ -956,7 +961,7 @@
           "note": "ひのき風呂(편백 욕조)처럼 써요"
         },
         {
-          "text": "ぬるゆ",
+          "text": "ぬる湯",
           "units": [
             {
               "kana": "ぬ",
@@ -967,13 +972,14 @@
               "romaji": "ru"
             },
             {
-              "kana": "ゆ",
-              "romaji": "yu"
+              "kana": "湯",
+              "romaji": "yu",
+              "kanji": true
             }
           ],
           "reading": "nuruyu",
           "meaning": "미지근한 탕",
-          "note": "보통 ぬる湯로 써요"
+          "note": "湯(yu)는 더운물을 뜻하는 한자예요. 외우지 않아도 돼요"
         },
         {
           "text": "くつをぬいでください",
@@ -1151,7 +1157,7 @@
           "meaning": "환대"
         },
         {
-          "text": "ほうじちゃ",
+          "text": "ほうじ茶",
           "units": [
             {
               "kana": "ほ",
@@ -1166,17 +1172,14 @@
               "romaji": "ji"
             },
             {
-              "kana": "ち",
-              "romaji": "chi"
-            },
-            {
-              "kana": "ゃ",
-              "romaji": "ya"
+              "kana": "茶",
+              "romaji": "cha",
+              "kanji": true
             }
           ],
           "reading": "hōjicha",
           "meaning": "호지차",
-          "note": "보통 ほうじ茶로 써요"
+          "note": "茶(cha)는 차를 뜻하는 한자예요. 외우지 않아도 돼요. ほう는 길게 읽어요"
         }
       ]
     }

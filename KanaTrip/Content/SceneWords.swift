@@ -18,9 +18,9 @@ struct IntroWord {
 }
 
 extension TripWord {
-    /// `units` 가운데 `kana`에 드는 칸의 수. 같은 글자가 두 번 나오면 두 번 센다.
+    /// 가나 칸 가운데 `kana`에 드는 칸의 수. 같은 글자가 두 번 나오면 두 번 센다. 한자 칸은 세지 않는다.
     func count(in kana: Set<String>) -> Int {
-        units.count { kana.contains($0.kana) }
+        kanaUnits.count { kana.contains($0.kana) }
     }
 }
 
@@ -43,7 +43,7 @@ extension ContentLibrary {
         var goal: [TripWord] = []
         var rest: [TripWord] = []
         for word in scene.words {
-            if word.count(in: reachable) == word.units.count {
+            if word.count(in: reachable) == word.kanaUnits.count {
                 goal.append(word)
             } else {
                 rest.append(word)
@@ -62,7 +62,7 @@ extension ContentLibrary {
         for word in scene.words where word.units.contains(where: { $0.kana == char }) {
             let filled = word.count(in: known)
             // 채워진 비율을 나눗셈 없이 비교한다. 같으면 앞 단어를 그대로 둔다.
-            if let current = best, filled * current.word.units.count <= current.filled * word.units.count {
+            if let current = best, filled * current.word.kanaUnits.count <= current.filled * word.kanaUnits.count {
                 continue
             }
             best = (word, filled)

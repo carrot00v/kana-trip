@@ -80,7 +80,7 @@ struct SceneDetailView: View {
     }
 
     private func goalWordRow(_ word: TripWord, learnedCount: Int, style: @escaping (String) -> WordGlyphStyle) -> some View {
-        let total = word.units.count
+        let total = word.kanaUnits.count
         let readable = learnedCount == total
         return HStack(spacing: 12) {
             WordGlyphs(word: word, size: 28, style: style)
