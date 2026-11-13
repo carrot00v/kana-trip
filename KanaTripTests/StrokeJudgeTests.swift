@@ -118,7 +118,16 @@ struct StrokeJudgeTests {
         #expect(failures.isEmpty, failures.report)
     }
 
-    private static let wrongOrderKnownLimits: Set<String> = ["な3-4", "ほ2-4", "よ1-2"]
+    /// 고리가 있는 뒤 획을 먼저 그어도 고리 판정이 아니라 획순 오류가 나와야 한다. (예전 한계: な3-4, ほ2-4, よ1-2)
+    @Test func laterStrokeWithLoopIsWrongOrderNotLoopVerdict() {
+        let cases: [(String, Int, Int)] = [("な", 2, 3), ("ほ", 1, 3), ("よ", 0, 1)]
+        for (char, index, other) in cases {
+            guard let kana = hiragana.first(where: { $0.char == char }) else {
+                Issue.record("\(char) 없음"); continue
+            }
+            #expect(judge(kana.strokes[other], kana, index) == .wrongOrder(drawn: other), "\(char) 획\(index + 1) 차례에 획\(other + 1)")
+        }
+    }
 
     @Test func laterStrokeDrawnFirstIsWrongOrder() {
         var failures = Failures()
@@ -137,11 +146,8 @@ struct StrokeJudgeTests {
                     if looksLikeCurrent || looksLikeEarlierOther { continue }
                     checked += 1
                     let verdict = judge(drawn, kana, index)
-                    // 한계: 고리가 있는 뒤 획을 그으면 시작점이 현재 획 근처일 때 순서 확인보다 고리 확인이 먼저라 extraLoop이 나온다.
-                    let known = Self.wrongOrderKnownLimits.contains("\(kana.char)\(index + 1)-\(other + 1)")
-                        ? "뒤 획이 고리를 가지면 wrongOrder 대신 extraLoop이 나옴" : nil
                     expect(verdict, .wrongOrder(drawn: other), char: kana.char, stroke: index,
-                           detail: "획\(other + 1)을 먼저 그음", knownLimit: known, failures: &failures)
+                           detail: "획\(other + 1)을 먼저 그음", failures: &failures)
                 }
             }
         }
@@ -165,12 +171,10 @@ struct StrokeJudgeTests {
         var failures = Failures()
         for kana in hiragana {
             for (n, stroke) in kana.strokes.enumerated() {
+                // 고리가 있는 획의 짧은 토막도 고리 누락이 아니라 tooShort여야 한다.
                 let verdict = judge(StrokeShaper.prefix(stroke, fraction: 0.15), kana, n)
-                // 한계: 기준 획에 고리가 있으면 시작점이 맞는 짧은 토막도 tooShort 대신 missingLoop으로 판정된다.
-                let known = StrokeJudge.loops(in: stroke).isEmpty
-                    ? nil : "고리가 있는 획의 짧은 토막이 tooShort 대신 missingLoop으로 판정됨"
                 expect(verdict, .tooShort, char: kana.char, stroke: n, detail: "앞 15%만 그음",
-                       knownLimit: known, failures: &failures)
+                       failures: &failures)
             }
         }
         #expect(failures.isEmpty, failures.report)

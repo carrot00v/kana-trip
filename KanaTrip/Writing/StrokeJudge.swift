@@ -73,17 +73,24 @@ enum StrokeJudge {
             return loopVerdict(drawn: drawn, target: target, tolerance: tolerance) ?? .correct
         }
 
-        // 시작점은 맞는데 모양이 어긋났다면, 고리를 빼먹거나 더 만든 것이 원인인지 먼저 본다.
-        // 고리 하나가 빠지면 획 길이가 달라져 모양 비교도 함께 어긋나기 때문이다.
-        if forward.startDistance <= tolerance.endpoint,
-           let verdict = loopVerdict(drawn: drawn, target: target, tolerance: tolerance) {
-            return verdict
-        }
-
+        // 뒤 획과 그대로 맞으면 고리보다 획순이 먼저다. 뒤 획 자체에 고리가 있을 수 있어서다.
         for other in strokes.indices where other > index {
             if compare(drawn, strokes[other]).passes(tolerance) {
                 return .wrongOrder(drawn: other)
             }
+        }
+
+        // 기준 획의 앞부분만 긋고 멈춘 것은 고리를 빼먹은 것이 아니다.
+        // 큰 고리를 건너뛴 획도 짧아지지만, 그때는 끝점이 기준 획의 끝에 닿아 있다.
+        if forward.lengthRatio < tolerance.minLengthRatio, forward.endDistance > tolerance.endpoint {
+            return .tooShort
+        }
+
+        // 시작점은 맞는데 모양이 어긋났다면, 고리를 빼먹거나 더 만든 것이 원인인지 본다.
+        // 고리 하나가 빠지면 획 길이가 달라져 모양 비교도 함께 어긋나기 때문이다.
+        if forward.startDistance <= tolerance.endpoint,
+           let verdict = loopVerdict(drawn: drawn, target: target, tolerance: tolerance) {
+            return verdict
         }
         return forward.lengthRatio < tolerance.minLengthRatio ? .tooShort : .offTarget
     }
