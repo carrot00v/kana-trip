@@ -8,7 +8,18 @@
 
 /* Begin PBXFileReference section */
 		A1000000000000000000001A /* KanaTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KanaTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000000000000000000020A /* KanaTripTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KanaTripTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXContainerItemProxy section */
+		A1000000000000000000021A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000000000000000000009A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000000000000000000006A;
+			remoteInfo = KanaTrip;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A1000000000000000000002A /* KanaTrip */ = {
@@ -16,10 +27,22 @@
 			path = KanaTrip;
 			sourceTree = "<group>";
 		};
+		A1000000000000000000022A /* KanaTripTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = KanaTripTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A1000000000000000000003A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1000000000000000000023A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000000000000000000002A /* KanaTrip */,
+				A1000000000000000000022A /* KanaTripTests */,
 				A1000000000000000000005A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000000000000000000001A /* KanaTrip.app */,
+				A1000000000000000000020A /* KanaTripTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = A1000000000000000000001A /* KanaTrip.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A1000000000000000000024A /* KanaTripTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000000000000000000029A /* Build configuration list for PBXNativeTarget "KanaTripTests" */;
+			buildPhases = (
+				A1000000000000000000025A /* Sources */,
+				A1000000000000000000023A /* Frameworks */,
+				A1000000000000000000026A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1000000000000000000027A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A1000000000000000000022A /* KanaTripTests */,
+			);
+			name = KanaTripTests;
+			packageProductDependencies = (
+			);
+			productName = KanaTripTests;
+			productReference = A1000000000000000000020A /* KanaTripTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					A1000000000000000000006A = {
 						CreatedOnToolsVersion = 27.2;
+					};
+					A1000000000000000000024A = {
+						CreatedOnToolsVersion = 27.2;
+						TestTargetID = A1000000000000000000006A;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				A1000000000000000000006A /* KanaTrip */,
+				A1000000000000000000024A /* KanaTripTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A1000000000000000000008A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1000000000000000000026A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1000000000000000000025A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1000000000000000000027A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1000000000000000000006A /* KanaTrip */;
+			targetProxy = A1000000000000000000021A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A100000000000000000000EA /* Debug */ = {
@@ -211,6 +286,40 @@
 			};
 			name = Release;
 		};
+		A1000000000000000000027B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.KanaTripTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KanaTrip.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KanaTrip";
+			};
+			name = Debug;
+		};
+		A1000000000000000000028B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.KanaTripTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KanaTrip.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KanaTrip";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -228,6 +337,15 @@
 			buildConfigurations = (
 				A100000000000000000000EA /* Debug */,
 				A100000000000000000000FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000000000000000000029A /* Build configuration list for PBXNativeTarget "KanaTripTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000000000000000000027B /* Debug */,
+				A1000000000000000000028B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
