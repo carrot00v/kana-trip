@@ -153,15 +153,39 @@ MARKS = f'''
   </g>'''
 
 
-def svg(kind):
-    body = body_path()
+def body_clip_def(body):
+    """몸통 모양 clipPath. defs 안에 넣는다."""
+    return f'<clipPath id="bodyClip"><path d="{body}"/></clipPath>'
+
+
+def body_layers(body):
+    """밥, 밥알 결, 김, 몸통 외곽선. body_clip_def가 함께 있어야 한다."""
     grains = "".join(
         f'<path d="{d}" fill="none" stroke="{GRAIN}" stroke-width="4" stroke-linecap="round"/>'
         for d in ["M182 132 q6 2 9 8", "M78 156 q-2 6 0 11", "M222 192 q4 4 4 10",
                   "M44 270 q6 4 12 3", "M226 260 q-2 6 -8 9", "M60 296 q6 3 12 2"])
+    return f'''<path d="{body}" fill="{RICE}"/>
+  <g clip-path="url(#bodyClip)">
+    {grains}
+    <rect x="96" y="232" width="108" height="114" fill="{NORI}" stroke="{LINE}" stroke-width="4"/>
+  </g>
+  <path d="{body}" fill="none" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>'''
+
+
+def face(kind):
+    """볼과 표정."""
+    return f'''
+  <!-- 볼 -->
+  <ellipse cx="94" cy="190" rx="15" ry="10" fill="{CHEEK}"/>
+  <ellipse cx="206" cy="190" rx="15" ry="10" fill="{CHEEK}"/>
+  <!-- 얼굴 -->{FACES[kind]}'''
+
+
+def svg(kind):
+    body = body_path()
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
   <defs>
-    <clipPath id="bodyClip"><path d="{body}"/></clipPath>
+    {body_clip_def(body)}
   </defs>
 
   <!-- 그림자 -->
@@ -175,19 +199,10 @@ def svg(kind):
   {ARMS[kind]}
 
   <!-- 몸통 -->
-  <path d="{body}" fill="{RICE}"/>
-  <g clip-path="url(#bodyClip)">
-    {grains}
-    <rect x="96" y="232" width="108" height="114" fill="{NORI}" stroke="{LINE}" stroke-width="4"/>
-  </g>
-  <path d="{body}" fill="none" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>
+  {body_layers(body)}
 {scarf()}
 {hat()}
-
-  <!-- 볼 -->
-  <ellipse cx="94" cy="190" rx="15" ry="10" fill="{CHEEK}"/>
-  <ellipse cx="206" cy="190" rx="15" ry="10" fill="{CHEEK}"/>
-  <!-- 얼굴 -->{FACES[kind]}
+{face(kind)}
 {MARKS if kind == "happy" else ""}
 </svg>
 '''
