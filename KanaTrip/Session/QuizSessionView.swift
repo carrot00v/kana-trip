@@ -46,7 +46,7 @@ struct QuizSessionView: View {
                 )
                 .id(itemSerial)
             case nil:
-                Color(.systemBackground)
+                Color.appBackground
             }
         }
         .fadeOnChange(of: itemSerial)
@@ -156,10 +156,10 @@ struct ChoiceQuestionView: View {
     private func choice(_ option: String) -> some View {
         let isAnswer = option == kana.romaji
         let isPicked = option == picked
-        // 답한 뒤: 정답 칸은 초록, 잘못 고른 칸은 빨강, 나머지는 흐리게.
+        // 답한 뒤: 정답 칸은 초록, 잘못 고른 칸은 빨강 외곽선(3pt), 나머지는 흐리게.
         let mark: (icon: String, color: Color)? = !answered ? nil
-            : isAnswer ? ("checkmark.circle.fill", .green)
-            : isPicked ? ("xmark.circle.fill", .red)
+            : isAnswer ? ("checkmark.circle.fill", .correct)
+            : isPicked ? ("xmark.circle.fill", .wrong)
             : nil
 
         return Button {
@@ -167,17 +167,18 @@ struct ChoiceQuestionView: View {
         } label: {
             Text(option)
                 .font(.title2.bold())
-                .foregroundStyle(.primary)
+                .foregroundStyle(Color.ink)
                 .frame(maxWidth: .infinity, minHeight: 72)
-                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
-                .overlay {
-                    if let mark {
-                        RoundedRectangle(cornerRadius: 16).strokeBorder(mark.color, lineWidth: 2)
-                    }
-                }
+                .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 16))
+                .cardOutline(
+                    cornerRadius: 16,
+                    color: mark?.color ?? .outline,
+                    lineWidth: mark == nil ? AppStyle.outlineWidth : AppStyle.verdictOutlineWidth
+                )
                 .overlay(alignment: .topTrailing) {
                     if let mark {
                         Image(systemName: mark.icon)
+                            .font(.system(size: 20))
                             .foregroundStyle(mark.color)
                             .padding(8)
                             .accessibilityHidden(true)
@@ -186,7 +187,7 @@ struct ChoiceQuestionView: View {
                 .contentShape(RoundedRectangle(cornerRadius: 16))
         }
         .buttonStyle(.plain)
-        .opacity(answered && mark == nil ? 0.4 : 1)
+        .opacity(answered && mark == nil ? AppStyle.dimmedOpacity : 1)
         .animation(.easeInOut(duration: 0.15), value: picked)
         .allowsHitTesting(!answered)
         .accessibilityLabel(

@@ -23,21 +23,21 @@ struct WritingSpikeView: View {
 
             HStack(alignment: .firstTextBaseline, spacing: 12) {
                 Text(kana.char).font(.system(size: 44, weight: .medium))
-                Text(kana.romaji).font(.title2).foregroundStyle(.secondary)
+                Text(kana.romaji).font(.title2).foregroundStyle(Color.inkSecondary)
                 Spacer()
                 Text("획 \(min(attempt.doneCount, kana.strokes.count)) / \(kana.strokes.count)")
                     .font(.headline.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
             }
             .padding(.horizontal, 20)
 
             if let tip = kana.tip {
                 Label(tip, systemImage: "lightbulb.fill")
                     .font(.subheadline)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.ink)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(12)
-                    .background(Color.orange.opacity(0.14), in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color.highlight.opacity(0.18), in: RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal, 16)
             }
 
@@ -68,8 +68,8 @@ struct WritingSpikeView: View {
                         Text(kanaList[index].char)
                             .font(.title3)
                             .frame(width: 44, height: 44)
-                            .background(index == selected ? Color.accentColor : Color(.secondarySystemBackground), in: Circle())
-                            .foregroundStyle(index == selected ? .white : .primary)
+                            .background(index == selected ? Color.accent : Color.cardBackground, in: Circle())
+                            .foregroundStyle(index == selected ? Color.accentForeground : Color.ink)
                     }
                     .accessibilityLabel(kanaList[index].romaji)
                 }
@@ -92,7 +92,7 @@ struct WritingSpikeView: View {
             .controlSize(.large)
 
             HStack {
-                Text("판정").font(.footnote).foregroundStyle(.secondary)
+                Text("판정").font(.footnote).foregroundStyle(Color.inkSecondary)
                 Text("엄격").font(.footnote)
                 Slider(value: $leniency, in: 0.5...2.0, step: 0.1)
                 Text("느슨").font(.footnote)

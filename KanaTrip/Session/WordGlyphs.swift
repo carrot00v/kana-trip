@@ -6,7 +6,7 @@ enum WordGlyphStyle {
     case learned
     /// 보조 색, 보통 굵기.
     case unlearned
-    /// 강조색, 굵게, 밑줄. 글자 소개의 지금 글자.
+    /// 강조색, 굵게, 형광펜 바탕과 밑줄. 글자 소개의 지금 글자.
     case current
 }
 
@@ -32,16 +32,20 @@ struct WordGlyphs: View {
         switch style {
         case .learned:
             KanaText(text: kana, size: size, weight: .bold)
-                .foregroundStyle(.primary)
+                .foregroundStyle(Color.ink)
         case .unlearned:
             KanaText(text: kana, size: size)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.inkSecondary)
         case .current:
             KanaText(text: kana, size: size, weight: .bold)
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(Color.accent)
+                .background(
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.highlight.opacity(AppStyle.currentGlyphHighlightOpacity))
+                )
                 .overlay(alignment: .bottom) {
                     Rectangle()
-                        .fill(Color.accentColor)
+                        .fill(Color.accent)
                         .frame(height: 2)
                         .offset(y: 2)
                 }
@@ -64,7 +68,7 @@ struct SceneWordCard: View {
                 Text(L.sceneWords(scene.name))
             }
             .font(.footnote)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Color.inkSecondary)
 
             HStack(alignment: .firstTextBaseline, spacing: 12) {
                 WordGlyphs(word: intro.word, size: 28) { kana in
@@ -73,12 +77,14 @@ struct SceneWordCard: View {
                 Spacer(minLength: 0)
                 Text(intro.word.meaning)
                     .font(.subheadline)
+                    .foregroundStyle(Color.ink)
                     .lineLimit(1)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+        .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 12))
+        .cardOutline(cornerRadius: 12)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(label))
     }
