@@ -35,7 +35,7 @@ struct WordSessionView: View {
             }
             .sensoryFeedback(.impact(weight: .light), trigger: revealTick)
         } else {
-            Color(.systemBackground)
+            Color.appBackground
         }
     }
 
@@ -61,7 +61,7 @@ struct WordSessionView: View {
                     .speaks(word.text, enabled: store.soundOn && revealed)
                     Text(word.meaning).font(.body)
                     if let note = word.note {
-                        Text(note).font(.subheadline).foregroundStyle(.secondary)
+                        Text(note).font(.subheadline).foregroundStyle(Color.inkSecondary)
                     }
                 }
                 .multilineTextAlignment(.center)
@@ -85,7 +85,7 @@ struct WordSessionView: View {
                 VStack(spacing: 0) {
                     Text(ruby ?? " ")
                         .font(.system(size: 15))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                         .frame(height: 20)
                     KanaText(text: unit.kana, size: compact ? 48 : 56)
                 }

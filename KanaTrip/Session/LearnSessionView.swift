@@ -52,7 +52,7 @@ struct LearnSessionView: View {
                 .dynamicTypeSize(...DynamicTypeSize.accessibility1)
             }
         } else {
-            Color(.systemBackground)
+            Color.appBackground
         }
     }
 
@@ -63,7 +63,7 @@ struct LearnSessionView: View {
             VStack(spacing: 8) {
                 Text(L.newKana)
                     .font(.headline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
                     .padding(.top, 8)
@@ -76,7 +76,7 @@ struct LearnSessionView: View {
                     }
                     Text(L.strokeCount(kana.strokes.count))
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                 }
                 .padding(.top, 8)
                 .accessibilityElement(children: .ignore)
@@ -105,14 +105,14 @@ struct LearnSessionView: View {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     KanaText(text: kana.char, size: 34)
-                    Text(kana.romaji).font(.title2).foregroundStyle(.secondary)
+                    Text(kana.romaji).font(.title2).foregroundStyle(Color.inkSecondary)
                     if store.soundOn { SpeakerBadge() }
                 }
                 .speaks(kana.char, enabled: store.soundOn)
                 Spacer()
                 Text(L.traceRound(round, of: Self.traceRounds))
                     .font(.footnote.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
             }
             .frame(height: 52)
             .padding(.horizontal, 20)

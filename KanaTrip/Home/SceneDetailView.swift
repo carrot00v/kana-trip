@@ -20,7 +20,7 @@ struct SceneDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(L.newKanaCount(scene.kana.count))
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                     kanaRow
                 }
                 .listRowBackground(Color.clear)
@@ -30,10 +30,13 @@ struct SceneDetailView: View {
             Section {
                 ForEach(SessionKind.allCases, id: \.self) { kind in
                     sessionRow(kind)
+                        .listRowBackground(Color.cardBackground)
                 }
             }
         }
         .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(Color.appBackground)
         .listSectionSpacing(16)
         .contentMargins(.top, 8, for: .scrollContent)
         .navigationTitle(scene.name)
@@ -67,13 +70,16 @@ struct SceneDetailView: View {
             Section {
                 ForEach(groups.goal) { word in
                     goalWordRow(word, learnedCount: word.count(in: learned), style: style)
+                        .listRowBackground(Color.cardBackground)
                 }
                 if !groups.rest.isEmpty {
                     unreadableRow(groups.rest, style: style)
+                        .listRowBackground(Color.cardBackground)
                 }
             } header: {
                 Text(L.goalWordsHeader(scene: scene.name, allLearned: scene.kana.allSatisfy(learned.contains)))
                     .font(.footnote)
+                    .foregroundStyle(Color.inkSecondary)
                     .textCase(nil)
             }
         }
@@ -88,18 +94,18 @@ struct SceneDetailView: View {
             VStack(alignment: .trailing, spacing: 2) {
                 Text(word.meaning)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
                     .lineLimit(1)
                 if readable {
                     HStack(spacing: 4) {
-                        Image(systemName: "checkmark").foregroundStyle(.green)
+                        Image(systemName: "checkmark").foregroundStyle(Color.correct)
                         Text(L.canRead)
                     }
                     .font(.footnote)
                 } else {
                     Text(L.learnedCount(learnedCount, of: total))
                         .font(.footnote.monospacedDigit())
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                 }
             }
         }
@@ -116,7 +122,7 @@ struct SceneDetailView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(L.unreadableWords)
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.inkSecondary)
             HStack(spacing: 16) {
                 ForEach(words) { word in
                     WordGlyphs(word: word, size: 17, spacing: 0, style: style)
@@ -141,7 +147,7 @@ struct SceneDetailView: View {
                 VStack(spacing: 4) {
                     KanaText(text: kana.char, size: 34)
                     HStack(spacing: 2) {
-                        Text(kana.romaji).font(.subheadline).foregroundStyle(.secondary)
+                        Text(kana.romaji).font(.subheadline).foregroundStyle(Color.inkSecondary)
                         if store.soundOn { SpeakerBadge().imageScale(.small) }
                     }
                 }
@@ -186,11 +192,11 @@ struct SceneDetailView: View {
                 Group {
                     switch status {
                     case .ready, .inProgress:
-                        Image(systemName: "\(number).circle.fill").foregroundStyle(Color.accentColor)
+                        Image(systemName: "\(number).circle.fill").foregroundStyle(Color.accent)
                     case .locked:
-                        Image(systemName: "lock.fill").foregroundStyle(.secondary)
+                        Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
                     case .completed:
-                        Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                        Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)
                     }
                 }
                 .font(.title2)
@@ -200,10 +206,10 @@ struct SceneDetailView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(L.sessionTitle(kind))
                         .font(.headline)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                     Text(description(kind, status: status))
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                 }
 
                 Spacer()
@@ -211,7 +217,7 @@ struct SceneDetailView: View {
                 if status != .locked {
                     Image(systemName: "chevron.right")
                         .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(Color.inkSecondary)
                         .accessibilityHidden(true)
                 }
             }

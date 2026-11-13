@@ -41,7 +41,7 @@ struct SessionView: View {
             case .sceneDone:
                 SceneDoneView(scene: scene, onBackToList: onBackToList)
             case nil:
-                Color(.systemBackground)
+                Color.appBackground
             }
         }
         .fadeOnChange(of: stage)

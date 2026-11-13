@@ -6,6 +6,7 @@ struct HomeView: View {
     @State private var path: [String] = []
     @State private var route: SessionRoute?
     @State private var showsComingSoon = false
+    @Environment(\.dynamicTypeSize) private var typeSize
     #if DEBUG
     @State private var showsSpike = false
     #endif
@@ -16,13 +17,18 @@ struct HomeView: View {
         @Bindable var store = store
         NavigationStack(path: $path) {
             List {
-                Section(library.sectionTitle) {
+                Section {
                     ForEach(library.scenes) { scene in
                         row(scene)
+                            .listRowBackground(Color.cardBackground)
                     }
+                } header: {
+                    sectionHeader
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(Color.appBackground)
             .navigationTitle(L.appTitle)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -34,6 +40,7 @@ struct HomeView: View {
                         #endif
                     } label: {
                         Image(systemName: "ellipsis.circle")
+                            .foregroundStyle(Color.accent)
                     }
                     .accessibilityLabel(L.more)
                 }
@@ -79,6 +86,7 @@ struct HomeView: View {
                         self.route = nil
                     }
                 )
+                .appStyle()
             }
         }
         #if DEBUG
@@ -92,8 +100,30 @@ struct HomeView: View {
                 .frame(height: 44)
                 WritingSpikeView()
             }
+            .background(Color.appBackground)
+            .appStyle()
         }
         #endif
+    }
+
+    // MARK: - 섹션 머리글
+
+    /// "히라가나" 머리글과 기본 표정 캐릭터(64pt). 둘의 아래 끝을 맞춘다.
+    /// 접근성 글자 크기에서는 캐릭터를 숨기고 기본 높이로 둔다 (visual-rules.md 7.2, 8.1).
+    private var sectionHeader: some View {
+        HStack(alignment: .bottom, spacing: 8) {
+            Text(library.sectionTitle)
+                .foregroundStyle(Color.inkSecondary)
+            Spacer(minLength: 0)
+            if !typeSize.isAccessibilitySize {
+                Image("OnigiriDefault")
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .accessibilityHidden(true)
+                    .padding(.vertical, 4)
+            }
+        }
+        .textCase(nil)
     }
 
     // MARK: - 장면 상태
@@ -138,10 +168,10 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\(scene.order)  \(scene.name)")
                         .font(.headline)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                     Text(KanaText.japanese(scene.kana.joined(separator: " ")))
                         .font(.title3)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                         .environment(\.locale, Locale(identifier: "ja"))
                 }
 
@@ -150,10 +180,10 @@ struct HomeView: View {
                 if status != .locked {
                     Text(status == .completed ? L.done : "\(store.completedCount(sceneID: scene.id))/\(SessionKind.allCases.count)")
                         .font(.footnote.monospacedDigit())
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                     Image(systemName: "chevron.right")
                         .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(Color.inkSecondary)
                         .accessibilityHidden(true)
                 }
             }
@@ -175,12 +205,12 @@ struct HomeView: View {
     private func statusIcon(_ scene: TripScene, status: SceneStatus) -> some View {
         switch status {
         case .locked:
-            Image(systemName: "lock.fill").foregroundStyle(.secondary)
+            Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
         case .open:
             // 장면 아이콘이 아직 정해지지 않은 장면은 열린 자물쇠로 대신한다.
-            Image(systemName: scene.icon ?? "lock.open.fill").foregroundStyle(Color.accentColor)
+            Image(systemName: scene.icon ?? "lock.open.fill").foregroundStyle(Color.accent)
         case .completed:
-            Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+            Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)
         }
     }
 }

@@ -31,14 +31,14 @@ enum StrokeDrawing {
     }
 
     /// 획의 시작점에 번호 원을 그린다. `point`는 109 좌표계.
-    /// 숫자는 주황 바탕 위에서 읽히도록 라이트·다크 모두 검정이다.
+    /// 바탕은 `Highlight`, 숫자는 라이트·다크 모두 `OnHighlight`(진갈색)다.
     static func drawStartHint(_ context: inout GraphicsContext, at point: CGPoint, number: Int, scale: CGFloat) {
         let center = CGPoint(x: point.x * scale, y: point.y * scale)
         let radius = 5.5 * scale
         let circle = Path(ellipseIn: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2))
-        context.fill(circle, with: .color(.orange))
+        context.fill(circle, with: .color(Color.highlight))
         context.draw(
-            Text("\(number)").font(.system(size: 8 * scale, weight: .bold)).foregroundStyle(Color.black),
+            Text("\(number)").font(.system(size: 8 * scale, weight: .bold)).foregroundStyle(Color.onHighlight),
             at: center
         )
     }

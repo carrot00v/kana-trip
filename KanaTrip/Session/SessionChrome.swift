@@ -13,6 +13,7 @@ struct SessionTopBar: View {
             Button(action: onClose) {
                 Image(systemName: "xmark")
                     .font(.headline)
+                    .foregroundStyle(Color.ink)
                     .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
@@ -22,9 +23,10 @@ struct SessionTopBar: View {
 
             HStack(spacing: 0) {
                 ProgressView(value: Double(min(done, total)), total: Double(max(total, 1)))
+                    .tint(Color.accent)
                 Text("\(done) / \(total)")
                     .font(.footnote.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
                     .frame(width: 56, alignment: .trailing)
             }
             .accessibilityElement(children: .ignore)
@@ -51,7 +53,7 @@ struct SessionScaffold<Content: View, Bottom: View>: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             BottomBar { bottom }
         }
-        .background(Color(.systemBackground))
+        .background(Color.appBackground)
     }
 }
 
@@ -79,8 +81,12 @@ struct PrimaryButton: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .frame(maxWidth: .infinity, minHeight: ButtonMetrics.labelHeight)
+                // `.borderedProminent`는 다크에서도 글자를 흰색으로 그려 크림색 강조색 위에서 보이지 않는다.
+                .foregroundStyle(Color.accentForeground)
         }
         .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
+        .tint(Color.accent)
         .controlSize(.large)
         .disabled(!enabled)
     }
@@ -101,6 +107,8 @@ struct SecondaryButton: View {
                 .frame(minHeight: ButtonMetrics.labelHeight)
         }
         .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
+        .tint(Color.accent)
         .controlSize(.large)
         .disabled(!enabled)
     }
@@ -111,26 +119,38 @@ enum ButtonMetrics {
     static let labelHeight: CGFloat = 28
     /// 보조 버튼의 폭 112pt에서 좌우 여백을 뺀 글자 영역 폭.
     static let secondaryLabelWidth: CGFloat = 72
+    /// 주 버튼과 보조 버튼의 모서리 반지름.
+    static let cornerRadius: CGFloat = 16
 }
 
-/// 쓰기 포인트 상자.
+/// 쓰기 포인트 상자. 카드 바탕 위에 노랑을 옅게 깔고 외곽선은 두지 않는다.
 struct TipBox: View {
     let text: String
     var lineLimit: Int? = nil
 
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
             Image(systemName: "lightbulb.fill")
-                .foregroundStyle(.orange)
+                .foregroundStyle(Color.highlightStrong)
                 .accessibilityHidden(true)
             Text(text)
+                .foregroundStyle(Color.ink)
                 .lineLimit(lineLimit)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .font(.subheadline)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)
-        .background(Color.orange.opacity(0.14), in: RoundedRectangle(cornerRadius: 12))
+        .background {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.cardBackground)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.highlight.opacity(AppStyle.tipFillOpacity(colorScheme)))
+                )
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(L.tipPrefix), \(text)")
     }
@@ -160,7 +180,7 @@ struct SpeakerBadge: View {
     var body: some View {
         Image(systemName: "speaker.wave.2.fill")
             .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Color.inkSecondary)
             .accessibilityHidden(true)
     }
 }
