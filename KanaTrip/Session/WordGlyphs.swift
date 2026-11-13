@@ -83,7 +83,7 @@ struct SceneWordCard: View {
         .accessibilityLabel(Text(label))
     }
 
-    /// "공항 단어, ようこそ의 よ, 환영합니다". 가나는 일본어로 읽게 한다.
+    /// "밥집 간판 단어, すし의 す, 초밥". 가나는 일본어로 읽게 한다.
     private var label: AttributedString {
         AttributedString("\(L.sceneWords(scene.name)), ")
             + KanaText.japanese(intro.word.text)

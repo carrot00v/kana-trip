@@ -3,16 +3,1040 @@
   "title": "히라가나",
   "scenes": [
     {
-      "id": "airport",
+      "id": "eatery_sign",
       "order": 1,
-      "name": "공항",
-      "icon": "airplane.arrival",
+      "name": "밥집 간판",
+      "icon": "fork.knife",
       "kana": [
-        "よ",
-        "う",
-        "こ",
+        "す",
+        "し",
+        "と",
+        "ん",
+        "か",
+        "つ"
+      ],
+      "words": [
+        {
+          "text": "すし",
+          "units": [
+            {
+              "kana": "す",
+              "romaji": "su"
+            },
+            {
+              "kana": "し",
+              "romaji": "shi"
+            }
+          ],
+          "reading": "sushi",
+          "meaning": "초밥",
+          "note": "寿司, 鮨로도 써요. 가게 이름에도 히라가나로 많이 써요"
+        },
+        {
+          "text": "とんかつ",
+          "units": [
+            {
+              "kana": "と",
+              "romaji": "to"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            },
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            }
+          ],
+          "reading": "tonkatsu",
+          "meaning": "돈가스",
+          "note": "豚カツ, トンカツ로도 써요"
+        },
+        {
+          "text": "かつ",
+          "units": [
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            }
+          ],
+          "reading": "katsu",
+          "meaning": "커틀릿 (かつ丼의 かつ)",
+          "note": "かつ丼처럼 써요. カツ丼으로 쓰는 가게도 많아요"
+        },
+        {
+          "text": "そば",
+          "units": [
+            {
+              "kana": "そ",
+              "romaji": "so"
+            },
+            {
+              "kana": "ば",
+              "romaji": "ba"
+            }
+          ],
+          "reading": "soba",
+          "meaning": "메밀국수",
+          "note": "한자 蕎麦는 예스러운 표기예요"
+        },
+        {
+          "text": "うどん",
+          "units": [
+            {
+              "kana": "う",
+              "romaji": "u"
+            },
+            {
+              "kana": "ど",
+              "romaji": "do"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            }
+          ],
+          "reading": "udon",
+          "meaning": "우동",
+          "note": "한자 饂飩은 드물어요"
+        },
+        {
+          "text": "とんこつ",
+          "units": [
+            {
+              "kana": "と",
+              "romaji": "to"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            },
+            {
+              "kana": "こ",
+              "romaji": "ko"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            }
+          ],
+          "reading": "tonkotsu",
+          "meaning": "돼지뼈 육수 (라멘)",
+          "note": "豚骨로도 많이 써요"
+        }
+      ]
+    },
+    {
+      "id": "station",
+      "order": 2,
+      "name": "역",
+      "icon": "tram.fill",
+      "kana": [
+        "え",
+        "き",
+        "の",
+        "り",
+        "お"
+      ],
+      "words": [
+        {
+          "text": "えき",
+          "units": [
+            {
+              "kana": "え",
+              "romaji": "e"
+            },
+            {
+              "kana": "き",
+              "romaji": "ki"
+            }
+          ],
+          "reading": "eki",
+          "meaning": "역",
+          "note": "보통 駅로 써요. 역 이름판에 히라가나가 함께 적혀요"
+        },
+        {
+          "text": "のりかえ",
+          "units": [
+            {
+              "kana": "の",
+              "romaji": "no"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            },
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "え",
+              "romaji": "e"
+            }
+          ],
+          "reading": "norikae",
+          "meaning": "환승",
+          "note": "乗り換え로도 써요"
+        },
+        {
+          "text": "おつり",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "otsuri",
+          "meaning": "거스름돈",
+          "note": "발매기 화면에서 볼 수 있어요"
+        },
+        {
+          "text": "のりば",
+          "units": [
+            {
+              "kana": "の",
+              "romaji": "no"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            },
+            {
+              "kana": "ば",
+              "romaji": "ba"
+            }
+          ],
+          "reading": "noriba",
+          "meaning": "타는 곳",
+          "note": "乗り場로도 써요"
+        },
+        {
+          "text": "きっぷ",
+          "units": [
+            {
+              "kana": "き",
+              "romaji": "ki"
+            },
+            {
+              "kana": "っ",
+              "romaji": "p"
+            },
+            {
+              "kana": "ぷ",
+              "romaji": "pu"
+            }
+          ],
+          "reading": "kippu",
+          "meaning": "표"
+        },
+        {
+          "text": "でぐち",
+          "units": [
+            {
+              "kana": "で",
+              "romaji": "de"
+            },
+            {
+              "kana": "ぐ",
+              "romaji": "gu"
+            },
+            {
+              "kana": "ち",
+              "romaji": "chi"
+            }
+          ],
+          "reading": "deguchi",
+          "meaning": "출구",
+          "note": "보통 出口로 써요"
+        }
+      ]
+    },
+    {
+      "id": "street",
+      "order": 3,
+      "name": "거리",
+      "icon": "signpost.right.fill",
+      "kana": [
+        "い",
+        "ち",
+        "ま",
+        "れ",
+        "く",
+        "こ"
+      ],
+      "words": [
+        {
+          "text": "とまれ",
+          "units": [
+            {
+              "kana": "と",
+              "romaji": "to"
+            },
+            {
+              "kana": "ま",
+              "romaji": "ma"
+            },
+            {
+              "kana": "れ",
+              "romaji": "re"
+            }
+          ],
+          "reading": "tomare",
+          "meaning": "멈춤",
+          "note": "길바닥에 적혀 있어요. 표지판은 止まれ로 써요"
+        },
+        {
+          "text": "くすり",
+          "units": [
+            {
+              "kana": "く",
+              "romaji": "ku"
+            },
+            {
+              "kana": "す",
+              "romaji": "su"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "kusuri",
+          "meaning": "약",
+          "note": "약국·드럭스토어 간판에서 볼 수 있어요"
+        },
+        {
+          "text": "いりぐち",
+          "units": [
+            {
+              "kana": "い",
+              "romaji": "i"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            },
+            {
+              "kana": "ぐ",
+              "romaji": "gu"
+            },
+            {
+              "kana": "ち",
+              "romaji": "chi"
+            }
+          ],
+          "reading": "iriguchi",
+          "meaning": "입구",
+          "note": "入口로도 써요"
+        },
+        {
+          "text": "こちら",
+          "units": [
+            {
+              "kana": "こ",
+              "romaji": "ko"
+            },
+            {
+              "kana": "ち",
+              "romaji": "chi"
+            },
+            {
+              "kana": "ら",
+              "romaji": "ra"
+            }
+          ],
+          "reading": "kochira",
+          "meaning": "이쪽"
+        },
+        {
+          "text": "たばこ",
+          "units": [
+            {
+              "kana": "た",
+              "romaji": "ta"
+            },
+            {
+              "kana": "ば",
+              "romaji": "ba"
+            },
+            {
+              "kana": "こ",
+              "romaji": "ko"
+            }
+          ],
+          "reading": "tabako",
+          "meaning": "담배",
+          "note": "표지·광고에 히라가나로도 써요"
+        }
+      ]
+    },
+    {
+      "id": "shrine",
+      "order": 4,
+      "name": "신사",
+      "icon": "building.columns.fill",
+      "kana": [
+        "み",
+        "も",
+        "む",
+        "さ",
+        "せ",
+        "な"
+      ],
+      "words": [
+        {
+          "text": "おまもり",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "ま",
+              "romaji": "ma"
+            },
+            {
+              "kana": "も",
+              "romaji": "mo"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "omamori",
+          "meaning": "부적",
+          "note": "お守り로도 써요"
+        },
+        {
+          "text": "おまいり",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "ま",
+              "romaji": "ma"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "omairi",
+          "meaning": "참배",
+          "note": "お参り로도 써요"
+        },
+        {
+          "text": "おいなりさん",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            },
+            {
+              "kana": "な",
+              "romaji": "na"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            },
+            {
+              "kana": "さ",
+              "romaji": "sa"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            }
+          ],
+          "reading": "oinarisan",
+          "meaning": "이나리 신, 이나리 신사를 친근하게 부르는 말",
+          "note": "유부초밥을 가리키기도 해요"
+        },
+        {
+          "text": "おさいせん",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "さ",
+              "romaji": "sa"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            },
+            {
+              "kana": "せ",
+              "romaji": "se"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            }
+          ],
+          "reading": "osaisen",
+          "meaning": "새전 (참배할 때 넣는 돈)",
+          "note": "お賽銭으로도 써요"
+        },
+        {
+          "text": "おみくじ",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "み",
+              "romaji": "mi"
+            },
+            {
+              "kana": "く",
+              "romaji": "ku"
+            },
+            {
+              "kana": "じ",
+              "romaji": "ji"
+            }
+          ],
+          "reading": "omikuji",
+          "meaning": "운세 제비"
+        },
+        {
+          "text": "えんむすび",
+          "units": [
+            {
+              "kana": "え",
+              "romaji": "e"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            },
+            {
+              "kana": "む",
+              "romaji": "mu"
+            },
+            {
+              "kana": "す",
+              "romaji": "su"
+            },
+            {
+              "kana": "び",
+              "romaji": "bi"
+            }
+          ],
+          "reading": "enmusubi",
+          "meaning": "인연 맺기 (기원)",
+          "note": "縁結び로도 써요"
+        }
+      ]
+    },
+    {
+      "id": "festival",
+      "order": 5,
+      "name": "축제",
+      "icon": "fireworks",
+      "kana": [
+        "や",
+        "あ",
+        "め",
+        "た",
         "そ",
-        "く"
+        "は"
+      ],
+      "words": [
+        {
+          "text": "おまつり",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "ま",
+              "romaji": "ma"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "omatsuri",
+          "meaning": "축제",
+          "note": "お祭り로도 써요"
+        },
+        {
+          "text": "たこやき",
+          "units": [
+            {
+              "kana": "た",
+              "romaji": "ta"
+            },
+            {
+              "kana": "こ",
+              "romaji": "ko"
+            },
+            {
+              "kana": "や",
+              "romaji": "ya"
+            },
+            {
+              "kana": "き",
+              "romaji": "ki"
+            }
+          ],
+          "reading": "takoyaki",
+          "meaning": "다코야키",
+          "note": "たこ焼き로도 써요"
+        },
+        {
+          "text": "やきそば",
+          "units": [
+            {
+              "kana": "や",
+              "romaji": "ya"
+            },
+            {
+              "kana": "き",
+              "romaji": "ki"
+            },
+            {
+              "kana": "そ",
+              "romaji": "so"
+            },
+            {
+              "kana": "ば",
+              "romaji": "ba"
+            }
+          ],
+          "reading": "yakisoba",
+          "meaning": "볶음국수",
+          "note": "노점에서 히라가나로 많이 써요"
+        },
+        {
+          "text": "はずれ",
+          "units": [
+            {
+              "kana": "は",
+              "romaji": "ha"
+            },
+            {
+              "kana": "ず",
+              "romaji": "zu"
+            },
+            {
+              "kana": "れ",
+              "romaji": "re"
+            }
+          ],
+          "reading": "hazure",
+          "meaning": "꽝",
+          "note": "제비뽑기 노점에서 봐요. 당첨은 あたり예요"
+        },
+        {
+          "text": "りんごあめ",
+          "units": [
+            {
+              "kana": "り",
+              "romaji": "ri"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            },
+            {
+              "kana": "ご",
+              "romaji": "go"
+            },
+            {
+              "kana": "あ",
+              "romaji": "a"
+            },
+            {
+              "kana": "め",
+              "romaji": "me"
+            }
+          ],
+          "reading": "ringoame",
+          "meaning": "사과 사탕",
+          "note": "りんご飴로도 써요"
+        },
+        {
+          "text": "わたあめ",
+          "units": [
+            {
+              "kana": "わ",
+              "romaji": "wa"
+            },
+            {
+              "kana": "た",
+              "romaji": "ta"
+            },
+            {
+              "kana": "あ",
+              "romaji": "a"
+            },
+            {
+              "kana": "め",
+              "romaji": "me"
+            }
+          ],
+          "reading": "wataame",
+          "meaning": "솜사탕",
+          "note": "綿菓子라고도 써요. 간사이에서는 わたがし라고 해요"
+        }
+      ]
+    },
+    {
+      "id": "izakaya",
+      "order": 6,
+      "name": "이자카야",
+      "icon": "mug.fill",
+      "kana": [
+        "わ",
+        "ね",
+        "け",
+        "う",
+        "ら",
+        "に"
+      ],
+      "words": [
+        {
+          "text": "やきとり",
+          "units": [
+            {
+              "kana": "や",
+              "romaji": "ya"
+            },
+            {
+              "kana": "き",
+              "romaji": "ki"
+            },
+            {
+              "kana": "と",
+              "romaji": "to"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "yakitori",
+          "meaning": "닭꼬치",
+          "note": "焼鳥, 焼き鳥로도 써요"
+        },
+        {
+          "text": "つくね",
+          "units": [
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            },
+            {
+              "kana": "く",
+              "romaji": "ku"
+            },
+            {
+              "kana": "ね",
+              "romaji": "ne"
+            }
+          ],
+          "reading": "tsukune",
+          "meaning": "다진 닭고기 꼬치",
+          "note": "꼬치집 메뉴에 히라가나로 써요"
+        },
+        {
+          "text": "かわ",
+          "units": [
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "わ",
+              "romaji": "wa"
+            }
+          ],
+          "reading": "kawa",
+          "meaning": "닭껍질 꼬치",
+          "note": "皮로 쓰는 가게도 있어요"
+        },
+        {
+          "text": "しいたけ",
+          "units": [
+            {
+              "kana": "し",
+              "romaji": "shi"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            },
+            {
+              "kana": "た",
+              "romaji": "ta"
+            },
+            {
+              "kana": "け",
+              "romaji": "ke"
+            }
+          ],
+          "reading": "shiitake",
+          "meaning": "표고버섯",
+          "note": "椎茸로도 써요"
+        },
+        {
+          "text": "うずら",
+          "units": [
+            {
+              "kana": "う",
+              "romaji": "u"
+            },
+            {
+              "kana": "ず",
+              "romaji": "zu"
+            },
+            {
+              "kana": "ら",
+              "romaji": "ra"
+            }
+          ],
+          "reading": "uzura",
+          "meaning": "메추리알 꼬치",
+          "note": "うずらの卵처럼 써요"
+        },
+        {
+          "text": "おにぎり",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "に",
+              "romaji": "ni"
+            },
+            {
+              "kana": "ぎ",
+              "romaji": "gi"
+            },
+            {
+              "kana": "り",
+              "romaji": "ri"
+            }
+          ],
+          "reading": "onigiri",
+          "meaning": "주먹밥",
+          "note": "焼きおにぎり는 이자카야의 마무리 메뉴예요"
+        }
+      ]
+    },
+    {
+      "id": "onsen",
+      "order": 7,
+      "name": "온천",
+      "icon": "bathtub.fill",
+      "kana": [
+        "ゆ",
+        "る",
+        "ひ",
+        "を",
+        "ぬ"
+      ],
+      "words": [
+        {
+          "text": "ゆ",
+          "units": [
+            {
+              "kana": "ゆ",
+              "romaji": "yu"
+            }
+          ],
+          "reading": "yu",
+          "meaning": "목욕탕 (원뜻: 더운물)",
+          "note": "목욕탕 노렌이나 굴뚝에 적혀 있어요"
+        },
+        {
+          "text": "おんせん",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            },
+            {
+              "kana": "せ",
+              "romaji": "se"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            }
+          ],
+          "reading": "onsen",
+          "meaning": "온천",
+          "note": "보통 温泉으로 써요"
+        },
+        {
+          "text": "ゆかた",
+          "units": [
+            {
+              "kana": "ゆ",
+              "romaji": "yu"
+            },
+            {
+              "kana": "か",
+              "romaji": "ka"
+            },
+            {
+              "kana": "た",
+              "romaji": "ta"
+            }
+          ],
+          "reading": "yukata",
+          "meaning": "유카타",
+          "note": "浴衣로도 써요"
+        },
+        {
+          "text": "ひのき",
+          "units": [
+            {
+              "kana": "ひ",
+              "romaji": "hi"
+            },
+            {
+              "kana": "の",
+              "romaji": "no"
+            },
+            {
+              "kana": "き",
+              "romaji": "ki"
+            }
+          ],
+          "reading": "hinoki",
+          "meaning": "편백나무",
+          "note": "ひのき風呂(편백 욕조)처럼 써요"
+        },
+        {
+          "text": "ぬるゆ",
+          "units": [
+            {
+              "kana": "ぬ",
+              "romaji": "nu"
+            },
+            {
+              "kana": "る",
+              "romaji": "ru"
+            },
+            {
+              "kana": "ゆ",
+              "romaji": "yu"
+            }
+          ],
+          "reading": "nuruyu",
+          "meaning": "미지근한 탕",
+          "note": "보통 ぬる湯로 써요"
+        },
+        {
+          "text": "くつをぬいでください",
+          "units": [
+            {
+              "kana": "く",
+              "romaji": "ku"
+            },
+            {
+              "kana": "つ",
+              "romaji": "tsu"
+            },
+            {
+              "kana": "を",
+              "romaji": "o"
+            },
+            {
+              "kana": "ぬ",
+              "romaji": "nu"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            },
+            {
+              "kana": "で",
+              "romaji": "de"
+            },
+            {
+              "kana": "く",
+              "romaji": "ku"
+            },
+            {
+              "kana": "だ",
+              "romaji": "da"
+            },
+            {
+              "kana": "さ",
+              "romaji": "sa"
+            },
+            {
+              "kana": "い",
+              "romaji": "i"
+            }
+          ],
+          "reading": "kutsu o nuide kudasai",
+          "meaning": "신발을 벗어 주세요",
+          "note": "보통 靴を脱いでください로 써요"
+        }
+      ]
+    },
+    {
+      "id": "ryokan",
+      "order": 8,
+      "name": "료칸",
+      "icon": "bed.double.fill",
+      "kana": [
+        "ふ",
+        "へ",
+        "ほ",
+        "ろ",
+        "て",
+        "よ"
       ],
       "words": [
         {
@@ -37,192 +1061,123 @@
           ],
           "reading": "yōkoso",
           "meaning": "환영합니다",
-          "note": "よう는 yo, u로 끊지 않고 yō로 길게 읽어요"
+          "note": "よう는 길게 읽어요"
         },
         {
-          "text": "くうこう",
-          "units": [
-            {
-              "kana": "く",
-              "romaji": "ku"
-            },
-            {
-              "kana": "う",
-              "romaji": "u"
-            },
-            {
-              "kana": "こ",
-              "romaji": "ko"
-            },
-            {
-              "kana": "う",
-              "romaji": "u"
-            }
-          ],
-          "reading": "kūkō",
-          "meaning": "공항",
-          "note": "くう는 kū, こう는 kō로 길게 읽어요"
-        },
-        {
-          "text": "のりば",
-          "units": [
-            {
-              "kana": "の",
-              "romaji": "no"
-            },
-            {
-              "kana": "り",
-              "romaji": "ri"
-            },
-            {
-              "kana": "ば",
-              "romaji": "ba"
-            }
-          ],
-          "reading": "noriba",
-          "meaning": "타는 곳",
-          "note": "버스·택시 승강장 표지"
-        },
-        {
-          "text": "おみやげ",
+          "text": "おふろ",
           "units": [
             {
               "kana": "お",
               "romaji": "o"
             },
             {
-              "kana": "み",
-              "romaji": "mi"
+              "kana": "ふ",
+              "romaji": "fu"
+            },
+            {
+              "kana": "ろ",
+              "romaji": "ro"
+            }
+          ],
+          "reading": "ofuro",
+          "meaning": "욕실, 목욕",
+          "note": "お風呂로도 써요"
+        },
+        {
+          "text": "おへや",
+          "units": [
+            {
+              "kana": "お",
+              "romaji": "o"
+            },
+            {
+              "kana": "へ",
+              "romaji": "he"
             },
             {
               "kana": "や",
               "romaji": "ya"
-            },
-            {
-              "kana": "げ",
-              "romaji": "ge"
             }
           ],
-          "reading": "omiyage",
-          "meaning": "기념품, 선물"
+          "reading": "oheya",
+          "meaning": "객실",
+          "note": "보통 お部屋로 써요"
         },
         {
-          "text": "おてあらい",
+          "text": "ふとん",
+          "units": [
+            {
+              "kana": "ふ",
+              "romaji": "fu"
+            },
+            {
+              "kana": "と",
+              "romaji": "to"
+            },
+            {
+              "kana": "ん",
+              "romaji": "n"
+            }
+          ],
+          "reading": "futon",
+          "meaning": "이불",
+          "note": "보통 布団으로 써요"
+        },
+        {
+          "text": "おもてなし",
           "units": [
             {
               "kana": "お",
               "romaji": "o"
+            },
+            {
+              "kana": "も",
+              "romaji": "mo"
             },
             {
               "kana": "て",
               "romaji": "te"
             },
             {
-              "kana": "あ",
-              "romaji": "a"
+              "kana": "な",
+              "romaji": "na"
             },
             {
-              "kana": "ら",
-              "romaji": "ra"
-            },
-            {
-              "kana": "い",
-              "romaji": "i"
+              "kana": "し",
+              "romaji": "shi"
             }
           ],
-          "reading": "otearai",
-          "meaning": "화장실"
+          "reading": "omotenashi",
+          "meaning": "환대"
+        },
+        {
+          "text": "ほうじちゃ",
+          "units": [
+            {
+              "kana": "ほ",
+              "romaji": "ho"
+            },
+            {
+              "kana": "う",
+              "romaji": "u"
+            },
+            {
+              "kana": "じ",
+              "romaji": "ji"
+            },
+            {
+              "kana": "ち",
+              "romaji": "chi"
+            },
+            {
+              "kana": "ゃ",
+              "romaji": "ya"
+            }
+          ],
+          "reading": "hōjicha",
+          "meaning": "호지차",
+          "note": "보통 ほうじ茶로 써요"
         }
-      ]
-    },
-    {
-      "id": "station",
-      "order": 2,
-      "name": "역",
-      "kana": [
-        "え",
-        "き",
-        "の",
-        "り",
-        "か",
-        "お"
-      ]
-    },
-    {
-      "id": "street",
-      "order": 3,
-      "name": "거리",
-      "kana": [
-        "い",
-        "ち",
-        "と",
-        "ま",
-        "れ",
-        "す"
-      ]
-    },
-    {
-      "id": "eatery",
-      "order": 4,
-      "name": "밥집",
-      "kana": [
-        "た",
-        "ぬ",
-        "ね",
-        "つ",
-        "ん",
-        "し"
-      ]
-    },
-    {
-      "id": "shrine",
-      "order": 5,
-      "name": "신사",
-      "kana": [
-        "み",
-        "も",
-        "む",
-        "さ",
-        "せ",
-        "な"
-      ]
-    },
-    {
-      "id": "festival",
-      "order": 6,
-      "name": "축제",
-      "kana": [
-        "や",
-        "わ",
-        "あ",
-        "め",
-        "は",
-        "ら"
-      ]
-    },
-    {
-      "id": "onsen",
-      "order": 7,
-      "name": "온천",
-      "kana": [
-        "ゆ",
-        "け",
-        "る",
-        "ひ",
-        "に",
-        "を"
-      ]
-    },
-    {
-      "id": "ryokan",
-      "order": 8,
-      "name": "료칸",
-      "kana": [
-        "ふ",
-        "へ",
-        "ほ",
-        "ろ",
-        "て"
       ]
     }
   ]
