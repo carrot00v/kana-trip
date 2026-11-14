@@ -1,5 +1,5 @@
 {
-  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2). 히라가나 16개만. 한국어 이름은 4.2 표 그대로이고 화면용 짧은 이름은 PLAN.md 8번 미정. units의 っ 표기는 단어 데이터(きっぷ)와 같다.",
+  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2). 히라가나 16개만, 장면 순서(개편안 B). 장면의 마지막 단계({장면 id}-b)를 처음 끝내면 그 장면의 두 아이템이 열린다. 화면용 짧은 이름은 PLAN.md 8번 미정. units의 っ 표기는 단어 데이터(きっぷ)와 같다.",
   "items": [
     {
       "id": "chef_hat",
@@ -20,7 +20,7 @@
       "slot": "background",
       "kana": "のれん",
       "nameKo": "노렌이 걸린 가게 앞",
-      "sceneID": "eatery_sign",
+      "sceneID": "sushi",
       "isDefault": false,
       "price": 300,
       "units": [
@@ -43,7 +43,7 @@
       "slot": "hand",
       "kana": "すし",
       "nameKo": "초밥 한 점",
-      "sceneID": "eatery_sign",
+      "sceneID": "sushi",
       "isDefault": false,
       "price": 300,
       "units": [
@@ -54,6 +54,102 @@
         {
           "kana": "し",
           "romaji": "shi"
+        }
+      ]
+    },
+    {
+      "id": "tonkatsu",
+      "slot": "hand",
+      "kana": "とんかつ",
+      "nameKo": "돈카츠 한 조각",
+      "sceneID": "tonkatsu",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "と",
+          "romaji": "to"
+        },
+        {
+          "kana": "ん",
+          "romaji": "n"
+        },
+        {
+          "kana": "か",
+          "romaji": "ka"
+        },
+        {
+          "kana": "つ",
+          "romaji": "tsu"
+        }
+      ]
+    },
+    {
+      "id": "ohitsu",
+      "slot": "hat",
+      "kana": "おひつ",
+      "nameKo": "나무 밥통",
+      "sceneID": "tonkatsu",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "お",
+          "romaji": "o"
+        },
+        {
+          "kana": "ひ",
+          "romaji": "hi"
+        },
+        {
+          "kana": "つ",
+          "romaji": "tsu"
+        }
+      ]
+    },
+    {
+      "id": "kitsune",
+      "slot": "hand",
+      "kana": "きつね",
+      "nameKo": "유부 우동 한 그릇",
+      "sceneID": "soba",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "き",
+          "romaji": "ki"
+        },
+        {
+          "kana": "つ",
+          "romaji": "tsu"
+        },
+        {
+          "kana": "ね",
+          "romaji": "ne"
+        }
+      ]
+    },
+    {
+      "id": "tasuki",
+      "slot": "scarf",
+      "kana": "たすき",
+      "nameKo": "어깨띠",
+      "sceneID": "soba",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "た",
+          "romaji": "ta"
+        },
+        {
+          "kana": "す",
+          "romaji": "su"
+        },
+        {
+          "kana": "き",
+          "romaji": "ki"
         }
       ]
     },
@@ -100,44 +196,6 @@
       ]
     },
     {
-      "id": "machi",
-      "slot": "background",
-      "kana": "まち",
-      "nameKo": "시내 거리",
-      "sceneID": "street",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "ま",
-          "romaji": "ma"
-        },
-        {
-          "kana": "ち",
-          "romaji": "chi"
-        }
-      ]
-    },
-    {
-      "id": "kasa",
-      "slot": "hand",
-      "kana": "かさ",
-      "nameKo": "비닐우산",
-      "sceneID": "street",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "か",
-          "romaji": "ka"
-        },
-        {
-          "kana": "さ",
-          "romaji": "sa"
-        }
-      ]
-    },
-    {
       "id": "torii",
       "slot": "background",
       "kana": "とりい",
@@ -161,38 +219,11 @@
       ]
     },
     {
-      "id": "omamori",
-      "slot": "hand",
-      "kana": "おまもり",
-      "nameKo": "부적",
-      "sceneID": "shrine",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "お",
-          "romaji": "o"
-        },
-        {
-          "kana": "ま",
-          "romaji": "ma"
-        },
-        {
-          "kana": "も",
-          "romaji": "mo"
-        },
-        {
-          "kana": "り",
-          "romaji": "ri"
-        }
-      ]
-    },
-    {
       "id": "omen",
       "slot": "hat",
       "kana": "おめん",
       "nameKo": "머리 옆에 건 축제 가면",
-      "sceneID": "festival",
+      "sceneID": "shrine",
       "isDefault": false,
       "price": 300,
       "units": [
@@ -207,29 +238,6 @@
         {
           "kana": "ん",
           "romaji": "n"
-        }
-      ]
-    },
-    {
-      "id": "tasuki",
-      "slot": "scarf",
-      "kana": "たすき",
-      "nameKo": "어깨띠",
-      "sceneID": "festival",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "た",
-          "romaji": "ta"
-        },
-        {
-          "kana": "す",
-          "romaji": "su"
-        },
-        {
-          "kana": "き",
-          "romaji": "ki"
         }
       ]
     },

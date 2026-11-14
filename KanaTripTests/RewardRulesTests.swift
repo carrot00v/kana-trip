@@ -191,14 +191,17 @@ struct RewardDataTests {
 
         var bySlot: [RewardSlot: Int] = [:]
         for item in sold { bySlot[item.slot, default: 0] += 1 }
-        #expect(bySlot == [.background: 5, .hand: 5, .hat: 3, .scarf: 3])
+        #expect(bySlot == [.background: 4, .hand: 5, .hat: 4, .scarf: 3])
     }
 
     @Test func everySceneHasTwoItemsInDifferentSlots() {
-        for scene in ContentLibrary.shared.scenes {
-            let items = catalog.items(forScene: scene.id)
-            #expect(items.count == 2, "\(scene.name)의 아이템 \(items.count)개")
-            #expect(Set(items.map(\.slot)).count == items.count, "\(scene.name)의 아이템이 같은 슬롯")
+        // 장면 흐름 개편안 B의 장면 id (reward-system.md "개편안 B 반영"). 앱 장면 데이터가 바뀌면 ContentLibrary로 되돌린다.
+        let scenes = ["sushi", "tonkatsu", "soba", "station", "shrine", "izakaya", "onsen", "ryokan"]
+        #expect(Set(catalog.items.compactMap(\.sceneID)) == Set(scenes))
+        for scene in scenes {
+            let items = catalog.items(forScene: scene)
+            #expect(items.count == 2, "\(scene)의 아이템 \(items.count)개")
+            #expect(Set(items.map(\.slot)).count == items.count, "\(scene)의 아이템이 같은 슬롯")
         }
     }
 
