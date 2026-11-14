@@ -191,14 +191,17 @@ struct RewardDataTests {
 
         var bySlot: [RewardSlot: Int] = [:]
         for item in sold { bySlot[item.slot, default: 0] += 1 }
-        #expect(bySlot == [.background: 5, .hand: 5, .hat: 3, .scarf: 3])
+        #expect(bySlot == [.background: 4, .hand: 5, .hat: 4, .scarf: 3])
     }
 
-    /// 장면별 아이템 배정은 보상 세션이 재배정 중이다(개편안 B). 지금은 모든 아이템이 있는 장면에 묶였는지만 본다.
-    @Test func everyItemBelongsToAnExistingScene() {
-        let ids = Set(ContentLibrary.shared.scenes.map(\.id))
-        for item in catalog.items where !item.isDefault {
-            #expect(item.sceneID.map(ids.contains) == true, "\(item.id)의 장면 \(item.sceneID ?? "-")이 없음")
+    /// 장면마다 아이템 2개, 장면 안에서 슬롯이 겹치지 않는다. 모든 아이템은 앱의 장면에 묶인다 (reward-system.md "개편안 B 반영").
+    @Test func everySceneHasTwoItemsInDifferentSlots() {
+        let scenes = ContentLibrary.shared.scenes
+        #expect(Set(catalog.items.compactMap(\.sceneID)) == Set(scenes.map(\.id)))
+        for scene in scenes {
+            let items = catalog.items(forScene: scene.id)
+            #expect(items.count == 2, "\(scene.name)의 아이템 \(items.count)개")
+            #expect(Set(items.map(\.slot)).count == items.count, "\(scene.name)의 아이템이 같은 슬롯")
         }
     }
 
