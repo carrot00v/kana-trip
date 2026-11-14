@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// 배우기 세션. 글자마다 L1 글자 소개 → L2 따라 쓰기 2번을 반복한다.
+/// 배우기 구간. 단계의 새 글자마다 L1 글자 소개 → L2 따라 쓰기 2번을 반복한다.
 struct LearnSessionView: View {
     static let traceRounds = 2
 
-    let scene: TripScene
+    let run: StepRun
     let onClose: () -> Void
     let onFinished: () -> Void
 
@@ -18,26 +18,30 @@ struct LearnSessionView: View {
         case trace(round: Int)
     }
 
-    private var kanaList: [Kana] { ContentLibrary.shared.kana(for: scene) }
+    private var kanaList: [Kana] { ContentLibrary.shared.kana(for: run.step) }
 
     /// 아직 끝내지 않은 첫 글자. 하던 글자는 저장하지 않으므로 다시 들어오면 소개부터 시작한다.
     private var current: Kana? {
-        let done = store.progress(for: scene.id).learnDone
+        let done = run.progress.learnDone
         return kanaList.first { !done.contains($0.char) }
     }
 
+    private var partProgress: PartProgress {
+        let done = run.progress.learnDone
+        return PartProgress(part: .learn, done: kanaList.count { done.contains($0.char) }, total: kanaList.count)
+    }
+
     var body: some View {
-        let done = store.doneCount(.learn, sceneID: scene.id)
         if let kana = current {
             switch phase {
             case .intro:
-                SessionScaffold(done: done, total: kanaList.count, onClose: onClose) {
+                SessionScaffold(progress: partProgress, onClose: onClose) {
                     intro(kana).fadeOnChange(of: kana.char)
                 } bottom: {
                     PrimaryButton(title: L.tryWriting) { startTrace(round: 1) }
                 }
             case .trace(let round):
-                SessionScaffold(done: done, total: kanaList.count, onClose: onClose) {
+                SessionScaffold(progress: partProgress, onClose: onClose) {
                     trace(kana, round: round).fadeOnChange(of: "\(kana.char)-\(round)")
                 } bottom: {
                     let finished = attempt.isFinished(strokeCount: kana.strokes.count)
@@ -83,8 +87,8 @@ struct LearnSessionView: View {
                 .accessibilityLabel("\(kana.char), \(kana.romaji), \(L.strokeCount(kana.strokes.count))")
                 .speaks(kana.char, enabled: store.soundOn)
 
-                if let word = ContentLibrary.shared.introWord(for: kana.char, in: scene) {
-                    SceneWordCard(scene: scene, char: kana.char, intro: word)
+                if let word = ContentLibrary.shared.introWord(for: kana.char, in: run.step) {
+                    SceneWordCard(scene: run.scene, char: kana.char, intro: word)
                         .padding(.horizontal, 16)
                         .padding(.top, 4)
                 }
@@ -144,12 +148,9 @@ struct LearnSessionView: View {
             return
         }
         // 글자 하나(소개 + 따라 쓰기 2번)를 끝낸 시점에 저장한다.
-        store.markLearnDone(kana.char, sceneID: scene.id)
+        run.markLearnDone(kana.char)
         attempt = WritingAttempt()
         phase = .intro
-        if current == nil {
-            store.completeSession(.learn, sceneID: scene.id)
-            onFinished()
-        }
+        if current == nil { onFinished() }
     }
 }

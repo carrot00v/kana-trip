@@ -1,50 +1,59 @@
 import SwiftUI
 
-/// S 장면 진입. 이 장면에서 읽게 될 단어, 새 글자, 세션 3개의 상태를 보여 준다.
+/// S 장면 진입 (scene-flow.md 6번). 단계마다 섹션 하나: 단계 행 → 목표 단어 행 → 못 읽는 단어 줄.
 struct SceneDetailView: View {
     let scene: TripScene
-    let onStart: (SessionKind) -> Void
+    let onStart: (TripStep) -> Void
     let onBackToList: () -> Void
 
     @Environment(ProgressStore.self) private var store
+    /// 화면에 들어와 있는 단계 행. 할 차례인 행이 보이지 않을 때만 자동으로 스크롤한다.
+    @State private var visibleSteps: Set<String> = []
+    @State private var didAutoScroll = false
 
-    private enum RowStatus {
-        case ready, inProgress, locked, completed
+    private enum StepStatus {
+        case ready, inProgress, completed, locked
     }
 
+    private var library: ContentLibrary { .shared }
+
     var body: some View {
-        List {
-            goalWordSection
-
-            Section {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(L.newKanaCount(scene.kana.count))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    kanaRow
+        let learned = store.learnedKana(in: scene)
+        let next = store.nextStep(in: scene)
+        ScrollViewReader { proxy in
+            List {
+                ForEach(scene.steps) { step in
+                    Section {
+                        stepRow(step)
+                            .id(step.id)
+                            .onAppear { visibleSteps.insert(step.id) }
+                            .onDisappear { visibleSteps.remove(step.id) }
+                        wordRows(step, learned: learned)
+                    }
                 }
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
             }
-
-            Section {
-                ForEach(SessionKind.allCases, id: \.self) { kind in
-                    sessionRow(kind)
+            .listStyle(.insetGrouped)
+            .listSectionSpacing(16)
+            .contentMargins(.top, 8, for: .scrollContent)
+            .task {
+                // 할 차례·하던 중인 단계 행이 보이는 영역 밖이면 맨 위로 올린다 (6.6). 애니메이션 없이.
+                guard !didAutoScroll, let next else { return }
+                didAutoScroll = true
+                try? await Task.sleep(for: .milliseconds(100))
+                if !visibleSteps.contains(next.id) {
+                    proxy.scrollTo(next.id, anchor: .top)
                 }
             }
         }
-        .listStyle(.insetGrouped)
-        .listSectionSpacing(16)
-        .contentMargins(.top, 8, for: .scrollContent)
         .navigationTitle(scene.name)
         .navigationBarTitleDisplayMode(.large)
         .safeAreaInset(edge: .bottom) {
             Group {
-                if let next = store.nextSession(sceneID: scene.id) {
-                    PrimaryButton(title: L.sessionAction(next, resume: store.isInProgress(next, sceneID: scene.id))) {
+                if let next {
+                    PrimaryButton(title: L.stepAction(next.name, resume: store.isInProgress(next))) {
                         onStart(next)
                     }
-                } else {
+                } else if store.isSceneCompleted(scene) {
                     PrimaryButton(title: L.backToSceneList, action: onBackToList)
                 }
             }
@@ -53,34 +62,103 @@ struct SceneDetailView: View {
         }
     }
 
-    // MARK: - 목표 단어 카드
+    // MARK: - 단계 행 (6.1, 6.2)
 
-    /// 이 장면의 글자를 배우면 읽게 되는 단어. 배운 글자만 진하게 채운다. 누를 수 없다.
+    private func status(_ step: TripStep) -> StepStatus {
+        if store.isCompleted(step) { return .completed }
+        if !store.isUnlocked(step) { return .locked }
+        return store.isInProgress(step) ? .inProgress : .ready
+    }
+
     @ViewBuilder
-    private var goalWordSection: some View {
-        let library = ContentLibrary.shared
-        let groups = library.wordGroups(for: scene)
-        let learned = library.learnedKana(in: scene, progress: store.progress(for: scene.id))
-        let style: (String) -> WordGlyphStyle = { learned.contains($0) ? .learned : .unlearned }
+    private func stepRow(_ step: TripStep) -> some View {
+        let status = status(step)
+        Button {
+            onStart(step)
+        } label: {
+            HStack(spacing: 12) {
+                Group {
+                    switch status {
+                    case .ready, .inProgress:
+                        Image(systemName: "\(step.number).circle.fill").foregroundStyle(Color.accentColor)
+                    case .locked:
+                        Image(systemName: "lock.fill").foregroundStyle(.secondary)
+                    case .completed:
+                        Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                    }
+                }
+                .font(.title2)
+                .frame(width: 28)
+                .accessibilityHidden(true)
 
-        if !groups.goal.isEmpty || !groups.rest.isEmpty {
-            Section {
-                ForEach(groups.goal) { word in
-                    goalWordRow(word, learnedCount: word.count(in: learned), style: style)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(step.name)
+                        .font(.headline)
+                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                    KanaText(text: step.kana.joined(separator: " "), size: 20)
+                        .foregroundStyle(status == .locked ? .secondary : .primary)
                 }
-                if !groups.rest.isEmpty {
-                    unreadableRow(groups.rest, style: style)
+
+                Spacer(minLength: 0)
+
+                if status != .locked {
+                    switch status {
+                    case .inProgress:
+                        Text(L.resumeShort).font(.subheadline).foregroundStyle(.secondary)
+                    case .completed:
+                        Text(L.done).font(.subheadline).foregroundStyle(.secondary)
+                    default:
+                        EmptyView()
+                    }
+                    Image(systemName: "chevron.right")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(.tertiary)
+                        .accessibilityHidden(true)
                 }
-            } header: {
-                Text(L.goalWordsHeader(scene: scene.name, allLearned: scene.kana.allSatisfy(learned.contains)))
-                    .font(.footnote)
-                    .textCase(nil)
             }
+            .frame(minHeight: 50)
+            .padding(.vertical, 11)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(status == .locked)
+        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityLabel(step, status: status))
+        .accessibilityAddTraits(.isButton)
+    }
+
+    private func accessibilityLabel(_ step: TripStep, status: StepStatus) -> String {
+        switch status {
+        case .locked:
+            let previous = scene.steps.last { $0.index < step.index }?.name ?? ""
+            return L.stepRowLockedLabel(number: step.number, name: step.name, previous: previous)
+        case .ready:
+            return L.stepRowLabel(number: step.number, name: step.name, kana: step.kana, status: L.myTurn)
+        case .inProgress:
+            return L.stepRowLabel(number: step.number, name: step.name, kana: step.kana, status: L.resumeLabel)
+        case .completed:
+            return L.stepRowLabel(number: step.number, name: step.name, kana: step.kana, status: L.doneRedoLabel)
+        }
+    }
+
+    // MARK: - 목표 단어 행과 못 읽는 단어 줄 (6.3, 6.4)
+
+    @ViewBuilder
+    private func wordRows(_ step: TripStep, learned: Set<String>) -> some View {
+        let style: (String) -> WordGlyphStyle = { learned.contains($0) ? .learned : .unlearned }
+        ForEach(library.shownGoalWords(for: step)) { word in
+            goalWordRow(word, learnedCount: word.count(in: learned), style: style)
+        }
+        let rest = library.shownRestWords(for: step)
+        if !rest.isEmpty {
+            unreadableRow(rest, style: style)
         }
     }
 
     private func goalWordRow(_ word: TripWord, learnedCount: Int, style: @escaping (String) -> WordGlyphStyle) -> some View {
         let total = word.kanaUnits.count
+        // 탁음 칸은 배운 글자에 들지 않으므로 탁음이 든 단어(3a의 うどん, そば)는 "읽을 수 있어요"가 되지 않는다.
         let readable = learnedCount == total
         return HStack(spacing: 12) {
             WordGlyphs(word: word, size: 28, style: style)
@@ -117,7 +195,7 @@ struct SceneDetailView: View {
             Text(L.unreadableWords)
                 .font(.footnote)
                 .foregroundStyle(.secondary)
-            HStack(spacing: 16) {
+            CenteredFlow(spacing: 16, lineSpacing: 6, alignment: .leading) {
                 ForEach(words) { word in
                     WordGlyphs(word: word, size: 17, spacing: 0, style: style)
                 }
@@ -130,96 +208,5 @@ struct SceneDetailView: View {
             AttributedString("\(L.unreadableWords), ")
                 + KanaText.japanese(words.map(\.text).joined(separator: ", "))
         ))
-    }
-
-    // MARK: - 새 글자와 세션 행
-
-    /// 새 글자를 같은 폭으로 나눠 놓고 아래에 발음을 붙인다.
-    private var kanaRow: some View {
-        HStack(spacing: 0) {
-            ForEach(ContentLibrary.shared.kana(for: scene)) { kana in
-                VStack(spacing: 4) {
-                    KanaText(text: kana.char, size: 34)
-                    HStack(spacing: 2) {
-                        Text(kana.romaji).font(.subheadline).foregroundStyle(.secondary)
-                        if store.soundOn { SpeakerBadge().imageScale(.small) }
-                    }
-                }
-                .frame(maxWidth: .infinity, minHeight: 64)
-                .accessibilityElement(children: .combine)
-                .speaks(kana.char, enabled: store.soundOn)
-            }
-        }
-    }
-
-    private func status(_ kind: SessionKind) -> RowStatus {
-        if store.isCompleted(kind, sceneID: scene.id) { return .completed }
-        if !store.isUnlocked(kind, sceneID: scene.id) { return .locked }
-        return store.isInProgress(kind, sceneID: scene.id) ? .inProgress : .ready
-    }
-
-    private func total(_ kind: SessionKind) -> Int {
-        switch kind {
-        case .learn: scene.kana.count
-        case .quiz: scene.kana.count * 2
-        case .words: scene.words.count
-        }
-    }
-
-    private func description(_ kind: SessionKind, status: RowStatus) -> String {
-        switch status {
-        case .ready: L.sessionDescription(kind, scene: scene.name, wordCount: scene.words.count)
-        case .inProgress: L.resumeAt(done: store.doneCount(kind, sceneID: scene.id), total: total(kind))
-        case .locked: L.sessionLocked(kind)
-        case .completed: L.doneRedo
-        }
-    }
-
-    @ViewBuilder
-    private func sessionRow(_ kind: SessionKind) -> some View {
-        let status = status(kind)
-        let number = (SessionKind.allCases.firstIndex(of: kind) ?? 0) + 1
-        Button {
-            onStart(kind)
-        } label: {
-            HStack(spacing: 12) {
-                Group {
-                    switch status {
-                    case .ready, .inProgress:
-                        Image(systemName: "\(number).circle.fill").foregroundStyle(Color.accentColor)
-                    case .locked:
-                        Image(systemName: "lock.fill").foregroundStyle(.secondary)
-                    case .completed:
-                        Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
-                    }
-                }
-                .font(.title2)
-                .frame(width: 28)
-                .accessibilityHidden(true)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L.sessionTitle(kind))
-                        .font(.headline)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
-                    Text(description(kind, status: status))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer()
-
-                if status != .locked {
-                    Image(systemName: "chevron.right")
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.tertiary)
-                        .accessibilityHidden(true)
-                }
-            }
-            .frame(minHeight: 50)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .disabled(status == .locked)
-        .accessibilityElement(children: .combine)
     }
 }

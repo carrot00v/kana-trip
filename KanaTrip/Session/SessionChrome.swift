@@ -2,14 +2,27 @@ import SwiftUI
 
 // 세션 화면이 함께 쓰는 뼈대와 작은 부품.
 
-/// 상단 바: 닫기 버튼, 진행 막대, 진행 숫자.
+/// 상단 바에 보여 줄 진행. 지금 구간과 그 구간에서 끝낸 항목 수.
+struct PartProgress: Equatable {
+    let part: SessionPart
+    var done: Int
+    var total: Int
+
+    /// 칸 하나가 차는 정도. 지금 구간 앞의 칸은 꽉 차고, 뒤의 칸은 비어 있다.
+    func fill(of segment: SessionPart) -> Double {
+        if segment.rawValue < part.rawValue { return 1 }
+        if segment.rawValue > part.rawValue { return 0 }
+        return total > 0 ? min(Double(done) / Double(total), 1) : 0
+    }
+}
+
+/// 상단 바: 닫기 버튼, 같은 폭 3칸 진행 막대, 지금 구간 이름 (scene-flow.md 7.2).
 struct SessionTopBar: View {
-    let done: Int
-    let total: Int
+    let progress: PartProgress
     let onClose: () -> Void
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 8) {
             Button(action: onClose) {
                 Image(systemName: "xmark")
                     .font(.headline)
@@ -20,15 +33,21 @@ struct SessionTopBar: View {
             .accessibilityLabel(L.close)
             .accessibilityHint(L.closeHint)
 
-            HStack(spacing: 0) {
-                ProgressView(value: Double(min(done, total)), total: Double(max(total, 1)))
-                Text("\(done) / \(total)")
-                    .font(.footnote.monospacedDigit())
+            HStack(spacing: 8) {
+                HStack(spacing: 4) {
+                    ForEach(SessionPart.allCases, id: \.self) { segment in
+                        SegmentBar(fill: progress.fill(of: segment))
+                    }
+                }
+                Text(L.partName(progress.part))
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    .frame(width: 56, alignment: .trailing)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .frame(width: 72, alignment: .trailing)
             }
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel(L.progressLabel(done: done, total: total))
+            .accessibilityLabel(L.progressLabel(part: progress.part, done: progress.done, total: progress.total))
         }
         .padding(.leading, 4)
         .padding(.trailing, 16)
@@ -36,17 +55,33 @@ struct SessionTopBar: View {
     }
 }
 
+/// 진행 막대의 칸 하나. 높이 4pt, 모서리 2pt.
+private struct SegmentBar: View {
+    let fill: Double
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Capsule().fill(Color.secondary.opacity(0.2))
+                Capsule().fill(Color.accentColor)
+                    .frame(width: geo.size.width * fill)
+            }
+        }
+        .frame(height: 4)
+        .animation(.easeInOut(duration: 0.2), value: fill)
+    }
+}
+
 /// 세션 화면의 공통 배치: 상단 바, 내용, 아래 버튼 영역.
 struct SessionScaffold<Content: View, Bottom: View>: View {
-    let done: Int
-    let total: Int
+    let progress: PartProgress
     let onClose: () -> Void
     @ViewBuilder let content: Content
     @ViewBuilder let bottom: Bottom
 
     var body: some View {
         VStack(spacing: 0) {
-            SessionTopBar(done: done, total: total, onClose: onClose)
+            SessionTopBar(progress: progress, onClose: onClose)
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             BottomBar { bottom }

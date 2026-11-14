@@ -1,6 +1,6 @@
 import Foundation
 
-/// 화면에 나오는 문구 모음 (docs/design/scene-flow.md 13번).
+/// 화면에 나오는 문구 모음 (docs/design/scene-flow.md 15번).
 /// 장면 이름, 글자, 단어, 쓰기 포인트는 여기 두지 않고 Resources의 데이터 파일에서 읽는다.
 enum L {
     // MARK: 홈
@@ -12,57 +12,48 @@ enum L {
     static let ok = "확인"
     static let devSpike = "개발용: 쓰기 판정 스파이크"
 
-    static func homeStart(scene: String, session: SessionKind, resume: Bool) -> String {
-        "\(scene) · \(sessionAction(session, resume: resume))"
+    static func homeStart(scene: String, step: String, resume: Bool) -> String {
+        "\(scene) · \(stepAction(step, resume: resume))"
     }
 
     // MARK: 장면 진입
-    static func goalWordsHeader(scene: String, allLearned: Bool) -> String {
-        allLearned ? readableWords(scene) : "글자를 배우면 읽는 \(scene) 단어"
-    }
-    static func readableWords(_ scene: String) -> String { "이제 읽을 수 있는 \(scene) 단어" }
     static func learnedCount(_ learned: Int, of total: Int) -> String { "배운 글자 \(learned) / \(total)" }
     static let canRead = "읽을 수 있어요"
     static let unreadableWords = "아직 못 읽는 글자가 있는 단어"
-    static func newKanaCount(_ n: Int) -> String { "새 글자 \(n)자" }
+    static let resumeShort = "이어서"
 
-    static func sessionTitle(_ kind: SessionKind) -> String {
-        switch kind {
+    static func stepAction(_ step: String, resume: Bool) -> String {
+        "\(step) \(resume ? "이어서 하기" : "시작")"
+    }
+
+    static let backToSceneList = "장면 목록으로"
+
+    // MARK: 상단 바
+    static func partName(_ part: SessionPart) -> String {
+        switch part {
         case .learn: "배우기"
         case .quiz: "퀴즈"
         case .words: "단어 읽기"
         }
     }
 
-    static func sessionDescription(_ kind: SessionKind, scene: String, wordCount: Int) -> String {
-        switch kind {
-        case .learn: "새 글자를 보고 따라 써요"
-        case .quiz: "발음을 고르고 기억으로 써요"
-        case .words: "\(scene)에서 보는 단어 \(wordCount)개를 읽어요"
-        }
+    // MARK: 구간 안내
+    static let quizIntroTitle = "퀴즈"
+    static let quizIntroBody = "방금 배운 글자를 기억으로 맞혀요"
+    static func quizIntroReview(_ r: Int) -> String { "지난 장면에서 헷갈린 글자 \(r)자도 함께 나와요" }
+    static let quizStart = "퀴즈 시작"
+    static let wordsIntroTitle = "단어 읽기"
+    static func wordsIntroBody(step: String, count: Int) -> String { "\(step)에서 보는 단어 \(count)개를 읽어요" }
+    static func wrongKanaReturns(_ kana: [String]) -> String {
+        let particle = kana.last == "ん" ? "은" : "는"
+        return "\(kana.joined(separator: ", "))\(particle) 다음 장면 퀴즈에 다시 나와요"
     }
-
-    static func sessionLocked(_ kind: SessionKind) -> String {
-        switch kind {
-        case .learn: ""
-        case .quiz: "배우기를 끝내면 열려요"
-        case .words: "퀴즈를 끝내면 열려요"
-        }
-    }
-
-    static func resumeAt(done: Int, total: Int) -> String { "이어서 하기 · \(done) / \(total)" }
-    static let doneRedo = "완료 · 다시 하기"
-
-    static func sessionAction(_ kind: SessionKind, resume: Bool) -> String {
-        "\(sessionTitle(kind)) \(resume ? "이어서 하기" : "시작")"
-    }
-
-    static let backToSceneList = "장면 목록으로"
+    static let wordsStart = "단어 읽기 시작"
 
     // MARK: 배우기
     static let newKana = "새 글자"
     static func strokeCount(_ n: Int) -> String { "\(n)획" }
-    static func sceneWords(_ scene: String) -> String { "\(scene) 단어" }
+    static func stepWords(scene: String, step: String) -> String { "\(scene) \(step) 단어" }
     static let tryWriting = "써 보기"
     static func traceRound(_ round: Int, of total: Int) -> String { "따라 쓰기 \(round)/\(total)" }
     static let traceHint = "번호가 있는 점에서 시작해 따라 쓰세요"
@@ -103,14 +94,10 @@ enum L {
     static let checkReading = "읽기 확인"
 
     // MARK: 완료
-    static func sessionDone(_ kind: SessionKind) -> String { "\(sessionTitle(kind)) 완료" }
-    static func learnSummary(_ n: Int) -> String { "새 글자 \(n)자를 따라 썼어요" }
-    static func quizSummaryPerfect(_ n: Int) -> String { "\(n)자를 모두 한 번에 맞혔어요" }
-    static func quizSummaryWrong(_ kana: [String]) -> String {
-        let particle = kana.last == "ん" ? "은" : "는"
-        return "\(kana.joined(separator: ", "))\(particle) 다음 장면 퀴즈에 다시 나와요"
-    }
-    static func wordsSummary(scene: String, count: Int) -> String { "\(scene) 단어 \(count)개를 읽었어요" }
+    static func stepDone(scene: String, step: String) -> String { "\(scene) \(step) 완료" }
+    static func stepSummary(kana: Int, words: Int) -> String { "새 글자 \(kana)자를 배우고 단어 \(words)개를 읽었어요" }
+    static let nowReadable = "이제 읽을 수 있는 단어"
+    static func readableWords(_ scene: String) -> String { "이제 읽을 수 있는 \(scene) 단어" }
     static let stopHere = "여기까지 하기"
     static let backToScene = "장면으로 돌아가기"
     static func sceneDone(_ scene: String) -> String { "\(scene) 장면 완료" }
@@ -122,7 +109,7 @@ enum L {
     // MARK: VoiceOver
     static let close = "닫기"
     static let closeHint = "진행은 저장돼요"
-    static func progressLabel(done: Int, total: Int) -> String { "진행, \(total)개 중 \(done)개" }
+    static func progressLabel(part: SessionPart, done: Int, total: Int) -> String { "\(partName(part)), \(total)개 중 \(done)개" }
     static let questionGlyph = "문제 글자"
     static let tipPrefix = "쓰기 포인트"
     static let locked = "잠김"
@@ -133,16 +120,25 @@ enum L {
         let head = char.map { "쓰기 칸. \($0), " } ?? "쓰기 칸. "
         return current > total ? "\(head)\(total)획 완성" : "\(head)\(total)획 중 \(current)번째 획"
     }
-    static func sceneRowLabel(order: Int, name: String, kana: [String], done: Int) -> String {
-        "\(order)번 \(name), 새 글자 \(kana.joined(separator: " ")), 세션 3개 중 \(done)개 완료"
+    static func sceneRowLabel(order: Int, name: String, steps: [(name: String, kana: [String])], done: Int) -> String {
+        let parts = steps.map { "\($0.name) \($0.kana.joined(separator: " "))" }.joined(separator: ", ")
+        return "\(order)번 \(name), \(parts), 단계 \(steps.count)개 중 \(done)개 완료"
     }
+    static func stepRowLabel(number: Int, name: String, kana: [String], status: String) -> String {
+        "\(number)단계 \(name), 새 글자 \(kana.joined(separator: " ")), \(status)"
+    }
+    static func stepRowLockedLabel(number: Int, name: String, previous: String) -> String {
+        "\(number)단계 \(name), 잠김, \(previous)\(hasFinalConsonant(previous) ? "을" : "를") 끝내면 열려요"
+    }
+    static let resumeLabel = "이어서 하기"
+    static let doneRedoLabel = "완료, 다시 하기"
     static func learnedCountLabel(_ learned: Int, of total: Int) -> String { "글자 \(total)개 중 \(learned)개 배움" }
     /// "すし의 す"에서 단어와 글자를 잇는 말.
     static let possessive = "의 "
     static func sceneRowLocked(order: Int, name: String) -> String { "\(order)번 \(name), \(locked)" }
 
     /// 한글 낱말이 받침으로 끝나는지. 조사를 고를 때 쓴다.
-    private static func hasFinalConsonant(_ word: String) -> Bool {
+    static func hasFinalConsonant(_ word: String) -> Bool {
         guard let scalar = word.unicodeScalars.last, (0xAC00...0xD7A3).contains(scalar.value) else { return false }
         return (scalar.value - 0xAC00) % 28 != 0
     }

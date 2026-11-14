@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// 단어 읽기 세션. 소리 내어 읽고 "읽기 확인"으로 읽기와 뜻을 보는 자기 확인. 채점하지 않는다.
+/// 단어 읽기 구간. 소리 내어 읽고 "읽기 확인"으로 읽기와 뜻을 보는 자기 확인. 채점하지 않는다.
+/// 단어 순서는 목표 단어 → 못 읽는 단어 (scene-flow.md 12번).
 struct WordSessionView: View {
-    let scene: TripScene
+    let run: StepRun
     let onClose: () -> Void
     let onFinished: () -> Void
 
@@ -11,16 +12,23 @@ struct WordSessionView: View {
     @State private var revealed = false
     @State private var revealTick = 0
 
+    private var words: [TripWord] { run.orderedWords }
+
     /// 아직 끝내지 않은 첫 단어.
     private var current: TripWord? {
-        let done = store.progress(for: scene.id).wordsDone
-        return scene.words.first { !done.contains($0.text) }
+        let done = run.progress.wordsDone
+        return words.first { !done.contains($0.text) }
+    }
+
+    private var doneCount: Int {
+        let done = run.progress.wordsDone
+        return words.count { done.contains($0.text) }
     }
 
     var body: some View {
         if let word = current {
-            let isLast = store.doneCount(.words, sceneID: scene.id) == scene.words.count - 1
-            SessionScaffold(done: store.doneCount(.words, sceneID: scene.id), total: scene.words.count, onClose: onClose) {
+            let isLast = doneCount == words.count - 1
+            SessionScaffold(progress: PartProgress(part: .words, done: doneCount, total: words.count), onClose: onClose) {
                 content(word).fadeOnChange(of: word.text)
             } bottom: {
                 // 버튼 하나의 문구만 바꾼다. 버튼을 갈아 끼우면 전환 중에 누른 것이 무시된다.
@@ -75,13 +83,14 @@ struct WordSessionView: View {
     }
 
     /// 글자마다 위에 발음 표기 칸, 아래에 글자 칸을 쌓는다.
-    /// 이 장면까지 배운 글자는 위 칸을 비워 두고, 배우지 않은 글자와 탁음 글자, 한자에는 표기를 붙인다.
+    /// "이 단계까지의 글자"는 위 칸을 비워 두고, 그 밖의 글자와 탁음 글자, っ, 한자에는 늘 표기를 붙인다.
     private func wordRow(_ word: TripWord) -> some View {
-        let learned = ContentLibrary.shared.learnedKana(through: scene)
+        let learned = ContentLibrary.shared.kana(through: run.step)
         let compact = word.units.count >= 6
-        return HStack(spacing: 4) {
+        // 넘치는 단어(くつをぬいでください 등)는 두 줄로 나눈다.
+        return CenteredFlow(spacing: 4, lineSpacing: 8) {
             ForEach(Array(word.units.enumerated()), id: \.offset) { _, unit in
-                let ruby = learned.contains(unit.kana) ? nil : unit.romaji
+                let ruby = !unit.isKanji && learned.contains(unit.kana) ? nil : unit.romaji
                 VStack(spacing: 0) {
                     Text(ruby ?? " ")
                         .font(.system(size: 15))
@@ -99,11 +108,8 @@ struct WordSessionView: View {
 
     private func advance(from word: TripWord) {
         // 확인 후 "다음"을 누른 단어까지 끝낸 것으로 저장한다.
-        store.markWordDone(word.text, sceneID: scene.id)
+        run.markWordDone(word.text)
         revealed = false
-        if current == nil {
-            store.completeSession(.words, sceneID: scene.id)
-            onFinished()
-        }
+        if current == nil { onFinished() }
     }
 }

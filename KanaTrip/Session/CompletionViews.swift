@@ -1,46 +1,39 @@
 import SwiftUI
 
-/// C1 세션 완료.
-struct SessionDoneView: View {
-    let scene: TripScene
-    let kind: SessionKind
-    /// 이미 끝냈던 세션을 다시 한 것인지.
-    let isReplay: Bool
-    let onContinue: (SessionKind) -> Void
+// 보상 연동: C1·C2의 기리 캐릭터, 받은 엔 줄, 아이템 줄, "기리 꾸미기" 버튼은 보상 브랜치(reward-flow.md)가 들어오면 붙인다.
+// 재화 지급 키는 단계 id(`TripStep.id`, 예: sushi-a)다. 지급 자리는 `StepRun.complete()` → `ProgressStore.complete(_:quizWrong:)`.
+
+/// C1 단계 완료 (scene-flow.md 13번). 단계 a를 처음 끝냈을 때와 끝낸 단계를 다시 했을 때 나온다.
+struct StepDoneView: View {
+    let run: StepRun
+    /// 같은 덮개 안에서 다음 단계를 시작한다.
+    let onContinue: (TripStep) -> Void
     let onClose: () -> Void
 
-    @Environment(ProgressStore.self) private var store
     @State private var appearTick = 0
 
-    private var wrongKana: [String] {
-        guard kind == .quiz else { return [] }
-        // 아래 글자 줄과 같은 순서로 보여 준다.
-        let wrong = store.progress(for: scene.id).wrongKana
-        return scene.kana.filter { wrong.contains($0) }
-    }
-
-    private var summary: String {
-        switch kind {
-        case .learn: L.learnSummary(scene.kana.count)
-        case .quiz: wrongKana.isEmpty ? L.quizSummaryPerfect(scene.kana.count) : L.quizSummaryWrong(wrongKana)
-        case .words: L.wordsSummary(scene: scene.name, count: scene.words.count)
-        }
-    }
-
     var body: some View {
+        let library = ContentLibrary.shared
+        let step = run.step
+        let next = run.isReplay ? nil : library.step(after: step)
+        let goalWords = library.shownGoalWords(for: step)
         CompletionLayout {
+            // 보상 브랜치가 들어오기 전에는 기리 대신 체크 아이콘을 둔다.
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 64))
                 .foregroundStyle(.green)
                 .accessibilityHidden(true)
         } texts: {
-            Text(L.sessionDone(kind)).font(.title2.bold())
-            Text(summary).font(.body).foregroundStyle(.secondary)
+            Text(L.stepDone(scene: run.scene.name, step: step.name)).font(.title2.bold())
+            Text(L.stepSummary(kana: step.kana.count, words: step.words.count)).font(.body).foregroundStyle(.secondary)
         } detail: {
-            KanaRow(kana: scene.kana, marked: Set(wrongKana))
+            KanaRow(kana: step.kana, marked: Set(run.progress.quizWrong))
+            if !goalWords.isEmpty {
+                GoalWordsBlock(title: L.nowReadable, words: goalWords)
+            }
         } buttons: {
-            if !isReplay, let next = kind.next {
-                PrimaryButton(title: L.sessionAction(next, resume: false)) { onContinue(next) }
+            if let next {
+                PrimaryButton(title: L.stepAction(next.name, resume: false)) { onContinue(next) }
                 Button(action: onClose) {
                     Text(L.stopHere)
                         .font(.headline)
@@ -59,7 +52,7 @@ struct SessionDoneView: View {
     }
 }
 
-/// C2 장면 완료.
+/// C2 장면 완료 (scene-flow.md 14번). 단계 b를 처음 끝냈을 때만 나온다.
 struct SceneDoneView: View {
     let scene: TripScene
     let onBackToList: () -> Void
@@ -67,8 +60,9 @@ struct SceneDoneView: View {
     @State private var appearTick = 0
 
     var body: some View {
-        let next = ContentLibrary.shared.scene(after: scene)
-        let goalWords = ContentLibrary.shared.wordGroups(for: scene).goal
+        let library = ContentLibrary.shared
+        let next = library.scene(after: scene)
+        let goalWords = library.goalWords(for: scene)
         CompletionLayout {
             Image(systemName: scene.icon ?? "checkmark.circle.fill")
                 .font(.system(size: 64))
@@ -85,34 +79,40 @@ struct SceneDoneView: View {
             Text(L.sceneDone(scene.name)).font(.title2.bold())
             Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(.secondary)
         } detail: {
-            KanaRow(kana: scene.kana, marked: [])
             if !goalWords.isEmpty {
-                VStack(spacing: 8) {
-                    Text(L.readableWords(scene.name))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    CenteredFlow(spacing: 16, lineSpacing: 8) {
-                        ForEach(goalWords) { word in
-                            KanaText(text: word.text, size: 22, weight: .bold)
-                        }
-                    }
-                }
+                GoalWordsBlock(title: L.readableWords(scene.name), words: goalWords)
             }
             if let next {
-                VStack(spacing: 8) {
-                    Text(L.nextSceneOpened(next.name)).font(.body)
-                    Text(KanaText.japanese(next.kana.joined(separator: " ")))
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
-                        .environment(\.locale, Locale(identifier: "ja"))
-                }
-                .padding(.top, 24)
+                Text(L.nextSceneOpened(next.name))
+                    .font(.body)
+                    .padding(.top, 8)
             }
         } buttons: {
             PrimaryButton(title: L.backToSceneList, action: onBackToList)
         }
         .sensoryFeedback(.success, trigger: appearTick)
         .onAppear { appearTick += 1 }
+    }
+}
+
+/// "이제 읽을 수 있는 단어"와 단어 묶음(22pt, 굵게). 넘치면 줄을 바꾼다. 누를 수 없다.
+private struct GoalWordsBlock: View {
+    let title: String
+    let words: [TripWord]
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            CenteredFlow(spacing: 16, lineSpacing: 8) {
+                ForEach(words) { word in
+                    KanaText(text: word.text, size: 22, weight: .bold)
+                }
+            }
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(AttributedString("\(title), ") + KanaText.japanese(words.map(\.text).joined(separator: ", "))))
     }
 }
 

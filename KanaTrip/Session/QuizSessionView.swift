@@ -1,14 +1,12 @@
 import SwiftUI
 
-/// 퀴즈 세션. 1부 사지선다 → 2부 기억으로 쓰기. 틀린 항목은 그 부의 끝에 다시 나온다.
+/// 퀴즈 구간. 1부 사지선다 → 2부 기억으로 쓰기. 틀린 항목은 그 부의 끝에 다시 나온다.
+/// 문항은 단계의 새 글자 + 복습 글자(단계 a만)이고, 배우기를 끝낼 때 `StepRun.finishLearning()`이 만든다.
 struct QuizSessionView: View {
-    let scene: TripScene
-    /// 이미 끝낸 세션을 다시 하는 중이면 틀린 글자 기록을 바꾸지 않는다.
-    let isReplay: Bool
+    let run: StepRun
     let onClose: () -> Void
     let onFinished: () -> Void
 
-    @Environment(ProgressStore.self) private var store
     @State private var item: Item?
     @State private var itemSerial = 0
 
@@ -18,30 +16,26 @@ struct QuizSessionView: View {
         case write(Kana)
     }
 
-    private var total: Int { scene.kana.count * 2 }
-    private var done: Int { store.doneCount(.quiz, sceneID: scene.id) }
+    private var partProgress: PartProgress {
+        let quiz = run.progress.quiz
+        return PartProgress(part: .quiz, done: quiz?.doneCount ?? 0, total: quiz?.totalCount ?? 0)
+    }
 
     var body: some View {
         Group {
             switch item {
             case .choice(let kana, let options):
                 ChoiceQuestionView(
-                    kana: kana, options: options, done: done, total: total, onClose: onClose,
-                    onAnswered: { correct in
-                        store.answerChoice(kana.char, correct: correct, sceneID: scene.id, recordWrong: !isReplay)
-                    },
+                    kana: kana, options: options, progress: partProgress, onClose: onClose,
+                    onAnswered: { correct in run.answerChoice(kana.char, correct: correct) },
                     onNext: loadNext
                 )
                 .id(itemSerial)
             case .write(let kana):
                 RecallWriteView(
-                    kana: kana, done: done, total: total, onClose: onClose,
-                    onGuideUsed: {
-                        store.markGuideUsed(kana.char, sceneID: scene.id, recordWrong: !isReplay)
-                    },
-                    onCompleted: { usedGuide in
-                        store.finishWrite(kana.char, usedGuide: usedGuide, sceneID: scene.id)
-                    },
+                    kana: kana, progress: partProgress, onClose: onClose,
+                    onGuideUsed: { run.markGuideUsed(kana.char) },
+                    onCompleted: { usedGuide in run.finishWrite(kana.char, usedGuide: usedGuide) },
                     onNext: loadNext
                 )
                 .id(itemSerial)
@@ -57,27 +51,43 @@ struct QuizSessionView: View {
 
     private func loadNext() {
         let library = ContentLibrary.shared
-        guard let quiz = store.progress(for: scene.id).quiz else { return }
+        guard let quiz = run.progress.quiz else { return }
         itemSerial += 1
         if let char = quiz.choiceQueue.first, let kana = library.kana(char) {
-            item = .choice(kana, options: options(for: kana))
+            item = .choice(kana, options: ChoiceOptions.make(for: kana, library: library))
         } else if let char = quiz.writeQueue.first, let kana = library.kana(char) {
             item = .write(kana)
         } else {
             item = nil
-            store.completeSession(.quiz, sceneID: scene.id)
             onFinished()
         }
     }
+}
 
-    /// 정답 하나와, 같은 장면의 나머지 글자에서 고른 오답 셋. 자리는 문항마다 섞는다.
-    private func options(for kana: Kana) -> [String] {
-        let others = ContentLibrary.shared.kana(for: scene)
-            .filter { $0.char != kana.char }
-            .map(\.romaji)
-            .shuffled()
-            .prefix(3)
-        return ([kana.romaji] + others).shuffled()
+/// 사지선다 선택지 (scene-flow.md 10.1). 정답 하나와 오답 셋, 자리는 문항마다 섞는다.
+enum ChoiceOptions {
+    static let count = 4
+
+    /// 오답은 아래 순서로 채운다. 같은 로마자는 두 번 나오지 않는다.
+    /// 1. 그 글자가 배정된 단계의 다른 새 글자 전부(섞은 순서). 복습 글자도 원래 단계 기준이다.
+    /// 2. 같은 장면의 다른 단계 글자에서 무작위.
+    /// 3. 앞 장면들의 새 글자에서 무작위.
+    /// 4. 다음 장면의 새 글자에서 무작위.
+    static func make(for kana: Kana, library: ContentLibrary) -> [String] {
+        var options = [kana.romaji]
+        func add(_ chars: [String]) {
+            for char in chars.shuffled() where options.count < count {
+                guard let romaji = library.kana(char)?.romaji, !options.contains(romaji) else { continue }
+                options.append(romaji)
+            }
+        }
+        if let step = library.homeStep(of: kana.char), let scene = library.scene(of: step) {
+            add(step.kana)
+            add(scene.steps.filter { $0.id != step.id }.flatMap(\.kana))
+            add(Array(library.kana(before: scene)))
+            if let next = library.scene(after: scene) { add(next.kana) }
+        }
+        return options.shuffled()
     }
 }
 
@@ -86,8 +96,7 @@ struct QuizSessionView: View {
 struct ChoiceQuestionView: View {
     let kana: Kana
     let options: [String]
-    let done: Int
-    let total: Int
+    let progress: PartProgress
     let onClose: () -> Void
     let onAnswered: (Bool) -> Void
     let onNext: () -> Void
@@ -101,7 +110,7 @@ struct ChoiceQuestionView: View {
     private var answered: Bool { picked != nil }
 
     var body: some View {
-        SessionScaffold(done: done, total: total, onClose: onClose) {
+        SessionScaffold(progress: progress, onClose: onClose) {
             VStack(spacing: 8) {
                 ScrollView {
                     VStack(spacing: 24) {
@@ -214,8 +223,7 @@ struct RecallWriteView: View {
     static let mistakesBeforeGuide = 3
 
     let kana: Kana
-    let done: Int
-    let total: Int
+    let progress: PartProgress
     let onClose: () -> Void
     let onGuideUsed: () -> Void
     let onCompleted: (_ usedGuide: Bool) -> Void
@@ -231,7 +239,7 @@ struct RecallWriteView: View {
     private var finished: Bool { attempt.isFinished(strokeCount: kana.strokes.count) }
 
     var body: some View {
-        SessionScaffold(done: done, total: total, onClose: onClose) {
+        SessionScaffold(progress: progress, onClose: onClose) {
             VStack(spacing: 8) {
                 Text(L.recallQuestion)
                     .font(.headline)

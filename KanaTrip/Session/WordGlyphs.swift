@@ -49,7 +49,7 @@ struct WordGlyphs: View {
     }
 }
 
-/// 글자 소개의 단어 카드. 지금 글자가 나오는 장면 단어 하나를 보여 준다. 누를 수 없다.
+/// 글자 소개의 단어 카드. 지금 글자가 나오는 단계 단어 하나를 보여 준다. 누를 수 없다.
 struct SceneWordCard: View {
     let scene: TripScene
     let char: String
@@ -61,7 +61,7 @@ struct SceneWordCard: View {
                 if let icon = scene.icon {
                     Image(systemName: icon)
                 }
-                Text(L.sceneWords(scene.name))
+                Text(title)
             }
             .font(.footnote)
             .foregroundStyle(.secondary)
@@ -83,9 +83,12 @@ struct SceneWordCard: View {
         .accessibilityLabel(Text(label))
     }
 
-    /// "밥집 간판 단어, すし의 す, 초밥". 가나는 일본어로 읽게 한다.
+    /// "스시집 메뉴 단어". 단어가 실린 단계의 이름을 쓴다.
+    private var title: String { L.stepWords(scene: scene.name, step: intro.step.name) }
+
+    /// "스시집 메뉴 단어, いか의 か, 오징어". 가나는 일본어로 읽게 한다.
     private var label: AttributedString {
-        AttributedString("\(L.sceneWords(scene.name)), ")
+        AttributedString("\(title), ")
             + KanaText.japanese(intro.word.text)
             + AttributedString(L.possessive)
             + KanaText.japanese(char)
@@ -93,10 +96,11 @@ struct SceneWordCard: View {
     }
 }
 
-/// 넓이가 모자라면 줄을 바꾸고 줄마다 가운데로 모으는 배치.
+/// 넓이가 모자라면 줄을 바꾸고 줄마다 가운데로(또는 왼쪽으로) 모으는 배치.
 struct CenteredFlow: Layout {
     var spacing: CGFloat = 16
     var lineSpacing: CGFloat = 8
+    var alignment: HorizontalAlignment = .center
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         let rows = rows(width: proposal.width ?? .infinity, subviews: subviews)
@@ -107,7 +111,7 @@ struct CenteredFlow: Layout {
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         var y = bounds.minY
         for row in rows(width: bounds.width, subviews: subviews) {
-            var x = bounds.midX - row.width / 2
+            var x = alignment == .leading ? bounds.minX : bounds.midX - row.width / 2
             for index in row.indices {
                 let size = subviews[index].sizeThatFits(.unspecified)
                 subviews[index].place(
