@@ -76,6 +76,14 @@ struct SceneDetailView: View {
         return store.isInProgress(session) ? .inProgress : .ready
     }
 
+    private func quizLine(_ status: StepStatus) -> String {
+        if status == .locked {
+            return L.quizRowLocked(previous: scene.steps.last?.name ?? "")
+        }
+        let summary = store.quizSummary(for: scene)
+        return L.quizRowSummary(kana: scene.kana.count, words: summary.words, review: summary.review)
+    }
+
     /// 세션 행의 아랫줄 글자: 단계는 그 단계의 새 글자, 종합 퀴즈는 장면의 글자 전부.
     private func kana(_ session: TripSession) -> [String] {
         session.step?.kana ?? scene.kana
@@ -106,8 +114,17 @@ struct SceneDetailView: View {
                     Text(L.sessionName(session))
                         .font(.headline)
                         .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
-                    KanaText(text: kana(session).joined(separator: " "), size: 20)
-                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
+                    if session.isQuiz {
+                        // 퀴즈 행의 아랫줄 (scene-flow.md 6.3).
+                        Text(quizLine(status))
+                            .font(.subheadline.monospacedDigit())
+                            .foregroundStyle(Color.inkSecondary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
+                    } else {
+                        KanaText(text: kana(session).joined(separator: " "), size: 20)
+                            .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
+                    }
                 }
 
                 Spacer(minLength: 0)

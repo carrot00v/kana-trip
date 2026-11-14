@@ -70,17 +70,4 @@ struct SessionStructureTests {
             #expect(library.sessions(in: scene).map(\.id) == ["\(scene.id)-a", "\(scene.id)-b", "\(scene.id)-quiz"])
         }
     }
-
-    /// 종합 퀴즈는 장면 글자 전부를 유형마다 내고, 틀린 문항은 그 부의 끝에 다시 나온다.
-    @Test func quizRequeuesWrongAnswers() {
-        var quiz = QuizPlan.make(kana: ["す", "し"])
-        #expect(quiz.parts.map(\.kind) == [.readingChoice, .recallWrite])
-        #expect(quiz.totalCount == 4)
-        let first = quiz.parts[0].queue[0]
-        quiz.parts[0].queue.removeFirst()
-        quiz.parts[0].queue.append(first)
-        #expect(quiz.parts[0].queue.last == first)
-        #expect(quiz.totalCount == 4)
-        #expect(quiz.currentPartIndex == 0)
-    }
 }

@@ -155,3 +155,34 @@ struct CenteredFlow: Layout {
         return rows
     }
 }
+
+/// 단어 읽기(W)와 퀴즈 읽기 고르기(QD)의 단어 블록 (scene-flow.md 10번 3).
+/// 글자마다 위에 발음 표기 칸, 아래에 글자 칸을 쌓는다. `learned`에 든 글자는 위 칸을 비워 두고,
+/// 그 밖의 글자와 탁음 글자, っ, 한자에는 늘 표기를 붙인다.
+struct WordBlock: View {
+    let word: TripWord
+    let learned: Set<String>
+    let soundOn: Bool
+
+    var body: some View {
+        let compact = word.units.count >= 6
+        // 넘치는 단어(くつをぬいでください 등)는 두 줄로 나눈다.
+        CenteredFlow(spacing: 4, lineSpacing: 8) {
+            ForEach(Array(word.units.enumerated()), id: \.offset) { _, unit in
+                let ruby = !unit.isKanji && learned.contains(unit.kana) ? nil : unit.romaji
+                VStack(spacing: 0) {
+                    Text(ruby ?? " ")
+                        .font(.system(size: 15))
+                        .foregroundStyle(Color.inkSecondary)
+                        .frame(height: 20)
+                    KanaText(text: unit.kana, size: compact ? 48 : 56)
+                        .foregroundStyle(Color.ink)
+                }
+                .frame(width: compact ? 52 : 64)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(KanaText.japanese(unit.kana)) + Text(ruby.map { ", \($0)" } ?? ""))
+                .speaks(unit.kana, enabled: soundOn && !unit.isKanji)
+            }
+        }
+    }
+}

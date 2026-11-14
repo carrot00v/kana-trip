@@ -2,23 +2,29 @@ import SwiftUI
 
 // 세션 화면이 함께 쓰는 뼈대와 작은 부품.
 
-/// 상단 바에 보여 줄 진행. 세션의 구간들, 지금 구간, 그 구간에서 끝낸 항목 수.
+/// 상단 바에 보여 줄 진행. 칸 수, 지금 칸, 그 칸에서 끝낸 항목 수, 오른쪽 이름.
+/// 단계 세션은 [배우기, 단어 읽기] 2칸(scene-flow.md 7.2), 종합 퀴즈는 부 수만큼의 칸과 이름 "퀴즈"(12.3).
 struct PartProgress: Equatable {
-    /// 단계 세션은 [배우기, 단어 읽기], 종합 퀴즈 세션은 [퀴즈].
-    let segments: [SessionPart]
-    let part: SessionPart
+    let segmentCount: Int
+    let current: Int
+    let name: String
     var done: Int
     var total: Int
+    /// VoiceOver에 덧붙일 말(퀴즈의 부 이름).
+    var detail: String?
 
-    static let stepSegments: [SessionPart] = [.learn, .words]
-    static let quizSegments: [SessionPart] = [.quiz]
+    static func step(_ part: SessionPart, done: Int, total: Int) -> PartProgress {
+        PartProgress(segmentCount: 2, current: part == .learn ? 0 : 1, name: L.partName(part), done: done, total: total)
+    }
 
-    /// 칸 하나가 차는 정도. 지금 구간 앞의 칸은 꽉 차고, 뒤의 칸은 비어 있다.
-    func fill(of segment: SessionPart) -> Double {
-        let mine = segments.firstIndex(of: part) ?? 0
-        let other = segments.firstIndex(of: segment) ?? 0
-        if other < mine { return 1 }
-        if other > mine { return 0 }
+    static func quiz(partIndex: Int, partCount: Int, done: Int, total: Int, partName: String?) -> PartProgress {
+        PartProgress(segmentCount: max(partCount, 1), current: partIndex, name: L.partName(.quiz), done: done, total: total, detail: partName)
+    }
+
+    /// 칸 하나가 차는 정도. 지금 칸 앞은 꽉 차고, 뒤는 비어 있다.
+    func fill(of segment: Int) -> Double {
+        if segment < current { return 1 }
+        if segment > current { return 0 }
         return total > 0 ? min(Double(done) / Double(total), 1) : 0
     }
 }
@@ -43,11 +49,11 @@ struct SessionTopBar: View {
 
             HStack(spacing: 8) {
                 HStack(spacing: 4) {
-                    ForEach(progress.segments, id: \.self) { segment in
+                    ForEach(0..<progress.segmentCount, id: \.self) { segment in
                         SegmentBar(fill: progress.fill(of: segment))
                     }
                 }
-                Text(L.partName(progress.part))
+                Text(progress.name)
                     .font(.subheadline)
                     .foregroundStyle(Color.inkSecondary)
                     .lineLimit(1)
@@ -55,7 +61,7 @@ struct SessionTopBar: View {
                     .frame(width: 72, alignment: .trailing)
             }
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel(L.progressLabel(part: progress.part, done: progress.done, total: progress.total))
+            .accessibilityLabel(L.progressLabel(name: progress.name, done: progress.done, total: progress.total, detail: progress.detail))
         }
         .padding(.leading, 4)
         .padding(.trailing, 16)

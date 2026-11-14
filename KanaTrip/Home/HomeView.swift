@@ -216,6 +216,8 @@ struct HomeView: View {
                     stepKanaLine(scene)
                         .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                 }
+                // 글자 줄이 오른쪽 "0/3 ›"보다 먼저 자리를 차지한다 (scene-flow.md 5번 폭 확인).
+                .layoutPriority(1)
 
                 Spacer(minLength: 0)
 

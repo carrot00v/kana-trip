@@ -28,7 +28,7 @@ struct LearnSessionView: View {
 
     private var partProgress: PartProgress {
         let done = run.progress.learnDone
-        return PartProgress(segments: PartProgress.stepSegments, part: .learn, done: kanaList.count { done.contains($0.char) }, total: kanaList.count)
+        return PartProgress.step(.learn, done: kanaList.count { done.contains($0.char) }, total: kanaList.count)
     }
 
     var body: some View {
@@ -49,7 +49,9 @@ struct LearnSessionView: View {
                         SecondaryButton(title: L.rewrite, enabled: attempt.doneCount > 0 || attempt.mistakes > 0) {
                             attempt = WritingAttempt()
                         }
-                        PrimaryButton(title: L.next, enabled: finished) { advance(from: kana, round: round) }
+                        // 마지막 글자의 마지막 따라 쓰기에서는 다음 할 일을 알린다 (scene-flow.md 7.3).
+                        let isLast = round == Self.traceRounds && kana.char == kanaList.last?.char
+                        PrimaryButton(title: isLast ? L.wordsStart : L.next, enabled: finished) { advance(from: kana, round: round) }
                     }
                     .allowsHitTesting(!isDrawing)
                 }

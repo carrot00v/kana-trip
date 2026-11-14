@@ -7,9 +7,9 @@ struct SessionRoute: Identifiable, Hashable {
     var id: String { sessionID }
 }
 
-/// fullScreenCover 하나 안에서 세션 하나를 이어서 보여 준다.
-/// 단계 세션: 배우기 → P3 → 단어 읽기 → C1. 종합 퀴즈 세션: P2 → 퀴즈 → C2(처음 통과) 또는 C1(다시 함).
-/// C1에서 다음 세션으로 넘어갈 때도 같은 덮개 안에서 내용만 바꾼다 (scene-flow.md 2.1).
+/// fullScreenCover 하나 안에서 세션 하나를 이어서 보여 준다 (scene-flow.md 1번).
+/// 단계 세션: 배우기 → 단어 읽기 → C1. 종합 퀴즈 세션: QI → 부 1~3 → C2(처음 통과) 또는 C1(다시 함).
+/// C1에서 다음 세션으로 넘어갈 때도 같은 덮개 안에서 내용만 바꾼다 (2.1).
 struct SessionView: View {
     let initialSession: TripSession
     /// 덮개를 닫고 장면 진입으로 돌아간다.
@@ -24,7 +24,7 @@ struct SessionView: View {
     @State private var stage: Stage?
 
     private enum Stage: Hashable {
-        case learn, wordsIntro, words, quizIntro, quiz
+        case learn, words, quizIntro, quiz
         case sessionDone(RewardGrant)
         case sceneDone(RewardGrant)
     }
@@ -47,29 +47,12 @@ struct SessionView: View {
     private func content(_ run: SessionRun, _ stage: Stage) -> some View {
         switch stage {
         case .learn:
-            LearnSessionView(run: run, onClose: onClose) { self.stage = .wordsIntro }
-        case .wordsIntro:
-            if let step = run.step {
-                PartIntroView(
-                    progress: PartProgress(segments: PartProgress.stepSegments, part: .words, done: 0, total: step.words.count),
-                    title: L.wordsIntroTitle,
-                    message: L.wordsIntroBody(step: step.name, count: step.words.count),
-                    kana: step.kana,
-                    buttonTitle: L.wordsStart,
-                    onClose: onClose
-                ) { self.stage = .words }
-            }
+            // 안내 화면 없이 바로 단어 읽기로 (scene-flow.md 7.3).
+            LearnSessionView(run: run, onClose: onClose) { self.stage = .words }
         case .words:
             WordSessionView(run: run, onClose: onClose) { finish(run) }
         case .quizIntro:
-            PartIntroView(
-                progress: PartProgress(segments: PartProgress.quizSegments, part: .quiz, done: 0, total: run.progress.quiz?.totalCount ?? 0),
-                title: L.quizIntroTitle,
-                message: run.reviewKana.isEmpty ? L.quizIntroBody : L.quizIntroReview(run.reviewKana.count),
-                kana: run.scene.kana,
-                buttonTitle: L.quizStart,
-                onClose: onClose
-            ) { self.stage = .quiz }
+            QuizIntroView(run: run, onClose: onClose) { self.stage = .quiz }
         case .quiz:
             QuizSessionView(run: run, onClose: onClose) { finish(run) }
         case .sessionDone(let grant):
@@ -85,7 +68,6 @@ struct SessionView: View {
         run = next
         switch next.entry {
         case .learn: stage = .learn
-        case .wordsIntro: stage = .wordsIntro
         case .words: stage = .words
         case .quizIntro:
             next.prepareQuiz()
@@ -102,41 +84,75 @@ struct SessionView: View {
     }
 }
 
-/// 구간 안내 (scene-flow.md 7.3). 축하하지 않고 다음 구간에서 할 일만 알린다.
-/// P2는 종합 퀴즈 세션의 첫 화면, P3은 단계 세션의 단어 읽기 앞이다.
-struct PartIntroView: View {
-    let progress: PartProgress
-    let title: String
-    let message: String
-    let kana: [String]
-    let buttonTitle: String
+/// QI 퀴즈 안내 (scene-flow.md 12.5). 무엇이 몇 문항 나오는지 보여 주고 시작하게 한다. 축하하지 않는다.
+struct QuizIntroView: View {
+    let run: SessionRun
     let onClose: () -> Void
     let onStart: () -> Void
 
+    @Environment(ProgressStore.self) private var store
+    @Environment(\.dynamicTypeSize) private var typeSize
+
     var body: some View {
-        SessionScaffold(progress: progress, onClose: onClose) {
-            GeometryReader { geo in
-                ScrollView {
-                    VStack(spacing: 0) {
-                        Text(title)
-                            .font(.title2.bold())
-                            .foregroundStyle(Color.ink)
-                        Text(message)
-                            .font(.body)
-                            .foregroundStyle(Color.inkSecondary)
-                            .padding(.top, 8)
-                        KanaRow(kana: kana, marked: [])
-                            .padding(.top, 24)
+        let quiz = run.progress.quiz
+        let parts = quiz?.parts ?? []
+        SessionScaffold(
+            progress: .quiz(partIndex: 0, partCount: parts.count, done: 0, total: parts.first?.items.count ?? 0, partName: nil),
+            onClose: onClose
+        ) {
+            ScrollView {
+                VStack(spacing: 0) {
+                    if !typeSize.isAccessibilitySize {
+                        // 기본 표정, 입은 아이템. 움직이지 않는다.
+                        GiriView(face: .normal, outfit: store.rewards.equipped, side: 96)
+                            .accessibilityHidden(true)
+                            .padding(.top, 16)
+                            .padding(.bottom, 16)
                     }
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 16)
-                    .padding(.top, geo.size.height / 4)
-                    .frame(maxWidth: .infinity)
+                    Text(L.quizTitle(scene: run.scene.name))
+                        .font(.title2.bold())
+                        .foregroundStyle(Color.ink)
+                    Text(L.quizIntroWithWords)
+                        .font(.body)
+                        .foregroundStyle(Color.inkSecondary)
+                        .padding(.top, 8)
+                    KanaRow(kana: run.scene.kana, marked: [])
+                        .padding(.top, 24)
+                    VStack(spacing: 0) {
+                        ForEach(Array(parts.enumerated()), id: \.offset) { _, part in
+                            HStack {
+                                Text(L.quizPartName(part.kind))
+                                    .foregroundStyle(Color.ink)
+                                Spacer()
+                                Text(L.questionCount(part.items.count))
+                                    .monospacedDigit()
+                                    .foregroundStyle(Color.inkSecondary)
+                            }
+                            .font(.body)
+                            .frame(minHeight: 28)
+                            .accessibilityElement(children: .combine)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 24)
+                    if let review = quiz?.review, !review.isEmpty {
+                        Text(L.reviewIncluded(review))
+                            .font(.subheadline)
+                            .foregroundStyle(Color.ink)
+                            .padding(.top, 16)
+                    }
+                    Text(L.resumeAnytime)
+                        .font(.footnote)
+                        .foregroundStyle(Color.inkSecondary)
+                        .padding(.top, 8)
                 }
-                .scrollBounceBehavior(.basedOnSize)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity)
             }
+            .scrollBounceBehavior(.basedOnSize)
         } bottom: {
-            PrimaryButton(title: buttonTitle, action: onStart)
+            PrimaryButton(title: L.quizStart, action: onStart)
         }
     }
 }

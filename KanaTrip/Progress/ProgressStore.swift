@@ -11,49 +11,6 @@ enum SessionPart: Int, Codable, CaseIterable {
     case words
 }
 
-/// 종합 퀴즈의 문항 유형. 유형마다 화면과 판정이 다르고, 퀴즈는 유형별 부(part)를 차례로 푼다.
-/// 유형을 더하거나 빼려면 여기에 case를 두고 `QuizPlan`과 `QuizSessionView`에 화면을 잇는다.
-/// 최종 유형·문항 수·통과 기준은 docs/content/quiz-rules.md(작성 중)를 따른다.
-enum QuizKind: String, Codable, CaseIterable {
-    /// (가) 글자 보고 발음 고르기 (사지선다).
-    case readingChoice
-    /// (다) 발음 보고 가이드 없이 기억으로 쓰기.
-    case recallWrite
-    // 예정: (나) 발음 보고 글자 고르기, (라) 단어 보고 읽기 또는 뜻 고르기.
-}
-
-/// 종합 퀴즈의 진행 위치. 부마다 큐의 맨 앞이 다음에 낼 항목이고, 틀린 항목은 그 부의 끝으로 간다.
-struct QuizProgress: Codable, Equatable {
-    struct Part: Codable, Equatable {
-        var kind: QuizKind
-        /// 문항 대상. 지금 유형은 모두 글자(가나 한 자)다.
-        var queue: [String]
-        var done: [String] = []
-    }
-
-    /// 이 퀴즈에 내는 글자 전부: 장면의 새 글자 + 복습 글자.
-    var kana: [String]
-    var parts: [Part]
-    /// 한 번이라도 답했는지. 다시 들어갈 때 안내(P2)를 건너뛸지 정한다 (scene-flow.md 2.5).
-    var touched = false
-
-    var doneCount: Int { parts.reduce(0) { $0 + $1.done.count } }
-    /// 다시 나오는 문항은 분모를 늘리지 않는다 (scene-flow.md 7.2).
-    var totalCount: Int { parts.reduce(0) { $0 + Set($1.done + $1.queue).count } }
-    var isFinished: Bool { parts.allSatisfy(\.queue.isEmpty) }
-    /// 지금 풀 부의 자리. 다 끝났으면 nil.
-    var currentPartIndex: Int? { parts.firstIndex { !$0.queue.isEmpty } }
-}
-
-/// 문항 구성. 지금은 뼈대로 (가) 사지선다 → (다) 기억으로 쓰기, 각 부에 퀴즈 글자 전부를 섞어 낸다.
-enum QuizPlan {
-    static let kinds: [QuizKind] = [.readingChoice, .recallWrite]
-
-    static func make(kana: [String]) -> QuizProgress {
-        QuizProgress(kana: kana, parts: kinds.map { QuizProgress.Part(kind: $0, queue: kana.shuffled()) })
-    }
-}
-
 /// 세션 하나의 진행. 항목 단위로 저장한다 (scene-flow.md 2.5, 16번).
 struct SessionProgress: Codable, Equatable {
     var completed = false
@@ -61,9 +18,9 @@ struct SessionProgress: Codable, Equatable {
     var learnDone: [String] = []
     /// 단어 읽기에서 끝낸 단어 (단계 세션).
     var wordsDone: [String] = []
-    /// 종합 퀴즈 진행. 퀴즈 안내(P2)에서 만든다.
+    /// 종합 퀴즈 진행. 퀴즈 안내(QI)에서 문항 목록을 만들어 저장한다 (quiz-rules.md 5.2).
     var quiz: QuizProgress?
-    /// 이 퀴즈에서 틀린 글자(복습 글자를 다시 틀린 것 포함).
+    /// 이 퀴즈에서 틀린 글자(quiz-rules.md 5.3). 항목마다 저장하고, 통과할 때 장면별 틀린 글자와 복습 대기 목록에 반영한다.
     var quizWrong: [String] = []
 
     /// 끝내지 않은 세션을 하다가 나갔는지.
@@ -75,21 +32,24 @@ struct ProgressState: Codable, Equatable {
     /// 1: 장면 1이 공항(よ う こ そ く)이던 때. 2: 장면 1이 밥집 간판(す し と ん か つ).
     /// 3: 장면 2~8 재배정, 옛 밥집(eatery) 장면을 빼고 이자카야(izakaya) 추가.
     /// 4: 흐름 개편안 B. 장면 8개 × 세션 3개(단계 a, 단계 b, 종합 퀴즈), 진도를 세션 id(`sushi-a`, `sushi-quiz`) 단위로 저장.
-    static let currentVersion = 4
+    /// 5: 종합 퀴즈 3부(문항 목록 저장)와 복습 대기 목록(quiz-rules.md 5.4).
+    static let currentVersion = 5
 
     var version = ProgressState.currentVersion
     var soundOn = false
     /// 세션 id → 진행.
     var sessions: [String: SessionProgress] = [:]
-    /// 장면 id → 그 장면 종합 퀴즈에서 틀린 글자. 다음 장면의 종합 퀴즈에 섞는다.
+    /// 장면 id → 그 장면 종합 퀴즈에서 틀린 글자. 퀴즈를 처음 통과할 때 확정한다.
     var wrongKana: [String: [String]] = [:]
+    /// 복습 대기 목록: 글자 → 들어온 장면 번호 (quiz-rules.md 5.4). 히라가나만 있다.
+    var reviewQueue: [String: Int] = [:]
     /// 엔과 아이템 (docs/content/reward-system.md 7번). 버전이 바뀌어 진도를 비워도 남긴다.
     var rewards = RewardState()
 
     init() {}
 
     private enum CodingKeys: String, CodingKey {
-        case version, soundOn, sessions, wrongKana, rewards
+        case version, soundOn, sessions, wrongKana, reviewQueue, rewards
     }
 
     /// 키마다 따로 읽는다. 예전 형식(버전 3 이하, `scenes` 키)도 소리 설정과 엔·아이템은 읽고 진도만 비운다.
@@ -99,6 +59,7 @@ struct ProgressState: Codable, Equatable {
         soundOn = (try? c.decodeIfPresent(Bool.self, forKey: .soundOn)) ?? false
         rewards = (try? c.decodeIfPresent(RewardState.self, forKey: .rewards)) ?? RewardState()
         wrongKana = (try? c.decodeIfPresent([String: [String]].self, forKey: .wrongKana)) ?? [:]
+        reviewQueue = (try? c.decodeIfPresent([String: Int].self, forKey: .reviewQueue)) ?? [:]
         if let sessions = try? c.decodeIfPresent([String: SessionProgress].self, forKey: .sessions) {
             self.sessions = sessions
         } else {
@@ -141,9 +102,6 @@ struct FileProgressStorage: ProgressStorage {
 
 @Observable
 final class ProgressStore {
-    /// 종합 퀴즈에 섞는 앞 장면 복습 글자 수의 상한. PLAN.md 8번 미정 항목의 임시값.
-    static let reviewKanaLimit = 3
-
     private(set) var state: ProgressState
     @ObservationIgnored private let storage: ProgressStorage
     @ObservationIgnored let rewardCatalog: RewardCatalog
@@ -254,10 +212,19 @@ final class ProgressStore {
         return learned
     }
 
-    /// 종합 퀴즈에 섞을 복습 글자: 바로 앞 장면 종합 퀴즈에서 틀린 글자, 틀린 순서로 최대 `reviewKanaLimit`자.
+    /// 종합 퀴즈에 섞을 복습 글자(R): 복습 대기 목록에서 앞 장면에서 들어온 글자를 오래 기다린 순서로 최대 3자 (quiz-rules.md 5.4).
     func reviewKana(for scene: TripScene) -> [String] {
-        guard let previous = library.scene(before: scene) else { return [] }
-        return Array(wrongKana(sceneID: previous.id).filter { !scene.kana.contains($0) }.prefix(Self.reviewKanaLimit))
+        ReviewQueue.pick(from: state.reviewQueue, sceneOrder: scene.order, learnOrder: library.learnOrder(of:))
+    }
+
+    /// 장면 진입의 퀴즈 행에 쓰는 문항 정보: 단어 문항 수와 복습 글자 수. 통과한 퀴즈는 다시 할 때처럼 복습 없이 센다.
+    func quizSummary(for scene: TripScene) -> (words: Int, review: Int) {
+        let quizID = TripSession.quizID(sceneID: scene.id)
+        if let quiz = progress(for: quizID).quiz, !progress(for: quizID).completed {
+            return (quiz.parts.first { $0.kind == .wordReading }?.items.count ?? 0, quiz.review.count)
+        }
+        let review = progress(for: quizID).completed ? [] : reviewKana(for: scene)
+        return (QuizBuilder(library: library, scene: scene, review: review).selectedWords().count, review.count)
     }
 
     // MARK: - 리워드
@@ -303,24 +270,21 @@ final class ProgressStore {
         commit(next)
     }
 
-    fileprivate func recordWrong(_ char: String, sceneID: String) {
-        var list = wrongKana(sceneID: sceneID)
-        guard !list.contains(char) else { return }
-        list.append(char)
-        var next = state
-        next.wrongKana[sceneID] = list
-        commit(next)
-    }
-
     /// 세션 완료를 저장하고, 같은 저장에서 엔을 주고 아이템을 연다 (reward-system.md 6.2).
     /// 재화 지급 키는 세션 id(`sushi-a`, `sushi-b`, `sushi-quiz`)다. 항목 진행은 비우고 틀린 글자만 남긴다.
+    /// 종합 퀴즈면 장면별 틀린 글자를 확정하고 복습 대기 목록을 고친다 (quiz-rules.md 5.4).
     /// - Returns: 이번 지급 결과. 처음 끝낸 세션이 아니면 받은 엔이 0이다.
-    fileprivate func complete(_ session: TripSession, quizWrong: [String]) -> RewardGrant {
+    fileprivate func complete(_ session: TripSession, progress: SessionProgress) -> RewardGrant {
         var next = state
         var done = SessionProgress()
         done.completed = true
-        done.quizWrong = quizWrong
+        done.quizWrong = progress.quizWrong
         next.sessions[session.id] = done
+        if session.isQuiz, let scene = library.scene(of: session) {
+            next.wrongKana[scene.id] = progress.quizWrong
+            ReviewQueue.update(&next.reviewQueue, review: progress.quiz?.review ?? [],
+                               wrong: progress.quizWrong, sceneOrder: scene.order)
+        }
         let grant = RewardRules.settle(completedSessions: next.completedSessionIDs, state: &next.rewards, catalog: rewardCatalog)
         commit(next)
         return grant
@@ -359,7 +323,7 @@ final class SessionRun {
     // MARK: 다시 들어갈 자리 (scene-flow.md 2.5 표)
 
     enum Entry {
-        case learn, wordsIntro, words, quizIntro, quiz
+        case learn, words, quizIntro, quiz
     }
 
     var entry: Entry {
@@ -367,19 +331,23 @@ final class SessionRun {
             return progress.quiz?.touched == true ? .quiz : .quizIntro
         }
         guard Set(step.kana).isSubset(of: progress.learnDone) else { return .learn }
-        return progress.wordsDone.isEmpty ? .wordsIntro : .words
+        return .words
     }
 
-    /// 복습 글자: 퀴즈 글자 가운데 이 장면의 새 글자가 아닌 것.
-    var reviewKana: [String] {
-        (progress.quiz?.kana ?? []).filter { !scene.kana.contains($0) }
+    /// 복습 글자(R).
+    var reviewKana: [String] { progress.quiz?.review ?? [] }
+
+    /// 단계 b 단어 읽기 맨 앞에 다시 읽는 단계 a의 단어: 단계 a 단어의 데이터 순서 첫 단어 (quiz-rules.md 9.2).
+    var rereadWord: TripWord? {
+        guard let step, step.index > 0 else { return nil }
+        return scene.steps.first?.words.first
     }
 
-    /// 단어 읽기 순서: 목표 단어(데이터 순서) → 못 읽는 단어(데이터 순서) (scene-flow.md 12번).
+    /// 단어 읽기 순서: (단계 b는 앞 단계 다시 읽기 단어) → 목표 단어(데이터 순서) → 못 읽는 단어(데이터 순서) (scene-flow.md 10번).
     var orderedWords: [TripWord] {
         guard let step else { return [] }
         let groups = library.wordGroups(for: step)
-        return groups.goal + groups.rest
+        return (rereadWord.map { [$0] } ?? []) + groups.goal + groups.rest
     }
 
     // MARK: 배우기
@@ -392,33 +360,28 @@ final class SessionRun {
 
     // MARK: 종합 퀴즈
 
-    /// 퀴즈 문항을 만든다. 복습 글자는 이때 정해 함께 저장한다.
+    /// 퀴즈 문항 목록을 만들어 저장한다. 복습 글자는 이때 고른다. 끝낸 퀴즈를 다시 하면 복습 글자 없이 만든다 (quiz-rules.md 5.2).
     func prepareQuiz() {
         guard step == nil, progress.quiz == nil else { return }
-        let kana = scene.kana + store.reviewKana(for: scene)
-        mutate { $0.quiz = QuizPlan.make(kana: kana) }
+        let review = isReplay ? [] : store.reviewKana(for: scene)
+        let quiz = library.makeQuiz(for: scene, review: review)
+        mutate { $0.quiz = quiz }
     }
 
-    /// 지금 부의 한 문항 결과. 틀렸으면(가이드를 본 쓰기 포함) 그 부의 끝으로 보내 다시 낸다.
-    func answer(_ char: String, correct: Bool) {
-        if !correct { recordWrong(char) }
+    /// 지금 문항의 결과. 틀렸으면 기록할 글자(quiz-rules.md 5.3)를 틀린 글자에 넣고 그 부의 줄 끝으로 보낸다.
+    func answerCurrent(correct: Bool, wrongKana: String?) {
         mutate { p in
-            guard var quiz = p.quiz, let index = quiz.currentPartIndex else { return }
-            quiz.touched = true
-            quiz.parts[index].queue.removeAll { $0 == char }
-            if correct {
-                if !quiz.parts[index].done.contains(char) { quiz.parts[index].done.append(char) }
-            } else {
-                quiz.parts[index].queue.append(char)
-            }
-            p.quiz = quiz
+            if !correct, let char = wrongKana, !p.quizWrong.contains(char) { p.quizWrong.append(char) }
+            p.quiz?.answerCurrent(correct: correct)
         }
     }
 
     /// 기억으로 쓰기에서 가이드를 본 시점에 부른다. 글자를 완성하기 전에 나가도 기록이 남는다.
     func markGuideUsed(_ char: String) {
-        recordWrong(char)
-        mutate { $0.quiz?.touched = true }
+        mutate { p in
+            if !p.quizWrong.contains(char) { p.quizWrong.append(char) }
+            p.quiz?.touched = true
+        }
     }
 
     // MARK: 단어 읽기
@@ -437,16 +400,10 @@ final class SessionRun {
             none.balance = store.rewards.coins
             return none
         }
-        return store.complete(session, quizWrong: progress.quizWrong)
+        return store.complete(session, progress: progress)
     }
 
     // MARK: 저장
-
-    private func recordWrong(_ char: String) {
-        if !progress.quizWrong.contains(char) { progress.quizWrong.append(char) }
-        if !isReplay { store.recordWrong(char, sceneID: scene.id) }
-        persist()
-    }
 
     private func mutate(_ body: (inout SessionProgress) -> Void) {
         body(&progress)

@@ -28,8 +28,20 @@ struct StepDoneView: View {
                     GoalWordsBlock(title: L.nowReadable, words: goalWords)
                 }
             } else {
-                // 다시 한 종합 퀴즈: 이번에 틀린 글자 밑에 점.
-                KanaRow(kana: run.scene.kana, marked: Set(run.progress.quizWrong))
+                // 다시 한 종합 퀴즈: 이번에 틀린 글자 밑에 점과 안내 한 줄 (scene-flow.md 11번 3).
+                let wrong = run.scene.kana.filter(run.progress.quizWrong.contains)
+                VStack(spacing: 16) {
+                    KanaRow(kana: run.scene.kana, marked: Set(wrong))
+                    if !run.progress.quizWrong.isEmpty {
+                        Text(L.confusedThisTime(run.progress.quizWrong))
+                            .font(.subheadline)
+                            .foregroundStyle(Color.ink)
+                    }
+                }
+                let goalWords = library.goalWords(for: run.scene)
+                if !goalWords.isEmpty {
+                    GoalWordsBlock(title: L.nowReadable, words: goalWords)
+                }
             }
             if grant.coins > 0 {
                 CoinsReceivedLine(received: grant.coins, balance: grant.balance)
@@ -61,7 +73,7 @@ struct StepDoneView: View {
     }
 
     private var summary: String {
-        guard let step = run.step else { return L.sceneSummary(run.scene.kana.count) }
+        guard let step = run.step else { return L.quizAllCorrect(run.progress.quiz?.totalCount ?? 0) }
         return L.stepSummary(kana: step.kana.count, words: step.words.count)
     }
 }
@@ -89,17 +101,19 @@ struct SceneDoneView: View {
         CompletionLayout {
             Text(L.sceneDone(scene.name)).font(.title2.bold())
             Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(Color.inkSecondary)
+            // 틀린 글자 줄 (scene-flow.md 14번). 다음 장면이 있으면 그 퀴즈에 다시 나온다.
+            if !quizWrong.isEmpty {
+                Text(next == nil ? L.confusedKana(quizWrong) : L.wrongKanaReturns(quizWrong))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.ink)
+                    .padding(.top, -4)
+            }
         } detail: {
             if !goalWords.isEmpty {
                 GoalWordsBlock(title: L.readableWords(scene.name), words: goalWords)
             }
             if grant.coins > 0 || !items.isEmpty {
                 rewards(items: items)
-            }
-            if next != nil, !quizWrong.isEmpty {
-                Text(L.wrongKanaReturns(quizWrong))
-                    .font(.subheadline)
-                    .foregroundStyle(Color.ink)
             }
             if let next {
                 Text(L.nextSceneOpened(next.name)).font(.body)

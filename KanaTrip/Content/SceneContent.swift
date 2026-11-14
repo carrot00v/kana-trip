@@ -115,6 +115,12 @@ final class ContentLibrary {
     private let kanaByChar: [String: Kana]
     /// 글자 → 그 글자를 새로 배우는 단계.
     private let stepByKana: [String: TripStep]
+    /// 헷갈리는 글자 쌍 (quiz-rules.md 4.1). 글자 → 짝 글자들. 양방향.
+    private let confusable: [String: Set<String>]
+
+    private struct PairsFile: Decodable {
+        let hiragana: [[String]]
+    }
 
     private struct File: Decodable {
         let title: String
@@ -160,6 +166,24 @@ final class ContentLibrary {
             for char in step.kana where byKana[char] == nil { byKana[char] = step }
         }
         stepByKana = byKana
+
+        var pairs: [String: Set<String>] = [:]
+        if let url = Bundle.main.url(forResource: "confusable_pairs", withExtension: "json"),
+           let data = try? Data(contentsOf: url),
+           let file = try? JSONDecoder().decode(PairsFile.self, from: data) {
+            for pair in file.hiragana where pair.count == 2 {
+                pairs[pair[0], default: []].insert(pair[1])
+                pairs[pair[1], default: []].insert(pair[0])
+            }
+        } else {
+            assertionFailure("confusable_pairs.json을 읽지 못함")
+        }
+        confusable = pairs
+    }
+
+    /// 헷갈리는 짝 글자. 배웠는지는 보지 않는다.
+    func confusablePartners(of char: String) -> Set<String> {
+        confusable[char] ?? []
     }
 
     // MARK: - 장면과 단계 찾기
@@ -187,6 +211,14 @@ final class ContentLibrary {
     /// 같은 장면의 다음 단계. 단계 b면 nil.
     func step(after step: TripStep) -> TripStep? {
         scene(of: step)?.steps.first { $0.index == step.index + 1 }
+    }
+
+    /// 표기로 단어를 찾는다. 두 단계에 겹치는 단어는 없다.
+    func word(text: String) -> TripWord? {
+        for step in steps {
+            if let word = step.words.first(where: { $0.text == text }) { return word }
+        }
+        return nil
     }
 
     func session(id: String) -> TripSession? {

@@ -28,7 +28,7 @@ struct WordSessionView: View {
     var body: some View {
         if let word = current {
             let isLast = doneCount == words.count - 1
-            SessionScaffold(progress: PartProgress(segments: PartProgress.stepSegments, part: .words, done: doneCount, total: words.count), onClose: onClose) {
+            SessionScaffold(progress: PartProgress.step(.words, done: doneCount, total: words.count), onClose: onClose) {
                 content(word).fadeOnChange(of: word.text)
             } bottom: {
                 // 버튼 하나의 문구만 바꾼다. 버튼을 갈아 끼우면 전환 중에 누른 것이 무시된다.
@@ -82,28 +82,8 @@ struct WordSessionView: View {
         .scrollBounceBehavior(.basedOnSize)
     }
 
-    /// 글자마다 위에 발음 표기 칸, 아래에 글자 칸을 쌓는다.
-    /// "이 단계까지의 글자"는 위 칸을 비워 두고, 그 밖의 글자와 탁음 글자, っ, 한자에는 늘 표기를 붙인다.
     private func wordRow(_ word: TripWord) -> some View {
-        let learned = run.step.map { ContentLibrary.shared.kana(through: $0) } ?? []
-        let compact = word.units.count >= 6
-        // 넘치는 단어(くつをぬいでください 등)는 두 줄로 나눈다.
-        return CenteredFlow(spacing: 4, lineSpacing: 8) {
-            ForEach(Array(word.units.enumerated()), id: \.offset) { _, unit in
-                let ruby = !unit.isKanji && learned.contains(unit.kana) ? nil : unit.romaji
-                VStack(spacing: 0) {
-                    Text(ruby ?? " ")
-                        .font(.system(size: 15))
-                        .foregroundStyle(Color.inkSecondary)
-                        .frame(height: 20)
-                    KanaText(text: unit.kana, size: compact ? 48 : 56)
-                }
-                .frame(width: compact ? 52 : 64)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text(KanaText.japanese(unit.kana)) + Text(ruby.map { ", \($0)" } ?? ""))
-                .speaks(unit.kana, enabled: store.soundOn && !unit.isKanji)
-            }
-        }
+        WordBlock(word: word, learned: run.step.map { ContentLibrary.shared.kana(through: $0) } ?? [], soundOn: store.soundOn)
     }
 
     private func advance(from word: TripWord) {

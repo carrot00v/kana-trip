@@ -87,9 +87,38 @@ enum L {
     // MARK: 퀴즈
     static let choiceQuestion = "이 글자의 발음은?"
     static let choiceCorrect = "맞아요"
+    /// 로마자가 n으로 끝나면 받침으로 보고 "이에요" (scene-flow.md 13.1).
     static func choiceAnswer(_ romaji: String) -> String {
-        romaji == "n" ? "정답은 n이에요" : "정답은 \(romaji)예요"
+        romaji.hasSuffix("n") ? "정답은 \(romaji)이에요" : "정답은 \(romaji)예요"
     }
+    static let wordQuestion = "이 단어의 읽기는?"
+
+    // MARK: 종합 퀴즈 (scene-flow.md 12, 13번)
+    static func quizPartName(_ kind: QuizKind) -> String {
+        switch kind {
+        case .readingChoice: "발음 고르기"
+        case .wordReading: "읽기 고르기"
+        case .recallWrite: "기억으로 쓰기"
+        }
+    }
+    static func partStart(name: String, count: Int) -> String { "여기부터 \(name) \(count)문항" }
+    static func partStartLabel(name: String, count: Int) -> String { "여기부터 \(name), \(count)문항" }
+    static func retryRemaining(_ n: Int) -> String { "다시 풀기 · \(n)개 남음" }
+    static func quizTitle(scene: String) -> String { "\(scene) 종합 퀴즈" }
+    static let quizIntroWithWords = "배운 글자와 단어를 섞어 물어요"
+    static func questionCount(_ n: Int) -> String { "\(n)문항" }
+    static func reviewIncluded(_ kana: [String]) -> String { "지난 장면에서 헷갈린 글자 \(kana.joined(separator: ", "))도 나와요" }
+    static let resumeAnytime = "중간에 나가도 이어서 할 수 있어요"
+    static func quizRowSummary(kana: Int, words: Int, review: Int) -> String {
+        "글자 \(kana)자 · 단어 \(words)개" + (review > 0 ? " · 복습 \(review)자" : "")
+    }
+    static func quizRowLocked(previous: String) -> String { "\(previous)까지 끝내면 열려요" }
+    static func quizAllCorrect(_ n: Int) -> String { "\(n)문항을 모두 맞혔어요" }
+    static func confusedThisTime(_ kana: [String]) -> String {
+        let particle = kana.last == "ん" ? "을" : "를"
+        return "\(kana.joined(separator: ", "))\(particle) 이번에 헷갈렸어요"
+    }
+    static func confusedKana(_ kana: [String]) -> String { "헷갈린 글자 \(kana.joined(separator: ", "))" }
     static let recallQuestion = "이 발음의 글자를 쓰세요"
     static let recallHint = "기억나는 대로 한 획씩 쓰세요"
     static let guideOn = "가이드를 보고 따라 쓰세요"
@@ -165,7 +194,9 @@ enum L {
     // MARK: VoiceOver
     static let close = "닫기"
     static let closeHint = "진행은 저장돼요"
-    static func progressLabel(part: SessionPart, done: Int, total: Int) -> String { "\(partName(part)), \(total)개 중 \(done)개" }
+    static func progressLabel(name: String, done: Int, total: Int, detail: String?) -> String {
+        "\(name), \(total)개 중 \(done)개" + (detail.map { ", \($0)" } ?? "")
+    }
     static let questionGlyph = "문제 글자"
     static let tipPrefix = "쓰기 포인트"
     static let locked = "잠김"

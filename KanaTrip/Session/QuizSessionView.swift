@@ -1,114 +1,211 @@
 import SwiftUI
 
-/// 종합 퀴즈 세션. `QuizProgress`의 부(유형)를 차례로 풀고, 틀린 항목은 그 부의 끝에 다시 나온다.
-/// 문항은 장면의 새 글자 전부 + 앞 장면 복습 글자이고, 퀴즈 안내(P2)에서 `SessionRun.prepareQuiz()`가 만든다.
-/// 유형을 더할 때는 `QuizKind`에 case를 두고 `loadNext()`에서 화면을 잇는다.
+/// 종합 퀴즈 세션의 문항 화면들. 부(유형)를 차례로 풀고, 틀린 문항은 그 부의 끝에 다시 나온다 (quiz-rules.md 5.1, scene-flow.md 12번).
+/// 문항 목록은 QI에서 `SessionRun.prepareQuiz()`가 만들어 저장한다. 유형을 더할 때는 `QuizKind`와 `content(_:)`에 잇는다.
 struct QuizSessionView: View {
     let run: SessionRun
     let onClose: () -> Void
     let onFinished: () -> Void
 
-    @State private var item: Item?
+    /// 지금 화면에 낸 문항과 그 문항이 속한 부. 답한 결과는 바로 저장하지만 화면은 "다음"을 누를 때까지 그대로 둔다.
+    @State private var shown: (item: QuizItem, partIndex: Int, header: QuizPartHeader)?
     @State private var itemSerial = 0
 
-    /// 지금 화면에 낸 항목. 답한 결과는 바로 저장하지만 화면은 "다음"을 누를 때까지 그대로 둔다.
-    private enum Item {
-        case choice(Kana, options: [String])
-        case write(Kana)
-    }
-
-    private var partProgress: PartProgress {
-        let quiz = run.progress.quiz
-        return PartProgress(segments: PartProgress.quizSegments, part: .quiz, done: quiz?.doneCount ?? 0, total: quiz?.totalCount ?? 0)
-    }
+    private var quiz: QuizProgress? { run.progress.quiz }
 
     var body: some View {
         Group {
-            switch item {
-            case .choice(let kana, let options):
-                ChoiceQuestionView(
-                    kana: kana, options: options, progress: partProgress, onClose: onClose,
-                    onAnswered: { correct in run.answer(kana.char, correct: correct) },
-                    onNext: loadNext
-                )
-                .id(itemSerial)
-            case .write(let kana):
-                RecallWriteView(
-                    kana: kana, progress: partProgress, onClose: onClose,
-                    onGuideUsed: { run.markGuideUsed(kana.char) },
-                    // 가이드를 본 글자는 틀린 것으로 보고 부의 끝에 다시 낸다.
-                    onCompleted: { usedGuide in run.answer(kana.char, correct: !usedGuide) },
-                    onNext: loadNext
-                )
-                .id(itemSerial)
-            case nil:
+            if let shown, let quiz {
+                content(shown.item, partIndex: shown.partIndex, header: shown.header, quiz: quiz)
+                    .id(itemSerial)
+            } else {
                 Color.appBackground
             }
         }
         .fadeOnChange(of: itemSerial)
         .onAppear {
-            if item == nil { loadNext() }
+            if shown == nil { loadNext() }
         }
+    }
+
+    @ViewBuilder
+    private func content(_ item: QuizItem, partIndex: Int, header: QuizPartHeader, quiz: QuizProgress) -> some View {
+        let part = quiz.parts[partIndex]
+        let progress = PartProgress.quiz(partIndex: partIndex, partCount: quiz.parts.count,
+                                         done: part.done.count, total: part.items.count, partName: L.quizPartName(part.kind))
+        // 마지막 문항을 맞히면 "완료" (scene-flow.md 12.6).
+        let nextTitle = quiz.isFinished ? L.done : L.next
+        let library = ContentLibrary.shared
+        switch item.kind {
+        case .readingChoice:
+            if let char = item.kana, let kana = library.kana(char) {
+                ChoiceQuestionView(
+                    header: header, question: L.choiceQuestion, item: item, progress: progress,
+                    nextTitle: nextTitle, singleColumn: false, onClose: onClose,
+                    onAnswered: { picked in answer(item, picked: picked) }, onNext: loadNext
+                ) { answered in
+                    GlyphProblem(kana: kana, answered: answered)
+                }
+            }
+        case .wordReading:
+            if let text = item.word, let word = library.word(text: text) {
+                // 보기 가운데 하나라도 2열 칸에 안 들어가면 한 줄 목록으로 (scene-flow.md 13.5).
+                let long = ([item.answer] + item.wrongs.map(\.romaji)).contains { $0.count > 10 }
+                ChoiceQuestionView(
+                    header: header, question: L.wordQuestion, item: item, progress: progress,
+                    nextTitle: nextTitle, singleColumn: long, onClose: onClose,
+                    onAnswered: { picked in answer(item, picked: picked) }, onNext: loadNext
+                ) { answered in
+                    WordProblem(word: word, learned: QuizBuilder.learned(through: run.scene, library: library), answered: answered)
+                }
+            }
+        case .recallWrite:
+            if let char = item.kana, let kana = library.kana(char) {
+                RecallWriteView(
+                    kana: kana, header: header, progress: progress, nextTitle: nextTitle, onClose: onClose,
+                    onGuideUsed: { run.markGuideUsed(kana.char) },
+                    // 가이드를 본 글자는 틀린 것으로 보고 부의 끝에 다시 낸다.
+                    onCompleted: { usedGuide in run.answerCurrent(correct: !usedGuide, wrongKana: kana.char) },
+                    onNext: loadNext
+                )
+            }
+        }
+    }
+
+    private func answer(_ item: QuizItem, picked: String) {
+        let correct = picked == item.answer
+        run.answerCurrent(correct: correct, wrongKana: correct ? nil : item.wrongKana(picked: picked))
     }
 
     private func loadNext() {
-        let library = ContentLibrary.shared
-        guard let quiz = run.progress.quiz else { return }
-        itemSerial += 1
-        guard let index = quiz.currentPartIndex else {
-            item = nil
-            onFinished()
+        guard let quiz, let partIndex = quiz.currentPartIndex, let item = quiz.currentItem else {
+            shown = nil
+            if quiz?.isFinished == true { onFinished() }
             return
         }
-        let part = quiz.parts[index]
-        guard let char = part.queue.first, let kana = library.kana(char) else { return }
-        switch part.kind {
-        case .readingChoice: item = .choice(kana, options: ChoiceOptions.make(for: kana, library: library))
-        case .recallWrite: item = .write(kana)
+        itemSerial += 1
+        shown = (item, partIndex, QuizPartHeader(quiz: quiz, partIndex: partIndex))
+        if case .partStart(let name, let count) = shown?.header {
+            AccessibilityNotification.Announcement(L.partStartLabel(name: name, count: count)).post()
         }
     }
 }
 
-/// 사지선다 선택지 (scene-flow.md 10.1). 정답 하나와 오답 셋, 자리는 문항마다 섞는다.
-enum ChoiceOptions {
-    static let count = 4
+/// 부 머리 줄 (scene-flow.md 12.4).
+enum QuizPartHeader: Equatable {
+    /// 두 번째 부부터 부의 첫 문항: "여기부터 {부 이름} {m}문항".
+    case partStart(name: String, count: Int)
+    /// "{부 이름} {k} / {m}".
+    case position(name: String, index: Int, count: Int)
+    /// "다시 풀기 · {남은 수}개 남음".
+    case retry(remaining: Int)
 
-    /// 오답은 아래 순서로 채운다. 같은 로마자는 두 번 나오지 않는다.
-    /// 1. 그 글자가 배정된 단계의 다른 새 글자 전부(섞은 순서). 복습 글자도 원래 단계 기준이다.
-    /// 2. 같은 장면의 다른 단계 글자에서 무작위.
-    /// 3. 앞 장면들의 새 글자에서 무작위.
-    /// 4. 다음 장면의 새 글자에서 무작위.
-    static func make(for kana: Kana, library: ContentLibrary) -> [String] {
-        var options = [kana.romaji]
-        func add(_ chars: [String]) {
-            for char in chars.shuffled() where options.count < count {
-                guard let romaji = library.kana(char)?.romaji, !options.contains(romaji) else { continue }
-                options.append(romaji)
+    init(quiz: QuizProgress, partIndex: Int) {
+        let part = quiz.parts[partIndex]
+        let name = L.quizPartName(part.kind)
+        guard let id = part.queue.first else {
+            self = .position(name: name, index: part.items.count, count: part.items.count)
+            return
+        }
+        if part.isRetrying {
+            self = .retry(remaining: part.queue.filter(part.missed.contains).count)
+            return
+        }
+        let index = (part.items.firstIndex { $0.id == id } ?? 0) + 1
+        self = index == 1 && partIndex > 0 ? .partStart(name: name, count: part.items.count)
+            : .position(name: name, index: index, count: part.items.count)
+    }
+}
+
+struct QuizPartHeaderView: View {
+    let header: QuizPartHeader
+
+    var body: some View {
+        Group {
+            switch header {
+            case .partStart(let name, let count):
+                Text(L.partStart(name: name, count: count))
+                    .bold()
+                    .foregroundStyle(Color.ink)
+            case .position(let name, let index, let count):
+                Text("\(name) \(index) / \(count)")
+                    .monospacedDigit()
+                    .foregroundStyle(Color.inkSecondary)
+            case .retry(let remaining):
+                HStack(spacing: 4) {
+                    Image(systemName: "arrow.counterclockwise")
+                    Text(L.retryRemaining(remaining))
+                }
+                .foregroundStyle(Color.inkSecondary)
             }
         }
-        if let step = library.homeStep(of: kana.char), let scene = library.scene(of: step) {
-            add(step.kana)
-            add(scene.steps.filter { $0.id != step.id }.flatMap(\.kana))
-            add(Array(library.kana(before: scene)))
-            if let next = library.scene(after: scene) { add(next.kana) }
-        }
-        return options.shuffled()
+        .font(.footnote)
+        .frame(maxWidth: .infinity, minHeight: 18, maxHeight: 18, alignment: .leading)
+        .padding(.horizontal, 20)
+        .padding(.top, 8)
     }
 }
 
-// MARK: - Q1 사지선다
-
-struct ChoiceQuestionView: View {
+/// QA의 문제: 획 데이터로 그린 글자 160pt.
+private struct GlyphProblem: View {
     let kana: Kana
-    let options: [String]
-    let progress: PartProgress
-    let onClose: () -> Void
-    let onAnswered: (Bool) -> Void
-    let onNext: () -> Void
+    let answered: Bool
 
     @Environment(ProgressStore.self) private var store
+
+    var body: some View {
+        VStack(spacing: 8) {
+            KanaGlyphView(kana: kana, side: 160)
+            // 답하기 전에는 소리가 답을 알려 주므로 아이콘도 재생도 없다.
+            SpeakerBadge().opacity(answered && store.soundOn ? 1 : 0)
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(answered ? Text(KanaText.japanese(kana.char)) : Text(L.questionGlyph))
+        .speaks(kana.char, enabled: answered && store.soundOn)
+    }
+}
+
+/// QD의 문제: 단어 읽기(W)와 같은 단어 블록. 답한 뒤 아래에 뜻.
+private struct WordProblem: View {
+    let word: TripWord
+    let learned: Set<String>
+    let answered: Bool
+
+    @Environment(ProgressStore.self) private var store
+
+    var body: some View {
+        VStack(spacing: 8) {
+            WordBlock(word: word, learned: learned, soundOn: store.soundOn)
+            Text(word.meaning)
+                .font(.body)
+                .foregroundStyle(Color.inkSecondary)
+                .frame(height: 26)
+                .opacity(answered ? 1 : 0)
+                .accessibilityHidden(!answered)
+        }
+        .speaks(word.text, enabled: answered && store.soundOn)
+    }
+}
+
+// MARK: - QA·QD 고르기
+
+struct ChoiceQuestionView<Problem: View>: View {
+    let header: QuizPartHeader
+    let question: String
+    let item: QuizItem
+    let progress: PartProgress
+    let nextTitle: String
+    /// 보기를 한 줄 목록으로 그릴지 (긴 로마자 단어).
+    let singleColumn: Bool
+    let onClose: () -> Void
+    let onAnswered: (String) -> Void
+    let onNext: () -> Void
+    @ViewBuilder let problem: (_ answered: Bool) -> Problem
+
     @Environment(\.dynamicTypeSize) private var typeSize
     @State private var picked: String?
+    /// 보기 자리는 문항이 나올 때마다 섞는다. 다시 내는 문항도 새로 섞인다.
+    @State private var options: [String] = []
     @State private var correctTick = 0
     @State private var wrongTick = 0
 
@@ -116,59 +213,57 @@ struct ChoiceQuestionView: View {
 
     var body: some View {
         SessionScaffold(progress: progress, onClose: onClose) {
-            VStack(spacing: 8) {
+            VStack(spacing: 0) {
+                QuizPartHeaderView(header: header)
                 ScrollView {
-                    VStack(spacing: 24) {
-                        Text(L.choiceQuestion)
+                    VStack(spacing: 16) {
+                        Text(question)
                             .font(.headline)
+                            .foregroundStyle(Color.ink)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 20)
                             .padding(.top, 8)
-
-                        VStack(spacing: 8) {
-                            KanaGlyphView(kana: kana, side: 160)
-                            // 답하기 전에는 소리가 답을 알려 주므로 아이콘도 재생도 없다.
-                            SpeakerBadge().opacity(answered && store.soundOn ? 1 : 0)
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityLabel(answered ? Text(KanaText.japanese(kana.char)) : Text(L.questionGlyph))
-                        .speaks(kana.char, enabled: answered && store.soundOn)
+                        problem(answered)
                     }
                 }
                 .scrollBounceBehavior(.basedOnSize)
 
                 verdict
+                    .padding(.bottom, 12)
 
-                let columns = typeSize.isAccessibilitySize ? 1 : 2
+                let columns = typeSize.isAccessibilitySize || singleColumn ? 1 : 2
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columns), spacing: 12) {
                     ForEach(options, id: \.self) { option in
-                        choice(option)
+                        choice(option, compact: columns == 1)
                     }
                 }
                 .padding(.horizontal, 16)
             }
         } bottom: {
-            PrimaryButton(title: L.next, enabled: answered, action: onNext)
+            PrimaryButton(title: nextTitle, enabled: answered, action: onNext)
         }
         .sensoryFeedback(.success, trigger: correctTick)
         .sensoryFeedback(.error, trigger: wrongTick)
+        .onAppear {
+            if options.isEmpty { options = ([item.answer] + item.wrongs.map(\.romaji)).shuffled() }
+        }
     }
 
     @ViewBuilder
     private var verdict: some View {
         if let picked {
-            if picked == kana.romaji {
+            if picked == item.answer {
                 VerdictLine(kind: .good, text: L.choiceCorrect)
             } else {
-                VerdictLine(kind: .bad, text: L.choiceAnswer(kana.romaji))
+                VerdictLine(kind: .bad, text: L.choiceAnswer(item.answer))
             }
         } else {
             Color.clear.frame(height: VerdictLine.height)
         }
     }
 
-    private func choice(_ option: String) -> some View {
-        let isAnswer = option == kana.romaji
+    private func choice(_ option: String, compact: Bool) -> some View {
+        let isAnswer = option == item.answer
         let isPicked = option == picked
         // 답한 뒤: 정답 칸은 초록, 잘못 고른 칸은 빨강 외곽선(3pt), 나머지는 흐리게.
         let mark: (icon: String, color: Color)? = !answered ? nil
@@ -182,19 +277,22 @@ struct ChoiceQuestionView: View {
             Text(option)
                 .font(.title2.bold())
                 .foregroundStyle(Color.ink)
-                .frame(maxWidth: .infinity, minHeight: 72)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .padding(.horizontal, 12)
+                .frame(maxWidth: .infinity, minHeight: compact && singleColumn ? 52 : 72)
                 .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 16))
                 .cardOutline(
                     cornerRadius: 16,
                     color: mark?.color ?? .outline,
                     lineWidth: mark == nil ? AppStyle.outlineWidth : AppStyle.verdictOutlineWidth
                 )
-                .overlay(alignment: .topTrailing) {
+                .overlay(alignment: singleColumn ? .trailing : .topTrailing) {
                     if let mark {
                         Image(systemName: mark.icon)
                             .font(.system(size: 20))
                             .foregroundStyle(mark.color)
-                            .padding(8)
+                            .padding(singleColumn ? 16 : 8)
                             .accessibilityHidden(true)
                     }
                 }
@@ -215,21 +313,23 @@ struct ChoiceQuestionView: View {
     private func pick(_ option: String) {
         guard picked == nil else { return }
         picked = option
-        let correct = option == kana.romaji
+        let correct = option == item.answer
         if correct { correctTick += 1 } else { wrongTick += 1 }
-        AccessibilityNotification.Announcement(correct ? L.choiceCorrect : L.choiceAnswer(kana.romaji)).post()
-        onAnswered(correct)
+        AccessibilityNotification.Announcement(correct ? L.choiceCorrect : L.choiceAnswer(item.answer)).post()
+        onAnswered(option)
     }
 }
 
-// MARK: - Q2 기억으로 쓰기
+// MARK: - QC 기억으로 쓰기
 
 struct RecallWriteView: View {
     /// 한 글자에서 획을 이만큼 틀리면 가이드가 켜진다.
     static let mistakesBeforeGuide = 3
 
     let kana: Kana
+    let header: QuizPartHeader
     let progress: PartProgress
+    let nextTitle: String
     let onClose: () -> Void
     let onGuideUsed: () -> Void
     let onCompleted: (_ usedGuide: Bool) -> Void
@@ -247,11 +347,11 @@ struct RecallWriteView: View {
     var body: some View {
         SessionScaffold(progress: progress, onClose: onClose) {
             VStack(spacing: 8) {
+                QuizPartHeaderView(header: header)
                 Text(L.recallQuestion)
                     .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
-                    .padding(.top, 8)
 
                 HStack(spacing: 4) {
                     Text(kana.romaji).font(.system(size: 48))
@@ -289,7 +389,7 @@ struct RecallWriteView: View {
         } bottom: {
             Group {
                 SecondaryButton(title: L.showGuide, enabled: !guideOn && !finished, action: turnGuideOn)
-                PrimaryButton(title: L.next, enabled: finished, action: onNext)
+                PrimaryButton(title: nextTitle, enabled: finished, action: onNext)
             }
             .allowsHitTesting(!isDrawing)
         }
