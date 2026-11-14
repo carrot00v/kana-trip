@@ -6,7 +6,7 @@
 2. 남는 키가 없는지(쓰기 포인트, 쌍 짚기)
 3. 글자 수: 공백과 문장부호를 포함해 센다. 문장은 마침표·물음표 뒤 공백으로 나눈다.
    - 한 문장 22자, 말풍선 하나 2문장
-   - 단어 설명 40자, 장면 소개 26자, 쓰기 포인트 48자(첫 문장은 앞 28자 안), 쌍 짚기 28자
+   - 단어 설명 40자, 장면 소개 26자, 쓰기 포인트 44자(첫 문장은 한 문장 상한 22자 = 375×667pt QC의 2줄), 쌍 짚기 28자
 4. 쓰지 않는 기호(!, ~, 이모지)
 5. 문서(giri-lines.md)와 데이터가 같은지: tools/build_giri_lines.py를 다시 돌릴 필요가 없는지
 상한을 넘는 대사는 고치지 않고 목록으로 보고한다(종료 코드 1).
@@ -25,8 +25,9 @@ KANA = list("あいうえおかきくけこさしすせそたちつてとなに�
 
 SENTENCE = 22
 SENTENCES = 2
-LIMITS = {"단어 설명": 40, "장면 소개": 26, "쓰기 포인트": 48, "쌍 짚기": 28}
-TIP_FIRST = 28
+# 쓰기 포인트: 96pt 기리 옆 4줄 = 11자 × 4 (giri-companion.md 2.3, 2026-11-15에 48자에서 낮춤).
+# 쓰기 포인트의 첫 문장은 375×667pt QC의 2줄(22자) 안에 든다. 한 문장 22자(SENTENCE) 검사가 이것을 함께 본다.
+LIMITS = {"단어 설명": 40, "장면 소개": 26, "쓰기 포인트": 44, "쌍 짚기": 28}
 
 problems: list[str] = []
 over: list[str] = []
@@ -46,8 +47,6 @@ def check_text(kind: str, key: str, text: str) -> None:
     for s in parts:
         if len(s) > SENTENCE:
             over.append(f"{where}: 문장 {len(s)}자 > {SENTENCE}자  \"{s}\"")
-    if kind == "쓰기 포인트" and parts and len(parts[0]) > TIP_FIRST:
-        over.append(f"{where}: 첫 문장 {len(parts[0])}자가 앞 {TIP_FIRST}자를 넘음  \"{parts[0]}\"")
     if re.search(r"[!~！～]|[\U0001F300-\U0001FAFF☀-➿]", text):
         problems.append(f"{where}: 쓰지 않는 기호  \"{text}\"")
 

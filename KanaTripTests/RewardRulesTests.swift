@@ -277,6 +277,37 @@ struct RewardStorageTests {
         #expect(store.rewards.equipped == ["hand": "sushi"])
     }
 
+    /// 2026-11-15에 아이템에서 뺀 とんかつ를 이미 산 진행 데이터: 그 아이템은 무시하고, 입고 있던 손 슬롯은 비운다.
+    /// 엔과 다른 아이템은 그대로이고, 대신 들어온 おしんこ는 열린 채 살 수 있다 (word-images.md 4.2).
+    @Test func removedTonkatsuItemIsIgnored() throws {
+        let storage = MemoryStorage()
+        let done = #"{"completed": true, "learnDone": [], "wordsDone": [], "quizWrong": []}"#
+        storage.raw = Data("""
+        {"version": \(ProgressState.currentVersion), "sessions": {
+            "sushi-a": \(done), "sushi-b": \(done), "sushi-quiz": \(done),
+            "tonkatsu-a": \(done), "tonkatsu-b": \(done), "tonkatsu-quiz": \(done)},
+         "rewards": {"coins": 300, "paid": ["sushi-a", "sushi-b", "sushi-quiz", "scene/sushi",
+                                            "tonkatsu-a", "tonkatsu-b", "tonkatsu-quiz", "scene/tonkatsu"],
+                     "owned": ["sushi", "tonkatsu"], "equipped": {"hat": "chef_hat", "hand": "tonkatsu"}}}
+        """.utf8)
+        let store = ProgressStore(storage: storage)
+        let catalog = store.rewardCatalog
+        #expect(catalog.item(id: "tonkatsu") == nil)
+        #expect(store.rewards.coins == 300)
+        #expect(store.rewards.equippedID(.hand) == nil)
+        #expect(store.rewards.equippedID(.hat) == "chef_hat")
+        let oshinko = try #require(catalog.item(id: "oshinko"))
+        #expect(oshinko.sceneID == "tonkatsu" && oshinko.slot == .hand)
+        #expect(RewardRules.isForSale(oshinko, state: store.rewards))
+        #expect(Set(RewardRules.buyableItems(state: store.rewards, catalog: catalog).map(\.id)) == ["noren", "oshinko", "ohitsu"])
+        // 남은 아이템을 모두 주는 지급에도 목록에 없는 id는 다시 들어오지 않는다.
+        #expect(catalog.items.allSatisfy { $0.id != "tonkatsu" })
+        // 저장에 남아도 입을 수 없다.
+        var state = store.rewards
+        state.equipped["hand"] = "tonkatsu"
+        #expect(RewardRules.sanitized(state, catalog: catalog).equippedID(.hand) == nil)
+    }
+
     /// 진도 부분을 읽지 못해도 엔과 아이템은 남는다.
     @Test func unreadableProgressKeepsRewards() {
         let storage = MemoryStorage()

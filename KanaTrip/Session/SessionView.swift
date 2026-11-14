@@ -99,12 +99,13 @@ struct QuizIntroView: View {
         ) {
             ScrollView {
                 VStack(spacing: 0) {
-                    // 기리가 퀴즈를 안내한다(80pt, 말하기). 지금의 가운데 기리와 설명 줄을 대신한다 (giri-companion.md 3.7).
+                    // 기리가 퀴즈를 안내한다(120pt, 말하기, 최대 4줄). 지금의 가운데 기리와 설명 줄을 대신한다 (giri-companion.md 3.7).
                     GiriSpeechRow(
                         pose: .talk,
                         text: GiriSpeech.quizIntro(scene: run.scene.name, isReplay: run.isReplay),
-                        size: 80,
-                        maxLines: 3
+                        size: 120,
+                        maxLines: 4,
+                        expandsAtLargeType: true
                     )
                     .padding(.top, 16)
                     VStack(spacing: 0) {

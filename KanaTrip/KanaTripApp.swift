@@ -10,9 +10,11 @@ struct KanaTripApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
-                .environment(store)
-                .appStyle()
+            ScreenClassReader {
+                HomeView()
+                    .environment(store)
+                    .appStyle()
+            }
         }
     }
 }

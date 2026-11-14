@@ -24,14 +24,6 @@ struct SceneDetailView: View {
         ScrollViewReader { proxy in
             List {
                 GiriListBubble(text: GiriSpeech.scene(store.giriSceneTurn(scene)))
-                // 장면 그림에 김이 있는 장면만: 정지 그림 + 움직이는 김 (Lottie). 파일이 없는 장면은 그리지 않는다.
-                if SteamingSceneArt.isAvailable(sceneID: scene.id) {
-                    Section {
-                        SteamingSceneArt(sceneID: scene.id)
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(Color.clear)
-                    }
-                }
                 ForEach(library.sessions(in: scene)) { session in
                     Section {
                         sessionRow(session)
@@ -63,11 +55,9 @@ struct SceneDetailView: View {
         .navigationTitle(scene.name)
         .navigationBarTitleDisplayMode(.large)
         .safeAreaInset(edge: .bottom) {
-            // 기리 줄 + 주 버튼 (giri-companion.md 3.3). 장면 그림이 움직이면 기리는 숨쉬지 않는다 (5.3).
-            GiriBottomDock(
-                text: GiriSpeech.scene(store.giriSceneTurn(scene)),
-                breathes: !SteamingSceneArt.isAvailable(sceneID: scene.id)
-            ) {
+            // 기리 줄 + 주 버튼 (giri-companion.md 3.3). 장면 그림 움직임(김 카드)은 단어 그림으로 옮겨(word-art.md 7번)
+            // 이 화면의 반복 움직임은 기리 숨쉬기 하나다.
+            GiriBottomDock(text: GiriSpeech.scene(store.giriSceneTurn(scene))) {
                 let next = store.nextSession(in: scene)
                 if let next {
                     PrimaryButton(title: L.stepAction(L.sessionName(next), resume: store.isInProgress(next))) {

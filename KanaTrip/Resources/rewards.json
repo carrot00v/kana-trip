@@ -1,5 +1,5 @@
 {
-  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2). 히라가나 16개만, 장면 순서(개편안 B). 장면의 종합 퀴즈({장면 id}-quiz)를 처음 통과하면 그 장면의 두 아이템이 열린다. 화면용 짧은 이름은 PLAN.md 8번 미정. units의 っ 표기는 단어 데이터(きっぷ)와 같다.",
+  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2). 히라가나 16개만, 장면 순서(개편안 B). 장면의 종합 퀴즈({장면 id}-quiz)를 처음 통과하면 그 장면의 두 아이템이 열린다. 화면용 짧은 이름은 PLAN.md 8번 미정. units의 っ 표기는 단어 데이터(きっぷ)와 같다. とんかつ는 2026-11-15에 아이템에서 빼고 단어 그림으로만 쓴다(docs/content/word-images.md 4.1·4.2). 돈카츠집 손 아이템은 おしんこ.",
   "items": [
     {
       "id": "chef_hat",
@@ -58,29 +58,29 @@
       ]
     },
     {
-      "id": "tonkatsu",
+      "id": "oshinko",
       "slot": "hand",
-      "kana": "とんかつ",
-      "nameKo": "돈카츠 한 조각",
+      "kana": "おしんこ",
+      "nameKo": "절임 반찬",
       "sceneID": "tonkatsu",
       "isDefault": false,
       "price": 300,
       "units": [
         {
-          "kana": "と",
-          "romaji": "to"
+          "kana": "お",
+          "romaji": "o"
+        },
+        {
+          "kana": "し",
+          "romaji": "shi"
         },
         {
           "kana": "ん",
           "romaji": "n"
         },
         {
-          "kana": "か",
-          "romaji": "ka"
-        },
-        {
-          "kana": "つ",
-          "romaji": "tsu"
+          "kana": "こ",
+          "romaji": "ko"
         }
       ]
     },

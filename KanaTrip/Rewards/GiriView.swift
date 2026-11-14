@@ -52,7 +52,7 @@ enum RewardArt {
         "red_scarf": "line.diagonal",
         "noren": "storefront.fill",
         "sushi": "fish.fill",
-        "tonkatsu": "fork.knife",
+        "oshinko": "carrot.fill",
         "ohitsu": "shippingbox.fill",
         "kitsune": "takeoutbag.and.cup.and.straw.fill",
         "tasuki": "line.diagonal",

@@ -20,6 +20,9 @@ struct TripWord: Decodable, Identifiable {
     let note: String?
     /// "읽기 확인" 뒤 기리가 하는 단어 설명. 40자, 2문장 이하 (giri-lines.md 3번).
     let giri: String?
+    /// 단어 그림 이름(`tools/word_art.json`의 name, 예: `tonkatsu`). 그림이 없는 단어는 nil (word-art.md 9.2).
+    /// 다른 단어의 그림을 같이 쓰면 그 이름이다(ひのき → ofuro). 그림이 실제로 있는지는 에셋으로 판단한다 (4.2).
+    let art: String?
 
     var id: String { text }
 

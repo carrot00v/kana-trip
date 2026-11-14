@@ -58,6 +58,18 @@ struct SceneContentTests {
         #expect(library.wordGroups(for: step).goal.contains { $0.text == "かつ丼" })
         #expect(word.count(in: library.kana(through: step)) == word.kanaUnits.count)
     }
+
+    /// 단어 그림 이름: 그림이 있는 44개 단어에만 있다. ひのき는 word-ofuro를 같이 쓴다 (word-images.md, word-art.md 9.2).
+    @Test func wordArtNames() {
+        let words = library.steps.flatMap(\.words)
+        #expect(words.count { $0.art != nil } == 44)
+        let art = Dictionary(uniqueKeysWithValues: words.map { ($0.text, $0.art) })
+        #expect(art["とんかつ"] == "tonkatsu")
+        #expect(art["きつね"] == "kitsune")
+        #expect(art["くつをぬいでください"] == "kutsuonuide")
+        #expect(art["ひのき"] == "ofuro")
+        #expect(art["おかわり"] == .some(nil))
+    }
 }
 
 @Suite("세션 구조")

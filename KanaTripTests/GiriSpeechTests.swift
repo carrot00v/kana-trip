@@ -57,6 +57,15 @@ struct GiriDataTests {
         #expect(pairs == 19 * 2)
     }
 
+    /// 쓰기 포인트는 44자 이하: 96pt 기리 옆 4줄 = 11자 × 4 (giri-companion.md 2.3, 2026-11-15에 48자에서 낮춤).
+    @Test func writingTipsFitFourLinesBesideGiri() {
+        let over = library.steps.flatMap(\.kana).compactMap { char -> String? in
+            guard let tip = library.kana(char)?.tip, tip.count > 44 else { return nil }
+            return "\(char) \(tip.count)자"
+        }
+        #expect(over.isEmpty, "\(over)")
+    }
+
     @Test func lookupFindsDataLines() {
         #expect(library.word(text: "すし")?.giri == "초밥이에요. すしざんまい처럼 가게 이름에 써요")
         #expect(library.scene(id: "sushi")?.giriIntro == "첫 가게는 스시집이에요. 간판부터 같이 읽어요")

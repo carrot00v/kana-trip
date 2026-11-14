@@ -9,8 +9,11 @@ struct WordSessionView: View {
 
     @Environment(ProgressStore.self) private var store
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var revealed = false
     @State private var revealTick = 0
+    /// 단어 그림 위 요소들(단어 ~ 기리 줄)의 실제 높이. 그림 영역 = 보이는 높이 − 이 값 (word-art.md 2.4).
+    @State private var aboveArtHeight: CGFloat = 0
 
     private var words: [TripWord] { run.orderedWords }
 
@@ -75,7 +78,25 @@ struct WordSessionView: View {
     }
 
     private func content(_ word: TripWord) -> some View {
-        ScrollView {
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(spacing: 0) {
+                    aboveArt(word)
+                        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { aboveArtHeight = $0 }
+                    // 기리 줄 아래, 주 버튼 위의 남는 공간 가운데에 단어 그림. 확인 뒤에만 보인다 (word-art.md 2, 3).
+                    let area = max(0, proxy.size.height - aboveArtHeight)
+                    WordArtView(art: word.art, revealed: revealed, side: WordArtView.side(forArea: area))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: area)
+                        .id(word.text)
+                }
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+    }
+
+    /// 단어, 읽기·뜻, 기리 줄. 확인 전후로 높이가 같다(읽기·뜻 자리와 기리 줄 100pt를 비워 둔다).
+    private func aboveArt(_ word: TripWord) -> some View {
             VStack(spacing: 0) {
                 // 맨 위 안내("소리 내어 읽어 보세요")는 기리가 대신 말한다 (3.6).
                 wordRow(word)
@@ -98,15 +119,19 @@ struct WordSessionView: View {
                 .accessibilityHidden(!revealed)
 
                 // 읽기 전에는 같이 읽는 생각 표정, 확인 뒤에는 손을 들고 단어를 설명한다.
+                // 줄 높이는 4줄 자리(100pt)로 고정해 확인할 때 기리가 움직이지 않게 한다. 큰 글자 크기에서는 내용에 맞춘다 (3.6, 6.2).
+                // W에서는 단어 그림이 반복 움직임 자리를 쓰므로 기리가 숨쉬지 않는다 (word-art.md 6.4).
                 GiriSpeechRow(
                     pose: revealed ? .point : .think,
                     text: revealed ? explanation(word) : beforeLine(word),
-                    maxLines: 3
+                    size: 96,
+                    maxLines: revealed ? 4 : 3,
+                    reservedLines: typeSize >= .xLarge ? nil : 4,
+                    expandsAtLargeType: true,
+                    breathes: false
                 )
                 .padding(.top, 16)
             }
-        }
-        .scrollBounceBehavior(.basedOnSize)
     }
 
     private func wordRow(_ word: TripWord) -> some View {

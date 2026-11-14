@@ -1,0 +1,127 @@
+{
+  "_comment": "단어 그림 움직임 값 (docs/design/word-art.md 6.2 종류별 정의, 6.3 단어별 표). tools/build_word_lottie.py가 읽는다. 좌표와 길이는 캔버스 변에 대한 비율(0~1, 원점 왼쪽 위). 기준점(anchor 등)은 그림이 확정된 뒤 그림 위에서 재서 고치고 measured를 true로 바꾼다. measured가 false인 값은 시작값이다. hinoki는 word-ofuro 그림을 같이 쓰므로(단어 데이터 art = ofuro) 따로 두지 않는다.",
+  "canvas": 600,
+  "strokeWidth": 0.009,
+  "kinds": {
+    "steam": {
+      "fps": 30,
+      "period": 2.6,
+      "amplitude": 0.025,
+      "sway": 0.6,
+      "rise": 0.05,
+      "color": "#4A2219",
+      "topMargin": 0.03
+    },
+    "sway": {
+      "fps": 30,
+      "period": 3.0,
+      "cutAbove": 0.02
+    },
+    "flicker": {
+      "color": "#F6B92B",
+      "opacity": [15, 35, 20, 35, 15]
+    },
+    "coin": {
+      "fps": 60,
+      "duration": 0.35,
+      "size": [0.12, 0.05],
+      "fill": "#EFE3CC",
+      "stroke": "#4A2219",
+      "drop": 0.30,
+      "bounce": 0.03,
+      "times": [0.20, 0.28, 0.35],
+      "fadeIn": 0.05
+    },
+    "ripple": {
+      "fps": 30,
+      "period": 2.6,
+      "color": "#FFFDF7",
+      "radius": [0.06, 0.16],
+      "aspect": 3,
+      "peakOpacity": 90,
+      "peakAt": 0.3
+    },
+    "katsuobushi": {
+      "period": 1.3,
+      "size": [0.07, 0.04],
+      "fill": "#F5A7A0",
+      "stroke": "#4A2219",
+      "rotation": 10,
+      "curl": 80
+    }
+  },
+  "words": {
+    "takoyaki": {
+      "measured": false,
+      "katsuobushi": {"flakes": [[0.38, 0.40], [0.47, 0.37], [0.56, 0.39], [0.64, 0.42]]},
+      "steam": {"anchor": [0.50, 0.36], "count": 2, "spacing": 0.14, "length": 0.12, "widthScale": 1.0}
+    },
+    "onsen": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.55], "count": 3, "spacing": 0.20, "length": 0.18, "widthScale": 1.0},
+      "ripple": {"center": [0.50, 0.62], "maxRadius": 0.16}
+    },
+    "yu": {
+      "measured": false,
+      "sway": {"style": "drape", "anchor": [0.50, 0.22], "amplitude": 2}
+    },
+    "omatsuri": {
+      "measured": false,
+      "sway": {"style": "hang", "anchor": [0.50, 0.12], "amplitude": 3},
+      "flicker": {"center": [0.50, 0.52], "radius": [0.22, 0.26]}
+    },
+    "gohan": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.40], "count": 2, "spacing": 0.10, "length": 0.13, "widthScale": 1.0}
+    },
+    "udon": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "katsudon": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.38], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "houjicha": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.38], "count": 2, "spacing": 0.08, "length": 0.12, "widthScale": 0.8}
+    },
+    "otsuri": {
+      "measured": false,
+      "coin": {"rest": [0.50, 0.55]}
+    },
+    "omikuji": {
+      "measured": false,
+      "sway": {"style": "drape", "anchor": [0.50, 0.35], "amplitude": 5}
+    },
+    "soba": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "kitsune": {
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-kitsune.png 위에서: 그릇 x 0.14~0.86, 유부 윗면 y 0.37~0.38. 묶음 폭 0.24 = 그릇 폭의 33%",
+      "steam": {"anchor": [0.50, 0.38], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "wakame": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "tanuki": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "okame": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+    },
+    "yakisoba": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.45], "count": 2, "spacing": 0.12, "length": 0.13, "widthScale": 1.0}
+    },
+    "ofuro": {
+      "measured": false,
+      "steam": {"anchor": [0.50, 0.50], "count": 3, "spacing": 0.18, "length": 0.16, "widthScale": 1.0}
+    }
+  }
+}

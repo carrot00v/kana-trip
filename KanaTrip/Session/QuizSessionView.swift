@@ -243,8 +243,10 @@ struct ChoiceQuestionView<Problem: View>: View {
         SessionScaffold(progress: progress, onClose: onClose) {
             VStack(spacing: 0) {
                 QuizPartHeaderView(header: header)
-                // 기리 줄은 높이 60pt(말풍선 2줄)로 고정해 말풍선이 바뀌거나 사라져도 아래가 움직이지 않는다 (3.8).
-                GiriSpeechRow(pose: giriPose, text: giriText, maxLines: 2, reservedLines: 2,
+                // 기리 줄은 높이 96pt(기리 96pt, 말풍선 3줄 80pt)로 고정해 말풍선이 바뀌거나 사라져도 아래가 움직이지 않는다 (3.8).
+                // 큰 글자 크기에서는 28자가 들어가는 줄 수로 고정한다: xLarge 3줄, xxLarge 이상 4줄 (6.2).
+                let lines = typeSize >= .xxLarge ? 4 : 3
+                GiriSpeechRow(pose: giriPose, text: giriText, size: 96, maxLines: lines, reservedLines: lines,
                               hop: picked == item.answer ? 1 : 0, focusOnAppear: true)
                     .padding(.top, 8)
                 ScrollView {
@@ -365,6 +367,7 @@ struct RecallWriteView: View {
     let onNext: () -> Void
 
     @Environment(ProgressStore.self) private var store
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var attempt = WritingAttempt()
     @State private var guideOn = false
     /// 가이드가 방금 켜져서 판정 줄에 안내를 보여 주는 중인지. 다음 획을 그으면 꺼진다.
@@ -384,32 +387,53 @@ struct RecallWriteView: View {
         return guideOn ? GiriSpeech.guideTip(kana.tip) : giriQuestion
     }
 
-    /// 기리 줄의 말풍선 줄 수: 4줄(100pt)을 잡아도 캔버스가 300pt 이상이면 4줄, 아니면 2줄(60pt) (3.8).
-    private func giriLines(for size: CGSize) -> Int {
-        // 부 머리 줄 26, 간격 8 × 5, 발음 64, 판정 줄
-        let others: CGFloat = 26 + 40 + 64 + VerdictLine.height
-        let canvas = min(size.width - 32, size.height - others - GiriSpeechRow.bubbleHeight(lines: 4))
-        return canvas >= 300 ? 4 : 2
+    /// 기리 크기 (giri-companion.md 2.4.1). 걸침 배치라 작은 화면에서도 96pt.
+    static let giriSize: CGFloat = 96
+    /// 발음 줄 높이 (로마자 48pt, 2.4.3).
+    static let romajiHeight: CGFloat = 58
+
+    /// 발음 줄이 기리 오른쪽에 걸칠 수 있는지: 가운데 정렬한 발음 줄의 왼쪽 끝이 기리 오른쪽 끝 + 8pt 이상 (2.4.3).
+    static func romajiFitsBeside(romajiWidth: CGFloat, screenWidth: CGFloat) -> Bool {
+        (screenWidth - romajiWidth) / 2 >= 16 + giriSize + 8
+    }
+
+    /// 발음 줄의 폭: 로마자 48pt + 간격 4 + 스피커 아이콘.
+    static func romajiWidth(_ romaji: String, sound: Bool) -> CGFloat {
+        let text = (romaji as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 48)]).width
+        return ceil(text) + (sound ? 4 + 22 : 0)
+    }
+
+    /// 기리 블록 높이: max(G, 말풍선 + 8 + 발음). 걸치지 못하거나 기리를 숨기면 말풍선(또는 기리) 아래에 발음을 둔다 (2.4.3, 6.2).
+    static func blockHeight(lines: Int, typeSize: DynamicTypeSize, beside: Bool) -> CGFloat {
+        let bubble = GiriSpeechRow.bubbleHeight(lines: lines, typeSize: typeSize)
+        if typeSize.isAccessibilitySize { return bubble + 8 + romajiHeight }
+        if beside { return max(giriSize, bubble + 8 + romajiHeight) }
+        return max(giriSize, bubble) + 8 + romajiHeight
+    }
+
+    /// 말풍선 줄 수 (2.4.3, 3.8): 4줄로 잡아도 캔버스가 화면 폭 − 32를 지키면 4줄, 아니면 2줄.
+    /// 그래도 캔버스가 300pt보다 작으면 1줄까지 줄인다 (2.4.2). 부 안에서는 문항이 바뀌어도 같은 값이다.
+    static func giriLines(in area: CGSize, typeSize: DynamicTypeSize, beside: Bool) -> Int {
+        // 부 머리 줄 26 + 판정 줄 + VStack 간격 8 × 4
+        let others = 26 + VerdictLine.height + 32
+        func canvas(_ lines: Int) -> CGFloat {
+            min(area.width - 32, area.height - others - blockHeight(lines: lines, typeSize: typeSize, beside: beside))
+        }
+        if canvas(4) >= area.width - 32 { return 4 }
+        return [2, 1].first { canvas($0) >= 300 } ?? 1
     }
 
     var body: some View {
         SessionScaffold(progress: progress, onClose: onClose) {
             GeometryReader { proxy in
-                let lines = giriLines(for: proxy.size)
+                // 쓰기 화면은 글자 크기가 accessibility1에서 멈춘다(아래 `.dynamicTypeSize`).
+                let type = min(typeSize, .accessibility1)
+                let beside = Self.romajiFitsBeside(romajiWidth: Self.romajiWidth(kana.romaji, sound: store.soundOn),
+                                                   screenWidth: proxy.size.width)
+                let lines = Self.giriLines(in: proxy.size, typeSize: type, beside: beside)
                 VStack(spacing: 8) {
                     QuizPartHeaderView(header: header)
-                    // 질문 줄 대신 기리가 말한다. 쓰기 화면이라 숨쉬지 않는다.
-                    GiriSpeechRow(pose: giriPose, text: giriText, maxLines: lines, reservedLines: lines,
-                                  breathes: false, hop: finished && !guideOn ? 1 : 0,
-                                  limitsLinesAtLargeType: true, focusOnAppear: true)
-
-                    HStack(spacing: 4) {
-                        Text(kana.romaji).font(.system(size: 48))
-                        if store.soundOn { SpeakerBadge() }
-                    }
-                    .frame(minHeight: 64)
-                    .speaks(kana.char, enabled: store.soundOn)
-
+                    giriBlock(lines: lines, beside: beside, typeSize: type)
                     Spacer(minLength: 0)
 
                     if showsGuideNotice {
@@ -452,6 +476,28 @@ struct RecallWriteView: View {
             // 완성한 시점에 결과를 저장한다. "다음"을 누르기 전에 나가도 남는다.
             if case .finished = feedback { onCompleted(guideOn) }
         }
+    }
+
+    /// 기리 + 말풍선 + 발음 줄. 기리는 말풍선과 위 끝을 맞추고 발음 줄 왼쪽까지 내려온다(걸침 배치, 2.4.3).
+    /// 질문 줄 대신 기리가 말한다. 쓰기 화면이라 숨쉬지 않는다.
+    private func giriBlock(lines: Int, beside: Bool, typeSize: DynamicTypeSize) -> some View {
+        let showsFigure = !typeSize.isAccessibilitySize
+        let bubble = GiriSpeechRow.bubbleHeight(lines: lines, typeSize: typeSize)
+        // 발음 줄의 위 끝: 걸치면 말풍선 아래 8pt, 걸치지 못하면 기리 아래 8pt.
+        let romajiTop = showsFigure && !beside ? max(Self.giriSize, bubble) + 8 : bubble + 8
+        return ZStack(alignment: .top) {
+            GiriSpeechRow(pose: giriPose, text: giriText, size: Self.giriSize, maxLines: lines, reservedLines: lines,
+                          hangs: true, breathes: false, hop: finished && !guideOn ? 1 : 0,
+                          limitsLinesAtLargeType: true, focusOnAppear: true)
+            HStack(spacing: 4) {
+                Text(kana.romaji).font(.system(size: 48))
+                if store.soundOn { SpeakerBadge() }
+            }
+            .frame(height: Self.romajiHeight)
+            .speaks(kana.char, enabled: store.soundOn)
+            .padding(.top, romajiTop)
+        }
+        .frame(height: Self.blockHeight(lines: lines, typeSize: typeSize, beside: beside), alignment: .top)
     }
 
     private func turnGuideOn() {

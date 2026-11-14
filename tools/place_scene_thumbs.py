@@ -151,7 +151,6 @@ def write_imageset(name: str, image: Image.Image):
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--sheet", type=Path, help="156px 결과와 흑백(잠김)을 나란히 놓은 확인용 시트 경로")
-    parser.add_argument("--full-size", type=Path, help="칸색으로 칠한 원본 크기 그림을 이 폴더에 thumb-{id}.png로 저장 (장면 Lottie 입력용)")
     args = parser.parse_args()
 
     CATALOG.mkdir(exist_ok=True)
@@ -167,9 +166,6 @@ def main() -> int:
             continue
         image, bg, ratio, trapped = recolor(Image.open(src), cell, changed)
         write_imageset(f"SceneThumb-{sid}", image)
-        if args.full_size:
-            args.full_size.mkdir(parents=True, exist_ok=True)
-            image.save(args.full_size / f"thumb-{sid}.png")
         results.append((sid, image))
         line = f"{sid}: 생성 때 바탕 rgb({bg[0]:.0f},{bg[1]:.0f},{bg[2]:.0f}) → #{''.join(f'{v:02X}' for v in cell)}, 가장자리 바탕 {ratio * 100:.0f}%"
         if changed:

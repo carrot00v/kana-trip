@@ -9,12 +9,17 @@ struct GiriSpeechRow: View {
     let pose: GiriPose
     /// 말풍선 문구. nil이면 말풍선을 숨기고 자리는 남긴다(퀴즈 정답 뒤).
     let text: String?
-    /// 기리 크기 G (56, 64, 80, 120pt).
-    var size: CGFloat = 56
+    /// 기리 크기 G. 학습 화면·H·S 96, 작은 화면 L2 80(줄이면 72), QI·C1·C2 120 (giri-companion.md 2.4.1).
+    var size: CGFloat = 96
     /// 말풍선 최대 줄 수. 넘치면 말줄임표로 자르고 VoiceOver에는 전체 문구를 준다.
-    var maxLines: Int = 2
-    /// 줄 높이를 이 줄 수의 말풍선 높이로 고정한다(퀴즈 2줄). nil이면 내용에 맞춘다.
+    var maxLines: Int = 3
+    /// 줄 높이를 이 줄 수의 말풍선 높이로 고정한다(퀴즈 3줄, W 4줄). nil이면 내용에 맞춘다.
     var reservedLines: Int? = nil
+    /// QC 걸침 배치(2.4.3): 기리와 말풍선의 위 끝을 맞추고, 줄 높이는 말풍선 자리(`reservedLines`)만 차지한다.
+    /// 기리는 그 아래로 내려와 발음 줄 왼쪽에 걸친다. 꼬리는 기리 입 높이(말풍선 위 끝에서 min(0.53G, 높이 − 16)).
+    var hangs = false
+    /// xLarge ~ xxxLarge 글자 크기에서 줄 수 제한을 풀지(내용 영역이 스크롤되는 L1, W, QI, C1, C2, 6.2).
+    var expandsAtLargeType = false
     /// 숨쉬기(반복 움직임). 쓰기 화면, 움직이는 장면 그림이 있는 화면에서는 끈다 (5.2, 5.3).
     var breathes = true
     /// 값이 커질 때마다 깡충 뛴다(정답, 글자 완성). 작아질 때(다음 문항으로 돌아감)는 뛰지 않는다.
@@ -36,10 +41,48 @@ struct GiriSpeechRow: View {
     @State private var hops = 0
     @AccessibilityFocusState private var focused: Bool
 
-    /// 말풍선 높이 = 20n + 20pt (2.1).
-    static func bubbleHeight(lines: Int) -> CGFloat { CGFloat(20 * lines + 20) }
+    /// 말풍선 높이 = 20n + 20pt (2.1). 글자 크기가 바뀌면 줄 높이 = 20 × 글자 pt ÷ 15 (6.2).
+    static func bubbleHeight(lines: Int, typeSize: DynamicTypeSize = .large) -> CGFloat {
+        ceil(CGFloat(lines) * lineHeight(typeSize)) + 20
+    }
+
+    /// 말풍선 글자 한 줄의 높이. 기본 크기(15pt)에서 20pt.
+    static func lineHeight(_ typeSize: DynamicTypeSize) -> CGFloat {
+        bubbleFont(typeSize).pointSize * 20 / 15
+    }
+
+    static func bubbleFont(_ typeSize: DynamicTypeSize) -> UIFont {
+        let traits = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory(typeSize))
+        return UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: traits)
+    }
+
+    /// 화면 폭에서 기리 옆 말풍선 글 폭: 폭 − 좌우 여백 32 − G − 간격·꼬리 12 − 안쪽 여백 24 (2.2).
+    /// 기리를 숨기는 접근성 글자 크기에서는 전체 폭 카드라 폭 − 32 − 24.
+    static func textWidth(screenWidth: CGFloat, size: CGFloat, showsFigure: Bool) -> CGFloat {
+        showsFigure ? screenWidth - 32 - size - 12 - 24 : screenWidth - 32 - 24
+    }
+
+    /// 문구가 이 폭에서 몇 줄이 되는지(띄어쓰기에서만 줄을 바꾼다).
+    static func lineCount(_ text: String, width: CGFloat, typeSize: DynamicTypeSize) -> Int {
+        WordWrapLabel.wrap(text, width: width, font: bubbleFont(typeSize)).count
+    }
+
+    /// 말풍선이 실제로 차지하는 높이: 문구 줄 수와 최대 줄 수 가운데 작은 것.
+    static func bubbleHeight(for text: String, maxLines: Int, screenWidth: CGFloat, size: CGFloat,
+                             showsFigure: Bool, typeSize: DynamicTypeSize) -> CGFloat {
+        let width = textWidth(screenWidth: screenWidth, size: size, showsFigure: showsFigure)
+        let lines = min(maxLines, max(1, lineCount(text, width: width, typeSize: typeSize)))
+        return bubbleHeight(lines: lines, typeSize: typeSize)
+    }
 
     private var isLargeType: Bool { typeSize.isAccessibilitySize }
+
+    /// 이 글자 크기에서 쓰는 최대 줄 수. nil이면 제한 없음.
+    private var lineLimit: Int? {
+        if isLargeType { return limitsLinesAtLargeType ? maxLines : nil }
+        if expandsAtLargeType, typeSize >= .xLarge { return nil }
+        return maxLines
+    }
 
     var body: some View {
         Group {
@@ -47,6 +90,17 @@ struct GiriSpeechRow: View {
                 // 큰 글자 크기: 기리를 숨기고 꼬리 없는 전체 폭 카드만 (6.2).
                 bubble(tail: false)
                     .frame(maxWidth: .infinity, alignment: .leading)
+            } else if hangs {
+                // 걸침 배치: 줄 높이는 말풍선 자리만. 기리는 아래로 넘쳐 발음 줄 옆까지 내려온다 (2.4.3).
+                let height = reservedHeight ?? Self.bubbleHeight(lines: maxLines, typeSize: typeSize)
+                HStack(alignment: .top, spacing: 4) {
+                    figure
+                        .frame(width: size, height: height, alignment: .top)
+                    bubble(tail: true, tailFromTop: size * 0.53)
+                        .layoutPriority(1)
+                    Spacer(minLength: 0)
+                }
+                .frame(height: height, alignment: .top)
             } else {
                 HStack(alignment: .center, spacing: 4) {
                     figure
@@ -71,9 +125,16 @@ struct GiriSpeechRow: View {
         }
     }
 
-    private var rowHeight: CGFloat {
-        max(size, reservedLines.map(Self.bubbleHeight(lines:)) ?? 0)
+    private var reservedHeight: CGFloat? {
+        reservedLines.map { Self.bubbleHeight(lines: $0, typeSize: typeSize) }
     }
+
+    private var rowHeight: CGFloat {
+        max(size, reservedHeight ?? 0)
+    }
+
+    /// 숨쉬기: 기리 크기와 상관없이 진폭 1.5pt (5.2).
+    private var breathScale: CGFloat { 1 + 1.5 / size }
 
     // MARK: 기리
 
@@ -87,12 +148,13 @@ struct GiriSpeechRow: View {
         }
             // 반복 애니메이션은 크기에만 건다. 바깥 배치 변화(자리 이동)까지 반복되지 않게 범위를 좁힌다.
             .animation(breathing ? .easeInOut(duration: 1.6).repeatForever(autoreverses: true) : .default) { content in
-                content.scaleEffect(x: 1, y: breathing ? 1.025 : 1, anchor: .bottom)
+                content.scaleEffect(x: 1, y: breathing ? breathScale : 1, anchor: .bottom)
             }
             .keyframeAnimator(initialValue: 0.0, trigger: hops) { content, y in
                 content.offset(y: y)
             } keyframes: { _ in
-                CubicKeyframe(-6, duration: 0.12)
+                // 깡충: 기리 크기의 0.1배 (96pt에서 10pt, 5.2).
+                CubicKeyframe(-0.1 * size, duration: 0.12)
                 CubicKeyframe(0, duration: 0.18)
             }
             .onChange(of: hop) { old, new in
@@ -111,10 +173,10 @@ struct GiriSpeechRow: View {
     // MARK: 말풍선
 
     @ViewBuilder
-    private func bubble(tail: Bool) -> some View {
+    private func bubble(tail: Bool, tailFromTop: CGFloat? = nil) -> some View {
         ZStack(alignment: .leading) {
             if let text, bubbleShown {
-                bubbleBody(text, tail: tail)
+                bubbleBody(text, tail: tail, tailFromTop: tailFromTop)
                     .id(text)
                     .transition(
                         reduceMotion ? .identity : .asymmetric(
@@ -128,18 +190,18 @@ struct GiriSpeechRow: View {
         .animation(reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.85), value: bubbleShown)
     }
 
-    private func bubbleBody(_ text: String, tail: Bool) -> some View {
+    private func bubbleBody(_ text: String, tail: Bool, tailFromTop: CGFloat?) -> some View {
         let tailWidth: CGFloat = tail ? 8 : 0
-        return BubbleLabel(text: text, maxLines: isLargeType && !limitsLinesAtLargeType ? nil : maxLines)
+        return BubbleLabel(text: text, maxLines: lineLimit)
             .fixedSize(horizontal: false, vertical: true)
             .padding(.vertical, 10)
             .padding(.leading, 12 + tailWidth)
             .padding(.trailing, 12)
             .frame(minWidth: 88 + tailWidth, minHeight: Self.bubbleHeight(lines: 1), alignment: .leading)
             .background {
-                BubbleShape(tailWidth: tailWidth)
+                BubbleShape(tailWidth: tailWidth, tailFromTop: tailFromTop)
                     .fill(Color.cardBackground)
-                BubbleShape(tailWidth: tailWidth)
+                BubbleShape(tailWidth: tailWidth, tailFromTop: tailFromTop)
                     .stroke(Color.outline, style: StrokeStyle(lineWidth: AppStyle.outlineWidth, lineJoin: .round))
             }
             .accessibilityElement(children: .ignore)
@@ -151,10 +213,12 @@ struct GiriSpeechRow: View {
 
 /// 말풍선 몸통(모서리 14pt)과 왼쪽 꼬리(밑변 14pt, 길이 8pt)를 한 경로로 (2.1).
 /// 꼬리는 세로 가운데에 두되 위·아래 끝에서 16pt 안쪽으로 제한한다.
+/// 걸침 배치(QC)는 `tailFromTop`으로 말풍선 위 끝에서 잰 꼬리 높이를 준다 (2.4.3).
 struct BubbleShape: Shape {
     var tailWidth: CGFloat = 8
     var radius: CGFloat = 14
     var tailBase: CGFloat = 14
+    var tailFromTop: CGFloat? = nil
 
     func path(in rect: CGRect) -> Path {
         let body = CGRect(x: rect.minX + tailWidth, y: rect.minY, width: rect.width - tailWidth, height: rect.height)
@@ -164,7 +228,8 @@ struct BubbleShape: Shape {
             p.addRoundedRect(in: body, cornerSize: CGSize(width: r, height: r), style: .continuous)
             return p
         }
-        let tailY = min(max(rect.midY, body.minY + 16), body.maxY - 16)
+        let wanted = tailFromTop.map { body.minY + $0 } ?? rect.midY
+        let tailY = min(max(wanted, body.minY + 16), body.maxY - 16)
         p.move(to: CGPoint(x: body.minX + r, y: body.minY))
         p.addLine(to: CGPoint(x: body.maxX - r, y: body.minY))
         p.addArc(center: CGPoint(x: body.maxX - r, y: body.minY + r), radius: r, startAngle: .degrees(-90), endAngle: .degrees(0), clockwise: false)
@@ -266,7 +331,7 @@ final class WordWrapLabel: UILabel {
     }
 
     func fittingSize(width: CGFloat) -> CGSize {
-        let lines = wrap(width: width)
+        let lines = Self.wrap(source, width: width, font: textFont, maxLines: maxLines)
         let shown = attributed(lines.joined(separator: "\n"))
         let rect = shown.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
                                       options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
@@ -275,17 +340,18 @@ final class WordWrapLabel: UILabel {
 
     private func apply(width: CGFloat) {
         wrappedWidth = width
-        attributedText = attributed(wrap(width: width).joined(separator: "\n"))
+        attributedText = attributed(Self.wrap(source, width: width, font: textFont, maxLines: maxLines).joined(separator: "\n"))
     }
 
     /// 낱말을 앞에서부터 채운다. 줄 수를 넘으면 남은 낱말을 마지막 줄에 이어 붙여 UILabel이 말줄임표로 자르게 한다.
-    private func wrap(width: CGFloat) -> [String] {
+    /// 화면이 줄 수를 미리 셀 때(캔버스 300pt 계산)도 같은 함수를 쓴다.
+    static func wrap(_ source: String, width: CGFloat, font: UIFont, maxLines: Int? = nil) -> [String] {
         let words = source.split(separator: " ", omittingEmptySubsequences: true).map(String.init)
         var lines: [String] = []
         var current = ""
         for word in words {
             let candidate = current.isEmpty ? word : current + " " + word
-            if current.isEmpty || attributed(candidate).size().width <= width {
+            if current.isEmpty || attributed(candidate, font: font).size().width <= width {
                 current = candidate
             } else {
                 lines.append(current)
@@ -302,6 +368,10 @@ final class WordWrapLabel: UILabel {
     }
 
     private func attributed(_ text: String) -> NSAttributedString {
+        Self.attributed(text, font: textFont)
+    }
+
+    private static func attributed(_ text: String, font textFont: UIFont) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byTruncatingTail
         // 15pt 글자의 줄 높이 20pt (2.1). 글자 크기가 커지면 비율대로 늘어난다.
@@ -320,8 +390,9 @@ final class WordWrapLabel: UILabel {
     }
 }
 
-/// H·S의 아래 고정 영역: 기리 줄(64pt) + 주 버튼 (giri-companion.md 3.2, 3.3).
-/// 위 8 + 기리 줄 64 + 간격 8 + 주 버튼 + 아래 8. 바탕을 칠해 목록이 비쳐 보이지 않게 한다.
+/// H·S의 아래 고정 영역: 기리 줄(96pt) + 주 버튼 (giri-companion.md 3.2, 3.3).
+/// 위 8 + 기리 줄 96 + 간격 8 + 주 버튼 + 아래 8 = 176pt. 바탕을 칠해 목록이 비쳐 보이지 않게 한다.
+/// 말풍선은 최대 3줄. 큰 글자 크기(xLarge ~ xxxLarge)에서 3줄이 96pt를 넘으면 줄 높이가 늘고, 넘치는 문구는 잘린다 (6.2).
 /// 큰 글자 크기에서는 기리 줄을 빼고(목록 맨 위 `GiriListBubble`로 옮김) 주 버튼만 남는다 (6.2).
 struct GiriBottomDock<Button: View>: View {
     let text: String
@@ -333,7 +404,7 @@ struct GiriBottomDock<Button: View>: View {
     var body: some View {
         VStack(spacing: 8) {
             if !typeSize.isAccessibilitySize {
-                GiriSpeechRow(pose: .talk, text: text, size: 64, maxLines: 2, breathes: breathes)
+                GiriSpeechRow(pose: .talk, text: text, size: 96, maxLines: 3, breathes: breathes)
             }
             button()
                 .padding(.horizontal, 16)

@@ -78,3 +78,26 @@ extension View {
         overlay(RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(color, lineWidth: lineWidth))
     }
 }
+
+// MARK: - 작은 화면
+
+extension EnvironmentValues {
+    /// 창 높이(안전 영역 포함)가 700pt 미만인 기기인지 (giri-companion.md 2.4.1). iOS 18 iPhone 가운데 SE 2·3세대(375×667pt)만.
+    /// 앱 루트에서 한 번 재서 내려 준다. 덮개(fullScreenCover) 안에도 그대로 이어진다.
+    @Entry var isSmallScreen = false
+}
+
+/// 루트에서 창 높이를 재서 `isSmallScreen`을 내려 준다.
+struct ScreenClassReader<Content: View>: View {
+    static var smallScreenHeight: CGFloat { 700 }
+
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        GeometryReader { proxy in
+            let height = proxy.size.height + proxy.safeAreaInsets.top + proxy.safeAreaInsets.bottom
+            content
+                .environment(\.isSmallScreen, height < Self.smallScreenHeight)
+        }
+    }
+}

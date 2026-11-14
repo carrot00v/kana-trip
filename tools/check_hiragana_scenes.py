@@ -12,6 +12,11 @@
   8. hiragana_tips.json에 46자의 쓰기 포인트가 모두 있는지
      (문구는 docs/content/giri-lines.md 5.1이 원본이다. 문서와 같은지는 tools/check_giri_lines.py가 본다.
       hiragana-allocation.md 10.3의 か, た 문구는 그 문서로 넘어갔다.)
+  9. 단어 그림 이름 `art`가 tools/word_art.json(docs/content/word-images.md를 옮긴 것)과 같은지
+     - 그림이 있는 단어 44개에만 있고, 값은 그 단어의 name. 그림을 복사해 같이 쓰는 단어(copyFrom이 다른 단어
+       그림, 예: ひのき ← word-ofuro)는 원래 단어의 name
+     - 그림이 없는 16개에는 없다. 값은 소문자 로마자만
+     그림 파일이 실제로 있는지는 보지 않는다(앱이 에셋으로 판단한다, docs/design/word-art.md 4.2).
 
 실행: python3 tools/check_hiragana_scenes.py   (표준 라이브러리만 쓴다)
 통과하면 0, 하나라도 어긋나면 1로 끝난다.
@@ -26,6 +31,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DOC = ROOT / "docs/content/hiragana-allocation.md"
 SCENES = ROOT / "KanaTrip/Resources/hiragana_scenes.json"
 TIPS = ROOT / "KanaTrip/Resources/hiragana_tips.json"
+WORD_ART = ROOT / "tools/word_art.json"
 
 BASIC = list("あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん")
 
@@ -110,6 +116,37 @@ def parse_doc(text: str):
             tips[c[0]] = c[1]
 
     return steps, scene_counts, words4, words6, tips
+
+
+def expected_art() -> dict[str, str]:
+    """단어 표기 → 그림 이름. 다른 단어 그림을 복사해 쓰는 단어는 그 단어의 이름."""
+    words = json.loads(WORD_ART.read_text())["words"]
+    by_file = {f"word-{w['name']}.png": w["name"] for w in words}
+    result = {}
+    for w in words:
+        copy = Path(w.get("copyFrom", "")).name
+        # word-art/source/word-ofuro.png처럼 단어 그림을 복사하면 그 단어 이름. item-art 복사는 자기 이름.
+        result[w["kana"]] = by_file.get(copy, w["name"]) if "word-art" in w.get("copyFrom", "") else w["name"]
+    return result
+
+
+def check_word_art(scenes) -> int:
+    want = expected_art()
+    words = [w for s in scenes for st in s["steps"] for w in st["words"]]
+    texts = {w["text"] for w in words}
+    check(not (set(want) - texts), f"word_art.json에만 있는 단어 {sorted(set(want) - texts)}")
+    count = 0
+    for w in words:
+        art = w.get("art")
+        if w["text"] in want:
+            check(art == want[w["text"]], f"{w['text']}: art {art!r} / word_art.json {want[w['text']]!r}")
+        else:
+            check(art is None, f"{w['text']}: 그림이 없는 단어에 art {art!r}")
+        if art is not None:
+            count += 1
+            check(re.fullmatch(r"[a-z]+", art) is not None, f"{w['text']}: art 이름은 소문자 로마자만 ({art!r})")
+    check(count == 44, f"art가 있는 단어 {count}개 (word-images.md 44개)")
+    return count
 
 
 def main() -> int:
@@ -202,12 +239,16 @@ def main() -> int:
     missing_tips = [ch for ch in BASIC if not tips_json.get(ch)]
     check(not missing_tips, f"hiragana_tips.json에 쓰기 포인트가 없는 글자 {missing_tips}")
 
+    # 9. 단어 그림 이름
+    art_count = check_word_art(scenes)
+
     print("단계별 결과 (단어 옆 숫자 = 못 읽는 글자 수 / 탁음을 기본 글자로 볼 때)")
     print("\n".join(report_rows))
     print(f"장면별 글자 수: {', '.join(str(sum(len(st['kana']) for st in s['steps'])) for s in scenes)} (합계 {len(assigned)})")
     print(f"단계별 글자 수: {', '.join(str(len(st['kana'])) for _, _, st in json_steps)}")
     print(f"단어 {totals['words']}개, 전부 읽히는 단어 {totals['readable']}개 (탁음을 기본 글자로 보면 {totals['readable_base']}개)")
     print(f"46자 배정: 누락 {len(missing)}, 중복 {len(dup)}, 46자 밖 {len(outside)}")
+    print(f"단어 그림 이름(art)이 있는 단어 {art_count}개")
 
     if errors:
         print(f"\n어긋남 {len(errors)}건:")
