@@ -23,6 +23,14 @@ struct SceneDetailView: View {
         let next = store.nextSession(in: scene)
         ScrollViewReader { proxy in
             List {
+                // 장면 그림에 김이 있는 장면만: 정지 그림 + 움직이는 김 (Lottie). 파일이 없는 장면은 그리지 않는다.
+                if SteamingSceneArt.isAvailable(sceneID: scene.id) {
+                    Section {
+                        SteamingSceneArt(sceneID: scene.id)
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
+                    }
+                }
                 ForEach(library.sessions(in: scene)) { session in
                     Section {
                         sessionRow(session)

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A1000000000000000000032A /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = A1000000000000000000031A /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A1000000000000000000001A /* KanaTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KanaTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000000000000000000020A /* KanaTripTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KanaTripTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000000000000000000032A /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +95,7 @@
 			);
 			name = KanaTrip;
 			packageProductDependencies = (
+				A1000000000000000000031A /* Lottie */,
 			);
 			productName = KanaTrip;
 			productReference = A1000000000000000000001A /* KanaTrip.app */;
@@ -146,6 +152,9 @@
 			);
 			mainGroup = A1000000000000000000004A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A1000000000000000000030A /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A1000000000000000000005A /* Products */;
 			projectDirPath = "";
@@ -355,6 +364,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1000000000000000000030A /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1000000000000000000031A /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1000000000000000000030A /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A1000000000000000000009A /* Project object */;
 }
