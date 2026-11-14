@@ -1,0 +1,9 @@
+{
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: A simple front view of a small Japanese eatery entrance: a dark indigo split noren curtain hanging across the top-left of a wooden doorway, light cream plaster wall, a little potted plant at the bottom-right edge. The center of the picture is a calm, very light, almost empty wall area. Leave the noren cloth plain with no letters. Square 1:1 background scene filling the whole image edge to edge, no border. Keep the central area light and nearly empty because a character will stand in front of it; put details near the edges. No people, no characters, no faces on objects, no text, no letters, no numbers.",
+  "seed": 97173802,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16"
+}

@@ -106,10 +106,10 @@ struct VerdictLine: View {
 
         var tint: Color {
             switch self {
-            case .hint: .secondary
-            case .good, .finished: .green
-            case .bad: .red
-            case .guide: .orange
+            case .hint: .inkSecondary
+            case .good, .finished: .correct
+            case .bad: .wrong
+            case .guide: .highlightStrong
             }
         }
     }
@@ -127,7 +127,7 @@ struct VerdictLine: View {
                     .accessibilityHidden(true)
             }
             Text(text)
-                .foregroundStyle(kind == .hint ? .secondary : .primary)
+                .foregroundStyle(kind == .hint ? Color.inkSecondary : Color.ink)
         }
         .font(.subheadline)
         .lineLimit(1)
@@ -165,7 +165,7 @@ struct KanaGlyphView: View {
             for stroke in kana.strokes {
                 context.stroke(
                     StrokeDrawing.path(stroke, scale: scale),
-                    with: .color(.primary),
+                    with: .color(Color.ink),
                     style: StrokeDrawing.style(StrokeDrawing.strokeWidth * scale)
                 )
             }
@@ -175,11 +175,11 @@ struct KanaGlyphView: View {
                     StrokeDrawing.drawStartHint(&context, at: start, number: index + 1, scale: scale)
                 }
                 for loop in StrokeJudge.loops(in: stroke) {
-                    StrokeDrawing.drawLoopMark(&context, at: loop.center, area: loop.area, color: .orange, scale: scale)
+                    StrokeDrawing.drawLoopMark(&context, at: loop.center, area: loop.area, color: Color.highlightStrong, scale: scale)
                 }
             }
         }
         .frame(width: side, height: side)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 20))
+        .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 20))
     }
 }

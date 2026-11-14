@@ -1,43 +1,48 @@
 import SwiftUI
 
-// 보상 연동: C1·C2의 기리 캐릭터, 받은 엔 줄, 아이템 줄, "기리 꾸미기" 버튼은 보상 브랜치(reward-flow.md)가 들어오면 붙인다.
-// 재화 지급 키는 단계 id(`TripStep.id`, 예: sushi-a)다. 지급 자리는 `StepRun.complete()` → `ProgressStore.complete(_:quizWrong:)`.
+// 보상 연동: 재화 지급 키는 세션 id(`sushi-a`, `sushi-b`, `sushi-quiz`)이고, 세션을 처음 끝낼 때마다 100엔이다.
+// 장면의 아이템은 종합 퀴즈를 처음 통과할 때 열린다. 지급 자리는 `SessionRun.complete()` → `ProgressStore.complete(_:quizWrong:)`.
 
-/// C1 단계 완료 (scene-flow.md 13번). 단계 a를 처음 끝냈을 때와 끝낸 단계를 다시 했을 때 나온다.
+/// C1 세션 완료 (scene-flow.md 13번). 단계 a·b를 처음 끝냈을 때와 끝낸 세션을 다시 했을 때 나온다.
 struct StepDoneView: View {
-    let run: StepRun
-    /// 같은 덮개 안에서 다음 단계를 시작한다.
-    let onContinue: (TripStep) -> Void
+    let run: SessionRun
+    /// 이번 지급. 다시 한 세션이면 받은 엔이 0이라 받은 엔 줄을 그리지 않는다.
+    let grant: RewardGrant
+    /// 같은 덮개 안에서 다음 세션을 시작한다.
+    let onContinue: (TripSession) -> Void
     let onClose: () -> Void
 
     @State private var appearTick = 0
 
     var body: some View {
         let library = ContentLibrary.shared
-        let step = run.step
-        let next = run.isReplay ? nil : library.step(after: step)
-        let goalWords = library.shownGoalWords(for: step)
+        let next = run.isReplay ? nil : library.session(after: run.session)
         CompletionLayout {
-            // 보상 브랜치가 들어오기 전에는 기리 대신 체크 아이콘을 둔다.
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 64))
-                .foregroundStyle(.green)
-                .accessibilityHidden(true)
-        } texts: {
-            Text(L.stepDone(scene: run.scene.name, step: step.name)).font(.title2.bold())
-            Text(L.stepSummary(kana: step.kana.count, words: step.words.count)).font(.body).foregroundStyle(.secondary)
+            Text(title).font(.title2.bold())
+            Text(summary).font(.body).foregroundStyle(Color.inkSecondary)
         } detail: {
-            KanaRow(kana: step.kana, marked: Set(run.progress.quizWrong))
-            if !goalWords.isEmpty {
-                GoalWordsBlock(title: L.nowReadable, words: goalWords)
+            if let step = run.step {
+                KanaRow(kana: step.kana, marked: [])
+                let goalWords = library.shownGoalWords(for: step)
+                if !goalWords.isEmpty {
+                    GoalWordsBlock(title: L.nowReadable, words: goalWords)
+                }
+            } else {
+                // 다시 한 종합 퀴즈: 이번에 틀린 글자 밑에 점.
+                KanaRow(kana: run.scene.kana, marked: Set(run.progress.quizWrong))
+            }
+            if grant.coins > 0 {
+                CoinsReceivedLine(received: grant.coins, balance: grant.balance)
             }
         } buttons: {
             if let next {
-                PrimaryButton(title: L.stepAction(next.name, resume: false)) { onContinue(next) }
+                PrimaryButton(title: next.isQuiz ? L.quizSessionStart : L.stepAction(next.step?.name ?? "", resume: false)) {
+                    onContinue(next)
+                }
                 Button(action: onClose) {
                     Text(L.stopHere)
                         .font(.headline)
-                        .foregroundStyle(Color.accentColor)
+                        .foregroundStyle(Color.accent)
                         .padding(.horizontal, 16)
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
@@ -50,48 +55,114 @@ struct StepDoneView: View {
         .sensoryFeedback(.success, trigger: appearTick)
         .onAppear { appearTick += 1 }
     }
+
+    private var title: String {
+        L.stepDone(scene: run.scene.name, step: run.step?.name ?? L.quizSessionName)
+    }
+
+    private var summary: String {
+        guard let step = run.step else { return L.sceneSummary(run.scene.kana.count) }
+        return L.stepSummary(kana: step.kana.count, words: step.words.count)
+    }
 }
 
-/// C2 장면 완료 (scene-flow.md 14번). 단계 b를 처음 끝냈을 때만 나온다.
+/// C2 장면 완료 (scene-flow.md 14번). 종합 퀴즈를 처음 통과했을 때만 나온다.
+/// 배운 글자 줄과 다음 장면의 새 글자 줄은 빼고 리워드 묶음을 넣는다 (reward-flow.md 6번).
 struct SceneDoneView: View {
     let scene: TripScene
+    /// 이번 종합 퀴즈에서 틀린 글자. 다음 장면 퀴즈에 다시 나온다.
+    let quizWrong: [String]
+    let grant: RewardGrant
     let onBackToList: () -> Void
+    let onCustomize: () -> Void
 
+    @Environment(ProgressStore.self) private var store
     @State private var appearTick = 0
 
     var body: some View {
         let library = ContentLibrary.shared
         let next = library.scene(after: scene)
         let goalWords = library.goalWords(for: scene)
+        let items = store.rewardCatalog.items(forScene: scene.id)
+        // 살 수 있는 아이템이 있거나 이번에 아이템을 받았을 때만 "기리 꾸미기"를 둔다.
+        let showsCustomize = store.canBuyAnyItem || !grant.grantedItemIDs.isEmpty
         CompletionLayout {
-            Image(systemName: scene.icon ?? "checkmark.circle.fill")
-                .font(.system(size: 64))
-                .foregroundStyle(Color.accentColor)
-                .overlay(alignment: .bottomTrailing) {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundStyle(.green)
-                        .background(Color(.systemBackground), in: Circle())
-                        .offset(x: 8, y: 4)
-                }
-                .accessibilityHidden(true)
-        } texts: {
             Text(L.sceneDone(scene.name)).font(.title2.bold())
-            Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(.secondary)
+            Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(Color.inkSecondary)
         } detail: {
             if !goalWords.isEmpty {
                 GoalWordsBlock(title: L.readableWords(scene.name), words: goalWords)
             }
+            if grant.coins > 0 || !items.isEmpty {
+                rewards(items: items)
+            }
+            if next != nil, !quizWrong.isEmpty {
+                Text(L.wrongKanaReturns(quizWrong))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.ink)
+            }
             if let next {
-                Text(L.nextSceneOpened(next.name))
-                    .font(.body)
-                    .padding(.top, 8)
+                Text(L.nextSceneOpened(next.name)).font(.body)
             }
         } buttons: {
             PrimaryButton(title: L.backToSceneList, action: onBackToList)
+            if showsCustomize {
+                Button(action: onCustomize) {
+                    Text(L.customize)
+                        .font(.headline)
+                        .foregroundStyle(Color.accent)
+                        .padding(.horizontal, 16)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
         }
         .sensoryFeedback(.success, trigger: appearTick)
         .onAppear { appearTick += 1 }
+    }
+
+    /// 받은 엔 줄, 마일스톤 줄, 열린 아이템 (reward-flow.md 6.2의 6번).
+    private func rewards(items: [RewardItem]) -> some View {
+        let learned = ContentLibrary.shared.kana(before: scene).union(scene.kana)
+        let header = grant.grantedItemIDs.isEmpty ? L.itemsUnlocked(items.count) : L.itemsGranted(grant.grantedItemIDs.count)
+        return VStack(spacing: 0) {
+            if grant.coins > 0 {
+                CoinsReceivedLine(received: grant.coins, balance: grant.balance)
+            }
+            if grant.milestoneCoins > 0 {
+                Text(L.hiraganaMilestone(grant.milestoneCoins))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.inkSecondary)
+                    .padding(.top, 4)
+            }
+            if !items.isEmpty {
+                VStack(spacing: 8) {
+                    Text(header)
+                        .font(.subheadline)
+                        .foregroundStyle(Color.inkSecondary)
+                    CenteredFlow(spacing: 16, lineSpacing: 8) {
+                        ForEach(items) { item in
+                            VStack(spacing: 2) {
+                                ItemThumbnail(item: item, size: 44)
+                                    .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
+                                    .cardOutline(cornerRadius: 10)
+                                ItemNameRuby(item: item, learned: learned)
+                            }
+                        }
+                    }
+                }
+                .padding(.top, 8)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text(itemsLabel(header: header, items: items)))
+            }
+        }
+    }
+
+    private func itemsLabel(header: String, items: [RewardItem]) -> AttributedString {
+        items.reduce(AttributedString(header)) { label, item in
+            label + AttributedString(", ") + KanaText.japanese(item.kana ?? "") + AttributedString(" \(item.nameKo)")
+        }
     }
 }
 
@@ -104,10 +175,11 @@ private struct GoalWordsBlock: View {
         VStack(spacing: 8) {
             Text(title)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.inkSecondary)
             CenteredFlow(spacing: 16, lineSpacing: 8) {
                 ForEach(words) { word in
                     KanaText(text: word.text, size: 22, weight: .bold)
+                        .foregroundStyle(Color.ink)
                 }
             }
         }
@@ -116,25 +188,32 @@ private struct GoalWordsBlock: View {
     }
 }
 
-/// 완료 화면의 배치. 아이콘이 화면 높이의 위에서 3분의 1쯤에 오고 버튼은 아래에 고정된다.
-private struct CompletionLayout<Icon: View, Texts: View, Detail: View, Buttons: View>: View {
-    @ViewBuilder let icon: Icon
+/// 완료 화면의 배치. 캐릭터 아래 끝이 내용 영역 높이의 위에서 3분의 1에 오고 버튼은 아래에 고정된다.
+private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View {
     @ViewBuilder let texts: Texts
     @ViewBuilder let detail: Detail
     @ViewBuilder let buttons: Buttons
 
+    @Environment(\.dynamicTypeSize) private var typeSize
+    @State private var contentHeight: CGFloat = 0
+
     var body: some View {
+        // 접근성 글자 크기에서는 캐릭터를 줄여 글자 자리를 먼저 지킨다 (visual-rules.md 8.1).
+        let characterSide: CGFloat = typeSize.isAccessibilitySize ? 80 : 120
         VStack(spacing: 0) {
             GeometryReader { geo in
                 ScrollView {
                     VStack(spacing: 24) {
-                        icon
+                        CelebrationCharacter(side: characterSide)
                         VStack(spacing: 8) { texts }
                             .multilineTextAlignment(.center)
                         detail
                     }
+                    .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { contentHeight = $0 }
                     .padding(.horizontal, 20)
-                    .padding(.top, max(geo.size.height / 3 - 64, 24))
+                    // 캐릭터 아래 끝을 위에서 3분의 1에 두되, 모자라면 위 여백부터 줄인다. 최소 24pt (reward-flow.md 6.2).
+                    // 내용 영역은 아래 버튼 영역(버튼 사이 4pt 포함)을 뺀 실제 높이다.
+                    .padding(.top, max(min(geo.size.height / 3 - characterSide, geo.size.height - contentHeight), 24))
                     .frame(maxWidth: .infinity)
                 }
                 .scrollBounceBehavior(.basedOnSize)
@@ -144,11 +223,48 @@ private struct CompletionLayout<Icon: View, Texts: View, Detail: View, Buttons: 
                 .padding(.top, 12)
                 .padding(.bottom, 8)
         }
-        .background(Color(.systemBackground))
+        .background(Color.appBackground)
     }
 }
 
-/// 글자 줄(34pt). 표시할 글자 아래에는 주황 점을 붙인다.
+/// 완료 화면의 웃는 캐릭터와 체크 배지. 장식이라 VoiceOver에서 읽지 않는다.
+/// 나타날 때 한 번 커지며 나온다. "동작 줄이기"가 켜져 있으면 처음부터 제 크기다 (visual-rules.md 6.2, 7.2).
+private struct CelebrationCharacter: View {
+    let side: CGFloat
+
+    @Environment(ProgressStore.self) private var store
+
+    /// 배지 지름과, 캐릭터 사각형의 오른쪽 아래 꼭짓점에서 배지 중심까지의 거리.
+    private static let badgeSize: CGFloat = 32
+    private static let badgeInset: CGFloat = 16
+    private static let badgeRing: CGFloat = 3
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var appeared = false
+
+    var body: some View {
+        let shown = appeared || reduceMotion
+        GiriView(face: .happy, outfit: store.rewards.equipped, side: side)
+            .overlay {
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .frame(width: Self.badgeSize, height: Self.badgeSize)
+                    .foregroundStyle(Color.correct)
+                    .padding(Self.badgeRing)
+                    .background(Color.appBackground, in: Circle())
+                    .position(x: side - Self.badgeInset, y: side - Self.badgeInset)
+            }
+            .scaleEffect(shown ? 1 : 0.85)
+            .opacity(shown ? 1 : 0)
+            .accessibilityHidden(true)
+            .onAppear {
+                guard !reduceMotion else { return }
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) { appeared = true }
+            }
+    }
+}
+
+/// 글자 줄(34pt). 표시할 글자 아래에는 `HighlightStrong` 점을 붙인다.
 struct KanaRow: View {
     let kana: [String]
     let marked: Set<String>
@@ -159,7 +275,7 @@ struct KanaRow: View {
                 VStack(spacing: 4) {
                     KanaText(text: char, size: 34)
                     Circle()
-                        .fill(.orange)
+                        .fill(Color.highlightStrong)
                         .frame(width: 6, height: 6)
                         .opacity(marked.contains(char) ? 1 : 0)
                         .accessibilityHidden(true)

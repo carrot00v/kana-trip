@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// S 장면 진입 (scene-flow.md 6번). 단계마다 섹션 하나: 단계 행 → 목표 단어 행 → 못 읽는 단어 줄.
+/// S 장면 진입 (scene-flow.md 6번). 단계마다 섹션 하나(세션 행 → 목표 단어 행 → 못 읽는 단어 줄),
+/// 마지막에 종합 퀴즈 섹션(세션 행만).
 struct SceneDetailView: View {
     let scene: TripScene
-    let onStart: (TripStep) -> Void
+    let onStart: (TripSession) -> Void
     let onBackToList: () -> Void
 
     @Environment(ProgressStore.self) private var store
@@ -19,20 +20,25 @@ struct SceneDetailView: View {
 
     var body: some View {
         let learned = store.learnedKana(in: scene)
-        let next = store.nextStep(in: scene)
+        let next = store.nextSession(in: scene)
         ScrollViewReader { proxy in
             List {
-                ForEach(scene.steps) { step in
+                ForEach(library.sessions(in: scene)) { session in
                     Section {
-                        stepRow(step)
-                            .id(step.id)
-                            .onAppear { visibleSteps.insert(step.id) }
-                            .onDisappear { visibleSteps.remove(step.id) }
-                        wordRows(step, learned: learned)
+                        sessionRow(session)
+                            .id(session.id)
+                            .onAppear { visibleSteps.insert(session.id) }
+                            .onDisappear { visibleSteps.remove(session.id) }
+                            .listRowBackground(Color.cardBackground)
+                        if let step = session.step {
+                            wordRows(step, learned: learned)
+                        }
                     }
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(Color.appBackground)
             .listSectionSpacing(16)
             .contentMargins(.top, 8, for: .scrollContent)
             .task {
@@ -50,7 +56,7 @@ struct SceneDetailView: View {
         .safeAreaInset(edge: .bottom) {
             Group {
                 if let next {
-                    PrimaryButton(title: L.stepAction(next.name, resume: store.isInProgress(next))) {
+                    PrimaryButton(title: L.stepAction(L.sessionName(next), resume: store.isInProgress(next))) {
                         onStart(next)
                     }
                 } else if store.isSceneCompleted(scene) {
@@ -62,29 +68,34 @@ struct SceneDetailView: View {
         }
     }
 
-    // MARK: - 단계 행 (6.1, 6.2)
+    // MARK: - 세션 행 (6.1, 6.2)
 
-    private func status(_ step: TripStep) -> StepStatus {
-        if store.isCompleted(step) { return .completed }
-        if !store.isUnlocked(step) { return .locked }
-        return store.isInProgress(step) ? .inProgress : .ready
+    private func status(_ session: TripSession) -> StepStatus {
+        if store.isCompleted(session) { return .completed }
+        if !store.isUnlocked(session) { return .locked }
+        return store.isInProgress(session) ? .inProgress : .ready
+    }
+
+    /// 세션 행의 아랫줄 글자: 단계는 그 단계의 새 글자, 종합 퀴즈는 장면의 글자 전부.
+    private func kana(_ session: TripSession) -> [String] {
+        session.step?.kana ?? scene.kana
     }
 
     @ViewBuilder
-    private func stepRow(_ step: TripStep) -> some View {
-        let status = status(step)
+    private func sessionRow(_ session: TripSession) -> some View {
+        let status = status(session)
         Button {
-            onStart(step)
+            onStart(session)
         } label: {
             HStack(spacing: 12) {
                 Group {
                     switch status {
                     case .ready, .inProgress:
-                        Image(systemName: "\(step.number).circle.fill").foregroundStyle(Color.accentColor)
+                        Image(systemName: "\(session.number).circle.fill").foregroundStyle(Color.accent)
                     case .locked:
-                        Image(systemName: "lock.fill").foregroundStyle(.secondary)
+                        Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
                     case .completed:
-                        Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                        Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)
                     }
                 }
                 .font(.title2)
@@ -92,11 +103,11 @@ struct SceneDetailView: View {
                 .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(step.name)
+                    Text(L.sessionName(session))
                         .font(.headline)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
-                    KanaText(text: step.kana.joined(separator: " "), size: 20)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
+                    KanaText(text: kana(session).joined(separator: " "), size: 20)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                 }
 
                 Spacer(minLength: 0)
@@ -104,15 +115,15 @@ struct SceneDetailView: View {
                 if status != .locked {
                     switch status {
                     case .inProgress:
-                        Text(L.resumeShort).font(.subheadline).foregroundStyle(.secondary)
+                        Text(L.resumeShort).font(.subheadline).foregroundStyle(Color.inkSecondary)
                     case .completed:
-                        Text(L.done).font(.subheadline).foregroundStyle(.secondary)
+                        Text(L.done).font(.subheadline).foregroundStyle(Color.inkSecondary)
                     default:
                         EmptyView()
                     }
                     Image(systemName: "chevron.right")
                         .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(Color.inkSecondary)
                         .accessibilityHidden(true)
                 }
             }
@@ -124,21 +135,22 @@ struct SceneDetailView: View {
         .disabled(status == .locked)
         .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(accessibilityLabel(step, status: status))
+        .accessibilityLabel(accessibilityLabel(session, status: status))
         .accessibilityAddTraits(.isButton)
     }
 
-    private func accessibilityLabel(_ step: TripStep, status: StepStatus) -> String {
+    private func accessibilityLabel(_ session: TripSession, status: StepStatus) -> String {
+        let name = L.sessionName(session)
         switch status {
         case .locked:
-            let previous = scene.steps.last { $0.index < step.index }?.name ?? ""
-            return L.stepRowLockedLabel(number: step.number, name: step.name, previous: previous)
+            let previous = library.sessions(in: scene).last { $0.number < session.number }.map(L.sessionName) ?? ""
+            return L.stepRowLockedLabel(number: session.number, name: name, previous: previous)
         case .ready:
-            return L.stepRowLabel(number: step.number, name: step.name, kana: step.kana, status: L.myTurn)
+            return L.stepRowLabel(number: session.number, name: name, kana: kana(session), status: L.myTurn)
         case .inProgress:
-            return L.stepRowLabel(number: step.number, name: step.name, kana: step.kana, status: L.resumeLabel)
+            return L.stepRowLabel(number: session.number, name: name, kana: kana(session), status: L.resumeLabel)
         case .completed:
-            return L.stepRowLabel(number: step.number, name: step.name, kana: step.kana, status: L.doneRedoLabel)
+            return L.stepRowLabel(number: session.number, name: name, kana: kana(session), status: L.doneRedoLabel)
         }
     }
 
@@ -149,10 +161,12 @@ struct SceneDetailView: View {
         let style: (String) -> WordGlyphStyle = { learned.contains($0) ? .learned : .unlearned }
         ForEach(library.shownGoalWords(for: step)) { word in
             goalWordRow(word, learnedCount: word.count(in: learned), style: style)
+                .listRowBackground(Color.cardBackground)
         }
         let rest = library.shownRestWords(for: step)
         if !rest.isEmpty {
             unreadableRow(rest, style: style)
+                .listRowBackground(Color.cardBackground)
         }
     }
 
@@ -166,18 +180,18 @@ struct SceneDetailView: View {
             VStack(alignment: .trailing, spacing: 2) {
                 Text(word.meaning)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
                     .lineLimit(1)
                 if readable {
                     HStack(spacing: 4) {
-                        Image(systemName: "checkmark").foregroundStyle(.green)
+                        Image(systemName: "checkmark").foregroundStyle(Color.correct)
                         Text(L.canRead)
                     }
                     .font(.footnote)
                 } else {
                     Text(L.learnedCount(learnedCount, of: total))
                         .font(.footnote.monospacedDigit())
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                 }
             }
         }
@@ -194,7 +208,7 @@ struct SceneDetailView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(L.unreadableWords)
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.inkSecondary)
             CenteredFlow(spacing: 16, lineSpacing: 6, alignment: .leading) {
                 ForEach(words) { word in
                     WordGlyphs(word: word, size: 17, spacing: 0, style: style)

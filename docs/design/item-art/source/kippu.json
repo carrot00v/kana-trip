@@ -1,0 +1,9 @@
+{
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: A small rectangular Japanese train ticket, cream paper with a thin sky-blue band and a tiny punched hole, standing upright as if held at its bottom edge. No readable text, only two short abstract lines. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 97173804,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16"
+}

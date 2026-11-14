@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 104 310 310" width="310" height="310">
+
+  <!-- 두건: 오른쪽이 올라가게 비스듬히 -->
+  <path d="M28 224 Q150 252 272 204 L274 226 Q150 278 30 248Z" fill="#E2533F" stroke="#4A2219" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M44 238 L2 246 L30 264Z" fill="#E2533F" stroke="#4A2219" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M52 246 L40 292 L70 262Z" fill="#E2533F" stroke="#4A2219" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="48" cy="242" r="13" fill="#E2533F" stroke="#4A2219" stroke-width="6"/>
+</svg>

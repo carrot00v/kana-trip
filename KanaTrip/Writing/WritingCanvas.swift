@@ -35,7 +35,7 @@ struct WritingCanvas: View {
                     for stroke in kana.strokes {
                         context.stroke(
                             StrokeDrawing.path(stroke, scale: scale),
-                            with: .color(.gray.opacity(guideOpacity)),
+                            with: .color(Color.ink.opacity(guideOpacity)),
                             style: StrokeDrawing.style(StrokeDrawing.guideWidth * scale)
                         )
                     }
@@ -43,7 +43,7 @@ struct WritingCanvas: View {
                 for stroke in kana.strokes.prefix(doneCount) {
                     context.stroke(
                         StrokeDrawing.path(stroke, scale: scale),
-                        with: .color(.primary),
+                        with: .color(Color.ink),
                         style: StrokeDrawing.style(StrokeDrawing.strokeWidth * scale)
                     )
                 }
@@ -52,29 +52,29 @@ struct WritingCanvas: View {
                 }
                 if showGuide, !isFinished {
                     for loop in StrokeJudge.loops(in: kana.strokes[doneCount]) {
-                        StrokeDrawing.drawLoopMark(&context, at: loop.center, area: loop.area, color: .orange, scale: scale)
+                        StrokeDrawing.drawLoopMark(&context, at: loop.center, area: loop.area, color: Color.highlightStrong, scale: scale)
                     }
                 }
                 if let missedLoop {
-                    StrokeDrawing.drawLoopMark(&context, at: missedLoop, area: 250, color: .red, scale: scale)
+                    StrokeDrawing.drawLoopMark(&context, at: missedLoop, area: 250, color: Color.wrong, scale: scale)
                 }
                 if !rejected.isEmpty {
                     context.stroke(
                         StrokeDrawing.path(rejected, scale: scale),
-                        with: .color(.red.opacity(0.7)),
+                        with: .color(Color.wrong.opacity(0.7)),
                         style: StrokeDrawing.style(StrokeDrawing.strokeWidth * scale)
                     )
                 }
                 if !current.isEmpty {
                     context.stroke(
                         StrokeDrawing.path(current, scale: 1),
-                        with: .color(.accentColor),
+                        with: .color(Color.ink.opacity(0.6)),
                         style: StrokeDrawing.style(StrokeDrawing.strokeWidth * scale)
                     )
                 }
             }
             .frame(width: side, height: side)
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 20))
+            .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 20))
             .contentShape(Rectangle())
             .gesture(
                 DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -110,6 +110,6 @@ struct WritingCanvas: View {
         cross.addLine(to: CGPoint(x: size.width / 2, y: size.height - 12))
         cross.move(to: CGPoint(x: 12, y: size.height / 2))
         cross.addLine(to: CGPoint(x: size.width - 12, y: size.height / 2))
-        context.stroke(cross, with: .color(.gray.opacity(0.25)), style: StrokeStyle(lineWidth: 1, dash: [5, 5]))
+        context.stroke(cross, with: .color(Color.inkSecondary.opacity(0.25)), style: StrokeStyle(lineWidth: 1, dash: [5, 5]))
     }
 }

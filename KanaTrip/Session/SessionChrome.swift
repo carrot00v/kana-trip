@@ -2,21 +2,28 @@ import SwiftUI
 
 // 세션 화면이 함께 쓰는 뼈대와 작은 부품.
 
-/// 상단 바에 보여 줄 진행. 지금 구간과 그 구간에서 끝낸 항목 수.
+/// 상단 바에 보여 줄 진행. 세션의 구간들, 지금 구간, 그 구간에서 끝낸 항목 수.
 struct PartProgress: Equatable {
+    /// 단계 세션은 [배우기, 단어 읽기], 종합 퀴즈 세션은 [퀴즈].
+    let segments: [SessionPart]
     let part: SessionPart
     var done: Int
     var total: Int
 
+    static let stepSegments: [SessionPart] = [.learn, .words]
+    static let quizSegments: [SessionPart] = [.quiz]
+
     /// 칸 하나가 차는 정도. 지금 구간 앞의 칸은 꽉 차고, 뒤의 칸은 비어 있다.
     func fill(of segment: SessionPart) -> Double {
-        if segment.rawValue < part.rawValue { return 1 }
-        if segment.rawValue > part.rawValue { return 0 }
+        let mine = segments.firstIndex(of: part) ?? 0
+        let other = segments.firstIndex(of: segment) ?? 0
+        if other < mine { return 1 }
+        if other > mine { return 0 }
         return total > 0 ? min(Double(done) / Double(total), 1) : 0
     }
 }
 
-/// 상단 바: 닫기 버튼, 같은 폭 3칸 진행 막대, 지금 구간 이름 (scene-flow.md 7.2).
+/// 상단 바: 닫기 버튼, 구간마다 같은 폭의 칸으로 나눈 진행 막대, 지금 구간 이름 (scene-flow.md 7.2).
 struct SessionTopBar: View {
     let progress: PartProgress
     let onClose: () -> Void
@@ -26,6 +33,7 @@ struct SessionTopBar: View {
             Button(action: onClose) {
                 Image(systemName: "xmark")
                     .font(.headline)
+                    .foregroundStyle(Color.ink)
                     .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
@@ -35,13 +43,13 @@ struct SessionTopBar: View {
 
             HStack(spacing: 8) {
                 HStack(spacing: 4) {
-                    ForEach(SessionPart.allCases, id: \.self) { segment in
+                    ForEach(progress.segments, id: \.self) { segment in
                         SegmentBar(fill: progress.fill(of: segment))
                     }
                 }
                 Text(L.partName(progress.part))
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.inkSecondary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
                     .frame(width: 72, alignment: .trailing)
@@ -62,8 +70,8 @@ private struct SegmentBar: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
-                Capsule().fill(Color.secondary.opacity(0.2))
-                Capsule().fill(Color.accentColor)
+                Capsule().fill(Color.inkSecondary.opacity(0.2))
+                Capsule().fill(Color.accent)
                     .frame(width: geo.size.width * fill)
             }
         }
@@ -86,7 +94,7 @@ struct SessionScaffold<Content: View, Bottom: View>: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             BottomBar { bottom }
         }
-        .background(Color(.systemBackground))
+        .background(Color.appBackground)
     }
 }
 
@@ -114,8 +122,12 @@ struct PrimaryButton: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .frame(maxWidth: .infinity, minHeight: ButtonMetrics.labelHeight)
+                // `.borderedProminent`는 다크에서도 글자를 흰색으로 그려 크림색 강조색 위에서 보이지 않는다.
+                .foregroundStyle(Color.accentForeground)
         }
         .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
+        .tint(Color.accent)
         .controlSize(.large)
         .disabled(!enabled)
     }
@@ -136,6 +148,8 @@ struct SecondaryButton: View {
                 .frame(minHeight: ButtonMetrics.labelHeight)
         }
         .buttonStyle(.bordered)
+        .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
+        .tint(Color.accent)
         .controlSize(.large)
         .disabled(!enabled)
     }
@@ -146,26 +160,38 @@ enum ButtonMetrics {
     static let labelHeight: CGFloat = 28
     /// 보조 버튼의 폭 112pt에서 좌우 여백을 뺀 글자 영역 폭.
     static let secondaryLabelWidth: CGFloat = 72
+    /// 주 버튼과 보조 버튼의 모서리 반지름.
+    static let cornerRadius: CGFloat = 16
 }
 
-/// 쓰기 포인트 상자.
+/// 쓰기 포인트 상자. 카드 바탕 위에 노랑을 옅게 깔고 외곽선은 두지 않는다.
 struct TipBox: View {
     let text: String
     var lineLimit: Int? = nil
 
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
             Image(systemName: "lightbulb.fill")
-                .foregroundStyle(.orange)
+                .foregroundStyle(Color.highlightStrong)
                 .accessibilityHidden(true)
             Text(text)
+                .foregroundStyle(Color.ink)
                 .lineLimit(lineLimit)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .font(.subheadline)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)
-        .background(Color.orange.opacity(0.14), in: RoundedRectangle(cornerRadius: 12))
+        .background {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.cardBackground)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.highlight.opacity(AppStyle.tipFillOpacity(colorScheme)))
+                )
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(L.tipPrefix), \(text)")
     }
@@ -195,7 +221,7 @@ struct SpeakerBadge: View {
     var body: some View {
         Image(systemName: "speaker.wave.2.fill")
             .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Color.inkSecondary)
             .accessibilityHidden(true)
     }
 }

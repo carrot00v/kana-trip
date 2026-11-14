@@ -1,11 +1,19 @@
 import SwiftUI
 
+/// 홈의 NavigationStack에 쌓는 화면.
+enum HomeRoute: Hashable {
+    case scene(String)
+    /// K 기리 꾸미기 (docs/design/reward-flow.md 2.2).
+    case customize
+}
+
 /// H 홈(장면 목록).
 struct HomeView: View {
     @Environment(ProgressStore.self) private var store
-    @State private var path: [String] = []
+    @State private var path: [HomeRoute] = []
     @State private var route: SessionRoute?
     @State private var showsComingSoon = false
+    @Environment(\.dynamicTypeSize) private var typeSize
     #if DEBUG
     @State private var showsSpike = false
     #endif
@@ -16,13 +24,24 @@ struct HomeView: View {
         @Bindable var store = store
         NavigationStack(path: $path) {
             List {
-                Section(library.sectionTitle) {
+                Section {
+                    giriRow
+                        .listRowBackground(Color.cardBackground)
+                }
+                Section {
                     ForEach(library.scenes) { scene in
                         row(scene)
+                            .listRowBackground(Color.cardBackground)
                     }
+                } header: {
+                    Text(library.sectionTitle)
+                        .foregroundStyle(Color.inkSecondary)
+                        .textCase(nil)
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(Color.appBackground)
             .navigationTitle(L.appTitle)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -34,6 +53,7 @@ struct HomeView: View {
                         #endif
                     } label: {
                         Image(systemName: "ellipsis.circle")
+                            .foregroundStyle(Color.accent)
                     }
                     .accessibilityLabel(L.more)
                 }
@@ -43,25 +63,30 @@ struct HomeView: View {
                     PrimaryButton(
                         title: L.homeStart(
                             scene: target.scene.name,
-                            step: target.step.name,
-                            resume: store.isInProgress(target.step)
+                            step: L.sessionName(target.session),
+                            resume: store.isInProgress(target.session)
                         )
                     ) {
                         // 세션을 닫으면 장면 진입이 아래에 깔려 있도록 먼저 push한다.
-                        path = [target.scene.id]
-                        route = SessionRoute(stepID: target.step.id)
+                        path = [.scene(target.scene.id)]
+                        route = SessionRoute(sessionID: target.session.id)
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                 }
             }
-            .navigationDestination(for: String.self) { sceneID in
-                if let scene = library.scene(id: sceneID) {
-                    SceneDetailView(
-                        scene: scene,
-                        onStart: { route = SessionRoute(stepID: $0.id) },
-                        onBackToList: { path = [] }
-                    )
+            .navigationDestination(for: HomeRoute.self) { destination in
+                switch destination {
+                case .scene(let sceneID):
+                    if let scene = library.scene(id: sceneID) {
+                        SceneDetailView(
+                            scene: scene,
+                            onStart: { route = SessionRoute(sessionID: $0.id) },
+                            onBackToList: { path = [] }
+                        )
+                    }
+                case .customize:
+                    CustomizeView()
                 }
             }
             .alert(L.comingSoon, isPresented: $showsComingSoon) {
@@ -69,15 +94,21 @@ struct HomeView: View {
             }
         }
         .fullScreenCover(item: $route) { route in
-            if let step = library.step(id: route.stepID) {
+            if let session = library.session(id: route.sessionID) {
                 SessionView(
-                    initialStep: step,
+                    initialSession: session,
                     onClose: { self.route = nil },
                     onBackToList: {
                         path = []
                         self.route = nil
+                    },
+                    onCustomize: {
+                        // 덮개를 닫고 장면 진입은 쌓지 않은 채 홈 위에 꾸미기를 띄운다.
+                        self.route = nil
+                        path = [.customize]
                     }
                 )
+                .appStyle()
             }
         }
         #if DEBUG
@@ -91,8 +122,55 @@ struct HomeView: View {
                 .frame(height: 44)
                 WritingSpikeView()
             }
+            .background(Color.appBackground)
+            .appStyle()
         }
         #endif
+    }
+
+    // MARK: - 기리 행
+
+    /// 목록 맨 위의 기리 행 (reward-flow.md 4번). 행 전체가 누르는 영역이고 기리 그림은 장식이다.
+    /// 접근성 글자 크기에서는 기리를 숨긴다 (visual-rules.md 8.1).
+    private var giriRow: some View {
+        let canBuy = store.canBuyAnyItem
+        return Button {
+            path.append(.customize)
+        } label: {
+            HStack(spacing: 12) {
+                if !typeSize.isAccessibilitySize {
+                    GiriView(face: .normal, outfit: store.rewards.equipped, side: 64)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L.customize)
+                        .font(.headline)
+                        .foregroundStyle(Color.ink)
+                    Text(L.coinsBalance(store.rewards.coins))
+                        .font(.subheadline.monospacedDigit())
+                        .foregroundStyle(Color.inkSecondary)
+                    if canBuy {
+                        HStack(spacing: 4) {
+                            Image(systemName: "yensign.circle.fill")
+                                .foregroundStyle(Color.highlightStrong)
+                            Text(L.canBuyItem)
+                                .foregroundStyle(Color.ink)
+                        }
+                        .font(.footnote)
+                    }
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Color.inkSecondary)
+            }
+            .padding(.vertical, 8)
+            .frame(minHeight: 80)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L.customizeRowLabel(balance: store.rewards.coins, canBuy: canBuy))
+        .accessibilityAddTraits(.isButton)
     }
 
     // MARK: - 장면 상태
@@ -103,13 +181,13 @@ struct HomeView: View {
         return store.isSceneUnlocked(scene) ? .open : .locked
     }
 
-    /// 아래 주 버튼이 시작할 장면과 단계. 열린 장면의 내용이 아직 없으면 버튼을 숨긴다.
-    private var nextTarget: (scene: TripScene, step: TripStep)? {
+    /// 아래 주 버튼이 시작할 장면과 세션. 열린 장면의 내용이 아직 없으면 버튼을 숨긴다.
+    private var nextTarget: (scene: TripScene, session: TripSession)? {
         guard let scene = library.scenes.first(where: { status($0) == .open }),
               scene.hasContent,
-              let step = store.nextStep(in: scene)
+              let session = store.nextSession(in: scene)
         else { return nil }
-        return (scene, step)
+        return (scene, session)
     }
 
     // MARK: - 장면 행 (scene-flow.md 5번, scene-art/brief.md 2번)
@@ -117,10 +195,11 @@ struct HomeView: View {
     @ViewBuilder
     private func row(_ scene: TripScene) -> some View {
         let status = status(scene)
-        let done = store.completedStepCount(scene)
+        let done = store.completedSessionCount(scene)
+        let total = library.sessions(in: scene).count
         Button {
             if scene.hasContent {
-                path.append(scene.id)
+                path.append(.scene(scene.id))
             } else {
                 showsComingSoon = true
             }
@@ -132,21 +211,21 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\(scene.order)  \(scene.name)")
                         .font(.headline)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                         .lineLimit(1)
                     stepKanaLine(scene)
-                        .foregroundStyle(status == .locked ? .secondary : .primary)
+                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
                 }
 
                 Spacer(minLength: 0)
 
                 if status != .locked {
-                    Text(status == .completed ? L.done : "\(done)/\(scene.steps.count)")
+                    Text(status == .completed ? L.done : "\(done)/\(total)")
                         .font(.footnote.monospacedDigit())
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.inkSecondary)
                     Image(systemName: "chevron.right")
                         .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(Color.inkSecondary)
                         .accessibilityHidden(true)
                 }
             }
@@ -162,7 +241,7 @@ struct HomeView: View {
         .accessibilityLabel(
             status == .locked
                 ? L.sceneRowLocked(order: scene.order, name: scene.name)
-                : L.sceneRowLabel(order: scene.order, name: scene.name, steps: scene.steps.map { ($0.name, $0.kana) }, done: done)
+                : L.sceneRowLabel(order: scene.order, name: scene.name, steps: scene.steps.map { ($0.name, $0.kana) }, done: done, total: total)
         )
         .accessibilityAddTraits(status == .locked ? [] : .isButton)
     }
@@ -172,7 +251,7 @@ struct HomeView: View {
         HStack(spacing: 8) {
             ForEach(Array(scene.steps.enumerated()), id: \.offset) { index, step in
                 if index > 0 {
-                    Text("·").font(.system(size: 20)).foregroundStyle(.secondary)
+                    Text("·").font(.system(size: 20)).foregroundStyle(Color.inkSecondary)
                 }
                 KanaText(text: step.kana.joined(separator: " "), size: 20)
             }
@@ -196,12 +275,6 @@ struct SceneThumbnail: View {
 
     static let side: CGFloat = 52
     static let badge: CGFloat = 22
-    /// 외곽선 색. visual-rules의 `Outline`(라이트 #4A2219, 다크 #8C7366). 이 브랜치에는 색 에셋이 없어 코드에 둔다.
-    private static let outline = Color(UIColor { trait in
-        trait.userInterfaceStyle == .dark
-            ? UIColor(red: 0x8C / 255, green: 0x73 / 255, blue: 0x66 / 255, alpha: 1)
-            : UIColor(red: 0x4A / 255, green: 0x22 / 255, blue: 0x19 / 255, alpha: 1)
-    })
 
     private var image: UIImage? {
         UIImage(named: scene.thumbnailName) ?? UIImage(named: TripScene.placeholderThumbnailName)
@@ -217,14 +290,14 @@ struct SceneThumbnail: View {
                     .saturation(status == .locked ? 0 : 1)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .overlay {
-                        RoundedRectangle(cornerRadius: 12).strokeBorder(Self.outline, lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 12).strokeBorder(Color.outline, lineWidth: AppStyle.outlineWidth)
                     }
                 if let badge {
                     Image(systemName: badge.symbol)
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(badge.color)
                         .frame(width: Self.badge, height: Self.badge)
-                        .background(Color(.secondarySystemGroupedBackground), in: Circle())
+                        .background(Color.cardBackground, in: Circle())
                         // 원의 중심을 그림 오른쪽 아래 꼭짓점에서 왼쪽과 위로 7pt에 둔다.
                         .offset(x: Self.side - 7 - Self.badge / 2, y: Self.side - 7 - Self.badge / 2)
                 }
@@ -240,8 +313,8 @@ struct SceneThumbnail: View {
     private var badge: (symbol: String, color: Color)? {
         switch status {
         case .open: nil
-        case .locked: ("lock.fill", .secondary)
-        case .completed: ("checkmark.circle.fill", .green)
+        case .locked: ("lock.fill", .inkSecondary)
+        case .completed: ("checkmark.circle.fill", .correct)
         }
     }
 
@@ -249,11 +322,11 @@ struct SceneThumbnail: View {
     private var statusIcon: some View {
         switch status {
         case .locked:
-            Image(systemName: "lock.fill").foregroundStyle(.secondary)
+            Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
         case .open:
-            Image(systemName: scene.icon ?? "lock.open.fill").foregroundStyle(Color.accentColor)
+            Image(systemName: scene.icon ?? "lock.open.fill").foregroundStyle(Color.accent)
         case .completed:
-            Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+            Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)
         }
     }
 }

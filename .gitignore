@@ -4,3 +4,6 @@ DerivedData/
 xcuserdata/
 *.xcuserstate
 docs/design/scene-art/source/candidates/
+docs/design/item-art/source/candidates/
+.venv/
+__pycache__/

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
+<g transform="translate(300 0) scale(-1 1)">
+  <!-- 강조 표시 -->
+  <g stroke="#F6B92B" stroke-width="8" stroke-linecap="round">
+    <path d="M284 130 L286 112"/>
+    <path d="M298 140 L311 127"/>
+    <path d="M303 157 L318 154"/>
+  </g></g>
+</svg>

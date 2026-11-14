@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// 퀴즈 구간. 1부 사지선다 → 2부 기억으로 쓰기. 틀린 항목은 그 부의 끝에 다시 나온다.
-/// 문항은 단계의 새 글자 + 복습 글자(단계 a만)이고, 배우기를 끝낼 때 `StepRun.finishLearning()`이 만든다.
+/// 종합 퀴즈 세션. `QuizProgress`의 부(유형)를 차례로 풀고, 틀린 항목은 그 부의 끝에 다시 나온다.
+/// 문항은 장면의 새 글자 전부 + 앞 장면 복습 글자이고, 퀴즈 안내(P2)에서 `SessionRun.prepareQuiz()`가 만든다.
+/// 유형을 더할 때는 `QuizKind`에 case를 두고 `loadNext()`에서 화면을 잇는다.
 struct QuizSessionView: View {
-    let run: StepRun
+    let run: SessionRun
     let onClose: () -> Void
     let onFinished: () -> Void
 
@@ -18,7 +19,7 @@ struct QuizSessionView: View {
 
     private var partProgress: PartProgress {
         let quiz = run.progress.quiz
-        return PartProgress(part: .quiz, done: quiz?.doneCount ?? 0, total: quiz?.totalCount ?? 0)
+        return PartProgress(segments: PartProgress.quizSegments, part: .quiz, done: quiz?.doneCount ?? 0, total: quiz?.totalCount ?? 0)
     }
 
     var body: some View {
@@ -27,7 +28,7 @@ struct QuizSessionView: View {
             case .choice(let kana, let options):
                 ChoiceQuestionView(
                     kana: kana, options: options, progress: partProgress, onClose: onClose,
-                    onAnswered: { correct in run.answerChoice(kana.char, correct: correct) },
+                    onAnswered: { correct in run.answer(kana.char, correct: correct) },
                     onNext: loadNext
                 )
                 .id(itemSerial)
@@ -35,12 +36,13 @@ struct QuizSessionView: View {
                 RecallWriteView(
                     kana: kana, progress: partProgress, onClose: onClose,
                     onGuideUsed: { run.markGuideUsed(kana.char) },
-                    onCompleted: { usedGuide in run.finishWrite(kana.char, usedGuide: usedGuide) },
+                    // 가이드를 본 글자는 틀린 것으로 보고 부의 끝에 다시 낸다.
+                    onCompleted: { usedGuide in run.answer(kana.char, correct: !usedGuide) },
                     onNext: loadNext
                 )
                 .id(itemSerial)
             case nil:
-                Color(.systemBackground)
+                Color.appBackground
             }
         }
         .fadeOnChange(of: itemSerial)
@@ -53,13 +55,16 @@ struct QuizSessionView: View {
         let library = ContentLibrary.shared
         guard let quiz = run.progress.quiz else { return }
         itemSerial += 1
-        if let char = quiz.choiceQueue.first, let kana = library.kana(char) {
-            item = .choice(kana, options: ChoiceOptions.make(for: kana, library: library))
-        } else if let char = quiz.writeQueue.first, let kana = library.kana(char) {
-            item = .write(kana)
-        } else {
+        guard let index = quiz.currentPartIndex else {
             item = nil
             onFinished()
+            return
+        }
+        let part = quiz.parts[index]
+        guard let char = part.queue.first, let kana = library.kana(char) else { return }
+        switch part.kind {
+        case .readingChoice: item = .choice(kana, options: ChoiceOptions.make(for: kana, library: library))
+        case .recallWrite: item = .write(kana)
         }
     }
 }
@@ -165,10 +170,10 @@ struct ChoiceQuestionView: View {
     private func choice(_ option: String) -> some View {
         let isAnswer = option == kana.romaji
         let isPicked = option == picked
-        // 답한 뒤: 정답 칸은 초록, 잘못 고른 칸은 빨강, 나머지는 흐리게.
+        // 답한 뒤: 정답 칸은 초록, 잘못 고른 칸은 빨강 외곽선(3pt), 나머지는 흐리게.
         let mark: (icon: String, color: Color)? = !answered ? nil
-            : isAnswer ? ("checkmark.circle.fill", .green)
-            : isPicked ? ("xmark.circle.fill", .red)
+            : isAnswer ? ("checkmark.circle.fill", .correct)
+            : isPicked ? ("xmark.circle.fill", .wrong)
             : nil
 
         return Button {
@@ -176,17 +181,18 @@ struct ChoiceQuestionView: View {
         } label: {
             Text(option)
                 .font(.title2.bold())
-                .foregroundStyle(.primary)
+                .foregroundStyle(Color.ink)
                 .frame(maxWidth: .infinity, minHeight: 72)
-                .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
-                .overlay {
-                    if let mark {
-                        RoundedRectangle(cornerRadius: 16).strokeBorder(mark.color, lineWidth: 2)
-                    }
-                }
+                .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 16))
+                .cardOutline(
+                    cornerRadius: 16,
+                    color: mark?.color ?? .outline,
+                    lineWidth: mark == nil ? AppStyle.outlineWidth : AppStyle.verdictOutlineWidth
+                )
                 .overlay(alignment: .topTrailing) {
                     if let mark {
                         Image(systemName: mark.icon)
+                            .font(.system(size: 20))
                             .foregroundStyle(mark.color)
                             .padding(8)
                             .accessibilityHidden(true)
@@ -195,7 +201,7 @@ struct ChoiceQuestionView: View {
                 .contentShape(RoundedRectangle(cornerRadius: 16))
         }
         .buttonStyle(.plain)
-        .opacity(answered && mark == nil ? 0.4 : 1)
+        .opacity(answered && mark == nil ? AppStyle.dimmedOpacity : 1)
         .animation(.easeInOut(duration: 0.15), value: picked)
         .allowsHitTesting(!answered)
         .accessibilityLabel(

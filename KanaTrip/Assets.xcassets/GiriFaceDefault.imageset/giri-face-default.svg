@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
+
+  <!-- 볼 -->
+  <ellipse cx="94" cy="190" rx="15" ry="10" fill="#F5A7A0"/>
+  <ellipse cx="206" cy="190" rx="15" ry="10" fill="#F5A7A0"/>
+  <!-- 얼굴 -->
+  <ellipse cx="114" cy="170" rx="7" ry="10" fill="#4A2219"/>
+  <ellipse cx="186" cy="170" rx="7" ry="10" fill="#4A2219"/>
+  <path d="M140 186 Q150 196 160 186" fill="none" stroke="#4A2219" stroke-width="5.5" stroke-linecap="round"/>
+</svg>

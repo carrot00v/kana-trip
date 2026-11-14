@@ -55,6 +55,34 @@ struct TripStep: Decodable, Identifiable, Hashable {
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
 
+/// 세션 하나. 장면마다 단계 a 세션, 단계 b 세션, 종합 퀴즈 세션의 3개다.
+/// 진도 저장 키와 보상 지급 키가 `id`다: `{장면 id}-a`, `{장면 id}-b`, `{장면 id}-quiz`.
+struct TripSession: Identifiable, Hashable {
+    enum Kind: Hashable {
+        /// 단계 세션: 배우기 → 단어 읽기.
+        case step(TripStep)
+        /// 종합 퀴즈: 장면 글자 전부 + 앞 장면 복습 글자.
+        case quiz
+    }
+
+    let id: String
+    let sceneID: String
+    let kind: Kind
+    /// 장면 안의 순서(1, 2, 3).
+    let number: Int
+    /// 히라가나 전체에서의 순서. 열리는 순서를 정한다.
+    let globalIndex: Int
+
+    var step: TripStep? {
+        if case .step(let step) = kind { return step }
+        return nil
+    }
+
+    var isQuiz: Bool { step == nil }
+
+    static func quizID(sceneID: String) -> String { "\(sceneID)-quiz" }
+}
+
 /// 장면 하나. 단계 2개로 나뉜다.
 struct TripScene: Decodable, Identifiable {
     let id: String
@@ -82,6 +110,8 @@ final class ContentLibrary {
     let scenes: [TripScene]
     /// 모든 단계를 1a → 1b → 2a → … 순서로.
     let steps: [TripStep]
+    /// 모든 세션을 1a → 1b → 1퀴즈 → 2a → … 순서로.
+    let sessions: [TripSession]
     private let kanaByChar: [String: Kana]
     /// 글자 → 그 글자를 새로 배우는 단계.
     private let stepByKana: [String: TripStep]
@@ -116,6 +146,15 @@ final class ContentLibrary {
             scenes = []
         }
         steps = scenes.flatMap(\.steps)
+        var sessions: [TripSession] = []
+        for scene in scenes {
+            for step in scene.steps {
+                sessions.append(TripSession(id: step.id, sceneID: scene.id, kind: .step(step), number: step.number, globalIndex: sessions.count))
+            }
+            sessions.append(TripSession(id: TripSession.quizID(sceneID: scene.id), sceneID: scene.id, kind: .quiz,
+                                        number: scene.steps.count + 1, globalIndex: sessions.count))
+        }
+        self.sessions = sessions
         var byKana: [String: TripStep] = [:]
         for step in steps {
             for char in step.kana where byKana[char] == nil { byKana[char] = step }
@@ -148,6 +187,23 @@ final class ContentLibrary {
     /// 같은 장면의 다음 단계. 단계 b면 nil.
     func step(after step: TripStep) -> TripStep? {
         scene(of: step)?.steps.first { $0.index == step.index + 1 }
+    }
+
+    func session(id: String) -> TripSession? {
+        sessions.first { $0.id == id }
+    }
+
+    func sessions(in scene: TripScene) -> [TripSession] {
+        sessions.filter { $0.sceneID == scene.id }
+    }
+
+    /// 같은 장면의 다음 세션. 종합 퀴즈면 nil.
+    func session(after session: TripSession) -> TripSession? {
+        sessions.first { $0.sceneID == session.sceneID && $0.number == session.number + 1 }
+    }
+
+    func scene(of session: TripSession) -> TripScene? {
+        scene(id: session.sceneID)
     }
 
     /// 글자를 새로 배우는 단계.
