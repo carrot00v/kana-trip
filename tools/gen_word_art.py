@@ -40,8 +40,22 @@ from pathlib import Path
 from PIL import Image
 
 from gen_image import generate, workflow
-from gen_item_art import OBJECT_RULES, PALETTE, STYLE
+from gen_item_art import OBJECT_RULES
 from remove_bg import remove_bg
+
+# 아이템 그림의 STYLE·PALETTE를 그대로 쓰면 1차 배치(26장)에서 17장이 탈락했다.
+# 색 이름을 늘어놓은 PALETTE는 대상에 그 색을 전부 칠하게 만들었고(무지개색 꼬치·노렌, 색 공),
+# "kawaii"는 오니기리에 얼굴을 그렸다. 단어 그림은 실물로 알아봐야 하므로 실제 색을 쓰게 한다.
+STYLE = (
+    "Flat sticker illustration of a real Japanese object, simple and clean: "
+    "thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, "
+    "rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow."
+)
+PALETTE = (
+    "Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. "
+    "Never rainbow or multicolor: parts of the same kind share the same color. "
+    "No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple."
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "tools" / "word_art.json"
