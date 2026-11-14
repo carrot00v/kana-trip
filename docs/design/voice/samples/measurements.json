@@ -1,0 +1,3772 @@
+{
+ "voicevox_core": "0.17.1",
+ "vvm": "models/vvms/0.vvm",
+ "cpu_num_threads": 2,
+ "load_seconds": 0.64,
+ "metas": [
+  {
+   "name": "四国めたん",
+   "styles": [
+    {
+     "name": "ノーマル",
+     "id": 2,
+     "type": "streaming_talk"
+    },
+    {
+     "name": "あまあま",
+     "id": 0,
+     "type": "streaming_talk"
+    },
+    {
+     "name": "ツンツン",
+     "id": 6,
+     "type": "streaming_talk"
+    },
+    {
+     "name": "セクシー",
+     "id": 4,
+     "type": "streaming_talk"
+    }
+   ]
+  },
+  {
+   "name": "ずんだもん",
+   "styles": [
+    {
+     "name": "ノーマル",
+     "id": 3,
+     "type": "streaming_talk"
+    },
+    {
+     "name": "あまあま",
+     "id": 1,
+     "type": "streaming_talk"
+    },
+    {
+     "name": "ツンツン",
+     "id": 7,
+     "type": "streaming_talk"
+    },
+    {
+     "name": "セクシー",
+     "id": 5,
+     "type": "streaming_talk"
+    }
+   ]
+  },
+  {
+   "name": "春日部つむぎ",
+   "styles": [
+    {
+     "name": "ノーマル",
+     "id": 8,
+     "type": "streaming_talk"
+    }
+   ]
+  },
+  {
+   "name": "雨晴はう",
+   "styles": [
+    {
+     "name": "ノーマル",
+     "id": 10,
+     "type": "streaming_talk"
+    }
+   ]
+  }
+ ],
+ "files": [
+  {
+   "file": "metan-su-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.237,
+   "phonemes": [
+    "s+u"
+   ],
+   "query_kana": "ス'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.076,
+     "vowel": "u",
+     "vowel_length": 0.189,
+     "pitch": 5.793
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 22060,
+   "input": "ス'",
+   "rejected_inputs": [],
+   "kana": "す",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.459,
+   "voiced": 0.22,
+   "lead_silence": 0.12,
+   "tail_silence": 0.119,
+   "peak_dbfs": -16.0,
+   "rms_dbfs": -29.3
+  },
+  {
+   "file": "metan-su-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.286,
+   "phonemes": [
+    "s+u"
+   ],
+   "query_kana": "ス'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.076,
+     "vowel": "u",
+     "vowel_length": 0.189,
+     "pitch": 5.793
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 29228,
+   "input": "ス'",
+   "rejected_inputs": [],
+   "kana": "す",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.608,
+   "voiced": 0.29,
+   "lead_silence": 0.16,
+   "tail_silence": 0.158,
+   "peak_dbfs": -13.8,
+   "rms_dbfs": -27.4
+  },
+  {
+   "file": "metan-su-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.3,
+   "phonemes": [
+    "s+u"
+   ],
+   "query_kana": "ス'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.076,
+     "vowel": "u",
+     "vowel_length": 0.324,
+     "pitch": 5.793
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "ス'",
+   "rejected_inputs": [],
+   "kana": "す",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.64,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.18,
+   "peak_dbfs": -16.9,
+   "rms_dbfs": -29.2
+  },
+  {
+   "file": "metan-shi-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.255,
+   "phonemes": [
+    "sh+i"
+   ],
+   "query_kana": "シ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.112,
+     "vowel": "i",
+     "vowel_length": 0.211,
+     "pitch": 5.812
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 25132,
+   "input": "シ'",
+   "rejected_inputs": [],
+   "kana": "し",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.523,
+   "voiced": 0.3,
+   "lead_silence": 0.11,
+   "tail_silence": 0.113,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -24.2
+  },
+  {
+   "file": "metan-shi-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.317,
+   "phonemes": [
+    "sh+i"
+   ],
+   "query_kana": "シ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.112,
+     "vowel": "i",
+     "vowel_length": 0.211,
+     "pitch": 5.812
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 33836,
+   "input": "シ'",
+   "rejected_inputs": [],
+   "kana": "し",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.704,
+   "voiced": 0.4,
+   "lead_silence": 0.16,
+   "tail_silence": 0.144,
+   "peak_dbfs": -12.8,
+   "rms_dbfs": -24.5
+  },
+  {
+   "file": "metan-shi-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.301,
+   "phonemes": [
+    "sh+i"
+   ],
+   "query_kana": "シ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.112,
+     "vowel": "i",
+     "vowel_length": 0.288,
+     "pitch": 5.812
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "シ'",
+   "rejected_inputs": [],
+   "kana": "し",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -24.3
+  },
+  {
+   "file": "metan-i-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.251,
+   "phonemes": [
+    "i"
+   ],
+   "query_kana": "イ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.309,
+     "pitch": 5.77
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 24108,
+   "input": "イ'",
+   "rejected_inputs": [],
+   "kana": "い",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.501,
+   "voiced": 0.26,
+   "lead_silence": 0.11,
+   "tail_silence": 0.131,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -26.8
+  },
+  {
+   "file": "metan-i-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.305,
+   "phonemes": [
+    "i"
+   ],
+   "query_kana": "イ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.309,
+     "pitch": 5.77
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 32300,
+   "input": "イ'",
+   "rejected_inputs": [],
+   "kana": "い",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.672,
+   "voiced": 0.35,
+   "lead_silence": 0.16,
+   "tail_silence": 0.162,
+   "peak_dbfs": -20.0,
+   "rms_dbfs": -36.7
+  },
+  {
+   "file": "metan-i-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.301,
+   "phonemes": [
+    "i"
+   ],
+   "query_kana": "イ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.4,
+     "pitch": 5.77
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "イ'",
+   "rejected_inputs": [],
+   "kana": "い",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.9,
+   "rms_dbfs": -37.2
+  },
+  {
+   "file": "metan-ka-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.361,
+   "phonemes": [
+    "k+a"
+   ],
+   "query_kana": "カ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.083,
+     "vowel": "a",
+     "vowel_length": 0.178,
+     "pitch": 5.668
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 22060,
+   "input": "カ'",
+   "rejected_inputs": [],
+   "kana": "か",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.459,
+   "voiced": 0.19,
+   "lead_silence": 0.15,
+   "tail_silence": 0.119,
+   "peak_dbfs": -12.9,
+   "rms_dbfs": -25.3
+  },
+  {
+   "file": "metan-ka-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.3,
+   "phonemes": [
+    "k+a"
+   ],
+   "query_kana": "カ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.083,
+     "vowel": "a",
+     "vowel_length": 0.178,
+     "pitch": 5.668
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 29740,
+   "input": "カ'",
+   "rejected_inputs": [],
+   "kana": "か",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.619,
+   "voiced": 0.25,
+   "lead_silence": 0.21,
+   "tail_silence": 0.159,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -25.7
+  },
+  {
+   "file": "metan-ka-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.323,
+   "phonemes": [
+    "k+a"
+   ],
+   "query_kana": "カ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.083,
+     "vowel": "a",
+     "vowel_length": 0.317,
+     "pitch": 5.668
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "カ'",
+   "rejected_inputs": [],
+   "kana": "か",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.32,
+   "lead_silence": 0.15,
+   "tail_silence": 0.181,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -25.2
+  },
+  {
+   "file": "metan-he-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.253,
+   "phonemes": [
+    "h+e"
+   ],
+   "query_kana": "ヘ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ヘ",
+     "consonant": "h",
+     "consonant_length": 0.054,
+     "vowel": "e",
+     "vowel_length": 0.24,
+     "pitch": 5.782
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 23084,
+   "input": "ヘ'",
+   "rejected_inputs": [],
+   "kana": "へ",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.48,
+   "voiced": 0.23,
+   "lead_silence": 0.12,
+   "tail_silence": 0.13,
+   "peak_dbfs": -10.0,
+   "rms_dbfs": -23.2
+  },
+  {
+   "file": "metan-he-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.296,
+   "phonemes": [
+    "h+e"
+   ],
+   "query_kana": "ヘ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ヘ",
+     "consonant": "h",
+     "consonant_length": 0.054,
+     "vowel": "e",
+     "vowel_length": 0.24,
+     "pitch": 5.782
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "ヘ'",
+   "rejected_inputs": [],
+   "kana": "へ",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.64,
+   "voiced": 0.32,
+   "lead_silence": 0.16,
+   "tail_silence": 0.16,
+   "peak_dbfs": -12.0,
+   "rms_dbfs": -25.4
+  },
+  {
+   "file": "metan-he-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.303,
+   "phonemes": [
+    "h+e"
+   ],
+   "query_kana": "ヘ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ヘ",
+     "consonant": "h",
+     "consonant_length": 0.054,
+     "vowel": "e",
+     "vowel_length": 0.346,
+     "pitch": 5.782
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "ヘ'",
+   "rejected_inputs": [],
+   "kana": "へ",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.64,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.19,
+   "peak_dbfs": -13.0,
+   "rms_dbfs": -25.5
+  },
+  {
+   "file": "metan-ha-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.241,
+   "phonemes": [
+    "h+a"
+   ],
+   "query_kana": "ハ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ハ",
+     "consonant": "h",
+     "consonant_length": 0.076,
+     "vowel": "a",
+     "vowel_length": 0.202,
+     "pitch": 5.724
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 22572,
+   "input": "ハ'",
+   "rejected_inputs": [],
+   "kana": "は",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.469,
+   "voiced": 0.22,
+   "lead_silence": 0.13,
+   "tail_silence": 0.119,
+   "peak_dbfs": -13.2,
+   "rms_dbfs": -27.0
+  },
+  {
+   "file": "metan-ha-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.288,
+   "phonemes": [
+    "h+a"
+   ],
+   "query_kana": "ハ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ハ",
+     "consonant": "h",
+     "consonant_length": 0.076,
+     "vowel": "a",
+     "vowel_length": 0.202,
+     "pitch": 5.724
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 29740,
+   "input": "ハ'",
+   "rejected_inputs": [],
+   "kana": "は",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.619,
+   "voiced": 0.3,
+   "lead_silence": 0.17,
+   "tail_silence": 0.149,
+   "peak_dbfs": -12.4,
+   "rms_dbfs": -26.0
+  },
+  {
+   "file": "metan-ha-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.289,
+   "phonemes": [
+    "h+a"
+   ],
+   "query_kana": "ハ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ハ",
+     "consonant": "h",
+     "consonant_length": 0.076,
+     "vowel": "a",
+     "vowel_length": 0.324,
+     "pitch": 5.724
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "ハ'",
+   "rejected_inputs": [],
+   "kana": "は",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.64,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -25.8
+  },
+  {
+   "file": "metan-wo-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.264,
+   "phonemes": [
+    "o"
+   ],
+   "query_kana": "オ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.336,
+     "pitch": 5.728
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 25644,
+   "input": "オ'",
+   "rejected_inputs": [
+    "ヲ': ParseKanaError: 入力テキストをAquesTalk風記法としてパースすることに失敗しました: unknown text in accent phrase: ヲ'"
+   ],
+   "kana": "を",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.533,
+   "voiced": 0.29,
+   "lead_silence": 0.12,
+   "tail_silence": 0.123,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -20.7
+  },
+  {
+   "file": "metan-wo-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.32,
+   "phonemes": [
+    "o"
+   ],
+   "query_kana": "オ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.336,
+     "pitch": 5.728
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 34348,
+   "input": "オ'",
+   "rejected_inputs": [
+    "ヲ': ParseKanaError: 入力テキストをAquesTalk風記法としてパースすることに失敗しました: unknown text in accent phrase: ヲ'"
+   ],
+   "kana": "を",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.715,
+   "voiced": 0.42,
+   "lead_silence": 0.15,
+   "tail_silence": 0.145,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -21.3
+  },
+  {
+   "file": "metan-wo-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.297,
+   "phonemes": [
+    "o"
+   ],
+   "query_kana": "オ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.4,
+     "pitch": 5.728
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "オ'",
+   "rejected_inputs": [
+    "ヲ': ParseKanaError: 入力テキストをAquesTalk風記法としてパースすることに失敗しました: unknown text in accent phrase: ヲ'"
+   ],
+   "kana": "を",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.1
+  },
+  {
+   "file": "metan-n-A.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.236,
+   "phonemes": [
+    "N"
+   ],
+   "query_kana": "ン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.26,
+     "pitch": 5.82
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 21548,
+   "input": "ン'",
+   "rejected_inputs": [],
+   "kana": "ん",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.448,
+   "voiced": 0.13,
+   "lead_silence": 0.11,
+   "tail_silence": 0.208,
+   "peak_dbfs": -22.3,
+   "rms_dbfs": -30.0
+  },
+  {
+   "file": "metan-n-B.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.29,
+   "phonemes": [
+    "N"
+   ],
+   "query_kana": "ン'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.26,
+     "pitch": 5.82
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 28716,
+   "input": "ン'",
+   "rejected_inputs": [],
+   "kana": "ん",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.597,
+   "voiced": 0.23,
+   "lead_silence": 0.14,
+   "tail_silence": 0.227,
+   "peak_dbfs": -21.6,
+   "rms_dbfs": -29.7
+  },
+  {
+   "file": "metan-n-C.wav",
+   "voice": "metan",
+   "kind": "letter",
+   "synth_seconds": 0.335,
+   "phonemes": [
+    "N"
+   ],
+   "query_kana": "ン'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.4,
+     "pitch": 5.82
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "ン'",
+   "rejected_inputs": [],
+   "kana": "ん",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.29,
+   "lead_silence": 0.11,
+   "tail_silence": 0.251,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -28.9
+  },
+  {
+   "file": "metan-sushi-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.278,
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "query_kana": "スシ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.053,
+     "vowel": "u",
+     "vowel_length": 0.068,
+     "pitch": 5.69
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.1,
+     "vowel": "i",
+     "vowel_length": 0.163,
+     "pitch": 5.715
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 27180,
+   "input": "すし",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.565,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.105,
+   "peak_dbfs": -14.4,
+   "rms_dbfs": -27.2
+  },
+  {
+   "file": "metan-sushi-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.316,
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "query_kana": "スシ'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.053,
+     "vowel": "u",
+     "vowel_length": 0.068,
+     "pitch": 5.69
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.1,
+     "vowel": "i",
+     "vowel_length": 0.163,
+     "pitch": 5.715
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 32812,
+   "input": "すし",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.683,
+   "voiced": 0.4,
+   "lead_silence": 0.15,
+   "tail_silence": 0.133,
+   "peak_dbfs": -13.2,
+   "rms_dbfs": -26.4
+  },
+  {
+   "file": "metan-ika-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.263,
+   "phonemes": [
+    "i",
+    "k+a"
+   ],
+   "query_kana": "イカ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.078,
+     "pitch": 5.595
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.076,
+     "vowel": "a",
+     "vowel_length": 0.164,
+     "pitch": 5.735
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 24108,
+   "input": "いか",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.501,
+   "voiced": 0.29,
+   "lead_silence": 0.1,
+   "tail_silence": 0.111,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -25.3
+  },
+  {
+   "file": "metan-ika-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.281,
+   "phonemes": [
+    "i",
+    "k+a"
+   ],
+   "query_kana": "イカ'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.078,
+     "pitch": 5.595
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.076,
+     "vowel": "a",
+     "vowel_length": 0.164,
+     "pitch": 5.735
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 28716,
+   "input": "いか",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.597,
+   "voiced": 0.34,
+   "lead_silence": 0.12,
+   "tail_silence": 0.137,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -25.1
+  },
+  {
+   "file": "metan-tonkatsu-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.341,
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "query_kana": "ト'ン/カ'ツ",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.066,
+     "vowel": "o",
+     "vowel_length": 0.107,
+     "pitch": 5.961
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.065,
+     "pitch": 6.031
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.046,
+     "vowel": "a",
+     "vowel_length": 0.089,
+     "pitch": 5.891
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.096,
+     "vowel": "u",
+     "vowel_length": 0.117,
+     "pitch": 5.624
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 36908,
+   "input": "とんかつ",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.768,
+   "voiced": 0.53,
+   "lead_silence": 0.14,
+   "tail_silence": 0.098,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -24.7
+  },
+  {
+   "file": "metan-tonkatsu-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.381,
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "query_kana": "ト'ン/カ'ツ",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.066,
+     "vowel": "o",
+     "vowel_length": 0.107,
+     "pitch": 5.961
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.065,
+     "pitch": 6.031
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.046,
+     "vowel": "a",
+     "vowel_length": 0.089,
+     "pitch": 5.891
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.096,
+     "vowel": "u",
+     "vowel_length": 0.117,
+     "pitch": 5.624
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 44076,
+   "input": "とんかつ",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.917,
+   "voiced": 0.61,
+   "lead_silence": 0.18,
+   "tail_silence": 0.127,
+   "peak_dbfs": -10.0,
+   "rms_dbfs": -24.8
+  },
+  {
+   "file": "metan-katsudon-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.331,
+   "phonemes": [
+    "k+a",
+    "ts+u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "カツドン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.062,
+     "vowel": "a",
+     "vowel_length": 0.094,
+     "pitch": 5.563
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.06,
+     "vowel": "u",
+     "vowel_length": 0.057,
+     "pitch": 5.826
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.049,
+     "vowel": "o",
+     "vowel_length": 0.097,
+     "pitch": 5.893
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.099,
+     "pitch": 5.964
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 34348,
+   "input": "かつどん",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.715,
+   "voiced": 0.46,
+   "lead_silence": 0.14,
+   "tail_silence": 0.115,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -22.9
+  },
+  {
+   "file": "metan-katsudon-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.366,
+   "phonemes": [
+    "k+a",
+    "ts+u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "カツドン'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.062,
+     "vowel": "a",
+     "vowel_length": 0.094,
+     "pitch": 5.563
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.06,
+     "vowel": "u",
+     "vowel_length": 0.057,
+     "pitch": 5.826
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.049,
+     "vowel": "o",
+     "vowel_length": 0.097,
+     "pitch": 5.893
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.099,
+     "pitch": 5.964
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 41516,
+   "input": "かつどん",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.864,
+   "voiced": 0.55,
+   "lead_silence": 0.16,
+   "tail_silence": 0.154,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -23.2
+  },
+  {
+   "file": "metan-udon-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.28,
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "ウドン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.098,
+     "pitch": 5.524
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.075,
+     "vowel": "o",
+     "vowel_length": 0.127,
+     "pitch": 5.709
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.101,
+     "pitch": 5.908
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 28204,
+   "input": "うどん",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.587,
+   "voiced": 0.35,
+   "lead_silence": 0.11,
+   "tail_silence": 0.127,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -23.7
+  },
+  {
+   "file": "metan-udon-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.322,
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "ウドン'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.098,
+     "pitch": 5.524
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.075,
+     "vowel": "o",
+     "vowel_length": 0.127,
+     "pitch": 5.709
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.101,
+     "pitch": 5.908
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 33836,
+   "input": "うどん",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.704,
+   "voiced": 0.41,
+   "lead_silence": 0.14,
+   "tail_silence": 0.154,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -23.4
+  },
+  {
+   "file": "metan-onsen-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.295,
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "query_kana": "オンセン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.151,
+     "pitch": 5.666
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.065,
+     "pitch": 5.822
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.076,
+     "vowel": "e",
+     "vowel_length": 0.108,
+     "pitch": 5.91
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.051,
+     "pitch": 5.958
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "おんせん",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.64,
+   "voiced": 0.45,
+   "lead_silence": 0.11,
+   "tail_silence": 0.08,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -22.9
+  },
+  {
+   "file": "metan-onsen-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.344,
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "query_kana": "オンセン'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.151,
+     "pitch": 5.666
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.065,
+     "pitch": 5.822
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.076,
+     "vowel": "e",
+     "vowel_length": 0.108,
+     "pitch": 5.91
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.051,
+     "pitch": 5.958
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 36396,
+   "input": "おんせん",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.757,
+   "voiced": 0.52,
+   "lead_silence": 0.13,
+   "tail_silence": 0.107,
+   "peak_dbfs": -9.8,
+   "rms_dbfs": -23.0
+  },
+  {
+   "file": "metan-kippu-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.305,
+   "phonemes": [
+    "k+i",
+    "cl",
+    "p+u"
+   ],
+   "query_kana": "キップ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "キ",
+     "consonant": "k",
+     "consonant_length": 0.1,
+     "vowel": "i",
+     "vowel_length": 0.107,
+     "pitch": 5.593
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.074,
+     "pitch": 0.0
+    },
+    {
+     "text": "プ",
+     "consonant": "p",
+     "consonant_length": 0.074,
+     "vowel": "u",
+     "vowel_length": 0.122,
+     "pitch": 5.901
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31788,
+   "input": "きっぷ",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.661,
+   "voiced": 0.4,
+   "lead_silence": 0.16,
+   "tail_silence": 0.101,
+   "peak_dbfs": -11.0,
+   "rms_dbfs": -26.7
+  },
+  {
+   "file": "metan-kippu-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.341,
+   "phonemes": [
+    "k+i",
+    "cl",
+    "p+u"
+   ],
+   "query_kana": "キップ'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "キ",
+     "consonant": "k",
+     "consonant_length": 0.1,
+     "vowel": "i",
+     "vowel_length": 0.107,
+     "pitch": 5.593
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.074,
+     "pitch": 0.0
+    },
+    {
+     "text": "プ",
+     "consonant": "p",
+     "consonant_length": 0.074,
+     "vowel": "u",
+     "vowel_length": 0.122,
+     "pitch": 5.901
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 37932,
+   "input": "きっぷ",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.789,
+   "voiced": 0.46,
+   "lead_silence": 0.2,
+   "tail_silence": 0.129,
+   "peak_dbfs": -11.9,
+   "rms_dbfs": -26.8
+  },
+  {
+   "file": "metan-kutsuwonuidekudasai-normal.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.631,
+   "phonemes": [
+    "k+U",
+    "ts+u",
+    "o",
+    "n+u",
+    "i",
+    "d+e",
+    "k+u",
+    "d+a",
+    "s+a",
+    "i"
+   ],
+   "query_kana": "_クツ'オ/ヌ'イデ/クダサ'イ",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.056,
+     "vowel": "U",
+     "vowel_length": 0.052,
+     "pitch": 0.0
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.09,
+     "vowel": "u",
+     "vowel_length": 0.064,
+     "pitch": 5.926
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.096,
+     "pitch": 5.868
+    },
+    {
+     "text": "ヌ",
+     "consonant": "n",
+     "consonant_length": 0.055,
+     "vowel": "u",
+     "vowel_length": 0.078,
+     "pitch": 5.68
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.063,
+     "pitch": 5.815
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.045,
+     "vowel": "e",
+     "vowel_length": 0.078,
+     "pitch": 5.623
+    },
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.047,
+     "vowel": "u",
+     "vowel_length": 0.039,
+     "pitch": 5.571
+    },
+    {
+     "text": "ダ",
+     "consonant": "d",
+     "consonant_length": 0.04,
+     "vowel": "a",
+     "vowel_length": 0.083,
+     "pitch": 5.6
+    },
+    {
+     "text": "サ",
+     "consonant": "s",
+     "consonant_length": 0.088,
+     "vowel": "a",
+     "vowel_length": 0.102,
+     "pitch": 5.811
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.087,
+     "pitch": 5.661
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 64556,
+   "input": "くつをぬいでください",
+   "variant": "normal",
+   "preview": false,
+   "duration": 1.344,
+   "voiced": 1.1,
+   "lead_silence": 0.13,
+   "tail_silence": 0.114,
+   "peak_dbfs": -11.1,
+   "rms_dbfs": -25.4
+  },
+  {
+   "file": "metan-kutsuwonuidekudasai-slow.wav",
+   "voice": "metan",
+   "kind": "word",
+   "synth_seconds": 0.625,
+   "phonemes": [
+    "k+U",
+    "ts+u",
+    "o",
+    "n+u",
+    "i",
+    "d+e",
+    "k+u",
+    "d+a",
+    "s+a",
+    "i"
+   ],
+   "query_kana": "_クツ'オ/ヌ'イデ/クダサ'イ",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.056,
+     "vowel": "U",
+     "vowel_length": 0.052,
+     "pitch": 0.0
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.09,
+     "vowel": "u",
+     "vowel_length": 0.064,
+     "pitch": 5.926
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.096,
+     "pitch": 5.868
+    },
+    {
+     "text": "ヌ",
+     "consonant": "n",
+     "consonant_length": 0.055,
+     "vowel": "u",
+     "vowel_length": 0.078,
+     "pitch": 5.68
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.063,
+     "pitch": 5.815
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.045,
+     "vowel": "e",
+     "vowel_length": 0.078,
+     "pitch": 5.623
+    },
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.047,
+     "vowel": "u",
+     "vowel_length": 0.039,
+     "pitch": 5.571
+    },
+    {
+     "text": "ダ",
+     "consonant": "d",
+     "consonant_length": 0.04,
+     "vowel": "a",
+     "vowel_length": 0.083,
+     "pitch": 5.6
+    },
+    {
+     "text": "サ",
+     "consonant": "s",
+     "consonant_length": 0.088,
+     "vowel": "a",
+     "vowel_length": 0.102,
+     "pitch": 5.811
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.087,
+     "pitch": 5.661
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 76332,
+   "input": "くつをぬいでください",
+   "variant": "slow",
+   "preview": true,
+   "duration": 1.589,
+   "voiced": 1.29,
+   "lead_silence": 0.16,
+   "tail_silence": 0.139,
+   "peak_dbfs": -11.1,
+   "rms_dbfs": -24.9
+  },
+  {
+   "file": "compare-hau-su-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.242,
+   "phonemes": [
+    "s+u"
+   ],
+   "query_kana": "ス'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.112,
+     "vowel": "u",
+     "vowel_length": 0.135,
+     "pitch": 5.747
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 21548,
+   "input": "ス'",
+   "rejected_inputs": [],
+   "kana": "す",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.448,
+   "voiced": 0.21,
+   "lead_silence": 0.11,
+   "tail_silence": 0.128,
+   "peak_dbfs": -23.8,
+   "rms_dbfs": -33.8
+  },
+  {
+   "file": "compare-hau-su-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.328,
+   "phonemes": [
+    "s+u"
+   ],
+   "query_kana": "ス'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.112,
+     "vowel": "u",
+     "vowel_length": 0.135,
+     "pitch": 5.747
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 28716,
+   "input": "ス'",
+   "rejected_inputs": [],
+   "kana": "す",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.597,
+   "voiced": 0.25,
+   "lead_silence": 0.15,
+   "tail_silence": 0.197,
+   "peak_dbfs": -22.1,
+   "rms_dbfs": -32.4
+  },
+  {
+   "file": "compare-hau-su-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.364,
+   "phonemes": [
+    "s+u"
+   ],
+   "query_kana": "ス'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.112,
+     "vowel": "u",
+     "vowel_length": 0.288,
+     "pitch": 5.747
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "ス'",
+   "rejected_inputs": [],
+   "kana": "す",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.31,
+   "lead_silence": 0.11,
+   "tail_silence": 0.231,
+   "peak_dbfs": -22.3,
+   "rms_dbfs": -31.9
+  },
+  {
+   "file": "compare-hau-shi-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.362,
+   "phonemes": [
+    "sh+i"
+   ],
+   "query_kana": "シ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.132,
+     "vowel": "i",
+     "vowel_length": 0.172,
+     "pitch": 5.752
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 23596,
+   "input": "シ'",
+   "rejected_inputs": [],
+   "kana": "し",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.491,
+   "voiced": 0.24,
+   "lead_silence": 0.09,
+   "tail_silence": 0.161,
+   "peak_dbfs": -20.5,
+   "rms_dbfs": -31.0
+  },
+  {
+   "file": "compare-hau-shi-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.346,
+   "phonemes": [
+    "sh+i"
+   ],
+   "query_kana": "シ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.132,
+     "vowel": "i",
+     "vowel_length": 0.172,
+     "pitch": 5.752
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "シ'",
+   "rejected_inputs": [],
+   "kana": "し",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.651,
+   "voiced": 0.27,
+   "lead_silence": 0.15,
+   "tail_silence": 0.231,
+   "peak_dbfs": -17.5,
+   "rms_dbfs": -30.6
+  },
+  {
+   "file": "compare-hau-shi-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.341,
+   "phonemes": [
+    "sh+i"
+   ],
+   "query_kana": "シ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.132,
+     "vowel": "i",
+     "vowel_length": 0.268,
+     "pitch": 5.752
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "シ'",
+   "rejected_inputs": [],
+   "kana": "し",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.64,
+   "voiced": 0.28,
+   "lead_silence": 0.1,
+   "tail_silence": 0.26,
+   "peak_dbfs": -19.6,
+   "rms_dbfs": -30.0
+  },
+  {
+   "file": "compare-hau-i-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.23,
+   "phonemes": [
+    "i"
+   ],
+   "query_kana": "イ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.209,
+     "pitch": 5.726
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 19500,
+   "input": "イ'",
+   "rejected_inputs": [],
+   "kana": "い",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.405,
+   "voiced": 0.12,
+   "lead_silence": 0.08,
+   "tail_silence": 0.205,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -27.0
+  },
+  {
+   "file": "compare-hau-i-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.273,
+   "phonemes": [
+    "i"
+   ],
+   "query_kana": "イ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.209,
+     "pitch": 5.726
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 26156,
+   "input": "イ'",
+   "rejected_inputs": [],
+   "kana": "い",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.544,
+   "voiced": 0.17,
+   "lead_silence": 0.12,
+   "tail_silence": 0.254,
+   "peak_dbfs": -17.7,
+   "rms_dbfs": -28.8
+  },
+  {
+   "file": "compare-hau-i-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.307,
+   "phonemes": [
+    "i"
+   ],
+   "query_kana": "イ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.4,
+     "pitch": 5.726
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "イ'",
+   "rejected_inputs": [],
+   "kana": "い",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.26,
+   "lead_silence": 0.09,
+   "tail_silence": 0.301,
+   "peak_dbfs": -23.1,
+   "rms_dbfs": -33.7
+  },
+  {
+   "file": "compare-hau-ka-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.237,
+   "phonemes": [
+    "k+a"
+   ],
+   "query_kana": "カ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.048,
+     "vowel": "a",
+     "vowel_length": 0.195,
+     "pitch": 5.598
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 20524,
+   "input": "カ'",
+   "rejected_inputs": [],
+   "kana": "か",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.427,
+   "voiced": 0.13,
+   "lead_silence": 0.12,
+   "tail_silence": 0.177,
+   "peak_dbfs": -20.6,
+   "rms_dbfs": -33.7
+  },
+  {
+   "file": "compare-hau-ka-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.3,
+   "phonemes": [
+    "k+a"
+   ],
+   "query_kana": "カ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.048,
+     "vowel": "a",
+     "vowel_length": 0.195,
+     "pitch": 5.598
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 27180,
+   "input": "カ'",
+   "rejected_inputs": [],
+   "kana": "か",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.565,
+   "voiced": 0.18,
+   "lead_silence": 0.16,
+   "tail_silence": 0.225,
+   "peak_dbfs": -22.7,
+   "rms_dbfs": -34.1
+  },
+  {
+   "file": "compare-hau-ka-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.301,
+   "phonemes": [
+    "k+a"
+   ],
+   "query_kana": "カ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.048,
+     "vowel": "a",
+     "vowel_length": 0.352,
+     "pitch": 5.598
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 30764,
+   "input": "カ'",
+   "rejected_inputs": [],
+   "kana": "か",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.64,
+   "voiced": 0.17,
+   "lead_silence": 0.12,
+   "tail_silence": 0.35,
+   "peak_dbfs": -31.2,
+   "rms_dbfs": -42.3
+  },
+  {
+   "file": "compare-hau-he-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.238,
+   "phonemes": [
+    "h+e"
+   ],
+   "query_kana": "ヘ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ヘ",
+     "consonant": "h",
+     "consonant_length": 0.042,
+     "vowel": "e",
+     "vowel_length": 0.213,
+     "pitch": 5.715
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 21548,
+   "input": "ヘ'",
+   "rejected_inputs": [],
+   "kana": "へ",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.448,
+   "voiced": 0.448,
+   "lead_silence": 0.0,
+   "tail_silence": 0.0,
+   "peak_dbfs": -18.2,
+   "rms_dbfs": -36.9
+  },
+  {
+   "file": "compare-hau-he-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.297,
+   "phonemes": [
+    "h+e"
+   ],
+   "query_kana": "ヘ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ヘ",
+     "consonant": "h",
+     "consonant_length": 0.042,
+     "vowel": "e",
+     "vowel_length": 0.213,
+     "pitch": 5.715
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 28716,
+   "input": "ヘ'",
+   "rejected_inputs": [],
+   "kana": "へ",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.597,
+   "voiced": 0.517,
+   "lead_silence": 0.08,
+   "tail_silence": 0.0,
+   "peak_dbfs": -20.9,
+   "rms_dbfs": -37.0
+  },
+  {
+   "file": "compare-hau-he-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.381,
+   "phonemes": [
+    "h+e"
+   ],
+   "query_kana": "ヘ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ヘ",
+     "consonant": "h",
+     "consonant_length": 0.042,
+     "vowel": "e",
+     "vowel_length": 0.358,
+     "pitch": 5.715
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "ヘ'",
+   "rejected_inputs": [],
+   "kana": "へ",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.55,
+   "lead_silence": 0.07,
+   "tail_silence": 0.031,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -36.3
+  },
+  {
+   "file": "compare-hau-ha-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.25,
+   "phonemes": [
+    "h+a"
+   ],
+   "query_kana": "ハ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ハ",
+     "consonant": "h",
+     "consonant_length": 0.064,
+     "vowel": "a",
+     "vowel_length": 0.189,
+     "pitch": 5.644
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 21548,
+   "input": "ハ'",
+   "rejected_inputs": [],
+   "kana": "は",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.448,
+   "voiced": 0.378,
+   "lead_silence": 0.07,
+   "tail_silence": 0.0,
+   "peak_dbfs": -31.8,
+   "rms_dbfs": -46.6
+  },
+  {
+   "file": "compare-hau-ha-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.333,
+   "phonemes": [
+    "h+a"
+   ],
+   "query_kana": "ハ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ハ",
+     "consonant": "h",
+     "consonant_length": 0.064,
+     "vowel": "a",
+     "vowel_length": 0.189,
+     "pitch": 5.644
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 28716,
+   "input": "ハ'",
+   "rejected_inputs": [],
+   "kana": "は",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.597,
+   "voiced": 0.05,
+   "lead_silence": 0.28,
+   "tail_silence": 0.267,
+   "peak_dbfs": -32.5,
+   "rms_dbfs": -42.8
+  },
+  {
+   "file": "compare-hau-ha-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.305,
+   "phonemes": [
+    "h+a"
+   ],
+   "query_kana": "ハ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ハ",
+     "consonant": "h",
+     "consonant_length": 0.064,
+     "vowel": "a",
+     "vowel_length": 0.336,
+     "pitch": 5.644
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "ハ'",
+   "rejected_inputs": [],
+   "kana": "は",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.0,
+   "lead_silence": 0.0,
+   "tail_silence": 0.651,
+   "peak_dbfs": -36.7,
+   "rms_dbfs": -120.0
+  },
+  {
+   "file": "compare-hau-wo-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.226,
+   "phonemes": [
+    "o"
+   ],
+   "query_kana": "オ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.194,
+     "pitch": 5.671
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 18476,
+   "input": "オ'",
+   "rejected_inputs": [
+    "ヲ': ParseKanaError: 入力テキストをAquesTalk風記法としてパースすることに失敗しました: unknown text in accent phrase: ヲ'"
+   ],
+   "kana": "を",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.384,
+   "voiced": 0.09,
+   "lead_silence": 0.09,
+   "tail_silence": 0.204,
+   "peak_dbfs": -29.8,
+   "rms_dbfs": -39.7
+  },
+  {
+   "file": "compare-hau-wo-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.267,
+   "phonemes": [
+    "o"
+   ],
+   "query_kana": "オ'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.194,
+     "pitch": 5.671
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 24620,
+   "input": "オ'",
+   "rejected_inputs": [
+    "ヲ': ParseKanaError: 入力テキストをAquesTalk風記法としてパースすることに失敗しました: unknown text in accent phrase: ヲ'"
+   ],
+   "kana": "を",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.512,
+   "voiced": 0.12,
+   "lead_silence": 0.13,
+   "tail_silence": 0.262,
+   "peak_dbfs": -31.1,
+   "rms_dbfs": -43.7
+  },
+  {
+   "file": "compare-hau-wo-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.332,
+   "phonemes": [
+    "o"
+   ],
+   "query_kana": "オ'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.4,
+     "pitch": 5.671
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "オ'",
+   "rejected_inputs": [
+    "ヲ': ParseKanaError: 入力テキストをAquesTalk風記法としてパースすることに失敗しました: unknown text in accent phrase: ヲ'"
+   ],
+   "kana": "を",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.01,
+   "lead_silence": 0.09,
+   "tail_silence": 0.551,
+   "peak_dbfs": -28.5,
+   "rms_dbfs": -37.6
+  },
+  {
+   "file": "compare-hau-n-A.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.249,
+   "phonemes": [
+    "N"
+   ],
+   "query_kana": "ン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.208,
+     "pitch": 5.785
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 18988,
+   "input": "ン'",
+   "rejected_inputs": [],
+   "kana": "ん",
+   "variant": "A",
+   "preview": false,
+   "duration": 0.395,
+   "voiced": 0.15,
+   "lead_silence": 0.08,
+   "tail_silence": 0.165,
+   "peak_dbfs": -25.0,
+   "rms_dbfs": -31.2
+  },
+  {
+   "file": "compare-hau-n-B.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.28,
+   "phonemes": [
+    "N"
+   ],
+   "query_kana": "ン'",
+   "speed_scale": 0.75,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.208,
+     "pitch": 5.785
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 25132,
+   "input": "ン'",
+   "rejected_inputs": [],
+   "kana": "ん",
+   "variant": "B",
+   "preview": false,
+   "duration": 0.523,
+   "voiced": 0.22,
+   "lead_silence": 0.11,
+   "tail_silence": 0.193,
+   "peak_dbfs": -24.7,
+   "rms_dbfs": -31.9
+  },
+  {
+   "file": "compare-hau-n-C.wav",
+   "voice": "compare-hau",
+   "kind": "letter",
+   "synth_seconds": 0.314,
+   "phonemes": [
+    "N"
+   ],
+   "query_kana": "ン'",
+   "speed_scale": 1.0,
+   "pre": 0.1,
+   "post": 0.15,
+   "moras": [
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.4,
+     "pitch": 5.785
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 31276,
+   "input": "ン'",
+   "rejected_inputs": [],
+   "kana": "ん",
+   "variant": "C",
+   "preview": true,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.08,
+   "tail_silence": 0.211,
+   "peak_dbfs": -24.0,
+   "rms_dbfs": -32.1
+  },
+  {
+   "file": "compare-hau-sushi-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.349,
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "query_kana": "スシ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.115,
+     "vowel": "u",
+     "vowel_length": 0.051,
+     "pitch": 5.731
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.157,
+     "vowel": "i",
+     "vowel_length": 0.22,
+     "pitch": 5.792
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 35884,
+   "input": "すし",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.747,
+   "voiced": 0.43,
+   "lead_silence": 0.11,
+   "tail_silence": 0.207,
+   "peak_dbfs": -20.0,
+   "rms_dbfs": -30.2
+  },
+  {
+   "file": "compare-hau-sushi-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.371,
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "query_kana": "スシ'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.115,
+     "vowel": "u",
+     "vowel_length": 0.051,
+     "pitch": 5.731
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.157,
+     "vowel": "i",
+     "vowel_length": 0.22,
+     "pitch": 5.792
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 43052,
+   "input": "すし",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.896,
+   "voiced": 0.51,
+   "lead_silence": 0.14,
+   "tail_silence": 0.246,
+   "peak_dbfs": -18.8,
+   "rms_dbfs": -29.6
+  },
+  {
+   "file": "compare-hau-ika-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.282,
+   "phonemes": [
+    "i",
+    "k+a"
+   ],
+   "query_kana": "イカ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.112,
+     "pitch": 5.618
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.069,
+     "vowel": "a",
+     "vowel_length": 0.207,
+     "pitch": 5.77
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 27692,
+   "input": "いか",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.576,
+   "voiced": 0.32,
+   "lead_silence": 0.09,
+   "tail_silence": 0.166,
+   "peak_dbfs": -19.8,
+   "rms_dbfs": -32.2
+  },
+  {
+   "file": "compare-hau-ika-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.316,
+   "phonemes": [
+    "i",
+    "k+a"
+   ],
+   "query_kana": "イカ'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.112,
+     "pitch": 5.618
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.069,
+     "vowel": "a",
+     "vowel_length": 0.207,
+     "pitch": 5.77
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 32812,
+   "input": "いか",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.683,
+   "voiced": 0.37,
+   "lead_silence": 0.11,
+   "tail_silence": 0.203,
+   "peak_dbfs": -18.4,
+   "rms_dbfs": -32.5
+  },
+  {
+   "file": "compare-hau-tonkatsu-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.36,
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "query_kana": "ト'ン/カ'ツ",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.068,
+     "vowel": "o",
+     "vowel_length": 0.08,
+     "pitch": 5.984
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.115,
+     "pitch": 6.014
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.057,
+     "vowel": "a",
+     "vowel_length": 0.094,
+     "pitch": 5.858
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.091,
+     "vowel": "u",
+     "vowel_length": 0.141,
+     "pitch": 5.6
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 39980,
+   "input": "とんかつ",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.832,
+   "voiced": 0.53,
+   "lead_silence": 0.14,
+   "tail_silence": 0.162,
+   "peak_dbfs": -9.8,
+   "rms_dbfs": -22.6
+  },
+  {
+   "file": "compare-hau-tonkatsu-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.414,
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "query_kana": "ト'ン/カ'ツ",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.068,
+     "vowel": "o",
+     "vowel_length": 0.08,
+     "pitch": 5.984
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.115,
+     "pitch": 6.014
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.057,
+     "vowel": "a",
+     "vowel_length": 0.094,
+     "pitch": 5.858
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.091,
+     "vowel": "u",
+     "vowel_length": 0.141,
+     "pitch": 5.6
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 47660,
+   "input": "とんかつ",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.992,
+   "voiced": 0.61,
+   "lead_silence": 0.18,
+   "tail_silence": 0.202,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -22.9
+  },
+  {
+   "file": "compare-hau-katsudon-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.366,
+   "phonemes": [
+    "k+a",
+    "ts+u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "カツドン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.072,
+     "vowel": "a",
+     "vowel_length": 0.086,
+     "pitch": 5.601
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.081,
+     "vowel": "u",
+     "vowel_length": 0.06,
+     "pitch": 5.814
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.03,
+     "vowel": "o",
+     "vowel_length": 0.059,
+     "pitch": 5.86
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.249,
+     "pitch": 5.931
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 40492,
+   "input": "かつどん",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.843,
+   "voiced": 0.51,
+   "lead_silence": 0.13,
+   "tail_silence": 0.203,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -26.4
+  },
+  {
+   "file": "compare-hau-katsudon-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.452,
+   "phonemes": [
+    "k+a",
+    "ts+u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "カツドン'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.072,
+     "vowel": "a",
+     "vowel_length": 0.086,
+     "pitch": 5.601
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.081,
+     "vowel": "u",
+     "vowel_length": 0.06,
+     "pitch": 5.814
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.03,
+     "vowel": "o",
+     "vowel_length": 0.059,
+     "pitch": 5.86
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.249,
+     "pitch": 5.931
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 47660,
+   "input": "かつどん",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.992,
+   "voiced": 0.61,
+   "lead_silence": 0.15,
+   "tail_silence": 0.232,
+   "peak_dbfs": -12.9,
+   "rms_dbfs": -26.3
+  },
+  {
+   "file": "compare-hau-udon-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.313,
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "ウドン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.087,
+     "pitch": 5.609
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.054,
+     "vowel": "o",
+     "vowel_length": 0.088,
+     "pitch": 5.741
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.273,
+     "pitch": 5.922
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 33324,
+   "input": "うどん",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.693,
+   "voiced": 0.44,
+   "lead_silence": 0.09,
+   "tail_silence": 0.163,
+   "peak_dbfs": -12.2,
+   "rms_dbfs": -24.5
+  },
+  {
+   "file": "compare-hau-udon-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.345,
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "query_kana": "ウドン'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.087,
+     "pitch": 5.609
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.054,
+     "vowel": "o",
+     "vowel_length": 0.088,
+     "pitch": 5.741
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.273,
+     "pitch": 5.922
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 39468,
+   "input": "うどん",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.821,
+   "voiced": 0.5,
+   "lead_silence": 0.12,
+   "tail_silence": 0.201,
+   "peak_dbfs": -12.9,
+   "rms_dbfs": -24.8
+  },
+  {
+   "file": "compare-hau-onsen-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.317,
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "query_kana": "オンセン'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.088,
+     "pitch": 5.759
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.128,
+     "pitch": 5.883
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.042,
+     "vowel": "e",
+     "vowel_length": 0.079,
+     "pitch": 5.927
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.193,
+     "pitch": 5.971
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 34348,
+   "input": "おんせん",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.715,
+   "voiced": 0.48,
+   "lead_silence": 0.09,
+   "tail_silence": 0.145,
+   "peak_dbfs": -12.6,
+   "rms_dbfs": -23.3
+  },
+  {
+   "file": "compare-hau-onsen-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.371,
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "query_kana": "オンセン'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.088,
+     "pitch": 5.759
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.128,
+     "pitch": 5.883
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.042,
+     "vowel": "e",
+     "vowel_length": 0.079,
+     "pitch": 5.927
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.193,
+     "pitch": 5.971
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 40492,
+   "input": "おんせん",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.843,
+   "voiced": 0.56,
+   "lead_silence": 0.11,
+   "tail_silence": 0.173,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -23.6
+  },
+  {
+   "file": "compare-hau-kippu-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.334,
+   "phonemes": [
+    "k+i",
+    "cl",
+    "p+u"
+   ],
+   "query_kana": "キップ'",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "キ",
+     "consonant": "k",
+     "consonant_length": 0.088,
+     "vowel": "i",
+     "vowel_length": 0.163,
+     "pitch": 5.63
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.06,
+     "pitch": 0.0
+    },
+    {
+     "text": "プ",
+     "consonant": "p",
+     "consonant_length": 0.028,
+     "vowel": "u",
+     "vowel_length": 0.179,
+     "pitch": 5.909
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 34348,
+   "input": "きっぷ",
+   "variant": "normal",
+   "preview": false,
+   "duration": 0.715,
+   "voiced": 0.47,
+   "lead_silence": 0.14,
+   "tail_silence": 0.105,
+   "peak_dbfs": -14.9,
+   "rms_dbfs": -26.7
+  },
+  {
+   "file": "compare-hau-kippu-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.375,
+   "phonemes": [
+    "k+i",
+    "cl",
+    "p+u"
+   ],
+   "query_kana": "キップ'",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "キ",
+     "consonant": "k",
+     "consonant_length": 0.088,
+     "vowel": "i",
+     "vowel_length": 0.163,
+     "pitch": 5.63
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.06,
+     "pitch": 0.0
+    },
+    {
+     "text": "プ",
+     "consonant": "p",
+     "consonant_length": 0.028,
+     "vowel": "u",
+     "vowel_length": 0.179,
+     "pitch": 5.909
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 41004,
+   "input": "きっぷ",
+   "variant": "slow",
+   "preview": true,
+   "duration": 0.853,
+   "voiced": 0.53,
+   "lead_silence": 0.17,
+   "tail_silence": 0.153,
+   "peak_dbfs": -14.4,
+   "rms_dbfs": -26.1
+  },
+  {
+   "file": "compare-hau-kutsuwonuidekudasai-normal.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.602,
+   "phonemes": [
+    "k+U",
+    "ts+u",
+    "o",
+    "n+u",
+    "i",
+    "d+e",
+    "k+u",
+    "d+a",
+    "s+a",
+    "i"
+   ],
+   "query_kana": "_クツ'オ/ヌ'イデ/クダサ'イ",
+   "speed_scale": 1.0,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.069,
+     "vowel": "U",
+     "vowel_length": 0.045,
+     "pitch": 0.0
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.086,
+     "vowel": "u",
+     "vowel_length": 0.034,
+     "pitch": 6.083
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.111,
+     "pitch": 6.047
+    },
+    {
+     "text": "ヌ",
+     "consonant": "n",
+     "consonant_length": 0.075,
+     "vowel": "u",
+     "vowel_length": 0.032,
+     "pitch": 5.873
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.115,
+     "pitch": 5.982
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.035,
+     "vowel": "e",
+     "vowel_length": 0.113,
+     "pitch": 5.832
+    },
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.051,
+     "vowel": "u",
+     "vowel_length": 0.044,
+     "pitch": 5.789
+    },
+    {
+     "text": "ダ",
+     "consonant": "d",
+     "consonant_length": 0.039,
+     "vowel": "a",
+     "vowel_length": 0.091,
+     "pitch": 5.787
+    },
+    {
+     "text": "サ",
+     "consonant": "s",
+     "consonant_length": 0.092,
+     "vowel": "a",
+     "vowel_length": 0.114,
+     "pitch": 5.919
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.155,
+     "pitch": 5.814
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 71724,
+   "input": "くつをぬいでください",
+   "variant": "normal",
+   "preview": false,
+   "duration": 1.493,
+   "voiced": 1.21,
+   "lead_silence": 0.12,
+   "tail_silence": 0.163,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -23.5
+  },
+  {
+   "file": "compare-hau-kutsuwonuidekudasai-slow.wav",
+   "voice": "compare-hau",
+   "kind": "word",
+   "synth_seconds": 0.665,
+   "phonemes": [
+    "k+U",
+    "ts+u",
+    "o",
+    "n+u",
+    "i",
+    "d+e",
+    "k+u",
+    "d+a",
+    "s+a",
+    "i"
+   ],
+   "query_kana": "_クツ'オ/ヌ'イデ/クダサ'イ",
+   "speed_scale": 0.85,
+   "pre": 0.10000000149011612,
+   "post": 0.10000000149011612,
+   "moras": [
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.069,
+     "vowel": "U",
+     "vowel_length": 0.045,
+     "pitch": 0.0
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.086,
+     "vowel": "u",
+     "vowel_length": 0.034,
+     "pitch": 6.083
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.111,
+     "pitch": 6.047
+    },
+    {
+     "text": "ヌ",
+     "consonant": "n",
+     "consonant_length": 0.075,
+     "vowel": "u",
+     "vowel_length": 0.032,
+     "pitch": 5.873
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.115,
+     "pitch": 5.982
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.035,
+     "vowel": "e",
+     "vowel_length": 0.113,
+     "pitch": 5.832
+    },
+    {
+     "text": "ク",
+     "consonant": "k",
+     "consonant_length": 0.051,
+     "vowel": "u",
+     "vowel_length": 0.044,
+     "pitch": 5.789
+    },
+    {
+     "text": "ダ",
+     "consonant": "d",
+     "consonant_length": 0.039,
+     "vowel": "a",
+     "vowel_length": 0.091,
+     "pitch": 5.787
+    },
+    {
+     "text": "サ",
+     "consonant": "s",
+     "consonant_length": 0.092,
+     "vowel": "a",
+     "vowel_length": 0.114,
+     "pitch": 5.919
+    },
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.155,
+     "pitch": 5.814
+    }
+   ],
+   "sampling_rate": 24000,
+   "bytes": 86060,
+   "input": "くつをぬいでください",
+   "variant": "slow",
+   "preview": true,
+   "duration": 1.792,
+   "voiced": 1.44,
+   "lead_silence": 0.15,
+   "tail_silence": 0.202,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -23.4
+  }
+ ]
+}

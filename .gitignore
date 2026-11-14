@@ -8,3 +8,4 @@ docs/design/item-art/source/candidates/
 docs/design/word-art/source/candidates/
 .venv/
 __pycache__/
+.voicevox/

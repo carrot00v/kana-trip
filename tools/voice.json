@@ -1,0 +1,39 @@
+{
+  "comment": "VOICEVOX CORE 0.17.1 시험 설정. 경로는 저장소 루트 기준. 자세한 내용은 docs/design/voice/README.md",
+  "core_dir": ".voicevox/voicevox_core",
+  "vvm": "models/vvms/0.vvm",
+  "output_dir": "docs/design/voice/samples",
+  "cpu_num_threads": 2,
+  "voices": [
+    {"slug": "metan", "name": "四国めたん", "style": "ノーマル", "style_id": 2, "credit": "VOICEVOX:四国めたん"},
+    {"slug": "compare-hau", "name": "雨晴はう", "style": "ノーマル", "style_id": 10, "credit": "VOICEVOX:雨晴はう", "note": "비교용, 채택 전 약관 확인 필요 (권리자 약관 원문 미확인)"}
+  ],
+  "letters": [
+    {"kana": "す", "romaji": "su", "aquestalk": ["ス'"]},
+    {"kana": "し", "romaji": "shi", "aquestalk": ["シ'"]},
+    {"kana": "い", "romaji": "i", "aquestalk": ["イ'"]},
+    {"kana": "か", "romaji": "ka", "aquestalk": ["カ'"]},
+    {"kana": "へ", "romaji": "he", "aquestalk": ["ヘ'"]},
+    {"kana": "は", "romaji": "ha", "aquestalk": ["ハ'"]},
+    {"kana": "を", "romaji": "wo", "aquestalk": ["ヲ'", "オ'"]},
+    {"kana": "ん", "romaji": "n", "aquestalk": ["ン'", "ウン'"]}
+  ],
+  "letter_variants": {
+    "A": {"comment": "기본값 그대로"},
+    "B": {"comment": "전체 속도를 낮춤", "speed_scale": 0.75},
+    "C": {"comment": "박 길이(자음+모음)를 직접 정하고 앞뒤 무음을 줌", "mora_seconds": 0.40, "min_vowel_seconds": 0.25, "pre_phoneme_length": 0.10, "post_phoneme_length": 0.15}
+  },
+  "words": [
+    {"text": "すし", "romaji": "sushi"},
+    {"text": "いか", "romaji": "ika"},
+    {"text": "とんかつ", "romaji": "tonkatsu"},
+    {"text": "かつどん", "romaji": "katsudon", "comment": "かつ丼은 가나로 넣음"},
+    {"text": "うどん", "romaji": "udon"},
+    {"text": "おんせん", "romaji": "onsen"},
+    {"text": "きっぷ", "romaji": "kippu"},
+    {"text": "くつをぬいでください", "romaji": "kutsuwonuidekudasai"}
+  ],
+  "word_speeds": {"normal": 1.0, "slow": 0.85},
+  "preview": {"file": "preview.wav", "gap_seconds": 0.6, "letter_variant": "C", "word_speed": "slow"},
+  "measure": {"frame_ms": 10, "silence_dbfs": -45.0}
+}
