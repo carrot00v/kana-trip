@@ -4,7 +4,7 @@ import SwiftUI
 struct WordSessionView: View {
     let scene: TripScene
     let onClose: () -> Void
-    let onFinished: () -> Void
+    let onFinished: (RewardGrant) -> Void
 
     @Environment(ProgressStore.self) private var store
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -102,8 +102,7 @@ struct WordSessionView: View {
         store.markWordDone(word.text, sceneID: scene.id)
         revealed = false
         if current == nil {
-            store.completeSession(.words, sceneID: scene.id)
-            onFinished()
+            onFinished(store.completeSession(.words, sceneID: scene.id))
         }
     }
 }

@@ -6,7 +6,7 @@ struct LearnSessionView: View {
 
     let scene: TripScene
     let onClose: () -> Void
-    let onFinished: () -> Void
+    let onFinished: (RewardGrant) -> Void
 
     @Environment(ProgressStore.self) private var store
     @State private var phase = Phase.intro
@@ -148,8 +148,7 @@ struct LearnSessionView: View {
         attempt = WritingAttempt()
         phase = .intro
         if current == nil {
-            store.completeSession(.learn, sceneID: scene.id)
-            onFinished()
+            onFinished(store.completeSession(.learn, sceneID: scene.id))
         }
     }
 }

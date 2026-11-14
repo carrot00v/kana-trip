@@ -16,6 +16,8 @@ struct SessionView: View {
     let onClose: () -> Void
     /// 덮개를 닫고 홈까지 돌아간다.
     let onBackToList: () -> Void
+    /// 덮개를 닫고 홈 위에 기리 꾸미기를 띄운다 (reward-flow.md 2.2).
+    let onCustomize: () -> Void
 
     @Environment(ProgressStore.self) private var store
     @State private var stage: Stage?
@@ -23,23 +25,23 @@ struct SessionView: View {
 
     private enum Stage: Hashable {
         case running(SessionKind)
-        case sessionDone(SessionKind)
-        case sceneDone
+        case sessionDone(SessionKind, RewardGrant)
+        case sceneDone(RewardGrant)
     }
 
     var body: some View {
         Group {
             switch stage {
             case .running(.learn):
-                LearnSessionView(scene: scene, onClose: onClose) { finish(.learn) }
+                LearnSessionView(scene: scene, onClose: onClose) { finish(.learn, grant: $0) }
             case .running(.quiz):
-                QuizSessionView(scene: scene, isReplay: isReplay, onClose: onClose) { finish(.quiz) }
+                QuizSessionView(scene: scene, isReplay: isReplay, onClose: onClose) { finish(.quiz, grant: $0) }
             case .running(.words):
-                WordSessionView(scene: scene, onClose: onClose) { finish(.words) }
-            case .sessionDone(let kind):
-                SessionDoneView(scene: scene, kind: kind, isReplay: isReplay, onContinue: start, onClose: onClose)
-            case .sceneDone:
-                SceneDoneView(scene: scene, onBackToList: onBackToList)
+                WordSessionView(scene: scene, onClose: onClose) { finish(.words, grant: $0) }
+            case .sessionDone(let kind, let grant):
+                SessionDoneView(scene: scene, kind: kind, isReplay: isReplay, grant: grant, onContinue: start, onClose: onClose)
+            case .sceneDone(let grant):
+                SceneDoneView(scene: scene, grant: grant, onBackToList: onBackToList, onCustomize: onCustomize)
             case nil:
                 Color.appBackground
             }
@@ -55,9 +57,9 @@ struct SessionView: View {
         stage = .running(kind)
     }
 
-    /// 세션의 마지막 항목을 끝낸 뒤에 불린다. 완료는 이미 저장돼 있다.
-    private func finish(_ kind: SessionKind) {
+    /// 세션의 마지막 항목을 끝낸 뒤에 불린다. 완료와 지급은 이미 저장돼 있다.
+    private func finish(_ kind: SessionKind, grant: RewardGrant) {
         // 단어 읽기를 처음 끝냈으면 장면 완료, 그 밖에는 세션 완료를 보여 준다.
-        stage = kind == .words && !isReplay ? .sceneDone : .sessionDone(kind)
+        stage = kind == .words && !isReplay ? .sceneDone(grant) : .sessionDone(kind, grant)
     }
 }

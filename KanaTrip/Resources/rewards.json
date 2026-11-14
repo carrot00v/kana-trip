@@ -1,0 +1,387 @@
+{
+  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2). 히라가나 16개만. 한국어 이름은 4.2 표 그대로이고 화면용 짧은 이름은 PLAN.md 8번 미정. units의 っ 표기는 단어 데이터(きっぷ)와 같다.",
+  "items": [
+    {
+      "id": "chef_hat",
+      "slot": "hat",
+      "nameKo": "요리사 모자",
+      "isDefault": true,
+      "price": 0
+    },
+    {
+      "id": "red_scarf",
+      "slot": "scarf",
+      "nameKo": "빨간 두건",
+      "isDefault": true,
+      "price": 0
+    },
+    {
+      "id": "noren",
+      "slot": "background",
+      "kana": "のれん",
+      "nameKo": "노렌이 걸린 가게 앞",
+      "sceneID": "eatery_sign",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "の",
+          "romaji": "no"
+        },
+        {
+          "kana": "れ",
+          "romaji": "re"
+        },
+        {
+          "kana": "ん",
+          "romaji": "n"
+        }
+      ]
+    },
+    {
+      "id": "sushi",
+      "slot": "hand",
+      "kana": "すし",
+      "nameKo": "초밥 한 점",
+      "sceneID": "eatery_sign",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "す",
+          "romaji": "su"
+        },
+        {
+          "kana": "し",
+          "romaji": "shi"
+        }
+      ]
+    },
+    {
+      "id": "eki",
+      "slot": "background",
+      "kana": "えき",
+      "nameKo": "역 승강장",
+      "sceneID": "station",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "え",
+          "romaji": "e"
+        },
+        {
+          "kana": "き",
+          "romaji": "ki"
+        }
+      ]
+    },
+    {
+      "id": "kippu",
+      "slot": "hand",
+      "kana": "きっぷ",
+      "nameKo": "기차표",
+      "sceneID": "station",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "き",
+          "romaji": "ki"
+        },
+        {
+          "kana": "っ",
+          "romaji": "p"
+        },
+        {
+          "kana": "ぷ",
+          "romaji": "pu"
+        }
+      ]
+    },
+    {
+      "id": "machi",
+      "slot": "background",
+      "kana": "まち",
+      "nameKo": "시내 거리",
+      "sceneID": "street",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "ま",
+          "romaji": "ma"
+        },
+        {
+          "kana": "ち",
+          "romaji": "chi"
+        }
+      ]
+    },
+    {
+      "id": "kasa",
+      "slot": "hand",
+      "kana": "かさ",
+      "nameKo": "비닐우산",
+      "sceneID": "street",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "か",
+          "romaji": "ka"
+        },
+        {
+          "kana": "さ",
+          "romaji": "sa"
+        }
+      ]
+    },
+    {
+      "id": "torii",
+      "slot": "background",
+      "kana": "とりい",
+      "nameKo": "도리이가 선 참배길",
+      "sceneID": "shrine",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "と",
+          "romaji": "to"
+        },
+        {
+          "kana": "り",
+          "romaji": "ri"
+        },
+        {
+          "kana": "い",
+          "romaji": "i"
+        }
+      ]
+    },
+    {
+      "id": "omamori",
+      "slot": "hand",
+      "kana": "おまもり",
+      "nameKo": "부적",
+      "sceneID": "shrine",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "お",
+          "romaji": "o"
+        },
+        {
+          "kana": "ま",
+          "romaji": "ma"
+        },
+        {
+          "kana": "も",
+          "romaji": "mo"
+        },
+        {
+          "kana": "り",
+          "romaji": "ri"
+        }
+      ]
+    },
+    {
+      "id": "omen",
+      "slot": "hat",
+      "kana": "おめん",
+      "nameKo": "머리 옆에 건 축제 가면",
+      "sceneID": "festival",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "お",
+          "romaji": "o"
+        },
+        {
+          "kana": "め",
+          "romaji": "me"
+        },
+        {
+          "kana": "ん",
+          "romaji": "n"
+        }
+      ]
+    },
+    {
+      "id": "tasuki",
+      "slot": "scarf",
+      "kana": "たすき",
+      "nameKo": "어깨띠",
+      "sceneID": "festival",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "た",
+          "romaji": "ta"
+        },
+        {
+          "kana": "す",
+          "romaji": "su"
+        },
+        {
+          "kana": "き",
+          "romaji": "ki"
+        }
+      ]
+    },
+    {
+      "id": "hachimaki",
+      "slot": "hat",
+      "kana": "はちまき",
+      "nameKo": "머리띠",
+      "sceneID": "izakaya",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "は",
+          "romaji": "ha"
+        },
+        {
+          "kana": "ち",
+          "romaji": "chi"
+        },
+        {
+          "kana": "ま",
+          "romaji": "ma"
+        },
+        {
+          "kana": "き",
+          "romaji": "ki"
+        }
+      ]
+    },
+    {
+      "id": "maekake",
+      "slot": "scarf",
+      "kana": "まえかけ",
+      "nameKo": "앞치마 (가게 앞치마)",
+      "sceneID": "izakaya",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "ま",
+          "romaji": "ma"
+        },
+        {
+          "kana": "え",
+          "romaji": "e"
+        },
+        {
+          "kana": "か",
+          "romaji": "ka"
+        },
+        {
+          "kana": "け",
+          "romaji": "ke"
+        }
+      ]
+    },
+    {
+      "id": "yu",
+      "slot": "background",
+      "kana": "ゆ",
+      "nameKo": "목욕탕 노렌 앞",
+      "sceneID": "onsen",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "ゆ",
+          "romaji": "yu"
+        }
+      ]
+    },
+    {
+      "id": "tenugui",
+      "slot": "hat",
+      "kana": "てぬぐい",
+      "nameKo": "머리에 얹은 수건",
+      "sceneID": "onsen",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "て",
+          "romaji": "te"
+        },
+        {
+          "kana": "ぬ",
+          "romaji": "nu"
+        },
+        {
+          "kana": "ぐ",
+          "romaji": "gu"
+        },
+        {
+          "kana": "い",
+          "romaji": "i"
+        }
+      ]
+    },
+    {
+      "id": "furoshiki",
+      "slot": "scarf",
+      "kana": "ふろしき",
+      "nameKo": "보자기",
+      "sceneID": "ryokan",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "ふ",
+          "romaji": "fu"
+        },
+        {
+          "kana": "ろ",
+          "romaji": "ro"
+        },
+        {
+          "kana": "し",
+          "romaji": "shi"
+        },
+        {
+          "kana": "き",
+          "romaji": "ki"
+        }
+      ]
+    },
+    {
+      "id": "youkan",
+      "slot": "hand",
+      "kana": "ようかん",
+      "nameKo": "양갱 (객실 다과)",
+      "sceneID": "ryokan",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "よ",
+          "romaji": "yo"
+        },
+        {
+          "kana": "う",
+          "romaji": "u"
+        },
+        {
+          "kana": "か",
+          "romaji": "ka"
+        },
+        {
+          "kana": "ん",
+          "romaji": "n"
+        }
+      ]
+    }
+  ]
+}

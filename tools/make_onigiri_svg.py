@@ -3,11 +3,15 @@
 밥알이 뭉친 울퉁불퉁한 외곽선은 손으로 그리기 어려워서 계산으로 만든다.
 실행: python3 tools/make_onigiri_svg.py
 산출물: docs/design/character/onigiri-default.svg, onigiri-happy.svg
+        docs/design/character/layers/, items/ (꾸미기용 레이어, docs/design/reward-flow.md 8.1)
+        KanaTrip/Assets.xcassets의 레이어 에셋 (Giri*, Item-*, ItemThumb-*)
 """
 import math
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parent.parent / "docs/design/character"
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "docs/design/character"
+ASSETS = ROOT / "KanaTrip/Assets.xcassets"
 
 LINE = "#4A2219"      # 외곽선, 눈, 입
 RICE = "#FFFDF7"      # 밥
@@ -181,13 +185,10 @@ def face(kind):
   <!-- 얼굴 -->{FACES[kind]}'''
 
 
-def svg(kind):
+def base(kind):
+    """본체 레이어: 그림자, 다리, 팔, 몸, 밥알 결, 김. 팔이 표정마다 다르다."""
     body = body_path()
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
-  <defs>
-    {body_clip_def(body)}
-  </defs>
-
+    return f'''
   <!-- 그림자 -->
   <ellipse cx="150" cy="346" rx="90" ry="9" fill="#E8D4BE" opacity="0.8"/>
 
@@ -199,7 +200,30 @@ def svg(kind):
   {ARMS[kind]}
 
   <!-- 몸통 -->
-  {body_layers(body)}
+  {body_layers(body)}'''
+
+
+def wrap(inner, view_box="-30 0 360 360", defs=""):
+    w, h = view_box.split()[2:]
+    defs_block = f"""
+  <defs>
+    {defs}
+  </defs>
+""" if defs else ""
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view_box}" width="{w}" height="{h}">{defs_block}
+{inner}
+</svg>
+'''
+
+
+def svg(kind):
+    """완성 그림. 레이어를 기본 차림(요리사 모자, 빨간 두건)으로 겹친 것과 같다."""
+    body = body_path()
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
+  <defs>
+    {body_clip_def(body)}
+  </defs>
+{base(kind)}
 {scarf()}
 {hat()}
 {face(kind)}
@@ -208,8 +232,81 @@ def svg(kind):
 '''
 
 
+# 꾸미기 레이어 (reward-flow.md 8.1). 모두 viewBox -30 0 360 360의 같은 정사각형이라 겹치기만 하면 맞는다.
+# 썸네일은 슬롯별 viewBox로 잘라 낸 별도 파일이다 (8.4).
+THUMB_VIEWBOX = {
+    "hat": "57 -16 190 190",
+    "scarf": "-30 104 310 310",
+}
+
+# 기본 차림 아이템. 지금 그림의 함수를 그대로 레이어로 쓴다. 새 아이템 그림은 아직 없다 (PLAN.md 8번).
+DEFAULT_ITEMS = {
+    "chef_hat": ("hat", hat),
+    "red_scarf": ("scarf", scarf),
+}
+
+
+def layer_files():
+    """(문서 안 상대 경로, 에셋 이름, SVG 내용)."""
+    files = []
+    for kind in FACES:
+        files.append((f"layers/giri-base-{kind}.svg", f"GiriBase{kind.title()}",
+                      wrap(base(kind), defs=body_clip_def(body_path()))))
+        files.append((f"layers/giri-face-{kind}.svg", f"GiriFace{kind.title()}", wrap(face(kind))))
+    files.append(("layers/giri-sparkles.svg", "GiriSparkles", wrap(MARKS)))
+    # 손 아이템이 있을 때: x = 150을 축으로 뒤집어 왼쪽 위에 (reward-flow.md 7번)
+    files.append(("layers/giri-sparkles-left.svg", "GiriSparklesLeft",
+                  wrap(f'<g transform="translate(300 0) scale(-1 1)">{MARKS}</g>')))
+    for item_id, (slot, draw) in DEFAULT_ITEMS.items():
+        files.append((f"items/{item_id}.svg", f"Item-{item_id}", wrap(draw())))
+        files.append((f"items/{item_id}-thumb.svg", f"ItemThumb-{item_id}", wrap(draw(), THUMB_VIEWBOX[slot])))
+    return files
+
+
+def write_imageset(name, filename, content):
+    folder = ASSETS / f"{name}.imageset"
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob("*.svg"):
+        if old.name != filename:
+            old.unlink()
+    (folder / filename).write_text(content, encoding="utf-8")
+    (folder / "Contents.json").write_text("""{
+  "images" : [
+    {
+      "filename" : "%s",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true,
+    "template-rendering-intent" : "original"
+  }
+}
+""" % filename, encoding="utf-8")
+
+
+def check_layers_match():
+    """기본 차림 레이어를 순서대로 이은 내용이 완성 그림과 같은지 본다 (reward-flow.md 8.1)."""
+    for kind in FACES:
+        stacked = base(kind) + scarf() + hat() + face(kind) + (MARKS if kind == "happy" else "")
+        whole = svg(kind)
+        squash = lambda t: "".join(t.split())
+        assert squash(stacked) in squash(whole), f"{kind}: 레이어를 겹친 결과가 완성 그림과 다름"
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     for kind in FACES:
         (OUT / f"onigiri-{kind}.svg").write_text(svg(kind), encoding="utf-8")
         print("wrote", OUT / f"onigiri-{kind}.svg")
+    check_layers_match()
+    for rel, asset, content in layer_files():
+        path = OUT / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+        write_imageset(asset, path.name, content)
+        print("wrote", path, "->", asset)

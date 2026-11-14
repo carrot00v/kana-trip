@@ -1,9 +1,16 @@
 import SwiftUI
 
+/// 홈의 NavigationStack에 쌓는 화면.
+enum HomeRoute: Hashable {
+    case scene(String)
+    /// K 기리 꾸미기 (docs/design/reward-flow.md 2.2).
+    case customize
+}
+
 /// H 홈(장면 목록).
 struct HomeView: View {
     @Environment(ProgressStore.self) private var store
-    @State private var path: [String] = []
+    @State private var path: [HomeRoute] = []
     @State private var route: SessionRoute?
     @State private var showsComingSoon = false
     @Environment(\.dynamicTypeSize) private var typeSize
@@ -18,12 +25,18 @@ struct HomeView: View {
         NavigationStack(path: $path) {
             List {
                 Section {
+                    giriRow
+                        .listRowBackground(Color.cardBackground)
+                }
+                Section {
                     ForEach(library.scenes) { scene in
                         row(scene)
                             .listRowBackground(Color.cardBackground)
                     }
                 } header: {
-                    sectionHeader
+                    Text(library.sectionTitle)
+                        .foregroundStyle(Color.inkSecondary)
+                        .textCase(nil)
                 }
             }
             .listStyle(.insetGrouped)
@@ -55,20 +68,25 @@ struct HomeView: View {
                         )
                     ) {
                         // 세션을 닫으면 장면 진입이 아래에 깔려 있도록 먼저 push한다.
-                        path = [target.scene.id]
+                        path = [.scene(target.scene.id)]
                         route = SessionRoute(sceneID: target.scene.id, kind: target.kind)
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                 }
             }
-            .navigationDestination(for: String.self) { sceneID in
-                if let scene = library.scene(id: sceneID) {
-                    SceneDetailView(
-                        scene: scene,
-                        onStart: { route = SessionRoute(sceneID: scene.id, kind: $0) },
-                        onBackToList: { path = [] }
-                    )
+            .navigationDestination(for: HomeRoute.self) { destination in
+                switch destination {
+                case .scene(let sceneID):
+                    if let scene = library.scene(id: sceneID) {
+                        SceneDetailView(
+                            scene: scene,
+                            onStart: { route = SessionRoute(sceneID: scene.id, kind: $0) },
+                            onBackToList: { path = [] }
+                        )
+                    }
+                case .customize:
+                    CustomizeView()
                 }
             }
             .alert(L.comingSoon, isPresented: $showsComingSoon) {
@@ -84,6 +102,11 @@ struct HomeView: View {
                     onBackToList: {
                         path = []
                         self.route = nil
+                    },
+                    onCustomize: {
+                        // 덮개를 닫고 장면 진입은 쌓지 않은 채 홈 위에 꾸미기를 띄운다.
+                        self.route = nil
+                        path = [.customize]
                     }
                 )
                 .appStyle()
@@ -106,24 +129,49 @@ struct HomeView: View {
         #endif
     }
 
-    // MARK: - 섹션 머리글
+    // MARK: - 기리 행
 
-    /// "히라가나" 머리글과 기본 표정 캐릭터(64pt). 둘의 아래 끝을 맞춘다.
-    /// 접근성 글자 크기에서는 캐릭터를 숨기고 기본 높이로 둔다 (visual-rules.md 7.2, 8.1).
-    private var sectionHeader: some View {
-        HStack(alignment: .bottom, spacing: 8) {
-            Text(library.sectionTitle)
-                .foregroundStyle(Color.inkSecondary)
-            Spacer(minLength: 0)
-            if !typeSize.isAccessibilitySize {
-                Image("OnigiriDefault")
-                    .resizable()
-                    .frame(width: 64, height: 64)
-                    .accessibilityHidden(true)
-                    .padding(.vertical, 4)
+    /// 목록 맨 위의 기리 행 (reward-flow.md 4번). 행 전체가 누르는 영역이고 기리 그림은 장식이다.
+    /// 접근성 글자 크기에서는 기리를 숨긴다 (visual-rules.md 8.1).
+    private var giriRow: some View {
+        let canBuy = store.canBuyAnyItem
+        return Button {
+            path.append(.customize)
+        } label: {
+            HStack(spacing: 12) {
+                if !typeSize.isAccessibilitySize {
+                    GiriView(face: .normal, outfit: store.rewards.equipped, side: 64)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L.customize)
+                        .font(.headline)
+                        .foregroundStyle(Color.ink)
+                    Text(L.coinsBalance(store.rewards.coins))
+                        .font(.subheadline.monospacedDigit())
+                        .foregroundStyle(Color.inkSecondary)
+                    if canBuy {
+                        HStack(spacing: 4) {
+                            Image(systemName: "yensign.circle.fill")
+                                .foregroundStyle(Color.highlightStrong)
+                            Text(L.canBuyItem)
+                                .foregroundStyle(Color.ink)
+                        }
+                        .font(.footnote)
+                    }
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Color.inkSecondary)
             }
+            .padding(.vertical, 8)
+            .frame(minHeight: 80)
+            .contentShape(Rectangle())
         }
-        .textCase(nil)
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L.customizeRowLabel(balance: store.rewards.coins, canBuy: canBuy))
+        .accessibilityAddTraits(.isButton)
     }
 
     // MARK: - 장면 상태
@@ -155,7 +203,7 @@ struct HomeView: View {
         let status = status(scene)
         Button {
             if scene.hasContent {
-                path.append(scene.id)
+                path.append(.scene(scene.id))
             } else {
                 showsComingSoon = true
             }

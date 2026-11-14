@@ -119,6 +119,54 @@ enum L {
         "다음 장면 '\(scene)'\(hasFinalConsonant(scene) ? "이" : "가") 열렸어요"
     }
 
+    // MARK: 리워드 (docs/design/reward-flow.md 10번)
+    /// "1,000엔". 천 단위 쉼표를 붙인다.
+    static func yen(_ n: Int) -> String {
+        "\(n.formatted(.number.locale(Locale(identifier: "ko_KR"))))엔"
+    }
+    static func coinsReceived(_ n: Int) -> String { "\(yen(n))을 받았어요" }
+    static func coinsBalance(_ n: Int) -> String { "가진 엔 \(yen(n))" }
+    static let customize = "기리 꾸미기"
+    static let canBuyItem = "살 수 있는 아이템이 있어요"
+    static func itemsUnlocked(_ n: Int) -> String { "새 아이템 \(n)개가 열렸어요" }
+    static func itemsGranted(_ n: Int) -> String { "남은 아이템 \(n)개를 모두 받았어요" }
+    static func hiraganaMilestone(_ coins: Int) -> String { "히라가나를 모두 끝내서 \(yen(coins))을 더 받았어요" }
+
+    static let resetOutfit = "기본 차림으로"
+    static let defaultOutfit = "기본 차림"
+    static let balanceTitle = "가진 엔"
+    static let none = "없음"
+    static let wearing = "입는 중"
+    static let owned = "가짐"
+
+    static func slotName(_ slot: RewardSlot) -> String {
+        switch slot {
+        case .hat: "모자"
+        case .scarf: "두건"
+        case .hand: "손"
+        case .background: "배경"
+        }
+    }
+    static func slotWearing(_ slot: RewardSlot) -> String { "\(slotName(slot))에 입고 있어요" }
+    static func slotEmpty(_ slot: RewardSlot) -> String {
+        "\(slotName(slot))\(hasFinalConsonant(slotName(slot)) ? "이" : "가") 비어 있어요"
+    }
+    static let wearingNow = "지금 입고 있어요"
+    static let equipped = "입었어요"
+    static func slotCleared(_ slot: RewardSlot) -> String { "\(slotName(slot)) 자리를 비웠어요" }
+    static func tryingOn(price: Int) -> String { "입어 보는 중이에요 · \(yen(price))" }
+    static func shortOf(_ n: Int) -> String { "\(yen(n))이 더 있으면 살 수 있어요" }
+    static func lockedItemTitle(scene: String) -> String { "\(scene) 장면 아이템" }
+    static func unlocksWith(scene: String) -> String { "\(scene) 장면을 끝내면 열려요" }
+    static let bought = "사서 입었어요"
+    static let outfitReset = "기본 차림으로 돌아왔어요"
+    static func buyQuestion(kana: String, nameKo: String, price: Int) -> String {
+        "\(kana)(\(nameKo))\(hasFinalConsonant(nameKo) ? "을" : "를") \(yen(price))에 살까요?"
+    }
+    static let buyNoRefund = "산 아이템은 되돌릴 수 없어요"
+    static func buyButton(price: Int) -> String { "\(yen(price))으로 사기" }
+    static let cancel = "취소"
+
     // MARK: VoiceOver
     static let close = "닫기"
     static let closeHint = "진행은 저장돼요"
@@ -140,10 +188,21 @@ enum L {
     /// "すし의 す"에서 단어와 글자를 잇는 말.
     static let possessive = "의 "
     static func sceneRowLocked(order: Int, name: String) -> String { "\(order)번 \(name), \(locked)" }
+    static func customizeRowLabel(balance: Int, canBuy: Bool) -> String {
+        "\(customize), \(coinsBalance(balance))" + (canBuy ? ", \(canBuyItem)" : "")
+    }
+    static func coinsLineLabel(received: Int, balance: Int) -> String { "\(coinsReceived(received)), \(coinsBalance(balance))" }
+    static let giri = "기리"
+    static let canBuy = "살 수 있음"
+    static func short(_ n: Int) -> String { "\(yen(n)) 모자람" }
+    static let tryingOnLabel = "입어 보는 중"
+    static func clearSlotLabel(_ slot: RewardSlot) -> String { "\(slotName(slot)) 자리 비우기" }
+    static let canBuyInSlot = "살 수 있는 아이템 있음"
+    static let resetOutfitHint = "모자와 두건을 처음 차림으로 바꾸고 손과 배경을 비워요"
 
-    /// 한글 낱말이 받침으로 끝나는지. 조사를 고를 때 쓴다.
-    private static func hasFinalConsonant(_ word: String) -> Bool {
-        guard let scalar = word.unicodeScalars.last, (0xAC00...0xD7A3).contains(scalar.value) else { return false }
+    /// 한글 낱말이 받침으로 끝나는지. 조사를 고를 때 쓴다. 끝의 괄호·공백은 건너뛰고 마지막 한글로 본다.
+    static func hasFinalConsonant(_ word: String) -> Bool {
+        guard let scalar = word.unicodeScalars.last(where: { (0xAC00...0xD7A3).contains($0.value) }) else { return false }
         return (scalar.value - 0xAC00) % 28 != 0
     }
 }

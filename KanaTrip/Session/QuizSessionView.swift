@@ -6,7 +6,7 @@ struct QuizSessionView: View {
     /// 이미 끝낸 세션을 다시 하는 중이면 틀린 글자 기록을 바꾸지 않는다.
     let isReplay: Bool
     let onClose: () -> Void
-    let onFinished: () -> Void
+    let onFinished: (RewardGrant) -> Void
 
     @Environment(ProgressStore.self) private var store
     @State private var item: Item?
@@ -65,8 +65,7 @@ struct QuizSessionView: View {
             item = .write(kana)
         } else {
             item = nil
-            store.completeSession(.quiz, sceneID: scene.id)
-            onFinished()
+            onFinished(store.completeSession(.quiz, sceneID: scene.id))
         }
     }
 
