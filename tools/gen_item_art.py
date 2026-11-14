@@ -44,13 +44,13 @@ PALETTE = (
 OBJECT_RULES = (
     "Single isolated object, centered, generous empty margin around it. "
     "The object is not a character: it has no face, no eyes, no mouth, no blush. "
-    "No ground shadow, no floor, no character, no hands, no text, no letters, no numbers, no logo. "
+    "No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. "
     "Plain solid flat light gray background filling the whole image."
 )
 BACKGROUND_RULES = (
     "Square 1:1 background scene filling the whole image edge to edge, no border. "
-    "Keep the central area light and nearly empty because a character will stand in front of it; "
-    "put details near the edges. No people, no characters, no faces on objects, no text, no letters, no numbers."
+    "Keep the central area light and nearly empty; "
+    "put details near the edges. No people, no characters, no animals, no mascots, no faces on objects, no text, no letters, no numbers."
 )
 
 
@@ -68,6 +68,7 @@ def main() -> int:
     p.add_argument("ids", nargs="*", help="아이템 id (items.json)")
     p.add_argument("--count", type=int, default=4)
     p.add_argument("--seed", type=int, help="첫 시드 (없으면 무작위)")
+    p.add_argument("--timeout", type=int, default=1800, help="한 장 대기 시간(초). 스왑이 차면 10분을 넘기도 한다")
     p.add_argument("--list", action="store_true", help="아이템 목록만 보여 준다")
     a = p.parse_args()
 
@@ -89,7 +90,7 @@ def main() -> int:
             item, s = items[item_id], seed + n
             print(f"[{n + 1}/{a.count}] {item_id} seed={s}", flush=True)
             r = subprocess.run([sys.executable, str(GEN), build_prompt(item), "--name", item_id,
-                                "--seed", str(s), "--out", str(OUT)])
+                                "--seed", str(s), "--out", str(OUT), "--timeout", str(a.timeout)])
             if r.returncode != 0:
                 continue
             src = OUT / f"{item_id}_{s}.png"

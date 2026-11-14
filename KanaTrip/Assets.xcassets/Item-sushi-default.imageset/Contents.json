@@ -1,0 +1,12 @@
+{
+  "images": [
+    {
+      "filename": "Item-sushi-default.png",
+      "idiom": "universal"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

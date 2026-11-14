@@ -10,7 +10,7 @@
    - 모자·두건·배경: {id}.png
    - 손: {id}-default.png, {id}-happy.png (쥐는 점을 표정별 손끝에 놓음)
    - 썸네일: {id}-thumb.png (슬롯별 viewBox로 잘라 냄)
-   배경은 items.json의 kanaBoxes 자리에 KanjiVG 획으로 가나를 합성한다(그림 속 가나는 모델이 그리지 않음).
+   배경은 items.json의 kanaBoxes 자리에 (글자 색은 color, 없으면 밥 흰색) KanjiVG 획으로 가나를 합성한다(그림 속 가나는 모델이 그리지 않음).
 2. iOS: KanaTrip/Assets.xcassets에 Item-{id}, Item-{id}-{default|happy}, ItemThumb-{id} 이미지 세트로 복사한다.
    안드로이드를 만들면 1의 결과를 res/drawable로 옮기는 단계만 더하면 된다.
 3. 금지 색(초록 125~160°, 분홍빨강 330~359°)이 넓게 있으면 경고한다(reward-flow.md 8.3).
@@ -23,7 +23,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageColor, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 ART = ROOT / "docs" / "design" / "item-art"
@@ -48,7 +48,7 @@ THUMB_VIEW = {
     "background": (-30, 0, 360, 360),
 }
 
-KANA_COLOR = (255, 253, 247, 255)   # 밥 흰색 #FFFDF7, 남색 노렌 위
+KANA_COLOR = "#FFFDF7"              # 밥 흰색, 남색 노렌 위. 밝은 간판은 kanaBoxes의 "color"로 바꾼다
 KANA_WIDTH = 9 / 109                # 획 굵기 (KanjiVG 109 좌표 기준). 굵은 간판 글씨
 
 
@@ -98,6 +98,7 @@ def draw_kana(layer: Image.Image, boxes: list[dict]) -> None:
     for spec in boxes:
         x1, y1, x2, y2 = spec["box"]
         size = px(x2 - x1)
+        color = ImageColor.getcolor(spec.get("color", KANA_COLOR), "RGBA")
         # 크게 그린 뒤 줄여서 가장자리를 부드럽게
         big = 4
         glyph = Image.new("RGBA", (size * big, size * big))
@@ -107,10 +108,10 @@ def draw_kana(layer: Image.Image, boxes: list[dict]) -> None:
         for ch in spec["text"]:
             for stroke in data[ch]:
                 pts = [(x * k, y * k) for x, y in stroke]
-                d.line(pts, fill=KANA_COLOR, width=width, joint="curve")
+                d.line(pts, fill=color, width=width, joint="curve")
                 r = width / 2
                 for cx, cy in (pts[0], pts[-1]):
-                    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=KANA_COLOR)
+                    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=color)
         glyph = glyph.resize((size, size), Image.LANCZOS)
         layer.alpha_composite(glyph, (gx(x1), px(y1)))
 
