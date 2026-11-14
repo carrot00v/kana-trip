@@ -109,7 +109,7 @@ struct WordSessionView: View {
                         if store.soundOn { SpeakerBadge() }
                     }
                     .frame(minHeight: 44)
-                    .speaks(word.text, enabled: store.soundOn && revealed)
+                    .speaks(word: word.text, enabled: store.soundOn && revealed)
                     Text(word.meaning).font(.body)
                 }
                 .multilineTextAlignment(.center)

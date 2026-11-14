@@ -181,7 +181,7 @@ struct WordBlock: View {
                 .frame(width: compact ? 52 : 64)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text(KanaText.japanese(unit.kana)) + Text(ruby.map { ", \($0)" } ?? ""))
-                .speaks(unit.kana, enabled: soundOn && !unit.isKanji)
+                .speaks(kana: unit.kana, enabled: soundOn && !unit.isKanji)
             }
         }
     }

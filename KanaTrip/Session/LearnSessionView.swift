@@ -89,7 +89,7 @@ struct LearnSessionView: View {
                 .padding(.top, 8)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel("\(kana.char), \(kana.romaji), \(L.strokeCount(kana.strokes.count))")
-                .speaks(kana.char, enabled: store.soundOn)
+                .speaks(kana: kana.char, enabled: store.soundOn)
 
                 if let word = run.step.flatMap({ ContentLibrary.shared.introWord(for: kana.char, in: $0) }) {
                     SceneWordCard(scene: run.scene, char: kana.char, intro: word)
@@ -145,7 +145,7 @@ struct LearnSessionView: View {
                     Text(kana.romaji).font(.title2).foregroundStyle(Color.inkSecondary)
                     if store.soundOn { SpeakerBadge() }
                 }
-                .speaks(kana.char, enabled: store.soundOn)
+                .speaks(kana: kana.char, enabled: store.soundOn)
                 Spacer()
                 Text(L.traceRound(round, of: Self.traceRounds))
                     .font(.footnote.monospacedDigit())

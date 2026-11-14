@@ -205,9 +205,14 @@ extension View {
         modifier(FadeOnChange(key: key))
     }
 
-    /// 발음 소리가 켜져 있고 `enabled`일 때만 눌러서 들을 수 있게 한다.
-    func speaks(_ text: String, enabled: Bool) -> some View {
-        modifier(SpeakOnTap(text: text, enabled: enabled))
+    /// 발음 소리가 켜져 있고 `enabled`일 때만 눌러서 글자 하나를 들을 수 있게 한다.
+    func speaks(kana text: String, enabled: Bool) -> some View {
+        modifier(SpeakOnTap(text: text, kind: .kana, enabled: enabled))
+    }
+
+    /// 발음 소리가 켜져 있고 `enabled`일 때만 눌러서 단어 전체를 들을 수 있게 한다.
+    func speaks(word text: String, enabled: Bool) -> some View {
+        modifier(SpeakOnTap(text: text, kind: .word, enabled: enabled))
     }
 }
 
@@ -225,17 +230,23 @@ private struct FadeOnChange<Key: Hashable>: ViewModifier {
     }
 }
 
+/// 누르면 처음부터 다시 읽고, 이 화면이 사라지면(다음 항목, 닫기) 이 화면이 시작한 소리를 멈춘다.
 private struct SpeakOnTap: ViewModifier {
     let text: String
+    let kind: SpeechKind
     let enabled: Bool
+    @State private var owner = UUID()
 
     func body(content: Content) -> some View {
-        if enabled {
-            content
-                .contentShape(Rectangle())
-                .onTapGesture { Speaker.shared.speak(text) }
-        } else {
-            content
+        Group {
+            if enabled {
+                content
+                    .contentShape(Rectangle())
+                    .onTapGesture { Speaker.shared.speak(text, as: kind, owner: owner) }
+            } else {
+                content
+            }
         }
+        .onDisappear { Speaker.shared.stop(owner: owner) }
     }
 }

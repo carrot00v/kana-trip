@@ -175,7 +175,7 @@ private struct GlyphProblem: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(answered ? Text(KanaText.japanese(kana.char)) : Text(L.questionGlyph))
-        .speaks(kana.char, enabled: answered && store.soundOn)
+        .speaks(kana: kana.char, enabled: answered && store.soundOn)
     }
 }
 
@@ -197,7 +197,7 @@ private struct WordProblem: View {
                 .opacity(answered ? 1 : 0)
                 .accessibilityHidden(!answered)
         }
-        .speaks(word.text, enabled: answered && store.soundOn)
+        .speaks(word: word.text, enabled: answered && store.soundOn)
     }
 }
 
@@ -494,7 +494,7 @@ struct RecallWriteView: View {
                 if store.soundOn { SpeakerBadge() }
             }
             .frame(height: Self.romajiHeight)
-            .speaks(kana.char, enabled: store.soundOn)
+            .speaks(kana: kana.char, enabled: store.soundOn)
             .padding(.top, romajiTop)
         }
         .frame(height: Self.blockHeight(lines: lines, typeSize: typeSize, beside: beside), alignment: .top)
