@@ -26,7 +26,7 @@
 xcodebuild -project KanaTrip.xcodeproj -scheme KanaTrip -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-- iPhone 전용, 세로 고정, 최소 iOS 18. 서버와 외부 패키지 없이 진행한다.
+- iPhone 전용, 세로 고정, 최소 iOS 18. 서버와 외부 패키지 없이 진행한다. 예외는 그림 움직임용 lottie-ios(SPM, Apache 2.0) 하나다.
 - `KanaTrip/` 폴더는 Xcode가 자동으로 동기화하므로 파일을 추가해도 프로젝트 파일을 고칠 필요가 없다.
 - 획 데이터는 `tools/build_kana_strokes.py`로 KanjiVG SVG에서 만든다. KanjiVG는 CC BY-SA 3.0이라 공개 시 출처 표기가 필요하다.
 - 번들 ID `com.example.KanaTrip`은 임시값이다 (PLAN.md 8번).
