@@ -1,0 +1,9 @@
+{
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: Two thick slices of takuan (Japanese yellow pickled daikon radish) stacked slightly offset, held upright between a pair of plain wooden chopsticks that come in from the bottom. Each slice is a thick half-moon shape in solid bright warm yellow with a visible thick side edge, flat plain fill, no lines, no segments, no seeds, no rind. Clearly yellow pickled radish, not citrus, not lemon. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 1584058816,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16"
+}

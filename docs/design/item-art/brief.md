@@ -125,7 +125,7 @@ Subject: {prompt}
 |---|---|---|---|---|
 | 1 스시집 | `noren` | 배경 | のれん 노렌이 걸린 가게 앞 | すし |
 | 1 스시집 | `sushi` | 손 | すし 초밥 한 점 | |
-| 2 돈카츠집 | `oshinko` | 손 | おしんこ 절임 반찬 (그림 아직 없음, 임시 표시. 2026-11-15 とんかつ를 대신함. 원래 tonkatsu.png는 단어 그림 word-tonkatsu로만 씀, docs/content/word-images.md 4.2) | |
+| 2 돈카츠집 | `oshinko` | 손 | おしんこ 절임 반찬 (2026-11-15 とんかつ를 대신함. 다쿠앙 두 조각을 젓가락으로 집은 그림, seed 1584058816. 원래 tonkatsu.png는 단어 그림 word-tonkatsu로만 씀, docs/content/word-images.md 4.2) | |
 | 2 돈카츠집 | `ohitsu` | 모자 | おひつ 나무 밥통 | |
 | 3 소바·우동집 | `kitsune` | 손 | きつね 유부 우동 한 그릇 | |
 | 3 소바·우동집 | `tasuki` | 두건 | たすき 어깨띠 | |
