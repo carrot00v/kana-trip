@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """장면 그림에서 그릇 위 김 선을 지우고, 지운 자리를 JSON으로 알려 준다.
 
-시제품용. 김은 SwiftUI(`SteamingSceneArt`)가 Path로 다시 그려 움직인다.
+김은 Lottie 셰이프 레이어로 다시 그려 움직인다.
 
 Pillow 없이 돌게 macOS 기본 도구 `sips`로 PNG <-> 24비트 BMP를 오가고,
 픽셀 처리는 파이썬 표준 라이브러리로 한다.
@@ -10,7 +10,8 @@ Pillow 없이 돌게 macOS 기본 도구 `sips`로 PNG <-> 24비트 BMP를 오�
         docs/design/scene-art/source/thumb-eatery_sign_305.png \
         KanaTrip/Resources/scene_eatery_sign_steamless.png
 
-출력(표준 출력, JSON): 그림 크기, 바탕색, 김 선마다 정규화(0~1) 경계 상자와
+`tools/build_scene_lottie.py`가 `prepare()`를 불러 Lottie 파일을 만든다.
+단독 실행 시 출력(표준 출력, JSON): 그림 크기, 바탕색, 김 선마다 정규화(0~1) 경계 상자와
 중심선 점, 선 굵기, 그릇 위 가장자리 높이. Swift 쪽 김 위치는 이 값을 옮겨 적는다.
 """
 
@@ -26,6 +27,8 @@ from collections import deque
 FOREGROUND_DISTANCE = 40
 # 김 선 둘레의 흐린 가장자리(안티에일리어싱)까지 지우려고 마스크를 넓히는 픽셀 수.
 MASK_GROW = 4
+# 가장자리를 바탕색으로 맞추는 폭(픽셀).
+EDGE_FEATHER = 16
 # 김 선으로 볼 덩어리: 그림 넓이에 대한 최대 비율.
 MAX_STEAM_AREA_RATIO = 0.01
 
@@ -121,11 +124,24 @@ def components(width, height, mask):
     return result
 
 
-def main():
-    if len(sys.argv) != 3:
-        raise SystemExit("사용법: prep_steam_layer.py 입력.png 출력.png")
-    src, dst = sys.argv[1], sys.argv[2]
+def feather_edges(width, height, pixels, bg):
+    """가장자리 EDGE_FEATHER 픽셀을 바탕색 쪽으로 서서히 맞춰, 맨 바깥 줄이 정확히 bg가 되게 한다.
+    앱에서 그림 좌우를 같은 bg로 채울 때 세로 경계가 보이지 않게 하려는 것."""
+    out = list(pixels)
+    for y in range(height):
+        for x in range(width):
+            d = min(x, y, width - 1 - x, height - 1 - y)
+            if d >= EDGE_FEATHER:
+                continue
+            t = d / EDGE_FEATHER  # 0 = 맨 바깥(완전히 bg), 1 = 원래 색
+            p = out[y * width + x]
+            out[y * width + x] = tuple(int(round(bg[i] + (p[i] - bg[i]) * t)) for i in range(3))
+    return out
 
+
+def prepare(src, dst, size=None):
+    """src에서 김을 지운 PNG를 dst에 쓰고, 김 위치 정보를 dict로 돌려준다.
+    size를 주면 결과 PNG를 그 변 길이로 줄인다(좌표는 0~1 비율이라 그대로)."""
     with tempfile.TemporaryDirectory() as tmp:
         bmp_in = os.path.join(tmp, "in.bmp")
         sips(src, bmp_in, "bmp")
@@ -179,10 +195,14 @@ def main():
                     t = (k - start + 1) / span
                     out[y * width + k] = tuple(int(round(lc[i] + (rc[i] - lc[i]) * t)) for i in range(3))
 
+        out = feather_edges(width, height, out, bg)
         bmp_out = os.path.join(tmp, "out.bmp")
         write_bmp(bmp_out, width, height, out)
         os.makedirs(os.path.dirname(os.path.abspath(dst)), exist_ok=True)
         sips(bmp_out, dst, "png")
+        if size:
+            subprocess.run(["sips", "-z", str(size), str(size), dst],
+                           check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     # 김 선마다 중심선(줄마다 진한 선 픽셀의 x 평균)과 굵기(가로 연속 길이의 중앙값).
     lines = []
@@ -215,15 +235,21 @@ def main():
             "strokeWidth": round(median(runs) / width, 4),
         })
 
-    print(json.dumps({
+    return {
         "source": src,
         "output": dst,
-        "size": [width, height],
+        "size": [size or width, size or height],
         "background": "#%02X%02X%02X" % bg,
         "bowlTop": round(bowl_top / height, 4),
         "steamBottom": round(max(l["box"][3] for l in lines), 4),
         "steam": lines,
-    }, ensure_ascii=False, indent=2))
+    }
+
+
+def main():
+    if len(sys.argv) != 3:
+        raise SystemExit("사용법: prep_steam_layer.py 입력.png 출력.png")
+    print(json.dumps(prepare(sys.argv[1], sys.argv[2]), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
