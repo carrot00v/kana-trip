@@ -1,0 +1,7351 @@
+{
+ "voice": {
+  "slug": "metan-normal",
+  "style_id": 2
+ },
+ "methods": {
+  "c40": {
+   "comment": "1차 C안 그대로(기준선)",
+   "mora_seconds": 0.4
+  },
+  "a-int0": {
+   "comment": "(a) C안 + intonation_scale 0",
+   "mora_seconds": 0.4,
+   "intonation_scale": 0.0
+  },
+  "b30": {
+   "comment": "(b) 박 0.30초",
+   "mora_seconds": 0.3
+  },
+  "b35": {
+   "comment": "(b) 박 0.35초",
+   "mora_seconds": 0.35
+  },
+  "c-ctx": {
+   "comment": "(c) 'X、X、X'로 합성해 가운데만 자름, 길이는 엔진 기본",
+   "context": 3
+  },
+  "c-ctx35": {
+   "comment": "(c) 'X、X、X', 박 0.35초, 세 박 높이를 가운데 값으로 고정, 가운데만 자름",
+   "context": 3,
+   "mora_seconds": 0.35,
+   "flat_pitch": true
+  },
+  "d35": {
+   "comment": "(d) 박 0.35초 + intonation 0 + 끝 30ms 페이드",
+   "mora_seconds": 0.35,
+   "intonation_scale": 0.0,
+   "fade_out": 0.03
+  },
+  "e-cl35": {
+   "comment": "(e) 'Xッ'로 합성(뒤에 촉음), 글자 박만 0.35초, 높이 고정, 모음 끝에서 잘라 30ms 페이드",
+   "carrier": "ッ",
+   "mora_seconds": 0.35,
+   "flat_pitch": true,
+   "fade_out": 0.03,
+   "carrier_tail": 0.0
+  },
+  "e-ta35": {
+   "comment": "(e) 'Xタ'로 합성(뒤에 무성 파열음), 글자 박만 0.35초, 높이 고정, 모음 끝에서 잘라 30ms 페이드",
+   "carrier": "タ",
+   "mora_seconds": 0.35,
+   "flat_pitch": true,
+   "fade_out": 0.03,
+   "carrier_tail": 0.0
+  },
+  "e-ta40": {
+   "comment": "(e) e-ta35와 같고 글자 박만 0.40초",
+   "carrier": "タ",
+   "mora_seconds": 0.4,
+   "flat_pitch": true,
+   "fade_out": 0.03,
+   "carrier_tail": 0.0
+  }
+ },
+ "baseline_word_vowels": {
+  "segments": [
+   {
+    "word": "すし",
+    "mora": "ス",
+    "frames": 4,
+    "periodic": 0.0,
+    "nacf_med": 0.2,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   {
+    "word": "すし",
+    "mora": "シ",
+    "frames": 15,
+    "periodic": 0.87,
+    "nacf_med": 0.9,
+    "f0": 324,
+    "jitter_c": 31.7,
+    "sd_c": 124.7,
+    "range_c": 370,
+    "octave_err": 0
+   },
+   {
+    "word": "いか",
+    "mora": "イ",
+    "frames": 6,
+    "periodic": 1.0,
+    "nacf_med": 0.89,
+    "f0": 267,
+    "jitter_c": 63.3,
+    "sd_c": 90.8,
+    "range_c": 259,
+    "octave_err": 0
+   },
+   {
+    "word": "いか",
+    "mora": "カ",
+    "frames": 14,
+    "periodic": 0.43,
+    "nacf_med": 0.66,
+    "f0": 325,
+    "jitter_c": 11.7,
+    "sd_c": 18.8,
+    "range_c": 58,
+    "octave_err": 0
+   },
+   {
+    "word": "とんかつ",
+    "mora": "ト",
+    "frames": 9,
+    "periodic": 1.0,
+    "nacf_med": 0.96,
+    "f0": 410,
+    "jitter_c": 29.8,
+    "sd_c": 77.1,
+    "range_c": 238,
+    "octave_err": 0
+   },
+   {
+    "word": "とんかつ",
+    "mora": "カ",
+    "frames": 7,
+    "periodic": 0.71,
+    "nacf_med": 0.86,
+    "f0": 374,
+    "jitter_c": 30.4,
+    "sd_c": 31.9,
+    "range_c": 91,
+    "octave_err": 0
+   },
+   {
+    "word": "とんかつ",
+    "mora": "ツ",
+    "frames": 10,
+    "periodic": 0.5,
+    "nacf_med": 0.66,
+    "f0": 267,
+    "jitter_c": 65.8,
+    "sd_c": 107.0,
+    "range_c": 263,
+    "octave_err": 0
+   },
+   {
+    "word": "かつどん",
+    "mora": "カ",
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.84,
+    "f0": 269,
+    "jitter_c": 31.9,
+    "sd_c": 40.3,
+    "range_c": 119,
+    "octave_err": 0
+   },
+   {
+    "word": "かつどん",
+    "mora": "ド",
+    "frames": 7,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 392,
+    "jitter_c": 8.1,
+    "sd_c": 17.4,
+    "range_c": 47,
+    "octave_err": 0
+   },
+   {
+    "word": "うどん",
+    "mora": "ウ",
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.95,
+    "f0": 261,
+    "jitter_c": 36.8,
+    "sd_c": 78.0,
+    "range_c": 221,
+    "octave_err": 0
+   },
+   {
+    "word": "うどん",
+    "mora": "ド",
+    "frames": 10,
+    "periodic": 1.0,
+    "nacf_med": 0.93,
+    "f0": 346,
+    "jitter_c": 27.7,
+    "sd_c": 81.1,
+    "range_c": 249,
+    "octave_err": 0
+   },
+   {
+    "word": "おんせん",
+    "mora": "オ",
+    "frames": 13,
+    "periodic": 0.77,
+    "nacf_med": 0.87,
+    "f0": 296,
+    "jitter_c": 51.0,
+    "sd_c": 158.4,
+    "range_c": 459,
+    "octave_err": 0
+   },
+   {
+    "word": "おんせん",
+    "mora": "セ",
+    "frames": 9,
+    "periodic": 1.0,
+    "nacf_med": 0.96,
+    "f0": 398,
+    "jitter_c": 3.9,
+    "sd_c": 8.3,
+    "range_c": 28,
+    "octave_err": 0
+   },
+   {
+    "word": "きっぷ",
+    "mora": "キ",
+    "frames": 9,
+    "periodic": 0.78,
+    "nacf_med": 0.9,
+    "f0": 283,
+    "jitter_c": 31.5,
+    "sd_c": 68.5,
+    "range_c": 189,
+    "octave_err": 0
+   },
+   {
+    "word": "きっぷ",
+    "mora": "プ",
+    "frames": 10,
+    "periodic": 0.9,
+    "nacf_med": 0.89,
+    "f0": 386,
+    "jitter_c": 47.6,
+    "sd_c": 123.8,
+    "range_c": 330,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "ツ",
+    "frames": 4,
+    "periodic": 1.0,
+    "nacf_med": 0.97,
+    "f0": 385,
+    "jitter_c": 9.5,
+    "sd_c": 9.5,
+    "range_c": 25,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "オ",
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.96,
+    "f0": 359,
+    "jitter_c": 15.5,
+    "sd_c": 34.1,
+    "range_c": 109,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "ヌ",
+    "frames": 5,
+    "periodic": 1.0,
+    "nacf_med": 0.96,
+    "f0": 318,
+    "jitter_c": 8.1,
+    "sd_c": 12.9,
+    "range_c": 33,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "イ",
+    "frames": 5,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 324,
+    "jitter_c": 14.1,
+    "sd_c": 20.5,
+    "range_c": 53,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "デ",
+    "frames": 6,
+    "periodic": 0.67,
+    "nacf_med": 0.8,
+    "f0": 292,
+    "jitter_c": 45.2,
+    "sd_c": 54.2,
+    "range_c": 136,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "ダ",
+    "frames": 6,
+    "periodic": 0.67,
+    "nacf_med": 0.72,
+    "f0": 278,
+    "jitter_c": 55.8,
+    "sd_c": 66.4,
+    "range_c": 167,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "サ",
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.85,
+    "f0": 323,
+    "jitter_c": 25.8,
+    "sd_c": 61.3,
+    "range_c": 180,
+    "octave_err": 0
+   },
+   {
+    "word": "くつをぬいでください",
+    "mora": "イ",
+    "frames": 7,
+    "periodic": 0.57,
+    "nacf_med": 0.84,
+    "f0": 263,
+    "jitter_c": 133.5,
+    "sd_c": 151.1,
+    "range_c": 400,
+    "octave_err": 0
+   }
+  ],
+  "median": {
+   "periodic": 0.88,
+   "nacf_med": 0.89,
+   "jitter_c": 30.95,
+   "sd_c": 63.85,
+   "range_c": 173.5
+  }
+ },
+ "summary": {
+  "c40": {
+   "letters": 16,
+   "voiced_min": 0.12,
+   "voiced_mean": 0.302,
+   "periodic_med": 0.52,
+   "periodic_min": 0.0,
+   "jitter_med": 18.6,
+   "jitter_max": 34.6,
+   "sd_med": 64.2,
+   "sd_max": 126.0,
+   "rms_range": [
+    -37.2,
+    -21.1
+   ],
+   "broken": [
+    "i",
+    "ka",
+    "ha",
+    "a",
+    "u",
+    "e"
+   ]
+  },
+  "a-int0": {
+   "letters": 16,
+   "voiced_min": 0.12,
+   "voiced_mean": 0.302,
+   "periodic_med": 0.52,
+   "periodic_min": 0.0,
+   "jitter_med": 18.6,
+   "jitter_max": 34.6,
+   "sd_med": 64.2,
+   "sd_max": 126.0,
+   "rms_range": [
+    -37.2,
+    -21.1
+   ],
+   "broken": [
+    "i",
+    "ka",
+    "ha",
+    "a",
+    "u",
+    "e"
+   ]
+  },
+  "b30": {
+   "letters": 16,
+   "voiced_min": 0.15,
+   "voiced_mean": 0.228,
+   "periodic_med": 0.6,
+   "periodic_min": 0.0,
+   "jitter_med": 25.85,
+   "jitter_max": 55.1,
+   "sd_med": 73.55,
+   "sd_max": 162.7,
+   "rms_range": [
+    -34.9,
+    -21.3
+   ],
+   "broken": [
+    "ka",
+    "ha",
+    "n",
+    "a",
+    "u",
+    "e",
+    "fu"
+   ]
+  },
+  "b35": {
+   "letters": 16,
+   "voiced_min": 0.15,
+   "voiced_mean": 0.269,
+   "periodic_med": 0.5,
+   "periodic_min": 0.0,
+   "jitter_med": 19.9,
+   "jitter_max": 29.6,
+   "sd_med": 82.7,
+   "sd_max": 115.2,
+   "rms_range": [
+    -35.2,
+    -21.0
+   ],
+   "broken": [
+    "ka",
+    "ha",
+    "a",
+    "u",
+    "e"
+   ]
+  },
+  "c-ctx": {
+   "letters": 16,
+   "voiced_min": 0.16,
+   "voiced_mean": 0.247,
+   "periodic_med": 0.58,
+   "periodic_min": 0.0,
+   "jitter_med": 24.2,
+   "jitter_max": 56.4,
+   "sd_med": 72.9,
+   "sd_max": 128.2,
+   "rms_range": [
+    -32.4,
+    -21.3
+   ],
+   "broken": [
+    "ka",
+    "ha",
+    "n",
+    "a",
+    "e",
+    "tsu",
+    "fu",
+    "ra"
+   ]
+  },
+  "c-ctx35": {
+   "letters": 16,
+   "voiced_min": 0.23,
+   "voiced_mean": 0.281,
+   "periodic_med": 0.55,
+   "periodic_min": 0.0,
+   "jitter_med": 19.35,
+   "jitter_max": 46.1,
+   "sd_med": 51.35,
+   "sd_max": 159.1,
+   "rms_range": [
+    -32.2,
+    -21.5
+   ],
+   "broken": [
+    "ka",
+    "ha",
+    "a",
+    "e",
+    "ra"
+   ]
+  },
+  "d35": {
+   "letters": 16,
+   "voiced_min": 0.13,
+   "voiced_mean": 0.255,
+   "periodic_med": 0.53,
+   "periodic_min": 0.0,
+   "jitter_med": 20.5,
+   "jitter_max": 28.6,
+   "sd_med": 84.7,
+   "sd_max": 115.2,
+   "rms_range": [
+    -34.9,
+    -20.9
+   ],
+   "broken": [
+    "ka",
+    "ha",
+    "a",
+    "u",
+    "e"
+   ]
+  },
+  "e-cl35": {
+   "letters": 16,
+   "voiced_min": 0.11,
+   "voiced_mean": 0.288,
+   "periodic_med": 0.8,
+   "periodic_min": 0.0,
+   "jitter_med": 17.6,
+   "jitter_max": 38.2,
+   "sd_med": 72.6,
+   "sd_max": 100.1,
+   "rms_range": [
+    -29.5,
+    -21.3
+   ],
+   "broken": [
+    "a",
+    "u",
+    "e"
+   ]
+  },
+  "e-ta35": {
+   "letters": 16,
+   "voiced_min": 0.12,
+   "voiced_mean": 0.278,
+   "periodic_med": 0.86,
+   "periodic_min": 0.14,
+   "jitter_med": 15.15,
+   "jitter_max": 36.6,
+   "sd_med": 65.75,
+   "sd_max": 126.3,
+   "rms_range": [
+    -31.9,
+    -19.1
+   ],
+   "broken": [
+    "a",
+    "u",
+    "e"
+   ]
+  },
+  "e-ta40": {
+   "letters": 16,
+   "voiced_min": 0.09,
+   "voiced_mean": 0.309,
+   "periodic_med": 0.89,
+   "periodic_min": 0.09,
+   "jitter_med": 11.25,
+   "jitter_max": 35.5,
+   "sd_med": 63.65,
+   "sd_max": 458.5,
+   "rms_range": [
+    -31.1,
+    -18.8
+   ],
+   "broken": [
+    "a",
+    "u",
+    "e"
+   ]
+  }
+ },
+ "files": [
+  {
+   "file": "metan-normal-su-c40.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "c40",
+   "input": "ス'",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "synth_seconds": 0.325,
+   "duration": 0.64,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.18,
+   "peak_dbfs": -16.9,
+   "rms_dbfs": -29.2,
+   "vowel_span": [
+    0.176,
+    0.5
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.64,
+    "nacf_med": 0.78,
+    "f0": 336,
+    "jitter_c": 18.6,
+    "sd_c": 42.3,
+    "range_c": 159,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.39,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-su-a-int0.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "a-int0",
+   "input": "ス'",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "synth_seconds": 0.322,
+   "duration": 0.64,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.18,
+   "peak_dbfs": -16.9,
+   "rms_dbfs": -29.2,
+   "vowel_span": [
+    0.176,
+    0.5
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.64,
+    "nacf_med": 0.78,
+    "f0": 336,
+    "jitter_c": 18.6,
+    "sd_c": 42.3,
+    "range_c": 159,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.39,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-su-b30.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "b30",
+   "input": "ス'",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "synth_seconds": 0.281,
+   "duration": 0.544,
+   "voiced": 0.25,
+   "lead_silence": 0.12,
+   "tail_silence": 0.174,
+   "peak_dbfs": -15.9,
+   "rms_dbfs": -29.2,
+   "vowel_span": [
+    0.176,
+    0.4
+   ],
+   "shake": {
+    "frames": 18,
+    "periodic": 0.61,
+    "nacf_med": 0.83,
+    "f0": 333,
+    "jitter_c": 26.8,
+    "sd_c": 33.1,
+    "range_c": 120,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.73,
+    "f0": 336,
+    "jitter_c": 42.7,
+    "sd_c": 48.4,
+    "range_c": 120,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-b35.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "b35",
+   "input": "ス'",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "synth_seconds": 0.284,
+   "duration": 0.597,
+   "voiced": 0.28,
+   "lead_silence": 0.13,
+   "tail_silence": 0.187,
+   "peak_dbfs": -15.2,
+   "rms_dbfs": -28.4,
+   "vowel_span": [
+    0.176,
+    0.45
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.65,
+    "nacf_med": 0.86,
+    "f0": 337,
+    "jitter_c": 13.9,
+    "sd_c": 26.8,
+    "range_c": 93,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.38,
+    "nacf_med": 0.58,
+    "f0": 338,
+    "jitter_c": 8.4,
+    "sd_c": 6.9,
+    "range_c": 17,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-c-ctx.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "c-ctx",
+   "input": "ス'",
+   "query_kana": "ス'、ス'、ス'",
+   "phonemes": [
+    "s+u",
+    "pau",
+    "s+u",
+    "pau",
+    "s+u"
+   ],
+   "synth_seconds": 0.888,
+   "duration": 0.596,
+   "voiced": 0.21,
+   "lead_silence": 0.16,
+   "tail_silence": 0.226,
+   "peak_dbfs": -17.6,
+   "rms_dbfs": -30.5,
+   "vowel_span": [
+    0.219,
+    0.396
+   ],
+   "shake": {
+    "frames": 14,
+    "periodic": 0.71,
+    "nacf_med": 0.9,
+    "f0": 321,
+    "jitter_c": 18.8,
+    "sd_c": 31.7,
+    "range_c": 112,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.75,
+    "nacf_med": 0.93,
+    "f0": 317,
+    "jitter_c": 11.0,
+    "sd_c": 21.2,
+    "range_c": 55,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-c-ctx35.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "c-ctx35",
+   "input": "ス'",
+   "query_kana": "ス'、ス'、ス'",
+   "phonemes": [
+    "s+u",
+    "pau",
+    "s+u",
+    "pau",
+    "s+u"
+   ],
+   "synth_seconds": 0.955,
+   "duration": 0.67,
+   "voiced": 0.27,
+   "lead_silence": 0.16,
+   "tail_silence": 0.24,
+   "peak_dbfs": -16.2,
+   "rms_dbfs": -28.9,
+   "vowel_span": [
+    0.219,
+    0.47
+   ],
+   "shake": {
+    "frames": 21,
+    "periodic": 0.81,
+    "nacf_med": 0.89,
+    "f0": 325,
+    "jitter_c": 15.1,
+    "sd_c": 33.9,
+    "range_c": 99,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.75,
+    "nacf_med": 0.78,
+    "f0": 314,
+    "jitter_c": 14.3,
+    "sd_c": 28.7,
+    "range_c": 71,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-d35.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "d35",
+   "input": "ス'",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "synth_seconds": 0.285,
+   "duration": 0.597,
+   "voiced": 0.27,
+   "lead_silence": 0.13,
+   "tail_silence": 0.197,
+   "peak_dbfs": -15.2,
+   "rms_dbfs": -28.3,
+   "vowel_span": [
+    0.176,
+    0.45
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.7,
+    "nacf_med": 0.86,
+    "f0": 337,
+    "jitter_c": 13.6,
+    "sd_c": 26.2,
+    "range_c": 92,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.65,
+    "f0": 338,
+    "jitter_c": 8.6,
+    "sd_c": 5.7,
+    "range_c": 16,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-e-cl35.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "e-cl35",
+   "input": "ス'",
+   "query_kana": "ス'ッ",
+   "phonemes": [
+    "s+u",
+    "cl"
+   ],
+   "synth_seconds": 0.318,
+   "duration": 0.62,
+   "voiced": 0.3,
+   "lead_silence": 0.15,
+   "tail_silence": 0.17,
+   "peak_dbfs": -17.1,
+   "rms_dbfs": -28.3,
+   "vowel_span": [
+    0.173,
+    0.44
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.73,
+    "nacf_med": 0.9,
+    "f0": 385,
+    "jitter_c": 10.5,
+    "sd_c": 45.2,
+    "range_c": 137,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.88,
+    "f0": 387,
+    "jitter_c": 5.0,
+    "sd_c": 7.8,
+    "range_c": 21,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-e-ta35.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "e-ta35",
+   "input": "ス'",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "synth_seconds": 0.359,
+   "duration": 0.62,
+   "voiced": 0.3,
+   "lead_silence": 0.15,
+   "tail_silence": 0.17,
+   "peak_dbfs": -14.0,
+   "rms_dbfs": -25.9,
+   "vowel_span": [
+    0.171,
+    0.44
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.78,
+    "nacf_med": 0.97,
+    "f0": 394,
+    "jitter_c": 18.4,
+    "sd_c": 101.0,
+    "range_c": 289,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 398,
+    "jitter_c": 3.5,
+    "sd_c": 7.8,
+    "range_c": 21,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-su-e-ta40.wav",
+   "kana": "す",
+   "romaji": "su",
+   "method": "e-ta40",
+   "input": "ス'",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "synth_seconds": 0.385,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.15,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.5,
+   "rms_dbfs": -25.7,
+   "vowel_span": [
+    0.171,
+    0.49
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.82,
+    "nacf_med": 0.98,
+    "f0": 385,
+    "jitter_c": 16.9,
+    "sd_c": 75.1,
+    "range_c": 275,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 394,
+    "jitter_c": 8.8,
+    "sd_c": 19.1,
+    "range_c": 56,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-c40.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "c40",
+   "input": "シ'",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "synth_seconds": 0.3,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -24.3,
+   "vowel_span": [
+    0.212,
+    0.5
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.8,
+    "nacf_med": 0.79,
+    "f0": 344,
+    "jitter_c": 23.0,
+    "sd_c": 51.5,
+    "range_c": 234,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.75,
+    "nacf_med": 0.75,
+    "f0": 342,
+    "jitter_c": 36.2,
+    "sd_c": 71.2,
+    "range_c": 234,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-a-int0.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "a-int0",
+   "input": "シ'",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "synth_seconds": 0.3,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -24.3,
+   "vowel_span": [
+    0.212,
+    0.5
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.8,
+    "nacf_med": 0.79,
+    "f0": 344,
+    "jitter_c": 23.0,
+    "sd_c": 51.5,
+    "range_c": 234,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.75,
+    "nacf_med": 0.75,
+    "f0": 342,
+    "jitter_c": 36.2,
+    "sd_c": 71.2,
+    "range_c": 234,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-b30.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "b30",
+   "input": "シ'",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "synth_seconds": 0.272,
+   "duration": 0.555,
+   "voiced": 0.28,
+   "lead_silence": 0.11,
+   "tail_silence": 0.165,
+   "peak_dbfs": -12.5,
+   "rms_dbfs": -24.6,
+   "vowel_span": [
+    0.212,
+    0.4
+   ],
+   "shake": {
+    "frames": 15,
+    "periodic": 1.0,
+    "nacf_med": 0.88,
+    "f0": 339,
+    "jitter_c": 16.9,
+    "sd_c": 44.6,
+    "range_c": 156,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.85,
+    "f0": 339,
+    "jitter_c": 24.5,
+    "sd_c": 57.9,
+    "range_c": 155,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-b35.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "b35",
+   "input": "シ'",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "synth_seconds": 0.282,
+   "duration": 0.597,
+   "voiced": 0.33,
+   "lead_silence": 0.11,
+   "tail_silence": 0.157,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -24.1,
+   "vowel_span": [
+    0.212,
+    0.45
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.8,
+    "nacf_med": 0.86,
+    "f0": 343,
+    "jitter_c": 17.9,
+    "sd_c": 55.1,
+    "range_c": 191,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.86,
+    "f0": 340,
+    "jitter_c": 30.1,
+    "sd_c": 66.2,
+    "range_c": 173,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-c-ctx.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "c-ctx",
+   "input": "シ'",
+   "query_kana": "シ'、シ'、シ'",
+   "phonemes": [
+    "sh+i",
+    "pau",
+    "sh+i",
+    "pau",
+    "sh+i"
+   ],
+   "synth_seconds": 0.831,
+   "duration": 0.604,
+   "voiced": 0.24,
+   "lead_silence": 0.14,
+   "tail_silence": 0.224,
+   "peak_dbfs": -13.4,
+   "rms_dbfs": -26.3,
+   "vowel_span": [
+    0.24,
+    0.404
+   ],
+   "shake": {
+    "frames": 13,
+    "periodic": 1.0,
+    "nacf_med": 0.95,
+    "f0": 323,
+    "jitter_c": 31.7,
+    "sd_c": 107.3,
+    "range_c": 306,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.9,
+    "f0": 310,
+    "jitter_c": 51.7,
+    "sd_c": 116.1,
+    "range_c": 306,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-c-ctx35.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "c-ctx35",
+   "input": "シ'",
+   "query_kana": "シ'、シ'、シ'",
+   "phonemes": [
+    "sh+i",
+    "pau",
+    "sh+i",
+    "pau",
+    "sh+i"
+   ],
+   "synth_seconds": 0.878,
+   "duration": 0.67,
+   "voiced": 0.31,
+   "lead_silence": 0.14,
+   "tail_silence": 0.22,
+   "peak_dbfs": -11.7,
+   "rms_dbfs": -24.5,
+   "vowel_span": [
+    0.24,
+    0.47
+   ],
+   "shake": {
+    "frames": 19,
+    "periodic": 1.0,
+    "nacf_med": 0.92,
+    "f0": 326,
+    "jitter_c": 19.7,
+    "sd_c": 61.9,
+    "range_c": 259,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.89,
+    "f0": 321,
+    "jitter_c": 36.0,
+    "sd_c": 83.6,
+    "range_c": 251,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-d35.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "d35",
+   "input": "シ'",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "synth_seconds": 0.282,
+   "duration": 0.597,
+   "voiced": 0.31,
+   "lead_silence": 0.11,
+   "tail_silence": 0.177,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -23.8,
+   "vowel_span": [
+    0.212,
+    0.45
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.8,
+    "nacf_med": 0.87,
+    "f0": 343,
+    "jitter_c": 18.2,
+    "sd_c": 55.8,
+    "range_c": 195,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.87,
+    "f0": 340,
+    "jitter_c": 30.9,
+    "sd_c": 67.2,
+    "range_c": 177,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-e-cl35.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "e-cl35",
+   "input": "シ'",
+   "query_kana": "シ'ッ",
+   "phonemes": [
+    "sh+i",
+    "cl"
+   ],
+   "synth_seconds": 0.303,
+   "duration": 0.62,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -24.0,
+   "vowel_span": [
+    0.197,
+    0.44
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.9,
+    "nacf_med": 0.9,
+    "f0": 388,
+    "jitter_c": 38.2,
+    "sd_c": 70.7,
+    "range_c": 295,
+    "octave_err": 3
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.88,
+    "f0": 392,
+    "jitter_c": 59.6,
+    "sd_c": 63.9,
+    "range_c": 184,
+    "octave_err": 3
+   }
+  },
+  {
+   "file": "metan-normal-shi-e-ta35.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "e-ta35",
+   "input": "シ'",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "synth_seconds": 0.355,
+   "duration": 0.62,
+   "voiced": 0.31,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -11.0,
+   "rms_dbfs": -23.4,
+   "vowel_span": [
+    0.174,
+    0.44
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.86,
+    "nacf_med": 0.93,
+    "f0": 378,
+    "jitter_c": 17.4,
+    "sd_c": 67.9,
+    "range_c": 239,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.93,
+    "f0": 391,
+    "jitter_c": 16.6,
+    "sd_c": 26.5,
+    "range_c": 82,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-shi-e-ta40.wav",
+   "kana": "し",
+   "romaji": "shi",
+   "method": "e-ta40",
+   "input": "シ'",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "synth_seconds": 0.403,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.18,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -23.1,
+   "vowel_span": [
+    0.174,
+    0.49
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.89,
+    "nacf_med": 0.93,
+    "f0": 386,
+    "jitter_c": 16.5,
+    "sd_c": 63.2,
+    "range_c": 230,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.94,
+    "f0": 392,
+    "jitter_c": 14.8,
+    "sd_c": 19.9,
+    "range_c": 55,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-i-c40.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "c40",
+   "input": "イ'",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "synth_seconds": 0.31,
+   "duration": 0.651,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.9,
+   "rms_dbfs": -37.2,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.37,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-i-a-int0.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "a-int0",
+   "input": "イ'",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "synth_seconds": 0.301,
+   "duration": 0.651,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.9,
+   "rms_dbfs": -37.2,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.37,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-i-b30.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "b30",
+   "input": "イ'",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "synth_seconds": 0.27,
+   "duration": 0.544,
+   "voiced": 0.26,
+   "lead_silence": 0.1,
+   "tail_silence": 0.184,
+   "peak_dbfs": -11.1,
+   "rms_dbfs": -26.2,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.46,
+    "nacf_med": 0.66,
+    "f0": 318,
+    "jitter_c": 55.1,
+    "sd_c": 162.7,
+    "range_c": 562,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-i-b35.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "b35",
+   "input": "イ'",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "synth_seconds": 0.285,
+   "duration": 0.597,
+   "voiced": 0.3,
+   "lead_silence": 0.11,
+   "tail_silence": 0.187,
+   "peak_dbfs": -14.9,
+   "rms_dbfs": -30.4,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.39,
+    "nacf_med": 0.58,
+    "f0": 331,
+    "jitter_c": 25.1,
+    "sd_c": 115.2,
+    "range_c": 350,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.36,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-i-c-ctx.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "c-ctx",
+   "input": "イ'",
+   "query_kana": "イ'、イ'、イ'",
+   "phonemes": [
+    "i",
+    "pau",
+    "i",
+    "pau",
+    "i"
+   ],
+   "synth_seconds": 1.542,
+   "duration": 0.682,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.232,
+   "peak_dbfs": -12.2,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.12,
+    0.482
+   ],
+   "shake": {
+    "frames": 32,
+    "periodic": 0.81,
+    "nacf_med": 0.79,
+    "f0": 353,
+    "jitter_c": 56.4,
+    "sd_c": 128.2,
+    "range_c": 492,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.56,
+    "f0": 343,
+    "jitter_c": 88.1,
+    "sd_c": 67.9,
+    "range_c": 170,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-i-c-ctx35.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "c-ctx35",
+   "input": "イ'",
+   "query_kana": "イ'、イ'、イ'",
+   "phonemes": [
+    "i",
+    "pau",
+    "i",
+    "pau",
+    "i"
+   ],
+   "synth_seconds": 1.522,
+   "duration": 0.67,
+   "voiced": 0.3,
+   "lead_silence": 0.14,
+   "tail_silence": 0.23,
+   "peak_dbfs": -11.0,
+   "rms_dbfs": -24.7,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.81,
+    "nacf_med": 0.79,
+    "f0": 352,
+    "jitter_c": 46.1,
+    "sd_c": 159.1,
+    "range_c": 527,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.69,
+    "f0": 344,
+    "jitter_c": 29.2,
+    "sd_c": 21.4,
+    "range_c": 59,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-i-d35.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "d35",
+   "input": "イ'",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "synth_seconds": 0.294,
+   "duration": 0.597,
+   "voiced": 0.28,
+   "lead_silence": 0.11,
+   "tail_silence": 0.207,
+   "peak_dbfs": -14.9,
+   "rms_dbfs": -30.1,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.39,
+    "nacf_med": 0.61,
+    "f0": 331,
+    "jitter_c": 25.1,
+    "sd_c": 115.2,
+    "range_c": 350,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.34,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-i-e-cl35.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "e-cl35",
+   "input": "イ'",
+   "query_kana": "イ'ッ",
+   "phonemes": [
+    "i",
+    "cl"
+   ],
+   "synth_seconds": 0.328,
+   "duration": 0.62,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -25.0,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.79,
+    "nacf_med": 0.83,
+    "f0": 376,
+    "jitter_c": 24.7,
+    "sd_c": 91.2,
+    "range_c": 309,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.94,
+    "f0": 375,
+    "jitter_c": 15.1,
+    "sd_c": 30.9,
+    "range_c": 106,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-i-e-ta35.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "e-ta35",
+   "input": "イ'",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "synth_seconds": 0.351,
+   "duration": 0.62,
+   "voiced": 0.24,
+   "lead_silence": 0.21,
+   "tail_silence": 0.17,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -23.4,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.75,
+    "nacf_med": 0.95,
+    "f0": 380,
+    "jitter_c": 16.0,
+    "sd_c": 78.0,
+    "range_c": 251,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.97,
+    "f0": 386,
+    "jitter_c": 5.8,
+    "sd_c": 7.7,
+    "range_c": 23,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-i-e-ta40.wav",
+   "kana": "い",
+   "romaji": "i",
+   "method": "e-ta40",
+   "input": "イ'",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "synth_seconds": 0.374,
+   "duration": 0.67,
+   "voiced": 0.2,
+   "lead_silence": 0.3,
+   "tail_silence": 0.17,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -23.8,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.52,
+    "nacf_med": 0.91,
+    "f0": 384,
+    "jitter_c": 6.4,
+    "sd_c": 18.6,
+    "range_c": 59,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 387,
+    "jitter_c": 4.8,
+    "sd_c": 6.1,
+    "range_c": 17,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ka-c40.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "c40",
+   "input": "カ'",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "synth_seconds": 0.301,
+   "duration": 0.651,
+   "voiced": 0.32,
+   "lead_silence": 0.15,
+   "tail_silence": 0.181,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.183,
+    0.5
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.15,
+    "nacf_med": 0.53,
+    "f0": 286,
+    "jitter_c": 5.7,
+    "sd_c": 13.1,
+    "range_c": 35,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.49,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-a-int0.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "a-int0",
+   "input": "カ'",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "synth_seconds": 0.307,
+   "duration": 0.651,
+   "voiced": 0.32,
+   "lead_silence": 0.15,
+   "tail_silence": 0.181,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.183,
+    0.5
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.15,
+    "nacf_med": 0.53,
+    "f0": 286,
+    "jitter_c": 5.7,
+    "sd_c": 13.1,
+    "range_c": 35,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.49,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-b30.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "b30",
+   "input": "カ'",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "synth_seconds": 0.27,
+   "duration": 0.544,
+   "voiced": 0.22,
+   "lead_silence": 0.15,
+   "tail_silence": 0.174,
+   "peak_dbfs": -11.9,
+   "rms_dbfs": -25.4,
+   "vowel_span": [
+    0.183,
+    0.4
+   ],
+   "shake": {
+    "frames": 17,
+    "periodic": 0.0,
+    "nacf_med": 0.47,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.53,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-b35.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "b35",
+   "input": "カ'",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "synth_seconds": 0.29,
+   "duration": 0.597,
+   "voiced": 0.27,
+   "lead_silence": 0.15,
+   "tail_silence": 0.177,
+   "peak_dbfs": -14.3,
+   "rms_dbfs": -26.1,
+   "vowel_span": [
+    0.183,
+    0.45
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.05,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.32,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-c-ctx.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "c-ctx",
+   "input": "カ'",
+   "query_kana": "カ'、カ'、カ'",
+   "phonemes": [
+    "k+a",
+    "pau",
+    "k+a",
+    "pau",
+    "k+a"
+   ],
+   "synth_seconds": 0.812,
+   "duration": 0.601,
+   "voiced": 0.2,
+   "lead_silence": 0.19,
+   "tail_silence": 0.211,
+   "peak_dbfs": -14.0,
+   "rms_dbfs": -25.8,
+   "vowel_span": [
+    0.215,
+    0.401
+   ],
+   "shake": {
+    "frames": 14,
+    "periodic": 0.14,
+    "nacf_med": 0.61,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.59,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-c-ctx35.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "c-ctx35",
+   "input": "カ'",
+   "query_kana": "カ'、カ'、カ'",
+   "phonemes": [
+    "k+a",
+    "pau",
+    "k+a",
+    "pau",
+    "k+a"
+   ],
+   "synth_seconds": 0.905,
+   "duration": 0.67,
+   "voiced": 0.26,
+   "lead_silence": 0.19,
+   "tail_silence": 0.22,
+   "peak_dbfs": -13.5,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.215,
+    0.47
+   ],
+   "shake": {
+    "frames": 21,
+    "periodic": 0.14,
+    "nacf_med": 0.59,
+    "f0": 295,
+    "jitter_c": 19.0,
+    "sd_c": 15.9,
+    "range_c": 39,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.47,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-d35.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "d35",
+   "input": "カ'",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "synth_seconds": 0.35,
+   "duration": 0.597,
+   "voiced": 0.25,
+   "lead_silence": 0.15,
+   "tail_silence": 0.197,
+   "peak_dbfs": -14.3,
+   "rms_dbfs": -25.8,
+   "vowel_span": [
+    0.183,
+    0.45
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.05,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.37,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ka-e-cl35.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "e-cl35",
+   "input": "カ'",
+   "query_kana": "カ'ッ",
+   "phonemes": [
+    "k+a",
+    "cl"
+   ],
+   "synth_seconds": 0.433,
+   "duration": 0.62,
+   "voiced": 0.29,
+   "lead_silence": 0.17,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -21.9,
+   "vowel_span": [
+    0.208,
+    0.44
+   ],
+   "shake": {
+    "frames": 19,
+    "periodic": 0.74,
+    "nacf_med": 0.8,
+    "f0": 386,
+    "jitter_c": 9.3,
+    "sd_c": 24.8,
+    "range_c": 94,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.62,
+    "nacf_med": 0.78,
+    "f0": 388,
+    "jitter_c": 4.6,
+    "sd_c": 6.1,
+    "range_c": 17,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ka-e-ta35.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "e-ta35",
+   "input": "カ'",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "synth_seconds": 0.398,
+   "duration": 0.62,
+   "voiced": 0.3,
+   "lead_silence": 0.16,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -19.9,
+   "vowel_span": [
+    0.179,
+    0.44
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.86,
+    "nacf_med": 0.9,
+    "f0": 376,
+    "jitter_c": 10.4,
+    "sd_c": 36.1,
+    "range_c": 148,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.9,
+    "f0": 376,
+    "jitter_c": 9.0,
+    "sd_c": 17.3,
+    "range_c": 52,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ka-e-ta40.wav",
+   "kana": "か",
+   "romaji": "ka",
+   "method": "e-ta40",
+   "input": "カ'",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "synth_seconds": 0.454,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.15,
+   "tail_silence": 0.16,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -19.2,
+   "vowel_span": [
+    0.179,
+    0.49
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.89,
+    "nacf_med": 0.92,
+    "f0": 376,
+    "jitter_c": 7.3,
+    "sd_c": 30.1,
+    "range_c": 135,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.89,
+    "f0": 376,
+    "jitter_c": 6.8,
+    "sd_c": 15.3,
+    "range_c": 45,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-he-c40.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "c40",
+   "input": "ヘ'",
+   "query_kana": "ヘ'",
+   "phonemes": [
+    "h+e"
+   ],
+   "synth_seconds": 0.3,
+   "duration": 0.64,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.19,
+   "peak_dbfs": -13.0,
+   "rms_dbfs": -25.5,
+   "vowel_span": [
+    0.154,
+    0.5
+   ],
+   "shake": {
+    "frames": 30,
+    "periodic": 0.47,
+    "nacf_med": 0.69,
+    "f0": 310,
+    "jitter_c": 5.0,
+    "sd_c": 63.6,
+    "range_c": 153,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.26,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-a-int0.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "a-int0",
+   "input": "ヘ'",
+   "query_kana": "ヘ'",
+   "phonemes": [
+    "h+e"
+   ],
+   "synth_seconds": 0.304,
+   "duration": 0.64,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.19,
+   "peak_dbfs": -13.0,
+   "rms_dbfs": -25.5,
+   "vowel_span": [
+    0.154,
+    0.5
+   ],
+   "shake": {
+    "frames": 30,
+    "periodic": 0.47,
+    "nacf_med": 0.69,
+    "f0": 310,
+    "jitter_c": 5.0,
+    "sd_c": 63.6,
+    "range_c": 153,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.26,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-b30.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "b30",
+   "input": "ヘ'",
+   "query_kana": "ヘ'",
+   "phonemes": [
+    "h+e"
+   ],
+   "synth_seconds": 0.267,
+   "duration": 0.544,
+   "voiced": 0.24,
+   "lead_silence": 0.12,
+   "tail_silence": 0.184,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -23.0,
+   "vowel_span": [
+    0.154,
+    0.4
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.7,
+    "nacf_med": 0.79,
+    "f0": 326,
+    "jitter_c": 16.9,
+    "sd_c": 66.1,
+    "range_c": 197,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.41,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-b35.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "b35",
+   "input": "ヘ'",
+   "query_kana": "ヘ'",
+   "phonemes": [
+    "h+e"
+   ],
+   "synth_seconds": 0.309,
+   "duration": 0.597,
+   "voiced": 0.28,
+   "lead_silence": 0.13,
+   "tail_silence": 0.187,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -24.1,
+   "vowel_span": [
+    0.154,
+    0.45
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.44,
+    "nacf_med": 0.65,
+    "f0": 312,
+    "jitter_c": 11.3,
+    "sd_c": 42.7,
+    "range_c": 134,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.3,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-c-ctx.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "c-ctx",
+   "input": "ヘ'",
+   "query_kana": "ヘ'、ヘ'、ヘ'",
+   "phonemes": [
+    "h+e",
+    "pau",
+    "h+e",
+    "pau",
+    "h+e"
+   ],
+   "synth_seconds": 0.861,
+   "duration": 0.633,
+   "voiced": 0.24,
+   "lead_silence": 0.16,
+   "tail_silence": 0.233,
+   "peak_dbfs": -13.9,
+   "rms_dbfs": -27.2,
+   "vowel_span": [
+    0.213,
+    0.433
+   ],
+   "shake": {
+    "frames": 18,
+    "periodic": 0.39,
+    "nacf_med": 0.64,
+    "f0": 305,
+    "jitter_c": 10.5,
+    "sd_c": 13.5,
+    "range_c": 42,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.27,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-c-ctx35.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "c-ctx35",
+   "input": "ヘ'",
+   "query_kana": "ヘ'、ヘ'、ヘ'",
+   "phonemes": [
+    "h+e",
+    "pau",
+    "h+e",
+    "pau",
+    "h+e"
+   ],
+   "synth_seconds": 0.871,
+   "duration": 0.67,
+   "voiced": 0.27,
+   "lead_silence": 0.16,
+   "tail_silence": 0.24,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -26.7,
+   "vowel_span": [
+    0.213,
+    0.47
+   ],
+   "shake": {
+    "frames": 21,
+    "periodic": 0.52,
+    "nacf_med": 0.7,
+    "f0": 302,
+    "jitter_c": 10.7,
+    "sd_c": 17.1,
+    "range_c": 53,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.29,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-d35.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "d35",
+   "input": "ヘ'",
+   "query_kana": "ヘ'",
+   "phonemes": [
+    "h+e"
+   ],
+   "synth_seconds": 0.291,
+   "duration": 0.597,
+   "voiced": 0.27,
+   "lead_silence": 0.13,
+   "tail_silence": 0.197,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -24.0,
+   "vowel_span": [
+    0.154,
+    0.45
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.44,
+    "nacf_med": 0.65,
+    "f0": 312,
+    "jitter_c": 11.3,
+    "sd_c": 42.7,
+    "range_c": 134,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.31,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-he-e-cl35.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "e-cl35",
+   "input": "ヘ'",
+   "query_kana": "ヘ'ッ",
+   "phonemes": [
+    "h+e",
+    "cl"
+   ],
+   "synth_seconds": 0.302,
+   "duration": 0.62,
+   "voiced": 0.31,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -10.3,
+   "rms_dbfs": -21.8,
+   "vowel_span": [
+    0.158,
+    0.44
+   ],
+   "shake": {
+    "frames": 24,
+    "periodic": 0.96,
+    "nacf_med": 0.9,
+    "f0": 374,
+    "jitter_c": 12.4,
+    "sd_c": 49.0,
+    "range_c": 198,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.88,
+    "f0": 382,
+    "jitter_c": 16.6,
+    "sd_c": 18.9,
+    "range_c": 51,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-he-e-ta35.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "e-ta35",
+   "input": "ヘ'",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "synth_seconds": 0.348,
+   "duration": 0.62,
+   "voiced": 0.31,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -23.3,
+   "vowel_span": [
+    0.155,
+    0.44
+   ],
+   "shake": {
+    "frames": 24,
+    "periodic": 1.0,
+    "nacf_med": 0.9,
+    "f0": 372,
+    "jitter_c": 9.6,
+    "sd_c": 52.2,
+    "range_c": 189,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.94,
+    "f0": 387,
+    "jitter_c": 12.6,
+    "sd_c": 27.8,
+    "range_c": 88,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-he-e-ta40.wav",
+   "kana": "へ",
+   "romaji": "he",
+   "method": "e-ta40",
+   "input": "ヘ'",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "synth_seconds": 0.365,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.155,
+    0.49
+   ],
+   "shake": {
+    "frames": 29,
+    "periodic": 1.0,
+    "nacf_med": 0.88,
+    "f0": 373,
+    "jitter_c": 8.9,
+    "sd_c": 51.5,
+    "range_c": 190,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.95,
+    "f0": 391,
+    "jitter_c": 9.3,
+    "sd_c": 21.2,
+    "range_c": 65,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ha-c40.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "c40",
+   "input": "ハ'",
+   "query_kana": "ハ'",
+   "phonemes": [
+    "h+a"
+   ],
+   "synth_seconds": 0.309,
+   "duration": 0.64,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -25.8,
+   "vowel_span": [
+    0.176,
+    0.5
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.0,
+    "nacf_med": 0.5,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.49,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-a-int0.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "a-int0",
+   "input": "ハ'",
+   "query_kana": "ハ'",
+   "phonemes": [
+    "h+a"
+   ],
+   "synth_seconds": 0.298,
+   "duration": 0.64,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -25.8,
+   "vowel_span": [
+    0.176,
+    0.5
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.0,
+    "nacf_med": 0.5,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.49,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-b30.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "b30",
+   "input": "ハ'",
+   "query_kana": "ハ'",
+   "phonemes": [
+    "h+a"
+   ],
+   "synth_seconds": 0.295,
+   "duration": 0.544,
+   "voiced": 0.25,
+   "lead_silence": 0.13,
+   "tail_silence": 0.164,
+   "peak_dbfs": -12.7,
+   "rms_dbfs": -26.7,
+   "vowel_span": [
+    0.176,
+    0.4
+   ],
+   "shake": {
+    "frames": 18,
+    "periodic": 0.0,
+    "nacf_med": 0.41,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.36,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-b35.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "b35",
+   "input": "ハ'",
+   "query_kana": "ハ'",
+   "phonemes": [
+    "h+a"
+   ],
+   "synth_seconds": 0.29,
+   "duration": 0.597,
+   "voiced": 0.3,
+   "lead_silence": 0.13,
+   "tail_silence": 0.167,
+   "peak_dbfs": -12.5,
+   "rms_dbfs": -26.5,
+   "vowel_span": [
+    0.176,
+    0.45
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.0,
+    "nacf_med": 0.51,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.48,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-c-ctx.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "c-ctx",
+   "input": "ハ'",
+   "query_kana": "ハ'、ハ'、ハ'",
+   "phonemes": [
+    "h+a",
+    "pau",
+    "h+a",
+    "pau",
+    "h+a"
+   ],
+   "synth_seconds": 0.706,
+   "duration": 0.583,
+   "voiced": 0.21,
+   "lead_silence": 0.14,
+   "tail_silence": 0.233,
+   "peak_dbfs": -14.3,
+   "rms_dbfs": -28.3,
+   "vowel_span": [
+    0.207,
+    0.383
+   ],
+   "shake": {
+    "frames": 14,
+    "periodic": 0.0,
+    "nacf_med": 0.41,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.35,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-c-ctx35.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "c-ctx35",
+   "input": "ハ'",
+   "query_kana": "ハ'、ハ'、ハ'",
+   "phonemes": [
+    "h+a",
+    "pau",
+    "h+a",
+    "pau",
+    "h+a"
+   ],
+   "synth_seconds": 0.763,
+   "duration": 0.67,
+   "voiced": 0.29,
+   "lead_silence": 0.15,
+   "tail_silence": 0.23,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -26.8,
+   "vowel_span": [
+    0.207,
+    0.47
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.0,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.38,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-d35.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "d35",
+   "input": "ハ'",
+   "query_kana": "ハ'",
+   "phonemes": [
+    "h+a"
+   ],
+   "synth_seconds": 0.281,
+   "duration": 0.597,
+   "voiced": 0.28,
+   "lead_silence": 0.13,
+   "tail_silence": 0.187,
+   "peak_dbfs": -12.5,
+   "rms_dbfs": -26.2,
+   "vowel_span": [
+    0.176,
+    0.45
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.0,
+    "nacf_med": 0.51,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.48,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-e-cl35.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "e-cl35",
+   "input": "ハ'",
+   "query_kana": "ハ'ッ",
+   "phonemes": [
+    "h+a",
+    "cl"
+   ],
+   "synth_seconds": 0.308,
+   "duration": 0.62,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -22.9,
+   "vowel_span": [
+    0.179,
+    0.44
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.59,
+    "nacf_med": 0.74,
+    "f0": 377,
+    "jitter_c": 10.9,
+    "sd_c": 20.3,
+    "range_c": 84,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.67,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ha-e-ta35.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "e-ta35",
+   "input": "ハ'",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "synth_seconds": 0.348,
+   "duration": 0.62,
+   "voiced": 0.31,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -20.7,
+   "vowel_span": [
+    0.168,
+    0.44
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.83,
+    "nacf_med": 0.86,
+    "f0": 373,
+    "jitter_c": 12.6,
+    "sd_c": 50.8,
+    "range_c": 214,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.87,
+    "f0": 378,
+    "jitter_c": 11.3,
+    "sd_c": 28.8,
+    "range_c": 79,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ha-e-ta40.wav",
+   "kana": "は",
+   "romaji": "ha",
+   "method": "e-ta40",
+   "input": "ハ'",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "synth_seconds": 0.362,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -20.5,
+   "vowel_span": [
+    0.168,
+    0.49
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.89,
+    "nacf_med": 0.88,
+    "f0": 374,
+    "jitter_c": 10.2,
+    "sd_c": 49.2,
+    "range_c": 206,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.87,
+    "f0": 376,
+    "jitter_c": 8.5,
+    "sd_c": 21.7,
+    "range_c": 57,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-wo-c40.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "c40",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.299,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.1,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.61,
+    "nacf_med": 0.83,
+    "f0": 325,
+    "jitter_c": 19.4,
+    "sd_c": 108.9,
+    "range_c": 410,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.45,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-a-int0.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "a-int0",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.305,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.1,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.61,
+    "nacf_med": 0.83,
+    "f0": 325,
+    "jitter_c": 19.4,
+    "sd_c": 108.9,
+    "range_c": 410,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.45,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-b30.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "b30",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.287,
+   "duration": 0.544,
+   "voiced": 0.25,
+   "lead_silence": 0.11,
+   "tail_silence": 0.184,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -21.3,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.65,
+    "nacf_med": 0.83,
+    "f0": 319,
+    "jitter_c": 25.2,
+    "sd_c": 104.6,
+    "range_c": 342,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.44,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-b35.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "b35",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.318,
+   "duration": 0.597,
+   "voiced": 0.3,
+   "lead_silence": 0.12,
+   "tail_silence": 0.177,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -21.0,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.61,
+    "nacf_med": 0.84,
+    "f0": 322,
+    "jitter_c": 23.7,
+    "sd_c": 110.1,
+    "range_c": 423,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.45,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-c-ctx.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "c-ctx",
+   "input": "オ'",
+   "query_kana": "オ'、オ'、オ'",
+   "phonemes": [
+    "o",
+    "pau",
+    "o",
+    "pau",
+    "o"
+   ],
+   "synth_seconds": 1.15,
+   "duration": 0.713,
+   "voiced": 0.34,
+   "lead_silence": 0.15,
+   "tail_silence": 0.223,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -21.3,
+   "vowel_span": [
+    0.12,
+    0.513
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.56,
+    "nacf_med": 0.72,
+    "f0": 329,
+    "jitter_c": 18.3,
+    "sd_c": 72.9,
+    "range_c": 261,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.41,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-c-ctx35.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "c-ctx35",
+   "input": "オ'",
+   "query_kana": "オ'、オ'、オ'",
+   "phonemes": [
+    "o",
+    "pau",
+    "o",
+    "pau",
+    "o"
+   ],
+   "synth_seconds": 1.131,
+   "duration": 0.67,
+   "voiced": 0.3,
+   "lead_silence": 0.14,
+   "tail_silence": 0.23,
+   "peak_dbfs": -10.3,
+   "rms_dbfs": -21.5,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.55,
+    "nacf_med": 0.83,
+    "f0": 330,
+    "jitter_c": 18.9,
+    "sd_c": 88.2,
+    "range_c": 291,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.39,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-d35.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "d35",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.302,
+   "duration": 0.597,
+   "voiced": 0.29,
+   "lead_silence": 0.12,
+   "tail_silence": 0.187,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -20.9,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.61,
+    "nacf_med": 0.84,
+    "f0": 322,
+    "jitter_c": 23.7,
+    "sd_c": 110.1,
+    "range_c": 423,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.44,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-wo-e-cl35.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "e-cl35",
+   "input": "オ'",
+   "query_kana": "オ'ッ",
+   "phonemes": [
+    "o",
+    "cl"
+   ],
+   "synth_seconds": 0.336,
+   "duration": 0.62,
+   "voiced": 0.32,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -12.2,
+   "rms_dbfs": -21.3,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.86,
+    "nacf_med": 0.93,
+    "f0": 373,
+    "jitter_c": 15.8,
+    "sd_c": 74.5,
+    "range_c": 245,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.93,
+    "f0": 373,
+    "jitter_c": 8.2,
+    "sd_c": 11.0,
+    "range_c": 36,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-wo-e-ta35.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "e-ta35",
+   "input": "オ'",
+   "query_kana": "オ'タ",
+   "phonemes": [
+    "o",
+    "t+a"
+   ],
+   "synth_seconds": 0.353,
+   "duration": 0.62,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -19.1,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.96,
+    "nacf_med": 0.97,
+    "f0": 369,
+    "jitter_c": 19.2,
+    "sd_c": 126.3,
+    "range_c": 453,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 371,
+    "jitter_c": 5.5,
+    "sd_c": 7.3,
+    "range_c": 26,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-wo-e-ta40.wav",
+   "kana": "を",
+   "romaji": "wo",
+   "method": "e-ta40",
+   "input": "オ'",
+   "query_kana": "オ'タ",
+   "phonemes": [
+    "o",
+    "t+a"
+   ],
+   "synth_seconds": 0.386,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -18.8,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.94,
+    "nacf_med": 0.97,
+    "f0": 369,
+    "jitter_c": 17.4,
+    "sd_c": 103.2,
+    "range_c": 412,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 370,
+    "jitter_c": 7.5,
+    "sd_c": 11.1,
+    "range_c": 31,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-n-c40.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "c40",
+   "input": "ン'",
+   "query_kana": "ン'",
+   "phonemes": [
+    "N"
+   ],
+   "synth_seconds": 0.312,
+   "duration": 0.651,
+   "voiced": 0.29,
+   "lead_silence": 0.11,
+   "tail_silence": 0.251,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -28.9,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.78,
+    "nacf_med": 0.99,
+    "f0": 344,
+    "jitter_c": 17.8,
+    "sd_c": 90.4,
+    "range_c": 333,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-a-int0.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "a-int0",
+   "input": "ン'",
+   "query_kana": "ン'",
+   "phonemes": [
+    "N"
+   ],
+   "synth_seconds": 0.301,
+   "duration": 0.651,
+   "voiced": 0.29,
+   "lead_silence": 0.11,
+   "tail_silence": 0.251,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -28.9,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.78,
+    "nacf_med": 0.99,
+    "f0": 344,
+    "jitter_c": 17.8,
+    "sd_c": 90.4,
+    "range_c": 333,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-b30.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "b30",
+   "input": "ン'",
+   "query_kana": "ン'",
+   "phonemes": [
+    "N"
+   ],
+   "synth_seconds": 0.265,
+   "duration": 0.544,
+   "voiced": 0.17,
+   "lead_silence": 0.11,
+   "tail_silence": 0.264,
+   "peak_dbfs": -20.1,
+   "rms_dbfs": -29.5,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.62,
+    "nacf_med": 0.91,
+    "f0": 343,
+    "jitter_c": 26.5,
+    "sd_c": 79.5,
+    "range_c": 299,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-b35.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "b35",
+   "input": "ン'",
+   "query_kana": "ン'",
+   "phonemes": [
+    "N"
+   ],
+   "synth_seconds": 0.314,
+   "duration": 0.597,
+   "voiced": 0.23,
+   "lead_silence": 0.12,
+   "tail_silence": 0.247,
+   "peak_dbfs": -21.1,
+   "rms_dbfs": -29.2,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.74,
+    "nacf_med": 0.98,
+    "f0": 344,
+    "jitter_c": 16.1,
+    "sd_c": 82.7,
+    "range_c": 254,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-c-ctx.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "c-ctx",
+   "input": "ン'",
+   "query_kana": "ン'、ン'、ン'",
+   "phonemes": [
+    "N",
+    "pau",
+    "N",
+    "pau",
+    "N"
+   ],
+   "synth_seconds": 1.499,
+   "duration": 0.611,
+   "voiced": 0.18,
+   "lead_silence": 0.12,
+   "tail_silence": 0.311,
+   "peak_dbfs": -22.7,
+   "rms_dbfs": -31.2,
+   "vowel_span": [
+    0.12,
+    0.411
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.68,
+    "nacf_med": 0.94,
+    "f0": 359,
+    "jitter_c": 24.2,
+    "sd_c": 76.7,
+    "range_c": 259,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-c-ctx35.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "c-ctx35",
+   "input": "ン'",
+   "query_kana": "ン'、ン'、ン'",
+   "phonemes": [
+    "N",
+    "pau",
+    "N",
+    "pau",
+    "N"
+   ],
+   "synth_seconds": 1.583,
+   "duration": 0.67,
+   "voiced": 0.24,
+   "lead_silence": 0.13,
+   "tail_silence": 0.3,
+   "peak_dbfs": -22.6,
+   "rms_dbfs": -30.4,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.77,
+    "nacf_med": 0.97,
+    "f0": 359,
+    "jitter_c": 21.8,
+    "sd_c": 110.4,
+    "range_c": 397,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-d35.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "d35",
+   "input": "ン'",
+   "query_kana": "ン'",
+   "phonemes": [
+    "N"
+   ],
+   "synth_seconds": 0.284,
+   "duration": 0.597,
+   "voiced": 0.22,
+   "lead_silence": 0.12,
+   "tail_silence": 0.257,
+   "peak_dbfs": -21.1,
+   "rms_dbfs": -29.0,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.71,
+    "nacf_med": 0.98,
+    "f0": 346,
+    "jitter_c": 15.8,
+    "sd_c": 84.7,
+    "range_c": 254,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-n-e-cl35.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "e-cl35",
+   "input": "ン'",
+   "query_kana": "ン'ッ",
+   "phonemes": [
+    "N",
+    "cl"
+   ],
+   "synth_seconds": 0.324,
+   "duration": 0.62,
+   "voiced": 0.3,
+   "lead_silence": 0.14,
+   "tail_silence": 0.18,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -28.5,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 372,
+    "jitter_c": 19.4,
+    "sd_c": 100.1,
+    "range_c": 260,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.92,
+    "f0": 378,
+    "jitter_c": 33.5,
+    "sd_c": 79.1,
+    "range_c": 210,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-n-e-ta35.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "e-ta35",
+   "input": "ン'",
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "synth_seconds": 0.369,
+   "duration": 0.62,
+   "voiced": 0.31,
+   "lead_silence": 0.13,
+   "tail_silence": 0.18,
+   "peak_dbfs": -20.1,
+   "rms_dbfs": -27.2,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 369,
+    "jitter_c": 14.7,
+    "sd_c": 117.0,
+    "range_c": 381,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 1.0,
+    "f0": 373,
+    "jitter_c": 2.9,
+    "sd_c": 5.7,
+    "range_c": 16,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-n-e-ta40.wav",
+   "kana": "ん",
+   "romaji": "n",
+   "method": "e-ta40",
+   "input": "ン'",
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "synth_seconds": 0.393,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.12,
+   "tail_silence": 0.17,
+   "peak_dbfs": -19.9,
+   "rms_dbfs": -28.8,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 370,
+    "jitter_c": 14.2,
+    "sd_c": 107.0,
+    "range_c": 385,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 1.0,
+    "f0": 372,
+    "jitter_c": 5.3,
+    "sd_c": 8.4,
+    "range_c": 23,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-a-c40.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "c40",
+   "input": "ア'",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "synth_seconds": 0.305,
+   "duration": 0.651,
+   "voiced": 0.3,
+   "lead_silence": 0.15,
+   "tail_silence": 0.201,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -26.2,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-a-int0.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "a-int0",
+   "input": "ア'",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "synth_seconds": 0.307,
+   "duration": 0.651,
+   "voiced": 0.3,
+   "lead_silence": 0.15,
+   "tail_silence": 0.201,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -26.2,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-b30.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "b30",
+   "input": "ア'",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "synth_seconds": 0.294,
+   "duration": 0.544,
+   "voiced": 0.22,
+   "lead_silence": 0.13,
+   "tail_silence": 0.194,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -26.3,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.0,
+    "nacf_med": 0.36,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.24,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-b35.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "b35",
+   "input": "ア'",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "synth_seconds": 0.299,
+   "duration": 0.597,
+   "voiced": 0.27,
+   "lead_silence": 0.13,
+   "tail_silence": 0.197,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -26.1,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-c-ctx.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "c-ctx",
+   "input": "ア'",
+   "query_kana": "ア'、ア'、ア'",
+   "phonemes": [
+    "a",
+    "pau",
+    "a",
+    "pau",
+    "a"
+   ],
+   "synth_seconds": 1.396,
+   "duration": 0.716,
+   "voiced": 0.31,
+   "lead_silence": 0.15,
+   "tail_silence": 0.256,
+   "peak_dbfs": -13.4,
+   "rms_dbfs": -26.4,
+   "vowel_span": [
+    0.12,
+    0.516
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.03,
+    "nacf_med": 0.41,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.14,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-c-ctx35.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "c-ctx35",
+   "input": "ア'",
+   "query_kana": "ア'、ア'、ア'",
+   "phonemes": [
+    "a",
+    "pau",
+    "a",
+    "pau",
+    "a"
+   ],
+   "synth_seconds": 1.374,
+   "duration": 0.67,
+   "voiced": 0.29,
+   "lead_silence": 0.13,
+   "tail_silence": 0.25,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -26.0,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.44,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.5,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-d35.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "d35",
+   "input": "ア'",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "synth_seconds": 0.285,
+   "duration": 0.597,
+   "voiced": 0.25,
+   "lead_silence": 0.13,
+   "tail_silence": 0.217,
+   "peak_dbfs": -13.1,
+   "rms_dbfs": -25.8,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.25,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-e-cl35.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "e-cl35",
+   "input": "ア'",
+   "query_kana": "ア'ッ",
+   "phonemes": [
+    "a",
+    "cl"
+   ],
+   "synth_seconds": 0.339,
+   "duration": 0.62,
+   "voiced": 0.29,
+   "lead_silence": 0.16,
+   "tail_silence": 0.17,
+   "peak_dbfs": -12.6,
+   "rms_dbfs": -27.0,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.0,
+    "nacf_med": 0.48,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.54,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-a-e-ta35.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "e-ta35",
+   "input": "ア'",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "synth_seconds": 0.363,
+   "duration": 0.62,
+   "voiced": 0.27,
+   "lead_silence": 0.18,
+   "tail_silence": 0.17,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -25.6,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.21,
+    "nacf_med": 0.58,
+    "f0": 373,
+    "jitter_c": 8.9,
+    "sd_c": 63.6,
+    "range_c": 156,
+    "octave_err": 2
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.38,
+    "nacf_med": 0.65,
+    "f0": 357,
+    "jitter_c": 8.9,
+    "sd_c": 7.2,
+    "range_c": 16,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-a-e-ta40.wav",
+   "kana": "あ",
+   "romaji": "a",
+   "method": "e-ta40",
+   "input": "ア'",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "synth_seconds": 0.409,
+   "duration": 0.67,
+   "voiced": 0.28,
+   "lead_silence": 0.23,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -25.5,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.18,
+    "nacf_med": 0.41,
+    "f0": 473,
+    "jitter_c": 3.5,
+    "sd_c": 458.5,
+    "range_c": 962,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.38,
+    "nacf_med": 0.62,
+    "f0": 353,
+    "jitter_c": 3.0,
+    "sd_c": 31.2,
+    "range_c": 68,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-u-c40.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "c40",
+   "input": "ウ'",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "synth_seconds": 0.369,
+   "duration": 0.651,
+   "voiced": 0.14,
+   "lead_silence": 0.33,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.2,
+   "rms_dbfs": -33.8,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-a-int0.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "a-int0",
+   "input": "ウ'",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "synth_seconds": 0.311,
+   "duration": 0.651,
+   "voiced": 0.14,
+   "lead_silence": 0.33,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.2,
+   "rms_dbfs": -33.8,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-b30.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "b30",
+   "input": "ウ'",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "synth_seconds": 0.274,
+   "duration": 0.544,
+   "voiced": 0.15,
+   "lead_silence": 0.2,
+   "tail_silence": 0.194,
+   "peak_dbfs": -21.3,
+   "rms_dbfs": -34.9,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.12,
+    "nacf_med": 0.35,
+    "f0": 341,
+    "jitter_c": 1.7,
+    "sd_c": 1.5,
+    "range_c": 3,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.44,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-b35.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "b35",
+   "input": "ウ'",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "synth_seconds": 0.328,
+   "duration": 0.597,
+   "voiced": 0.15,
+   "lead_silence": 0.26,
+   "tail_silence": 0.187,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -35.2,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.55,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-c-ctx.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "c-ctx",
+   "input": "ウ'",
+   "query_kana": "ウ'、ウ'、ウ'",
+   "phonemes": [
+    "u",
+    "pau",
+    "u",
+    "pau",
+    "u"
+   ],
+   "synth_seconds": 1.426,
+   "duration": 0.683,
+   "voiced": 0.29,
+   "lead_silence": 0.16,
+   "tail_silence": 0.233,
+   "peak_dbfs": -18.1,
+   "rms_dbfs": -29.6,
+   "vowel_span": [
+    0.12,
+    0.483
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.61,
+    "nacf_med": 0.79,
+    "f0": 328,
+    "jitter_c": 22.3,
+    "sd_c": 89.2,
+    "range_c": 254,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-c-ctx35.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "c-ctx35",
+   "input": "ウ'",
+   "query_kana": "ウ'、ウ'、ウ'",
+   "phonemes": [
+    "u",
+    "pau",
+    "u",
+    "pau",
+    "u"
+   ],
+   "synth_seconds": 1.367,
+   "duration": 0.67,
+   "voiced": 0.29,
+   "lead_silence": 0.15,
+   "tail_silence": 0.23,
+   "peak_dbfs": -17.9,
+   "rms_dbfs": -29.3,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.61,
+    "nacf_med": 0.85,
+    "f0": 320,
+    "jitter_c": 25.9,
+    "sd_c": 90.3,
+    "range_c": 260,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.52,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-d35.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "d35",
+   "input": "ウ'",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "synth_seconds": 0.286,
+   "duration": 0.597,
+   "voiced": 0.13,
+   "lead_silence": 0.26,
+   "tail_silence": 0.207,
+   "peak_dbfs": -22.0,
+   "rms_dbfs": -34.9,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.59,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-u-e-cl35.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "e-cl35",
+   "input": "ウ'",
+   "query_kana": "ウ'ッ",
+   "phonemes": [
+    "u",
+    "cl"
+   ],
+   "synth_seconds": 0.319,
+   "duration": 0.62,
+   "voiced": 0.11,
+   "lead_silence": 0.34,
+   "tail_silence": 0.17,
+   "peak_dbfs": -17.2,
+   "rms_dbfs": -29.5,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.11,
+    "nacf_med": 0.0,
+    "f0": 383,
+    "jitter_c": 29.1,
+    "sd_c": 23.9,
+    "range_c": 58,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.38,
+    "nacf_med": 0.66,
+    "f0": 383,
+    "jitter_c": 29.1,
+    "sd_c": 23.9,
+    "range_c": 58,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-u-e-ta35.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "e-ta35",
+   "input": "ウ'",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "synth_seconds": 0.36,
+   "duration": 0.62,
+   "voiced": 0.16,
+   "lead_silence": 0.29,
+   "tail_silence": 0.17,
+   "peak_dbfs": -16.5,
+   "rms_dbfs": -27.5,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.46,
+    "nacf_med": 0.0,
+    "f0": 372,
+    "jitter_c": 14.5,
+    "sd_c": 58.1,
+    "range_c": 160,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 381,
+    "jitter_c": 14.5,
+    "sd_c": 31.6,
+    "range_c": 94,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-u-e-ta40.wav",
+   "kana": "う",
+   "romaji": "u",
+   "method": "e-ta40",
+   "input": "ウ'",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "synth_seconds": 0.38,
+   "duration": 0.67,
+   "voiced": 0.13,
+   "lead_silence": 0.38,
+   "tail_silence": 0.16,
+   "peak_dbfs": -16.1,
+   "rms_dbfs": -26.5,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.3,
+    "nacf_med": 0.0,
+    "f0": 378,
+    "jitter_c": 11.3,
+    "sd_c": 35.3,
+    "range_c": 93,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 381,
+    "jitter_c": 12.8,
+    "sd_c": 27.6,
+    "range_c": 84,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-e-c40.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "c40",
+   "input": "エ'",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "synth_seconds": 0.304,
+   "duration": 0.651,
+   "voiced": 0.12,
+   "lead_silence": 0.32,
+   "tail_silence": 0.211,
+   "peak_dbfs": -24.2,
+   "rms_dbfs": -36.7,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.11,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-a-int0.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "a-int0",
+   "input": "エ'",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "synth_seconds": 0.306,
+   "duration": 0.651,
+   "voiced": 0.12,
+   "lead_silence": 0.32,
+   "tail_silence": 0.211,
+   "peak_dbfs": -24.2,
+   "rms_dbfs": -36.7,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.11,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-b30.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "b30",
+   "input": "エ'",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "synth_seconds": 0.271,
+   "duration": 0.544,
+   "voiced": 0.21,
+   "lead_silence": 0.14,
+   "tail_silence": 0.194,
+   "peak_dbfs": -12.8,
+   "rms_dbfs": -26.1,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.0,
+    "nacf_med": 0.36,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.31,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-b35.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "b35",
+   "input": "エ'",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "synth_seconds": 0.288,
+   "duration": 0.597,
+   "voiced": 0.22,
+   "lead_silence": 0.17,
+   "tail_silence": 0.207,
+   "peak_dbfs": -17.1,
+   "rms_dbfs": -30.8,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.24,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.28,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-c-ctx.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "c-ctx",
+   "input": "エ'",
+   "query_kana": "エ'、エ'、エ'",
+   "phonemes": [
+    "e",
+    "pau",
+    "e",
+    "pau",
+    "e"
+   ],
+   "synth_seconds": 1.5,
+   "duration": 0.727,
+   "voiced": 0.35,
+   "lead_silence": 0.13,
+   "tail_silence": 0.247,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -24.2,
+   "vowel_span": [
+    0.12,
+    0.527
+   ],
+   "shake": {
+    "frames": 37,
+    "periodic": 0.03,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.23,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-c-ctx35.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "c-ctx35",
+   "input": "エ'",
+   "query_kana": "エ'、エ'、エ'",
+   "phonemes": [
+    "e",
+    "pau",
+    "e",
+    "pau",
+    "e"
+   ],
+   "synth_seconds": 1.396,
+   "duration": 0.67,
+   "voiced": 0.31,
+   "lead_silence": 0.13,
+   "tail_silence": 0.23,
+   "peak_dbfs": -9.2,
+   "rms_dbfs": -22.6,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.13,
+    "nacf_med": 0.43,
+    "f0": 312,
+    "jitter_c": 5.1,
+    "sd_c": 3.3,
+    "range_c": 9,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.25,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-d35.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "d35",
+   "input": "エ'",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "synth_seconds": 0.289,
+   "duration": 0.597,
+   "voiced": 0.21,
+   "lead_silence": 0.17,
+   "tail_silence": 0.217,
+   "peak_dbfs": -17.1,
+   "rms_dbfs": -30.7,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.0,
+    "nacf_med": 0.22,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-e-cl35.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "e-cl35",
+   "input": "エ'",
+   "query_kana": "エ'ッ",
+   "phonemes": [
+    "e",
+    "cl"
+   ],
+   "synth_seconds": 0.324,
+   "duration": 0.62,
+   "voiced": 0.19,
+   "lead_silence": 0.26,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -23.7,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.0,
+    "nacf_med": 0.27,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.54,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-e-e-ta35.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "e-ta35",
+   "input": "エ'",
+   "query_kana": "エ'タ",
+   "phonemes": [
+    "e",
+    "t+a"
+   ],
+   "synth_seconds": 0.373,
+   "duration": 0.62,
+   "voiced": 0.12,
+   "lead_silence": 0.33,
+   "tail_silence": 0.17,
+   "peak_dbfs": -17.2,
+   "rms_dbfs": -31.9,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.14,
+    "nacf_med": 0.0,
+    "f0": 365,
+    "jitter_c": 36.6,
+    "sd_c": 45.7,
+    "range_c": 110,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.67,
+    "f0": 365,
+    "jitter_c": 36.6,
+    "sd_c": 45.7,
+    "range_c": 110,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-e-e-ta40.wav",
+   "kana": "え",
+   "romaji": "e",
+   "method": "e-ta40",
+   "input": "エ'",
+   "query_kana": "エ'タ",
+   "phonemes": [
+    "e",
+    "t+a"
+   ],
+   "synth_seconds": 0.377,
+   "duration": 0.67,
+   "voiced": 0.09,
+   "lead_silence": 0.41,
+   "tail_silence": 0.17,
+   "peak_dbfs": -16.6,
+   "rms_dbfs": -31.1,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.09,
+    "nacf_med": 0.0,
+    "f0": 366,
+    "jitter_c": 30.5,
+    "sd_c": 25.2,
+    "range_c": 61,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.38,
+    "nacf_med": 0.53,
+    "f0": 366,
+    "jitter_c": 30.5,
+    "sd_c": 25.2,
+    "range_c": 61,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-o-c40.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "c40",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.301,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.1,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.61,
+    "nacf_med": 0.83,
+    "f0": 325,
+    "jitter_c": 19.4,
+    "sd_c": 108.9,
+    "range_c": 410,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.45,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-a-int0.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "a-int0",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.296,
+   "duration": 0.651,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.171,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.1,
+   "vowel_span": [
+    0.1,
+    0.5
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.61,
+    "nacf_med": 0.83,
+    "f0": 325,
+    "jitter_c": 19.4,
+    "sd_c": 108.9,
+    "range_c": 410,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.45,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-b30.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "b30",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.261,
+   "duration": 0.544,
+   "voiced": 0.25,
+   "lead_silence": 0.11,
+   "tail_silence": 0.184,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -21.3,
+   "vowel_span": [
+    0.1,
+    0.4
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.65,
+    "nacf_med": 0.83,
+    "f0": 319,
+    "jitter_c": 25.2,
+    "sd_c": 104.6,
+    "range_c": 342,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.44,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-b35.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "b35",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.28,
+   "duration": 0.597,
+   "voiced": 0.3,
+   "lead_silence": 0.12,
+   "tail_silence": 0.177,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -21.0,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.61,
+    "nacf_med": 0.84,
+    "f0": 322,
+    "jitter_c": 23.7,
+    "sd_c": 110.1,
+    "range_c": 423,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.45,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-c-ctx.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "c-ctx",
+   "input": "オ'",
+   "query_kana": "オ'、オ'、オ'",
+   "phonemes": [
+    "o",
+    "pau",
+    "o",
+    "pau",
+    "o"
+   ],
+   "synth_seconds": 1.252,
+   "duration": 0.713,
+   "voiced": 0.34,
+   "lead_silence": 0.15,
+   "tail_silence": 0.223,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -21.3,
+   "vowel_span": [
+    0.12,
+    0.513
+   ],
+   "shake": {
+    "frames": 36,
+    "periodic": 0.56,
+    "nacf_med": 0.72,
+    "f0": 329,
+    "jitter_c": 18.3,
+    "sd_c": 72.9,
+    "range_c": 261,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.41,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-c-ctx35.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "c-ctx35",
+   "input": "オ'",
+   "query_kana": "オ'、オ'、オ'",
+   "phonemes": [
+    "o",
+    "pau",
+    "o",
+    "pau",
+    "o"
+   ],
+   "synth_seconds": 1.109,
+   "duration": 0.67,
+   "voiced": 0.3,
+   "lead_silence": 0.14,
+   "tail_silence": 0.23,
+   "peak_dbfs": -10.3,
+   "rms_dbfs": -21.5,
+   "vowel_span": [
+    0.12,
+    0.47
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.55,
+    "nacf_med": 0.83,
+    "f0": 330,
+    "jitter_c": 18.9,
+    "sd_c": 88.2,
+    "range_c": 291,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.39,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-d35.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "d35",
+   "input": "オ'",
+   "query_kana": "オ'",
+   "phonemes": [
+    "o"
+   ],
+   "synth_seconds": 0.275,
+   "duration": 0.597,
+   "voiced": 0.29,
+   "lead_silence": 0.12,
+   "tail_silence": 0.187,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -20.9,
+   "vowel_span": [
+    0.1,
+    0.45
+   ],
+   "shake": {
+    "frames": 31,
+    "periodic": 0.61,
+    "nacf_med": 0.84,
+    "f0": 322,
+    "jitter_c": 23.7,
+    "sd_c": 110.1,
+    "range_c": 423,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.44,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-o-e-cl35.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "e-cl35",
+   "input": "オ'",
+   "query_kana": "オ'ッ",
+   "phonemes": [
+    "o",
+    "cl"
+   ],
+   "synth_seconds": 0.323,
+   "duration": 0.62,
+   "voiced": 0.32,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -12.2,
+   "rms_dbfs": -21.3,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.86,
+    "nacf_med": 0.93,
+    "f0": 373,
+    "jitter_c": 15.8,
+    "sd_c": 74.5,
+    "range_c": 245,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.93,
+    "f0": 373,
+    "jitter_c": 8.2,
+    "sd_c": 11.0,
+    "range_c": 36,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-o-e-ta35.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "e-ta35",
+   "input": "オ'",
+   "query_kana": "オ'タ",
+   "phonemes": [
+    "o",
+    "t+a"
+   ],
+   "synth_seconds": 0.368,
+   "duration": 0.62,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -19.1,
+   "vowel_span": [
+    0.12,
+    0.44
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.96,
+    "nacf_med": 0.97,
+    "f0": 369,
+    "jitter_c": 19.2,
+    "sd_c": 126.3,
+    "range_c": 453,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 371,
+    "jitter_c": 5.5,
+    "sd_c": 7.3,
+    "range_c": 26,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-o-e-ta40.wav",
+   "kana": "お",
+   "romaji": "o",
+   "method": "e-ta40",
+   "input": "オ'",
+   "query_kana": "オ'タ",
+   "phonemes": [
+    "o",
+    "t+a"
+   ],
+   "synth_seconds": 0.371,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -18.8,
+   "vowel_span": [
+    0.12,
+    0.49
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.94,
+    "nacf_med": 0.97,
+    "f0": 369,
+    "jitter_c": 17.4,
+    "sd_c": 103.2,
+    "range_c": 412,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 370,
+    "jitter_c": 7.5,
+    "sd_c": 11.1,
+    "range_c": 31,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-c40.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "c40",
+   "input": "ツ'",
+   "query_kana": "ツ'",
+   "phonemes": [
+    "ts+u"
+   ],
+   "synth_seconds": 0.293,
+   "duration": 0.64,
+   "voiced": 0.3,
+   "lead_silence": 0.15,
+   "tail_silence": 0.19,
+   "peak_dbfs": -17.5,
+   "rms_dbfs": -28.6,
+   "vowel_span": [
+    0.19,
+    0.5
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.78,
+    "nacf_med": 0.93,
+    "f0": 294,
+    "jitter_c": 17.8,
+    "sd_c": 35.3,
+    "range_c": 154,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.6,
+    "f0": 286,
+    "jitter_c": 38.0,
+    "sd_c": 41.9,
+    "range_c": 114,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-a-int0.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "a-int0",
+   "input": "ツ'",
+   "query_kana": "ツ'",
+   "phonemes": [
+    "ts+u"
+   ],
+   "synth_seconds": 0.29,
+   "duration": 0.64,
+   "voiced": 0.3,
+   "lead_silence": 0.15,
+   "tail_silence": 0.19,
+   "peak_dbfs": -17.5,
+   "rms_dbfs": -28.6,
+   "vowel_span": [
+    0.19,
+    0.5
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.78,
+    "nacf_med": 0.93,
+    "f0": 294,
+    "jitter_c": 17.8,
+    "sd_c": 35.3,
+    "range_c": 154,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.6,
+    "f0": 286,
+    "jitter_c": 38.0,
+    "sd_c": 41.9,
+    "range_c": 114,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-b30.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "b30",
+   "input": "ツ'",
+   "query_kana": "ツ'",
+   "phonemes": [
+    "ts+u"
+   ],
+   "synth_seconds": 0.271,
+   "duration": 0.544,
+   "voiced": 0.22,
+   "lead_silence": 0.14,
+   "tail_silence": 0.184,
+   "peak_dbfs": -17.1,
+   "rms_dbfs": -28.3,
+   "vowel_span": [
+    0.19,
+    0.4
+   ],
+   "shake": {
+    "frames": 17,
+    "periodic": 0.76,
+    "nacf_med": 0.95,
+    "f0": 300,
+    "jitter_c": 27.2,
+    "sd_c": 79.3,
+    "range_c": 326,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.75,
+    "nacf_med": 0.91,
+    "f0": 292,
+    "jitter_c": 46.0,
+    "sd_c": 79.3,
+    "range_c": 230,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-b35.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "b35",
+   "input": "ツ'",
+   "query_kana": "ツ'",
+   "phonemes": [
+    "ts+u"
+   ],
+   "synth_seconds": 0.28,
+   "duration": 0.587,
+   "voiced": 0.26,
+   "lead_silence": 0.14,
+   "tail_silence": 0.187,
+   "peak_dbfs": -17.7,
+   "rms_dbfs": -29.1,
+   "vowel_span": [
+    0.19,
+    0.45
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.73,
+    "nacf_med": 0.89,
+    "f0": 296,
+    "jitter_c": 19.9,
+    "sd_c": 48.4,
+    "range_c": 209,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.72,
+    "f0": 286,
+    "jitter_c": 38.5,
+    "sd_c": 46.7,
+    "range_c": 116,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-c-ctx.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "c-ctx",
+   "input": "ツ'",
+   "query_kana": "ツ'、ツ'、ツ'",
+   "phonemes": [
+    "ts+u",
+    "pau",
+    "ts+u",
+    "pau",
+    "ts+u"
+   ],
+   "synth_seconds": 0.78,
+   "duration": 0.604,
+   "voiced": 0.19,
+   "lead_silence": 0.16,
+   "tail_silence": 0.254,
+   "peak_dbfs": -18.3,
+   "rms_dbfs": -29.4,
+   "vowel_span": [
+    0.221,
+    0.404
+   ],
+   "shake": {
+    "frames": 15,
+    "periodic": 0.67,
+    "nacf_med": 0.91,
+    "f0": 269,
+    "jitter_c": 47.3,
+    "sd_c": 85.8,
+    "range_c": 360,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.6,
+    "f0": 262,
+    "jitter_c": 75.9,
+    "sd_c": 89.0,
+    "range_c": 228,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-c-ctx35.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "c-ctx35",
+   "input": "ツ'",
+   "query_kana": "ツ'、ツ'、ツ'",
+   "phonemes": [
+    "ts+u",
+    "pau",
+    "ts+u",
+    "pau",
+    "ts+u"
+   ],
+   "synth_seconds": 0.925,
+   "duration": 0.67,
+   "voiced": 0.24,
+   "lead_silence": 0.17,
+   "tail_silence": 0.26,
+   "peak_dbfs": -19.8,
+   "rms_dbfs": -29.6,
+   "vowel_span": [
+    0.221,
+    0.47
+   ],
+   "shake": {
+    "frames": 21,
+    "periodic": 0.71,
+    "nacf_med": 0.95,
+    "f0": 269,
+    "jitter_c": 21.6,
+    "sd_c": 38.9,
+    "range_c": 157,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.79,
+    "f0": 263,
+    "jitter_c": 19.2,
+    "sd_c": 24.6,
+    "range_c": 58,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-d35.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "d35",
+   "input": "ツ'",
+   "query_kana": "ツ'",
+   "phonemes": [
+    "ts+u"
+   ],
+   "synth_seconds": 0.282,
+   "duration": 0.587,
+   "voiced": 0.25,
+   "lead_silence": 0.14,
+   "tail_silence": 0.197,
+   "peak_dbfs": -17.7,
+   "rms_dbfs": -29.0,
+   "vowel_span": [
+    0.19,
+    0.45
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.77,
+    "nacf_med": 0.9,
+    "f0": 296,
+    "jitter_c": 20.5,
+    "sd_c": 51.9,
+    "range_c": 217,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.62,
+    "nacf_med": 0.8,
+    "f0": 283,
+    "jitter_c": 36.1,
+    "sd_c": 46.3,
+    "range_c": 124,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-e-cl35.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "e-cl35",
+   "input": "ツ'",
+   "query_kana": "ツ'ッ",
+   "phonemes": [
+    "ts+u",
+    "cl"
+   ],
+   "synth_seconds": 0.299,
+   "duration": 0.62,
+   "voiced": 0.3,
+   "lead_silence": 0.16,
+   "tail_silence": 0.16,
+   "peak_dbfs": -15.3,
+   "rms_dbfs": -26.6,
+   "vowel_span": [
+    0.202,
+    0.44
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.95,
+    "nacf_med": 0.96,
+    "f0": 377,
+    "jitter_c": 17.0,
+    "sd_c": 42.6,
+    "range_c": 159,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.9,
+    "f0": 379,
+    "jitter_c": 18.8,
+    "sd_c": 29.2,
+    "range_c": 96,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-e-ta35.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "e-ta35",
+   "input": "ツ'",
+   "query_kana": "ツ'タ",
+   "phonemes": [
+    "ts+u",
+    "t+a"
+   ],
+   "synth_seconds": 0.358,
+   "duration": 0.62,
+   "voiced": 0.29,
+   "lead_silence": 0.16,
+   "tail_silence": 0.17,
+   "peak_dbfs": -15.8,
+   "rms_dbfs": -26.5,
+   "vowel_span": [
+    0.182,
+    0.44
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.86,
+    "nacf_med": 0.97,
+    "f0": 356,
+    "jitter_c": 11.5,
+    "sd_c": 51.4,
+    "range_c": 167,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.97,
+    "f0": 363,
+    "jitter_c": 10.5,
+    "sd_c": 25.5,
+    "range_c": 74,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-tsu-e-ta40.wav",
+   "kana": "つ",
+   "romaji": "tsu",
+   "method": "e-ta40",
+   "input": "ツ'",
+   "query_kana": "ツ'タ",
+   "phonemes": [
+    "ts+u",
+    "t+a"
+   ],
+   "synth_seconds": 0.367,
+   "duration": 0.67,
+   "voiced": 0.34,
+   "lead_silence": 0.16,
+   "tail_silence": 0.17,
+   "peak_dbfs": -16.3,
+   "rms_dbfs": -27.0,
+   "vowel_span": [
+    0.182,
+    0.49
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.89,
+    "nacf_med": 0.98,
+    "f0": 354,
+    "jitter_c": 9.0,
+    "sd_c": 52.6,
+    "range_c": 182,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 363,
+    "jitter_c": 4.2,
+    "sd_c": 11.5,
+    "range_c": 30,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-fu-c40.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "c40",
+   "input": "フ'",
+   "query_kana": "フ'",
+   "phonemes": [
+    "f+u"
+   ],
+   "synth_seconds": 0.297,
+   "duration": 0.651,
+   "voiced": 0.27,
+   "lead_silence": 0.2,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.0,
+   "rms_dbfs": -33.2,
+   "vowel_span": [
+    0.161,
+    0.5
+   ],
+   "shake": {
+    "frames": 30,
+    "periodic": 0.57,
+    "nacf_med": 0.76,
+    "f0": 312,
+    "jitter_c": 16.3,
+    "sd_c": 64.2,
+    "range_c": 181,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.54,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-fu-a-int0.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "a-int0",
+   "input": "フ'",
+   "query_kana": "フ'",
+   "phonemes": [
+    "f+u"
+   ],
+   "synth_seconds": 0.307,
+   "duration": 0.651,
+   "voiced": 0.27,
+   "lead_silence": 0.2,
+   "tail_silence": 0.181,
+   "peak_dbfs": -20.0,
+   "rms_dbfs": -33.2,
+   "vowel_span": [
+    0.161,
+    0.5
+   ],
+   "shake": {
+    "frames": 30,
+    "periodic": 0.57,
+    "nacf_med": 0.76,
+    "f0": 312,
+    "jitter_c": 16.3,
+    "sd_c": 64.2,
+    "range_c": 181,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.54,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-fu-b30.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "b30",
+   "input": "フ'",
+   "query_kana": "フ'",
+   "phonemes": [
+    "f+u"
+   ],
+   "synth_seconds": 0.265,
+   "duration": 0.544,
+   "voiced": 0.18,
+   "lead_silence": 0.18,
+   "tail_silence": 0.184,
+   "peak_dbfs": -19.4,
+   "rms_dbfs": -30.3,
+   "vowel_span": [
+    0.161,
+    0.4
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.6,
+    "nacf_med": 0.85,
+    "f0": 304,
+    "jitter_c": 15.3,
+    "sd_c": 46.4,
+    "range_c": 173,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.38,
+    "nacf_med": 0.65,
+    "f0": 311,
+    "jitter_c": 39.1,
+    "sd_c": 36.0,
+    "range_c": 77,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-fu-b35.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "b35",
+   "input": "フ'",
+   "query_kana": "フ'",
+   "phonemes": [
+    "f+u"
+   ],
+   "synth_seconds": 0.293,
+   "duration": 0.597,
+   "voiced": 0.23,
+   "lead_silence": 0.18,
+   "tail_silence": 0.187,
+   "peak_dbfs": -21.0,
+   "rms_dbfs": -32.0,
+   "vowel_span": [
+    0.161,
+    0.45
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.56,
+    "nacf_med": 0.83,
+    "f0": 298,
+    "jitter_c": 9.7,
+    "sd_c": 47.4,
+    "range_c": 129,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.68,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-fu-c-ctx.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "c-ctx",
+   "input": "フ'",
+   "query_kana": "フ'、フ'、フ'",
+   "phonemes": [
+    "f+u",
+    "pau",
+    "f+u",
+    "pau",
+    "f+u"
+   ],
+   "synth_seconds": 0.85,
+   "duration": 0.584,
+   "voiced": 0.16,
+   "lead_silence": 0.19,
+   "tail_silence": 0.234,
+   "peak_dbfs": -21.4,
+   "rms_dbfs": -32.4,
+   "vowel_span": [
+    0.197,
+    0.384
+   ],
+   "shake": {
+    "frames": 15,
+    "periodic": 0.73,
+    "nacf_med": 0.74,
+    "f0": 313,
+    "jitter_c": 31.4,
+    "sd_c": 72.0,
+    "range_c": 223,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.67,
+    "f0": 294,
+    "jitter_c": 27.8,
+    "sd_c": 33.3,
+    "range_c": 83,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-fu-c-ctx35.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "c-ctx35",
+   "input": "フ'",
+   "query_kana": "フ'、フ'、フ'",
+   "phonemes": [
+    "f+u",
+    "pau",
+    "f+u",
+    "pau",
+    "f+u"
+   ],
+   "synth_seconds": 0.954,
+   "duration": 0.67,
+   "voiced": 0.23,
+   "lead_silence": 0.2,
+   "tail_silence": 0.24,
+   "peak_dbfs": -21.3,
+   "rms_dbfs": -32.2,
+   "vowel_span": [
+    0.197,
+    0.47
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.65,
+    "nacf_med": 0.8,
+    "f0": 299,
+    "jitter_c": 26.9,
+    "sd_c": 67.1,
+    "range_c": 207,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.25,
+    "nacf_med": 0.63,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-fu-d35.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "d35",
+   "input": "フ'",
+   "query_kana": "フ'",
+   "phonemes": [
+    "f+u"
+   ],
+   "synth_seconds": 0.274,
+   "duration": 0.597,
+   "voiced": 0.22,
+   "lead_silence": 0.18,
+   "tail_silence": 0.197,
+   "peak_dbfs": -21.0,
+   "rms_dbfs": -32.0,
+   "vowel_span": [
+    0.161,
+    0.45
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.64,
+    "nacf_med": 0.83,
+    "f0": 298,
+    "jitter_c": 10.4,
+    "sd_c": 56.9,
+    "range_c": 202,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.7,
+    "f0": 300,
+    "jitter_c": 17.9,
+    "sd_c": 92.6,
+    "range_c": 202,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-fu-e-cl35.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "e-cl35",
+   "input": "フ'",
+   "query_kana": "フ'ッ",
+   "phonemes": [
+    "f+u",
+    "cl"
+   ],
+   "synth_seconds": 0.296,
+   "duration": 0.62,
+   "voiced": 0.25,
+   "lead_silence": 0.2,
+   "tail_silence": 0.17,
+   "peak_dbfs": -17.1,
+   "rms_dbfs": -27.6,
+   "vowel_span": [
+    0.172,
+    0.44
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.96,
+    "nacf_med": 0.96,
+    "f0": 374,
+    "jitter_c": 18.2,
+    "sd_c": 96.0,
+    "range_c": 332,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.84,
+    "f0": 375,
+    "jitter_c": 8.1,
+    "sd_c": 16.2,
+    "range_c": 48,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-fu-e-ta35.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "e-ta35",
+   "input": "フ'",
+   "query_kana": "フ'タ",
+   "phonemes": [
+    "f+u",
+    "t+a"
+   ],
+   "synth_seconds": 0.35,
+   "duration": 0.62,
+   "voiced": 0.23,
+   "lead_silence": 0.22,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.5,
+   "rms_dbfs": -25.5,
+   "vowel_span": [
+    0.166,
+    0.44
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.87,
+    "nacf_med": 0.99,
+    "f0": 373,
+    "jitter_c": 15.6,
+    "sd_c": 92.7,
+    "range_c": 290,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 389,
+    "jitter_c": 7.0,
+    "sd_c": 13.9,
+    "range_c": 43,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-fu-e-ta40.wav",
+   "kana": "ふ",
+   "romaji": "fu",
+   "method": "e-ta40",
+   "input": "フ'",
+   "query_kana": "フ'タ",
+   "phonemes": [
+    "f+u",
+    "t+a"
+   ],
+   "synth_seconds": 0.362,
+   "duration": 0.67,
+   "voiced": 0.26,
+   "lead_silence": 0.24,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.7,
+   "rms_dbfs": -26.2,
+   "vowel_span": [
+    0.166,
+    0.49
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.82,
+    "nacf_med": 0.99,
+    "f0": 371,
+    "jitter_c": 11.2,
+    "sd_c": 67.5,
+    "range_c": 205,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 389,
+    "jitter_c": 5.1,
+    "sd_c": 7.1,
+    "range_c": 22,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-c40.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "c40",
+   "input": "リ'",
+   "query_kana": "リ'",
+   "phonemes": [
+    "r+i"
+   ],
+   "synth_seconds": 0.296,
+   "duration": 0.64,
+   "voiced": 0.35,
+   "lead_silence": 0.11,
+   "tail_silence": 0.18,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.126,
+    0.5
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.76,
+    "nacf_med": 0.77,
+    "f0": 340,
+    "jitter_c": 34.6,
+    "sd_c": 126.0,
+    "range_c": 443,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.65,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ri-a-int0.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "a-int0",
+   "input": "リ'",
+   "query_kana": "リ'",
+   "phonemes": [
+    "r+i"
+   ],
+   "synth_seconds": 0.295,
+   "duration": 0.64,
+   "voiced": 0.35,
+   "lead_silence": 0.11,
+   "tail_silence": 0.18,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -25.2,
+   "vowel_span": [
+    0.126,
+    0.5
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.76,
+    "nacf_med": 0.77,
+    "f0": 340,
+    "jitter_c": 34.6,
+    "sd_c": 126.0,
+    "range_c": 443,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.65,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ri-b30.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "b30",
+   "input": "リ'",
+   "query_kana": "リ'",
+   "phonemes": [
+    "r+i"
+   ],
+   "synth_seconds": 0.266,
+   "duration": 0.544,
+   "voiced": 0.26,
+   "lead_silence": 0.11,
+   "tail_silence": 0.174,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -22.9,
+   "vowel_span": [
+    0.126,
+    0.4
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.91,
+    "nacf_med": 0.8,
+    "f0": 319,
+    "jitter_c": 28.5,
+    "sd_c": 85.8,
+    "range_c": 300,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.8,
+    "f0": 316,
+    "jitter_c": 54.3,
+    "sd_c": 98.0,
+    "range_c": 300,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-b35.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "b35",
+   "input": "リ'",
+   "query_kana": "リ'",
+   "phonemes": [
+    "r+i"
+   ],
+   "synth_seconds": 0.279,
+   "duration": 0.587,
+   "voiced": 0.3,
+   "lead_silence": 0.11,
+   "tail_silence": 0.177,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -23.0,
+   "vowel_span": [
+    0.126,
+    0.45
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.79,
+    "nacf_med": 0.81,
+    "f0": 332,
+    "jitter_c": 29.6,
+    "sd_c": 107.3,
+    "range_c": 371,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.62,
+    "nacf_med": 0.77,
+    "f0": 305,
+    "jitter_c": 66.1,
+    "sd_c": 94.2,
+    "range_c": 264,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-c-ctx.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "c-ctx",
+   "input": "リ'",
+   "query_kana": "リ'、リ'、リ'",
+   "phonemes": [
+    "r+i",
+    "pau",
+    "r+i",
+    "pau",
+    "r+i"
+   ],
+   "synth_seconds": 0.835,
+   "duration": 0.545,
+   "voiced": 0.2,
+   "lead_silence": 0.14,
+   "tail_silence": 0.205,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -24.4,
+   "vowel_span": [
+    0.187,
+    0.345
+   ],
+   "shake": {
+    "frames": 12,
+    "periodic": 0.92,
+    "nacf_med": 0.86,
+    "f0": 345,
+    "jitter_c": 35.5,
+    "sd_c": 65.8,
+    "range_c": 209,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.88,
+    "nacf_med": 0.87,
+    "f0": 353,
+    "jitter_c": 37.5,
+    "sd_c": 74.5,
+    "range_c": 209,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-c-ctx35.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "c-ctx35",
+   "input": "リ'",
+   "query_kana": "リ'、リ'、リ'",
+   "phonemes": [
+    "r+i",
+    "pau",
+    "r+i",
+    "pau",
+    "r+i"
+   ],
+   "synth_seconds": 0.968,
+   "duration": 0.67,
+   "voiced": 0.3,
+   "lead_silence": 0.13,
+   "tail_silence": 0.24,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -22.5,
+   "vowel_span": [
+    0.187,
+    0.47
+   ],
+   "shake": {
+    "frames": 24,
+    "periodic": 0.54,
+    "nacf_med": 0.71,
+    "f0": 353,
+    "jitter_c": 28.8,
+    "sd_c": 40.8,
+    "range_c": 158,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.56,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ri-d35.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "d35",
+   "input": "リ'",
+   "query_kana": "リ'",
+   "phonemes": [
+    "r+i"
+   ],
+   "synth_seconds": 0.288,
+   "duration": 0.587,
+   "voiced": 0.29,
+   "lead_silence": 0.11,
+   "tail_silence": 0.187,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -22.9,
+   "vowel_span": [
+    0.126,
+    0.45
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.75,
+    "nacf_med": 0.8,
+    "f0": 334,
+    "jitter_c": 28.6,
+    "sd_c": 95.6,
+    "range_c": 354,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.5,
+    "nacf_med": 0.71,
+    "f0": 308,
+    "jitter_c": 72.3,
+    "sd_c": 77.3,
+    "range_c": 217,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-e-cl35.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "e-cl35",
+   "input": "リ'",
+   "query_kana": "リ'ッ",
+   "phonemes": [
+    "r+i",
+    "cl"
+   ],
+   "synth_seconds": 0.33,
+   "duration": 0.62,
+   "voiced": 0.33,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.8,
+   "vowel_span": [
+    0.142,
+    0.44
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.81,
+    "nacf_med": 0.91,
+    "f0": 354,
+    "jitter_c": 24.2,
+    "sd_c": 93.2,
+    "range_c": 439,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.94,
+    "f0": 343,
+    "jitter_c": 14.5,
+    "sd_c": 28.7,
+    "range_c": 102,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-e-ta35.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "e-ta35",
+   "input": "リ'",
+   "query_kana": "リ'タ",
+   "phonemes": [
+    "r+i",
+    "t+a"
+   ],
+   "synth_seconds": 0.349,
+   "duration": 0.62,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -22.0,
+   "vowel_span": [
+    0.146,
+    0.44
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.88,
+    "nacf_med": 0.92,
+    "f0": 361,
+    "jitter_c": 31.2,
+    "sd_c": 58.4,
+    "range_c": 231,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.94,
+    "f0": 361,
+    "jitter_c": 10.3,
+    "sd_c": 13.5,
+    "range_c": 40,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ri-e-ta40.wav",
+   "kana": "り",
+   "romaji": "ri",
+   "method": "e-ta40",
+   "input": "リ'",
+   "query_kana": "リ'タ",
+   "phonemes": [
+    "r+i",
+    "t+a"
+   ],
+   "synth_seconds": 0.365,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -11.4,
+   "rms_dbfs": -24.2,
+   "vowel_span": [
+    0.146,
+    0.49
+   ],
+   "shake": {
+    "frames": 30,
+    "periodic": 0.93,
+    "nacf_med": 0.96,
+    "f0": 364,
+    "jitter_c": 35.5,
+    "sd_c": 74.6,
+    "range_c": 323,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.97,
+    "f0": 363,
+    "jitter_c": 4.5,
+    "sd_c": 6.5,
+    "range_c": 19,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ra-c40.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "c40",
+   "input": "ラ'",
+   "query_kana": "ラ'",
+   "phonemes": [
+    "r+a"
+   ],
+   "synth_seconds": 0.297,
+   "duration": 0.651,
+   "voiced": 0.34,
+   "lead_silence": 0.12,
+   "tail_silence": 0.191,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -23.1,
+   "vowel_span": [
+    0.129,
+    0.5
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.36,
+    "nacf_med": 0.51,
+    "f0": 298,
+    "jitter_c": 23.2,
+    "sd_c": 89.4,
+    "range_c": 255,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-a-int0.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "a-int0",
+   "input": "ラ'",
+   "query_kana": "ラ'",
+   "phonemes": [
+    "r+a"
+   ],
+   "synth_seconds": 0.294,
+   "duration": 0.651,
+   "voiced": 0.34,
+   "lead_silence": 0.12,
+   "tail_silence": 0.191,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -23.1,
+   "vowel_span": [
+    0.129,
+    0.5
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.36,
+    "nacf_med": 0.51,
+    "f0": 298,
+    "jitter_c": 23.2,
+    "sd_c": 89.4,
+    "range_c": 255,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.43,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-b30.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "b30",
+   "input": "ラ'",
+   "query_kana": "ラ'",
+   "phonemes": [
+    "r+a"
+   ],
+   "synth_seconds": 0.262,
+   "duration": 0.544,
+   "voiced": 0.24,
+   "lead_silence": 0.11,
+   "tail_silence": 0.194,
+   "peak_dbfs": -11.7,
+   "rms_dbfs": -23.3,
+   "vowel_span": [
+    0.129,
+    0.4
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.35,
+    "nacf_med": 0.64,
+    "f0": 288,
+    "jitter_c": 29.1,
+    "sd_c": 67.8,
+    "range_c": 203,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.33,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-b35.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "b35",
+   "input": "ラ'",
+   "query_kana": "ラ'",
+   "phonemes": [
+    "r+a"
+   ],
+   "synth_seconds": 0.277,
+   "duration": 0.597,
+   "voiced": 0.28,
+   "lead_silence": 0.12,
+   "tail_silence": 0.197,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -22.8,
+   "vowel_span": [
+    0.129,
+    0.45
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.39,
+    "nacf_med": 0.57,
+    "f0": 296,
+    "jitter_c": 24.5,
+    "sd_c": 87.8,
+    "range_c": 241,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-c-ctx.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "c-ctx",
+   "input": "ラ'",
+   "query_kana": "ラ'、ラ'、ラ'",
+   "phonemes": [
+    "r+a",
+    "pau",
+    "r+a",
+    "pau",
+    "r+a"
+   ],
+   "synth_seconds": 0.788,
+   "duration": 0.538,
+   "voiced": 0.18,
+   "lead_silence": 0.13,
+   "tail_silence": 0.228,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -24.7,
+   "vowel_span": [
+    0.185,
+    0.338
+   ],
+   "shake": {
+    "frames": 11,
+    "periodic": 0.0,
+    "nacf_med": 0.53,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.37,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-c-ctx35.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "c-ctx35",
+   "input": "ラ'",
+   "query_kana": "ラ'、ラ'、ラ'",
+   "phonemes": [
+    "r+a",
+    "pau",
+    "r+a",
+    "pau",
+    "r+a"
+   ],
+   "synth_seconds": 0.914,
+   "duration": 0.67,
+   "voiced": 0.3,
+   "lead_silence": 0.13,
+   "tail_silence": 0.24,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -23.4,
+   "vowel_span": [
+    0.185,
+    0.47
+   ],
+   "shake": {
+    "frames": 24,
+    "periodic": 0.29,
+    "nacf_med": 0.51,
+    "f0": 332,
+    "jitter_c": 18.9,
+    "sd_c": 37.6,
+    "range_c": 105,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.42,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-d35.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "d35",
+   "input": "ラ'",
+   "query_kana": "ラ'",
+   "phonemes": [
+    "r+a"
+   ],
+   "synth_seconds": 0.283,
+   "duration": 0.597,
+   "voiced": 0.27,
+   "lead_silence": 0.12,
+   "tail_silence": 0.207,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -22.7,
+   "vowel_span": [
+    0.129,
+    0.45
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.43,
+    "nacf_med": 0.64,
+    "f0": 298,
+    "jitter_c": 24.5,
+    "sd_c": 87.8,
+    "range_c": 241,
+    "octave_err": 1
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.12,
+    "nacf_med": 0.46,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-e-cl35.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "e-cl35",
+   "input": "ラ'",
+   "query_kana": "ラ'ッ",
+   "phonemes": [
+    "r+a",
+    "cl"
+   ],
+   "synth_seconds": 0.306,
+   "duration": 0.62,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -22.3,
+   "vowel_span": [
+    0.145,
+    0.44
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.44,
+    "nacf_med": 0.67,
+    "f0": 317,
+    "jitter_c": 21.2,
+    "sd_c": 92.7,
+    "range_c": 268,
+    "octave_err": 2
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 0.0,
+    "nacf_med": 0.58,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   }
+  },
+  {
+   "file": "metan-normal-ra-e-ta35.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "e-ta35",
+   "input": "ラ'",
+   "query_kana": "ラ'タ",
+   "phonemes": [
+    "r+a",
+    "t+a"
+   ],
+   "synth_seconds": 0.361,
+   "duration": 0.62,
+   "voiced": 0.32,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.5,
+   "vowel_span": [
+    0.145,
+    0.44
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.92,
+    "nacf_med": 0.82,
+    "f0": 343,
+    "jitter_c": 14.6,
+    "sd_c": 70.3,
+    "range_c": 307,
+    "octave_err": 0
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.82,
+    "f0": 344,
+    "jitter_c": 8.4,
+    "sd_c": 22.3,
+    "range_c": 55,
+    "octave_err": 0
+   }
+  },
+  {
+   "file": "metan-normal-ra-e-ta40.wav",
+   "kana": "ら",
+   "romaji": "ra",
+   "method": "e-ta40",
+   "input": "ラ'",
+   "query_kana": "ラ'タ",
+   "phonemes": [
+    "r+a",
+    "t+a"
+   ],
+   "synth_seconds": 0.372,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -7.4,
+   "rms_dbfs": -20.4,
+   "vowel_span": [
+    0.145,
+    0.49
+   ],
+   "shake": {
+    "frames": 30,
+    "periodic": 0.8,
+    "nacf_med": 0.77,
+    "f0": 343,
+    "jitter_c": 9.4,
+    "sd_c": 64.1,
+    "range_c": 292,
+    "octave_err": 1
+   },
+   "shake_tail": {
+    "frames": 8,
+    "periodic": 1.0,
+    "nacf_med": 0.77,
+    "f0": 340,
+    "jitter_c": 7.7,
+    "sd_c": 17.6,
+    "range_c": 54,
+    "octave_err": 1
+   }
+  }
+ ]
+}

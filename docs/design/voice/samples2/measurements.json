@@ -1,0 +1,2408 @@
+{
+ "letter_method": "e-ta40",
+ "normalize": {
+  "rms_dbfs": -20.0,
+  "peak_dbfs": -1.0
+ },
+ "candidates": [
+  {
+   "slug": "zundamon-normal",
+   "name": "ずんだもん",
+   "style": "ノーマル",
+   "style_id": 3,
+   "terms": "四国めたん과 같은 SSS LLC 약관(zunko.jp), 원문 확인함",
+   "credit": "VOICEVOX:ずんだもん"
+  },
+  {
+   "slug": "zundamon-amaama",
+   "name": "ずんだもん",
+   "style": "あまあま",
+   "style_id": 1,
+   "terms": "四国めたん과 같은 SSS LLC 약관(zunko.jp), 원문 확인함",
+   "credit": "VOICEVOX:ずんだもん"
+  },
+  {
+   "slug": "metan-amaama",
+   "name": "四国めたん",
+   "style": "あまあま",
+   "style_id": 0,
+   "terms": "SSS LLC 약관(zunko.jp), 원문 확인함",
+   "credit": "VOICEVOX:四国めたん"
+  },
+  {
+   "slug": "metan-small",
+   "name": "四国めたん",
+   "style": "ノーマル",
+   "style_id": 2,
+   "pitch_scale": 0.03,
+   "intonation_scale": 1.15,
+   "speed_scale": 1.0,
+   "comment": "작은 캐릭터 느낌: pitch_scale +0.03(로그 F0에 2^0.03을 곱하므로 약 +2반음), 억양 1.15",
+   "terms": "SSS LLC 약관(zunko.jp), 원문 확인함",
+   "credit": "VOICEVOX:四国めたん"
+  },
+  {
+   "slug": "compare-tsumugi-normal",
+   "name": "春日部つむぎ",
+   "style": "ノーマル",
+   "style_id": 8,
+   "terms": "약관 원문 미확인, 비교용",
+   "credit": "VOICEVOX:春日部つむぎ"
+  }
+ ],
+ "files": [
+  {
+   "file": "zundamon-normal-su.wav",
+   "candidate": "zundamon-normal",
+   "kind": "letter",
+   "gain_db": 14.8,
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 0.91,
+    "nacf_med": 0.93,
+    "f0": 386,
+    "jitter_c": 25.3,
+    "sd_c": 128.1,
+    "range_c": 434,
+    "octave_err": 1
+   },
+   "synth_seconds": 0.537,
+   "duration": 0.67,
+   "voiced": 0.39,
+   "lead_silence": 0.11,
+   "tail_silence": 0.17,
+   "peak_dbfs": -6.0,
+   "rms_dbfs": -21.2
+  },
+  {
+   "file": "zundamon-normal-shi.wav",
+   "candidate": "zundamon-normal",
+   "kind": "letter",
+   "gain_db": 12.2,
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.52,
+    "nacf_med": 0.7,
+    "f0": 413,
+    "jitter_c": 28.5,
+    "sd_c": 69.3,
+    "range_c": 219,
+    "octave_err": 1
+   },
+   "synth_seconds": 0.391,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.11,
+   "tail_silence": 0.18,
+   "peak_dbfs": -5.3,
+   "rms_dbfs": -20.7
+  },
+  {
+   "file": "zundamon-normal-ka.wav",
+   "candidate": "zundamon-normal",
+   "kind": "letter",
+   "gain_db": 6.8,
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.8,
+    "nacf_med": 0.82,
+    "f0": 400,
+    "jitter_c": 13.1,
+    "sd_c": 67.6,
+    "range_c": 249,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.397,
+   "duration": 0.67,
+   "voiced": 0.33,
+   "lead_silence": 0.17,
+   "tail_silence": 0.17,
+   "peak_dbfs": -7.4,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "zundamon-normal-ha.wav",
+   "candidate": "zundamon-normal",
+   "kind": "letter",
+   "gain_db": 8.5,
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.76,
+    "nacf_med": 0.8,
+    "f0": 395,
+    "jitter_c": 7.5,
+    "sd_c": 53.5,
+    "range_c": 230,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.382,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.12,
+   "tail_silence": 0.17,
+   "peak_dbfs": -7.6,
+   "rms_dbfs": -20.6
+  },
+  {
+   "file": "zundamon-normal-he.wav",
+   "candidate": "zundamon-normal",
+   "kind": "letter",
+   "gain_db": 6.6,
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.85,
+    "nacf_med": 0.83,
+    "f0": 387,
+    "jitter_c": 14.9,
+    "sd_c": 109.5,
+    "range_c": 462,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.387,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -6.3,
+   "rms_dbfs": -20.4
+  },
+  {
+   "file": "zundamon-normal-n.wav",
+   "candidate": "zundamon-normal",
+   "kind": "letter",
+   "gain_db": 16.7,
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 1.0,
+    "nacf_med": 0.96,
+    "f0": 356,
+    "jitter_c": 19.7,
+    "sd_c": 122.9,
+    "range_c": 416,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.382,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -11.9,
+   "rms_dbfs": -20.4
+  },
+  {
+   "file": "zundamon-normal-sushi.wav",
+   "candidate": "zundamon-normal",
+   "kind": "word",
+   "gain_db": 13.3,
+   "input": "すし",
+   "query_kana": "スシ'",
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.128,
+     "vowel": "u",
+     "vowel_length": 0.075,
+     "pitch": 5.744
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.127,
+     "vowel": "i",
+     "vowel_length": 0.199,
+     "pitch": 5.844
+    }
+   ],
+   "synth_seconds": 0.368,
+   "duration": 0.853,
+   "voiced": 0.82,
+   "lead_silence": 0.02,
+   "tail_silence": 0.013,
+   "peak_dbfs": -5.3,
+   "rms_dbfs": -22.3
+  },
+  {
+   "file": "zundamon-normal-tonkatsu.wav",
+   "candidate": "zundamon-normal",
+   "kind": "word",
+   "gain_db": 7.9,
+   "input": "トンカツ'",
+   "query_kana": "トンカツ'",
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.092,
+     "vowel": "o",
+     "vowel_length": 0.137,
+     "pitch": 5.729
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.088,
+     "pitch": 5.888
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.052,
+     "vowel": "a",
+     "vowel_length": 0.113,
+     "pitch": 5.974
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.105,
+     "vowel": "u",
+     "vowel_length": 0.144,
+     "pitch": 5.899
+    }
+   ],
+   "synth_seconds": 0.447,
+   "duration": 1.099,
+   "voiced": 0.74,
+   "lead_silence": 0.22,
+   "tail_silence": 0.139,
+   "peak_dbfs": -2.6,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "zundamon-normal-udon.wav",
+   "candidate": "zundamon-normal",
+   "kind": "word",
+   "gain_db": 13.5,
+   "input": "うどん",
+   "query_kana": "ウドン'",
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.17,
+     "pitch": 5.552
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.074,
+     "vowel": "o",
+     "vowel_length": 0.177,
+     "pitch": 5.761
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.179,
+     "pitch": 5.981
+    }
+   ],
+   "synth_seconds": 0.396,
+   "duration": 0.949,
+   "voiced": 0.72,
+   "lead_silence": 0.18,
+   "tail_silence": 0.049,
+   "peak_dbfs": -5.5,
+   "rms_dbfs": -21.2
+  },
+  {
+   "file": "zundamon-normal-onsen.wav",
+   "candidate": "zundamon-normal",
+   "kind": "word",
+   "gain_db": 6.1,
+   "input": "おんせん",
+   "query_kana": "オンセン'",
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.174,
+     "pitch": 5.679
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.079,
+     "pitch": 5.892
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.088,
+     "vowel": "e",
+     "vowel_length": 0.141,
+     "pitch": 6.026
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.107,
+     "pitch": 6.069
+    }
+   ],
+   "synth_seconds": 0.376,
+   "duration": 0.907,
+   "voiced": 0.61,
+   "lead_silence": 0.16,
+   "tail_silence": 0.137,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.2
+  },
+  {
+   "file": "zundamon-normal-phrase.wav",
+   "candidate": "zundamon-normal",
+   "kind": "phrase",
+   "gain_db": 9.2,
+   "input": "いっしょに よんでみよう",
+   "query_kana": "イッショニ'、ヨンデ'/ミ'ヨオ",
+   "phonemes": [
+    "i",
+    "cl",
+    "sh+o",
+    "n+i",
+    "pau",
+    "y+o",
+    "N",
+    "d+e",
+    "m+i",
+    "y+o",
+    "o"
+   ],
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.151,
+     "pitch": 5.518
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.071,
+     "pitch": 0.0
+    },
+    {
+     "text": "ショ",
+     "consonant": "sh",
+     "consonant_length": 0.105,
+     "vowel": "o",
+     "vowel_length": 0.116,
+     "pitch": 5.861
+    },
+    {
+     "text": "ニ",
+     "consonant": "n",
+     "consonant_length": 0.053,
+     "vowel": "i",
+     "vowel_length": 0.14,
+     "pitch": 5.932
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.083,
+     "vowel": "o",
+     "vowel_length": 0.126,
+     "pitch": 5.716
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.078,
+     "pitch": 6.016
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.041,
+     "vowel": "e",
+     "vowel_length": 0.088,
+     "pitch": 6.092
+    },
+    {
+     "text": "ミ",
+     "consonant": "m",
+     "consonant_length": 0.07,
+     "vowel": "i",
+     "vowel_length": 0.088,
+     "pitch": 6.111
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.07,
+     "vowel": "o",
+     "vowel_length": 0.112,
+     "pitch": 5.994
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.153,
+     "pitch": 5.784
+    }
+   ],
+   "synth_seconds": 0.762,
+   "duration": 2.112,
+   "voiced": 1.96,
+   "lead_silence": 0.03,
+   "tail_silence": 0.122,
+   "peak_dbfs": -2.8,
+   "rms_dbfs": -20.2
+  },
+  {
+   "file": "zundamon-amaama-su.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "letter",
+   "gain_db": 13.8,
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 19,
+    "periodic": 1.0,
+    "nacf_med": 0.95,
+    "f0": 378,
+    "jitter_c": 13.3,
+    "sd_c": 61.2,
+    "range_c": 234,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.405,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.9
+  },
+  {
+   "file": "zundamon-amaama-shi.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "letter",
+   "gain_db": 16.1,
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 20,
+    "periodic": 0.85,
+    "nacf_med": 0.95,
+    "f0": 415,
+    "jitter_c": 10.1,
+    "sd_c": 27.9,
+    "range_c": 108,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.394,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -6.1,
+   "rms_dbfs": -20.6
+  },
+  {
+   "file": "zundamon-amaama-ka.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "letter",
+   "gain_db": 10.2,
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.7,
+    "nacf_med": 0.82,
+    "f0": 397,
+    "jitter_c": 7.6,
+    "sd_c": 18.6,
+    "range_c": 66,
+    "octave_err": 2
+   },
+   "synth_seconds": 0.394,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -4.8,
+   "rms_dbfs": -21.5
+  },
+  {
+   "file": "zundamon-amaama-ha.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "letter",
+   "gain_db": 12.2,
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 23,
+    "periodic": 0.7,
+    "nacf_med": 0.76,
+    "f0": 388,
+    "jitter_c": 11.2,
+    "sd_c": 16.3,
+    "range_c": 66,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.406,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.7
+  },
+  {
+   "file": "zundamon-amaama-he.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "letter",
+   "gain_db": 13.5,
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 25,
+    "periodic": 0.12,
+    "nacf_med": 0.32,
+    "f0": 402,
+    "jitter_c": 16.7,
+    "sd_c": 13.6,
+    "range_c": 33,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.397,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -6.3,
+   "rms_dbfs": -21.0
+  },
+  {
+   "file": "zundamon-amaama-n.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "letter",
+   "gain_db": 18.2,
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.82,
+    "nacf_med": 0.95,
+    "f0": 359,
+    "jitter_c": 10.9,
+    "sd_c": 50.7,
+    "range_c": 194,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.385,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -21.0
+  },
+  {
+   "file": "zundamon-amaama-sushi.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "word",
+   "gain_db": 13.7,
+   "input": "すし",
+   "query_kana": "スシ'",
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.158,
+     "vowel": "u",
+     "vowel_length": 0.082,
+     "pitch": 5.746
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.131,
+     "vowel": "i",
+     "vowel_length": 0.24,
+     "pitch": 5.856
+    }
+   ],
+   "synth_seconds": 0.39,
+   "duration": 0.949,
+   "voiced": 0.9,
+   "lead_silence": 0.04,
+   "tail_silence": 0.009,
+   "peak_dbfs": -5.3,
+   "rms_dbfs": -22.7
+  },
+  {
+   "file": "zundamon-amaama-tonkatsu.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "word",
+   "gain_db": 10.1,
+   "input": "トンカツ'",
+   "query_kana": "トンカツ'",
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.101,
+     "vowel": "o",
+     "vowel_length": 0.15,
+     "pitch": 5.753
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.095,
+     "pitch": 5.897
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.059,
+     "vowel": "a",
+     "vowel_length": 0.131,
+     "pitch": 5.975
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.112,
+     "vowel": "u",
+     "vowel_length": 0.17,
+     "pitch": 5.862
+    }
+   ],
+   "synth_seconds": 0.472,
+   "duration": 1.195,
+   "voiced": 0.84,
+   "lead_silence": 0.22,
+   "tail_silence": 0.135,
+   "peak_dbfs": -3.3,
+   "rms_dbfs": -20.3
+  },
+  {
+   "file": "zundamon-amaama-udon.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "word",
+   "gain_db": 14.1,
+   "input": "うどん",
+   "query_kana": "ウドン'",
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.217,
+     "pitch": 5.58
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.079,
+     "vowel": "o",
+     "vowel_length": 0.219,
+     "pitch": 5.77
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.224,
+     "pitch": 5.985
+    }
+   ],
+   "synth_seconds": 0.45,
+   "duration": 1.099,
+   "voiced": 0.76,
+   "lead_silence": 0.21,
+   "tail_silence": 0.129,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -21.2
+  },
+  {
+   "file": "zundamon-amaama-onsen.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "word",
+   "gain_db": 7.7,
+   "input": "おんせん",
+   "query_kana": "オンセン'",
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.206,
+     "pitch": 5.721
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.093,
+     "pitch": 5.925
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.098,
+     "vowel": "e",
+     "vowel_length": 0.181,
+     "pitch": 6.041
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.146,
+     "pitch": 6.054
+    }
+   ],
+   "synth_seconds": 0.442,
+   "duration": 1.088,
+   "voiced": 0.73,
+   "lead_silence": 0.17,
+   "tail_silence": 0.188,
+   "peak_dbfs": -4.0,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "zundamon-amaama-phrase.wav",
+   "candidate": "zundamon-amaama",
+   "kind": "phrase",
+   "gain_db": 10.5,
+   "input": "いっしょに よんでみよう",
+   "query_kana": "イッショニ'、ヨンデ'/ミ'ヨオ",
+   "phonemes": [
+    "i",
+    "cl",
+    "sh+o",
+    "n+i",
+    "pau",
+    "y+o",
+    "N",
+    "d+e",
+    "m+i",
+    "y+o",
+    "o"
+   ],
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.184,
+     "pitch": 5.577
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.069,
+     "pitch": 0.0
+    },
+    {
+     "text": "ショ",
+     "consonant": "sh",
+     "consonant_length": 0.125,
+     "vowel": "o",
+     "vowel_length": 0.158,
+     "pitch": 5.864
+    },
+    {
+     "text": "ニ",
+     "consonant": "n",
+     "consonant_length": 0.058,
+     "vowel": "i",
+     "vowel_length": 0.172,
+     "pitch": 5.93
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.09,
+     "vowel": "o",
+     "vowel_length": 0.15,
+     "pitch": 5.755
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.093,
+     "pitch": 6.039
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.047,
+     "vowel": "e",
+     "vowel_length": 0.11,
+     "pitch": 6.108
+    },
+    {
+     "text": "ミ",
+     "consonant": "m",
+     "consonant_length": 0.074,
+     "vowel": "i",
+     "vowel_length": 0.107,
+     "pitch": 6.13
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.066,
+     "vowel": "o",
+     "vowel_length": 0.131,
+     "pitch": 6.018
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.178,
+     "pitch": 5.819
+    }
+   ],
+   "synth_seconds": 0.854,
+   "duration": 2.4,
+   "voiced": 2.14,
+   "lead_silence": 0.14,
+   "tail_silence": 0.12,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -20.8
+  },
+  {
+   "file": "metan-amaama-su.wav",
+   "candidate": "metan-amaama",
+   "kind": "letter",
+   "gain_db": 14.5,
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.38,
+    "nacf_med": 0.0,
+    "f0": 292,
+    "jitter_c": 23.8,
+    "sd_c": 36.4,
+    "range_c": 114,
+    "octave_err": 2
+   },
+   "synth_seconds": 0.368,
+   "duration": 0.67,
+   "voiced": 0.39,
+   "lead_silence": 0.12,
+   "tail_silence": 0.16,
+   "peak_dbfs": -5.1,
+   "rms_dbfs": -20.8
+  },
+  {
+   "file": "metan-amaama-shi.wav",
+   "candidate": "metan-amaama",
+   "kind": "letter",
+   "gain_db": 15.7,
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 26,
+    "periodic": 0.35,
+    "nacf_med": 0.35,
+    "f0": 318,
+    "jitter_c": 34.3,
+    "sd_c": 60.7,
+    "range_c": 188,
+    "octave_err": 2
+   },
+   "synth_seconds": 0.374,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.15,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.8,
+   "rms_dbfs": -20.3
+  },
+  {
+   "file": "metan-amaama-ka.wav",
+   "candidate": "metan-amaama",
+   "kind": "letter",
+   "gain_db": 10.8,
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.11,
+    "nacf_med": 0.62,
+    "f0": 590,
+    "jitter_c": 26.4,
+    "sd_c": 12.4,
+    "range_c": 27,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.425,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -6.7,
+   "rms_dbfs": -20.4
+  },
+  {
+   "file": "metan-amaama-ha.wav",
+   "candidate": "metan-amaama",
+   "kind": "letter",
+   "gain_db": 12.3,
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.04,
+    "nacf_med": 0.55,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "synth_seconds": 0.397,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -5.4,
+   "rms_dbfs": -20.2
+  },
+  {
+   "file": "metan-amaama-he.wav",
+   "candidate": "metan-amaama",
+   "kind": "letter",
+   "gain_db": 22.3,
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.07,
+    "nacf_med": 0.0,
+    "f0": null,
+    "jitter_c": null,
+    "sd_c": null,
+    "range_c": null
+   },
+   "synth_seconds": 0.375,
+   "duration": 0.67,
+   "voiced": 0.39,
+   "lead_silence": 0.13,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.5,
+   "rms_dbfs": -21.2
+  },
+  {
+   "file": "metan-amaama-n.wav",
+   "candidate": "metan-amaama",
+   "kind": "letter",
+   "gain_db": 12.2,
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 275,
+    "jitter_c": 7.2,
+    "sd_c": 21.7,
+    "range_c": 84,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.376,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.12,
+   "tail_silence": 0.17,
+   "peak_dbfs": -13.8,
+   "rms_dbfs": -20.5
+  },
+  {
+   "file": "metan-amaama-sushi.wav",
+   "candidate": "metan-amaama",
+   "kind": "word",
+   "gain_db": 7.5,
+   "input": "すし",
+   "query_kana": "スシ'",
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.082,
+     "vowel": "u",
+     "vowel_length": 0.075,
+     "pitch": 5.528
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.108,
+     "vowel": "i",
+     "vowel_length": 0.165,
+     "pitch": 5.63
+    }
+   ],
+   "synth_seconds": 0.334,
+   "duration": 0.736,
+   "voiced": 0.63,
+   "lead_silence": 0.08,
+   "tail_silence": 0.026,
+   "peak_dbfs": -3.2,
+   "rms_dbfs": -21.3
+  },
+  {
+   "file": "metan-amaama-tonkatsu.wav",
+   "candidate": "metan-amaama",
+   "kind": "word",
+   "gain_db": 6.5,
+   "input": "トンカツ'",
+   "query_kana": "トンカツ'",
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.075,
+     "vowel": "o",
+     "vowel_length": 0.114,
+     "pitch": 5.616
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.073,
+     "pitch": 5.735
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.048,
+     "vowel": "a",
+     "vowel_length": 0.091,
+     "pitch": 5.741
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.108,
+     "vowel": "u",
+     "vowel_length": 0.126,
+     "pitch": 5.75
+    }
+   ],
+   "synth_seconds": 0.412,
+   "duration": 0.992,
+   "voiced": 0.85,
+   "lead_silence": 0.13,
+   "tail_silence": 0.012,
+   "peak_dbfs": -5.9,
+   "rms_dbfs": -21.1
+  },
+  {
+   "file": "metan-amaama-udon.wav",
+   "candidate": "metan-amaama",
+   "kind": "word",
+   "gain_db": 3.6,
+   "input": "うどん",
+   "query_kana": "ウドン'",
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.098,
+     "pitch": 5.427
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.074,
+     "vowel": "o",
+     "vowel_length": 0.138,
+     "pitch": 5.572
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.099,
+     "pitch": 5.744
+    }
+   ],
+   "synth_seconds": 0.329,
+   "duration": 0.715,
+   "voiced": 0.44,
+   "lead_silence": 0.13,
+   "tail_silence": 0.145,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.0
+  },
+  {
+   "file": "metan-amaama-onsen.wav",
+   "candidate": "metan-amaama",
+   "kind": "word",
+   "gain_db": 3.8,
+   "input": "おんせん",
+   "query_kana": "オンセン'",
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.151,
+     "pitch": 5.579
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.068,
+     "pitch": 5.718
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.082,
+     "vowel": "e",
+     "vowel_length": 0.11,
+     "pitch": 5.77
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.055,
+     "pitch": 5.784
+    }
+   ],
+   "synth_seconds": 0.352,
+   "duration": 0.768,
+   "voiced": 0.648,
+   "lead_silence": 0.12,
+   "tail_silence": 0.0,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -21.0
+  },
+  {
+   "file": "metan-amaama-phrase.wav",
+   "candidate": "metan-amaama",
+   "kind": "phrase",
+   "gain_db": 4.8,
+   "input": "いっしょに よんでみよう",
+   "query_kana": "イッショニ'、ヨンデ'/ミ'ヨオ",
+   "phonemes": [
+    "i",
+    "cl",
+    "sh+o",
+    "n+i",
+    "pau",
+    "y+o",
+    "N",
+    "d+e",
+    "m+i",
+    "y+o",
+    "o"
+   ],
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.125,
+     "pitch": 5.53
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.074,
+     "pitch": 0.0
+    },
+    {
+     "text": "ショ",
+     "consonant": "sh",
+     "consonant_length": 0.092,
+     "vowel": "o",
+     "vowel_length": 0.093,
+     "pitch": 5.797
+    },
+    {
+     "text": "ニ",
+     "consonant": "n",
+     "consonant_length": 0.052,
+     "vowel": "i",
+     "vowel_length": 0.128,
+     "pitch": 5.832
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.066,
+     "vowel": "o",
+     "vowel_length": 0.115,
+     "pitch": 5.702
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.059,
+     "pitch": 5.888
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.039,
+     "vowel": "e",
+     "vowel_length": 0.074,
+     "pitch": 5.926
+    },
+    {
+     "text": "ミ",
+     "consonant": "m",
+     "consonant_length": 0.074,
+     "vowel": "i",
+     "vowel_length": 0.08,
+     "pitch": 5.956
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.067,
+     "vowel": "o",
+     "vowel_length": 0.095,
+     "pitch": 5.85
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.12,
+     "pitch": 5.603
+    }
+   ],
+   "synth_seconds": 0.748,
+   "duration": 2.016,
+   "voiced": 1.94,
+   "lead_silence": 0.05,
+   "tail_silence": 0.026,
+   "peak_dbfs": -4.8,
+   "rms_dbfs": -20.2
+  },
+  {
+   "file": "metan-small-su.wav",
+   "candidate": "metan-small",
+   "kind": "letter",
+   "gain_db": 4.0,
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.82,
+    "nacf_med": 0.99,
+    "f0": 430,
+    "jitter_c": 10.2,
+    "sd_c": 38.9,
+    "range_c": 154,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.392,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "metan-small-shi.wav",
+   "candidate": "metan-small",
+   "kind": "letter",
+   "gain_db": 0.7,
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.89,
+    "nacf_med": 0.94,
+    "f0": 435,
+    "jitter_c": 8.6,
+    "sd_c": 27.0,
+    "range_c": 96,
+    "octave_err": 2
+   },
+   "synth_seconds": 0.359,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -7.2,
+   "rms_dbfs": -20.0
+  },
+  {
+   "file": "metan-small-ka.wav",
+   "candidate": "metan-small",
+   "kind": "letter",
+   "gain_db": -6.4,
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 1.0,
+    "nacf_med": 0.96,
+    "f0": 431,
+    "jitter_c": 7.0,
+    "sd_c": 21.8,
+    "range_c": 93,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.375,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.15,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.2,
+   "rms_dbfs": -20.0
+  },
+  {
+   "file": "metan-small-ha.wav",
+   "candidate": "metan-small",
+   "kind": "letter",
+   "gain_db": -5.1,
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 28,
+    "periodic": 0.96,
+    "nacf_med": 0.95,
+    "f0": 432,
+    "jitter_c": 8.7,
+    "sd_c": 23.6,
+    "range_c": 92,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.357,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.13,
+   "tail_silence": 0.18,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -19.9
+  },
+  {
+   "file": "metan-small-he.wav",
+   "candidate": "metan-small",
+   "kind": "letter",
+   "gain_db": -0.3,
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 29,
+    "periodic": 0.97,
+    "nacf_med": 0.91,
+    "f0": 441,
+    "jitter_c": 10.3,
+    "sd_c": 25.1,
+    "range_c": 93,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.363,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -10.0,
+   "rms_dbfs": -20.0
+  },
+  {
+   "file": "metan-small-n.wav",
+   "candidate": "metan-small",
+   "kind": "letter",
+   "gain_db": 8.4,
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 0.45,
+    "nacf_med": 0.0,
+    "f0": 423,
+    "jitter_c": 4.1,
+    "sd_c": 10.5,
+    "range_c": 36,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.401,
+   "duration": 0.67,
+   "voiced": 0.3,
+   "lead_silence": 0.2,
+   "tail_silence": 0.17,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -23.0
+  },
+  {
+   "file": "metan-small-sushi.wav",
+   "candidate": "metan-small",
+   "kind": "word",
+   "gain_db": 6.2,
+   "input": "すし",
+   "query_kana": "スシ'",
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.053,
+     "vowel": "u",
+     "vowel_length": 0.068,
+     "pitch": 5.69
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.1,
+     "vowel": "i",
+     "vowel_length": 0.163,
+     "pitch": 5.715
+    }
+   ],
+   "synth_seconds": 0.309,
+   "duration": 0.683,
+   "voiced": 0.55,
+   "lead_silence": 0.1,
+   "tail_silence": 0.033,
+   "peak_dbfs": -5.8,
+   "rms_dbfs": -21.4
+  },
+  {
+   "file": "metan-small-tonkatsu.wav",
+   "candidate": "metan-small",
+   "kind": "word",
+   "gain_db": 1.0,
+   "input": "トンカツ'",
+   "query_kana": "トンカツ'",
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.066,
+     "vowel": "o",
+     "vowel_length": 0.107,
+     "pitch": 5.789
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.065,
+     "pitch": 5.893
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.046,
+     "vowel": "a",
+     "vowel_length": 0.089,
+     "pitch": 5.905
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.096,
+     "vowel": "u",
+     "vowel_length": 0.117,
+     "pitch": 5.931
+    }
+   ],
+   "synth_seconds": 0.382,
+   "duration": 0.917,
+   "voiced": 0.62,
+   "lead_silence": 0.18,
+   "tail_silence": 0.117,
+   "peak_dbfs": -3.9,
+   "rms_dbfs": -20.0
+  },
+  {
+   "file": "metan-small-udon.wav",
+   "candidate": "metan-small",
+   "kind": "word",
+   "gain_db": 2.5,
+   "input": "うどん",
+   "query_kana": "ウドン'",
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.098,
+     "pitch": 5.524
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.075,
+     "vowel": "o",
+     "vowel_length": 0.127,
+     "pitch": 5.709
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.101,
+     "pitch": 5.908
+    }
+   ],
+   "synth_seconds": 0.313,
+   "duration": 0.704,
+   "voiced": 0.52,
+   "lead_silence": 0.13,
+   "tail_silence": 0.054,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -21.0
+  },
+  {
+   "file": "metan-small-onsen.wav",
+   "candidate": "metan-small",
+   "kind": "word",
+   "gain_db": 1.6,
+   "input": "おんせん",
+   "query_kana": "オンセン'",
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.151,
+     "pitch": 5.666
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.065,
+     "pitch": 5.822
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.076,
+     "vowel": "e",
+     "vowel_length": 0.108,
+     "pitch": 5.91
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.051,
+     "pitch": 5.958
+    }
+   ],
+   "synth_seconds": 0.339,
+   "duration": 0.757,
+   "voiced": 0.56,
+   "lead_silence": 0.15,
+   "tail_silence": 0.047,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.6
+  },
+  {
+   "file": "metan-small-phrase.wav",
+   "candidate": "metan-small",
+   "kind": "phrase",
+   "gain_db": 4.9,
+   "input": "いっしょに よんでみよう",
+   "query_kana": "イッショニ'、ヨンデ'/ミ'ヨオ",
+   "phonemes": [
+    "i",
+    "cl",
+    "sh+o",
+    "n+i",
+    "pau",
+    "y+o",
+    "N",
+    "d+e",
+    "m+i",
+    "y+o",
+    "o"
+   ],
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.121,
+     "pitch": 5.374
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.07,
+     "pitch": 0.0
+    },
+    {
+     "text": "ショ",
+     "consonant": "sh",
+     "consonant_length": 0.094,
+     "vowel": "o",
+     "vowel_length": 0.085,
+     "pitch": 5.763
+    },
+    {
+     "text": "ニ",
+     "consonant": "n",
+     "consonant_length": 0.048,
+     "vowel": "i",
+     "vowel_length": 0.123,
+     "pitch": 5.789
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.062,
+     "vowel": "o",
+     "vowel_length": 0.108,
+     "pitch": 5.714
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.055,
+     "pitch": 5.921
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.038,
+     "vowel": "e",
+     "vowel_length": 0.079,
+     "pitch": 5.931
+    },
+    {
+     "text": "ミ",
+     "consonant": "m",
+     "consonant_length": 0.064,
+     "vowel": "i",
+     "vowel_length": 0.081,
+     "pitch": 5.949
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.059,
+     "vowel": "o",
+     "vowel_length": 0.091,
+     "pitch": 5.814
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.111,
+     "pitch": 5.523
+    }
+   ],
+   "synth_seconds": 0.714,
+   "duration": 1.909,
+   "voiced": 1.76,
+   "lead_silence": 0.11,
+   "tail_silence": 0.039,
+   "peak_dbfs": -3.8,
+   "rms_dbfs": -20.2
+  },
+  {
+   "file": "compare-tsumugi-normal-su.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "letter",
+   "gain_db": 5.7,
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 24,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 377,
+    "jitter_c": 12.3,
+    "sd_c": 51.1,
+    "range_c": 206,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.374,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.12,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -20.5
+  },
+  {
+   "file": "compare-tsumugi-normal-shi.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "letter",
+   "gain_db": 8.6,
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 22,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 369,
+    "jitter_c": 10.4,
+    "sd_c": 34.7,
+    "range_c": 143,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.373,
+   "duration": 0.67,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.2,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.3
+  },
+  {
+   "file": "compare-tsumugi-normal-ka.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "letter",
+   "gain_db": 8.6,
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.74,
+    "nacf_med": 0.77,
+    "f0": 372,
+    "jitter_c": 21.4,
+    "sd_c": 79.7,
+    "range_c": 310,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.369,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.18,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.4
+  },
+  {
+   "file": "compare-tsumugi-normal-ha.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "letter",
+   "gain_db": 11.2,
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 27,
+    "periodic": 0.19,
+    "nacf_med": 0.58,
+    "f0": 375,
+    "jitter_c": 10.7,
+    "sd_c": 163.1,
+    "range_c": 348,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.396,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.12,
+   "tail_silence": 0.18,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -21.3
+  },
+  {
+   "file": "compare-tsumugi-normal-he.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "letter",
+   "gain_db": 2.5,
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 29,
+    "periodic": 1.0,
+    "nacf_med": 0.98,
+    "f0": 355,
+    "jitter_c": 8.4,
+    "sd_c": 38.9,
+    "range_c": 145,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.374,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -20.5
+  },
+  {
+   "file": "compare-tsumugi-normal-n.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "letter",
+   "gain_db": 5.2,
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "shake": {
+    "frames": 33,
+    "periodic": 1.0,
+    "nacf_med": 0.99,
+    "f0": 310,
+    "jitter_c": 24.5,
+    "sd_c": 65.1,
+    "range_c": 252,
+    "octave_err": 0
+   },
+   "synth_seconds": 0.381,
+   "duration": 0.67,
+   "voiced": 0.4,
+   "lead_silence": 0.1,
+   "tail_silence": 0.17,
+   "peak_dbfs": -11.7,
+   "rms_dbfs": -20.0
+  },
+  {
+   "file": "compare-tsumugi-normal-sushi.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "word",
+   "gain_db": 10.6,
+   "input": "すし",
+   "query_kana": "スシ'",
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "moras": [
+    {
+     "text": "ス",
+     "consonant": "s",
+     "consonant_length": 0.102,
+     "vowel": "u",
+     "vowel_length": 0.044,
+     "pitch": 5.69
+    },
+    {
+     "text": "シ",
+     "consonant": "sh",
+     "consonant_length": 0.164,
+     "vowel": "i",
+     "vowel_length": 0.205,
+     "pitch": 5.785
+    }
+   ],
+   "synth_seconds": 0.363,
+   "duration": 0.843,
+   "voiced": 0.48,
+   "lead_silence": 0.13,
+   "tail_silence": 0.233,
+   "peak_dbfs": -4.3,
+   "rms_dbfs": -20.2
+  },
+  {
+   "file": "compare-tsumugi-normal-tonkatsu.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "word",
+   "gain_db": 3.0,
+   "input": "トンカツ'",
+   "query_kana": "トンカツ'",
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "moras": [
+    {
+     "text": "ト",
+     "consonant": "t",
+     "consonant_length": 0.057,
+     "vowel": "o",
+     "vowel_length": 0.085,
+     "pitch": 5.722
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.089,
+     "pitch": 5.855
+    },
+    {
+     "text": "カ",
+     "consonant": "k",
+     "consonant_length": 0.053,
+     "vowel": "a",
+     "vowel_length": 0.093,
+     "pitch": 5.897
+    },
+    {
+     "text": "ツ",
+     "consonant": "ts",
+     "consonant_length": 0.092,
+     "vowel": "u",
+     "vowel_length": 0.133,
+     "pitch": 5.892
+    }
+   ],
+   "synth_seconds": 0.416,
+   "duration": 0.939,
+   "voiced": 0.63,
+   "lead_silence": 0.16,
+   "tail_silence": 0.149,
+   "peak_dbfs": -4.7,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "compare-tsumugi-normal-udon.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "word",
+   "gain_db": 1.5,
+   "input": "うどん",
+   "query_kana": "ウドン'",
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "ウ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "u",
+     "vowel_length": 0.07,
+     "pitch": 5.539
+    },
+    {
+     "text": "ド",
+     "consonant": "d",
+     "consonant_length": 0.059,
+     "vowel": "o",
+     "vowel_length": 0.094,
+     "pitch": 5.713
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.205,
+     "pitch": 5.919
+    }
+   ],
+   "synth_seconds": 0.332,
+   "duration": 0.747,
+   "voiced": 0.44,
+   "lead_silence": 0.11,
+   "tail_silence": 0.197,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "compare-tsumugi-normal-onsen.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "word",
+   "gain_db": 2.2,
+   "input": "おんせん",
+   "query_kana": "オンセン'",
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "moras": [
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.096,
+     "pitch": 5.677
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.093,
+     "pitch": 5.849
+    },
+    {
+     "text": "セ",
+     "consonant": "s",
+     "consonant_length": 0.035,
+     "vowel": "e",
+     "vowel_length": 0.085,
+     "pitch": 5.948
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.181,
+     "pitch": 6.004
+    }
+   ],
+   "synth_seconds": 0.366,
+   "duration": 0.821,
+   "voiced": 0.49,
+   "lead_silence": 0.1,
+   "tail_silence": 0.231,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -20.1
+  },
+  {
+   "file": "compare-tsumugi-normal-phrase.wav",
+   "candidate": "compare-tsumugi-normal",
+   "kind": "phrase",
+   "gain_db": 5.2,
+   "input": "いっしょに よんでみよう",
+   "query_kana": "イッショニ'、ヨンデ'/ミ'ヨオ",
+   "phonemes": [
+    "i",
+    "cl",
+    "sh+o",
+    "n+i",
+    "pau",
+    "y+o",
+    "N",
+    "d+e",
+    "m+i",
+    "y+o",
+    "o"
+   ],
+   "moras": [
+    {
+     "text": "イ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "i",
+     "vowel_length": 0.106,
+     "pitch": 5.59
+    },
+    {
+     "text": "ッ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "cl",
+     "vowel_length": 0.049,
+     "pitch": 0.0
+    },
+    {
+     "text": "ショ",
+     "consonant": "sh",
+     "consonant_length": 0.121,
+     "vowel": "o",
+     "vowel_length": 0.057,
+     "pitch": 5.879
+    },
+    {
+     "text": "ニ",
+     "consonant": "n",
+     "consonant_length": 0.095,
+     "vowel": "i",
+     "vowel_length": 0.198,
+     "pitch": 5.941
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.05,
+     "vowel": "o",
+     "vowel_length": 0.099,
+     "pitch": 5.738
+    },
+    {
+     "text": "ン",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "N",
+     "vowel_length": 0.08,
+     "pitch": 5.981
+    },
+    {
+     "text": "デ",
+     "consonant": "d",
+     "consonant_length": 0.028,
+     "vowel": "e",
+     "vowel_length": 0.068,
+     "pitch": 6.052
+    },
+    {
+     "text": "ミ",
+     "consonant": "m",
+     "consonant_length": 0.072,
+     "vowel": "i",
+     "vowel_length": 0.079,
+     "pitch": 6.086
+    },
+    {
+     "text": "ヨ",
+     "consonant": "y",
+     "consonant_length": 0.052,
+     "vowel": "o",
+     "vowel_length": 0.094,
+     "pitch": 6.01
+    },
+    {
+     "text": "オ",
+     "consonant": null,
+     "consonant_length": null,
+     "vowel": "o",
+     "vowel_length": 0.12,
+     "pitch": 5.816
+    }
+   ],
+   "synth_seconds": 0.835,
+   "duration": 2.016,
+   "voiced": 1.79,
+   "lead_silence": 0.08,
+   "tail_silence": 0.146,
+   "peak_dbfs": -4.1,
+   "rms_dbfs": -20.1
+  }
+ ]
+}

@@ -35,5 +35,67 @@
   ],
   "word_speeds": {"normal": 1.0, "slow": 0.85},
   "preview": {"file": "preview.wav", "gap_seconds": 0.6, "letter_variant": "C", "word_speed": "slow"},
-  "measure": {"frame_ms": 10, "silence_dbfs": -45.0}
+  "measure": {"frame_ms": 10, "silence_dbfs": -45.0},
+
+  "round2": {
+    "comment": "2차: 글자 하나의 떨림 줄이기(shake)와 기리 목소리 후보(giri). gen_voice.py shake / giri",
+    "output_dir": "docs/design/voice/samples2",
+    "f0": {"rate_div": 2, "win_s": 0.025, "hop_s": 0.01, "fmin": 150, "fmax": 700, "periodic_nacf": 0.7, "edge_s": 0.02},
+    "normalize": {"rms_dbfs": -20.0, "peak_dbfs": -1.0},
+    "shake": {
+      "voice": {"slug": "metan-normal", "style_id": 2},
+      "letters": [
+        {"kana": "す", "romaji": "su", "aquestalk": "ス'"},
+        {"kana": "し", "romaji": "shi", "aquestalk": "シ'"},
+        {"kana": "い", "romaji": "i", "aquestalk": "イ'"},
+        {"kana": "か", "romaji": "ka", "aquestalk": "カ'"},
+        {"kana": "へ", "romaji": "he", "aquestalk": "ヘ'"},
+        {"kana": "は", "romaji": "ha", "aquestalk": "ハ'"},
+        {"kana": "を", "romaji": "wo", "aquestalk": "オ'"},
+        {"kana": "ん", "romaji": "n", "aquestalk": "ン'"},
+        {"kana": "あ", "romaji": "a", "aquestalk": "ア'"},
+        {"kana": "う", "romaji": "u", "aquestalk": "ウ'"},
+        {"kana": "え", "romaji": "e", "aquestalk": "エ'"},
+        {"kana": "お", "romaji": "o", "aquestalk": "オ'"},
+        {"kana": "つ", "romaji": "tsu", "aquestalk": "ツ'"},
+        {"kana": "ふ", "romaji": "fu", "aquestalk": "フ'"},
+        {"kana": "り", "romaji": "ri", "aquestalk": "リ'"},
+        {"kana": "ら", "romaji": "ra", "aquestalk": "ラ'"}
+      ],
+      "methods": {
+        "c40": {"comment": "1차 C안 그대로(기준선)", "mora_seconds": 0.40},
+        "a-int0": {"comment": "(a) C안 + intonation_scale 0", "mora_seconds": 0.40, "intonation_scale": 0.0},
+        "b30": {"comment": "(b) 박 0.30초", "mora_seconds": 0.30},
+        "b35": {"comment": "(b) 박 0.35초", "mora_seconds": 0.35},
+        "c-ctx": {"comment": "(c) 'X、X、X'로 합성해 가운데만 자름, 길이는 엔진 기본", "context": 3},
+        "c-ctx35": {"comment": "(c) 'X、X、X', 박 0.35초, 세 박 높이를 가운데 값으로 고정, 가운데만 자름", "context": 3, "mora_seconds": 0.35, "flat_pitch": true},
+        "d35": {"comment": "(d) 박 0.35초 + intonation 0 + 끝 30ms 페이드", "mora_seconds": 0.35, "intonation_scale": 0.0, "fade_out": 0.03},
+        "e-cl35": {"comment": "(e) 'Xッ'로 합성(뒤에 촉음), 글자 박만 0.35초, 높이 고정, 모음 끝에서 잘라 30ms 페이드", "carrier": "ッ", "mora_seconds": 0.35, "flat_pitch": true, "fade_out": 0.03, "carrier_tail": 0.0},
+        "e-ta35": {"comment": "(e) 'Xタ'로 합성(뒤에 무성 파열음), 글자 박만 0.35초, 높이 고정, 모음 끝에서 잘라 30ms 페이드", "carrier": "タ", "mora_seconds": 0.35, "flat_pitch": true, "fade_out": 0.03, "carrier_tail": 0.0},
+        "e-ta40": {"comment": "(e) e-ta35와 같고 글자 박만 0.40초", "carrier": "タ", "mora_seconds": 0.40, "flat_pitch": true, "fade_out": 0.03, "carrier_tail": 0.0}
+      },
+      "common": {"min_vowel_seconds": 0.15, "pre": 0.10, "post": 0.15, "fade_in": 0.005, "ctx_tail": 0.05},
+      "preview": {"file": "preview-shake.wav", "letters": ["su", "ka", "ha"], "round1_dir": "docs/design/voice/samples", "round1_pattern": "metan-{romaji}-C.wav", "gap_seconds": 0.5}
+    },
+    "giri": {
+      "letter_method": "e-ta40",
+      "letters": ["su", "shi", "ka", "ha", "he", "n"],
+      "words": [
+        {"romaji": "sushi", "text": "すし"},
+        {"romaji": "tonkatsu", "kana": "トンカツ'", "comment": "평판형(0형)으로 알려진 단어. 엔진 표기에서 평판형은 마지막 박 뒤에 '를 둔다. 사전으로 확인하지는 않음"},
+        {"romaji": "udon", "text": "うどん"},
+        {"romaji": "onsen", "text": "おんせん"}
+      ],
+      "word_speed": 0.85,
+      "phrase": {"romaji": "phrase", "text": "いっしょに よんでみよう", "speed": 1.0},
+      "gap_seconds": 0.5,
+      "candidates": [
+        {"slug": "zundamon-normal", "name": "ずんだもん", "style": "ノーマル", "style_id": 3, "terms": "四国めたん과 같은 SSS LLC 약관(zunko.jp), 원문 확인함", "credit": "VOICEVOX:ずんだもん"},
+        {"slug": "zundamon-amaama", "name": "ずんだもん", "style": "あまあま", "style_id": 1, "terms": "四国めたん과 같은 SSS LLC 약관(zunko.jp), 원문 확인함", "credit": "VOICEVOX:ずんだもん"},
+        {"slug": "metan-amaama", "name": "四国めたん", "style": "あまあま", "style_id": 0, "terms": "SSS LLC 약관(zunko.jp), 원문 확인함", "credit": "VOICEVOX:四国めたん"},
+        {"slug": "metan-small", "name": "四国めたん", "style": "ノーマル", "style_id": 2, "pitch_scale": 0.03, "intonation_scale": 1.15, "speed_scale": 1.0, "comment": "작은 캐릭터 느낌: pitch_scale +0.03(로그 F0에 2^0.03을 곱하므로 약 +2반음), 억양 1.15", "terms": "SSS LLC 약관(zunko.jp), 원문 확인함", "credit": "VOICEVOX:四国めたん"},
+        {"slug": "compare-tsumugi-normal", "name": "春日部つむぎ", "style": "ノーマル", "style_id": 8, "terms": "약관 원문 미확인, 비교용", "credit": "VOICEVOX:春日部つむぎ"}
+      ]
+    }
+  }
 }
