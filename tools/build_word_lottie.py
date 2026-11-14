@@ -4,11 +4,13 @@
   .venv/bin/python tools/build_word_lottie.py              # 움직임 대상 가운데 정지 그림이 있는 것 모두
   .venv/bin/python tools/build_word_lottie.py kitsune      # 골라서
   .venv/bin/python tools/build_word_lottie.py tonkatsu --test-steam  # 재생 경로 시험용(김을 임시로 붙임)
+  .venv/bin/python tools/build_word_lottie.py yu --src docs/design/word-art/source/candidates/cut/word-yu_1.png
+      # 고르기 전의 후보로 미리 만들어 앱에서 확인(결과를 커밋하지 않는다)
 
 - 값은 tools/word_motion.json(word-art.md 6.2 종류별 값, 6.3 단어별 표를 옮긴 것)에서 읽는다.
 - 정지 그림은 tools/place_word_art.py가 만드는 600px 그림과 같다(`prepare`). 그림이 없는 단어는 건너뛰고 목록을 출력한다.
 - 출력: KanaTrip/Resources/word_{이름}.lottie.json. 600×600, 마커 `still`, 앱용 값 `"kt": {"loop", "still"}`.
-- 종류: 김(steam), 흔들림(sway: 매달림 hang = 회전, 드리움 drape = 가로 기울이기), 깜박임(flicker),
+- 종류: 김(steam), 흔들림(sway: 매달림 hang = 회전, 드리움 drape = 아래 조각 회전, kinds.sway.drapeTransform으로 기울이기도 가능), 깜박임(flicker),
   동전 떨어짐(coin, 한 번), 물결(ripple), 가쓰오부시(katsuobushi).
 - 쓰는 기능: 위치·회전·크기·기울이기·불투명도 키프레임, 경로 키프레임, 부모 연결. 표현식·효과·마스크·매트·트림은 쓰지 않는다.
 - 김 레이어 이름은 `ink`. 앱이 `ink.**.Color`에 지금 모드의 Ink 색을 넣는다.
@@ -148,7 +150,7 @@ class Builder:
         return eased([(0, 0), (q, amplitude), (2 * q, 0), (3 * q, -amplitude), (4 * q, 0)])
 
     def sway(self, img, assets, layers, next_ind):
-        """매달림: 그림 전체를 끈 위 끝 기준으로 회전. 드리움: 걸린 줄 아래 조각을 가로로 기울인다.
+        """매달림: 그림 전체를 끈 위 끝 기준으로 회전. 드리움: 걸린 줄 아래 조각을 걸린 줄 가운데 기준으로 회전(또는 기울이기).
         움직이는 조각의 레이어 번호를 돌려준다(깜박임이 부모로 쓴다)."""
         s, k = self.spec["sway"], self.kinds["sway"]
         ax, ay = s["anchor"]
@@ -161,9 +163,12 @@ class Builder:
                                       transform(a=static(anchor), p=static(anchor), r={"a": 1, "k": motion})))
             return ind
         # 드리움: 자르는 선은 기준점보다 0.02 위. 움직이는 아래 조각을 고정 조각 아래(뒤)에 둔다.
+        # 아래 조각은 자르는 선보다 overlap만큼 위까지 남겨, 따로 그린 두 장 사이에 실선 틈이 보이지 않게 한다
+        # (겹친 띠는 고정 조각에 가려진다).
         cut = round((ay - k["cutAbove"]) * self.c)
+        overlap = round(k["overlap"] * self.c)
         bottom = img.copy()
-        bottom.paste((0, 0, 0, 0), (0, 0, img.width, cut))
+        bottom.paste((0, 0, 0, 0), (0, 0, img.width, max(0, cut - overlap)))
         top_full = img.copy()
         top_full.paste((0, 0, 0, 0), (0, cut, img.width, img.height))
         assets.append(image_asset("fixed", top_full))
@@ -171,10 +176,14 @@ class Builder:
         fixed_ind = next_ind()
         layers.append(image_layer(fixed_ind, "fixed", self.frames, "fixed"))
         moving_ind = next_ind()
-        # 기울이기 축 0°: 위 끝(기준점 높이)은 그대로, 아래 끝만 좌우로 (6.2).
-        layers.append(image_layer(moving_ind, "moving", self.frames, "moving",
-                                  transform(a=static(anchor), p=static(anchor),
-                                            sk={"a": 1, "k": motion}, sa=static(0))))
+        if k["drapeTransform"] == "skew":
+            # 기울이기 축 0°: 위 끝(기준점 높이)은 그대로, 아래 끝만 좌우로 (6.2).
+            ks = transform(a=static(anchor), p=static(anchor), sk={"a": 1, "k": motion}, sa=static(0))
+        else:
+            # 회전: 기준점(걸린 줄 가운데)을 축으로 같은 각도만큼 돈다. lottie-ios 4.6에서 이미지 레이어의
+            # 기울이기가 그려지지 않아(2026-11-15 시뮬레이터) word-art.md 6.2의 대안대로 회전으로 바꿨다.
+            ks = transform(a=static(anchor), p=static(anchor), r={"a": 1, "k": motion})
+        layers.append(image_layer(moving_ind, "moving", self.frames, "moving", ks))
         return moving_ind
 
     # MARK: 깜박임
@@ -288,38 +297,26 @@ class Builder:
                 {"ty": "fl", "nm": "fill", "c": static(rgba(k["fill"])), "o": static(100), "r": 1},
                 shape_tr(),
             ]}]
-            # 조각마다 4분의 1 주기씩 엇갈림 (6.2). 한 파일에 두 번 돈다.
-            offset = period * i / 4
+            # 엇갈림: 이웃한 조각은 반대 방향으로 기울고(반 주기 엇갈림과 같다), 조각마다 기우는 폭을 조금 달리한다.
+            # 4분의 1 주기씩 엇갈리면 어느 프레임에서도 두 조각이 ±10°로 기울어 있어 정지 모습(still = 0)이
+            # 원래 그림이 되지 않는다. 이렇게 하면 프레임 0(과 반 주기마다)에 네 조각이 모두 0°, 크기 100%다.
+            # 말림(세로 크기)은 기울 때(¼, ¾)에 가장 크게 해 곧게 설 때(0, ½)는 원래 모양이다. 한 파일에 두 번 돈다.
+            sign = 1 if i % 2 == 0 else -1
+            angle = k["rotation"] * k["rotationScale"][i % len(k["rotationScale"])]
             rot, scale = [], []
             for cycle in range(2):
-                for n, (fr, rv, sv) in enumerate([(0, 0, 100), (0.25, k["rotation"], 90), (0.5, 0, k["curl"]),
-                                                   (0.75, -k["rotation"], 90)]):
+                for fr, rv, sv in [(0, 0, 100), (0.25, sign * angle, k["curl"]), (0.5, 0, 100),
+                                   (0.75, -sign * angle, k["curl"])]:
                     t = cycle * period + fr * period
                     rot.append((t, rv))
                     scale.append((t, sv))
             rot.append((2 * period, 0))
             scale.append((2 * period, 100))
-            # 엇갈림은 시간축을 옮기고 파일 길이로 되감는다.
-            rot = sorted(((t + offset) % (2 * period), v) for t, v in rot[:-1])
-            scale = sorted(((t + offset) % (2 * period), v) for t, v in scale[:-1])
-            rot = self._closed(rot, 2 * period)
-            scale = self._closed(scale, 2 * period)
             ks = transform(p=static([self.px(x), self.px(y), 0]),
                            r={"a": 1, "k": eased([(round(t, 2), v) for t, v in rot])},
                            s={"a": 1, "k": eased([(round(t, 2), [100, v, 100]) for t, v in scale])})
             layers.append(shape_layer(start_ind + i, f"katsuobushi {i + 1}", shapes, self.frames, ks))
         return layers
-
-    @staticmethod
-    def _closed(points, length):
-        """되감은 키프레임 목록의 처음(0)과 끝(length)을 같은 값으로 채워 반복이 끊기지 않게 한다."""
-        if points[0][0] > 0:
-            # 0 프레임 값: 끝 점과 첫 점 사이를 선형으로 잇는다(이징 곡선 가운데 값이라 작은 차이만 있다).
-            (t_last, v_last), (t_first, v_first) = points[-1], points[0]
-            span = (length - t_last) + t_first
-            v0 = v_last + (v_first - v_last) * ((length - t_last) / span) if span else v_first
-            points = [(0, v0)] + points
-        return points + [(length, points[0][1])]
 
     # MARK: 파일
 
@@ -367,7 +364,17 @@ class Builder:
 
 
 def main() -> int:
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    argv = sys.argv[1:]
+    src = None
+    if "--src" in argv:
+        # 후보 그림으로 미리 만들어 앱에서 움직임을 확인할 때: --src <후보 PNG> <이름 하나>. 커밋하지 않는다.
+        at = argv.index("--src")
+        src = Path(argv[at + 1]).resolve()
+        argv = argv[:at] + argv[at + 2:]
+    args = [a for a in argv if not a.startswith("--")]
+    if src is not None and len(args) != 1:
+        print("--src는 그림 이름 하나와 함께 쓴다", file=sys.stderr)
+        return 2
     test_steam = "--test-steam" in sys.argv
     data = json.loads(MOTION.read_text())
     kinds, words = data["kinds"], data["words"]
@@ -386,7 +393,7 @@ def main() -> int:
     built, skipped = [], []
     for name in targets:
         spec = {k: v for k, v in words[name].items() if not k.startswith("_") and k != "measured"}
-        img = prepare(name, steam="steam" in spec)
+        img = prepare(name, steam="steam" in spec, src=src)
         if img is None:
             skipped.append(name)
             continue

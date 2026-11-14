@@ -1,0 +1,16 @@
+{
+  "word": "word-sushi",
+  "kana": "すし",
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: Two pieces of nigiri sushi side by side on a small low wooden geta board, one topped with a soft orange-red tuna slice and one with a yellow rolled egg omelet tied with a thin dark nori band, seen from the front and slightly above. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 20261115,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-sushi_20261115.png",
+    "cut": "tools/remove_bg.py",
+    "date": "2026-11-15"
+  }
+}

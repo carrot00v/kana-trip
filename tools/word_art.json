@@ -23,7 +23,7 @@
       "ko": "문어",
       "priority": 1,
       "scene": 1,
-      "subject": "One single piece of octopus nigiri sushi: a white octopus slice with a wavy plum-purple and soft orange-red skin edge over an oval block of white rice, seen from the front and slightly above, no plate."
+      "subject": "One single piece of octopus nigiri sushi: a slice of boiled octopus tentacle with a soft orange-red outer skin edge and a white inner cut face, three small round suction cup bumps along the skin edge, laid over an oval block of white rice, seen from the front and slightly above, no plate, no blue, no purple, nothing else."
     },
     {
       "name": "maguro",
@@ -31,7 +31,7 @@
       "ko": "참치",
       "priority": 1,
       "scene": 1,
-      "subject": "One single piece of tuna nigiri sushi: a thick soft orange-red tuna slice draped over an oval block of white rice, seen from the front and slightly above, no plate."
+      "subject": "One single piece of lean tuna nigiri sushi: a thick slice of solid deep orange-red lean tuna in one flat color with no white fat stripes, draped over an oval block of white rice, seen from the front and slightly above, no plate, not salmon, nothing else."
     },
     {
       "name": "tonkatsu",
@@ -55,7 +55,7 @@
       "ko": "안심 돈가스",
       "priority": 1,
       "scene": 2,
-      "subject": "Three thick round medallions of pork fillet cutlet with jagged golden panko crust, the front piece cut open to show pale pink-white meat, standing close together, seen from the front and slightly above, no plate, no cabbage."
+      "subject": "Two thick oval pork fillet cutlets with a jagged golden-brown panko breadcrumb crust lying flat side by side on a small round pale cream plate, the front cutlet cut in half to show a thin golden crust ring around pale cream-white cooked meat, seen from the front and slightly above, no cabbage, no sauce, not bread, not buns, nothing else."
     },
     {
       "name": "gohan",
@@ -79,7 +79,7 @@
       "ko": "메밀국수",
       "priority": 1,
       "scene": 3,
-      "subject": "A deep round dark indigo bowl of hot soba: thin light brown buckwheat noodles in dark brown broth with a few thin moss olive scallion rings, seen from the front and slightly above, no chopsticks, no steam."
+      "subject": "A deep round dark indigo bowl of hot soba: thin light brown buckwheat noodles in dark brown broth, topped only with a few small thin muted moss olive scallion rings, seen from the front and slightly above, no other toppings, no eggs, no balls, no chopsticks, no steam."
     },
     {
       "name": "kitsune",
@@ -95,7 +95,7 @@
       "ko": "채반에 담은 찬 면",
       "priority": 1,
       "scene": 3,
-      "subject": "A square flat bamboo slatted zaru tray in warm wood brown with a neat heap of cold thin light brown soba noodles on it and a few thin dark nori strips on top, seen from the front and slightly above, no dipping cup."
+      "subject": "A square flat bamboo zaru tray made of thin warm wood brown slats, with a neat heap of cold thin light brown soba noodles on it and a few thin dark nori strips sprinkled on top, seen from the front and slightly above, nothing else around it: no dipping cup, no bowls, no balls, no circles, no plates."
     },
     {
       "name": "eki",
@@ -103,7 +103,7 @@
       "ko": "역",
       "priority": 1,
       "scene": 4,
-      "subject": "A small Japanese local train station building seen from the front: pale cream walls, a dark indigo tiled roof, a round clock above the open entrance, a blank plain board where the station name would be."
+      "subject": "A small Japanese countryside train station seen from the front: a long low station building with pale cream walls and a wide dark indigo tiled roof, a wide open entrance with a ticket gate inside, a large round white clock with two hands on the front wall above the entrance, a long blank pale cream name board under the roof edge, and straight train rails with a short platform running in front of the building, no door, no house windows, no text."
     },
     {
       "name": "otsuri",
@@ -111,7 +111,7 @@
       "ko": "거스름돈",
       "priority": 1,
       "scene": 4,
-      "subject": "A small rounded metal change tray in pale sky blue holding three Japanese coins: one warm yellow coin with a round center hole and two pale cream silver coins, seen from the front and slightly above, no numbers on the coins."
+      "subject": "Change from a Japanese ticket machine: a small shallow rectangular pale sky blue metal coin tray seen from the front and slightly above, holding exactly three flat round coins lying flat on its bottom: one warm yellow coin and two plain pale cream silver coins, each coin a flat solid disc with a thin raised rim and no hole, no numbers, no purple, nothing else."
     },
     {
       "name": "kippuuriba",
@@ -119,7 +119,7 @@
       "ko": "표 파는 곳",
       "priority": 1,
       "scene": 4,
-      "subject": "A Japanese train ticket vending machine seen from the front: a pale cream boxy machine with a blank pale sky blue touch screen, a round coin slot, a narrow ticket slot, and a few blank round buttons, no text, no numbers."
+      "subject": "A Japanese train station ticket vending machine seen from the front: a wide pale cream box machine that is wider than it is tall, with a large blank pale sky blue touch screen in the middle, a small coin slot and a bill slot on the right side, a narrow ticket and change outlet at the bottom, standing directly on its flat base, no legs, no text, no numbers."
     },
     {
       "name": "omamori",
@@ -127,7 +127,7 @@
       "ko": "부적",
       "priority": 1,
       "scene": 5,
-      "subject": "One small Japanese omamori charm: a flat rectangular soft orange-red brocade pouch with a simple warm yellow pattern and a pointed top tied with a looped cord and knot, front view, upright, blank front with no characters."
+      "subject": "One Japanese omamori amulet: a small flat upright rectangular soft orange-red brocade pouch with a gently pointed top, a thin warm yellow border pattern, and a thin pale cream cord tied in a decorative knot at the top center with two short loops, front view, flat like a card, the front completely blank with no characters, not a bag, not a sack, nothing else."
     },
     {
       "name": "omikuji",
@@ -135,7 +135,7 @@
       "ko": "운세 제비",
       "priority": 1,
       "scene": 5,
-      "subject": "Several narrow white paper fortune slips folded lengthwise and tied in knots along a short horizontal warm wood brown rail, front view, blank paper with no writing."
+      "subject": "A row of seven narrow white paper fortune slips, each folded into a thin strip and tied in a small knot around a single horizontal warm wood brown wooden rail, the slip ends hanging down below the rail, front view, blank paper with no writing, nothing else: no balls, no circles, no colored shapes, no banner."
     },
     {
       "name": "takoyaki",
@@ -143,7 +143,7 @@
       "ko": "다코야키",
       "priority": 1,
       "scene": 5,
-      "subject": "Six round takoyaki balls in a boat-shaped warm wood brown tray, covered with dark brown sauce and thin white mayonnaise zigzags, a few tiny moss olive aonori flakes, one wooden pick, seen from the front and slightly above, no bonito flakes, no steam."
+      "subject": "Six round takoyaki balls, all the same golden brown color, packed in a boat-shaped warm wood brown tray, every ball covered with glossy dark brown sauce and thin white mayonnaise zigzag lines and a few tiny moss olive aonori flakes, one wooden pick stuck in one ball, seen from the front and slightly above, no blue, no purple, no bonito flakes, no steam."
     },
     {
       "name": "ringoame",
@@ -159,7 +159,7 @@
       "ko": "닭꼬치",
       "priority": 1,
       "scene": 6,
-      "subject": "One bamboo skewer with four glazed grilled chicken pieces in warm brown, upright with the bare stick end at the bottom, front view, no plate."
+      "subject": "One bamboo skewer of Japanese yakitori: four same-sized chunks of grilled chicken thigh, all the same glossy warm brown color with a dark brown soy glaze and small darker grill marks, threaded in a straight vertical line, upright with the bare stick end at the bottom, front view, no vegetables, no other colors, no plate."
     },
     {
       "name": "tsukune",
@@ -167,7 +167,7 @@
       "ko": "다진 닭고기 꼬치",
       "priority": 1,
       "scene": 6,
-      "subject": "One bamboo skewer with a single long oval glazed chicken meatball in shiny dark brown sauce, upright with the bare stick end at the bottom, front view, no plate."
+      "subject": "One bamboo skewer holding a single long oval chicken meatball shaped like a stretched capsule, all glossy dark brown teriyaki glaze with a few darker grill marks, upright with the bare stick end at the bottom, front view, only one piece on the stick, no round balls, no egg, no plate."
     },
     {
       "name": "onigiri",
@@ -175,7 +175,7 @@
       "ko": "주먹밥",
       "priority": 1,
       "scene": 6,
-      "subject": "One grilled yaki onigiri: a rounded triangle of rice with a toasty golden-brown soy glaze and a few darker grill marks, no nori, front view, upright."
+      "subject": "A plain grilled yaki onigiri rice ball shown as food only: a rounded triangle of rice entirely coated in a toasty golden-brown soy glaze with a few darker brown grill marks, no nori, front view, upright, its surface completely plain with no eyes, no smile, no cheeks."
     },
     {
       "name": "yu",
@@ -183,7 +183,7 @@
       "ko": "목욕탕",
       "priority": 1,
       "scene": 7,
-      "subject": "A short dark indigo split noren curtain with two panels hanging from a thin warm wood brown rod, front view, with a large plain pale cream circle in the middle of the cloth left completely empty.",
+      "subject": "A Japanese public bath noren curtain hanging from a thin warm wood brown rod: one wide curtain of solid dark indigo cloth, the whole cloth the same dark indigo from top to bottom, split into two equal panels by one vertical slit in the lower half only, with one large plain pale cream circle in the upper middle of the cloth above the slit, the circle left completely empty, front view, no other colors, no stripes, no text.",
       "kanaInImage": "ゆ",
       "note": "ゆ는 가운데 빈 원에 KanjiVG 획으로 합성한다(brief.md 1.2). 합성은 이번 배치에서 하지 않는다"
     },
@@ -209,7 +209,7 @@
       "ko": "호지차",
       "priority": 1,
       "scene": 8,
-      "subject": "One cylindrical Japanese yunomi teacup without a handle, pale cream with a thin dark indigo band, filled with reddish warm brown roasted tea, seen from the front and slightly above so the tea surface shows, no saucer, no steam."
+      "subject": "One traditional Japanese yunomi teacup: a tall straight-sided cylindrical cup with no handle, pale cream with one thin dark indigo band near the rim, filled with reddish warm brown roasted tea, seen from the front and slightly above so the round tea surface shows, no saucer, no steam, not a mug, not a coffee cup."
     },
     {
       "name": "ofuro",
@@ -225,7 +225,7 @@
       "ko": "이불",
       "priority": 1,
       "scene": 8,
-      "subject": "A Japanese futon bed laid flat, seen from the front and slightly above at an angle: a white mattress, a dark indigo patterned quilt folded back halfway, and a small rectangular pillow."
+      "subject": "A thin Japanese floor futon set seen from the front and slightly above at an angle: a thin white mattress only a few centimeters thick lying flat with nothing under it, a dark indigo quilt folded back halfway, and a small rectangular pillow, no bed frame, no legs, no headboard, not a western bed."
     },
     {
       "name": "ikura",

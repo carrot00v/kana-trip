@@ -92,27 +92,31 @@ def crop_view(layer: Image.Image, view: tuple) -> Image.Image:
     return out.resize((THUMB_PX, THUMB_PX), Image.LANCZOS)
 
 
-def draw_kana(layer: Image.Image, boxes: list[dict]) -> None:
+def kana_glyph(text: str, size: int, color: str = KANA_COLOR, width: float = KANA_WIDTH) -> Image.Image:
+    """KanjiVG 획(109 좌표)으로 그린 가나 한 칸(size×size 투명 PNG). 단어 그림(place_word_art.py)도 쓴다."""
     data = {k["char"]: k["strokes"] for k in json.loads(STROKES.read_text())["kana"]}
     view = 109
+    fill = ImageColor.getcolor(color, "RGBA")
+    # 크게 그린 뒤 줄여서 가장자리를 부드럽게
+    big = 4
+    glyph = Image.new("RGBA", (size * big, size * big))
+    d = ImageDraw.Draw(glyph)
+    line = max(1, round(width * size * big))
+    k = size * big / view
+    for ch in text:
+        for stroke in data[ch]:
+            pts = [(x * k, y * k) for x, y in stroke]
+            d.line(pts, fill=fill, width=line, joint="curve")
+            r = line / 2
+            for cx, cy in (pts[0], pts[-1]):
+                d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=fill)
+    return glyph.resize((size, size), Image.LANCZOS)
+
+
+def draw_kana(layer: Image.Image, boxes: list[dict]) -> None:
     for spec in boxes:
         x1, y1, x2, y2 = spec["box"]
-        size = px(x2 - x1)
-        color = ImageColor.getcolor(spec.get("color", KANA_COLOR), "RGBA")
-        # 크게 그린 뒤 줄여서 가장자리를 부드럽게
-        big = 4
-        glyph = Image.new("RGBA", (size * big, size * big))
-        d = ImageDraw.Draw(glyph)
-        width = max(1, round(KANA_WIDTH * size * big))
-        k = size * big / view
-        for ch in spec["text"]:
-            for stroke in data[ch]:
-                pts = [(x * k, y * k) for x, y in stroke]
-                d.line(pts, fill=color, width=width, joint="curve")
-                r = width / 2
-                for cx, cy in (pts[0], pts[-1]):
-                    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=color)
-        glyph = glyph.resize((size, size), Image.LANCZOS)
+        glyph = kana_glyph(spec["text"], px(x2 - x1), spec.get("color", KANA_COLOR))
         layer.alpha_composite(glyph, (gx(x1), px(y1)))
 
 
