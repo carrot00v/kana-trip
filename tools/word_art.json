@@ -1,0 +1,362 @@
+{
+  "source": "docs/content/word-images.md 2·3번 (2026-11-15). 표를 고치면 이 파일도 함께 고친다",
+  "words": [
+    {
+      "name": "sushi",
+      "kana": "すし",
+      "ko": "초밥",
+      "priority": 1,
+      "scene": 1,
+      "subject": "Two pieces of nigiri sushi side by side on a small low wooden geta board, one topped with a soft orange-red tuna slice and one with a yellow rolled egg omelet tied with a thin dark nori band, seen from the front and slightly above."
+    },
+    {
+      "name": "ika",
+      "kana": "いか",
+      "ko": "오징어",
+      "priority": 1,
+      "scene": 1,
+      "subject": "One single piece of squid nigiri sushi: a pale off-white squid slice with fine diagonal score lines draped over an oval block of white rice, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "tako",
+      "kana": "たこ",
+      "ko": "문어",
+      "priority": 1,
+      "scene": 1,
+      "subject": "One single piece of octopus nigiri sushi: a white octopus slice with a wavy plum-purple and soft orange-red skin edge over an oval block of white rice, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "maguro",
+      "kana": "まぐろ",
+      "ko": "참치",
+      "priority": 1,
+      "scene": 1,
+      "subject": "One single piece of tuna nigiri sushi: a thick soft orange-red tuna slice draped over an oval block of white rice, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "tonkatsu",
+      "kana": "とんかつ",
+      "ko": "돈가스",
+      "priority": 1,
+      "scene": 2,
+      "copyFrom": "docs/design/item-art/source/tonkatsu.png"
+    },
+    {
+      "name": "katsudon",
+      "kana": "かつ丼",
+      "ko": "돈가스덮밥",
+      "priority": 1,
+      "scene": 2,
+      "subject": "A dark indigo donburi bowl of rice topped with sliced golden tonkatsu simmered in soft yellow egg and thin onion strips, a few small moss olive leaves on top, seen from the front and slightly above, no lid, no chopsticks, no steam."
+    },
+    {
+      "name": "hirekatsu",
+      "kana": "ひれかつ",
+      "ko": "안심 돈가스",
+      "priority": 1,
+      "scene": 2,
+      "subject": "Three thick round medallions of pork fillet cutlet with jagged golden panko crust, the front piece cut open to show pale pink-white meat, standing close together, seen from the front and slightly above, no plate, no cabbage."
+    },
+    {
+      "name": "gohan",
+      "kana": "ごはん",
+      "ko": "밥",
+      "priority": 1,
+      "scene": 2,
+      "subject": "A small round dark indigo rice bowl filled with a soft dome of white rice, seen from the front and slightly above, no chopsticks, no steam."
+    },
+    {
+      "name": "udon",
+      "kana": "うどん",
+      "ko": "우동",
+      "priority": 1,
+      "scene": 3,
+      "subject": "A deep round dark indigo bowl of hot udon: thick glossy white udon noodles in light brown broth with a few thin moss olive scallion rings, seen from the front and slightly above, no chopsticks, no steam."
+    },
+    {
+      "name": "soba",
+      "kana": "そば",
+      "ko": "메밀국수",
+      "priority": 1,
+      "scene": 3,
+      "subject": "A deep round dark indigo bowl of hot soba: thin light brown buckwheat noodles in dark brown broth with a few thin moss olive scallion rings, seen from the front and slightly above, no chopsticks, no steam."
+    },
+    {
+      "name": "kitsune",
+      "kana": "きつね",
+      "ko": "유부 올린",
+      "priority": 1,
+      "scene": 3,
+      "copyFrom": "docs/design/item-art/source/kitsune.png"
+    },
+    {
+      "name": "zaru",
+      "kana": "ざる",
+      "ko": "채반에 담은 찬 면",
+      "priority": 1,
+      "scene": 3,
+      "subject": "A square flat bamboo slatted zaru tray in warm wood brown with a neat heap of cold thin light brown soba noodles on it and a few thin dark nori strips on top, seen from the front and slightly above, no dipping cup."
+    },
+    {
+      "name": "eki",
+      "kana": "えき",
+      "ko": "역",
+      "priority": 1,
+      "scene": 4,
+      "subject": "A small Japanese local train station building seen from the front: pale cream walls, a dark indigo tiled roof, a round clock above the open entrance, a blank plain board where the station name would be."
+    },
+    {
+      "name": "otsuri",
+      "kana": "おつり",
+      "ko": "거스름돈",
+      "priority": 1,
+      "scene": 4,
+      "subject": "A small rounded metal change tray in pale sky blue holding three Japanese coins: one warm yellow coin with a round center hole and two pale cream silver coins, seen from the front and slightly above, no numbers on the coins."
+    },
+    {
+      "name": "kippuuriba",
+      "kana": "きっぷうりば",
+      "ko": "표 파는 곳",
+      "priority": 1,
+      "scene": 4,
+      "subject": "A Japanese train ticket vending machine seen from the front: a pale cream boxy machine with a blank pale sky blue touch screen, a round coin slot, a narrow ticket slot, and a few blank round buttons, no text, no numbers."
+    },
+    {
+      "name": "omamori",
+      "kana": "おまもり",
+      "ko": "부적",
+      "priority": 1,
+      "scene": 5,
+      "subject": "One small Japanese omamori charm: a flat rectangular soft orange-red brocade pouch with a simple warm yellow pattern and a pointed top tied with a looped cord and knot, front view, upright, blank front with no characters."
+    },
+    {
+      "name": "omikuji",
+      "kana": "おみくじ",
+      "ko": "운세 제비",
+      "priority": 1,
+      "scene": 5,
+      "subject": "Several narrow white paper fortune slips folded lengthwise and tied in knots along a short horizontal warm wood brown rail, front view, blank paper with no writing."
+    },
+    {
+      "name": "takoyaki",
+      "kana": "たこやき",
+      "ko": "다코야키",
+      "priority": 1,
+      "scene": 5,
+      "subject": "Six round takoyaki balls in a boat-shaped warm wood brown tray, covered with dark brown sauce and thin white mayonnaise zigzags, a few tiny moss olive aonori flakes, one wooden pick, seen from the front and slightly above, no bonito flakes, no steam."
+    },
+    {
+      "name": "ringoame",
+      "kana": "りんごあめ",
+      "ko": "사과 사탕",
+      "priority": 1,
+      "scene": 5,
+      "subject": "One whole candy apple coated in a smooth soft orange-red candy shell, on a straight wooden stick pointing down, upright, front view."
+    },
+    {
+      "name": "yakitori",
+      "kana": "やきとり",
+      "ko": "닭꼬치",
+      "priority": 1,
+      "scene": 6,
+      "subject": "One bamboo skewer with four glazed grilled chicken pieces in warm brown, upright with the bare stick end at the bottom, front view, no plate."
+    },
+    {
+      "name": "tsukune",
+      "kana": "つくね",
+      "ko": "다진 닭고기 꼬치",
+      "priority": 1,
+      "scene": 6,
+      "subject": "One bamboo skewer with a single long oval glazed chicken meatball in shiny dark brown sauce, upright with the bare stick end at the bottom, front view, no plate."
+    },
+    {
+      "name": "onigiri",
+      "kana": "おにぎり",
+      "ko": "주먹밥",
+      "priority": 1,
+      "scene": 6,
+      "subject": "One grilled yaki onigiri: a rounded triangle of rice with a toasty golden-brown soy glaze and a few darker grill marks, no nori, front view, upright."
+    },
+    {
+      "name": "yu",
+      "kana": "ゆ",
+      "ko": "목욕탕",
+      "priority": 1,
+      "scene": 7,
+      "subject": "A short dark indigo split noren curtain with two panels hanging from a thin warm wood brown rod, front view, with a large plain pale cream circle in the middle of the cloth left completely empty.",
+      "kanaInImage": "ゆ",
+      "note": "ゆ는 가운데 빈 원에 KanjiVG 획으로 합성한다(brief.md 1.2). 합성은 이번 배치에서 하지 않는다"
+    },
+    {
+      "name": "onsen",
+      "kana": "おんせん",
+      "ko": "온천",
+      "priority": 1,
+      "scene": 7,
+      "subject": "A small round outdoor hot spring pool seen from the front and slightly above: a ring of rounded warm beige-brown stones around pale sky blue water, no people, no steam."
+    },
+    {
+      "name": "yukata",
+      "kana": "ゆかた",
+      "ko": "유카타",
+      "priority": 1,
+      "scene": 7,
+      "subject": "A cotton yukata robe with a simple dark indigo and white pattern, hung open flat on a horizontal warm wood brown kimono hanger with a narrow soft orange-red sash draped over it, front view."
+    },
+    {
+      "name": "houjicha",
+      "kana": "ほうじ茶",
+      "ko": "호지차",
+      "priority": 1,
+      "scene": 8,
+      "subject": "One cylindrical Japanese yunomi teacup without a handle, pale cream with a thin dark indigo band, filled with reddish warm brown roasted tea, seen from the front and slightly above so the tea surface shows, no saucer, no steam."
+    },
+    {
+      "name": "ofuro",
+      "kana": "おふろ",
+      "ko": "욕실, 목욕",
+      "priority": 1,
+      "scene": 8,
+      "subject": "A square Japanese bathtub made of pale warm wood planks (hinoki cypress), filled with pale sky blue water, a small round wooden bucket resting on the rim, seen from the front and slightly above, no steam."
+    },
+    {
+      "name": "futon",
+      "kana": "ふとん",
+      "ko": "이불",
+      "priority": 1,
+      "scene": 8,
+      "subject": "A Japanese futon bed laid flat, seen from the front and slightly above at an angle: a white mattress, a dark indigo patterned quilt folded back halfway, and a small rectangular pillow."
+    },
+    {
+      "name": "ikura",
+      "kana": "いくら",
+      "ko": "연어알",
+      "priority": 2,
+      "scene": 1,
+      "subject": "One single gunkan sushi: an oval of white rice wrapped in a band of dark nori, heaped on top with round shiny orange salmon roe beads, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "ebi",
+      "kana": "えび",
+      "ko": "새우",
+      "priority": 2,
+      "scene": 1,
+      "subject": "One single piece of shrimp nigiri sushi: a butterflied cooked shrimp with soft orange-red and white stripes and a fanned tail, over an oval block of white rice, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "inari",
+      "kana": "いなり",
+      "ko": "유부초밥",
+      "priority": 2,
+      "scene": 1,
+      "subject": "One single inari sushi: a plump oval pouch of golden-brown sweet fried tofu stuffed with white rice, the rice showing at the open top, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "oroshi",
+      "kana": "おろし",
+      "ko": "간 무를 올린",
+      "priority": 2,
+      "scene": 2,
+      "subject": "A round golden panko-crusted fillet cutlet with a small white mound of grated daikon radish on top and a few thin moss olive scallion rings, seen from the front and slightly above, no plate."
+    },
+    {
+      "name": "wakame",
+      "kana": "わかめ",
+      "ko": "미역 올린",
+      "priority": 2,
+      "scene": 3,
+      "subject": "A deep round dark indigo bowl of hot udon with thick white noodles, topped with a heap of dark olive (#34402F) wakame seaweed, seen from the front and slightly above, no steam."
+    },
+    {
+      "name": "tanuki",
+      "kana": "たぬき",
+      "ko": "튀김 부스러기 올린",
+      "priority": 2,
+      "scene": 3,
+      "subject": "A deep round dark indigo bowl of hot soba with thin light brown noodles, topped with a heap of small crunchy golden tempura bits and a few scallion rings, seen from the front and slightly above, no steam."
+    },
+    {
+      "name": "okame",
+      "kana": "おかめ",
+      "ko": "어묵 등을 올린",
+      "priority": 2,
+      "scene": 3,
+      "subject": "A deep round dark indigo bowl of soba topped with several separate toppings arranged in a ring: pink-and-white kamaboko fish cake slices, a brown simmered shiitake, a yellow omelet slice, seen from the front and slightly above, no steam.",
+      "hold": "고명 구성 확인 필요(word-images.md 2.3, giri-lines.md). 확인 뒤 hold를 지우고 생성한다"
+    },
+    {
+      "name": "noriba",
+      "kana": "のりば",
+      "ko": "타는 곳",
+      "priority": 2,
+      "scene": 4,
+      "subject": "A short section of a train platform edge with a yellow tactile paving strip, and the side of a pale cream commuter train with an open door stopped beside it, seen from the front at a slight angle, no signs."
+    },
+    {
+      "name": "omatsuri",
+      "kana": "おまつり",
+      "ko": "축제",
+      "priority": 2,
+      "scene": 5,
+      "subject": "One round paper chochin lantern in soft orange-red with a pale cream band at the top and bottom, hanging from a short cord, front view, blank with no characters."
+    },
+    {
+      "name": "yakisoba",
+      "kana": "やきそば",
+      "ko": "볶음국수",
+      "priority": 2,
+      "scene": 5,
+      "subject": "A heap of brown sauce-fried yakisoba noodles with small pieces of cabbage and a little soft orange-red pickled ginger on top, in a rectangular white paper food tray, seen from the front and slightly above, no steam."
+    },
+    {
+      "name": "kawa",
+      "kana": "かわ",
+      "ko": "닭껍질 꼬치",
+      "priority": 2,
+      "scene": 6,
+      "subject": "One bamboo skewer threaded with wavy, crispy golden-brown folded chicken skin, upright with the bare stick end at the bottom, front view, no plate."
+    },
+    {
+      "name": "shiitake",
+      "kana": "しいたけ",
+      "ko": "표고버섯",
+      "priority": 2,
+      "scene": 6,
+      "subject": "One bamboo skewer with two grilled shiitake mushroom caps in warm brown, each cap with a cross-shaped cut on top, upright with the bare stick end at the bottom, front view, no plate."
+    },
+    {
+      "name": "uzura",
+      "kana": "うずら",
+      "ko": "메추리알 꼬치",
+      "priority": 2,
+      "scene": 6,
+      "subject": "One bamboo skewer with four small boiled quail eggs, pale cream with a light brown glaze, upright with the bare stick end at the bottom, front view, no plate."
+    },
+    {
+      "name": "hinoki",
+      "kana": "ひのき",
+      "ko": "편백나무",
+      "priority": 2,
+      "scene": 7,
+      "copyFrom": "docs/design/word-art/source/word-ofuro.png"
+    },
+    {
+      "name": "kutsuonuide",
+      "kana": "くつをぬいでください",
+      "ko": "신발을 벗어 주세요",
+      "priority": 2,
+      "scene": 7,
+      "subject": "A small section of a Japanese entrance: a low stone floor with a pair of sneakers placed neatly side by side, and a raised warm wood brown step behind it with a pair of pale cream slippers on top, seen from the front at a slight angle.",
+      "allowFloor": true
+    },
+    {
+      "name": "oheya",
+      "kana": "おへや",
+      "ko": "객실",
+      "priority": 2,
+      "scene": 8,
+      "subject": "A low square warm wood brown Japanese table with a small teapot and one teacup on it and two flat square floor cushions beside it, resting on a single pale tatami mat, seen from the front and slightly above, no walls.",
+      "allowFloor": true
+    }
+  ]
+}
