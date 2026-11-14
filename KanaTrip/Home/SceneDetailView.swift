@@ -14,6 +14,15 @@ struct SceneDetailView: View {
 
     var body: some View {
         List {
+            // 시제품: 장면 1에만 정지 그림 + 코드로 그린 김.
+            if scene.id == "eatery_sign" {
+                Section {
+                    SteamingSceneArt()
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                }
+            }
+
             goalWordSection
 
             Section {
