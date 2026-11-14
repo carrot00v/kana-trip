@@ -27,7 +27,7 @@
 
 - 대상이 아닌 것: 화면 배치, 컴포넌트, 색·글꼴 같은 UI 레이아웃. 이런 작업은 `docs/design/`의 규칙을 기준으로 SwiftUI로 구현하고 시뮬레이터 스크린샷으로 확인한다. 이미지 모델로 화면 목업을 만들지 않는다.
 - 환경: Comfy Desktop의 ComfyUI(`127.0.0.1:8188`)와 Z-Image Turbo(Apache 2.0). 모델 파일은 `~/ComfyUI-Shared/models` 아래 `diffusion_models/z_image_turbo_bf16.safetensors`, `text_encoders/qwen_3_4b.safetensors`, `vae/ae.safetensors`다.
-- 도구: `tools/gen_image.py`(한 장 생성), `tools/remove_bg.swift`(단색 바탕을 투명으로), `tools/gen_item_art.py`(리워드 아이템 일괄 생성).
+- 도구: `tools/gen_image.py`(한 장 생성), `tools/remove_bg.py`(단색 바탕을 투명으로), `tools/gen_item_art.py`(리워드 아이템 일괄 생성), `tools/place_item_art.py`(아이템 배치·썸네일·가나 합성). 이미지 도구는 안드로이드 확장을 위해 파이썬 + Pillow로 통일한다. 처음 한 번 `python3 -m venv .venv && .venv/bin/pip install -r tools/requirements.txt`로 준비하고, `.venv/bin/python`으로 실행한다.
 - 화풍 기준은 캐릭터 기리다. 그리기 전에 `docs/design/visual-rules.md`와 `docs/design/item-art/brief.md`를 읽는다.
 - 생성은 한 번에 하나씩, 오래 걸리면 백그라운드로 돌린다. 기준 Mac(M4 Pro 24GB)에서 1024px 한 장에 3.5~5분 걸린다.
 - 다른 모델을 받거나 클라우드 GPU·외부 API를 쓰려면 사용자에게 먼저 묻는다.
