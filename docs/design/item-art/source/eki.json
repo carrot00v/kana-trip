@@ -1,0 +1,9 @@
+{
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: A simple, completely empty Japanese train station platform with nobody on it: pale sky, a blank station name board on two short posts at the top-left, a yellow tactile line along the platform edge at the bottom, a bit of a train window at the right edge. The middle of the picture is just empty pale platform and sky. Leave the station name board blank with no letters. Square 1:1 background scene filling the whole image edge to edge, no border. Keep the central area light and nearly empty; put details near the edges. No people, no characters, no animals, no mascots, no faces on objects, no text, no letters, no numbers.",
+  "seed": 1360103004,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16"
+}
