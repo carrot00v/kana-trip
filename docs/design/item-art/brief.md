@@ -8,7 +8,8 @@
 | `items.json` | 아이템 16개의 id, 슬롯, 들어갈 자리(`targetBox`), 아이템별 프롬프트 |
 | `reference/onigiri-default.png` | 기리 기본 모습(1080px). 화풍 참고 이미지로 함께 넘긴다 |
 | `reference/slot-guide.png`, `.svg` | 기리 위에 슬롯별로 그려도 되는 범위를 점선으로 표시한 그림 |
-| `source/` | 생성한 그림을 `{id}.png`로 넣는 곳 |
+| `source/` | 고른 그림 `{id}.png`와 같은 이름의 `.json`(프롬프트, 시드). 지금 kippu, noren, yu |
+| `source/candidates/` | 생성 후보와 비교 시트. 커밋하지 않는다(.gitignore) |
 
 근거 문서: 아이템 목록은 [reward-system.md](../../content/reward-system.md) 4.2, 그림 규격은 [reward-flow.md](../reward-flow.md) 8번, 색 규칙은 같은 문서 8.3.
 
@@ -86,6 +87,16 @@ Subject: {prompt}
 Cute flat sticker illustration background in the same style as the reference onigiri character: thick dark brown outlines (#4A2219), flat solid soft colors, no gradients, no texture, no people, no characters. Square 1:1 composition. Keep the central area light and nearly empty because a character will stand in front of it; put details near the edges. No text, no letters.
 Subject: {prompt}
 ```
+
+### 3.1 Z-Image용 프롬프트 차이
+
+로컬 Z-Image Turbo(ComfyUI)로 뽑을 때는 `tools/gen_item_art.py`가 프롬프트를 조립한다. 위 공통 프롬프트와 다른 점:
+
+- **참고 이미지를 못 넘긴다.** 그래서 "same style as the reference"를 빼고 기리 화풍(진갈색 굵은 외곽선, 단색 면, 그라데이션 없음)과 1.1의 색을 글로 풀어 쓴다.
+- **바탕은 투명 대신 옅은 회색 단색.** 모델이 투명 PNG를 만들지 못하므로, `tools/remove_bg.swift`가 가장자리부터 바탕색을 지워 `{id}_{seed}-cut.png`를 만든다. 배경 아이템은 지우지 않는다.
+- **얼굴과 바닥 그림자를 막는 문장을 넣는다.** "mascot" 같은 말을 쓰면 물건에 눈·입이 생기고 바닥 그림자가 따라 나왔다(2026-11-14 시험). no face/eyes/mouth, no ground shadow를 명시한다.
+- 후보는 `source/candidates/{id}_{seed}.png`에 쌓이고, 같은 이름의 `.json`에 프롬프트와 시드가 남는다. 고른 한 장을 `source/{id}.png`로 복사하는 일은 사람이 한다.
+- 이 Mac(M4 Pro 24GB)에서 1024px 한 장에 3.5~5분. 한 번에 하나만 돌린다.
 
 ## 4. 넣는 방법
 
