@@ -1,0 +1,9 @@
+{
+  "prompt": "Flat cartoon illustration with bold clean outlines. Every shape is outlined with one thick, uniform, dark chocolate brown line (#4A2219), about three percent of the image width, with rounded line ends and rounded joins, and every outline is fully closed. Flat solid color fills only: no gradients, no texture, no shading, no highlights, no shine, no reflections, no drop shadow. Soft, rounded, chunky shapes, simple and friendly. Colors: warm off-white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted olive, and the dark chocolate brown of the outlines. No bright green, no emerald, no crimson, no magenta, no pure red, no neon colors. Subject: A single Japanese torii gate seen straight from the front: two round soft orange red pillars, a dark chocolate brown top beam that curves gently upward at both ends, a straight soft orange red tie beam below it, a small plain blank plaque between the two beams, and two small gray stone bases. Exactly one object, centered, filling about seventy percent of the square, with an even empty margin on all sides. Seen from the front or slightly above, with almost no perspective. A bold, simple silhouette that is still easy to recognize when shown very small. The object is not a character: it has no face, no eyes, no mouth, no blush. No people, no hands, no animals. No text, no letters, no numbers, no logos, no symbols on any surface; every label, sign and panel is completely plain. The background is one flat solid pale sand beige color filling the entire square edge to edge, and nothing else: no floor, no table, no horizon line, no ground shadow, no cast shadow, no border, no frame, no rounded-square frame, no white outline around the object, no vignette.",
+  "seed": 304,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16"
+}
