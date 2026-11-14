@@ -1,90 +1,22 @@
 {
-  "_comment": "리워드 아이템 그림 작업 목록. 이미지 모델에 한 줄씩 넘긴다. 규격과 공통 프롬프트는 brief.md. targetBox는 기리 360 좌표계(viewBox -30 0 360 360)에서 그림이 들어갈 상자 [x1, y1, x2, y2]로, 생성 후 배치할 때 쓴다(reward-flow.md 8.2). 손 아이템의 targetBox는 쥐는 점 (0,0) 기준 아이템 자체 좌표다.",
+  "_comment": "리워드 아이템 그림 작업 목록. 이미지 모델에 한 줄씩 넘긴다. 규격과 공통 프롬프트는 brief.md. targetBox는 기리 360 좌표계(viewBox -30 0 360 360)에서 그림이 들어갈 상자 [x1, y1, x2, y2]로, 생성 후 배치할 때 쓴다(reward-flow.md 8.2). 손 아이템의 targetBox는 쥐는 점 (0,0) 기준 아이템 자체 좌표다. kanaBoxes는 배경 그림에 합성할 가나와 그 자리(360 좌표계 정사각형 [x1, y1, x2, y2])로, 고른 그림의 노렌 자락에 맞춰 정했다. 그림을 바꾸면 다시 맞춘다.",
   "styleRef": ["reference/onigiri-default.png", "reference/slot-guide.png"],
   "items": [
-    {
-      "id": "noren", "slot": "background", "kana": "のれん", "nameKo": "노렌이 걸린 가게 앞", "scene": "1 밥집 간판",
-      "targetBox": [-30, 0, 330, 360],
-      "kanaInImage": "すし (노렌 위, 나중에 합성)",
-      "prompt": "A simple front view of a small Japanese eatery entrance: a dark indigo split noren curtain hanging across the top-left of a wooden doorway, light cream plaster wall, a little potted plant at the bottom-right edge. The center of the picture is a calm, very light, almost empty wall area. Leave the noren cloth plain with no letters."
-    },
-    {
-      "id": "sushi", "slot": "hand", "kana": "すし", "nameKo": "초밥 한 점", "scene": "1 밥집 간판",
-      "targetBox": [-40, -80, 40, 20],
-      "prompt": "A single piece of nigiri sushi: an oval white rice block with a salmon slice draped on top, salmon in warm orange with light stripes. Viewed from slightly above, held upright as if pinched at its bottom center."
-    },
-    {
-      "id": "eki", "slot": "background", "kana": "えき", "nameKo": "역 승강장", "scene": "2 역",
-      "targetBox": [-30, 0, 330, 360],
-      "kanaInImage": "えき (역명판, 나중에 합성)",
-      "prompt": "A simple Japanese train station platform: pale sky, a station name board on two short posts at the top-left, a yellow tactile line along the platform edge at the bottom, a bit of a train window at the right edge. The center is a calm, very light, almost empty area. Leave the station name board blank with no letters."
-    },
-    {
-      "id": "kippu", "slot": "hand", "kana": "きっぷ", "nameKo": "기차표", "scene": "2 역",
-      "targetBox": [-40, -80, 40, 20],
-      "prompt": "A small rectangular Japanese train ticket, cream paper with a thin sky-blue band and a tiny punched hole, standing upright as if held at its bottom edge. No readable text, only two short abstract lines."
-    },
-    {
-      "id": "machi", "slot": "background", "kana": "まち", "nameKo": "시내 거리", "scene": "3 거리",
-      "targetBox": [-30, 0, 330, 360],
-      "prompt": "A simple Japanese town street: pale sky, low two-story shop buildings on the left and right edges, a utility pole with drooping wires at the top-right, a light paved road. The center is a calm, very light, almost empty area. No signs with letters."
-    },
-    {
-      "id": "kasa", "slot": "hand", "kana": "かさ", "nameKo": "비닐우산", "scene": "3 거리",
-      "targetBox": [-40, -80, 40, 20],
-      "prompt": "A small open clear vinyl umbrella, the canopy pale see-through blue-white with dark outline ribs, a wooden curved handle at the bottom. Upright, held by the handle."
-    },
-    {
-      "id": "torii", "slot": "background", "kana": "とりい", "nameKo": "도리이가 선 참배길", "scene": "4 신사",
-      "targetBox": [-30, 0, 330, 360],
-      "prompt": "A simple shrine approach: a vermilion torii gate framing the picture with its top beam across the top and its two pillars at the left and right edges, a light stone path in the middle, soft green-grey shrubs at the bottom corners, pale sky. The center is a calm, very light, almost empty area."
-    },
-    {
-      "id": "omamori", "slot": "hand", "kana": "おまもり", "nameKo": "부적", "scene": "4 신사",
-      "targetBox": [-40, -80, 40, 20],
-      "prompt": "A small Japanese omamori charm: a rounded-top rectangular brocade pouch in vermilion with a simple yellow knot pattern and a looped cord at the top. Upright, held at its bottom. No letters on it."
-    },
-    {
-      "id": "omen", "slot": "hat", "kana": "おめん", "nameKo": "머리 옆에 건 축제 가면", "scene": "5 축제",
-      "targetBox": [60, 0, 245, 158],
-      "prompt": "A cute white festival fox mask (kitsune omen) with simple red-orange markings and a thin cord, shown tilted about 20 degrees as if worn on the upper right side of a head. Only the mask, nothing else."
-    },
-    {
-      "id": "tasuki", "slot": "scarf", "kana": "たすき", "nameKo": "어깨띠", "scene": "5 축제",
-      "targetBox": [-30, 196, 280, 300],
-      "prompt": "A festival tasuki sash: a long, narrow indigo cloth band with a thin white edge line, running diagonally from lower left to upper right, with a small tied bow at the left end. Only the band."
-    },
-    {
-      "id": "hachimaki", "slot": "hat", "kana": "はちまき", "nameKo": "머리띠", "scene": "6 이자카야",
-      "targetBox": [60, 0, 245, 158],
-      "prompt": "A twisted cloth headband (nejiri hachimaki) in indigo and white twisted together, shaped as a gentle horizontal arc as if tied around the top of a head, with a small knot and two short tails sticking up at the right side. Only the headband."
-    },
-    {
-      "id": "maekake", "slot": "scarf", "kana": "まえかけ", "nameKo": "앞치마 (가게 앞치마)", "scene": "6 이자카야",
-      "targetBox": [-30, 196, 280, 300],
-      "apronExtension": [90, 300, 210, 322],
-      "prompt": "A Japanese shop apron (maekake): a thick indigo canvas apron with a plain cream waist band tied across, front view, short and wide. A simple circle emblem with no letters in the middle. Only the apron."
-    },
-    {
-      "id": "yu", "slot": "background", "kana": "ゆ", "nameKo": "목욕탕 노렌 앞", "scene": "7 온천",
-      "targetBox": [-30, 0, 330, 360],
-      "kanaInImage": "ゆ (노렌 위, 나중에 합성)",
-      "prompt": "A simple bathhouse entrance: an indigo noren curtain hanging at the top-left, warm wooden frame, a light wooden floor and a pair of small sandals at the bottom-right edge, faint soft steam curls. The center is a calm, very light, almost empty area. Leave the noren cloth plain with no letters."
-    },
-    {
-      "id": "tenugui", "slot": "hat", "kana": "てぬぐい", "nameKo": "머리에 얹은 수건", "scene": "7 온천",
-      "targetBox": [60, 0, 245, 158],
-      "prompt": "A small folded tenugui hand towel, white with a simple indigo wave pattern, folded into a neat flat rectangle and resting slightly tilted, as if placed on top of a head. Only the towel."
-    },
-    {
-      "id": "furoshiki", "slot": "scarf", "kana": "ふろしき", "nameKo": "보자기", "scene": "8 료칸",
-      "targetBox": [-30, 196, 280, 300],
-      "prompt": "A furoshiki wrapping cloth in purple with a simple light arabesque swirl pattern, worn like a neckerchief: a band running diagonally from lower left to upper right, with a bunny-ear knot at the left end. Only the cloth."
-    },
-    {
-      "id": "youkan", "slot": "hand", "kana": "ようかん", "nameKo": "양갱 (객실 다과)", "scene": "8 료칸",
-      "targetBox": [-40, -80, 40, 20],
-      "prompt": "A slice of dark red-brown yokan (sweet bean jelly) block on a small wooden plate, a little bamboo pick stuck in it. Upright, held by the bottom of the plate."
-    }
+    {"id": "noren", "slot": "background", "kana": "のれん", "nameKo": "노렌이 걸린 가게 앞", "scene": "1 밥집 간판", "targetBox": [-30, 0, 330, 360], "kanaInImage": "すし (노렌 위, 나중에 합성)", "prompt": "A simple front view of a small Japanese eatery entrance: a dark indigo split noren curtain hanging across the top-left of a wooden doorway, light cream plaster wall, a little potted plant at the bottom-right edge. The center of the picture is a calm, very light, almost empty wall area. Leave the noren cloth plain with no letters.", "kanaBoxes": [{"text": "す", "box": [-14, 62, 36, 112]}, {"text": "し", "box": [236, 62, 286, 112]}]},
+    {"id": "sushi", "slot": "hand", "kana": "すし", "nameKo": "초밥 한 점", "scene": "1 밥집 간판", "targetBox": [-40, -80, 40, 20], "prompt": "A single piece of nigiri sushi: an oval white rice block with a salmon slice draped on top, salmon in warm orange with light stripes. Viewed from slightly above, held upright as if pinched at its bottom center."},
+    {"id": "eki", "slot": "background", "kana": "えき", "nameKo": "역 승강장", "scene": "2 역", "targetBox": [-30, 0, 330, 360], "kanaInImage": "えき (역명판, 나중에 합성)", "prompt": "A simple Japanese train station platform: pale sky, a station name board on two short posts at the top-left, a yellow tactile line along the platform edge at the bottom, a bit of a train window at the right edge. The center is a calm, very light, almost empty area. Leave the station name board blank with no letters."},
+    {"id": "kippu", "slot": "hand", "kana": "きっぷ", "nameKo": "기차표", "scene": "2 역", "targetBox": [-40, -80, 40, 20], "prompt": "A small rectangular Japanese train ticket, cream paper with a thin sky-blue band and a tiny punched hole, standing upright as if held at its bottom edge. No readable text, only two short abstract lines."},
+    {"id": "machi", "slot": "background", "kana": "まち", "nameKo": "시내 거리", "scene": "3 거리", "targetBox": [-30, 0, 330, 360], "prompt": "A simple Japanese town street: pale sky, low two-story shop buildings on the left and right edges, a utility pole with drooping wires at the top-right, a light paved road. The center is a calm, very light, almost empty area. No signs with letters."},
+    {"id": "kasa", "slot": "hand", "kana": "かさ", "nameKo": "비닐우산", "scene": "3 거리", "targetBox": [-40, -80, 40, 20], "prompt": "A small open clear vinyl umbrella, the canopy pale see-through blue-white with dark outline ribs, a wooden curved handle at the bottom. Upright, held by the handle."},
+    {"id": "torii", "slot": "background", "kana": "とりい", "nameKo": "도리이가 선 참배길", "scene": "4 신사", "targetBox": [-30, 0, 330, 360], "prompt": "A simple shrine approach: a vermilion torii gate framing the picture with its top beam across the top and its two pillars at the left and right edges, a light stone path in the middle, soft green-grey shrubs at the bottom corners, pale sky. The center is a calm, very light, almost empty area."},
+    {"id": "omamori", "slot": "hand", "kana": "おまもり", "nameKo": "부적", "scene": "4 신사", "targetBox": [-40, -80, 40, 20], "prompt": "A small Japanese omamori charm: a rounded-top rectangular brocade pouch in vermilion with a simple yellow knot pattern and a looped cord at the top. Upright, held at its bottom. No letters on it."},
+    {"id": "omen", "slot": "hat", "kana": "おめん", "nameKo": "머리 옆에 건 축제 가면", "scene": "5 축제", "targetBox": [60, 0, 245, 158], "prompt": "A cute white festival fox mask (kitsune omen) with simple red-orange markings and a thin cord, shown tilted about 20 degrees as if worn on the upper right side of a head. Only the mask, nothing else."},
+    {"id": "tasuki", "slot": "scarf", "kana": "たすき", "nameKo": "어깨띠", "scene": "5 축제", "targetBox": [-30, 196, 280, 300], "prompt": "A festival tasuki sash: a long, narrow indigo cloth band with a thin white edge line, running diagonally from lower left to upper right, with a small tied bow at the left end. Only the band."},
+    {"id": "hachimaki", "slot": "hat", "kana": "はちまき", "nameKo": "머리띠", "scene": "6 이자카야", "targetBox": [60, 0, 245, 158], "prompt": "A twisted cloth headband (nejiri hachimaki) in indigo and white twisted together, shaped as a gentle horizontal arc as if tied around the top of a head, with a small knot and two short tails sticking up at the right side. Only the headband."},
+    {"id": "maekake", "slot": "scarf", "kana": "まえかけ", "nameKo": "앞치마 (가게 앞치마)", "scene": "6 이자카야", "targetBox": [-30, 196, 280, 300], "apronExtension": [90, 300, 210, 322], "prompt": "A Japanese shop apron (maekake): a thick indigo canvas apron with a plain cream waist band tied across, front view, short and wide. A simple circle emblem with no letters in the middle. Only the apron."},
+    {"id": "yu", "slot": "background", "kana": "ゆ", "nameKo": "목욕탕 노렌 앞", "scene": "7 온천", "targetBox": [-30, 0, 330, 360], "kanaInImage": "ゆ (노렌 위, 나중에 합성)", "prompt": "A simple bathhouse entrance: an indigo noren curtain hanging at the top-left, warm wooden frame, a light wooden floor and a pair of small sandals at the bottom-right edge, faint soft steam curls. The center is a calm, very light, almost empty area. Leave the noren cloth plain with no letters.", "kanaBoxes": [{"text": "ゆ", "box": [0, 44, 52, 96]}]},
+    {"id": "tenugui", "slot": "hat", "kana": "てぬぐい", "nameKo": "머리에 얹은 수건", "scene": "7 온천", "targetBox": [60, 0, 245, 158], "prompt": "A small folded tenugui hand towel, white with a simple indigo wave pattern, folded into a neat flat rectangle and resting slightly tilted, as if placed on top of a head. Only the towel."},
+    {"id": "furoshiki", "slot": "scarf", "kana": "ふろしき", "nameKo": "보자기", "scene": "8 료칸", "targetBox": [-30, 196, 280, 300], "prompt": "A furoshiki wrapping cloth in purple with a simple light arabesque swirl pattern, worn like a neckerchief: a band running diagonally from lower left to upper right, with a bunny-ear knot at the left end. Only the cloth."},
+    {"id": "youkan", "slot": "hand", "kana": "ようかん", "nameKo": "양갱 (객실 다과)", "scene": "8 료칸", "targetBox": [-40, -80, 40, 20], "prompt": "A slice of dark red-brown yokan (sweet bean jelly) block on a small wooden plate, a little bamboo pick stuck in it. Upright, held by the bottom of the plate."}
   ]
 }

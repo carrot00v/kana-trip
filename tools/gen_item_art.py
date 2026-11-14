@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """리워드 아이템 그림 후보를 로컬 Z-Image Turbo로 뽑는다 (docs/design/item-art/brief.md).
 
-  python3 tools/gen_item_art.py kippu noren yu --count 4
-  python3 tools/gen_item_art.py --list
+  .venv/bin/python tools/gen_item_art.py kippu noren yu --count 4
+  .venv/bin/python tools/gen_item_art.py --list
 
 아이템마다 items.json의 prompt 앞뒤에 공통 문장을 붙여 gen_image.py로 생성하고,
-모자·두건·손 아이템은 tools/remove_bg.swift로 바탕을 지워 투명 PNG를 함께 만든다.
+모자·두건·손 아이템은 tools/remove_bg.py로 바탕을 지워 투명 PNG를 함께 만든다.
 결과: docs/design/item-art/source/candidates/{id}_{seed}.png (원본), {id}_{seed}-cut.png (투명)
 고른 한 장을 source/{id}.png로 복사하는 일은 사람이 한다 (brief.md 4번).
 
@@ -21,12 +21,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+from PIL import Image
+
+from remove_bg import remove_bg
+
 ROOT = Path(__file__).resolve().parent.parent
 ART = ROOT / "docs" / "design" / "item-art"
 OUT = ART / "source" / "candidates"
 GEN = ROOT / "tools" / "gen_image.py"
-REMOVE_BG = ROOT / "tools" / "remove_bg.swift"
-REMOVE_BG_BIN = ROOT / "build" / "remove_bg"
 
 # 기리의 화풍 (onigiri-default.png를 글로 옮김)
 STYLE = (
@@ -61,13 +63,6 @@ def build_prompt(item: dict) -> str:
     return f"{STYLE} {PALETTE} Subject: {item['prompt']} {rules}"
 
 
-def remove_bg_binary() -> Path:
-    if not REMOVE_BG_BIN.exists() or REMOVE_BG_BIN.stat().st_mtime < REMOVE_BG.stat().st_mtime:
-        REMOVE_BG_BIN.parent.mkdir(parents=True, exist_ok=True)
-        subprocess.run(["swiftc", "-O", str(REMOVE_BG), "-o", str(REMOVE_BG_BIN)], check=True)
-    return REMOVE_BG_BIN
-
-
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("ids", nargs="*", help="아이템 id (items.json)")
@@ -87,7 +82,6 @@ def main() -> int:
         return 2
 
     OUT.mkdir(parents=True, exist_ok=True)
-    rb = remove_bg_binary()
     seed = a.seed if a.seed is not None else random.randint(0, 2**31 - 1)
     # 아이템을 번갈아 돌려서 중간에 멈춰도 모든 아이템의 후보를 하나 이상 볼 수 있게 한다
     for n in range(a.count):
@@ -100,7 +94,9 @@ def main() -> int:
                 continue
             src = OUT / f"{item_id}_{s}.png"
             if item["slot"] != "background":
-                subprocess.run([str(rb), str(src), str(src.with_name(f"{item_id}_{s}-cut.png"))])
+                cut, _, ratio = remove_bg(Image.open(src))
+                cut.save(src.with_name(f"{item_id}_{s}-cut.png"))
+                print(f"  바탕 지움 {ratio * 100:.0f}%", flush=True)
     return 0
 
 

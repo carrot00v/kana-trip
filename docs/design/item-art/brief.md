@@ -93,7 +93,7 @@ Subject: {prompt}
 로컬 Z-Image Turbo(ComfyUI)로 뽑을 때는 `tools/gen_item_art.py`가 프롬프트를 조립한다. 위 공통 프롬프트와 다른 점:
 
 - **참고 이미지를 못 넘긴다.** 그래서 "same style as the reference"를 빼고 기리 화풍(진갈색 굵은 외곽선, 단색 면, 그라데이션 없음)과 1.1의 색을 글로 풀어 쓴다.
-- **바탕은 투명 대신 옅은 회색 단색.** 모델이 투명 PNG를 만들지 못하므로, `tools/remove_bg.swift`가 가장자리부터 바탕색을 지워 `{id}_{seed}-cut.png`를 만든다. 배경 아이템은 지우지 않는다.
+- **바탕은 투명 대신 옅은 회색 단색.** 모델이 투명 PNG를 만들지 못하므로, `tools/remove_bg.py`가 가장자리부터 바탕색을 지워 `{id}_{seed}-cut.png`를 만든다. 배경 아이템은 지우지 않는다.
 - **얼굴과 바닥 그림자를 막는 문장을 넣는다.** "mascot" 같은 말을 쓰면 물건에 눈·입이 생기고 바닥 그림자가 따라 나왔다(2026-11-14 시험). no face/eyes/mouth, no ground shadow를 명시한다.
 - 후보는 `source/candidates/{id}_{seed}.png`에 쌓이고, 같은 이름의 `.json`에 프롬프트와 시드가 남는다. 고른 한 장을 `source/{id}.png`로 복사하는 일은 사람이 한다.
 - 이 Mac(M4 Pro 24GB)에서 1024px 한 장에 3.5~5분. 한 번에 하나만 돌린다.
@@ -102,7 +102,10 @@ Subject: {prompt}
 
 1. 생성한 그림을 `source/{id}.png`로 저장한다(예: `source/sushi.png`). 마음에 드는 한 장만 남긴다.
 2. 확인할 것: 투명 배경인지(배경 아이템 제외), 글자가 섞이지 않았는지, 금지 색이 넓게 없는지, 외곽선이 기리와 비슷한 굵기인지.
-3. 배치 스크립트가 `targetBox`에 맞춰 크기를 줄이고 360 좌표계 캔버스에 놓아 아래 에셋을 만든다. **이 스크립트는 아직 없다.** 그림이 들어오기 시작하면 developer에게 맡긴다.
+3. `.venv/bin/python tools/place_item_art.py`를 실행한다. `targetBox`에 맞춰 크기를 줄여 360 좌표계 캔버스에 놓고, 배경에는 `kanaBoxes` 자리에 KanjiVG 획으로 가나를 합성해 아래 에셋을 만든다. 금지 색 비율도 함께 출력한다.
+   - 먼저 플랫폼에 묶이지 않는 PNG를 `build/item-art/`에 만들고, 이를 iOS 에셋 카탈로그로 복사한다. 안드로이드를 만들면 같은 결과를 `res/drawable`로 옮기는 단계만 더한다.
+   - 그림 도구는 파이썬 + Pillow로 통일한다(안드로이드 확장 대비). 처음 한 번 `python3 -m venv .venv && .venv/bin/pip install -r tools/requirements.txt`.
+   - 배경 그림을 바꾸면 `items.json`의 `kanaBoxes`를 새 그림의 노렌·간판 자리에 다시 맞춘다.
 
 | 슬롯 | 만들 에셋 | 내용 |
 |---|---|---|

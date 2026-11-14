@@ -4,3 +4,5 @@ DerivedData/
 xcuserdata/
 *.xcuserstate
 docs/design/item-art/source/candidates/
+.venv/
+__pycache__/
