@@ -36,12 +36,15 @@ struct QuizSessionView: View {
         // 마지막 문항을 맞히면 "완료" (scene-flow.md 12.6).
         let nextTitle = quiz.isFinished ? L.done : L.next
         let library = ContentLibrary.shared
+        // 질문은 기리가 한다 (giri-companion.md 3.8, 3.11).
+        let giriQuestion = GiriSpeech.question(kind: item.kind, isPartStart: header.isPartStart, isRetry: header.isRetry)
         switch item.kind {
         case .readingChoice:
             if let char = item.kana, let kana = library.kana(char) {
                 ChoiceQuestionView(
-                    header: header, question: L.choiceQuestion, item: item, progress: progress,
+                    header: header, giriQuestion: giriQuestion, item: item, progress: progress,
                     nextTitle: nextTitle, singleColumn: false, onClose: onClose,
+                    wrongLine: { picked in GiriSpeech.wrongAnswer(item: item, picked: picked, word: nil, lookup: library) },
                     onAnswered: { picked in answer(item, picked: picked) }, onNext: loadNext
                 ) { answered in
                     GlyphProblem(kana: kana, answered: answered)
@@ -52,8 +55,9 @@ struct QuizSessionView: View {
                 // 보기 가운데 하나라도 2열 칸에 안 들어가면 한 줄 목록으로 (scene-flow.md 13.5).
                 let long = ([item.answer] + item.wrongs.map(\.romaji)).contains { $0.count > 10 }
                 ChoiceQuestionView(
-                    header: header, question: L.wordQuestion, item: item, progress: progress,
+                    header: header, giriQuestion: giriQuestion, item: item, progress: progress,
                     nextTitle: nextTitle, singleColumn: long, onClose: onClose,
+                    wrongLine: { picked in GiriSpeech.wrongAnswer(item: item, picked: picked, word: word, lookup: library) },
                     onAnswered: { picked in answer(item, picked: picked) }, onNext: loadNext
                 ) { answered in
                     WordProblem(word: word, learned: QuizBuilder.learned(through: run.scene, library: library), answered: answered)
@@ -62,7 +66,7 @@ struct QuizSessionView: View {
         case .recallWrite:
             if let char = item.kana, let kana = library.kana(char) {
                 RecallWriteView(
-                    kana: kana, header: header, progress: progress, nextTitle: nextTitle, onClose: onClose,
+                    kana: kana, header: header, giriQuestion: giriQuestion, progress: progress, nextTitle: nextTitle, onClose: onClose,
                     onGuideUsed: { run.markGuideUsed(kana.char) },
                     // 가이드를 본 글자는 틀린 것으로 보고 부의 끝에 다시 낸다.
                     onCompleted: { usedGuide in run.answerCurrent(correct: !usedGuide, wrongKana: kana.char) },
@@ -114,6 +118,16 @@ enum QuizPartHeader: Equatable {
         let index = (part.items.firstIndex { $0.id == id } ?? 0) + 1
         self = index == 1 && partIndex > 0 ? .partStart(name: name, count: part.items.count)
             : .position(name: name, index: index, count: part.items.count)
+    }
+
+    var isPartStart: Bool {
+        if case .partStart = self { return true }
+        return false
+    }
+
+    var isRetry: Bool {
+        if case .retry = self { return true }
+        return false
     }
 }
 
@@ -191,13 +205,16 @@ private struct WordProblem: View {
 
 struct ChoiceQuestionView<Problem: View>: View {
     let header: QuizPartHeader
-    let question: String
+    /// 기리가 하는 질문 (3.11).
+    let giriQuestion: String
     let item: QuizItem
     let progress: PartProgress
     let nextTitle: String
     /// 보기를 한 줄 목록으로 그릴지 (긴 로마자 단어).
     let singleColumn: Bool
     let onClose: () -> Void
+    /// 고른 오답에 기리가 짚는 말 (giri-lines.md 6.1).
+    let wrongLine: (String) -> String?
     let onAnswered: (String) -> Void
     let onNext: () -> Void
     @ViewBuilder let problem: (_ answered: Bool) -> Problem
@@ -211,20 +228,28 @@ struct ChoiceQuestionView<Problem: View>: View {
 
     private var answered: Bool { picked != nil }
 
+    /// 답하기 전에는 생각, 정답이면 웃음(말풍선 사라짐), 오답이면 아쉬움 + 짚는 말.
+    private var giriPose: GiriPose {
+        guard let picked else { return .think }
+        return picked == item.answer ? .happy : .sorry
+    }
+
+    private var giriText: String? {
+        guard let picked else { return giriQuestion }
+        return picked == item.answer ? nil : (wrongLine(picked) ?? giriQuestion)
+    }
+
     var body: some View {
         SessionScaffold(progress: progress, onClose: onClose) {
             VStack(spacing: 0) {
                 QuizPartHeaderView(header: header)
+                // 기리 줄은 높이 60pt(말풍선 2줄)로 고정해 말풍선이 바뀌거나 사라져도 아래가 움직이지 않는다 (3.8).
+                GiriSpeechRow(pose: giriPose, text: giriText, maxLines: 2, reservedLines: 2,
+                              hop: picked == item.answer ? 1 : 0, focusOnAppear: true)
+                    .padding(.top, 8)
                 ScrollView {
-                    VStack(spacing: 16) {
-                        Text(question)
-                            .font(.headline)
-                            .foregroundStyle(Color.ink)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 20)
-                            .padding(.top, 8)
-                        problem(answered)
-                    }
+                    problem(answered)
+                        .padding(.top, 8)
                 }
                 .scrollBounceBehavior(.basedOnSize)
 
@@ -315,7 +340,10 @@ struct ChoiceQuestionView<Problem: View>: View {
         picked = option
         let correct = option == item.answer
         if correct { correctTick += 1 } else { wrongTick += 1 }
-        AccessibilityNotification.Announcement(correct ? L.choiceCorrect : L.choiceAnswer(item.answer)).post()
+        // 오답은 판정과 기리의 짚는 말을 알림 하나로 묶는다 (giri-companion.md 6.1).
+        let announcement = correct ? L.choiceCorrect
+            : [L.choiceAnswer(item.answer), wrongLine(option)].compactMap { $0 }.joined(separator: ". ")
+        AccessibilityNotification.Announcement(announcement).post()
         onAnswered(option)
     }
 }
@@ -328,6 +356,7 @@ struct RecallWriteView: View {
 
     let kana: Kana
     let header: QuizPartHeader
+    let giriQuestion: String
     let progress: PartProgress
     let nextTitle: String
     let onClose: () -> Void
@@ -344,47 +373,69 @@ struct RecallWriteView: View {
 
     private var finished: Bool { attempt.isFinished(strokeCount: kana.strokes.count) }
 
+    /// 답하는 동안 생각. 가이드가 켜지면 말하기 + 쓰기 포인트. 완성하면 말풍선이 사라지고, 가이드 없이 썼으면 웃으며 깡충 (3.8).
+    private var giriPose: GiriPose {
+        if finished { return guideOn ? .normal : .happy }
+        return guideOn ? .talk : .think
+    }
+
+    private var giriText: String? {
+        if finished { return nil }
+        return guideOn ? GiriSpeech.guideTip(kana.tip) : giriQuestion
+    }
+
+    /// 기리 줄의 말풍선 줄 수: 4줄(100pt)을 잡아도 캔버스가 300pt 이상이면 4줄, 아니면 2줄(60pt) (3.8).
+    private func giriLines(for size: CGSize) -> Int {
+        // 부 머리 줄 26, 간격 8 × 5, 발음 64, 판정 줄
+        let others: CGFloat = 26 + 40 + 64 + VerdictLine.height
+        let canvas = min(size.width - 32, size.height - others - GiriSpeechRow.bubbleHeight(lines: 4))
+        return canvas >= 300 ? 4 : 2
+    }
+
     var body: some View {
         SessionScaffold(progress: progress, onClose: onClose) {
-            VStack(spacing: 8) {
-                QuizPartHeaderView(header: header)
-                Text(L.recallQuestion)
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 20)
+            GeometryReader { proxy in
+                let lines = giriLines(for: proxy.size)
+                VStack(spacing: 8) {
+                    QuizPartHeaderView(header: header)
+                    // 질문 줄 대신 기리가 말한다. 쓰기 화면이라 숨쉬지 않는다.
+                    GiriSpeechRow(pose: giriPose, text: giriText, maxLines: lines, reservedLines: lines,
+                                  breathes: false, hop: finished && !guideOn ? 1 : 0,
+                                  limitsLinesAtLargeType: true, focusOnAppear: true)
 
-                HStack(spacing: 4) {
-                    Text(kana.romaji).font(.system(size: 48))
-                    if store.soundOn { SpeakerBadge() }
-                }
-                .frame(minHeight: 64)
-                .speaks(kana.char, enabled: store.soundOn)
-
-                Spacer(minLength: 0)
-
-                if showsGuideNotice {
-                    VerdictLine(kind: .guide, text: L.guideOn)
-                } else {
-                    VerdictLine.forAttempt(
-                        attempt.feedback,
-                        idleText: L.recallHint,
-                        finishedText: guideOn ? L.recallFinishedWithGuide : L.recallFinished
-                    )
-                }
-
-                WritingPad(
-                    kana: kana,
-                    showGuide: guideOn,
-                    attempt: $attempt,
-                    revealsKanaToVoiceOver: false,
-                    finishedAnnouncement: guideOn ? L.recallFinishedWithGuide : L.recallFinished,
-                    isDrawing: $isDrawing,
-                    onRejectedCleared: {
-                        // 3번째 틀린 획의 빨간 표시가 사라진 뒤 자동으로 켠다.
-                        if attempt.mistakes >= Self.mistakesBeforeGuide { turnGuideOn() }
+                    HStack(spacing: 4) {
+                        Text(kana.romaji).font(.system(size: 48))
+                        if store.soundOn { SpeakerBadge() }
                     }
-                )
-                .padding(.horizontal, 16)
+                    .frame(minHeight: 64)
+                    .speaks(kana.char, enabled: store.soundOn)
+
+                    Spacer(minLength: 0)
+
+                    if showsGuideNotice {
+                        VerdictLine(kind: .guide, text: L.guideOn)
+                    } else {
+                        VerdictLine.forAttempt(
+                            attempt.feedback,
+                            idleText: L.recallHint,
+                            finishedText: guideOn ? L.recallFinishedWithGuide : L.recallFinished
+                        )
+                    }
+
+                    WritingPad(
+                        kana: kana,
+                        showGuide: guideOn,
+                        attempt: $attempt,
+                        revealsKanaToVoiceOver: false,
+                        finishedAnnouncement: guideOn ? L.recallFinishedWithGuide : L.recallFinished,
+                        isDrawing: $isDrawing,
+                        onRejectedCleared: {
+                            // 3번째 틀린 획의 빨간 표시가 사라진 뒤 자동으로 켠다.
+                            if attempt.mistakes >= Self.mistakesBeforeGuide { turnGuideOn() }
+                        }
+                    )
+                    .padding(.horizontal, 16)
+                }
             }
         } bottom: {
             Group {
@@ -408,6 +459,6 @@ struct RecallWriteView: View {
         guideOn = true
         showsGuideNotice = true
         onGuideUsed()
-        AccessibilityNotification.Announcement(L.guideOn).post()
+        AccessibilityNotification.Announcement([L.guideOn, kana.tip].compactMap { $0 }.joined(separator: ". ")).post()
     }
 }

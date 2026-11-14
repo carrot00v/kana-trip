@@ -17,7 +17,7 @@ struct StepDoneView: View {
     var body: some View {
         let library = ContentLibrary.shared
         let next = run.isReplay ? nil : library.session(after: run.session)
-        CompletionLayout {
+        CompletionLayout(giriLine: giriLine) {
             Text(title).font(.title2.bold())
             Text(summary).font(.body).foregroundStyle(Color.inkSecondary)
         } detail: {
@@ -68,6 +68,19 @@ struct StepDoneView: View {
         .onAppear { appearTick += 1 }
     }
 
+    /// 같이 다녀온 느낌만 더한다. 제목·요약과 같은 말을 되풀이하지 않는다 (giri-companion.md 3.9, 3.11).
+    private var giriLine: String {
+        let completion: GiriSpeech.Completion
+        if run.isReplay {
+            completion = run.session.isQuiz ? .quizReplay : .stepReplay
+        } else if let step = run.step, step.index == 0, let next = ContentLibrary.shared.step(after: step) {
+            completion = .stepA(step: step.name, next: next.name)
+        } else {
+            completion = .stepB
+        }
+        return GiriSpeech.completion(completion)
+    }
+
     private var title: String {
         L.stepDone(scene: run.scene.name, step: run.step?.name ?? L.quizSessionName)
     }
@@ -98,7 +111,8 @@ struct SceneDoneView: View {
         let items = store.rewardCatalog.items(forScene: scene.id)
         // 살 수 있는 아이템이 있거나 이번에 아이템을 받았을 때만 "기리 꾸미기"를 둔다.
         let showsCustomize = store.canBuyAnyItem || !grant.grantedItemIDs.isEmpty
-        CompletionLayout {
+        let giriLine = GiriSpeech.completion(.scene(scene: scene.name, hadWrong: !quizWrong.isEmpty, isLastScene: next == nil))
+        CompletionLayout(giriLine: giriLine) {
             Text(L.sceneDone(scene.name)).font(.title2.bold())
             Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(Color.inkSecondary)
             // 틀린 글자 줄 (scene-flow.md 14번). 다음 장면이 있으면 그 퀴즈에 다시 나온다.
@@ -204,6 +218,8 @@ private struct GoalWordsBlock: View {
 
 /// 완료 화면의 배치. 캐릭터 아래 끝이 내용 영역 높이의 위에서 3분의 1에 오고 버튼은 아래에 고정된다.
 private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View {
+    /// 기리 말풍선 (3.11의 C1, C2).
+    let giriLine: String
     @ViewBuilder let texts: Texts
     @ViewBuilder let detail: Detail
     @ViewBuilder let buttons: Buttons
@@ -218,13 +234,15 @@ private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View 
             GeometryReader { geo in
                 ScrollView {
                     VStack(spacing: 24) {
-                        CelebrationCharacter(side: characterSide)
-                        VStack(spacing: 8) { texts }
-                            .multilineTextAlignment(.center)
-                        detail
+                        giri(side: characterSide)
+                        VStack(spacing: 24) {
+                            VStack(spacing: 8) { texts }
+                                .multilineTextAlignment(.center)
+                            detail
+                        }
+                        .padding(.horizontal, 20)
                     }
                     .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { contentHeight = $0 }
-                    .padding(.horizontal, 20)
                     // 캐릭터 아래 끝을 위에서 3분의 1에 두되, 모자라면 위 여백부터 줄인다. 최소 24pt (reward-flow.md 6.2).
                     // 내용 영역은 아래 버튼 영역(버튼 사이 4pt 포함)을 뺀 실제 높이다.
                     .padding(.top, max(min(geo.size.height / 3 - characterSide, geo.size.height - contentHeight), 24))
@@ -238,6 +256,21 @@ private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View 
                 .padding(.bottom, 8)
         }
         .background(Color.appBackground)
+    }
+
+    /// 기리는 왼쪽(여백 16pt), 말풍선은 오른쪽. 말풍선은 등장 0.15초 뒤 뜬다 (giri-companion.md 3.9, 5.2).
+    /// 큰 글자 크기에서는 기리 80pt를 가운데 두고 말풍선을 그 아래 8pt에 전체 폭으로 둔다 (6.2).
+    @ViewBuilder
+    private func giri(side: CGFloat) -> some View {
+        if typeSize.isAccessibilitySize {
+            VStack(spacing: 8) {
+                CelebrationCharacter(side: side)
+                GiriSpeechRow(pose: .happy, text: giriLine, size: side, maxLines: 3, breathes: false)
+            }
+        } else {
+            GiriSpeechRow(pose: .happy, text: giriLine, size: side, maxLines: 3, breathes: false, bubbleDelay: 0.15,
+                          customFigure: AnyView(CelebrationCharacter(side: side)))
+        }
     }
 }
 
@@ -258,7 +291,7 @@ private struct CelebrationCharacter: View {
 
     var body: some View {
         let shown = appeared || reduceMotion
-        GiriView(face: .happy, outfit: store.rewards.equipped, side: side)
+        GiriView(pose: .happy, outfit: store.rewards.equipped, side: side)
             .overlay {
                 Image(systemName: "checkmark.circle.fill")
                     .resizable()

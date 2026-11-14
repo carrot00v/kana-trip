@@ -85,13 +85,11 @@ enum L {
     }
 
     // MARK: 퀴즈
-    static let choiceQuestion = "이 글자의 발음은?"
     static let choiceCorrect = "맞아요"
     /// 로마자가 n으로 끝나면 받침으로 보고 "이에요" (scene-flow.md 13.1).
     static func choiceAnswer(_ romaji: String) -> String {
         romaji.hasSuffix("n") ? "정답은 \(romaji)이에요" : "정답은 \(romaji)예요"
     }
-    static let wordQuestion = "이 단어의 읽기는?"
 
     // MARK: 종합 퀴즈 (scene-flow.md 12, 13번)
     static func quizPartName(_ kind: QuizKind) -> String {
@@ -105,7 +103,6 @@ enum L {
     static func partStartLabel(name: String, count: Int) -> String { "여기부터 \(name), \(count)문항" }
     static func retryRemaining(_ n: Int) -> String { "다시 풀기 · \(n)개 남음" }
     static func quizTitle(scene: String) -> String { "\(scene) 종합 퀴즈" }
-    static let quizIntroWithWords = "배운 글자와 단어를 섞어 물어요"
     static func questionCount(_ n: Int) -> String { "\(n)문항" }
     static func reviewIncluded(_ kana: [String]) -> String { "지난 장면에서 헷갈린 글자 \(kana.joined(separator: ", "))도 나와요" }
     static let resumeAnytime = "중간에 나가도 이어서 할 수 있어요"
@@ -119,7 +116,6 @@ enum L {
         return "\(kana.joined(separator: ", "))\(particle) 이번에 헷갈렸어요"
     }
     static func confusedKana(_ kana: [String]) -> String { "헷갈린 글자 \(kana.joined(separator: ", "))" }
-    static let recallQuestion = "이 발음의 글자를 쓰세요"
     static let recallHint = "기억나는 대로 한 획씩 쓰세요"
     static let guideOn = "가이드를 보고 따라 쓰세요"
     static let recallFinished = "완성, 기억으로 썼어요"
@@ -127,7 +123,6 @@ enum L {
     static let showGuide = "가이드 보기"
 
     // MARK: 단어 읽기
-    static let readAloud = "소리 내어 읽어 보세요"
     static let checkReading = "읽기 확인"
 
     // MARK: 완료
@@ -190,6 +185,87 @@ enum L {
     static let buyNoRefund = "산 아이템은 되돌릴 수 없어요"
     static func buyButton(price: Int) -> String { "\(yen(price))으로 사기" }
     static let cancel = "취소"
+
+    // MARK: 기리 고정 대사 (docs/design/giri-companion.md 3.11, docs/content/giri-lines.md 4.2·6.1)
+    // 단어 설명, 장면 소개, 쓰기 포인트, 쌍 짚기는 데이터에 있다 (tools/build_giri_lines.py).
+
+    // H 홈
+    static func giriHomeFirst(_ scene: String) -> String { "첫 여행지는 \(scene)\(copula(scene)). 같이 가 봐요" }
+    static func giriHomeNewScene(scene: String, step: String) -> String { "다음 여행지는 \(scene)\(copula(scene)). \(step)부터 봐요" }
+    static func giriHomeStepB(scene: String, step: String) -> String { "\(scene) \(step)\(object(step)) 읽으러 가요" }
+    static func giriHomeQuiz(_ scene: String) -> String { "\(scene)에서 읽은 걸 같이 확인해 봐요" }
+    /// `session`은 단계 이름 또는 "종합 퀴즈".
+    static func giriHomeResume(scene: String, session: String) -> String { "\(scene) \(session) 하던 데부터 이어서 해요" }
+    static let giriComingSoon = "다음 여행지는 아직 준비 중이에요"
+    static let giriAllDone = "히라가나 여행을 다 마쳤어요"
+
+    // S 장면 진입
+    static func giriSceneStepA(scene: String, step: String) -> String { "\(scene)에 왔어요. \(step)부터 읽어 볼까요?" }
+    static func giriSceneStepB(_ step: String) -> String { "이제 \(step)\(object(step)) 읽어 볼까요?" }
+    static let giriSceneQuiz = "여기 단어는 다 봤어요. 같이 확인해 볼까요?"
+    static func giriSceneResume(_ session: String) -> String { "\(session) 하던 데부터 이어서 해요" }
+    static func giriSceneDone(_ scene: String) -> String { "\(scene)\(topic(scene)) 이제 읽을 수 있어요" }
+
+    // L1, L2 (쓰기 포인트가 없는 글자)
+    static let giriNoTip = "번호 순서대로 따라 써 봐요"
+
+    // W 단어 읽기 전 (giri-lines.md 4.2)
+    static let giriReadAloud = "같이 소리 내어 읽어 봐요"
+    static let giriKanjiWord = "한자는 위에 쓴 발음으로 읽어요"
+    static let giriFirstRuby = "위에 작게 쓴 건 아직 안 배운 글자예요"
+    static func giriReread(_ step: String) -> String { "\(step)에서 본 단어예요. 다시 읽어 봐요" }
+    static func giriWordFallback(scene: String, step: String) -> String { "\(scene) \(step)에서 볼 수 있어요" }
+
+    // QI 퀴즈 안내
+    static func giriQuizIntro(_ scene: String) -> String { "\(scene) 마지막 차례예요. 헷갈린 건 한 번 더 나와요" }
+    static let giriQuizIntroReplay = "한 번 더 같이 확인해 봐요"
+
+    // QA, QD, QC 질문
+    static let giriAskKana = "이 글자, 어떻게 읽을까요?"
+    static let giriAskWord = "이 단어, 어떻게 읽을까요?"
+    static let giriAskWrite = "이 발음의 글자를 써 봐요"
+    static let giriPartWord = "이번엔 단어예요. 어떻게 읽을까요?"
+    static let giriPartWrite = "이번엔 기억으로 써 봐요"
+    static let giriRetryRead = "한 번 더 봐요. 어떻게 읽을까요?"
+    static let giriRetryWrite = "한 번 더 기억으로 써 봐요"
+    static let giriGuideNoTip = "가이드를 따라 같이 써 봐요"
+
+    // 오답 틀 문구 (giri-lines.md 6.1). ん과 로마자 n은 받침으로 본다.
+    /// QA: "ko는 こ예요. た는 ta로 읽어요"
+    static func giriWrongKana(picked romaji: String, pickedKana: String, correct: String, correctRomaji: String) -> String {
+        "\(romaji)\(kanaTopic(romaji)) \(pickedKana)\(kanaCopula(pickedKana)). \(correct)\(kanaTopic(correct)) \(correctRomaji)\(kanaInstrument(correctRomaji)) 읽어요"
+    }
+    /// QD: "이 단어의 か는 ka예요"
+    static func giriWrongWord(kana: String, romaji: String) -> String {
+        "이 단어의 \(kana)\(kanaTopic(kana)) \(romaji)\(kanaCopula(romaji))"
+    }
+
+    // C1, C2 완료
+    static func giriDoneStepA(step: String, next: String) -> String { "\(step) 다 읽었어요. 다음은 \(next)\(copula(next))" }
+    static let giriDoneStepB = "이제 종합 퀴즈만 남았어요"
+    static let giriDoneStepReplay = "한 번 더 읽으니 눈에 잘 들어와요"
+    static let giriDoneQuizReplay = "다시 해도 다 읽었네요"
+    static func giriDoneScene(_ scene: String) -> String { "\(scene)에서 본 글자, 이제 다 읽혀요" }
+    static let giriDoneSceneWrong = "헷갈린 글자는 다음 여행지에서 또 봐요"
+    static let giriDoneAll = "히라가나 여행을 다 마쳤어요. 같이 와서 즐거웠어요"
+
+    // 조사 (한글 낱말)
+    private static func copula(_ word: String) -> String { hasFinalConsonant(word) ? "이에요" : "예요" }
+    private static func object(_ word: String) -> String { hasFinalConsonant(word) ? "을" : "를" }
+    private static func topic(_ word: String) -> String { hasFinalConsonant(word) ? "은" : "는" }
+
+    // 조사 (가나, 로마자 값). 받침이 있으면 `|`의 뒤쪽 (giri-lines.md 6.1)
+    static func kanaHasFinalConsonant(_ value: String) -> Bool {
+        guard let last = value.last else { return false }
+        if last == "ん" || last == "n" || last == "N" { return true }
+        if let scalar = last.unicodeScalars.first, (0xAC00...0xD7A3).contains(scalar.value) {
+            return (scalar.value - 0xAC00) % 28 != 0
+        }
+        return false
+    }
+    private static func kanaTopic(_ v: String) -> String { kanaHasFinalConsonant(v) ? "은" : "는" }
+    private static func kanaCopula(_ v: String) -> String { kanaHasFinalConsonant(v) ? "이에요" : "예요" }
+    private static func kanaInstrument(_ v: String) -> String { kanaHasFinalConsonant(v) ? "으로" : "로" }
 
     // MARK: VoiceOver
     static let close = "닫기"

@@ -22,6 +22,9 @@ struct QuizItem: Codable, Equatable, Identifiable {
         /// (라): 바꾼 칸의 자리와 원래 글자. 이 오답을 고르면 원래 글자를 틀린 글자로 기록한다 (5.3).
         let changedIndex: Int?
         let original: String?
+        /// 이 오답의 글자. (가): 고른 로마자에 해당하는 글자 k. (라): 바꿔 넣은 글자 s.
+        /// 기리가 헷갈리는 쌍을 짚을 때 쓴다 (giri-companion.md 3.8, 7번). 이 필드 전에 저장한 문항에는 없다.
+        var replacement: String? = nil
     }
 
     let id: Int
@@ -43,6 +46,10 @@ struct QuizItem: Codable, Equatable, Identifiable {
         case .readingChoice, .recallWrite: return kana
         case .wordReading: return wrongs.first { $0.romaji == romaji }?.original
         }
+    }
+
+    func wrong(picked romaji: String) -> Wrong? {
+        wrongs.first { $0.romaji == romaji }
     }
 }
 

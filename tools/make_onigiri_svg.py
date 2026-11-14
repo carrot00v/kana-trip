@@ -2,7 +2,7 @@
 
 밥알이 뭉친 울퉁불퉁한 외곽선은 손으로 그리기 어려워서 계산으로 만든다.
 실행: python3 tools/make_onigiri_svg.py
-산출물: docs/design/character/onigiri-default.svg, onigiri-happy.svg
+산출물: docs/design/character/onigiri-{default,happy,talk,point,think,sorry}.svg, 레이어 SVG와 앱 에셋
         docs/design/character/layers/, items/ (꾸미기용 레이어, docs/design/reward-flow.md 8.1)
         KanaTrip/Assets.xcassets의 레이어 에셋 (Giri*, Item-*, ItemThumb-*)
 """
@@ -141,6 +141,30 @@ FACES = {
   <path d="M196 161 L180 170 L196 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M135 180 L165 180 Q165 207 150 207 Q135 207 135 180Z" fill="{LINE}" stroke="{LINE}" stroke-width="4" stroke-linejoin="round"/>
   <path d="M140 198 Q150 189 160 198 Q157 205 150 205 Q143 205 140 198Z" fill="{TONGUE}"/>''',
+    # 기리 동행 표정 (docs/design/giri-companion.md 4.2)
+    "talk": f'''
+  {EYE_L}
+  {EYE_R}
+  <path d="M140 184 Q150 181 160 184 Q160 200 150 200 Q140 200 140 184Z" fill="{LINE}" stroke="{LINE}" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M143 194 Q150 189 157 194 Q155 199 150 199 Q145 199 143 194Z" fill="{TONGUE}"/>''',
+    "think": f'''
+  <ellipse cx="118" cy="167" rx="6" ry="9" fill="{LINE}"/>
+  <ellipse cx="190" cy="167" rx="6" ry="9" fill="{LINE}"/>
+  <path d="M145 191 Q152 187 160 189" fill="none" stroke="{LINE}" stroke-width="5.5" stroke-linecap="round"/>''',
+    "sorry": f'''
+  <path d="M104 161 L120 170 L104 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M196 161 L180 170 L196 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M139 193 Q144.5 187 150 193 Q155.5 199 161 193" fill="none" stroke="{LINE}" stroke-width="5" stroke-linecap="round"/>''',
+}
+
+# 확인용 완성 그림: 이름 → (얼굴, 팔, 반짝임) (giri-companion.md 4.1). 앱은 레이어를 겹쳐 그린다.
+EXPRESSIONS = {
+    "default": ("default", "default", False),
+    "happy": ("happy", "happy", True),
+    "talk": ("talk", "default", False),
+    "point": ("talk", "happy", False),
+    "think": ("think", "default", False),
+    "sorry": ("sorry", "default", False),
 }
 
 ARMS = {
@@ -216,18 +240,21 @@ def wrap(inner, view_box="-30 0 360 360", defs=""):
 '''
 
 
-def svg(kind):
-    """완성 그림. 레이어를 기본 차림(요리사 모자, 빨간 두건)으로 겹친 것과 같다."""
+def svg(face_kind, arm_kind=None, sparkles=None):
+    """완성 그림. 레이어를 기본 차림(요리사 모자, 빨간 두건)으로 겹친 것과 같다.
+    팔과 반짝임을 주지 않으면 얼굴 이름을 따른다(default, happy)."""
+    arm_kind = arm_kind or face_kind
+    sparkles = (face_kind == "happy") if sparkles is None else sparkles
     body = body_path()
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
   <defs>
     {body_clip_def(body)}
   </defs>
-{base(kind)}
+{base(arm_kind)}
 {scarf()}
 {hat()}
-{face(kind)}
-{MARKS if kind == "happy" else ""}
+{face(face_kind)}
+{MARKS if sparkles else ""}
 </svg>
 '''
 
@@ -249,9 +276,11 @@ DEFAULT_ITEMS = {
 def layer_files():
     """(문서 안 상대 경로, 에셋 이름, SVG 내용)."""
     files = []
-    for kind in FACES:
+    # 본체는 팔 자세마다, 얼굴은 표정마다 하나 (giri-companion.md 4.3)
+    for kind in ARMS:
         files.append((f"layers/giri-base-{kind}.svg", f"GiriBase{kind.title()}",
                       wrap(base(kind), defs=body_clip_def(body_path()))))
+    for kind in FACES:
         files.append((f"layers/giri-face-{kind}.svg", f"GiriFace{kind.title()}", wrap(face(kind))))
     files.append(("layers/giri-sparkles.svg", "GiriSparkles", wrap(MARKS)))
     # 손 아이템이 있을 때: x = 150을 축으로 뒤집어 왼쪽 위에 (reward-flow.md 7번)
@@ -291,7 +320,7 @@ def write_imageset(name, filename, content):
 
 def check_layers_match():
     """기본 차림 레이어를 순서대로 이은 내용이 완성 그림과 같은지 본다 (reward-flow.md 8.1)."""
-    for kind in FACES:
+    for kind in ARMS:
         stacked = base(kind) + scarf() + hat() + face(kind) + (MARKS if kind == "happy" else "")
         whole = svg(kind)
         squash = lambda t: "".join(t.split())
@@ -300,9 +329,9 @@ def check_layers_match():
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    for kind in FACES:
-        (OUT / f"onigiri-{kind}.svg").write_text(svg(kind), encoding="utf-8")
-        print("wrote", OUT / f"onigiri-{kind}.svg")
+    for name, (face_kind, arm_kind, sparkles) in EXPRESSIONS.items():
+        (OUT / f"onigiri-{name}.svg").write_text(svg(face_kind, arm_kind, sparkles), encoding="utf-8")
+        print("wrote", OUT / f"onigiri-{name}.svg")
     check_layers_match()
     for rel, asset, content in layer_files():
         path = OUT / rel

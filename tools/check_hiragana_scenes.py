@@ -9,7 +9,9 @@
   5. 단어별 못 읽는 글자 수(못 읽는 글자로 / 탁음을 기본 글자로)를 누적 글자로 다시 세어 문서 4번·6번 표와 같은지
   6. 새 글자가 자기 단계 단어에 나오는지, 표기와 칸이 맞는지, 두 단계에 겹치는 단어가 없는지
   7. 단계 id가 {장면 id}-a / -b 인지
-  8. hiragana_tips.json의 か, た 문구가 문서 10.3과 같은지
+  8. hiragana_tips.json에 46자의 쓰기 포인트가 모두 있는지
+     (문구는 docs/content/giri-lines.md 5.1이 원본이다. 문서와 같은지는 tools/check_giri_lines.py가 본다.
+      hiragana-allocation.md 10.3의 か, た 문구는 그 문서로 넘어갔다.)
 
 실행: python3 tools/check_hiragana_scenes.py   (표준 라이브러리만 쓴다)
 통과하면 0, 하나라도 어긋나면 1로 끝난다.
@@ -197,9 +199,8 @@ def main() -> int:
         report_rows.append(f"  {key} {scene['name']} {st['name']}: 새 글자 {' '.join(st['kana'])} ({len(st['kana'])}자, 누적 {len(known)}자) | " + ", ".join(row))
 
     # 8. 쓰기 포인트 문구
-    for ch in ("か", "た"):
-        check(ch in doc_tips, f"문서 10.3에서 {ch} 문구를 읽지 못함")
-        check(tips_json.get(ch) == doc_tips.get(ch), f"hiragana_tips.json {ch}: {tips_json.get(ch)!r} / 문서 {doc_tips.get(ch)!r}")
+    missing_tips = [ch for ch in BASIC if not tips_json.get(ch)]
+    check(not missing_tips, f"hiragana_tips.json에 쓰기 포인트가 없는 글자 {missing_tips}")
 
     print("단계별 결과 (단어 옆 숫자 = 못 읽는 글자 수 / 탁음을 기본 글자로 볼 때)")
     print("\n".join(report_rows))

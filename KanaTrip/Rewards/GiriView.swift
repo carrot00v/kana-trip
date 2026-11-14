@@ -7,26 +7,42 @@ import UIKit
 // 아직 없는 아이템(히라가나 16개 모두, PLAN.md 8번)은 SF Symbol 임시 표시로 그린다.
 // 그림 에셋을 넣으면 코드를 고치지 않아도 임시 표시가 그림으로 바뀐다.
 
-enum GiriFace {
-    /// 기본 표정. 홈의 기리 행, 꾸미기 화면.
+/// 기리의 표정과 팔 자세 (docs/design/giri-companion.md 4.1). 얼굴 레이어 5장과 팔 레이어 2장을 겹친다.
+enum GiriPose: Hashable {
+    /// 기본. 말없이 있을 때, 꾸미기 화면.
     case normal
-    /// 웃는 표정. 세션·장면 완료.
+    /// 웃음 (오른팔 듦, 반짝임). 정답, 글자 완성, 완료 화면.
     case happy
+    /// 말하기. 말풍선으로 알려 주거나 권할 때.
+    case talk
+    /// 손 들기 (말하기 얼굴 + 오른팔 듦). 위의 글자·단어를 두고 설명할 때.
+    case point
+    /// 생각. 같이 읽는 중, 답을 기다릴 때.
+    case think
+    /// 아쉬움 ("앗차"). 퀴즈 오답.
+    case sorry
 
-    var assetSuffix: String {
+    /// 얼굴 레이어 에셋 이름의 끝 (`GiriFace{…}`).
+    var faceSuffix: String {
         switch self {
         case .normal: "Default"
         case .happy: "Happy"
+        case .talk, .point: "Talk"
+        case .think: "Think"
+        case .sorry: "Sorry"
         }
     }
 
-    /// 손 아이템 파일 이름의 표정 부분 (`Item-{id}-default`).
-    var fileKey: String {
-        switch self {
-        case .normal: "default"
-        case .happy: "happy"
-        }
-    }
+    /// 팔을 든 자세인지. 본체 레이어와 손 아이템 파일을 팔 자세로 고른다 (4.1).
+    var armRaised: Bool { self == .happy || self == .point }
+
+    /// 본체 레이어 에셋 이름의 끝 (`GiriBase{…}`).
+    var baseSuffix: String { armRaised ? "Happy" : "Default" }
+
+    /// 손 아이템 파일 이름의 자세 부분 (`Item-{id}-default`, `Item-{id}-happy`).
+    var fileKey: String { armRaised ? "happy" : "default" }
+
+    var hasSparkles: Bool { self == .happy }
 }
 
 enum RewardArt {
@@ -57,8 +73,8 @@ enum RewardArt {
     }
 
     /// 기리 위에 겹치는 레이어 에셋 이름. 손 아이템은 표정마다 옮겨 놓은 파일이 따로 있다 (8.1).
-    static func layerAsset(_ id: String, slot: RewardSlot, face: GiriFace) -> String {
-        slot == .hand ? "Item-\(id)-\(face.fileKey)" : "Item-\(id)"
+    static func layerAsset(_ id: String, slot: RewardSlot, pose: GiriPose) -> String {
+        slot == .hand ? "Item-\(id)-\(pose.fileKey)" : "Item-\(id)"
     }
 
     static func thumbnailAsset(_ id: String) -> String { "ItemThumb-\(id)" }
@@ -68,44 +84,57 @@ enum RewardArt {
     }
 
     /// 임시 표시를 놓는 자리 (360 좌표계, reward-flow.md 8.2).
-    static func placeholderAnchor(_ slot: RewardSlot, face: GiriFace) -> CGPoint {
+    static func placeholderAnchor(_ slot: RewardSlot, pose: GiriPose) -> CGPoint {
         switch slot {
         case .hat: CGPoint(x: 150, y: 74)
         case .scarf: CGPoint(x: 150, y: 244)
-        case .hand: face == .normal ? CGPoint(x: 278, y: 262) : CGPoint(x: 290, y: 142)
+        case .hand: pose.armRaised ? CGPoint(x: 290, y: 142) : CGPoint(x: 278, y: 262)
         case .background: CGPoint(x: 15, y: 60)
         }
     }
 }
 
-/// 입은 아이템을 겹친 기리. H(64pt), C1·C2(120pt), K 미리보기(200~260pt)가 함께 쓴다.
+/// 입은 아이템을 겹친 기리. 말풍선 줄(56·64·80pt), C1·C2(120pt), K 미리보기(200~260pt)가 함께 쓴다.
 /// 장식이라 VoiceOver에서 읽지 않는다. 꾸미기 화면은 바깥에서 따로 레이블을 붙인다.
+/// 표정이 바뀌면 얼굴·본체 레이어를 0.12초 교차 페이드한다(동작 줄이기면 바로 바뀜, giri-companion.md 5.2).
 struct GiriView: View {
-    let face: GiriFace
+    let pose: GiriPose
     /// 슬롯(RewardSlot.rawValue) → 아이템 id.
     let outfit: [String: String]
     let side: CGFloat
     /// 배경 슬롯은 꾸미기 화면에서만 그린다 (reward-flow.md 7번).
     var showsBackground = false
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
-        let hand = outfit[RewardSlot.hand.rawValue]
         ZStack {
             if showsBackground, let id = outfit[RewardSlot.background.rawValue] {
-                item(id, slot: .background)
+                item(id, slot: .background, pose: pose)
             }
-            layer("GiriBase\(face.assetSuffix)")
-            if let id = outfit[RewardSlot.scarf.rawValue] { item(id, slot: .scarf) }
-            if let id = outfit[RewardSlot.hat.rawValue] { item(id, slot: .hat) }
-            layer("GiriFace\(face.assetSuffix)")
-            if face == .happy {
+            figure(pose)
+                .id(pose)
+                .transition(.opacity)
+        }
+        .frame(width: side, height: side)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.12), value: pose)
+        .accessibilityHidden(true)
+    }
+
+    /// 본체, 두건, 모자, 얼굴, 반짝임, 손 아이템 (reward-flow.md 8.1의 겹치는 순서).
+    private func figure(_ pose: GiriPose) -> some View {
+        let hand = outfit[RewardSlot.hand.rawValue]
+        return ZStack {
+            layer("GiriBase\(pose.baseSuffix)")
+            if let id = outfit[RewardSlot.scarf.rawValue] { item(id, slot: .scarf, pose: pose) }
+            if let id = outfit[RewardSlot.hat.rawValue] { item(id, slot: .hat, pose: pose) }
+            layer("GiriFace\(pose.faceSuffix)")
+            if pose.hasSparkles {
                 // 손 아이템이 있으면 반짝임을 왼쪽으로 뒤집어 그린다 (reward-flow.md 7번).
                 layer(hand == nil ? "GiriSparkles" : "GiriSparklesLeft")
             }
-            if let hand { item(hand, slot: .hand) }
+            if let hand { item(hand, slot: .hand, pose: pose) }
         }
-        .frame(width: side, height: side)
-        .accessibilityHidden(true)
     }
 
     private func layer(_ name: String) -> some View {
@@ -113,14 +142,14 @@ struct GiriView: View {
     }
 
     @ViewBuilder
-    private func item(_ id: String, slot: RewardSlot) -> some View {
-        let asset = RewardArt.layerAsset(id, slot: slot, face: face)
+    private func item(_ id: String, slot: RewardSlot, pose: GiriPose) -> some View {
+        let asset = RewardArt.layerAsset(id, slot: slot, pose: pose)
         if RewardArt.hasAsset(asset) {
             layer(asset)
         } else if slot == .background {
             placeholderBackground(id)
         } else {
-            placeholderMark(id, slot: slot)
+            placeholderMark(id, slot: slot, pose: pose)
         }
     }
 
@@ -131,7 +160,7 @@ struct GiriView: View {
         CGPoint(x: (p.x + 30) / 360 * side, y: p.y / 360 * side)
     }
 
-    private func placeholderMark(_ id: String, slot: RewardSlot) -> some View {
+    private func placeholderMark(_ id: String, slot: RewardSlot, pose: GiriPose) -> some View {
         let d = side * 0.24
         return Image(systemName: RewardArt.placeholderSymbol(id))
             .resizable()
@@ -141,7 +170,7 @@ struct GiriView: View {
             .foregroundStyle(Color.ink)
             .background(Color.highlight, in: Circle())
             .overlay(Circle().strokeBorder(Color.ink, lineWidth: max(1, side / 120)))
-            .position(point(RewardArt.placeholderAnchor(slot, face: face)))
+            .position(point(RewardArt.placeholderAnchor(slot, pose: pose)))
             .frame(width: side, height: side)
     }
 
@@ -154,7 +183,7 @@ struct GiriView: View {
                 .scaledToFit()
                 .frame(width: d, height: d)
                 .foregroundStyle(Color.inkSecondary)
-                .position(point(RewardArt.placeholderAnchor(.background, face: face)))
+                .position(point(RewardArt.placeholderAnchor(.background, pose: pose)))
         }
         .frame(width: side, height: side)
     }

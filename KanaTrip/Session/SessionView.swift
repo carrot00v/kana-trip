@@ -90,9 +90,6 @@ struct QuizIntroView: View {
     let onClose: () -> Void
     let onStart: () -> Void
 
-    @Environment(ProgressStore.self) private var store
-    @Environment(\.dynamicTypeSize) private var typeSize
-
     var body: some View {
         let quiz = run.progress.quiz
         let parts = quiz?.parts ?? []
@@ -102,53 +99,53 @@ struct QuizIntroView: View {
         ) {
             ScrollView {
                 VStack(spacing: 0) {
-                    if !typeSize.isAccessibilitySize {
-                        // 기본 표정, 입은 아이템. 움직이지 않는다.
-                        GiriView(face: .normal, outfit: store.rewards.equipped, side: 96)
-                            .accessibilityHidden(true)
-                            .padding(.top, 16)
-                            .padding(.bottom, 16)
-                    }
-                    Text(L.quizTitle(scene: run.scene.name))
-                        .font(.title2.bold())
-                        .foregroundStyle(Color.ink)
-                    Text(L.quizIntroWithWords)
-                        .font(.body)
-                        .foregroundStyle(Color.inkSecondary)
-                        .padding(.top, 8)
-                    KanaRow(kana: run.scene.kana, marked: [])
-                        .padding(.top, 24)
+                    // 기리가 퀴즈를 안내한다(80pt, 말하기). 지금의 가운데 기리와 설명 줄을 대신한다 (giri-companion.md 3.7).
+                    GiriSpeechRow(
+                        pose: .talk,
+                        text: GiriSpeech.quizIntro(scene: run.scene.name, isReplay: run.isReplay),
+                        size: 80,
+                        maxLines: 3
+                    )
+                    .padding(.top, 16)
                     VStack(spacing: 0) {
-                        ForEach(Array(parts.enumerated()), id: \.offset) { _, part in
-                            HStack {
-                                Text(L.quizPartName(part.kind))
-                                    .foregroundStyle(Color.ink)
-                                Spacer()
-                                Text(L.questionCount(part.items.count))
-                                    .monospacedDigit()
-                                    .foregroundStyle(Color.inkSecondary)
-                            }
-                            .font(.body)
-                            .frame(minHeight: 28)
-                            .accessibilityElement(children: .combine)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 24)
-                    if let review = quiz?.review, !review.isEmpty {
-                        Text(L.reviewIncluded(review))
-                            .font(.subheadline)
+                        Text(L.quizTitle(scene: run.scene.name))
+                            .font(.title2.bold())
                             .foregroundStyle(Color.ink)
                             .padding(.top, 16)
+                        KanaRow(kana: run.scene.kana, marked: [])
+                            .padding(.top, 24)
+                        VStack(spacing: 0) {
+                            ForEach(Array(parts.enumerated()), id: \.offset) { _, part in
+                                HStack {
+                                    Text(L.quizPartName(part.kind))
+                                        .foregroundStyle(Color.ink)
+                                    Spacer()
+                                    Text(L.questionCount(part.items.count))
+                                        .monospacedDigit()
+                                        .foregroundStyle(Color.inkSecondary)
+                                }
+                                .font(.body)
+                                .frame(minHeight: 28)
+                                .accessibilityElement(children: .combine)
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 24)
+                        if let review = quiz?.review, !review.isEmpty {
+                            Text(L.reviewIncluded(review))
+                                .font(.subheadline)
+                                .foregroundStyle(Color.ink)
+                                .padding(.top, 16)
+                        }
+                        Text(L.resumeAnytime)
+                            .font(.footnote)
+                            .foregroundStyle(Color.inkSecondary)
+                            .padding(.top, 8)
                     }
-                    Text(L.resumeAnytime)
-                        .font(.footnote)
-                        .foregroundStyle(Color.inkSecondary)
-                        .padding(.top, 8)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity)
                 }
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 16)
-                .frame(maxWidth: .infinity)
             }
             .scrollBounceBehavior(.basedOnSize)
         } bottom: {

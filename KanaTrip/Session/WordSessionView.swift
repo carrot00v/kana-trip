@@ -38,6 +38,8 @@ struct WordSessionView: View {
                     } else {
                         withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) { revealed = true }
                         revealTick += 1
+                        // 읽기, 뜻, 기리 설명을 알림 하나로 묶어 읽는다 (giri-companion.md 6.1).
+                        AccessibilityNotification.Announcement("\(word.reading), \(word.meaning). \(explanation(word))").post()
                     }
                 }
             }
@@ -47,20 +49,40 @@ struct WordSessionView: View {
         }
     }
 
+    private var learned: Set<String> {
+        run.step.map { ContentLibrary.shared.kana(through: $0) } ?? []
+    }
+
+    /// 발음 표기가 붙는 단어인지: 붙여 쓴 한자나 아직 안 배운 글자가 있다 (WordBlock과 같은 기준).
+    private func hasRuby(_ word: TripWord) -> Bool {
+        word.units.contains { $0.isKanji || !learned.contains($0.kana) }
+    }
+
+    /// 읽기 전 기리 안내 (giri-companion.md 3.6, giri-lines.md 4.2).
+    private func beforeLine(_ word: TripWord) -> String {
+        let isReread = run.rereadWord?.text == word.text
+        let firstRuby = words.first(where: hasRuby)?.text == word.text
+        return GiriSpeech.beforeReading(GiriSpeech.readingContext(
+            isReread: isReread,
+            previousStep: run.scene.steps.first?.name,
+            isFirstRuby: firstRuby,
+            hasKanji: word.units.contains(where: \.isKanji)
+        ))
+    }
+
+    private func explanation(_ word: TripWord) -> String {
+        GiriSpeech.afterReading(word.giri, scene: run.scene.name, step: run.step?.name ?? "")
+    }
+
     private func content(_ word: TripWord) -> some View {
         ScrollView {
             VStack(spacing: 0) {
-                Text(L.readAloud)
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
-
+                // 맨 위 안내("소리 내어 읽어 보세요")는 기리가 대신 말한다 (3.6).
                 wordRow(word)
-                    .padding(.top, 72)
+                    .padding(.top, 24)
 
-                // 확인 전에도 자리를 차지해서 단어의 세로 위치가 바뀌지 않게 한다.
-                VStack(spacing: 8) {
+                // 확인 전에도 자리(70pt)를 차지해서 단어와 기리의 세로 위치가 바뀌지 않게 한다.
+                VStack(spacing: 4) {
                     HStack(spacing: 4) {
                         Text(word.reading).font(.title2.bold())
                         if store.soundOn { SpeakerBadge() }
@@ -68,22 +90,27 @@ struct WordSessionView: View {
                     .frame(minHeight: 44)
                     .speaks(word.text, enabled: store.soundOn && revealed)
                     Text(word.meaning).font(.body)
-                    if let note = word.note {
-                        Text(note).font(.subheadline).foregroundStyle(Color.inkSecondary)
-                    }
                 }
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
-                .padding(.top, 24)
+                .padding(.top, 16)
                 .opacity(revealed ? 1 : 0)
                 .accessibilityHidden(!revealed)
+
+                // 읽기 전에는 같이 읽는 생각 표정, 확인 뒤에는 손을 들고 단어를 설명한다.
+                GiriSpeechRow(
+                    pose: revealed ? .point : .think,
+                    text: revealed ? explanation(word) : beforeLine(word),
+                    maxLines: 3
+                )
+                .padding(.top, 16)
             }
         }
         .scrollBounceBehavior(.basedOnSize)
     }
 
     private func wordRow(_ word: TripWord) -> some View {
-        WordBlock(word: word, learned: run.step.map { ContentLibrary.shared.kana(through: $0) } ?? [], soundOn: store.soundOn)
+        WordBlock(word: word, learned: learned, soundOn: store.soundOn)
     }
 
     private func advance(from word: TripWord) {

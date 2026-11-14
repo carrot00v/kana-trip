@@ -186,7 +186,7 @@ struct QuizBuilder {
             let r = romaji(candidate)
             guard !used.contains(r) else { continue }
             used.insert(r)
-            result.append(QuizItem.Wrong(romaji: r, changedIndex: nil, original: nil))
+            result.append(QuizItem.Wrong(romaji: r, changedIndex: nil, original: nil, replacement: candidate))
         }
         assert(result.count == 3, "오답 후보가 모자람: \(char)")
         return result
@@ -231,7 +231,7 @@ struct QuizBuilder {
                 let made = parts.joined()
                 guard made != answer, !result.contains(where: { $0.romaji == made }) else { continue }
                 usedAt[position, default: []].insert(candidate)
-                result.append(QuizItem.Wrong(romaji: made, changedIndex: position, original: original))
+                result.append(QuizItem.Wrong(romaji: made, changedIndex: position, original: original, replacement: candidate))
                 break
             }
         }

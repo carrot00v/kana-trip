@@ -24,6 +24,7 @@ struct HomeView: View {
         @Bindable var store = store
         NavigationStack(path: $path) {
             List {
+                GiriListBubble(text: giriLine)
                 Section {
                     giriRow
                         .listRowBackground(Color.cardBackground)
@@ -59,20 +60,21 @@ struct HomeView: View {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                if let target = nextTarget {
-                    PrimaryButton(
-                        title: L.homeStart(
-                            scene: target.scene.name,
-                            step: L.sessionName(target.session),
-                            resume: store.isInProgress(target.session)
-                        )
-                    ) {
-                        // 세션을 닫으면 장면 진입이 아래에 깔려 있도록 먼저 push한다.
-                        path = [.scene(target.scene.id)]
-                        route = SessionRoute(sessionID: target.session.id)
+                // 기리 줄 + 주 버튼 (giri-companion.md 3.2). 주 버튼이 숨는 상태에도 기리 줄은 남는다.
+                GiriBottomDock(text: giriLine) {
+                    if let target = nextTarget {
+                        PrimaryButton(
+                            title: L.homeStart(
+                                scene: target.scene.name,
+                                step: L.sessionName(target.session),
+                                resume: store.isInProgress(target.session)
+                            )
+                        ) {
+                            // 세션을 닫으면 장면 진입이 아래에 깔려 있도록 먼저 push한다.
+                            path = [.scene(target.scene.id)]
+                            route = SessionRoute(sessionID: target.session.id)
+                        }
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
                 }
             }
             .navigationDestination(for: HomeRoute.self) { destination in
@@ -130,17 +132,18 @@ struct HomeView: View {
 
     // MARK: - 기리 행
 
-    /// 목록 맨 위의 기리 행 (reward-flow.md 4번). 행 전체가 누르는 영역이고 기리 그림은 장식이다.
-    /// 접근성 글자 크기에서는 기리를 숨긴다 (visual-rules.md 8.1).
+    /// 기리가 권하는 말 (giri-companion.md 3.11의 H).
+    private var giriLine: String {
+        GiriSpeech.home(store.giriHomeTurn(in: library))
+    }
+
+    /// 목록 맨 위의 꾸미기 행 (reward-flow.md 4번). 기리는 아래 고정 영역으로 옮겨 이 행에는 그림이 없다 (giri-companion.md 3.2).
     private var giriRow: some View {
         let canBuy = store.canBuyAnyItem
         return Button {
             path.append(.customize)
         } label: {
             HStack(spacing: 12) {
-                if !typeSize.isAccessibilitySize {
-                    GiriView(face: .normal, outfit: store.rewards.equipped, side: 64)
-                }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L.customize)
                         .font(.headline)
@@ -164,7 +167,7 @@ struct HomeView: View {
                     .foregroundStyle(Color.inkSecondary)
             }
             .padding(.vertical, 8)
-            .frame(minHeight: 80)
+            .frame(minHeight: 56)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -183,11 +186,7 @@ struct HomeView: View {
 
     /// 아래 주 버튼이 시작할 장면과 세션. 열린 장면의 내용이 아직 없으면 버튼을 숨긴다.
     private var nextTarget: (scene: TripScene, session: TripSession)? {
-        guard let scene = library.scenes.first(where: { status($0) == .open }),
-              scene.hasContent,
-              let session = store.nextSession(in: scene)
-        else { return nil }
-        return (scene, session)
+        store.homeTarget(in: library)
     }
 
     // MARK: - 장면 행 (scene-flow.md 5번, scene-art/brief.md 2번)

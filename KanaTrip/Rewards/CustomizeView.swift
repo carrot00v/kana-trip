@@ -94,7 +94,7 @@ struct CustomizeView: View {
     }
 
     private func preview(side: CGFloat) -> some View {
-        GiriView(face: .normal, outfit: previewOutfit, side: side, showsBackground: true)
+        GiriView(pose: .normal, outfit: previewOutfit, side: side, showsBackground: true)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: previewOutfit)
             .background(Color.cardBackground)
             .clipShape(RoundedRectangle(cornerRadius: 20))

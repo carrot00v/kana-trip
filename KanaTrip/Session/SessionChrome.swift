@@ -170,39 +170,6 @@ enum ButtonMetrics {
     static let cornerRadius: CGFloat = 16
 }
 
-/// 쓰기 포인트 상자. 카드 바탕 위에 노랑을 옅게 깔고 외곽선은 두지 않는다.
-struct TipBox: View {
-    let text: String
-    var lineLimit: Int? = nil
-
-    @Environment(\.colorScheme) private var colorScheme
-
-    var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
-            Image(systemName: "lightbulb.fill")
-                .foregroundStyle(Color.highlightStrong)
-                .accessibilityHidden(true)
-            Text(text)
-                .foregroundStyle(Color.ink)
-                .lineLimit(lineLimit)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .font(.subheadline)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(12)
-        .background {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.cardBackground)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.highlight.opacity(AppStyle.tipFillOpacity(colorScheme)))
-                )
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(L.tipPrefix), \(text)")
-    }
-}
-
 /// 시스템 글꼴로 쓰는 가나. 한국어 기기에서도 일본어 글꼴로 그리고 VoiceOver가 일본어로 읽게 한다.
 struct KanaText: View {
     let text: String

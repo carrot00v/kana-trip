@@ -95,10 +95,8 @@ struct LearnSessionView: View {
                         .padding(.top, 4)
                 }
 
-                if let tip = kana.tip {
-                    TipBox(text: tip)
-                        .padding(.horizontal, 16)
-                }
+                // 쓰기 포인트는 기리가 말한다. 손 들기 표정으로 위의 글자를 가리킨다 (giri-companion.md 3.4).
+                GiriSpeechRow(pose: .point, text: GiriSpeech.writingTip(kana.tip), maxLines: 4)
             }
         }
         .scrollBounceBehavior(.basedOnSize)
@@ -123,10 +121,17 @@ struct LearnSessionView: View {
             .frame(height: 52)
             .padding(.horizontal, 20)
 
-            if let tip = kana.tip {
-                TipBox(text: tip, lineLimit: 3)
-                    .padding(.horizontal, 16)
-            }
+            // 쓰는 동안 옆에서 쓰기 포인트를 말한다. 획마다 반응하지 않고, 글자를 완성하면 웃으며 깡충 뛴다 (3.5).
+            // 쓰기 화면이라 숨쉬지 않는다 (5.2).
+            let finished = attempt.isFinished(strokeCount: kana.strokes.count)
+            GiriSpeechRow(
+                pose: finished ? .happy : .talk,
+                text: GiriSpeech.writingTip(kana.tip),
+                maxLines: 4,
+                breathes: false,
+                hop: finished ? 1 : 0,
+                limitsLinesAtLargeType: true
+            )
 
             Spacer(minLength: 0)
 

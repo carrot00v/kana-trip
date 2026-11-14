@@ -16,8 +16,10 @@ struct TripWord: Decodable, Identifiable {
     let units: [Unit]
     let reading: String
     let meaning: String
-    /// 확인 후에 보이는 보조 설명(어디서 보는지, 장음 안내). 없는 단어도 있다.
+    /// 표기 정보 기록(寿司, 鮨로도 써요 등). 화면에는 쓰지 않는다. 그 내용은 `giri`가 맡는다 (giri-lines.md 9.3).
     let note: String?
+    /// "읽기 확인" 뒤 기리가 하는 단어 설명. 40자, 2문장 이하 (giri-lines.md 3번).
+    let giri: String?
 
     var id: String { text }
 
@@ -88,6 +90,8 @@ struct TripScene: Decodable, Identifiable {
     let id: String
     let order: Int
     let name: String
+    /// 장면 진입에서 단계 a가 할 차례일 때 기리가 하는 장면 소개 (giri-lines.md 4.1). 없으면 고정 대사.
+    let giriIntro: String?
     /// SF Symbols 이름. 글자 소개의 단어 카드와 큰 글자 크기의 홈에서 쓴다.
     let icon: String?
     fileprivate(set) var steps: [TripStep]
@@ -117,9 +121,12 @@ final class ContentLibrary {
     private let stepByKana: [String: TripStep]
     /// 헷갈리는 글자 쌍 (quiz-rules.md 4.1). 글자 → 짝 글자들. 양방향.
     private let confusable: [String: Set<String>]
+    /// 쌍마다 기리가 짚는 말 (giri-lines.md 6.2). 키는 파일 순서대로 붙인 두 글자.
+    private let pairLines: [String: String]
 
     private struct PairsFile: Decodable {
         let hiragana: [[String]]
+        let giri: [String: String]?
     }
 
     private struct File: Decodable {
@@ -168,6 +175,7 @@ final class ContentLibrary {
         stepByKana = byKana
 
         var pairs: [String: Set<String>] = [:]
+        var lines: [String: String] = [:]
         if let url = Bundle.main.url(forResource: "confusable_pairs", withExtension: "json"),
            let data = try? Data(contentsOf: url),
            let file = try? JSONDecoder().decode(PairsFile.self, from: data) {
@@ -175,10 +183,17 @@ final class ContentLibrary {
                 pairs[pair[0], default: []].insert(pair[1])
                 pairs[pair[1], default: []].insert(pair[0])
             }
+            lines = file.giri ?? [:]
         } else {
             assertionFailure("confusable_pairs.json을 읽지 못함")
         }
         confusable = pairs
+        pairLines = lines
+    }
+
+    /// 두 글자가 헷갈리는 쌍이면 기리가 짚는 말. 두 순서를 모두 찾는다.
+    func pairLine(_ a: String, _ b: String) -> String? {
+        pairLines[a + b] ?? pairLines[b + a]
     }
 
     /// 헷갈리는 짝 글자. 배웠는지는 보지 않는다.
