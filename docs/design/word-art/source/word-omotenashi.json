@@ -1,0 +1,19 @@
+{
+  "word": "word-omotenashi",
+  "kana": "おもてなし",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. Clean plain surfaces. Subject: A welcome tea set on a small round dark lacquer tray seen from the front and slightly above: one pale cream yunomi teacup without a handle filled with pale golden tea, and beside it a small plate with one round soft wagashi sweet in very pale pink and white. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 20261116,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-omotenashi_20261116.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-16",
+    "retouch": "스티커 흰 테 지움(592px)",
+    "note": "검은 칠 쟁반 위 유노미와 접시의 연분홍 화과자. 화과자의 옅은 분홍은 keep으로 지킴"
+  }
+}
