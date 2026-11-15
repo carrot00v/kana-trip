@@ -1,0 +1,7771 @@
+{
+ "bands_hz": [
+  [
+   4,
+   12
+  ],
+  [
+   12,
+   40
+  ],
+  [
+   40,
+   120
+  ],
+  [
+   88,
+   100
+  ]
+ ],
+ "methods": {
+  "c40": {
+   "kind": "single",
+   "comment": "1차 C안: 한 박, 모음을 늘려 박 0.40초",
+   "mora_seconds": 0.4
+  },
+  "e-ta40": {
+   "kind": "carrier",
+   "comment": "2차: 'Xタ', 글자 박 0.40초로 늘림, 높이 고정, 잘라서 30ms 페이드",
+   "carrier": "タ",
+   "mora_seconds": 0.4,
+   "flat_pitch": true,
+   "fade_out": 0.03
+  },
+  "L36": {
+   "kind": "long",
+   "comment": "(L) 'XV'' 2박 장음(길이는 모델 그대로), 두 박 높이 같게, 시작부터 0.36초에서 잘라 50ms 페이드",
+   "cut_s": 0.36,
+   "flat_pitch": true,
+   "fade_out": 0.05
+  },
+  "L36-ta": {
+   "kind": "long",
+   "comment": "(L) 'XV'タ' 3박(길이 그대로), 높이 같게, 0.36초에서 잘라 50ms 페이드",
+   "carrier": "タ",
+   "cut_s": 0.36,
+   "flat_pitch": true,
+   "fade_out": 0.05
+  },
+  "N75": {
+   "kind": "carrier",
+   "comment": "(N) 'Xタ' 길이 그대로, speed_scale 0.75, 높이 고정, 잘라서 30ms 페이드",
+   "carrier": "タ",
+   "speed_scale": 0.75,
+   "flat_pitch": true,
+   "fade_out": 0.03
+  },
+  "N85": {
+   "kind": "carrier",
+   "comment": "(N) 'Xタ' 길이 그대로, speed_scale 0.85",
+   "carrier": "タ",
+   "speed_scale": 0.85,
+   "flat_pitch": true,
+   "fade_out": 0.03
+  },
+  "T-maru": {
+   "kind": "text",
+   "comment": "(T) 일반 텍스트 'X。' 그대로",
+   "suffix": "。"
+  },
+  "T-long": {
+   "kind": "text",
+   "comment": "(T) 일반 텍스트 'Xー。' 그대로",
+   "suffix": "ー。"
+  },
+  "T-ten": {
+   "kind": "text",
+   "comment": "(T) 일반 텍스트 'X、' 그대로",
+   "suffix": "、"
+  },
+  "P": {
+   "kind": "psola",
+   "comment": "(P) N75의 모음 정상 구간을 피치 동기 겹침-더하기로 늘려 소리 0.35초",
+   "source": "N75",
+   "target_voiced": 0.35
+  },
+  "P-loop": {
+   "kind": "loop",
+   "comment": "(P) 서스테인 루프: e-ta40의 자음·모음 시작은 그대로, 모음 시작 20~80ms 사이 가장 고른 한 주기를 같은 간격으로 반복해 소리 0.35초, 끝 60ms 페이드",
+   "source": "e-ta40",
+   "search": [
+    0.02,
+    0.08
+   ],
+   "target_voiced": 0.35,
+   "fade_out": 0.06
+  }
+ },
+ "speakers": [
+  {
+   "slug": "metan-normal",
+   "name": "四国めたん",
+   "style": "ノーマル",
+   "style_id": 2,
+   "comment": "(S) 참고 화자"
+  }
+ ],
+ "ref_word_moras": [
+  {
+   "file": "ref-sushi.wav",
+   "letter": "shi",
+   "word": "すし",
+   "mora": "シ",
+   "query_kana": "スシ'",
+   "duration": 0.704,
+   "voiced": 0.38,
+   "lead_silence": 0.11,
+   "tail_silence": 0.214,
+   "peak_dbfs": -15.1,
+   "rms_dbfs": -31.0,
+   "span": [
+    0.41,
+    0.615
+   ],
+   "dur": 0.165,
+   "periodic": 0.41,
+   "ok": true,
+   "cycles": 54,
+   "f0": 329,
+   "jitter_pct": 7.31,
+   "shimmer_db": 1.54,
+   "slope_c": 23,
+   "f0_resid_c": 107.8,
+   "amp_resid_db": 2.99,
+   "f0_mod": {
+    "4-12": {
+     "amp": 76.17,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 47.21,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 56.21,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 50.54,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 3.69,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 3.61,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.86,
+     "hz": 59.0
+    },
+    "88-100": {
+     "amp": 0.16,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "ref-sushi.wav",
+   "letter": "su",
+   "word": "すし",
+   "mora": "ス",
+   "query_kana": "スシ'",
+   "duration": 0.704,
+   "voiced": 0.38,
+   "lead_silence": 0.11,
+   "tail_silence": 0.214,
+   "peak_dbfs": -15.1,
+   "rms_dbfs": -31.0,
+   "span": [
+    0.202,
+    0.246
+   ],
+   "dur": 0.004,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "ref-ika.wav",
+   "letter": "ka",
+   "word": "いか",
+   "mora": "カ",
+   "query_kana": "イカ'",
+   "duration": 0.533,
+   "voiced": 0.29,
+   "lead_silence": 0.09,
+   "tail_silence": 0.153,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -24.5,
+   "span": [
+    0.263,
+    0.449
+   ],
+   "dur": 0.145,
+   "periodic": 0.43,
+   "ok": true,
+   "cycles": 43,
+   "f0": 316,
+   "jitter_pct": 11.05,
+   "shimmer_db": 1.27,
+   "slope_c": -65,
+   "f0_resid_c": 172.9,
+   "amp_resid_db": 1.48,
+   "f0_mod": {
+    "4-12": {
+     "amp": 152.69,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 146.78,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 124.79,
+     "hz": 48.0
+    },
+    "88-100": {
+     "amp": 54.2,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.77,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 1.77,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.68,
+     "hz": 49.0
+    },
+    "88-100": {
+     "amp": 0.25,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "ref-ika.wav",
+   "letter": "i",
+   "word": "いか",
+   "mora": "イ",
+   "query_kana": "イカ'",
+   "duration": 0.533,
+   "voiced": 0.29,
+   "lead_silence": 0.09,
+   "tail_silence": 0.153,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -24.5,
+   "span": [
+    0.1,
+    0.189
+   ],
+   "dur": 0.049,
+   "periodic": 0.8,
+   "ok": true,
+   "cycles": 10,
+   "f0": 249,
+   "jitter_pct": 6.75,
+   "shimmer_db": 3.97,
+   "slope_c": -393,
+   "f0_resid_c": 42.2,
+   "amp_resid_db": 1.46,
+   "f0_mod": {
+    "4-12": {
+     "amp": 7.75,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 26.24,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 37.05,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 36.93,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.74,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 1.27,
+     "hz": 34.0
+    },
+    "40-120": {
+     "amp": 1.23,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.09,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "ref-hashi.wav",
+   "letter": "ha",
+   "word": "はし",
+   "mora": "ハ",
+   "query_kana": "ハ'シ",
+   "duration": 0.619,
+   "voiced": 0.39,
+   "lead_silence": 0.03,
+   "tail_silence": 0.199,
+   "peak_dbfs": -15.6,
+   "rms_dbfs": -30.8,
+   "span": [
+    0.16,
+    0.201
+   ],
+   "dur": 0.002,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "ref-heya.wav",
+   "letter": "he",
+   "word": "へや",
+   "mora": "ヘ",
+   "query_kana": "ヘヤ'",
+   "duration": 0.523,
+   "voiced": 0.3,
+   "lead_silence": 0.14,
+   "tail_silence": 0.083,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -22.2,
+   "span": [
+    0.141,
+    0.203
+   ],
+   "dur": 0.023,
+   "periodic": 1.0,
+   "ok": false
+  },
+  {
+   "file": "ref-asa.wav",
+   "letter": "a",
+   "word": "あさ",
+   "mora": "ア",
+   "query_kana": "ア'サ",
+   "duration": 0.565,
+   "voiced": 0.31,
+   "lead_silence": 0.08,
+   "tail_silence": 0.175,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -24.2,
+   "span": [
+    0.1,
+    0.176
+   ],
+   "dur": 0.036,
+   "periodic": 0.25,
+   "ok": false
+  },
+  {
+   "file": "ref-ushi.wav",
+   "letter": "u",
+   "word": "うし",
+   "mora": "ウ",
+   "query_kana": "ウ'シ",
+   "duration": 0.619,
+   "voiced": 0.33,
+   "lead_silence": 0.08,
+   "tail_silence": 0.209,
+   "peak_dbfs": -15.7,
+   "rms_dbfs": -28.3,
+   "span": [
+    0.1,
+    0.168
+   ],
+   "dur": 0.028,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 8,
+   "f0": 338,
+   "jitter_pct": 2.6,
+   "shimmer_db": 0.5,
+   "slope_c": -52,
+   "f0_resid_c": 19.7,
+   "amp_resid_db": 0.15,
+   "f0_mod": {
+    "4-12": {
+     "amp": 6.68,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 13.89,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 30.51,
+     "hz": 103.0
+    },
+    "88-100": {
+     "amp": 30.45,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.01,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.04,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.24,
+     "hz": 120.0
+    },
+    "88-100": {
+     "amp": 0.19,
+     "hz": 100.0
+    }
+   }
+  }
+ ],
+ "files": [
+  {
+   "file": "tsumugi-normal-shi-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "c40",
+   "input": "シ'",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "gain_db": 8.9,
+   "duration": 0.651,
+   "voiced": 0.3,
+   "lead_silence": 0.1,
+   "tail_silence": 0.251,
+   "peak_dbfs": -10.0,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.235,
+    0.5
+   ],
+   "dur": 0.225,
+   "periodic": 0.59,
+   "ok": true,
+   "cycles": 68,
+   "f0": 320,
+   "jitter_pct": 10.0,
+   "shimmer_db": 1.27,
+   "slope_c": -114,
+   "f0_resid_c": 147.1,
+   "amp_resid_db": 4.18,
+   "f0_mod": {
+    "4-12": {
+     "amp": 108.99,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 66.88,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 75.05,
+     "hz": 57.0
+    },
+    "88-100": {
+     "amp": 58.64,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 6.22,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 3.23,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.6,
+     "hz": 68.0
+    },
+    "88-100": {
+     "amp": 0.31,
+     "hz": 93.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-shi-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "e-ta40",
+   "input": "シ'タ",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 8.6,
+   "duration": 0.67,
+   "voiced": 0.34,
+   "lead_silence": 0.13,
+   "tail_silence": 0.2,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.224,
+    0.49
+   ],
+   "dur": 0.226,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 81,
+   "f0": 369,
+   "jitter_pct": 2.22,
+   "shimmer_db": 0.39,
+   "slope_c": 34,
+   "f0_resid_c": 47.8,
+   "amp_resid_db": 2.35,
+   "f0_mod": {
+    "4-12": {
+     "amp": 28.16,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 7.83,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 6.9,
+     "hz": 118.0
+    },
+    "88-100": {
+     "amp": 6.41,
+     "hz": 96.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.57,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.15,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 0.06,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.03,
+     "hz": 92.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-shi-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "L36",
+   "input": "シイ'",
+   "query_kana": "シイ'",
+   "phonemes": [
+    "sh+i",
+    "i"
+   ],
+   "gain_db": 9.1,
+   "duration": 0.63,
+   "voiced": 0.31,
+   "lead_silence": 0.12,
+   "tail_silence": 0.2,
+   "peak_dbfs": -10.0,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.254,
+    0.43
+   ],
+   "dur": 0.136,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 41,
+   "f0": 320,
+   "jitter_pct": 3.38,
+   "shimmer_db": 0.65,
+   "slope_c": -252,
+   "f0_resid_c": 54.5,
+   "amp_resid_db": 1.46,
+   "f0_mod": {
+    "4-12": {
+     "amp": 36.39,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 34.79,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 21.39,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 18.75,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.82,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 1.75,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.13,
+     "hz": 45.0
+    },
+    "88-100": {
+     "amp": 0.1,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-shi-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "L36-ta",
+   "input": "シイ'タ",
+   "query_kana": "シイ'タ",
+   "phonemes": [
+    "sh+i",
+    "i",
+    "t+a"
+   ],
+   "gain_db": 8.4,
+   "duration": 0.598,
+   "voiced": 0.26,
+   "lead_silence": 0.13,
+   "tail_silence": 0.208,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.252,
+    0.398
+   ],
+   "dur": 0.107,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 39,
+   "f0": 381,
+   "jitter_pct": 6.21,
+   "shimmer_db": 0.74,
+   "slope_c": 53,
+   "f0_resid_c": 70.2,
+   "amp_resid_db": 1.99,
+   "f0_mod": {
+    "4-12": {
+     "amp": 9.45,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 22.89,
+     "hz": 22.0
+    },
+    "40-120": {
+     "amp": 39.7,
+     "hz": 120.0
+    },
+    "88-100": {
+     "amp": 22.59,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.35,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 1.33,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.18,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.09,
+     "hz": 90.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-shi-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "N75",
+   "input": "シ'タ",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 13.1,
+   "duration": 0.477,
+   "voiced": 0.18,
+   "lead_silence": 0.13,
+   "tail_silence": 0.167,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.259,
+    0.297
+   ],
+   "dur": -0.001,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-shi-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "N85",
+   "input": "シ'タ",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 13.9,
+   "duration": 0.453,
+   "voiced": 0.16,
+   "lead_silence": 0.13,
+   "tail_silence": 0.163,
+   "peak_dbfs": -5.7,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.243,
+    0.273
+   ],
+   "dur": -0.01,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-shi-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "T-maru",
+   "input": "し。",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "gain_db": 11.1,
+   "duration": 0.555,
+   "voiced": 0.28,
+   "lead_silence": 0.1,
+   "tail_silence": 0.175,
+   "peak_dbfs": -8.3,
+   "rms_dbfs": -21.2,
+   "span": [
+    0.235,
+    0.4
+   ],
+   "dur": 0.126,
+   "periodic": 0.58,
+   "ok": true,
+   "cycles": 37,
+   "f0": 308,
+   "jitter_pct": 10.15,
+   "shimmer_db": 1.78,
+   "slope_c": -105,
+   "f0_resid_c": 113.6,
+   "amp_resid_db": 3.52,
+   "f0_mod": {
+    "4-12": {
+     "amp": 95.7,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 106.83,
+     "hz": 17.0
+    },
+    "40-120": {
+     "amp": 61.02,
+     "hz": 117.0
+    },
+    "88-100": {
+     "amp": 53.24,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 4.55,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 4.86,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 1.49,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.5,
+     "hz": 90.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-shi-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "T-long",
+   "input": "しー。",
+   "query_kana": "シイ'",
+   "phonemes": [
+    "sh+i",
+    "i"
+   ],
+   "gain_db": 8.6,
+   "duration": 0.661,
+   "voiced": 0.3,
+   "lead_silence": 0.11,
+   "tail_silence": 0.251,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.234,
+    0.52
+   ],
+   "dur": 0.245,
+   "periodic": 0.54,
+   "ok": true,
+   "cycles": 80,
+   "f0": 329,
+   "jitter_pct": 9.35,
+   "shimmer_db": 1.44,
+   "slope_c": 204,
+   "f0_resid_c": 116.6,
+   "amp_resid_db": 4.23,
+   "f0_mod": {
+    "4-12": {
+     "amp": 55.62,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 68.65,
+     "hz": 16.0
+    },
+    "40-120": {
+     "amp": 56.1,
+     "hz": 52.0
+    },
+    "88-100": {
+     "amp": 21.02,
+     "hz": 95.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 6.45,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 3.14,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.4,
+     "hz": 96.0
+    },
+    "88-100": {
+     "amp": 0.4,
+     "hz": 96.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-shi-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "T-ten",
+   "input": "し、",
+   "query_kana": "シ'",
+   "phonemes": [
+    "sh+i"
+   ],
+   "gain_db": 11.1,
+   "duration": 0.555,
+   "voiced": 0.28,
+   "lead_silence": 0.1,
+   "tail_silence": 0.175,
+   "peak_dbfs": -8.3,
+   "rms_dbfs": -21.2,
+   "span": [
+    0.235,
+    0.4
+   ],
+   "dur": 0.126,
+   "periodic": 0.58,
+   "ok": true,
+   "cycles": 37,
+   "f0": 308,
+   "jitter_pct": 10.15,
+   "shimmer_db": 1.78,
+   "slope_c": -105,
+   "f0_resid_c": 113.6,
+   "amp_resid_db": 3.52,
+   "f0_mod": {
+    "4-12": {
+     "amp": 95.7,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 106.83,
+     "hz": 17.0
+    },
+    "40-120": {
+     "amp": 61.02,
+     "hz": 117.0
+    },
+    "88-100": {
+     "amp": 53.24,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 4.55,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 4.86,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 1.49,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.5,
+     "hz": 90.0
+    }
+   }
+  },
+  {
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "P",
+   "error": "pitch marks"
+  },
+  {
+   "file": "tsumugi-normal-shi-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "shi",
+   "method": "P-loop",
+   "input": "シ'タ +loop",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 6.8,
+   "duration": 0.64,
+   "voiced": 0.36,
+   "lead_silence": 0.13,
+   "tail_silence": 0.15,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.224,
+    0.43
+   ],
+   "dur": 0.166,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 56,
+   "f0": 348,
+   "jitter_pct": 0.11,
+   "shimmer_db": 0.01,
+   "slope_c": 5,
+   "f0_resid_c": 5.0,
+   "amp_resid_db": 0.04,
+   "f0_mod": {
+    "4-12": {
+     "amp": 1.73,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 0.97,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.03,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.01,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.02,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 0.01,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "c40",
+   "input": "カ'",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "gain_db": 6.5,
+   "duration": 0.651,
+   "voiced": 0.29,
+   "lead_silence": 0.11,
+   "tail_silence": 0.251,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.141,
+    0.5
+   ],
+   "dur": 0.319,
+   "periodic": 0.5,
+   "ok": true,
+   "cycles": 90,
+   "f0": 279,
+   "jitter_pct": 11.49,
+   "shimmer_db": 1.39,
+   "slope_c": 431,
+   "f0_resid_c": 171.3,
+   "amp_resid_db": 1.82,
+   "f0_mod": {
+    "4-12": {
+     "amp": 112.78,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 55.16,
+     "hz": 39.0
+    },
+    "40-120": {
+     "amp": 80.48,
+     "hz": 47.0
+    },
+    "88-100": {
+     "amp": 36.45,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.0,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 0.73,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.54,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 0.28,
+     "hz": 96.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "e-ta40",
+   "input": "カ'タ",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 8.6,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.18,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.175,
+    0.49
+   ],
+   "dur": 0.275,
+   "periodic": 0.78,
+   "ok": true,
+   "cycles": 103,
+   "f0": 369,
+   "jitter_pct": 13.98,
+   "shimmer_db": 1.38,
+   "slope_c": 361,
+   "f0_resid_c": 184.9,
+   "amp_resid_db": 2.38,
+   "f0_mod": {
+    "4-12": {
+     "amp": 60.96,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 114.93,
+     "hz": 38.0
+    },
+    "40-120": {
+     "amp": 104.86,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 50.22,
+     "hz": 99.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.1,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 1.42,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.55,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.27,
+     "hz": 97.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "L36",
+   "input": "カア'",
+   "query_kana": "カア'",
+   "phonemes": [
+    "k+a",
+    "a"
+   ],
+   "gain_db": 6.1,
+   "duration": 0.581,
+   "voiced": 0.21,
+   "lead_silence": 0.14,
+   "tail_silence": 0.231,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.7,
+   "span": [
+    0.179,
+    0.381
+   ],
+   "dur": 0.162,
+   "periodic": 0.5,
+   "ok": true,
+   "cycles": 40,
+   "f0": 250,
+   "jitter_pct": 10.25,
+   "shimmer_db": 1.38,
+   "slope_c": 92,
+   "f0_resid_c": 147.8,
+   "amp_resid_db": 1.56,
+   "f0_mod": {
+    "4-12": {
+     "amp": 51.57,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 81.45,
+     "hz": 35.0
+    },
+    "40-120": {
+     "amp": 123.8,
+     "hz": 61.0
+    },
+    "88-100": {
+     "amp": 46.19,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.66,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 1.52,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.74,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.15,
+     "hz": 95.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "L36-ta",
+   "input": "カア'タ",
+   "query_kana": "カア'タ",
+   "phonemes": [
+    "k+a",
+    "a",
+    "t+a"
+   ],
+   "gain_db": 3.9,
+   "duration": 0.52,
+   "voiced": 0.21,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.189,
+    0.32
+   ],
+   "dur": 0.091,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 30,
+   "f0": 348,
+   "jitter_pct": 8.84,
+   "shimmer_db": 0.68,
+   "slope_c": 408,
+   "f0_resid_c": 122.1,
+   "amp_resid_db": 0.61,
+   "f0_mod": {
+    "4-12": {
+     "amp": 25.42,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 26.13,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 21.79,
+     "hz": 87.0
+    },
+    "88-100": {
+     "amp": 21.66,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.24,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.68,
+     "hz": 31.0
+    },
+    "40-120": {
+     "amp": 0.53,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.28,
+     "hz": 90.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "N75",
+   "input": "カ'タ",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 4.1,
+   "duration": 0.446,
+   "voiced": 0.15,
+   "lead_silence": 0.14,
+   "tail_silence": 0.156,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.194,
+    0.266
+   ],
+   "dur": 0.032,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 11,
+   "f0": 369,
+   "jitter_pct": 7.37,
+   "shimmer_db": 2.04,
+   "slope_c": 363,
+   "f0_resid_c": 91.2,
+   "amp_resid_db": 0.93,
+   "f0_mod": {
+    "4-12": {
+     "amp": 30.59,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 84.85,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 98.29,
+     "hz": 60.0
+    },
+    "88-100": {
+     "amp": 76.59,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.42,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 1.05,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 1.17,
+     "hz": 57.0
+    },
+    "88-100": {
+     "amp": 0.86,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "N85",
+   "input": "カ'タ",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 3.9,
+   "duration": 0.425,
+   "voiced": 0.13,
+   "lead_silence": 0.14,
+   "tail_silence": 0.155,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.185,
+    0.245
+   ],
+   "dur": 0.02,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-ka-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "T-maru",
+   "input": "か。",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "gain_db": 8.5,
+   "duration": 0.469,
+   "voiced": 0.2,
+   "lead_silence": 0.11,
+   "tail_silence": 0.159,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -21.5,
+   "span": [
+    0.141,
+    0.322
+   ],
+   "dur": 0.141,
+   "periodic": 0.36,
+   "ok": true,
+   "cycles": 38,
+   "f0": 274,
+   "jitter_pct": 17.69,
+   "shimmer_db": 1.71,
+   "slope_c": 33,
+   "f0_resid_c": 177.9,
+   "amp_resid_db": 1.1,
+   "f0_mod": {
+    "4-12": {
+     "amp": 47.21,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 119.4,
+     "hz": 30.0
+    },
+    "40-120": {
+     "amp": 110.51,
+     "hz": 92.0
+    },
+    "88-100": {
+     "amp": 110.51,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.49,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 1.01,
+     "hz": 31.0
+    },
+    "40-120": {
+     "amp": 0.68,
+     "hz": 76.0
+    },
+    "88-100": {
+     "amp": 0.34,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "T-long",
+   "input": "かー。",
+   "query_kana": "カア'",
+   "phonemes": [
+    "k+a",
+    "a"
+   ],
+   "gain_db": 6.6,
+   "duration": 0.565,
+   "voiced": 0.21,
+   "lead_silence": 0.12,
+   "tail_silence": 0.235,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.9,
+   "span": [
+    0.159,
+    0.411
+   ],
+   "dur": 0.212,
+   "periodic": 0.38,
+   "ok": true,
+   "cycles": 60,
+   "f0": 273,
+   "jitter_pct": 11.73,
+   "shimmer_db": 1.6,
+   "slope_c": 538,
+   "f0_resid_c": 185.2,
+   "amp_resid_db": 2.26,
+   "f0_mod": {
+    "4-12": {
+     "amp": 122.97,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 122.97,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 93.12,
+     "hz": 94.0
+    },
+    "88-100": {
+     "amp": 93.12,
+     "hz": 94.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.64,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 1.55,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.73,
+     "hz": 46.0
+    },
+    "88-100": {
+     "amp": 0.2,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "T-ten",
+   "input": "か、",
+   "query_kana": "カ'",
+   "phonemes": [
+    "k+a"
+   ],
+   "gain_db": 8.5,
+   "duration": 0.469,
+   "voiced": 0.2,
+   "lead_silence": 0.11,
+   "tail_silence": 0.159,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -21.5,
+   "span": [
+    0.141,
+    0.322
+   ],
+   "dur": 0.141,
+   "periodic": 0.36,
+   "ok": true,
+   "cycles": 38,
+   "f0": 274,
+   "jitter_pct": 17.69,
+   "shimmer_db": 1.71,
+   "slope_c": 33,
+   "f0_resid_c": 177.9,
+   "amp_resid_db": 1.1,
+   "f0_mod": {
+    "4-12": {
+     "amp": 47.21,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 119.4,
+     "hz": 30.0
+    },
+    "40-120": {
+     "amp": 110.51,
+     "hz": 92.0
+    },
+    "88-100": {
+     "amp": 110.51,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.49,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 1.01,
+     "hz": 31.0
+    },
+    "40-120": {
+     "amp": 0.68,
+     "hz": 76.0
+    },
+    "88-100": {
+     "amp": 0.34,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-P.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "P",
+   "input": "カ'タ +PSOLA",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 1.9,
+   "duration": 0.657,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.157,
+   "peak_dbfs": -10.7,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.194,
+    0.477
+   ],
+   "dur": 0.243,
+   "periodic": 0.92,
+   "ok": true,
+   "cycles": 95,
+   "f0": 375,
+   "jitter_pct": 2.21,
+   "shimmer_db": 0.26,
+   "slope_c": 512,
+   "f0_resid_c": 125.2,
+   "amp_resid_db": 1.17,
+   "f0_mod": {
+    "4-12": {
+     "amp": 111.57,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 47.42,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 21.88,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 16.1,
+     "hz": 93.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.07,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 0.52,
+     "hz": 29.0
+    },
+    "40-120": {
+     "amp": 0.24,
+     "hz": 58.0
+    },
+    "88-100": {
+     "amp": 0.14,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ka-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ka",
+   "method": "P-loop",
+   "input": "カ'タ +loop",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 6.9,
+   "duration": 0.64,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.15,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.175,
+    0.43
+   ],
+   "dur": 0.215,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 67,
+   "f0": 320,
+   "jitter_pct": 0.02,
+   "shimmer_db": 0.01,
+   "slope_c": 1,
+   "f0_resid_c": 1.9,
+   "amp_resid_db": 0.03,
+   "f0_mod": {
+    "4-12": {
+     "amp": 0.49,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.06,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.0,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.0,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 98.0
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 98.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "c40",
+   "input": "ハ'",
+   "query_kana": "ハ'",
+   "phonemes": [
+    "h+a"
+   ],
+   "gain_db": 6.2,
+   "duration": 0.651,
+   "voiced": 0.28,
+   "lead_silence": 0.1,
+   "tail_silence": 0.271,
+   "peak_dbfs": -4.2,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.159,
+    0.5
+   ],
+   "dur": 0.301,
+   "periodic": 0.43,
+   "ok": true,
+   "cycles": 86,
+   "f0": 296,
+   "jitter_pct": 18.93,
+   "shimmer_db": 1.78,
+   "slope_c": 109,
+   "f0_resid_c": 208.9,
+   "amp_resid_db": 2.99,
+   "f0_mod": {
+    "4-12": {
+     "amp": 117.95,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 127.18,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 72.63,
+     "hz": 87.0
+    },
+    "88-100": {
+     "amp": 69.26,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 3.73,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 1.39,
+     "hz": 17.0
+    },
+    "40-120": {
+     "amp": 0.58,
+     "hz": 49.0
+    },
+    "88-100": {
+     "amp": 0.32,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "e-ta40",
+   "input": "ハ'タ",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 11.2,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.12,
+   "tail_silence": 0.18,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -21.3,
+   "span": [
+    0.175,
+    0.49
+   ],
+   "dur": 0.275,
+   "periodic": 0.33,
+   "ok": true,
+   "cycles": 95,
+   "f0": 369,
+   "jitter_pct": 14.1,
+   "shimmer_db": 1.64,
+   "slope_c": 255,
+   "f0_resid_c": 234.9,
+   "amp_resid_db": 1.54,
+   "f0_mod": {
+    "4-12": {
+     "amp": 225.67,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 223.91,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 121.75,
+     "hz": 47.0
+    },
+    "88-100": {
+     "amp": 60.56,
+     "hz": 96.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.61,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 0.77,
+     "hz": 31.0
+    },
+    "40-120": {
+     "amp": 0.97,
+     "hz": 56.0
+    },
+    "88-100": {
+     "amp": 0.58,
+     "hz": 93.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "L36",
+   "input": "ハア'",
+   "query_kana": "ハア'",
+   "phonemes": [
+    "h+a",
+    "a"
+   ],
+   "gain_db": 7.1,
+   "duration": 0.583,
+   "voiced": 0.24,
+   "lead_silence": 0.11,
+   "tail_silence": 0.233,
+   "peak_dbfs": -7.3,
+   "rms_dbfs": -20.8,
+   "span": [
+    0.185,
+    0.383
+   ],
+   "dur": 0.158,
+   "periodic": 0.38,
+   "ok": true,
+   "cycles": 41,
+   "f0": 255,
+   "jitter_pct": 14.42,
+   "shimmer_db": 1.7,
+   "slope_c": 336,
+   "f0_resid_c": 202.2,
+   "amp_resid_db": 1.49,
+   "f0_mod": {
+    "4-12": {
+     "amp": 96.85,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 118.36,
+     "hz": 17.0
+    },
+    "40-120": {
+     "amp": 203.87,
+     "hz": 55.0
+    },
+    "88-100": {
+     "amp": 48.21,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.5,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 1.69,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 0.67,
+     "hz": 61.0
+    },
+    "88-100": {
+     "amp": 0.33,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "L36-ta",
+   "input": "ハア'タ",
+   "query_kana": "ハア'タ",
+   "phonemes": [
+    "h+a",
+    "a",
+    "t+a"
+   ],
+   "gain_db": 4.7,
+   "duration": 0.515,
+   "voiced": 0.21,
+   "lead_silence": 0.13,
+   "tail_silence": 0.175,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.19,
+    0.315
+   ],
+   "dur": 0.085,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 26,
+   "f0": 329,
+   "jitter_pct": 7.65,
+   "shimmer_db": 1.11,
+   "slope_c": 305,
+   "f0_resid_c": 154.6,
+   "amp_resid_db": 0.88,
+   "f0_mod": {
+    "4-12": {
+     "amp": 89.84,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 94.26,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 92.42,
+     "hz": 63.0
+    },
+    "88-100": {
+     "amp": 71.09,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.53,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.63,
+     "hz": 18.0
+    },
+    "40-120": {
+     "amp": 0.67,
+     "hz": 44.0
+    },
+    "88-100": {
+     "amp": 0.33,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "N75",
+   "input": "ハ'タ",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 6.7,
+   "duration": 0.425,
+   "voiced": 0.15,
+   "lead_silence": 0.11,
+   "tail_silence": 0.165,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.193,
+    0.245
+   ],
+   "dur": 0.013,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-ha-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "N85",
+   "input": "ハ'タ",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 5.0,
+   "duration": 0.407,
+   "voiced": 0.14,
+   "lead_silence": 0.11,
+   "tail_silence": 0.157,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -21.0,
+   "span": [
+    0.184,
+    0.227
+   ],
+   "dur": 0.003,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-ha-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "T-maru",
+   "input": "は。",
+   "query_kana": "ワ'",
+   "phonemes": [
+    "w+a"
+   ],
+   "gain_db": 5.3,
+   "duration": 0.469,
+   "voiced": 0.15,
+   "lead_silence": 0.09,
+   "tail_silence": 0.229,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.111,
+    0.323
+   ],
+   "dur": 0.172,
+   "periodic": 0.17,
+   "ok": true,
+   "cycles": 45,
+   "f0": 273,
+   "jitter_pct": 14.94,
+   "shimmer_db": 1.89,
+   "slope_c": -172,
+   "f0_resid_c": 206.3,
+   "amp_resid_db": 1.61,
+   "f0_mod": {
+    "4-12": {
+     "amp": 160.88,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 155.59,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 154.77,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 60.42,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.23,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 2.19,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 2.19,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.64,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "T-long",
+   "input": "はー。",
+   "query_kana": "ワア'",
+   "phonemes": [
+    "w+a",
+    "a"
+   ],
+   "gain_db": 5.2,
+   "duration": 0.555,
+   "voiced": 0.2,
+   "lead_silence": 0.09,
+   "tail_silence": 0.265,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -20.7,
+   "span": [
+    0.11,
+    0.403
+   ],
+   "dur": 0.253,
+   "periodic": 0.31,
+   "ok": true,
+   "cycles": 62,
+   "f0": 238,
+   "jitter_pct": 16.45,
+   "shimmer_db": 1.98,
+   "slope_c": 278,
+   "f0_resid_c": 240.6,
+   "amp_resid_db": 2.46,
+   "f0_mod": {
+    "4-12": {
+     "amp": 95.56,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 139.79,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 142.15,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 107.86,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.18,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 1.46,
+     "hz": 25.0
+    },
+    "40-120": {
+     "amp": 0.78,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.48,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-ha-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "T-ten",
+   "input": "は、",
+   "query_kana": "ワ'",
+   "phonemes": [
+    "w+a"
+   ],
+   "gain_db": 5.3,
+   "duration": 0.469,
+   "voiced": 0.15,
+   "lead_silence": 0.09,
+   "tail_silence": 0.229,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.111,
+    0.323
+   ],
+   "dur": 0.172,
+   "periodic": 0.17,
+   "ok": true,
+   "cycles": 45,
+   "f0": 273,
+   "jitter_pct": 14.94,
+   "shimmer_db": 1.89,
+   "slope_c": -172,
+   "f0_resid_c": 206.3,
+   "amp_resid_db": 1.61,
+   "f0_mod": {
+    "4-12": {
+     "amp": 160.88,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 155.59,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 154.77,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 60.42,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.23,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 2.19,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 2.19,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.64,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "P",
+   "error": "pitch marks"
+  },
+  {
+   "file": "tsumugi-normal-ha-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "ha",
+   "method": "P-loop",
+   "input": "ハ'タ +loop",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 10.1,
+   "duration": 0.63,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.15,
+   "peak_dbfs": -2.1,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.175,
+    0.42
+   ],
+   "dur": 0.205,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 63,
+   "f0": 312,
+   "jitter_pct": 0.93,
+   "shimmer_db": 0.1,
+   "slope_c": -46,
+   "f0_resid_c": 49.1,
+   "amp_resid_db": 0.61,
+   "f0_mod": {
+    "4-12": {
+     "amp": 15.24,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 2.7,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.14,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 0.07,
+     "hz": 89.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.25,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.04,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "c40",
+   "input": "ス'",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "gain_db": 7.7,
+   "duration": 0.651,
+   "voiced": 0.29,
+   "lead_silence": 0.1,
+   "tail_silence": 0.261,
+   "peak_dbfs": -9.1,
+   "rms_dbfs": -21.0,
+   "span": [
+    0.203,
+    0.5
+   ],
+   "dur": 0.257,
+   "periodic": 0.44,
+   "ok": true,
+   "cycles": 79,
+   "f0": 324,
+   "jitter_pct": 11.19,
+   "shimmer_db": 1.26,
+   "slope_c": -133,
+   "f0_resid_c": 171.7,
+   "amp_resid_db": 2.93,
+   "f0_mod": {
+    "4-12": {
+     "amp": 107.74,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 75.46,
+     "hz": 22.0
+    },
+    "40-120": {
+     "amp": 90.9,
+     "hz": 50.0
+    },
+    "88-100": {
+     "amp": 76.84,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 4.13,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 2.16,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.55,
+     "hz": 54.0
+    },
+    "88-100": {
+     "amp": 0.36,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "e-ta40",
+   "input": "ス'タ",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 5.7,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.12,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.21,
+    0.49
+   ],
+   "dur": 0.24,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 89,
+   "f0": 375,
+   "jitter_pct": 1.51,
+   "shimmer_db": 0.36,
+   "slope_c": 104,
+   "f0_resid_c": 42.5,
+   "amp_resid_db": 1.46,
+   "f0_mod": {
+    "4-12": {
+     "amp": 26.92,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 7.33,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 3.29,
+     "hz": 116.0
+    },
+    "88-100": {
+     "amp": 1.21,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.07,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 0.15,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 0.05,
+     "hz": 49.0
+    },
+    "88-100": {
+     "amp": 0.04,
+     "hz": 92.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "L36",
+   "input": "スウ'",
+   "query_kana": "スウ'",
+   "phonemes": [
+    "s+u",
+    "u"
+   ],
+   "gain_db": 9.0,
+   "duration": 0.627,
+   "voiced": 0.25,
+   "lead_silence": 0.12,
+   "tail_silence": 0.257,
+   "peak_dbfs": -8.3,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.262,
+    0.427
+   ],
+   "dur": 0.125,
+   "periodic": 0.54,
+   "ok": true,
+   "cycles": 35,
+   "f0": 293,
+   "jitter_pct": 7.78,
+   "shimmer_db": 1.28,
+   "slope_c": -6,
+   "f0_resid_c": 125.9,
+   "amp_resid_db": 2.62,
+   "f0_mod": {
+    "4-12": {
+     "amp": 102.54,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 116.87,
+     "hz": 16.0
+    },
+    "40-120": {
+     "amp": 59.39,
+     "hz": 62.0
+    },
+    "88-100": {
+     "amp": 30.3,
+     "hz": 98.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 3.57,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 3.57,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.88,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 0.26,
+     "hz": 96.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "L36-ta",
+   "input": "スウ'タ",
+   "query_kana": "スウ'タ",
+   "phonemes": [
+    "s+u",
+    "u",
+    "t+a"
+   ],
+   "gain_db": 6.4,
+   "duration": 0.544,
+   "voiced": 0.23,
+   "lead_silence": 0.13,
+   "tail_silence": 0.184,
+   "peak_dbfs": -6.1,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.25,
+    0.344
+   ],
+   "dur": 0.054,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 19,
+   "f0": 381,
+   "jitter_pct": 0.78,
+   "shimmer_db": 0.26,
+   "slope_c": 113,
+   "f0_resid_c": 8.4,
+   "amp_resid_db": 0.13,
+   "f0_mod": {
+    "4-12": {
+     "amp": 2.37,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 3.32,
+     "hz": 27.0
+    },
+    "40-120": {
+     "amp": 5.82,
+     "hz": 72.0
+    },
+    "88-100": {
+     "amp": 4.33,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.09,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.14,
+     "hz": 30.0
+    },
+    "40-120": {
+     "amp": 0.12,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.03,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "N75",
+   "input": "ス'タ",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 12.9,
+   "duration": 0.446,
+   "voiced": 0.15,
+   "lead_silence": 0.13,
+   "tail_silence": 0.166,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.24,
+    0.266
+   ],
+   "dur": -0.015,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-su-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "N85",
+   "input": "ス'タ",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 13.3,
+   "duration": 0.425,
+   "voiced": 0.14,
+   "lead_silence": 0.12,
+   "tail_silence": 0.165,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.7,
+   "span": [
+    0.226,
+    0.245
+   ],
+   "dur": -0.021,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-su-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "T-maru",
+   "input": "す。",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "gain_db": 10.4,
+   "duration": 0.491,
+   "voiced": 0.26,
+   "lead_silence": 0.09,
+   "tail_silence": 0.141,
+   "peak_dbfs": -8.4,
+   "rms_dbfs": -21.8,
+   "span": [
+    0.203,
+    0.338
+   ],
+   "dur": 0.096,
+   "periodic": 0.89,
+   "ok": true,
+   "cycles": 30,
+   "f0": 329,
+   "jitter_pct": 9.68,
+   "shimmer_db": 1.38,
+   "slope_c": 68,
+   "f0_resid_c": 102.9,
+   "amp_resid_db": 1.92,
+   "f0_mod": {
+    "4-12": {
+     "amp": 48.45,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 70.37,
+     "hz": 22.0
+    },
+    "40-120": {
+     "amp": 71.76,
+     "hz": 59.0
+    },
+    "88-100": {
+     "amp": 43.08,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.98,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 2.32,
+     "hz": 19.0
+    },
+    "40-120": {
+     "amp": 0.91,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.46,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "T-long",
+   "input": "すー。",
+   "query_kana": "スウ'",
+   "phonemes": [
+    "s+u",
+    "u"
+   ],
+   "gain_db": 8.8,
+   "duration": 0.608,
+   "voiced": 0.28,
+   "lead_silence": 0.1,
+   "tail_silence": 0.228,
+   "peak_dbfs": -9.8,
+   "rms_dbfs": -21.0,
+   "span": [
+    0.242,
+    0.457
+   ],
+   "dur": 0.175,
+   "periodic": 0.39,
+   "ok": true,
+   "cycles": 54,
+   "f0": 314,
+   "jitter_pct": 11.44,
+   "shimmer_db": 1.58,
+   "slope_c": 314,
+   "f0_resid_c": 121.6,
+   "amp_resid_db": 3.26,
+   "f0_mod": {
+    "4-12": {
+     "amp": 62.42,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 87.75,
+     "hz": 37.0
+    },
+    "40-120": {
+     "amp": 84.78,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 54.92,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 3.63,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 3.44,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 1.06,
+     "hz": 51.0
+    },
+    "88-100": {
+     "amp": 0.3,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-su-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "T-ten",
+   "input": "す、",
+   "query_kana": "ス'",
+   "phonemes": [
+    "s+u"
+   ],
+   "gain_db": 10.4,
+   "duration": 0.491,
+   "voiced": 0.26,
+   "lead_silence": 0.09,
+   "tail_silence": 0.141,
+   "peak_dbfs": -8.4,
+   "rms_dbfs": -21.8,
+   "span": [
+    0.203,
+    0.338
+   ],
+   "dur": 0.096,
+   "periodic": 0.89,
+   "ok": true,
+   "cycles": 30,
+   "f0": 329,
+   "jitter_pct": 9.68,
+   "shimmer_db": 1.38,
+   "slope_c": 68,
+   "f0_resid_c": 102.9,
+   "amp_resid_db": 1.92,
+   "f0_mod": {
+    "4-12": {
+     "amp": 48.45,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 70.37,
+     "hz": 22.0
+    },
+    "40-120": {
+     "amp": 71.76,
+     "hz": 59.0
+    },
+    "88-100": {
+     "amp": 43.08,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.98,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 2.32,
+     "hz": 19.0
+    },
+    "40-120": {
+     "amp": 0.91,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.46,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "P",
+   "error": "pitch marks"
+  },
+  {
+   "file": "tsumugi-normal-su-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "su",
+   "method": "P-loop",
+   "input": "ス'タ +loop",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 5.2,
+   "duration": 0.63,
+   "voiced": 0.36,
+   "lead_silence": 0.12,
+   "tail_silence": 0.15,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.21,
+    0.42
+   ],
+   "dur": 0.17,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 61,
+   "f0": 369,
+   "jitter_pct": 0.36,
+   "shimmer_db": 0.05,
+   "slope_c": 53,
+   "f0_resid_c": 13.5,
+   "amp_resid_db": 0.34,
+   "f0_mod": {
+    "4-12": {
+     "amp": 12.77,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 8.48,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.41,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.32,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.3,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 0.18,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.02,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 97.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "c40",
+   "input": "ヘ'",
+   "query_kana": "ヘ'",
+   "phonemes": [
+    "h+e"
+   ],
+   "gain_db": 5.2,
+   "duration": 0.651,
+   "voiced": 0.32,
+   "lead_silence": 0.11,
+   "tail_silence": 0.221,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.138,
+    0.5
+   ],
+   "dur": 0.322,
+   "periodic": 0.75,
+   "ok": true,
+   "cycles": 97,
+   "f0": 308,
+   "jitter_pct": 7.94,
+   "shimmer_db": 0.87,
+   "slope_c": 5,
+   "f0_resid_c": 122.3,
+   "amp_resid_db": 1.35,
+   "f0_mod": {
+    "4-12": {
+     "amp": 71.3,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 40.48,
+     "hz": 34.0
+    },
+    "40-120": {
+     "amp": 26.07,
+     "hz": 82.0
+    },
+    "88-100": {
+     "amp": 23.23,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.34,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.76,
+     "hz": 31.0
+    },
+    "40-120": {
+     "amp": 0.37,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.08,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "e-ta40",
+   "input": "ヘ'タ",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 2.5,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.7,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.156,
+    0.49
+   ],
+   "dur": 0.294,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 104,
+   "f0": 358,
+   "jitter_pct": 1.35,
+   "shimmer_db": 0.39,
+   "slope_c": 137,
+   "f0_resid_c": 27.9,
+   "amp_resid_db": 2.56,
+   "f0_mod": {
+    "4-12": {
+     "amp": 26.14,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 5.91,
+     "hz": 16.0
+    },
+    "40-120": {
+     "amp": 5.43,
+     "hz": 45.0
+    },
+    "88-100": {
+     "amp": 1.65,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.36,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.39,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 0.2,
+     "hz": 43.0
+    },
+    "88-100": {
+     "amp": 0.03,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "L36",
+   "input": "ヘエ'",
+   "query_kana": "ヘエ'",
+   "phonemes": [
+    "h+e",
+    "e"
+   ],
+   "gain_db": 7.1,
+   "duration": 0.594,
+   "voiced": 0.23,
+   "lead_silence": 0.13,
+   "tail_silence": 0.234,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.168,
+    0.394
+   ],
+   "dur": 0.186,
+   "periodic": 0.63,
+   "ok": true,
+   "cycles": 49,
+   "f0": 270,
+   "jitter_pct": 8.27,
+   "shimmer_db": 0.88,
+   "slope_c": 37,
+   "f0_resid_c": 121.4,
+   "amp_resid_db": 1.05,
+   "f0_mod": {
+    "4-12": {
+     "amp": 66.37,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 69.21,
+     "hz": 21.0
+    },
+    "40-120": {
+     "amp": 103.85,
+     "hz": 47.0
+    },
+    "88-100": {
+     "amp": 32.87,
+     "hz": 89.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.93,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 0.64,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.37,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 0.13,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "L36-ta",
+   "input": "ヘエ'タ",
+   "query_kana": "ヘエ'タ",
+   "phonemes": [
+    "h+e",
+    "e",
+    "t+a"
+   ],
+   "gain_db": 3.1,
+   "duration": 0.536,
+   "voiced": 0.2,
+   "lead_silence": 0.15,
+   "tail_silence": 0.186,
+   "peak_dbfs": -11.1,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.179,
+    0.336
+   ],
+   "dur": 0.117,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 39,
+   "f0": 343,
+   "jitter_pct": 1.65,
+   "shimmer_db": 0.31,
+   "slope_c": 238,
+   "f0_resid_c": 25.7,
+   "amp_resid_db": 0.89,
+   "f0_mod": {
+    "4-12": {
+     "amp": 13.58,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 13.33,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 15.33,
+     "hz": 120.0
+    },
+    "88-100": {
+     "amp": 11.29,
+     "hz": 96.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.01,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 1.0,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.13,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.03,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "N75",
+   "input": "ヘ'タ",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 6.4,
+   "duration": 0.43,
+   "voiced": 0.14,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.7,
+   "span": [
+    0.168,
+    0.25
+   ],
+   "dur": 0.041,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 14,
+   "f0": 375,
+   "jitter_pct": 3.7,
+   "shimmer_db": 1.45,
+   "slope_c": -9,
+   "f0_resid_c": 62.5,
+   "amp_resid_db": 0.73,
+   "f0_mod": {
+    "4-12": {
+     "amp": 25.41,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 41.28,
+     "hz": 34.0
+    },
+    "40-120": {
+     "amp": 40.11,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 10.41,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.43,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.99,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.99,
+     "hz": 43.0
+    },
+    "88-100": {
+     "amp": 0.11,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "N85",
+   "input": "ヘ'タ",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 6.8,
+   "duration": 0.411,
+   "voiced": 0.12,
+   "lead_silence": 0.13,
+   "tail_silence": 0.161,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.8,
+   "span": [
+    0.163,
+    0.231
+   ],
+   "dur": 0.028,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-he-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "T-maru",
+   "input": "へ。",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "gain_db": 6.2,
+   "duration": 0.48,
+   "voiced": 0.23,
+   "lead_silence": 0.08,
+   "tail_silence": 0.17,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -21.3,
+   "span": [
+    0.1,
+    0.338
+   ],
+   "dur": 0.198,
+   "periodic": 0.4,
+   "ok": true,
+   "cycles": 58,
+   "f0": 294,
+   "jitter_pct": 9.57,
+   "shimmer_db": 1.34,
+   "slope_c": 211,
+   "f0_resid_c": 149.8,
+   "amp_resid_db": 2.68,
+   "f0_mod": {
+    "4-12": {
+     "amp": 53.6,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 75.03,
+     "hz": 35.0
+    },
+    "40-120": {
+     "amp": 82.4,
+     "hz": 57.0
+    },
+    "88-100": {
+     "amp": 42.94,
+     "hz": 93.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.99,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 1.27,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.71,
+     "hz": 47.0
+    },
+    "88-100": {
+     "amp": 0.28,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "T-long",
+   "input": "へー。",
+   "query_kana": "ヘエ'",
+   "phonemes": [
+    "h+e",
+    "e"
+   ],
+   "gain_db": 6.5,
+   "duration": 0.565,
+   "voiced": 0.27,
+   "lead_silence": 0.12,
+   "tail_silence": 0.175,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -21.1,
+   "span": [
+    0.148,
+    0.424
+   ],
+   "dur": 0.236,
+   "periodic": 0.62,
+   "ok": true,
+   "cycles": 71,
+   "f0": 304,
+   "jitter_pct": 6.24,
+   "shimmer_db": 1.11,
+   "slope_c": 531,
+   "f0_resid_c": 142.7,
+   "amp_resid_db": 2.74,
+   "f0_mod": {
+    "4-12": {
+     "amp": 111.41,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 82.37,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 34.15,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 24.03,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 3.4,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 1.29,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.21,
+     "hz": 54.0
+    },
+    "88-100": {
+     "amp": 0.2,
+     "hz": 93.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "T-ten",
+   "input": "へ、",
+   "query_kana": "エ'",
+   "phonemes": [
+    "e"
+   ],
+   "gain_db": 6.2,
+   "duration": 0.48,
+   "voiced": 0.23,
+   "lead_silence": 0.08,
+   "tail_silence": 0.17,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -21.3,
+   "span": [
+    0.1,
+    0.338
+   ],
+   "dur": 0.198,
+   "periodic": 0.4,
+   "ok": true,
+   "cycles": 58,
+   "f0": 294,
+   "jitter_pct": 9.57,
+   "shimmer_db": 1.34,
+   "slope_c": 211,
+   "f0_resid_c": 149.8,
+   "amp_resid_db": 2.68,
+   "f0_mod": {
+    "4-12": {
+     "amp": 53.6,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 75.03,
+     "hz": 35.0
+    },
+    "40-120": {
+     "amp": 82.4,
+     "hz": 57.0
+    },
+    "88-100": {
+     "amp": 42.94,
+     "hz": 93.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.99,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 1.27,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.71,
+     "hz": 47.0
+    },
+    "88-100": {
+     "amp": 0.28,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-P.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "P",
+   "input": "ヘ'タ +PSOLA",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 5.4,
+   "duration": 0.661,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.161,
+   "peak_dbfs": -9.1,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.168,
+    0.481
+   ],
+   "dur": 0.273,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 98,
+   "f0": 375,
+   "jitter_pct": 0.64,
+   "shimmer_db": 0.16,
+   "slope_c": -185,
+   "f0_resid_c": 44.7,
+   "amp_resid_db": 1.02,
+   "f0_mod": {
+    "4-12": {
+     "amp": 14.94,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 13.67,
+     "hz": 19.0
+    },
+    "40-120": {
+     "amp": 5.26,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 1.9,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.9,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.38,
+     "hz": 39.0
+    },
+    "40-120": {
+     "amp": 0.37,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.05,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-he-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "he",
+   "method": "P-loop",
+   "input": "ヘ'タ +loop",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 2.2,
+   "duration": 0.64,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.15,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.156,
+    0.43
+   ],
+   "dur": 0.234,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 79,
+   "f0": 343,
+   "jitter_pct": 0.15,
+   "shimmer_db": 0.03,
+   "slope_c": 5,
+   "f0_resid_c": 5.3,
+   "amp_resid_db": 0.23,
+   "f0_mod": {
+    "4-12": {
+     "amp": 1.72,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.16,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 0.03,
+     "hz": 120.0
+    },
+    "88-100": {
+     "amp": 0.03,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.14,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.01,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "c40",
+   "input": "ア'",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "gain_db": 9.1,
+   "duration": 0.651,
+   "voiced": 0.28,
+   "lead_silence": 0.09,
+   "tail_silence": 0.281,
+   "peak_dbfs": -1.2,
+   "rms_dbfs": -21.4,
+   "span": [
+    0.1,
+    0.5
+   ],
+   "dur": 0.36,
+   "periodic": 0.08,
+   "ok": true,
+   "cycles": 109,
+   "f0": 304,
+   "jitter_pct": 15.73,
+   "shimmer_db": 2.18,
+   "slope_c": 272,
+   "f0_resid_c": 276.2,
+   "amp_resid_db": 2.37,
+   "f0_mod": {
+    "4-12": {
+     "amp": 185.97,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 122.36,
+     "hz": 17.0
+    },
+    "40-120": {
+     "amp": 101.69,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 67.48,
+     "hz": 89.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.11,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 1.03,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.64,
+     "hz": 56.0
+    },
+    "88-100": {
+     "amp": 0.48,
+     "hz": 95.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "e-ta40",
+   "input": "ア'タ",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": 6.3,
+   "duration": 0.67,
+   "voiced": 0.2,
+   "lead_silence": 0.11,
+   "tail_silence": 0.36,
+   "peak_dbfs": -4.2,
+   "rms_dbfs": -22.6,
+   "span": [
+    0.12,
+    0.49
+   ],
+   "dur": 0.33,
+   "periodic": 0.09,
+   "ok": true,
+   "cycles": 119,
+   "f0": 369,
+   "jitter_pct": 18.91,
+   "shimmer_db": 1.91,
+   "slope_c": -185,
+   "f0_resid_c": 313.5,
+   "amp_resid_db": 2.19,
+   "f0_mod": {
+    "4-12": {
+     "amp": 177.3,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 110.62,
+     "hz": 16.0
+    },
+    "40-120": {
+     "amp": 98.38,
+     "hz": 60.0
+    },
+    "88-100": {
+     "amp": 74.5,
+     "hz": 96.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.58,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 1.31,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 1.12,
+     "hz": 44.0
+    },
+    "88-100": {
+     "amp": 0.6,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "L36",
+   "input": "アア'",
+   "query_kana": "アア'",
+   "phonemes": [
+    "a",
+    "a"
+   ],
+   "gain_db": 3.9,
+   "duration": 0.573,
+   "voiced": 0.19,
+   "lead_silence": 0.1,
+   "tail_silence": 0.283,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.373
+   ],
+   "dur": 0.213,
+   "periodic": 0.32,
+   "ok": true,
+   "cycles": 53,
+   "f0": 247,
+   "jitter_pct": 13.51,
+   "shimmer_db": 1.91,
+   "slope_c": 0,
+   "f0_resid_c": 217.3,
+   "amp_resid_db": 1.67,
+   "f0_mod": {
+    "4-12": {
+     "amp": 162.04,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 138.95,
+     "hz": 22.0
+    },
+    "40-120": {
+     "amp": 147.06,
+     "hz": 45.0
+    },
+    "88-100": {
+     "amp": 66.37,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.4,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 1.41,
+     "hz": 25.0
+    },
+    "40-120": {
+     "amp": 0.99,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.26,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "L36-ta",
+   "input": "アア'タ",
+   "query_kana": "アア'タ",
+   "phonemes": [
+    "a",
+    "a",
+    "t+a"
+   ],
+   "gain_db": 3.6,
+   "duration": 0.485,
+   "voiced": 0.2,
+   "lead_silence": 0.1,
+   "tail_silence": 0.185,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -21.0,
+   "span": [
+    0.12,
+    0.285
+   ],
+   "dur": 0.125,
+   "periodic": 0.38,
+   "ok": true,
+   "cycles": 43,
+   "f0": 343,
+   "jitter_pct": 16.98,
+   "shimmer_db": 1.84,
+   "slope_c": 725,
+   "f0_resid_c": 220.6,
+   "amp_resid_db": 1.46,
+   "f0_mod": {
+    "4-12": {
+     "amp": 149.21,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 153.43,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 161.6,
+     "hz": 71.0
+    },
+    "88-100": {
+     "amp": 128.82,
+     "hz": 95.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.81,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.92,
+     "hz": 18.0
+    },
+    "40-120": {
+     "amp": 1.0,
+     "hz": 96.0
+    },
+    "88-100": {
+     "amp": 1.0,
+     "hz": 96.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "N75",
+   "input": "ア'タ",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": 2.3,
+   "duration": 0.405,
+   "voiced": 0.12,
+   "lead_silence": 0.11,
+   "tail_silence": 0.175,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.225
+   ],
+   "dur": 0.065,
+   "periodic": 0.29,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-a-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "N85",
+   "input": "ア'タ",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": 2.9,
+   "duration": 0.389,
+   "voiced": 0.11,
+   "lead_silence": 0.11,
+   "tail_silence": 0.169,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.12,
+    0.209
+   ],
+   "dur": 0.049,
+   "periodic": 0.6,
+   "ok": true,
+   "cycles": 16,
+   "f0": 350,
+   "jitter_pct": 8.56,
+   "shimmer_db": 1.42,
+   "slope_c": 127,
+   "f0_resid_c": 137.5,
+   "amp_resid_db": 1.0,
+   "f0_mod": {
+    "4-12": {
+     "amp": 38.97,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 83.98,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 85.58,
+     "hz": 83.0
+    },
+    "88-100": {
+     "amp": 84.75,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.42,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 1.18,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 1.26,
+     "hz": 49.0
+    },
+    "88-100": {
+     "amp": 0.57,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "T-maru",
+   "input": "あ。",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "gain_db": 4.1,
+   "duration": 0.448,
+   "voiced": 0.1,
+   "lead_silence": 0.08,
+   "tail_silence": 0.268,
+   "peak_dbfs": -5.9,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.1,
+    0.305
+   ],
+   "dur": 0.165,
+   "periodic": 0.12,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-a-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "T-long",
+   "input": "あー。",
+   "query_kana": "ア'ア",
+   "phonemes": [
+    "a",
+    "a"
+   ],
+   "gain_db": 5.5,
+   "duration": 0.544,
+   "voiced": 0.18,
+   "lead_silence": 0.08,
+   "tail_silence": 0.284,
+   "peak_dbfs": -5.2,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.1,
+    0.403
+   ],
+   "dur": 0.263,
+   "periodic": 0.19,
+   "ok": true,
+   "cycles": 147,
+   "f0": 600,
+   "jitter_pct": 20.18,
+   "shimmer_db": 2.55,
+   "slope_c": 735,
+   "f0_resid_c": 344.1,
+   "amp_resid_db": 2.94,
+   "f0_mod": {
+    "4-12": {
+     "amp": 235.13,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 226.0,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 82.18,
+     "hz": 68.0
+    },
+    "88-100": {
+     "amp": 82.01,
+     "hz": 95.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.78,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 1.71,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 1.71,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.5,
+     "hz": 98.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-a-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "T-ten",
+   "input": "あ、",
+   "query_kana": "ア'",
+   "phonemes": [
+    "a"
+   ],
+   "gain_db": 4.1,
+   "duration": 0.448,
+   "voiced": 0.1,
+   "lead_silence": 0.08,
+   "tail_silence": 0.268,
+   "peak_dbfs": -5.9,
+   "rms_dbfs": -20.5,
+   "span": [
+    0.1,
+    0.305
+   ],
+   "dur": 0.165,
+   "periodic": 0.12,
+   "ok": false
+  },
+  {
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "P",
+   "error": "pitch marks"
+  },
+  {
+   "voice": "tsumugi-normal",
+   "letter": "a",
+   "method": "P-loop",
+   "error": "pitch marks"
+  },
+  {
+   "file": "tsumugi-normal-u-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "c40",
+   "input": "ウ'",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "gain_db": 6.3,
+   "duration": 0.651,
+   "voiced": 0.27,
+   "lead_silence": 0.08,
+   "tail_silence": 0.301,
+   "peak_dbfs": -11.0,
+   "rms_dbfs": -22.0,
+   "span": [
+    0.1,
+    0.5
+   ],
+   "dur": 0.36,
+   "periodic": 0.39,
+   "ok": true,
+   "cycles": 112,
+   "f0": 312,
+   "jitter_pct": 11.4,
+   "shimmer_db": 1.56,
+   "slope_c": 344,
+   "f0_resid_c": 186.8,
+   "amp_resid_db": 2.62,
+   "f0_mod": {
+    "4-12": {
+     "amp": 168.33,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 84.37,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 78.0,
+     "hz": 92.0
+    },
+    "88-100": {
+     "amp": 78.0,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.14,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 1.59,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.55,
+     "hz": 51.0
+    },
+    "88-100": {
+     "amp": 0.48,
+     "hz": 97.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "e-ta40",
+   "input": "ウ'タ",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 6.4,
+   "duration": 0.67,
+   "voiced": 0.38,
+   "lead_silence": 0.11,
+   "tail_silence": 0.18,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.12,
+    0.49
+   ],
+   "dur": 0.33,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 118,
+   "f0": 375,
+   "jitter_pct": 2.2,
+   "shimmer_db": 0.32,
+   "slope_c": 310,
+   "f0_resid_c": 51.9,
+   "amp_resid_db": 1.33,
+   "f0_mod": {
+    "4-12": {
+     "amp": 51.65,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 12.35,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 12.99,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 12.44,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.37,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.37,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.09,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.09,
+     "hz": 93.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "L36",
+   "input": "ウウ'",
+   "query_kana": "ウウ'",
+   "phonemes": [
+    "u",
+    "u"
+   ],
+   "gain_db": 7.4,
+   "duration": 0.487,
+   "voiced": 0.11,
+   "lead_silence": 0.1,
+   "tail_silence": 0.277,
+   "peak_dbfs": -11.0,
+   "rms_dbfs": -20.9,
+   "span": [
+    0.12,
+    0.287
+   ],
+   "dur": 0.127,
+   "periodic": 0.46,
+   "ok": true,
+   "cycles": 34,
+   "f0": 286,
+   "jitter_pct": 5.72,
+   "shimmer_db": 2.2,
+   "slope_c": 72,
+   "f0_resid_c": 62.2,
+   "amp_resid_db": 2.7,
+   "f0_mod": {
+    "4-12": {
+     "amp": 23.19,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 58.28,
+     "hz": 31.0
+    },
+    "40-120": {
+     "amp": 41.27,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 27.58,
+     "hz": 96.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.45,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 2.46,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 1.09,
+     "hz": 53.0
+    },
+    "88-100": {
+     "amp": 0.51,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "L36-ta",
+   "input": "ウウ'タ",
+   "query_kana": "ウウ'タ",
+   "phonemes": [
+    "u",
+    "u",
+    "t+a"
+   ],
+   "gain_db": 5.5,
+   "duration": 0.464,
+   "voiced": 0.17,
+   "lead_silence": 0.11,
+   "tail_silence": 0.184,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.12,
+    0.264
+   ],
+   "dur": 0.104,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 36,
+   "f0": 364,
+   "jitter_pct": 4.09,
+   "shimmer_db": 0.39,
+   "slope_c": 388,
+   "f0_resid_c": 51.0,
+   "amp_resid_db": 0.38,
+   "f0_mod": {
+    "4-12": {
+     "amp": 12.51,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 12.43,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 7.16,
+     "hz": 70.0
+    },
+    "88-100": {
+     "amp": 6.54,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.27,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.36,
+     "hz": 20.0
+    },
+    "40-120": {
+     "amp": 0.17,
+     "hz": 56.0
+    },
+    "88-100": {
+     "amp": 0.08,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "N75",
+   "input": "ウ'タ",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 9.9,
+   "duration": 0.363,
+   "voiced": 0.09,
+   "lead_silence": 0.11,
+   "tail_silence": 0.163,
+   "peak_dbfs": -11.4,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.183
+   ],
+   "dur": 0.023,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 6,
+   "f0": 343,
+   "jitter_pct": 0.86,
+   "shimmer_db": 0.29,
+   "slope_c": -23,
+   "f0_resid_c": 5.6,
+   "amp_resid_db": 0.1,
+   "f0_mod": {
+    "4-12": {
+     "amp": 1.58,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 4.86,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 8.45,
+     "hz": 104.0
+    },
+    "88-100": {
+     "amp": 8.44,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.03,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.08,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.12,
+     "hz": 92.0
+    },
+    "88-100": {
+     "amp": 0.12,
+     "hz": 92.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "N85",
+   "input": "ウ'タ",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 9.8,
+   "duration": 0.352,
+   "voiced": 0.08,
+   "lead_silence": 0.11,
+   "tail_silence": 0.162,
+   "peak_dbfs": -11.7,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.172
+   ],
+   "dur": 0.012,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "tsumugi-normal-u-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "T-maru",
+   "input": "う。",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "gain_db": 7.1,
+   "duration": 0.459,
+   "voiced": 0.14,
+   "lead_silence": 0.08,
+   "tail_silence": 0.239,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -21.4,
+   "span": [
+    0.1,
+    0.308
+   ],
+   "dur": 0.168,
+   "periodic": 0.35,
+   "ok": true,
+   "cycles": 52,
+   "f0": 312,
+   "jitter_pct": 12.2,
+   "shimmer_db": 1.71,
+   "slope_c": 98,
+   "f0_resid_c": 159.3,
+   "amp_resid_db": 2.92,
+   "f0_mod": {
+    "4-12": {
+     "amp": 109.37,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 107.5,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 122.99,
+     "hz": 99.0
+    },
+    "88-100": {
+     "amp": 122.99,
+     "hz": 99.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.94,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 2.91,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 1.79,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.45,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "T-long",
+   "input": "うー。",
+   "query_kana": "ウ'ウ",
+   "phonemes": [
+    "u",
+    "u"
+   ],
+   "gain_db": 7.0,
+   "duration": 0.459,
+   "voiced": 0.21,
+   "lead_silence": 0.08,
+   "tail_silence": 0.169,
+   "peak_dbfs": -11.7,
+   "rms_dbfs": -21.5,
+   "span": [
+    0.1,
+    0.317
+   ],
+   "dur": 0.177,
+   "periodic": 0.56,
+   "ok": true,
+   "cycles": 66,
+   "f0": 387,
+   "jitter_pct": 11.36,
+   "shimmer_db": 1.34,
+   "slope_c": -180,
+   "f0_resid_c": 139.7,
+   "amp_resid_db": 2.86,
+   "f0_mod": {
+    "4-12": {
+     "amp": 64.07,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 64.43,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 81.13,
+     "hz": 110.0
+    },
+    "88-100": {
+     "amp": 55.39,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 3.66,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 2.52,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.68,
+     "hz": 94.0
+    },
+    "88-100": {
+     "amp": 0.68,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-u-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "T-ten",
+   "input": "う、",
+   "query_kana": "ウ'",
+   "phonemes": [
+    "u"
+   ],
+   "gain_db": 7.1,
+   "duration": 0.459,
+   "voiced": 0.14,
+   "lead_silence": 0.08,
+   "tail_silence": 0.239,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -21.4,
+   "span": [
+    0.1,
+    0.308
+   ],
+   "dur": 0.168,
+   "periodic": 0.35,
+   "ok": true,
+   "cycles": 52,
+   "f0": 312,
+   "jitter_pct": 12.2,
+   "shimmer_db": 1.71,
+   "slope_c": 98,
+   "f0_resid_c": 159.3,
+   "amp_resid_db": 2.92,
+   "f0_mod": {
+    "4-12": {
+     "amp": 109.37,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 107.5,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 122.99,
+     "hz": 99.0
+    },
+    "88-100": {
+     "amp": 122.99,
+     "hz": 99.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.94,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 2.91,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 1.79,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.45,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "P",
+   "error": "pitch marks"
+  },
+  {
+   "file": "tsumugi-normal-u-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "u",
+   "method": "P-loop",
+   "input": "ウ'タ +loop",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 6.8,
+   "duration": 0.61,
+   "voiced": 0.35,
+   "lead_silence": 0.11,
+   "tail_silence": 0.15,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.12,
+    0.4
+   ],
+   "dur": 0.24,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 72,
+   "f0": 304,
+   "jitter_pct": 0.02,
+   "shimmer_db": 0.0,
+   "slope_c": -1,
+   "f0_resid_c": 1.7,
+   "amp_resid_db": 0.0,
+   "f0_mod": {
+    "4-12": {
+     "amp": 0.43,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.03,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.0,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.0,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-c40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "c40",
+   "input": "イ'",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "gain_db": 7.3,
+   "duration": 0.651,
+   "voiced": 0.31,
+   "lead_silence": 0.08,
+   "tail_silence": 0.261,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.1,
+    0.5
+   ],
+   "dur": 0.36,
+   "periodic": 0.75,
+   "ok": true,
+   "cycles": 109,
+   "f0": 308,
+   "jitter_pct": 6.59,
+   "shimmer_db": 1.03,
+   "slope_c": -64,
+   "f0_resid_c": 143.2,
+   "amp_resid_db": 2.29,
+   "f0_mod": {
+    "4-12": {
+     "amp": 134.75,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 54.68,
+     "hz": 36.0
+    },
+    "40-120": {
+     "amp": 47.28,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 32.47,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.26,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 1.29,
+     "hz": 27.0
+    },
+    "40-120": {
+     "amp": 0.76,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.21,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-e-ta40.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "e-ta40",
+   "input": "イ'タ",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 7.5,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.11,
+   "tail_silence": 0.21,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.12,
+    0.49
+   ],
+   "dur": 0.33,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 116,
+   "f0": 364,
+   "jitter_pct": 2.31,
+   "shimmer_db": 0.49,
+   "slope_c": 162,
+   "f0_resid_c": 70.0,
+   "amp_resid_db": 2.98,
+   "f0_mod": {
+    "4-12": {
+     "amp": 67.05,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 46.95,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 25.48,
+     "hz": 49.0
+    },
+    "88-100": {
+     "amp": 11.45,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.04,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 0.98,
+     "hz": 19.0
+    },
+    "40-120": {
+     "amp": 0.35,
+     "hz": 44.0
+    },
+    "88-100": {
+     "amp": 0.07,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-L36.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "L36",
+   "input": "イイ'",
+   "query_kana": "イイ'",
+   "phonemes": [
+    "i",
+    "i"
+   ],
+   "gain_db": 6.6,
+   "duration": 0.563,
+   "voiced": 0.21,
+   "lead_silence": 0.1,
+   "tail_silence": 0.253,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.12,
+    0.363
+   ],
+   "dur": 0.203,
+   "periodic": 0.81,
+   "ok": true,
+   "cycles": 59,
+   "f0": 300,
+   "jitter_pct": 6.51,
+   "shimmer_db": 0.89,
+   "slope_c": -77,
+   "f0_resid_c": 102.5,
+   "amp_resid_db": 1.81,
+   "f0_mod": {
+    "4-12": {
+     "amp": 96.84,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 49.33,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 38.96,
+     "hz": 98.0
+    },
+    "88-100": {
+     "amp": 38.96,
+     "hz": 98.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.08,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 1.55,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.11,
+     "hz": 48.0
+    },
+    "88-100": {
+     "amp": 0.1,
+     "hz": 98.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-L36-ta.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "L36-ta",
+   "input": "イイ'タ",
+   "query_kana": "イイ'タ",
+   "phonemes": [
+    "i",
+    "i",
+    "t+a"
+   ],
+   "gain_db": 5.4,
+   "duration": 0.501,
+   "voiced": 0.17,
+   "lead_silence": 0.11,
+   "tail_silence": 0.221,
+   "peak_dbfs": -9.8,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.12,
+    0.301
+   ],
+   "dur": 0.141,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 48,
+   "f0": 358,
+   "jitter_pct": 1.78,
+   "shimmer_db": 0.62,
+   "slope_c": 316,
+   "f0_resid_c": 35.0,
+   "amp_resid_db": 2.21,
+   "f0_mod": {
+    "4-12": {
+     "amp": 36.99,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 34.64,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 6.66,
+     "hz": 113.0
+    },
+    "88-100": {
+     "amp": 3.37,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.01,
+     "hz": 10.0
+    },
+    "12-40": {
+     "amp": 1.87,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.15,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.07,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-N75.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "N75",
+   "input": "イ'タ",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 12.3,
+   "duration": 0.389,
+   "voiced": 0.1,
+   "lead_silence": 0.11,
+   "tail_silence": 0.179,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.9,
+   "span": [
+    0.12,
+    0.209
+   ],
+   "dur": 0.049,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 15,
+   "f0": 338,
+   "jitter_pct": 4.2,
+   "shimmer_db": 0.88,
+   "slope_c": -296,
+   "f0_resid_c": 49.8,
+   "amp_resid_db": 0.6,
+   "f0_mod": {
+    "4-12": {
+     "amp": 28.76,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 63.13,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 63.19,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 17.64,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.4,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.84,
+     "hz": 39.0
+    },
+    "40-120": {
+     "amp": 0.84,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.43,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-N85.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "N85",
+   "input": "イ'タ",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 12.3,
+   "duration": 0.375,
+   "voiced": 0.1,
+   "lead_silence": 0.11,
+   "tail_silence": 0.165,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -21.0,
+   "span": [
+    0.12,
+    0.195
+   ],
+   "dur": 0.035,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 10,
+   "f0": 331,
+   "jitter_pct": 4.93,
+   "shimmer_db": 1.14,
+   "slope_c": -367,
+   "f0_resid_c": 33.2,
+   "amp_resid_db": 0.45,
+   "f0_mod": {
+    "4-12": {
+     "amp": 2.47,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 13.07,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 40.61,
+     "hz": 115.0
+    },
+    "88-100": {
+     "amp": 39.44,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.22,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.52,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.52,
+     "hz": 43.0
+    },
+    "88-100": {
+     "amp": 0.08,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-T-maru.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "T-maru",
+   "input": "い。",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "gain_db": 7.0,
+   "duration": 0.469,
+   "voiced": 0.15,
+   "lead_silence": 0.08,
+   "tail_silence": 0.239,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.1,
+    0.32
+   ],
+   "dur": 0.18,
+   "periodic": 0.56,
+   "ok": true,
+   "cycles": 52,
+   "f0": 298,
+   "jitter_pct": 8.01,
+   "shimmer_db": 1.78,
+   "slope_c": -5,
+   "f0_resid_c": 134.5,
+   "amp_resid_db": 2.43,
+   "f0_mod": {
+    "4-12": {
+     "amp": 139.16,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 139.68,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 52.64,
+     "hz": 69.0
+    },
+    "88-100": {
+     "amp": 38.55,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.77,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 2.48,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.7,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.21,
+     "hz": 99.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-T-long.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "T-long",
+   "input": "いー。",
+   "query_kana": "イイ'",
+   "phonemes": [
+    "i",
+    "i"
+   ],
+   "gain_db": 6.2,
+   "duration": 0.533,
+   "voiced": 0.21,
+   "lead_silence": 0.08,
+   "tail_silence": 0.243,
+   "peak_dbfs": -11.6,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.1,
+    0.393
+   ],
+   "dur": 0.253,
+   "periodic": 0.58,
+   "ok": true,
+   "cycles": 77,
+   "f0": 312,
+   "jitter_pct": 8.71,
+   "shimmer_db": 1.13,
+   "slope_c": 232,
+   "f0_resid_c": 169.0,
+   "amp_resid_db": 3.39,
+   "f0_mod": {
+    "4-12": {
+     "amp": 147.0,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 101.97,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 77.4,
+     "hz": 72.0
+    },
+    "88-100": {
+     "amp": 21.44,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 5.15,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 2.61,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.61,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.11,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-T-ten.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "T-ten",
+   "input": "い、",
+   "query_kana": "イ'",
+   "phonemes": [
+    "i"
+   ],
+   "gain_db": 7.0,
+   "duration": 0.469,
+   "voiced": 0.15,
+   "lead_silence": 0.08,
+   "tail_silence": 0.239,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.1,
+    0.32
+   ],
+   "dur": 0.18,
+   "periodic": 0.56,
+   "ok": true,
+   "cycles": 52,
+   "f0": 298,
+   "jitter_pct": 8.01,
+   "shimmer_db": 1.78,
+   "slope_c": -5,
+   "f0_resid_c": 134.5,
+   "amp_resid_db": 2.43,
+   "f0_mod": {
+    "4-12": {
+     "amp": 139.16,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 139.68,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 52.64,
+     "hz": 69.0
+    },
+    "88-100": {
+     "amp": 38.55,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.77,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 2.48,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.7,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.21,
+     "hz": 99.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-P.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "P",
+   "input": "イ'タ +PSOLA",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 12.3,
+   "duration": 0.661,
+   "voiced": 0.38,
+   "lead_silence": 0.11,
+   "tail_silence": 0.171,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.12,
+    0.481
+   ],
+   "dur": 0.321,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 103,
+   "f0": 320,
+   "jitter_pct": 0.57,
+   "shimmer_db": 0.13,
+   "slope_c": -341,
+   "f0_resid_c": 53.2,
+   "amp_resid_db": 0.59,
+   "f0_mod": {
+    "4-12": {
+     "amp": 55.13,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 42.31,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 11.57,
+     "hz": 49.0
+    },
+    "88-100": {
+     "amp": 5.48,
+     "hz": 89.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.73,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.25,
+     "hz": 35.0
+    },
+    "40-120": {
+     "amp": 0.13,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.04,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "tsumugi-normal-i-P-loop.wav",
+   "voice": "tsumugi-normal",
+   "letter": "i",
+   "method": "P-loop",
+   "input": "イ'タ +loop",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 5.8,
+   "duration": 0.61,
+   "voiced": 0.35,
+   "lead_silence": 0.11,
+   "tail_silence": 0.15,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.12,
+    0.4
+   ],
+   "dur": 0.24,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 75,
+   "f0": 320,
+   "jitter_pct": 0.05,
+   "shimmer_db": 0.02,
+   "slope_c": -2,
+   "f0_resid_c": 3.8,
+   "amp_resid_db": 0.09,
+   "f0_mod": {
+    "4-12": {
+     "amp": 0.63,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.08,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.03,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.02,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.05,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.01,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-shi-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "shi",
+   "method": "e-ta40",
+   "input": "シ'タ",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 3.1,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -8.4,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.174,
+    0.49
+   ],
+   "dur": 0.276,
+   "periodic": 0.89,
+   "ok": true,
+   "cycles": 103,
+   "f0": 387,
+   "jitter_pct": 4.53,
+   "shimmer_db": 0.58,
+   "slope_c": 211,
+   "f0_resid_c": 94.7,
+   "amp_resid_db": 1.79,
+   "f0_mod": {
+    "4-12": {
+     "amp": 49.84,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 23.4,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 22.64,
+     "hz": 82.0
+    },
+    "88-100": {
+     "amp": 17.02,
+     "hz": 99.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.52,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.78,
+     "hz": 18.0
+    },
+    "40-120": {
+     "amp": 0.25,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.06,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-shi-L36.wav",
+   "voice": "metan-normal",
+   "letter": "shi",
+   "method": "L36",
+   "input": "シイ'",
+   "query_kana": "シイ'",
+   "phonemes": [
+    "sh+i",
+    "i"
+   ],
+   "gain_db": 8.6,
+   "duration": 0.63,
+   "voiced": 0.34,
+   "lead_silence": 0.12,
+   "tail_silence": 0.17,
+   "peak_dbfs": -4.8,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.21,
+    0.43
+   ],
+   "dur": 0.18,
+   "periodic": 0.06,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-shi-N75.wav",
+   "voice": "metan-normal",
+   "letter": "shi",
+   "method": "N75",
+   "input": "シ'タ",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 10.8,
+   "duration": 0.43,
+   "voiced": 0.15,
+   "lead_silence": 0.12,
+   "tail_silence": 0.16,
+   "peak_dbfs": -5.4,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.192,
+    0.25
+   ],
+   "dur": 0.018,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-shi-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "shi",
+   "method": "P-loop",
+   "input": "シ'タ +loop",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 8.8,
+   "duration": 0.64,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.15,
+   "peak_dbfs": -12.5,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.174,
+    0.43
+   ],
+   "dur": 0.216,
+   "periodic": 0.86,
+   "ok": true,
+   "cycles": 74,
+   "f0": 348,
+   "jitter_pct": 3.15,
+   "shimmer_db": 0.46,
+   "slope_c": -51,
+   "f0_resid_c": 87.3,
+   "amp_resid_db": 1.43,
+   "f0_mod": {
+    "4-12": {
+     "amp": 27.14,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 17.71,
+     "hz": 27.0
+    },
+    "40-120": {
+     "amp": 14.13,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 3.13,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.95,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 0.67,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.24,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.02,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-ka-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "ka",
+   "method": "e-ta40",
+   "input": "カ'タ",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": -0.8,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.15,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.3,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.179,
+    0.49
+   ],
+   "dur": 0.271,
+   "periodic": 0.89,
+   "ok": true,
+   "cycles": 99,
+   "f0": 375,
+   "jitter_pct": 3.4,
+   "shimmer_db": 0.76,
+   "slope_c": 151,
+   "f0_resid_c": 44.8,
+   "amp_resid_db": 1.61,
+   "f0_mod": {
+    "4-12": {
+     "amp": 25.75,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 6.24,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 8.19,
+     "hz": 61.0
+    },
+    "88-100": {
+     "amp": 4.46,
+     "hz": 93.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.28,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 0.53,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.3,
+     "hz": 62.0
+    },
+    "88-100": {
+     "amp": 0.12,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-ka-L36.wav",
+   "voice": "metan-normal",
+   "letter": "ka",
+   "method": "L36",
+   "input": "カア'",
+   "query_kana": "カア'",
+   "phonemes": [
+    "k+a",
+    "a"
+   ],
+   "gain_db": 5.7,
+   "duration": 0.595,
+   "voiced": 0.25,
+   "lead_silence": 0.16,
+   "tail_silence": 0.185,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.189,
+    0.395
+   ],
+   "dur": 0.166,
+   "periodic": 0.0,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-ka-N75.wav",
+   "voice": "metan-normal",
+   "letter": "ka",
+   "method": "N75",
+   "input": "カ'タ",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 0.9,
+   "duration": 0.448,
+   "voiced": 0.12,
+   "lead_silence": 0.17,
+   "tail_silence": 0.158,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.199,
+    0.268
+   ],
+   "dur": 0.029,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 9,
+   "f0": 375,
+   "jitter_pct": 2.32,
+   "shimmer_db": 1.12,
+   "slope_c": 89,
+   "f0_resid_c": 19.3,
+   "amp_resid_db": 0.49,
+   "f0_mod": {
+    "4-12": {
+     "amp": 1.42,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 1.38,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 14.0,
+     "hz": 120.0
+    },
+    "88-100": {
+     "amp": 12.09,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.15,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.43,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.59,
+     "hz": 78.0
+    },
+    "88-100": {
+     "amp": 0.59,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-ka-P.wav",
+   "voice": "metan-normal",
+   "letter": "ka",
+   "method": "P",
+   "input": "カ'タ +PSOLA",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": -1.8,
+   "duration": 0.678,
+   "voiced": 0.35,
+   "lead_silence": 0.17,
+   "tail_silence": 0.158,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.199,
+    0.498
+   ],
+   "dur": 0.259,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 95,
+   "f0": 375,
+   "jitter_pct": 0.18,
+   "shimmer_db": 0.08,
+   "slope_c": 55,
+   "f0_resid_c": 16.6,
+   "amp_resid_db": 0.55,
+   "f0_mod": {
+    "4-12": {
+     "amp": 14.04,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 3.33,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 1.45,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.93,
+     "hz": 89.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.36,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.38,
+     "hz": 20.0
+    },
+    "40-120": {
+     "amp": 0.18,
+     "hz": 42.0
+    },
+    "88-100": {
+     "amp": 0.05,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-ka-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "ka",
+   "method": "P-loop",
+   "input": "カ'タ +loop",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 0.3,
+   "duration": 0.65,
+   "voiced": 0.35,
+   "lead_silence": 0.15,
+   "tail_silence": 0.15,
+   "peak_dbfs": -11.2,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.179,
+    0.44
+   ],
+   "dur": 0.221,
+   "periodic": 0.86,
+   "ok": true,
+   "cycles": 77,
+   "f0": 358,
+   "jitter_pct": 2.08,
+   "shimmer_db": 0.34,
+   "slope_c": 78,
+   "f0_resid_c": 42.0,
+   "amp_resid_db": 1.12,
+   "f0_mod": {
+    "4-12": {
+     "amp": 19.95,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 4.7,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 2.88,
+     "hz": 120.0
+    },
+    "88-100": {
+     "amp": 1.45,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.28,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 0.4,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.06,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 0.05,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-ha-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "ha",
+   "method": "e-ta40",
+   "input": "ハ'タ",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 0.5,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.168,
+    0.49
+   ],
+   "dur": 0.282,
+   "periodic": 0.89,
+   "ok": true,
+   "cycles": 102,
+   "f0": 372,
+   "jitter_pct": 4.44,
+   "shimmer_db": 1.16,
+   "slope_c": 254,
+   "f0_resid_c": 116.2,
+   "amp_resid_db": 1.54,
+   "f0_mod": {
+    "4-12": {
+     "amp": 38.69,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 8.24,
+     "hz": 16.0
+    },
+    "40-120": {
+     "amp": 17.85,
+     "hz": 98.0
+    },
+    "88-100": {
+     "amp": 17.85,
+     "hz": 98.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.14,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 0.55,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.76,
+     "hz": 48.0
+    },
+    "88-100": {
+     "amp": 0.34,
+     "hz": 97.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-ha-L36.wav",
+   "voice": "metan-normal",
+   "letter": "ha",
+   "method": "L36",
+   "input": "ハア'",
+   "query_kana": "ハア'",
+   "phonemes": [
+    "h+a",
+    "a"
+   ],
+   "gain_db": 6.5,
+   "duration": 0.592,
+   "voiced": 0.27,
+   "lead_silence": 0.14,
+   "tail_silence": 0.182,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.175,
+    0.392
+   ],
+   "dur": 0.177,
+   "periodic": 0.0,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-ha-N75.wav",
+   "voice": "metan-normal",
+   "letter": "ha",
+   "method": "N75",
+   "input": "ハ'タ",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 1.1,
+   "duration": 0.421,
+   "voiced": 0.12,
+   "lead_silence": 0.14,
+   "tail_silence": 0.161,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.184,
+    0.241
+   ],
+   "dur": 0.017,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-ha-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "ha",
+   "method": "P-loop",
+   "input": "ハ'タ +loop",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 3.4,
+   "duration": 0.63,
+   "voiced": 0.35,
+   "lead_silence": 0.13,
+   "tail_silence": 0.15,
+   "peak_dbfs": -11.6,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.168,
+    0.42
+   ],
+   "dur": 0.212,
+   "periodic": 0.86,
+   "ok": true,
+   "cycles": 74,
+   "f0": 358,
+   "jitter_pct": 5.26,
+   "shimmer_db": 0.28,
+   "slope_c": 65,
+   "f0_resid_c": 97.5,
+   "amp_resid_db": 0.68,
+   "f0_mod": {
+    "4-12": {
+     "amp": 14.98,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 11.61,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 7.89,
+     "hz": 118.0
+    },
+    "88-100": {
+     "amp": 5.61,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.6,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 0.27,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.06,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.01,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-su-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "su",
+   "method": "e-ta40",
+   "input": "ス'タ",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 5.7,
+   "duration": 0.67,
+   "voiced": 0.37,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.171,
+    0.49
+   ],
+   "dur": 0.279,
+   "periodic": 0.82,
+   "ok": true,
+   "cycles": 105,
+   "f0": 387,
+   "jitter_pct": 3.88,
+   "shimmer_db": 0.54,
+   "slope_c": 130,
+   "f0_resid_c": 134.8,
+   "amp_resid_db": 2.46,
+   "f0_mod": {
+    "4-12": {
+     "amp": 83.93,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 19.83,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 19.67,
+     "hz": 71.0
+    },
+    "88-100": {
+     "amp": 15.58,
+     "hz": 97.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.81,
+     "hz": 7.0
+    },
+    "12-40": {
+     "amp": 0.92,
+     "hz": 16.0
+    },
+    "40-120": {
+     "amp": 0.2,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.13,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-su-L36.wav",
+   "voice": "metan-normal",
+   "letter": "su",
+   "method": "L36",
+   "input": "スウ'",
+   "query_kana": "スウ'",
+   "phonemes": [
+    "s+u",
+    "u"
+   ],
+   "gain_db": 9.6,
+   "duration": 0.584,
+   "voiced": 0.31,
+   "lead_silence": 0.1,
+   "tail_silence": 0.174,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.9,
+   "span": [
+    0.212,
+    0.384
+   ],
+   "dur": 0.132,
+   "periodic": 0.79,
+   "ok": true,
+   "cycles": 40,
+   "f0": 312,
+   "jitter_pct": 6.06,
+   "shimmer_db": 0.64,
+   "slope_c": -121,
+   "f0_resid_c": 115.6,
+   "amp_resid_db": 1.3,
+   "f0_mod": {
+    "4-12": {
+     "amp": 68.06,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 68.06,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 25.75,
+     "hz": 83.0
+    },
+    "88-100": {
+     "amp": 18.4,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.45,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 0.44,
+     "hz": 32.0
+    },
+    "40-120": {
+     "amp": 0.46,
+     "hz": 43.0
+    },
+    "88-100": {
+     "amp": 0.17,
+     "hz": 93.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-su-N75.wav",
+   "voice": "metan-normal",
+   "letter": "su",
+   "method": "N75",
+   "input": "ス'タ",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 15.6,
+   "duration": 0.415,
+   "voiced": 0.13,
+   "lead_silence": 0.13,
+   "tail_silence": 0.155,
+   "peak_dbfs": -7.7,
+   "rms_dbfs": -21.1,
+   "span": [
+    0.188,
+    0.235
+   ],
+   "dur": 0.007,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-su-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "su",
+   "method": "P-loop",
+   "input": "ス'タ +loop",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 20.4,
+   "duration": 0.65,
+   "voiced": 0.38,
+   "lead_silence": 0.12,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.4,
+   "rms_dbfs": -20.8,
+   "span": [
+    0.171,
+    0.44
+   ],
+   "dur": 0.229,
+   "periodic": 0.83,
+   "ok": true,
+   "cycles": 77,
+   "f0": 343,
+   "jitter_pct": 3.23,
+   "shimmer_db": 0.27,
+   "slope_c": 37,
+   "f0_resid_c": 123.5,
+   "amp_resid_db": 0.51,
+   "f0_mod": {
+    "4-12": {
+     "amp": 28.12,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 15.83,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 8.97,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 6.57,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.38,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.06,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.02,
+     "hz": 118.0
+    },
+    "88-100": {
+     "amp": 0.02,
+     "hz": 100.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-he-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "he",
+   "method": "e-ta40",
+   "input": "ヘ'タ",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 5.2,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.17,
+   "peak_dbfs": -4.8,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.155,
+    0.49
+   ],
+   "dur": 0.295,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 109,
+   "f0": 375,
+   "jitter_pct": 3.11,
+   "shimmer_db": 0.61,
+   "slope_c": 180,
+   "f0_resid_c": 47.8,
+   "amp_resid_db": 0.89,
+   "f0_mod": {
+    "4-12": {
+     "amp": 32.96,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 8.64,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 15.9,
+     "hz": 94.0
+    },
+    "88-100": {
+     "amp": 15.9,
+     "hz": 94.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.66,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.32,
+     "hz": 17.0
+    },
+    "40-120": {
+     "amp": 0.36,
+     "hz": 47.0
+    },
+    "88-100": {
+     "amp": 0.13,
+     "hz": 92.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-he-L36.wav",
+   "voice": "metan-normal",
+   "letter": "he",
+   "method": "L36",
+   "input": "ヘエ'",
+   "query_kana": "ヘエ'",
+   "phonemes": [
+    "h+e",
+    "e"
+   ],
+   "gain_db": 5.3,
+   "duration": 0.629,
+   "voiced": 0.3,
+   "lead_silence": 0.14,
+   "tail_silence": 0.189,
+   "peak_dbfs": -5.7,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.169,
+    0.429
+   ],
+   "dur": 0.22,
+   "periodic": 0.77,
+   "ok": true,
+   "cycles": 60,
+   "f0": 276,
+   "jitter_pct": 7.19,
+   "shimmer_db": 0.84,
+   "slope_c": 127,
+   "f0_resid_c": 96.4,
+   "amp_resid_db": 0.69,
+   "f0_mod": {
+    "4-12": {
+     "amp": 47.93,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 22.35,
+     "hz": 30.0
+    },
+    "40-120": {
+     "amp": 23.65,
+     "hz": 119.0
+    },
+    "88-100": {
+     "amp": 22.83,
+     "hz": 99.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.4,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.5,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.5,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.19,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-he-N75.wav",
+   "voice": "metan-normal",
+   "letter": "he",
+   "method": "N75",
+   "input": "ヘ'タ",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 5.2,
+   "duration": 0.408,
+   "voiced": 0.12,
+   "lead_silence": 0.13,
+   "tail_silence": 0.158,
+   "peak_dbfs": -6.5,
+   "rms_dbfs": -20.4,
+   "span": [
+    0.166,
+    0.228
+   ],
+   "dur": 0.022,
+   "periodic": null,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-he-P.wav",
+   "voice": "metan-normal",
+   "letter": "he",
+   "method": "P",
+   "input": "ヘ'タ +PSOLA",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 1.8,
+   "duration": 0.649,
+   "voiced": 0.35,
+   "lead_silence": 0.13,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.166,
+    0.47
+   ],
+   "dur": 0.263,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 103,
+   "f0": 393,
+   "jitter_pct": 0.05,
+   "shimmer_db": 0.03,
+   "slope_c": 2,
+   "f0_resid_c": 2.3,
+   "amp_resid_db": 0.21,
+   "f0_mod": {
+    "4-12": {
+     "amp": 0.55,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 0.04,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.19,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.21,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 0.06,
+     "hz": 46.0
+    },
+    "88-100": {
+     "amp": 0.02,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-he-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "he",
+   "method": "P-loop",
+   "input": "ヘ'タ +loop",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 9.6,
+   "duration": 0.64,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.15,
+   "peak_dbfs": -11.0,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.155,
+    0.43
+   ],
+   "dur": 0.235,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 85,
+   "f0": 369,
+   "jitter_pct": 0.51,
+   "shimmer_db": 0.02,
+   "slope_c": 41,
+   "f0_resid_c": 36.6,
+   "amp_resid_db": 0.11,
+   "f0_mod": {
+    "4-12": {
+     "amp": 13.8,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 1.11,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.14,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.07,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.03,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 0.0,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 0.0,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.0,
+     "hz": 90.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-a-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "a",
+   "method": "e-ta40",
+   "input": "ア'タ",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": 5.5,
+   "duration": 0.67,
+   "voiced": 0.35,
+   "lead_silence": 0.16,
+   "tail_silence": 0.16,
+   "peak_dbfs": -5.4,
+   "rms_dbfs": -21.0,
+   "span": [
+    0.12,
+    0.49
+   ],
+   "dur": 0.33,
+   "periodic": 0.24,
+   "ok": true,
+   "cycles": 238,
+   "f0": 727,
+   "jitter_pct": 20.54,
+   "shimmer_db": 2.8,
+   "slope_c": 734,
+   "f0_resid_c": 399.1,
+   "amp_resid_db": 4.4,
+   "f0_mod": {
+    "4-12": {
+     "amp": 378.62,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 203.86,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 89.5,
+     "hz": 95.0
+    },
+    "88-100": {
+     "amp": 89.5,
+     "hz": 95.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.06,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 1.84,
+     "hz": 20.0
+    },
+    "40-120": {
+     "amp": 0.78,
+     "hz": 94.0
+    },
+    "88-100": {
+     "amp": 0.78,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-a-L36.wav",
+   "voice": "metan-normal",
+   "letter": "a",
+   "method": "L36",
+   "input": "アア'",
+   "query_kana": "アア'",
+   "phonemes": [
+    "a",
+    "a"
+   ],
+   "gain_db": 6.2,
+   "duration": 0.63,
+   "voiced": 0.29,
+   "lead_silence": 0.15,
+   "tail_silence": 0.19,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -20.2,
+   "span": [
+    0.12,
+    0.43
+   ],
+   "dur": 0.27,
+   "periodic": 0.0,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-a-N75.wav",
+   "voice": "metan-normal",
+   "letter": "a",
+   "method": "N75",
+   "input": "ア'タ",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": -1.1,
+   "duration": 0.409,
+   "voiced": 0.1,
+   "lead_silence": 0.14,
+   "tail_silence": 0.169,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.229
+   ],
+   "dur": 0.069,
+   "periodic": 0.29,
+   "ok": false
+  },
+  {
+   "file": "metan-normal-a-P.wav",
+   "voice": "metan-normal",
+   "letter": "a",
+   "method": "P",
+   "input": "ア'タ +PSOLA",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": -2.1,
+   "duration": 0.661,
+   "voiced": 0.35,
+   "lead_silence": 0.14,
+   "tail_silence": 0.171,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.481
+   ],
+   "dur": 0.321,
+   "periodic": 0.81,
+   "ok": true,
+   "cycles": 109,
+   "f0": 353,
+   "jitter_pct": 4.12,
+   "shimmer_db": 1.03,
+   "slope_c": 232,
+   "f0_resid_c": 178.0,
+   "amp_resid_db": 4.63,
+   "f0_mod": {
+    "4-12": {
+     "amp": 146.38,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 146.38,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 53.28,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 37.18,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 4.5,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 1.21,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.5,
+     "hz": 59.0
+    },
+    "88-100": {
+     "amp": 0.18,
+     "hz": 95.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-a-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "a",
+   "method": "P-loop",
+   "input": "ア'タ +loop",
+   "query_kana": "ア'タ",
+   "phonemes": [
+    "a",
+    "t+a"
+   ],
+   "gain_db": 19.6,
+   "duration": 0.73,
+   "voiced": 0.44,
+   "lead_silence": 0.14,
+   "tail_silence": 0.15,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -21.2,
+   "span": [
+    0.12,
+    0.52
+   ],
+   "dur": 0.36,
+   "periodic": 0.83,
+   "ok": true,
+   "cycles": 135,
+   "f0": 400,
+   "jitter_pct": 6.69,
+   "shimmer_db": 0.74,
+   "slope_c": 325,
+   "f0_resid_c": 207.9,
+   "amp_resid_db": 3.76,
+   "f0_mod": {
+    "4-12": {
+     "amp": 151.76,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 96.32,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 21.57,
+     "hz": 84.0
+    },
+    "88-100": {
+     "amp": 20.57,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.54,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 0.79,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.15,
+     "hz": 62.0
+    },
+    "88-100": {
+     "amp": 0.11,
+     "hz": 90.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-u-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "u",
+   "method": "e-ta40",
+   "input": "ウ'タ",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 6.5,
+   "duration": 0.67,
+   "voiced": 0.19,
+   "lead_silence": 0.32,
+   "tail_silence": 0.16,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -21.6,
+   "span": [
+    0.12,
+    0.49
+   ],
+   "dur": 0.33,
+   "periodic": 0.36,
+   "ok": true,
+   "cycles": 114,
+   "f0": 369,
+   "jitter_pct": 15.32,
+   "shimmer_db": 2.17,
+   "slope_c": 354,
+   "f0_resid_c": 285.2,
+   "amp_resid_db": 5.62,
+   "f0_mod": {
+    "4-12": {
+     "amp": 155.05,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 147.44,
+     "hz": 19.0
+    },
+    "40-120": {
+     "amp": 76.2,
+     "hz": 63.0
+    },
+    "88-100": {
+     "amp": 37.79,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 4.51,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 2.97,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 2.14,
+     "hz": 44.0
+    },
+    "88-100": {
+     "amp": 1.07,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-u-L36.wav",
+   "voice": "metan-normal",
+   "letter": "u",
+   "method": "L36",
+   "input": "ウウ'",
+   "query_kana": "ウウ'",
+   "phonemes": [
+    "u",
+    "u"
+   ],
+   "gain_db": 23.6,
+   "duration": 0.539,
+   "voiced": 0.28,
+   "lead_silence": 0.1,
+   "tail_silence": 0.159,
+   "peak_dbfs": -9.3,
+   "rms_dbfs": -22.7,
+   "span": [
+    0.12,
+    0.339
+   ],
+   "dur": 0.179,
+   "periodic": 0.39,
+   "ok": true,
+   "cycles": 96,
+   "f0": 558,
+   "jitter_pct": 21.33,
+   "shimmer_db": 2.88,
+   "slope_c": 540,
+   "f0_resid_c": 273.8,
+   "amp_resid_db": 2.48,
+   "f0_mod": {
+    "4-12": {
+     "amp": 125.18,
+     "hz": 8.0
+    },
+    "12-40": {
+     "amp": 140.71,
+     "hz": 24.0
+    },
+    "40-120": {
+     "amp": 127.11,
+     "hz": 88.0
+    },
+    "88-100": {
+     "amp": 127.11,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.25,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 2.4,
+     "hz": 14.0
+    },
+    "40-120": {
+     "amp": 1.12,
+     "hz": 94.0
+    },
+    "88-100": {
+     "amp": 1.12,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-u-N75.wav",
+   "voice": "metan-normal",
+   "letter": "u",
+   "method": "N75",
+   "input": "ウ'タ",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 7.8,
+   "duration": 0.368,
+   "voiced": 0.06,
+   "lead_silence": 0.14,
+   "tail_silence": 0.168,
+   "peak_dbfs": -10.7,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.188
+   ],
+   "dur": 0.028,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 9,
+   "f0": 369,
+   "jitter_pct": 13.75,
+   "shimmer_db": 6.12,
+   "slope_c": 73,
+   "f0_resid_c": 200.9,
+   "amp_resid_db": 5.26,
+   "f0_mod": {
+    "4-12": {
+     "amp": 80.95,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 203.53,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 246.53,
+     "hz": 66.0
+    },
+    "88-100": {
+     "amp": 217.23,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 1.92,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 4.19,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 4.56,
+     "hz": 55.0
+    },
+    "88-100": {
+     "amp": 3.14,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-u-P.wav",
+   "voice": "metan-normal",
+   "letter": "u",
+   "method": "P",
+   "input": "ウ'タ +PSOLA",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 7.6,
+   "duration": 0.66,
+   "voiced": 0.36,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -20.1,
+   "span": [
+    0.12,
+    0.48
+   ],
+   "dur": 0.32,
+   "periodic": 0.94,
+   "ok": true,
+   "cycles": 110,
+   "f0": 358,
+   "jitter_pct": 1.01,
+   "shimmer_db": 0.19,
+   "slope_c": 317,
+   "f0_resid_c": 127.3,
+   "amp_resid_db": 0.92,
+   "f0_mod": {
+    "4-12": {
+     "amp": 108.04,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 31.79,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 11.02,
+     "hz": 44.0
+    },
+    "88-100": {
+     "amp": 6.12,
+     "hz": 97.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.42,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.56,
+     "hz": 15.0
+    },
+    "40-120": {
+     "amp": 0.16,
+     "hz": 46.0
+    },
+    "88-100": {
+     "amp": 0.06,
+     "hz": 91.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-u-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "u",
+   "method": "P-loop",
+   "input": "ウ'タ +loop",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 10.5,
+   "duration": 0.88,
+   "voiced": 0.52,
+   "lead_silence": 0.21,
+   "tail_silence": 0.15,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -21.8,
+   "span": [
+    0.12,
+    0.67
+   ],
+   "dur": 0.51,
+   "periodic": 0.59,
+   "ok": true,
+   "cycles": 179,
+   "f0": 369,
+   "jitter_pct": 9.45,
+   "shimmer_db": 1.33,
+   "slope_c": 326,
+   "f0_resid_c": 224.6,
+   "amp_resid_db": 6.81,
+   "f0_mod": {
+    "4-12": {
+     "amp": 63.14,
+     "hz": 9.0
+    },
+    "12-40": {
+     "amp": 53.7,
+     "hz": 19.0
+    },
+    "40-120": {
+     "amp": 33.95,
+     "hz": 40
+    },
+    "88-100": {
+     "amp": 33.82,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 7.54,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 2.25,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.81,
+     "hz": 44.0
+    },
+    "88-100": {
+     "amp": 0.51,
+     "hz": 89.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-i-e-ta40.wav",
+   "voice": "metan-normal",
+   "letter": "i",
+   "method": "e-ta40",
+   "input": "イ'タ",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 3.8,
+   "duration": 0.67,
+   "voiced": 0.23,
+   "lead_silence": 0.28,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.12,
+    0.49
+   ],
+   "dur": 0.33,
+   "periodic": 0.55,
+   "ok": true,
+   "cycles": 128,
+   "f0": 387,
+   "jitter_pct": 11.29,
+   "shimmer_db": 2.06,
+   "slope_c": 19,
+   "f0_resid_c": 315.2,
+   "amp_resid_db": 5.94,
+   "f0_mod": {
+    "4-12": {
+     "amp": 222.82,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 219.1,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 66.44,
+     "hz": 66.0
+    },
+    "88-100": {
+     "amp": 41.27,
+     "hz": 100.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 6.91,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 3.42,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 1.25,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.49,
+     "hz": 94.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-i-L36.wav",
+   "voice": "metan-normal",
+   "letter": "i",
+   "method": "L36",
+   "input": "イイ'",
+   "query_kana": "イイ'",
+   "phonemes": [
+    "i",
+    "i"
+   ],
+   "gain_db": 11.0,
+   "duration": 0.609,
+   "voiced": 0.31,
+   "lead_silence": 0.12,
+   "tail_silence": 0.179,
+   "peak_dbfs": -3.6,
+   "rms_dbfs": -20.3,
+   "span": [
+    0.12,
+    0.409
+   ],
+   "dur": 0.249,
+   "periodic": 0.24,
+   "ok": true,
+   "cycles": 78,
+   "f0": 312,
+   "jitter_pct": 12.24,
+   "shimmer_db": 1.9,
+   "slope_c": 188,
+   "f0_resid_c": 231.4,
+   "amp_resid_db": 2.82,
+   "f0_mod": {
+    "4-12": {
+     "amp": 184.44,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 99.04,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 72.02,
+     "hz": 94.0
+    },
+    "88-100": {
+     "amp": 72.02,
+     "hz": 94.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 2.37,
+     "hz": 6.0
+    },
+    "12-40": {
+     "amp": 0.67,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.86,
+     "hz": 92.0
+    },
+    "88-100": {
+     "amp": 0.86,
+     "hz": 92.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-i-N75.wav",
+   "voice": "metan-normal",
+   "letter": "i",
+   "method": "N75",
+   "input": "イ'タ",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 5.2,
+   "duration": 0.366,
+   "voiced": 0.08,
+   "lead_silence": 0.12,
+   "tail_silence": 0.166,
+   "peak_dbfs": -6.3,
+   "rms_dbfs": -20.6,
+   "span": [
+    0.12,
+    0.186
+   ],
+   "dur": 0.026,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 8,
+   "f0": 350,
+   "jitter_pct": 2.51,
+   "shimmer_db": 1.2,
+   "slope_c": 86,
+   "f0_resid_c": 24.3,
+   "amp_resid_db": 0.28,
+   "f0_mod": {
+    "4-12": {
+     "amp": 11.17,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 22.37,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 32.18,
+     "hz": 82.0
+    },
+    "88-100": {
+     "amp": 31.95,
+     "hz": 88
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.07,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.19,
+     "hz": 40.0
+    },
+    "40-120": {
+     "amp": 0.22,
+     "hz": 62.0
+    },
+    "88-100": {
+     "amp": 0.21,
+     "hz": 88
+    }
+   }
+  },
+  {
+   "file": "metan-normal-i-P.wav",
+   "voice": "metan-normal",
+   "letter": "i",
+   "method": "P",
+   "input": "イ'タ +PSOLA",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 3.9,
+   "duration": 0.648,
+   "voiced": 0.35,
+   "lead_silence": 0.13,
+   "tail_silence": 0.168,
+   "peak_dbfs": -7.7,
+   "rms_dbfs": -20.0,
+   "span": [
+    0.12,
+    0.468
+   ],
+   "dur": 0.308,
+   "periodic": 1.0,
+   "ok": true,
+   "cycles": 105,
+   "f0": 348,
+   "jitter_pct": 0.49,
+   "shimmer_db": 0.07,
+   "slope_c": 106,
+   "f0_resid_c": 26.7,
+   "amp_resid_db": 0.42,
+   "f0_mod": {
+    "4-12": {
+     "amp": 21.78,
+     "hz": 11.0
+    },
+    "12-40": {
+     "amp": 20.02,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 9.0,
+     "hz": 50.0
+    },
+    "88-100": {
+     "amp": 6.5,
+     "hz": 90.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 0.46,
+     "hz": 12.0
+    },
+    "12-40": {
+     "amp": 0.48,
+     "hz": 13.0
+    },
+    "40-120": {
+     "amp": 0.15,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.05,
+     "hz": 96.0
+    }
+   }
+  },
+  {
+   "file": "metan-normal-i-P-loop.wav",
+   "voice": "metan-normal",
+   "letter": "i",
+   "method": "P-loop",
+   "input": "イ'タ +loop",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 12.9,
+   "duration": 0.8,
+   "voiced": 0.45,
+   "lead_silence": 0.2,
+   "tail_silence": 0.15,
+   "peak_dbfs": -14.1,
+   "rms_dbfs": -21.2,
+   "span": [
+    0.12,
+    0.59
+   ],
+   "dur": 0.43,
+   "periodic": 0.72,
+   "ok": true,
+   "cycles": 161,
+   "f0": 375,
+   "jitter_pct": 7.89,
+   "shimmer_db": 1.34,
+   "slope_c": -99,
+   "f0_resid_c": 201.0,
+   "amp_resid_db": 5.31,
+   "f0_mod": {
+    "4-12": {
+     "amp": 44.07,
+     "hz": 4
+    },
+    "12-40": {
+     "amp": 72.08,
+     "hz": 24.0
+    },
+    "40-120": {
+     "amp": 34.78,
+     "hz": 80.0
+    },
+    "88-100": {
+     "amp": 22.84,
+     "hz": 92.0
+    }
+   },
+   "amp_mod": {
+    "4-12": {
+     "amp": 5.64,
+     "hz": 5.0
+    },
+    "12-40": {
+     "amp": 2.01,
+     "hz": 12
+    },
+    "40-120": {
+     "amp": 0.65,
+     "hz": 41.0
+    },
+    "88-100": {
+     "amp": 0.21,
+     "hz": 94.0
+    }
+   }
+  }
+ ]
+}

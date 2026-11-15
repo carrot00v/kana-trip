@@ -625,11 +625,414 @@ def cmd_giri(cfg: dict, synth: Synthesizer) -> None:
                    "candidates": g["candidates"], "files": rows}, f, ensure_ascii=False, indent=1)
 
 
+# ---------------------------------------------------------------- 3차: 주기 단위 측정
+
+def pitch_marks(samples: array.array, rate: int, t0: float, t1: float, f0_hint: float) -> list[int]:
+    """t0~t1 구간에서 한 주기마다 표시(봉우리 위치)를 찍는다. 극성은 주기 편차가 작은 쪽을 고른다."""
+    w = 5
+    a, b = max(0, int(t0 * rate)), min(len(samples), int(t1 * rate))
+    if b - a < 4 * rate / f0_hint:
+        return []
+    x = [sum(samples[i:i + w]) / w for i in range(a, b)]
+    best = []
+    for sign in (1, -1):
+        T = rate / f0_hint
+        lo, hi = 0, int(T)
+        m = max(range(lo, min(hi, len(x))), key=lambda k: sign * x[k])
+        marks = [m]
+        T0 = T
+        while True:
+            lo, hi = m + max(1, int(0.7 * T)), m + int(1.3 * T) + 1
+            if hi >= len(x):
+                break
+            n = max(range(lo, hi), key=lambda k: sign * x[k])
+            # 주기 추정이 처음 값의 0.6~1.6배를 벗어나지 않게 묶는다(0으로 줄어 무한 반복하는 것 방지)
+            T = min(1.6 * T0, max(0.6 * T0, 0.7 * T + 0.3 * (n - m)))
+            marks.append(n)
+            m = n
+        per = [marks[i + 1] - marks[i] for i in range(len(marks) - 1)]
+        if len(per) >= 3:
+            cv = st.pstdev(per) / st.mean(per)
+            if not best or cv < best[0]:
+                best = [cv, [a + k for k in marks]]
+    return best[1] if best else []
+
+
+def mod_peaks(series: list[float], fs: float, bands: list[tuple[float, float]]) -> dict:
+    """해닝 창 DFT로 대역별 최대 사인파 진폭과 그 주파수를 구한다."""
+    n = len(series)
+    w = [0.5 - 0.5 * math.cos(2 * math.pi * k / (n - 1)) for k in range(n)]
+    sw = sum(w)
+    out = {}
+    for lo, hi in bands:
+        best = (0.0, None)
+        f = lo
+        while f <= hi:
+            re = im = 0.0
+            for k in range(n):
+                ang = 2 * math.pi * f * k / fs
+                re += w[k] * series[k] * math.cos(ang)
+                im -= w[k] * series[k] * math.sin(ang)
+            amp = 2 * math.hypot(re, im) / sw
+            if amp > best[0]:
+                best = (amp, f)
+            f += 1.0
+        out[f"{lo:g}-{hi:g}"] = {"amp": round(best[0], 2), "hz": best[1]}
+    return out
+
+
+def polyfit_resid(t: list[float], y: list[float], deg: int) -> tuple[list[float], list[float]]:
+    """최소제곱 다항식 맞춤(deg 1~2). (맞춘 값, 잔차)를 돌려준다."""
+    n = deg + 1
+    A = [[sum(tk ** (i + j) for tk in t) for j in range(n)] for i in range(n)]
+    v = [sum(yk * tk ** i for tk, yk in zip(t, y)) for i in range(n)]
+    for c in range(n):  # 가우스 소거
+        p = max(range(c, n), key=lambda r: abs(A[r][c]))
+        A[c], A[p], v[c], v[p] = A[p], A[c], v[p], v[c]
+        for r in range(n):
+            if r != c and A[c][c]:
+                k = A[r][c] / A[c][c]
+                A[r] = [A[r][j] - k * A[c][j] for j in range(n)]
+                v[r] -= k * v[c]
+    coef = [v[i] / A[i][i] if A[i][i] else 0.0 for i in range(n)]
+    fit = [sum(coef[i] * tk ** i for i in range(n)) for tk in t]
+    return fit, [yk - fk for yk, fk in zip(y, fit)]
+
+
+def cycle_analysis(samples: array.array, rate: int, t0: float, t1: float, f: dict, bands: list) -> dict:
+    """주기 단위 F0·진폭 궤적으로 기울기, 변조 깊이(대역별), jitter·shimmer를 잰다."""
+    tr = f0_track(samples, rate, f)
+    vals = [fr for t, fr, c in tr if t0 <= t <= t1 and fr and c >= f["periodic_nacf"]]
+    per_frac = shake_stats(tr, t0, t1, f)
+    res = {"dur": round(t1 - t0, 3), "periodic": per_frac["periodic"] if per_frac else None}
+    if len(vals) < 3:
+        return {**res, "ok": False}
+    marks = pitch_marks(samples, rate, t0, t1, st.median(vals))
+    if len(marks) < 6:
+        return {**res, "ok": False}
+    P = [marks[i + 1] - marks[i] for i in range(len(marks) - 1)]
+    A = [math.sqrt(sum(samples[k] ** 2 for k in range(marks[i], marks[i + 1])) / P[i]) or 1.0
+         for i in range(len(P))]
+    tc = [(marks[i] + marks[i + 1]) / 2 / rate for i in range(len(P))]
+    f0s = [rate / p for p in P]
+    med = st.median(f0s)
+    cents = [1200 * math.log2(x / med) for x in f0s]
+    dbs = [20 * math.log10(a) for a in A]
+    jitter = st.mean(abs(P[i + 1] - P[i]) for i in range(len(P) - 1)) / st.mean(P) * 100
+    shimmer = st.mean(abs(dbs[i + 1] - dbs[i]) for i in range(len(dbs) - 1))
+    # 1kHz 등간격으로 다시 뽑기
+    fs = 1000.0
+    grid = [tc[0] + k / fs for k in range(int((tc[-1] - tc[0]) * fs))]
+    def interp(ys):
+        out, j = [], 0
+        for g in grid:
+            while j < len(tc) - 2 and tc[j + 1] < g:
+                j += 1
+            u = (g - tc[j]) / (tc[j + 1] - tc[j])
+            out.append(ys[j] + u * (ys[j + 1] - ys[j]))
+        return out
+    gc, gd = interp(cents), interp(dbs)
+    lin, _ = polyfit_resid(grid, gc, 1)
+    _, rc = polyfit_resid(grid, gc, 2)
+    _, rd = polyfit_resid(grid, gd, 2)
+    return {
+        **res, "ok": True, "cycles": len(P), "f0": round(med),
+        "jitter_pct": round(jitter, 2), "shimmer_db": round(shimmer, 2),
+        "slope_c": round(lin[-1] - lin[0]),
+        "f0_resid_c": round(math.sqrt(st.mean(x * x for x in rc)), 1),
+        "amp_resid_db": round(math.sqrt(st.mean(x * x for x in rd)), 2),
+        "f0_mod": mod_peaks(rc, fs, bands),
+        "amp_mod": mod_peaks(rd, fs, bands),
+    }
+
+
+def psola_stretch(samples: array.array, rate: int, marks: list[int], i0: int, i1: int,
+                  alpha: float) -> tuple[array.array, int]:
+    """marks[i0]~marks[i1] 구간을 alpha배로 늘린다(피치 동기 겹침-더하기, 음높이 유지).
+    늘어난 샘플 수도 돌려준다."""
+    m0, m1 = marks[i0], marks[i1]
+    out = [float(s) for s in samples[:m0]]
+    P0 = marks[i0 + 1] - m0
+    for k in range(P0):  # 앞부분 끝은 내려가는 반창
+        j = m0 - P0 + k
+        if j >= 0:
+            out[j] *= 0.5 + 0.5 * math.cos(math.pi * k / P0)
+    out.extend([0.0] * int((m1 - m0) * alpha + 4 * P0))
+    s = float(m0)
+    region = marks[i0:i1 + 1]
+    while True:
+        ta = m0 + (s - m0) / alpha
+        if ta >= m1:
+            break
+        k = min(range(len(region) - 1), key=lambda q: abs(region[q] - ta))
+        c = region[k]
+        P = region[k + 1] - region[k]
+        for j in range(-P, P):
+            src = c + j
+            dst = int(s) + j
+            if 0 <= src < len(samples) and 0 <= dst < len(out):
+                out[dst] += samples[src] * (0.5 + 0.5 * math.cos(math.pi * j / P))
+        s += P
+    # 뒷부분: m1부터 원래대로, 첫 주기는 올라가는 반창
+    P1 = marks[i1] - marks[i1 - 1]
+    base = int(s) - P1
+    tail = samples[m1 - P1:]
+    need = base + len(tail) - len(out)
+    if need > 0:
+        out.extend([0.0] * need)
+    for k, v in enumerate(tail):
+        g = 0.5 - 0.5 * math.cos(math.pi * k / P1) if k < P1 else 1.0
+        out[base + k] += v * g
+    end = base + len(tail)
+    out = out[:end]
+    return array.array("h", (max(-32768, min(32767, int(round(v)))) for v in out)), int(s) - m1
+
+
+@dataclasses.dataclass
+class Letter3:
+    samples: array.array
+    rate: int
+    span: tuple[float, float]
+    kana_in: str
+    query_kana: str | None
+    phonemes: list[str]
+
+
+def make_letter3(synth: Synthesizer, sid: int, letter: dict, method: dict, common: dict,
+                 adj: dict | None = None) -> Letter3:
+    """3차 방법. kind: c40 / carrier(e-ta, N) / long(L) / text(T)."""
+    adj = adj or {}
+    kind = method["kind"]
+    if kind == "text":
+        q = synth.create_audio_query(letter["text"] + method["suffix"], sid)
+        kana_in = letter["text"] + method["suffix"]
+    else:
+        kana_in = {"single": letter["aquestalk"], "carrier": letter["aquestalk"] + method.get("carrier", ""),
+                   "long": letter["long"] + method.get("carrier", "")}[kind]
+        q = synth.create_audio_query_from_kana(kana_in, sid)
+    if "mora_seconds" in method:
+        q = stretch_moras(q, method["mora_seconds"], common["min_vowel_seconds"],
+                          only_index=0 if kind == "carrier" else None)
+    if method.get("flat_pitch"):
+        q = flatten_pitch(q, timeline(q)[0]["pitch"])
+    q = dataclasses.replace(
+        q, pre_phoneme_length=common["pre"], post_phoneme_length=common["post"],
+        speed_scale=method.get("speed_scale", 1.0) * adj.get("speed_scale", 1.0),
+        pitch_scale=adj.get("pitch_scale", q.pitch_scale),
+        intonation_scale=adj.get("intonation_scale", q.intonation_scale),
+    )
+    samples, rate = pcm_of(synth.synthesis(q, sid))
+    tl = timeline(q)
+    fo = method.get("fade_out", 0.0)
+    if kind in ("carrier", "long"):
+        m = tl[0]
+        if kind == "carrier":
+            end = m["end"]
+        else:  # 장음: 첫 박 시작부터 cut_s 지점, 두 번째 박 끝을 넘지 않게
+            end = min(m["start"] + method["cut_s"], tl[1]["end"])
+        a = max(0, int((m["start"] - 0.02) * rate))
+        b = min(len(samples), int(end * rate))
+        body = fade(samples[a:b], rate, fade_in=common["fade_in"], fade_out=fo)
+        out = silence(rate, common["pre"])
+        out.extend(body)
+        out.extend(silence(rate, common["post"]))
+        off = common["pre"] - (m["start"] - 0.02)
+        span = (m["vowel_start"] + off, end + off - fo)
+    else:  # single(c40), text: 그대로. 유성 박들의 모음 구간
+        voiced = [m for m in tl if m["pitch"] > 0] or tl
+        span = (voiced[0]["vowel_start"], voiced[-1]["end"])
+        out = samples
+    return Letter3(out, rate, span, kana_in, q.kana, phonemes(q))
+
+
+def analyze3(lt: Letter3, cfg: dict) -> dict:
+    r3 = cfg["round3"]
+    f = cfg["round2"]["f0"]
+    e = r3["edge_s"]
+    return {**measure(lt.samples, lt.rate, cfg["measure"]["frame_ms"], cfg["measure"]["silence_dbfs"]),
+            "span": [round(lt.span[0], 3), round(lt.span[1], 3)],
+            **cycle_analysis(lt.samples, lt.rate, lt.span[0] + e, lt.span[1] - e, f, r3["bands"])}
+
+
+def apply_psola(lt: Letter3, cfg: dict, target_voiced: float) -> Letter3 | None:
+    """짧은 합성(N)의 모음 정상 구간을 늘려 소리 구간을 target_voiced초로 만든다."""
+    f = cfg["round2"]["f0"]
+    v0, v1 = lt.span
+    tr = f0_track(lt.samples, lt.rate, f)
+    vals = [fr for t, fr, c in tr if v0 <= t <= v1 and fr and c >= f["periodic_nacf"]]
+    if len(vals) < 3:
+        return None
+    marks = pitch_marks(lt.samples, lt.rate, v0 + 0.02, v1 - 0.02, st.median(vals))
+    if len(marks) < 8:
+        return None
+    i0, i1 = 2, len(marks) - 3
+    s, e = voiced_bounds(lt.samples, lt.rate, 10, -45.0)
+    cur = (e - s) / lt.rate
+    steady = (marks[i1] - marks[i0]) / lt.rate
+    alpha = max(1.0, 1 + (target_voiced - cur) / steady)
+    out, added = psola_stretch(lt.samples, lt.rate, marks, i0, i1, alpha)
+    return Letter3(out, lt.rate, (v0, v1 + added / lt.rate), lt.kana_in + " +PSOLA", lt.query_kana, lt.phonemes)
+
+
+def apply_loop(lt: Letter3, cfg: dict, method: dict) -> Letter3 | None:
+    """모음 앞부분에서 가장 고른 한 주기를 골라, 그 주기를 같은 간격으로 겹쳐 이어 붙인다(샘플러의 서스테인 루프).
+    자음과 모음 시작은 원래 소리 그대로 두고, 고른 주기부터 끝까지는 그 한 주기만 반복한다."""
+    f = cfg["round2"]["f0"]
+    rate = lt.rate
+    v0, v1 = lt.span
+    tr = f0_track(lt.samples, rate, f)
+    vals = [fr for t, fr, c in tr if v0 <= t <= v1 and fr and c >= f["periodic_nacf"]]
+    if len(vals) < 3:
+        return None
+    lo, hi = method["search"]
+    s0, _ = voiced_bounds(lt.samples, rate, 10, -45.0)
+    base = max(v0, s0 / rate)  # 모음 시작이 무음인 글자가 있어, 실제 소리가 시작된 곳부터 찾는다
+    marks = pitch_marks(lt.samples, rate, base + lo, min(v1, base + hi), st.median(vals))
+    if len(marks) < 5:
+        return None
+    # 이웃 세 주기의 길이 차가 가장 작은 곳의 가운데 주기
+    best = min(range(1, len(marks) - 2),
+               key=lambda i: abs(marks[i] - marks[i - 1] - (marks[i + 1] - marks[i]))
+               + abs(marks[i + 2] - marks[i + 1] - (marks[i + 1] - marks[i])))
+    m = marks[best]
+    P = marks[best + 1] - m
+    end = s0 + int(method["target_voiced"] * rate)
+    if m - P < 0 or end <= m + 2 * P + int(method["fade_out"] * rate):
+        return None  # 고른 주기가 너무 늦어 늘릴 자리가 없다
+    out = [float(x) for x in lt.samples[:m]]
+    for k in range(P):  # 원래 소리 끝은 내려가는 반창
+        out[m - P + k] *= 0.5 + 0.5 * math.cos(math.pi * k / P)
+    grain = [lt.samples[m + j] * (0.5 + 0.5 * math.cos(math.pi * j / P)) for j in range(-P, P)]
+    out.extend([0.0] * (end - m + 2 * P))
+    s = m
+    while s < end:
+        for j in range(2 * P):
+            out[s - P + j] += grain[j]
+        s += P
+    out = out[:end]
+    nf = int(method["fade_out"] * rate)
+    for k in range(nf):
+        out[end - nf + k] *= 1 - k / nf
+    out.extend([0.0] * int(cfg["round2"]["shake"]["common"]["post"] * rate))
+    samples = array.array("h", (max(-32768, min(32767, int(round(v)))) for v in out))
+    return Letter3(samples, rate, (v0, end / rate - method["fade_out"]),
+                   lt.kana_in + " +loop", lt.query_kana, lt.phonemes)
+
+
+def ref_word_moras(synth: Synthesizer, cfg: dict, sid: int, out_dir: Path) -> list[dict]:
+    """단어 속 같은 박(기준). 단어를 기본 속도로 합성하고 지정한 박의 모음 구간을 잰다."""
+    r3 = cfg["round3"]
+    rows = []
+    for ref in r3["ref_words"]:
+        q = synth.create_audio_query(ref["text"], sid)
+        samples, rate = pcm_of(synth.synthesis(q, sid))
+        write_wav(out_dir / f"ref-{ref['romaji']}.wav", samples, rate)
+        tl = timeline(q)
+        m = tl[ref["mora"]]
+        lt = Letter3(samples, rate, (m["vowel_start"], m["end"]), ref["text"], q.kana, phonemes(q))
+        rows.append({"file": f"ref-{ref['romaji']}.wav", "letter": ref["letter"], "word": ref["text"],
+                     "mora": m["text"], "query_kana": q.kana, **analyze3(lt, cfg)})
+    return rows
+
+
+def cmd_round3(cfg: dict, synth: Synthesizer) -> None:
+    r3 = cfg["round3"]
+    n_cfg = cfg["round2"]["normalize"]
+    m_cfg = cfg["measure"]
+    common = cfg["round2"]["shake"]["common"]
+    out_dir = ROOT / r3["output_dir"]
+    (out_dir / "ref").mkdir(parents=True, exist_ok=True)
+    letters = {l["romaji"]: l for l in r3["letters"]}
+    rows = []
+
+    def short(a: dict) -> str:
+        if not a.get("ok"):
+            return f"주기 {a.get('periodic')} (주기 표시 실패)"
+        fm, am = a["f0_mod"], a["amp_mod"]
+        return (f"주기 {a['periodic']} jit {a['jitter_pct']}% shim {a['shimmer_db']}dB 기울기 {a['slope_c']}c "
+                f"F0변조 4-12:{fm['4-12']['amp']}c 12-40:{fm['12-40']['amp']}c 40-120:{fm['40-120']['amp']}c | "
+                f"진폭변조 4-12:{am['4-12']['amp']}dB 12-40:{am['12-40']['amp']}dB 40-120:{am['40-120']['amp']}dB")
+
+    def keep(voice: dict, rom: str, key: str, lt: Letter3) -> None:
+        norm, gain = normalize(lt.samples, lt.rate, m_cfg, n_cfg)
+        lt = dataclasses.replace(lt, samples=norm)
+        name = f"{voice['slug']}-{rom}-{key}.wav"
+        write_wav(out_dir / name, norm, lt.rate)
+        a = analyze3(lt, cfg)
+        rows.append({"file": name, "voice": voice["slug"], "letter": rom, "method": key, "input": lt.kana_in,
+                     "query_kana": lt.query_kana, "phonemes": lt.phonemes, "gain_db": gain, **a})
+        print(f"{name:<34} 소리 {a['voiced']:.2f}s  {short(a)}")
+
+    # 기준: 단어 속 같은 박 (四国めたん ノーマル)
+    refs = ref_word_moras(synth, cfg, r3["voice"]["style_id"], out_dir / "ref")
+    for r in refs:
+        print(f"ref {r['word']}({r['mora']}) 길이 {r['dur']}s  {short(r)}")
+
+    # 四国めたん ノーマル: 8자 × 방법
+    voice = r3["voice"]
+    for rom in r3["letter_order"]:
+        letter = letters[rom]
+        for key, method in r3["methods"].items():
+            if method["kind"] in ("psola", "loop"):
+                src = make_letter3(synth, voice["style_id"], letter, r3["methods"][method["source"]], common)
+                lt = (apply_psola(src, cfg, method["target_voiced"]) if method["kind"] == "psola"
+                      else apply_loop(src, cfg, method))
+                if lt is None:
+                    print(f"{rom}-{key}: 주기 표시 실패로 건너뜀")
+                    rows.append({"voice": voice["slug"], "letter": rom, "method": key, "error": "pitch marks"})
+                    continue
+            else:
+                lt = make_letter3(synth, voice["style_id"], letter, method, common)
+            keep(voice, rom, key, lt)
+
+    # (S) 화자·pitch_scale 영향
+    for sv in r3["speakers"]:
+        adj = {k: sv[k] for k in ("pitch_scale", "intonation_scale", "speed_scale") if k in sv}
+        for rom in r3["letter_order"]:
+            for key in r3["speaker_methods"]:
+                method = r3["methods"][key]
+                if method["kind"] in ("psola", "loop"):
+                    src = make_letter3(synth, sv["style_id"], letters[rom], r3["methods"][method["source"]], common, adj)
+                    lt = (apply_psola(src, cfg, method["target_voiced"]) if method["kind"] == "psola"
+                          else apply_loop(src, cfg, method))
+                    if lt is None:
+                        continue
+                else:
+                    lt = make_letter3(synth, sv["style_id"], letters[rom], method, common, adj)
+                keep(sv, rom, key, lt)
+
+    with (out_dir / "measurements.json").open("w", encoding="utf-8") as fp:
+        json.dump({"bands_hz": r3["bands"], "methods": r3["methods"], "speakers": r3["speakers"],
+                   "ref_word_moras": refs, "files": rows}, fp, ensure_ascii=False, indent=1)
+
+    # 미리듣기
+    def join(names: list[str], gap_s: float) -> tuple[array.array, int]:
+        joined, rate = array.array("h"), 24000
+        for nm in names:
+            p = out_dir / nm
+            if not p.exists():
+                continue
+            s, rate = read_wav(p)
+            joined.extend(s)
+            joined.extend(silence(rate, gap_s))
+        return joined, rate
+    pv = r3["preview"]
+    names = [f"{voice['slug']}-{rom}-{key}.wav" for rom in pv["shake_letters"] for key in pv["shake_methods"]]
+    s, rate = join(names, pv["gap_seconds"])
+    write_wav(out_dir / "preview-shake3.wav", s, rate)
+    print("preview-shake3.wav", f"{len(s) / rate:.1f}s", names)
+    for slug in pv["best_voices"]:
+        names = [f"{slug}-{rom}-{r3['best_method']}.wav" for rom in r3["letter_order"]]
+        s, rate = join(names, pv["gap_seconds"])
+        write_wav(out_dir / f"preview-best3-{slug}.wav", s, rate)
+        print(f"preview-best3-{slug}.wav", f"{len(s) / rate:.1f}s")
+
+
 # ---------------------------------------------------------------- main
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("command", nargs="?", default="round1", choices=["metas", "round1", "shake", "giri"])
+    ap.add_argument("command", nargs="?", default="round1", choices=["metas", "round1", "shake", "giri", "round3"])
     ap.add_argument("--config", default=str(ROOT / "tools" / "voice.json"))
     args = ap.parse_args()
     cfg = load_config(Path(args.config))
@@ -642,6 +1045,8 @@ def main() -> None:
         cmd_shake(cfg, synth)
     elif args.command == "giri":
         cmd_giri(cfg, synth)
+    elif args.command == "round3":
+        cmd_round3(cfg, synth)
 
 
 if __name__ == "__main__":

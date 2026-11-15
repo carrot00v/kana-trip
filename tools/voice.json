@@ -97,5 +97,53 @@
         {"slug": "compare-tsumugi-normal", "name": "春日部つむぎ", "style": "ノーマル", "style_id": 8, "terms": "약관 원문 미확인, 비교용", "credit": "VOICEVOX:春日部つむぎ"}
       ]
     }
+  },
+
+  "round3": {
+    "comment": "3차: 주기 단위 측정(기울기·대역별 변조·jitter·shimmer)과 늘리지 않는 방법들. 기준 화자는 사용자가 고른 春日部つむぎ ノーマル(약관 확인 중). gen_voice.py round3",
+    "output_dir": "docs/design/voice/samples3",
+    "voice": {"slug": "tsumugi-normal", "name": "春日部つむぎ", "style": "ノーマル", "style_id": 8},
+    "speakers": [
+      {"slug": "metan-normal", "name": "四国めたん", "style": "ノーマル", "style_id": 2, "comment": "(S) 참고 화자"}
+    ],
+    "speaker_methods": ["e-ta40", "L36", "N75", "P", "P-loop"],
+    "edge_s": 0.02,
+    "bands": [[4, 12], [12, 40], [40, 120], [88, 100]],
+    "letter_order": ["shi", "ka", "ha", "su", "he", "a", "u", "i"],
+    "letters": [
+      {"romaji": "shi", "text": "し", "aquestalk": "シ'", "long": "シイ'"},
+      {"romaji": "ka", "text": "か", "aquestalk": "カ'", "long": "カア'"},
+      {"romaji": "ha", "text": "は", "aquestalk": "ハ'", "long": "ハア'"},
+      {"romaji": "su", "text": "す", "aquestalk": "ス'", "long": "スウ'"},
+      {"romaji": "he", "text": "へ", "aquestalk": "ヘ'", "long": "ヘエ'"},
+      {"romaji": "a", "text": "あ", "aquestalk": "ア'", "long": "アア'"},
+      {"romaji": "u", "text": "う", "aquestalk": "ウ'", "long": "ウウ'"},
+      {"romaji": "i", "text": "い", "aquestalk": "イ'", "long": "イイ'"}
+    ],
+    "methods": {
+      "c40": {"kind": "single", "comment": "1차 C안: 한 박, 모음을 늘려 박 0.40초", "mora_seconds": 0.40},
+      "e-ta40": {"kind": "carrier", "comment": "2차: 'Xタ', 글자 박 0.40초로 늘림, 높이 고정, 잘라서 30ms 페이드", "carrier": "タ", "mora_seconds": 0.40, "flat_pitch": true, "fade_out": 0.03},
+      "L36": {"kind": "long", "comment": "(L) 'XV'' 2박 장음(길이는 모델 그대로), 두 박 높이 같게, 시작부터 0.36초에서 잘라 50ms 페이드", "cut_s": 0.36, "flat_pitch": true, "fade_out": 0.05},
+      "L36-ta": {"kind": "long", "comment": "(L) 'XV'タ' 3박(길이 그대로), 높이 같게, 0.36초에서 잘라 50ms 페이드", "carrier": "タ", "cut_s": 0.36, "flat_pitch": true, "fade_out": 0.05},
+      "N75": {"kind": "carrier", "comment": "(N) 'Xタ' 길이 그대로, speed_scale 0.75, 높이 고정, 잘라서 30ms 페이드", "carrier": "タ", "speed_scale": 0.75, "flat_pitch": true, "fade_out": 0.03},
+      "N85": {"kind": "carrier", "comment": "(N) 'Xタ' 길이 그대로, speed_scale 0.85", "carrier": "タ", "speed_scale": 0.85, "flat_pitch": true, "fade_out": 0.03},
+      "T-maru": {"kind": "text", "comment": "(T) 일반 텍스트 'X。' 그대로", "suffix": "。"},
+      "T-long": {"kind": "text", "comment": "(T) 일반 텍스트 'Xー。' 그대로", "suffix": "ー。"},
+      "T-ten": {"kind": "text", "comment": "(T) 일반 텍스트 'X、' 그대로", "suffix": "、"},
+      "P": {"kind": "psola", "comment": "(P) N75의 모음 정상 구간을 피치 동기 겹침-더하기로 늘려 소리 0.35초", "source": "N75", "target_voiced": 0.35},
+      "P-loop": {"kind": "loop", "comment": "(P) 서스테인 루프: e-ta40의 자음·모음 시작은 그대로, 모음 시작 20~80ms 사이 가장 고른 한 주기를 같은 간격으로 반복해 소리 0.35초, 끝 60ms 페이드", "source": "e-ta40", "search": [0.02, 0.08], "target_voiced": 0.35, "fade_out": 0.06}
+    },
+    "ref_words": [
+      {"letter": "shi", "text": "すし", "romaji": "sushi", "mora": 1},
+      {"letter": "su", "text": "すし", "romaji": "sushi", "mora": 0},
+      {"letter": "ka", "text": "いか", "romaji": "ika", "mora": 1},
+      {"letter": "i", "text": "いか", "romaji": "ika", "mora": 0},
+      {"letter": "ha", "text": "はし", "romaji": "hashi", "mora": 0},
+      {"letter": "he", "text": "へや", "romaji": "heya", "mora": 0},
+      {"letter": "a", "text": "あさ", "romaji": "asa", "mora": 0},
+      {"letter": "u", "text": "うし", "romaji": "ushi", "mora": 0}
+    ],
+    "best_method": "P-loop",
+    "preview": {"gap_seconds": 0.5, "shake_letters": ["shi", "ka", "ha"], "shake_methods": ["e-ta40", "L36", "N75", "P-loop"], "best_voices": ["tsumugi-normal", "metan-normal"]}
   }
 }
