@@ -78,5 +78,7 @@
   "okawari": {"candidate": "word-okawari_20261116", "dots": true, "rim": true,
               "note": "밥알 몇 개 남은 빈 남색 공기에 밥주걱을 걸침"},
   "omairi": {"candidate": "word-omairi_20261116", "dots": true, "rim": true,
-             "note": "새전함, 들보에 매단 방울과 붉은·흰 꼰 줄. 방울이 둥근 스즈가 아니라 종 모양"}
+             "note": "새전함, 들보에 매단 방울과 붉은·흰 꼰 줄. 방울이 둥근 스즈가 아니라 종 모양"},
+  "enmusubi": {"candidate": "word-enmusubi_20261116", "dots": true, "rim": true,
+               "note": "붉은 끈에 매단 하트 모양 나무 에마(지붕 모양 없음)"}
 }
