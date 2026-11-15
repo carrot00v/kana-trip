@@ -1,4 +1,5 @@
 import AVFoundation
+import os
 import UIKit
 
 /// 무엇을 읽는지. 글자 하나와 단어는 속도와 읽는 방식이 다르다.
@@ -83,7 +84,10 @@ enum SpeechStyle {
     static let kanaRepeats = 2
     static let kanaGap: TimeInterval = 0.4
     /// 첫 음 앞에 두는 여백. 오디오 경로가 열리는 동안 앞이 잘리지 않게 한다.
-    static let leadIn: TimeInterval = 0.1
+    /// 실기기는 세션을 켠 뒤 출력이 열리기까지 시간이 걸려, 0.15초짜리 글자 소리가 통째로 묻힐 수 있다.
+    static let leadIn: TimeInterval = 0.3
+    /// 읽기가 끝난 뒤 세션을 닫기까지 기다리는 시간. 이어서 누르면 출력을 다시 열지 않는다.
+    static let sessionLinger: TimeInterval = 3
 
     /// 번들 음성 파일의 앞뒤 무음(초). `tools/voice.json`의 final.lead_silence, tail_silence와 같다.
     static let fileLeadSilence: TimeInterval = 0.05
@@ -165,6 +169,9 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
     private var player: AVAudioPlayer?
     private var pendingDelays: [TimeInterval] = []
     private var sessionConfigured = false
+    /// 예약한 재생과 세션 닫기를 무효로 만드는 번호. 새로 읽거나 멈출 때마다 올린다.
+    private var generation = 0
+    private static let log = Logger(subsystem: "com.carrotlab.kanatrip", category: "Speaker")
 
     override init() {
         super.init()
@@ -216,6 +223,7 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
 
     /// 하던 소리를 모두 끊는다. 끊긴 내장 음성은 `didCancel`에서 세션을 정리한다.
     private func haltAll() {
+        generation += 1
         player?.stop()
         player = nil
         pendingDelays = []
@@ -227,8 +235,18 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
     private func playNext(_ player: AVAudioPlayer) {
         guard !pendingDelays.isEmpty else { return }
         let delay = pendingDelays.removeFirst()
-        player.currentTime = 0
-        player.play(atTime: player.deviceCurrentTime + delay)
+        let token = generation
+        // play(atTime:)은 출력 장치 시계에 기대므로 쓰지 않고, 기다렸다가 바로 재생한다.
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self, token == self.generation, player === self.player else { return }
+            player.currentTime = 0
+            if !player.play() {
+                Self.log.error("음성 파일 재생을 시작하지 못함")
+                self.player = nil
+                self.pendingDelays = []
+                self.deactivateSession()
+            }
+        }
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -288,17 +306,32 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
     private func activateSession() {
         let session = AVAudioSession.sharedInstance()
         if !sessionConfigured {
-            try? session.setCategory(.playback, mode: .spokenAudio, options: [.duckOthers])
-            sessionConfigured = true
+            do {
+                try session.setCategory(.playback, mode: .default, options: [.duckOthers])
+                sessionConfigured = true
+            } catch {
+                Self.log.error("오디오 세션 설정 실패: \(error.localizedDescription)")
+            }
         }
-        try? session.setActive(true)
+        do { try session.setActive(true) } catch {
+            Self.log.error("오디오 세션 켜기 실패: \(error.localizedDescription)")
+        }
     }
 
     /// 읽는 것이 없을 때 세션을 닫아 줄였던 다른 앱 소리를 되돌린다.
     /// `force`는 방금 모두 끊은 직후에 쓴다(끊은 내장 음성이 아직 말하는 중으로 보일 수 있다).
     private func deactivateSession(force: Bool = false) {
         guard force || (player == nil && !synthesizer.isSpeaking) else { return }
-        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        if force {
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+            return
+        }
+        // 바로 닫지 않는다. 이어서 누를 때마다 출력을 다시 열면 짧은 소리의 앞이 잘린다.
+        let token = generation
+        DispatchQueue.main.asyncAfter(deadline: .now() + SpeechStyle.sessionLinger) { [weak self] in
+            guard let self, token == self.generation, self.player == nil, !self.synthesizer.isSpeaking else { return }
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        }
     }
 
     // MARK: 음성 고르기
