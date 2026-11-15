@@ -56,5 +56,7 @@
   "uzura": {"candidate": "word-uzura_1077898383", "dots": true, "rim": true},
   "oheya": {"candidate": "word-oheya_1936180909", "dots": true, "rim": true},
   "deguchi": {"candidate": "word-deguchi_20261116", "dots": true, "rim": true,
-              "note": "글자 없는 노란 빈 판. でぐち는 place_word_art.py가 합성"}
+              "note": "글자 없는 노란 빈 판. でぐち는 place_word_art.py가 합성"},
+  "iriguchi": {"candidate": "word-iriguchi_20261116", "dots": true, "rim": true,
+               "note": "글자 없는 남색 빈 판. いりぐち는 place_word_art.py가 크림색으로 합성"}
 }
