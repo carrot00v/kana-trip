@@ -64,5 +64,7 @@
   "kochira": {"candidate": "word-kochira_20261116", "dots": true, "rim": true,
               "note": "오른쪽을 가리키는 화살표 모양 나무 판. 나뭇결 줄은 그대로 둠(stripes로 메우면 기둥이 얼룩짐). こちら는 place_word_art.py가 합성"},
   "atari": {"candidate": "word-atari_20261116", "dots": true, "rim": true,
-            "note": "붉은 테의 세로 제비 종이(빈 칸). あたり는 place_word_art.py가 가로로 합성"}
+            "note": "붉은 테의 세로 제비 종이(빈 칸). あたり는 place_word_art.py가 가로로 합성"},
+  "hazure": {"candidate": "word-hazure_20261116", "dots": true, "rim": true,
+             "note": "회청색 테의 세로 제비 종이(atari와 같은 모양). はずれ는 place_word_art.py가 가로로 합성"}
 }
