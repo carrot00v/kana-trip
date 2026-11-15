@@ -26,7 +26,9 @@ allowFloor인 단어(kutsuonuide, oheya)만 OBJECT_RULES에서 "no floor"를 뺀
 
 이번 배치에서 뺀 것
 - word-yu: 노렌 그림만 만든다. 가운데 빈 원에 ゆ를 KanjiVG 획으로 합성하는 일은 그림을 고른 뒤 따로 한다.
-- word-okame: word_art.json에 hold로 남겨 두었다. 고명 구성 확인 뒤 hold를 지우면 생성된다.
+- word-okame: 고명 구성 확인 전까지 hold였다(2026-11-16 docs/research/okame-toppings.md로 지우고 그림).
+- 우선순위 3(3차 배치, 2026-11-16): 표지판·제비 종이는 빈 판만 그리고 글자는 place_word_art.py가 합성한다.
+  비슷한 대상 여럿(꼬치 등)은 같은 시드면 같은 구도가 나오므로 --only로 단어마다 --seed를 달리 준다.
 """
 
 import argparse

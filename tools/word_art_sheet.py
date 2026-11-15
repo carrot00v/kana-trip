@@ -3,6 +3,7 @@
 
   .venv/bin/python tools/word_art_sheet.py --priority 1          # 우선순위 1 → source/contact-sheet.png
   .venv/bin/python tools/word_art_sheet.py --priority 2 --out docs/design/word-art/source/contact-sheet-p2.png
+  .venv/bin/python tools/word_art_sheet.py --placed --priority 3 --only ... --out .../contact-sheet-3.png  # 앱에 들어간 그림
 
 - 바탕을 지운 투명본(candidates/cut/)을 푸른 바둑판 위에 놓는다. 바탕 지우기에서 남은 회색 테나
   지워진 흰 면이 바둑판과 구분되어 보인다.
@@ -17,6 +18,8 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "tools" / "word_art.json"
 CUT = ROOT / "docs" / "design" / "word-art" / "source" / "candidates" / "cut"
+SOURCE = ROOT / "docs" / "design" / "word-art" / "source"
+PLACED = ROOT / "build" / "word-art"
 DEFAULT_OUT = ROOT / "docs" / "design" / "word-art" / "source" / "contact-sheet.png"
 FONT = "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
 
@@ -40,14 +43,24 @@ def checker(w: int, h: int) -> Image.Image:
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--priority", type=int, help="이 우선순위만 (없으면 후보가 있는 단어 모두)")
+    p.add_argument("--only", nargs="+", metavar="이름", help="이 단어들만 (word_art.json의 name, 우선순위 무관)")
+    p.add_argument("--placed", action="store_true",
+                   help="후보 대신 앱에 들어간 600px 그림(build/word-art/, 합성 글자 포함)을 놓는다")
     p.add_argument("--out", type=Path, default=DEFAULT_OUT)
     a = p.parse_args()
 
     words = json.loads(DATA.read_text())["words"]
-    if a.priority:
+    if a.only:
+        words = [w for w in words if w["name"] in a.only]
+    elif a.priority:
         words = [w for w in words if w["priority"] == a.priority]
     tiles = []
     for w in words:
+        if a.placed:
+            path = PLACED / f"word-{w['name']}.png"
+            if path.exists():
+                tiles.append((w, path))
+            continue
         for path in sorted(CUT.glob(f"word-{w['name']}_*.png")):
             tiles.append((w, path))
     if not tiles:
@@ -65,7 +78,11 @@ def main() -> int:
         art = Image.open(path).convert("RGBA").resize((TILE - 8, TILE - 8), Image.LANCZOS)
         cell.alpha_composite(art)
         sheet.alpha_composite(cell, (x + 4, y + 4))
-        seed = path.stem.rsplit("_", 1)[-1]
+        if a.placed:
+            meta = SOURCE / f"word-{w['name']}.json"
+            seed = json.loads(meta.read_text()).get("seed", "?") if meta.exists() else "?"
+        else:
+            seed = path.stem.rsplit("_", 1)[-1]
         d.text((x + 8, y + TILE), f"{w['name']}  {w['kana']}", font=font, fill=(74, 34, 25))
         d.text((x + 8, y + TILE + 30), f"seed {seed}", font=small, fill=(120, 100, 90))
     a.out.parent.mkdir(parents=True, exist_ok=True)
