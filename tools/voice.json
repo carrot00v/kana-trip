@@ -176,5 +176,24 @@
     "aac_bitrate": 64000,
     "kana_gap": 0.4,
     "preview": {"letters": ["a", "i", "u", "e", "o", "ka", "ki", "ku", "ke", "ko"], "letter_gap": 0.8}
+  },
+  "round4": {
+    "comment": "4차: 글자 소리를 0.3~0.45초, 끝은 자연 감쇠, 떨림·기계음 없이. gen_voice.py round4. 앱에는 넣지 않음",
+    "style_id": 8,
+    "output_dir": "docs/design/voice/samples4",
+    "letters": [["し", "shi"], ["か", "ka"], ["は", "ha"], ["あ", "a"], ["す", "su"], ["い", "i"], ["ん", "n"], ["つ", "tsu"], ["ふ", "fu"], ["き", "ki"]],
+    "common": {"pre": 0.1, "post": 0.3},
+    "letter_gap": 0.7,
+    "candidates": {
+      "A75": {"kind": "single", "speed_scale": 0.75, "comment": "한 박 'X'' 그대로, 자르지 않음"},
+      "A60": {"kind": "single", "speed_scale": 0.6, "comment": "한 박 'X'' 그대로, 자르지 않음"},
+      "B2": {"kind": "repeat", "moras": 2, "mora_vowel_s": [0.10, 0.14], "step_down": 0.025, "speed_scale": 1.0, "comment": "audio query에서 같은 모음 박을 복제(カア), 박마다 높이 -2.5%, 끝 자연 감쇠"},
+      "B3": {"kind": "repeat", "moras": 3, "mora_vowel_s": [0.10, 0.14], "step_down": 0.025, "speed_scale": 1.0, "comment": "B2와 같고 박 3개(カアア)"},
+      "C": {"kind": "stretch", "alpha": [1.8, 2.2], "target_voiced": 0.36, "fade_s": 0.12, "comment": "앱 N 원음(페이드 없이)의 모음 주기들을 순서대로 alpha배(약 두 번씩) 써서 늘리고 끝 120ms 코사인 페이드"},
+      "C3": {"kind": "stretch", "alpha": [2.5, 3.5], "target_voiced": 0.36, "fade_s": 0.12, "comment": "추가 비교: C와 같고 늘이는 배율만 2.5~3.5(각 주기 약 세 번). C가 배율 2.2 상한에서 0.3초에 못 미쳐서"},
+      "D": {"kind": "sentence_end", "prefix": "コレワ'、", "speed_scale": 0.85, "lead_s": 0.03, "comment": "'コレワ'、X'' 문장 끝 박만 쉼 뒤에서 잘라 냄(단어 속도 0.85)"},
+      "D70": {"kind": "sentence_end", "prefix": "コレワ'、", "speed_scale": 0.7, "lead_s": 0.03, "comment": "추가 비교: D와 같고 speed 0.7"},
+      "B3s": {"kind": "repeat", "moras": 3, "mora_vowel_s": [0.10, 0.14], "step_down": 0.01, "speed_scale": 1.0, "comment": "추가 비교: B3에서 박마다 높이 내림을 -1%로 줄임(-2.5% 계단이 4-12Hz 변조로 잡히는지 가르기 위해)"}
+    }
   }
 }

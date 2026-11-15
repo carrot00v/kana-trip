@@ -9,6 +9,7 @@
     .voicevox/venv/bin/python -I tools/gen_voice.py round1   # 1차: 글자 A/B/C, 단어 2속도 (docs/design/voice/samples)
     .voicevox/venv/bin/python -I tools/gen_voice.py shake    # 2차: 글자 떨림 비교 (samples2/shake)
     .voicevox/venv/bin/python -I tools/gen_voice.py giri     # 2차: 기리 목소리 후보 (samples2)
+    .voicevox/venv/bin/python -I tools/gen_voice.py round4   # 4차: 글자 0.3~0.45초 후보 A~D (samples4)
 
 외부 패키지 없이 표준 라이브러리만 쓴다(voicevox_core 제외). F0는 정규화 자기상관(NACF)으로 잰다.
 """
@@ -1316,12 +1317,245 @@ def cmd_final(cfg: dict, synth: Synthesizer) -> None:
     print(f"m4a {summary['m4a_files']}개 {total} B, 빠진 글자 {missing_kana}, 소리 없는 글자 {silent}")
 
 
+# ---------------------------------------------------------------- 4차: 짧지도 떨리지도 않은 글자
+
+VOWEL_KANA = {"a": "ア", "i": "イ", "u": "ウ", "e": "エ", "o": "オ", "N": "ン"}
+
+
+def voiced_mora(m, fallback_pitch: float):
+    """무성화된 박(모음 대문자, 높이 0)을 유성으로 되돌린다."""
+    if m.vowel in ("A", "I", "U", "E", "O"):
+        m = dataclasses.replace(m, vowel=m.vowel.lower())
+    if m.pitch <= 0:
+        m = dataclasses.replace(m, pitch=fallback_pitch)
+    return m
+
+
+def replace_last_mora(query: AudioQuery, fn) -> AudioQuery:
+    aps = list(query.accent_phrases)
+    last = aps[-1]
+    aps[-1] = dataclasses.replace(last, moras=list(last.moras[:-1]) + [fn(last.moras[-1])])
+    return dataclasses.replace(query, accent_phrases=aps)
+
+
+def psola_repeat(samples: array.array, rate: int, marks: list[int], i0: int, i1: int,
+                 alpha: float) -> array.array:
+    """marks[i0]~marks[i1]의 주기들을 순서대로 alpha배 써서 늘린다(alpha 2면 각 주기를 두 번씩).
+    한 주기만 반복하지 않으므로 원래 주기들의 미세한 변화가 남는다."""
+    m0, m1 = marks[i0], marks[i1]
+    out = [float(s) for s in samples[:m0]]
+    P0 = marks[i0 + 1] - m0
+    for k in range(P0):
+        j = m0 - P0 + k
+        if j >= 0:
+            out[j] *= 0.5 + 0.5 * math.cos(math.pi * k / P0)
+    n_out = int(round((i1 - i0) * alpha))
+    out.extend([0.0] * int((m1 - m0) * alpha + 6 * P0))
+    s = m0
+    for n in range(n_out):
+        k = i0 + min(i1 - i0 - 1, int(n / alpha))
+        c, P = marks[k], marks[k + 1] - marks[k]
+        for j in range(-P, P):
+            src, dst = c + j, s + j
+            if 0 <= src < len(samples) and 0 <= dst < len(out):
+                out[dst] += samples[src] * (0.5 + 0.5 * math.cos(math.pi * j / P))
+        s += P
+    P1 = marks[i1] - marks[i1 - 1]
+    base = s - P1
+    tail = samples[m1 - P1:]
+    need = base + len(tail) - len(out)
+    if need > 0:
+        out.extend([0.0] * need)
+    for k, v in enumerate(tail):
+        out[base + k] += v * (0.5 - 0.5 * math.cos(math.pi * k / P1) if k < P1 else 1.0)
+    out = out[:base + len(tail)]
+    return array.array("h", (max(-32768, min(32767, int(round(v)))) for v in out))
+
+
+def cosine_tail(samples: array.array, rate: int, seconds: float) -> array.array:
+    """소리 구간 끝 seconds초에 코사인 페이드를 건다."""
+    out = array.array("h", samples)
+    _, e = voiced_bounds(out, rate, 10, -60.0)
+    n = int(seconds * rate)
+    for k in range(n):
+        i = e - n + k
+        if 0 <= i < len(out):
+            out[i] = int(out[i] * (0.5 + 0.5 * math.cos(math.pi * k / n)))
+    for i in range(e, len(out)):
+        out[i] = 0
+    return out
+
+
+def measure4(samples: array.array, rate: int, cfg: dict) -> dict:
+    """후보 공통 측정. 구간을 합성 정보 없이 파형에서 정한다: 주기가 또렷한 첫 창~마지막 창(앞뒤 20ms 제외).
+    decay_s: 소리 구간 RMS보다 6dB 낮아진 마지막 지점에서 -45dBFS로 사라질 때까지(클수록 끝이 천천히 잦아듦)."""
+    f = cfg["round2"]["f0"]
+    m_cfg = cfg["measure"]
+    m = measure(samples, rate, m_cfg["frame_ms"], m_cfg["silence_dbfs"])
+    vs, ve = voiced_bounds(samples, rate, 10, m_cfg["silence_dbfs"])
+    n = rate // 100
+    seg = samples[vs:ve]
+    rms = math.sqrt(sum(x * x for x in seg) / len(seg)) if seg else 1.0
+    loud = [i for i in range(vs, ve, n)
+            if math.sqrt(sum(x * x for x in samples[i:i + n]) / max(1, len(samples[i:i + n]))) >= rms / 2]
+    decay = (ve - (loud[-1] + n)) / rate if loud else 0.0
+    tr = f0_track(samples, rate, f)
+    per = [t for t, fr, c in tr if fr and c >= f["periodic_nacf"]]
+    sh = shake_stats(tr, vs / rate, ve / rate, f) or {}
+    res = {**m, "decay_s": round(max(0.0, decay), 3), "periodic": sh.get("periodic")}
+    if len(per) < 3:
+        return {**res, "ok": False}
+    t0, t1 = per[0] + f["edge_s"], per[-1] - f["edge_s"]
+    ca = cycle_analysis(samples, rate, t0, t1, f, cfg["round3"]["bands"])
+    res["pitched_s"] = round(per[-1] - per[0], 3)
+    if not ca.get("ok"):
+        return {**res, "ok": False}
+    return {**res, "ok": True, "cycles": ca["cycles"], "f0": ca["f0"], "jitter_pct": ca["jitter_pct"],
+            "shimmer_db": ca["shimmer_db"], "slope_c": ca["slope_c"],
+            "f0_mod_4_12_c": ca["f0_mod"]["4-12"]["amp"], "amp_mod_4_12_db": ca["amp_mod"]["4-12"]["amp"],
+            "f0_mod_12_40_c": ca["f0_mod"]["12-40"]["amp"]}
+
+
+def cmd_round4(cfg: dict, synth: Synthesizer) -> None:
+    r4 = cfg["round4"]
+    fc = cfg["final"]
+    m_cfg = cfg["measure"]
+    sid = r4["style_id"]
+    common = r4["common"]
+    out_dir = ROOT / r4["output_dir"]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    final_rows = {r["kana"]: r for r in load_config(ROOT / fc["output_dir"] / "measurements.json")["kana"]}
+
+    def synth_q(q: AudioQuery) -> tuple[array.array, int]:
+        q = dataclasses.replace(q, pre_phoneme_length=common["pre"], post_phoneme_length=common["post"])
+        return pcm_of(synth.synthesis(q, sid))
+
+    def fallback_pitch(kana: str) -> float:
+        return timeline(synth.create_audio_query_from_kana(kana, sid))[-1]["pitch"]
+
+    def make(key: str, char: str) -> tuple[array.array, int, dict]:
+        c = r4["candidates"][key]
+        kana_in = fc["kana_input"].get(char, hira_to_kata(char) + "'")
+        kind = c["kind"]
+        if kind == "single":  # A
+            q = synth.create_audio_query_from_kana(kana_in, sid)
+            q = replace_last_mora(q, lambda m: voiced_mora(m, fallback_pitch("ア'")))
+            q = dataclasses.replace(q, speed_scale=c["speed_scale"])
+            s, rate = synth_q(q)
+            return s, rate, {"input": kana_in, "query_kana": q.kana, "phonemes": phonemes(q)}
+        if kind == "repeat":  # B
+            q = synth.create_audio_query_from_kana(kana_in, sid)
+            m = voiced_mora(q.accent_phrases[0].moras[0], fallback_pitch("ア'"))
+            lo, hi = c["mora_vowel_s"]
+            m = dataclasses.replace(m, vowel_length=min(hi, max(lo, m.vowel_length)))
+            moras = [m]
+            for k in range(1, c["moras"]):
+                moras.append(dataclasses.replace(
+                    m, text=VOWEL_KANA[m.vowel], consonant=None, consonant_length=None,
+                    pitch=m.pitch + k * math.log(1 - c["step_down"])))
+            ap = dataclasses.replace(q.accent_phrases[0], moras=moras)
+            q = dataclasses.replace(q, accent_phrases=[ap], speed_scale=c["speed_scale"])
+            s, rate = synth_q(q)
+            return s, rate, {"input": kana_in, "query_kana": q.kana, "phonemes": phonemes(q),
+                             "moras": mora_detail(q)}
+        if kind == "stretch":  # C
+            row = final_rows[char]
+            body, rate, span, q = letter_carrier(
+                synth, sid, fc["kana_input"].get(char, hira_to_kata(char) + "'"), row["carrier"],
+                {**fc["kana_method"], "fade_out": 0.0}, fc["common"])
+            hint = math.exp(timeline(q)[0]["pitch"])
+            marks = pitch_marks(body, rate, span[0] + 0.01, span[1] - 0.005, hint)
+            if len(marks) < 6:
+                raise RuntimeError(f"주기 표시 {len(marks)}개")
+            i0, i1 = 1, len(marks) - 2
+            s0, e0 = voiced_bounds(body, rate, 10, -45.0)
+            cur = (e0 - s0) / rate
+            steady = (marks[i1] - marks[i0]) / rate
+            lo, hi = c["alpha"]
+            alpha = min(hi, max(lo, 1 + (c["target_voiced"] - cur) / steady))
+            out = psola_repeat(body, rate, marks, i0, i1, alpha)
+            out = cosine_tail(out, rate, c["fade_s"])
+            return out, rate, {"input": kana_in + row["carrier"], "query_kana": q.kana, "phonemes": phonemes(q),
+                               "alpha": round(alpha, 2), "steady_s": round(steady, 3)}
+        if kind == "sentence_end":  # D
+            text = c["prefix"] + kana_in
+            q = synth.create_audio_query_from_kana(text, sid)
+            q = replace_last_mora(q, lambda m: voiced_mora(m, fallback_pitch(c["prefix"] + "ア'")))
+            q = dataclasses.replace(q, speed_scale=c["speed_scale"])
+            s, rate = synth_q(q)
+            tl = timeline(q)
+            a = int((tl[-1]["start"] - c["lead_s"]) * rate)
+            body = fade(s[a:], rate, fade_in=0.005)
+            return body, rate, {"input": text, "query_kana": q.kana, "phonemes": phonemes(q),
+                                "last_mora": {k: round(v, 3) if isinstance(v, float) else v
+                                              for k, v in tl[-1].items()}}
+        raise SystemExit(f"모르는 kind: {kind}")
+
+    rows = []
+    for key in r4["candidates"]:
+        (out_dir / key).mkdir(exist_ok=True)
+        for char, romaji in r4["letters"]:
+            try:
+                s, rate, info = make(key, char)
+            except Exception as e:
+                rows.append({"cand": key, "kana": char, "error": f"{type(e).__name__}: {e}"})
+                print(f"{key} {char}: 실패 {e}")
+                continue
+            s = trim_pad(s, rate, fc["lead_silence"], fc["tail_silence"], fc["trim_floor_dbfs"])
+            s, gain = normalize(s, rate, m_cfg, fc["normalize"])
+            write_wav(out_dir / key / f"kana_{romaji}.wav", s, rate)
+            a = measure4(s, rate, cfg)
+            rows.append({"cand": key, "kana": char, "romaji": romaji, "gain_db": gain, **info, **a})
+            print(f"{key:<4} {char} 소리 {a['voiced']:.2f}s 감쇠 {a['decay_s']:.2f}s 주기 {a['periodic']} "
+                  f"jit {a.get('jitter_pct')} F0 4-12 {a.get('f0_mod_4_12_c')}c 진폭 {a.get('amp_mod_4_12_db')}dB "
+                  f"{' '.join(info['phonemes'])}")
+
+    # 기준: 앱에 들어간 N(final/kana)
+    for char, romaji in r4["letters"]:
+        s, rate = read_wav(ROOT / fc["output_dir"] / "kana" / f"kana_{romaji}.wav")
+        a = measure4(s, rate, cfg)
+        rows.append({"cand": "N", "kana": char, "romaji": romaji, **a})
+        print(f"N    {char} 소리 {a['voiced']:.2f}s 감쇠 {a['decay_s']:.2f}s 주기 {a['periodic']} "
+              f"jit {a.get('jitter_pct')} F0 4-12 {a.get('f0_mod_4_12_c')}c 진폭 {a.get('amp_mod_4_12_db')}dB")
+
+    # 후보별 요약과 미리듣기
+    summary = {}
+    for key in ["N"] + list(r4["candidates"]):
+        rs = [r for r in rows if r["cand"] == key and "error" not in r]
+        def med(k):
+            v = [r[k] for r in rs if r.get(k) is not None]
+            return round(st.median(v), 3) if v else None
+        summary[key] = {
+            "made": len(rs), "voiced_min": min((r["voiced"] for r in rs), default=None),
+            "voiced_max": max((r["voiced"] for r in rs), default=None),
+            "voiced_med": med("voiced"), "decay_med": med("decay_s"), "periodic_med": med("periodic"),
+            "jitter_med": med("jitter_pct"), "jitter_max": max((r["jitter_pct"] for r in rs if r.get("ok")), default=None),
+            "f0_mod_4_12_med": med("f0_mod_4_12_c"), "amp_mod_4_12_med": med("amp_mod_4_12_db"),
+            "failed_make": [r["kana"] for r in rows if r["cand"] == key and "error" in r],
+            "failed_measure": [r["kana"] for r in rs if not r.get("ok")],
+        }
+        print(key, summary[key])
+        joined, rate = array.array("h"), 24000
+        for char, romaji in r4["letters"]:
+            p = (ROOT / fc["output_dir"] / "kana" if key == "N" else out_dir / key) / f"kana_{romaji}.wav"
+            if not p.exists():
+                continue
+            s, rate = read_wav(p)
+            joined.extend(s)
+            joined.extend(silence(rate, r4["letter_gap"]))
+        write_wav(out_dir / f"preview-{key}.wav", joined, rate)
+        summary[key]["preview_s"] = round(len(joined) / rate, 1)
+
+    with (out_dir / "measurements.json").open("w", encoding="utf-8") as fp:
+        json.dump({"candidates": r4["candidates"], "summary": summary, "files": rows}, fp, ensure_ascii=False, indent=1)
+
+
 # ---------------------------------------------------------------- main
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("command", nargs="?", default="round1",
-                    choices=["metas", "round1", "shake", "giri", "round3", "final"])
+                    choices=["metas", "round1", "shake", "giri", "round3", "final", "round4"])
     ap.add_argument("--config", default=str(ROOT / "tools" / "voice.json"))
     args = ap.parse_args()
     cfg = load_config(Path(args.config))
@@ -1338,6 +1572,8 @@ def main() -> None:
         cmd_round3(cfg, synth)
     elif args.command == "final":
         cmd_final(cfg, synth)
+    elif args.command == "round4":
+        cmd_round4(cfg, synth)
 
 
 if __name__ == "__main__":
