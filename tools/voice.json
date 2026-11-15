@@ -195,5 +195,25 @@
       "D70": {"kind": "sentence_end", "prefix": "コレワ'、", "speed_scale": 0.7, "lead_s": 0.03, "comment": "추가 비교: D와 같고 speed 0.7"},
       "B3s": {"kind": "repeat", "moras": 3, "mora_vowel_s": [0.10, 0.14], "step_down": 0.01, "speed_scale": 1.0, "comment": "추가 비교: B3에서 박마다 높이 내림을 -1%로 줄임(-2.5% 계단이 4-12Hz 변조로 잡히는지 가르기 위해)"}
     }
+  },
+  "round5": {
+    "comment": "5차: 노래 합성(s0.vvm). 쿼리·f0·음량은 가창 교사 스타일, 소리는 春日部つむぎ 노래 스타일. f0는 단어 소리 F0 중앙값으로 덮어씀. gen_voice.py round5. 앱에는 넣지 않음",
+    "vvm": "models/vvms/s0.vvm",
+    "teacher_style_id": 6000,
+    "singer_style_id": 3008,
+    "output_dir": "docs/design/voice/samples5",
+    "letters": [["あ", "a"], ["か", "ka"], ["さ", "sa"], ["た", "ta"], ["な", "na"], ["は", "ha"], ["ま", "ma"], ["や", "ya"], ["ら", "ra"], ["ん", "n"], ["を", "wo"]],
+    "lyric": {"を": "オ"},
+    "lyric_check": ["ン", "ヲ", "を", "ん", "ガ", "パ", "シ", "ツ", "ッ"],
+    "rest_pre": 15,
+    "rest_post": 15,
+    "target_voiced": [0.35, 0.45],
+    "letter_gap": 0.5,
+    "variants": {
+      "raw40": {"note_s": 0.40, "f0": "model", "comment": "참고: 교사 f0 곡선 그대로(높이만 말소리로 옮김). 비브라토 확인용, 추천 대상 아님"},
+      "flatM40": {"note_s": 0.40, "f0": "flat", "volume": "mono", "comment": "f0 평탄. 음량은 첫 봉우리 뒤로 줄기만 하게(가운데 움푹 꺼짐을 채움), 끝 감쇠는 모델 그대로"},
+      "fallM40": {"note_s": 0.40, "f0": "fall", "fall_cents": 60, "fall_frac": 0.35, "volume": "mono", "comment": "flatM40에서 모음 마지막 35% 동안 60센트 하강"},
+      "flatM45": {"note_s": 0.45, "f0": "flat", "volume": "mono", "comment": "flatM40과 같고 음표 0.45초"}
+    }
   }
 }

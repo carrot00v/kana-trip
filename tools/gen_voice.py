@@ -10,6 +10,7 @@
     .voicevox/venv/bin/python -I tools/gen_voice.py shake    # 2차: 글자 떨림 비교 (samples2/shake)
     .voicevox/venv/bin/python -I tools/gen_voice.py giri     # 2차: 기리 목소리 후보 (samples2)
     .voicevox/venv/bin/python -I tools/gen_voice.py round4   # 4차: 글자 0.3~0.45초 후보 A~D (samples4)
+    .voicevox/venv/bin/python -I tools/gen_voice.py round5   # 5차: 노래 모델(s0.vvm)로 글자 한 박 (samples5)
 
 외부 패키지 없이 표준 라이브러리만 쓴다(voicevox_core 제외). F0는 정규화 자기상관(NACF)으로 잰다.
 """
@@ -1402,7 +1403,7 @@ def measure4(samples: array.array, rate: int, cfg: dict) -> dict:
     tr = f0_track(samples, rate, f)
     per = [t for t, fr, c in tr if fr and c >= f["periodic_nacf"]]
     sh = shake_stats(tr, vs / rate, ve / rate, f) or {}
-    res = {**m, "decay_s": round(max(0.0, decay), 3), "periodic": sh.get("periodic")}
+    res = {**m, "decay_s": round(max(0.0, decay), 3), "periodic": sh.get("periodic"), "f0_sd_c": sh.get("sd_c")}
     if len(per) < 3:
         return {**res, "ok": False}
     t0, t1 = per[0] + f["edge_s"], per[-1] - f["edge_s"]
@@ -1411,7 +1412,7 @@ def measure4(samples: array.array, rate: int, cfg: dict) -> dict:
     if not ca.get("ok"):
         return {**res, "ok": False}
     return {**res, "ok": True, "cycles": ca["cycles"], "f0": ca["f0"], "jitter_pct": ca["jitter_pct"],
-            "shimmer_db": ca["shimmer_db"], "slope_c": ca["slope_c"],
+            "shimmer_db": ca["shimmer_db"], "slope_c": ca["slope_c"], "f0_resid_c": ca["f0_resid_c"],
             "f0_mod_4_12_c": ca["f0_mod"]["4-12"]["amp"], "amp_mod_4_12_db": ca["amp_mod"]["4-12"]["amp"],
             "f0_mod_12_40_c": ca["f0_mod"]["12-40"]["amp"]}
 
@@ -1550,12 +1551,185 @@ def cmd_round4(cfg: dict, synth: Synthesizer) -> None:
         json.dump({"candidates": r4["candidates"], "summary": summary, "files": rows}, fp, ensure_ascii=False, indent=1)
 
 
+# ---------------------------------------------------------------- 5차: 노래 합성(s0.vvm)으로 한 박
+
+FRAME_RATE = 93.75  # 노래 합성의 프레임/초
+
+
+def hz_to_midi(hz: float) -> float:
+    return 69 + 12 * math.log2(hz / 440)
+
+
+def speech_f0(paths: list[Path], f: dict) -> dict:
+    """말소리 wav들의 F0 중앙값. 파일마다 주기 창 F0 중앙값을 내고 그 중앙값을 쓴다."""
+    per_file = []
+    for p in paths:
+        s, rate = read_wav(p)
+        vals = [fr for _, fr, c in f0_track(s, rate, f) if fr and c >= f["periodic_nacf"]]
+        if len(vals) >= 3:
+            per_file.append(st.median(vals))
+    return {"files": len(per_file), "median_hz": round(st.median(per_file), 1),
+            "p25_hz": round(st.quantiles(per_file, n=4)[0], 1), "p75_hz": round(st.quantiles(per_file, n=4)[2], 1)}
+
+
+def song_score(lyric: str, note_frames: int, key: int, rest_pre: int, rest_post: int):
+    from voicevox_core import Note, Score
+    return Score([Note(rest_pre, ""), Note(note_frames, lyric, key=key), Note(rest_post, "")])
+
+
+def song_note_span(query) -> tuple[int, int, int]:
+    """노래 쿼리에서 (음표 첫 프레임=자음 시작, 모음 시작, 모음 끝) 프레임 번호. 쉼(pau) 사이의 음소가 음표다."""
+    t, spans = 0, []
+    for ph in query.phonemes:
+        spans.append((ph.phoneme, t, t + ph.frame_length))
+        t += ph.frame_length
+    body = [x for x in spans if x[0] != "pau"]
+    return body[0][1], body[-1][1], body[-1][2]
+
+
+def cmd_round5(cfg: dict, synth: Synthesizer) -> None:
+    """노래 모델로 가나 한 박. 쿼리·f0·음량은 가창 교사(singing_teacher 또는 sing 종류) 스타일로 만들고,
+    소리는 春日部つむぎ의 frame_decode 스타일로 합성한다. f0는 말소리 높이로 덮어쓴다."""
+    from voicevox_core import FrameAudioQuery  # noqa: F401  (타입 확인용)
+    r5 = cfg["round5"]
+    fc = cfg["final"]
+    m_cfg = cfg["measure"]
+    f = cfg["round2"]["f0"]
+    out_dir = ROOT / r5["output_dir"]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    s0 = VoiceModelFile.open(ROOT / cfg["core_dir"] / r5["vvm"])
+    synth.load_voice_model(s0)
+    styles = {s["id"]: (c["name"], s["name"], s["type"]) for c in metas_of(s0) for s in c["styles"]}
+    teacher, singer = r5["teacher_style_id"], r5["singer_style_id"]
+    print("교사", teacher, styles.get(teacher), "/ 가수", singer, styles.get(singer))
+
+    # 말소리 높이: 앱 단어 소리(final/word)의 F0 중앙값
+    ref = speech_f0(sorted((ROOT / fc["output_dir"] / "word").glob("*.wav")), f)
+    ref_n = speech_f0(sorted((ROOT / fc["output_dir"] / "kana").glob("*.wav")), f)
+    target_hz = ref["median_hz"]
+    key = int(round(hz_to_midi(target_hz)))
+    print(f"말소리 F0: 단어 {ref} / 글자 N {ref_n} -> 목표 {target_hz}Hz, key {key}")
+
+    lyric_check = {}
+    for lyr in r5["lyric_check"]:
+        try:
+            q = synth.create_sing_frame_audio_query(song_score(lyr, 38, key, 15, 15), teacher)
+            lyric_check[lyr] = {"ok": True, "phonemes": [p.phoneme for p in q.phonemes]}
+        except Exception as e:
+            lyric_check[lyr] = {"ok": False, "error": f"{type(e).__name__}: {e}"}
+        print("가사", lyr, lyric_check[lyr])
+
+    def make(v: dict, char: str) -> tuple[array.array, int, dict]:
+        lyric = r5["lyric"].get(char, hira_to_kata(char))
+        n = int(round(v["note_s"] * FRAME_RATE))
+        sc = song_score(lyric, n, key, r5["rest_pre"], r5["rest_post"])
+        q = synth.create_sing_frame_audio_query(sc, teacher)
+        c0, v0, v1 = song_note_span(q)
+        model_f0 = list(q.f0)
+        voiced = [x for x in model_f0[v0:v1] if x > 0]
+        model_med = st.median(voiced) if voiced else target_hz
+        if v["f0"] == "model":  # 모델 곡선을 그대로 두고 높이만 목표로 옮김
+            q.f0 = [x * target_hz / model_med if x > 0 else 0.0 for x in model_f0]
+        else:
+            new = [target_hz if x > 0 else 0.0 for x in model_f0]
+            if v["f0"] == "fall":
+                k0 = v1 - int(round((v1 - v0) * v["fall_frac"]))
+                for i in range(k0, len(new)):
+                    u = min(1.0, (i - k0) / max(1, v1 - k0))
+                    if new[i] > 0:
+                        new[i] = target_hz * 2 ** (-v["fall_cents"] * u / 1200)
+            q.f0 = new
+        if v.get("volume") == "hold":  # 모음 가운데의 음량 출렁임을 평평하게(시작과 끝 감쇠는 모델 그대로)
+            vol = list(q.volume)
+            plateau = st.median(vol[v0:v1])
+            above = [i for i in range(c0, v1) if vol[i] >= plateau]
+            if above:
+                for i in range(above[0], above[-1] + 1):
+                    vol[i] = plateau
+            q.volume = vol
+        elif v.get("volume") == "mono":  # 첫 봉우리 뒤로는 줄기만 하게(가운데 움푹 꺼짐을 뒤쪽 높이로 채움)
+            vol = list(q.volume)
+            p = max(range(c0, v1), key=lambda i: vol[i])
+            for i in range(len(vol) - 2, p - 1, -1):
+                vol[i] = max(vol[i], vol[i + 1])
+            q.volume = vol
+        s, rate = pcm_of(synth.frame_synthesis(q, singer))
+        if v.get("tail_fade_s"):
+            s = cosine_tail(s, rate, v["tail_fade_s"])
+        info = {"lyric": lyric, "note_frames": n, "phonemes": [(p.phoneme, p.frame_length) for p in q.phonemes],
+                "model_f0_med": round(model_med, 1),
+                "model_f0_sd_c": round(st.pstdev(1200 * math.log2(x / model_med) for x in voiced), 1) if voiced else None}
+        return s, rate, info
+
+    rows = []
+    for key_v, v in r5["variants"].items():
+        (out_dir / key_v).mkdir(exist_ok=True)
+        for char, romaji in r5["letters"]:
+            try:
+                s, rate, info = make(v, char)
+            except Exception as e:
+                rows.append({"cand": key_v, "kana": char, "error": f"{type(e).__name__}: {e}"})
+                print(f"{key_v} {char}: 실패 {e}")
+                continue
+            s = trim_pad(s, rate, fc["lead_silence"], fc["tail_silence"], fc["trim_floor_dbfs"])
+            s, gain = normalize(s, rate, m_cfg, fc["normalize"])
+            write_wav(out_dir / key_v / f"kana_{romaji}.wav", s, rate)
+            a = measure4(s, rate, cfg)
+            rows.append({"cand": key_v, "kana": char, "romaji": romaji, "gain_db": gain, **info, **a})
+            print(f"{key_v:<7} {char} 소리 {a['voiced']:.2f}s 감쇠 {a['decay_s']:.3f}s F0 {a.get('f0')} "
+                  f"sd {a.get('f0_sd_c')}c resid {a.get('f0_resid_c')}c jit {a.get('jitter_pct')} "
+                  f"4-12 {a.get('f0_mod_4_12_c')}c 진폭 {a.get('amp_mod_4_12_db')}dB")
+
+    for char, romaji in r5["letters"]:  # 기준: 앱 N
+        p = ROOT / fc["output_dir"] / "kana" / f"kana_{romaji}.wav"
+        s, rate = read_wav(p)
+        a = measure4(s, rate, cfg)
+        rows.append({"cand": "N", "kana": char, "romaji": romaji, **a})
+
+    summary = {}
+    for key_v in ["N"] + list(r5["variants"]):
+        rs = [r for r in rows if r["cand"] == key_v and "error" not in r]
+        def med(k):
+            vals = [r[k] for r in rs if r.get(k) is not None]
+            return round(st.median(vals), 3) if vals else None
+        summary[key_v] = {
+            "made": len(rs), "voiced_min": min((r["voiced"] for r in rs), default=None),
+            "voiced_max": max((r["voiced"] for r in rs), default=None), "voiced_med": med("voiced"),
+            "in_range": sum(1 for r in rs if r5["target_voiced"][0] <= r["voiced"] <= r5["target_voiced"][1]),
+            "decay_med": med("decay_s"), "f0_med": med("f0"), "f0_sd_med": med("f0_sd_c"),
+            "f0_resid_med": med("f0_resid_c"), "jitter_med": med("jitter_pct"),
+            "jitter_max": max((r["jitter_pct"] for r in rs if r.get("ok")), default=None),
+            "f0_mod_4_12_med": med("f0_mod_4_12_c"), "amp_mod_4_12_med": med("amp_mod_4_12_db"),
+            "model_f0_sd_med": med("model_f0_sd_c"),
+            "failed_make": [r["kana"] for r in rows if r["cand"] == key_v and "error" in r],
+            "failed_measure": [r["kana"] for r in rs if not r.get("ok")],
+        }
+        print(key_v, summary[key_v])
+        joined, rate = array.array("h"), 24000
+        for char, romaji in r5["letters"]:
+            p = (ROOT / fc["output_dir"] / "kana" if key_v == "N" else out_dir / key_v) / f"kana_{romaji}.wav"
+            if not p.exists():
+                continue
+            s, rate = read_wav(p)
+            joined.extend(s)
+            joined.extend(silence(rate, r5["letter_gap"]))
+        write_wav(out_dir / f"preview-{key_v}.wav", joined, rate)
+        summary[key_v]["preview_s"] = round(len(joined) / rate, 1)
+
+    with (out_dir / "measurements.json").open("w", encoding="utf-8") as fp:
+        json.dump({"teacher": {"id": teacher, "style": styles.get(teacher)},
+                   "singer": {"id": singer, "style": styles.get(singer)},
+                   "speech_f0_word": ref, "speech_f0_kana_N": ref_n, "target_hz": target_hz, "key": key,
+                   "lyric_check": lyric_check, "variants": r5["variants"], "summary": summary, "files": rows},
+                  fp, ensure_ascii=False, indent=1)
+
+
 # ---------------------------------------------------------------- main
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("command", nargs="?", default="round1",
-                    choices=["metas", "round1", "shake", "giri", "round3", "final", "round4"])
+                    choices=["metas", "round1", "shake", "giri", "round3", "final", "round4", "round5"])
     ap.add_argument("--config", default=str(ROOT / "tools" / "voice.json"))
     args = ap.parse_args()
     cfg = load_config(Path(args.config))
@@ -1574,6 +1748,8 @@ def main() -> None:
         cmd_final(cfg, synth)
     elif args.command == "round4":
         cmd_round4(cfg, synth)
+    elif args.command == "round5":
+        cmd_round5(cfg, synth)
 
 
 if __name__ == "__main__":

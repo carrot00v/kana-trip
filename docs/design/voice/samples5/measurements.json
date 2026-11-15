@@ -1,0 +1,2560 @@
+{
+ "teacher": {
+  "id": 6000,
+  "style": [
+   "波音リツ",
+   "ノーマル",
+   "sing"
+  ]
+ },
+ "singer": {
+  "id": 3008,
+  "style": [
+   "春日部つむぎ",
+   "ノーマル",
+   "frame_decode"
+  ]
+ },
+ "speech_f0_word": {
+  "files": 60,
+  "median_hz": 341.7,
+  "p25_hz": 323.9,
+  "p75_hz": 358.9
+ },
+ "speech_f0_kana_N": {
+  "files": 57,
+  "median_hz": 342.1,
+  "p25_hz": 315.7,
+  "p75_hz": 360.5
+ },
+ "target_hz": 341.7,
+ "key": 65,
+ "lyric_check": {
+  "ン": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "N",
+    "pau"
+   ]
+  },
+  "ヲ": {
+   "ok": false,
+   "error": "InvalidQueryError: 不正な楽譜です"
+  },
+  "を": {
+   "ok": false,
+   "error": "InvalidQueryError: 不正な楽譜です"
+  },
+  "ん": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "N",
+    "pau"
+   ]
+  },
+  "ガ": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "g",
+    "a",
+    "pau"
+   ]
+  },
+  "パ": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "p",
+    "a",
+    "pau"
+   ]
+  },
+  "シ": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "sh",
+    "i",
+    "pau"
+   ]
+  },
+  "ツ": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "ts",
+    "u",
+    "pau"
+   ]
+  },
+  "ッ": {
+   "ok": true,
+   "phonemes": [
+    "pau",
+    "cl",
+    "pau"
+   ]
+  }
+ },
+ "variants": {
+  "raw40": {
+   "note_s": 0.4,
+   "f0": "model",
+   "comment": "참고: 교사 f0 곡선 그대로(높이만 말소리로 옮김). 비브라토 확인용, 추천 대상 아님"
+  },
+  "flatM40": {
+   "note_s": 0.4,
+   "f0": "flat",
+   "volume": "mono",
+   "comment": "f0 평탄. 음량은 첫 봉우리 뒤로 줄기만 하게(가운데 움푹 꺼짐을 채움), 끝 감쇠는 모델 그대로"
+  },
+  "fallM40": {
+   "note_s": 0.4,
+   "f0": "fall",
+   "fall_cents": 60,
+   "fall_frac": 0.35,
+   "volume": "mono",
+   "comment": "flatM40에서 모음 마지막 35% 동안 60센트 하강"
+  },
+  "flatM45": {
+   "note_s": 0.45,
+   "f0": "flat",
+   "volume": "mono",
+   "comment": "flatM40과 같고 음표 0.45초"
+  }
+ },
+ "summary": {
+  "N": {
+   "made": 11,
+   "voiced_min": 0.12,
+   "voiced_max": 0.19,
+   "voiced_med": 0.15,
+   "in_range": 0,
+   "decay_med": 0.04,
+   "f0_med": 335.0,
+   "f0_sd_med": 70.0,
+   "f0_resid_med": 132.45,
+   "jitter_med": 7.585,
+   "jitter_max": 11.96,
+   "f0_mod_4_12_med": 27.745,
+   "amp_mod_4_12_med": 0.42,
+   "model_f0_sd_med": null,
+   "failed_make": [],
+   "failed_measure": [
+    "は"
+   ],
+   "preview_s": 9.0
+  },
+  "raw40": {
+   "made": 11,
+   "voiced_min": 0.35,
+   "voiced_max": 0.49,
+   "voiced_med": 0.4,
+   "in_range": 10,
+   "decay_med": 0.07,
+   "f0_med": 348,
+   "f0_sd_med": 84.4,
+   "f0_resid_med": 53.0,
+   "jitter_med": 1.91,
+   "jitter_max": 6.03,
+   "f0_mod_4_12_med": 62.47,
+   "amp_mod_4_12_med": 1.88,
+   "model_f0_sd_med": 120.4,
+   "failed_make": [],
+   "failed_measure": [],
+   "preview_s": 13.6
+  },
+  "flatM40": {
+   "made": 11,
+   "voiced_min": 0.36,
+   "voiced_max": 0.43,
+   "voiced_med": 0.39,
+   "in_range": 11,
+   "decay_med": 0.07,
+   "f0_med": 343,
+   "f0_sd_med": 4.4,
+   "f0_resid_med": 27.3,
+   "jitter_med": 1.72,
+   "jitter_max": 7.78,
+   "f0_mod_4_12_med": 2.81,
+   "amp_mod_4_12_med": 1.51,
+   "model_f0_sd_med": 132.7,
+   "failed_make": [],
+   "failed_measure": [],
+   "preview_s": 13.8
+  },
+  "fallM40": {
+   "made": 11,
+   "voiced_min": 0.36,
+   "voiced_max": 0.42,
+   "voiced_med": 0.4,
+   "in_range": 11,
+   "decay_med": 0.06,
+   "f0_med": 343,
+   "f0_sd_med": 12.8,
+   "f0_resid_med": 26.3,
+   "jitter_med": 1.66,
+   "jitter_max": 7.37,
+   "f0_mod_4_12_med": 4.55,
+   "amp_mod_4_12_med": 1.39,
+   "model_f0_sd_med": 118.5,
+   "failed_make": [],
+   "failed_measure": [],
+   "preview_s": 13.9
+  },
+  "flatM45": {
+   "made": 11,
+   "voiced_min": 0.35,
+   "voiced_max": 0.5,
+   "voiced_med": 0.45,
+   "in_range": 7,
+   "decay_med": 0.08,
+   "f0_med": 343,
+   "f0_sd_med": 3.4,
+   "f0_resid_med": 27.4,
+   "jitter_med": 1.54,
+   "jitter_max": 4.69,
+   "f0_mod_4_12_med": 1.91,
+   "amp_mod_4_12_med": 1.64,
+   "model_f0_sd_med": 150.1,
+   "failed_make": [],
+   "failed_measure": [],
+   "preview_s": 14.5
+  }
+ },
+ "files": [
+  {
+   "cand": "raw40",
+   "kana": "あ",
+   "romaji": "a",
+   "gain_db": 3.1,
+   "lyric": "ア",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 334.0,
+   "model_f0_sd_c": 134.8,
+   "duration": 0.8,
+   "voiced": 0.38,
+   "lead_silence": 0.2,
+   "tail_silence": 0.22,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.02,
+   "periodic": 0.95,
+   "f0_sd_c": 101.5,
+   "pitched_s": 0.36,
+   "ok": true,
+   "cycles": 109,
+   "f0": 348,
+   "jitter_pct": 2.79,
+   "shimmer_db": 0.34,
+   "slope_c": 77,
+   "f0_resid_c": 52.6,
+   "f0_mod_4_12_c": 51.83,
+   "amp_mod_4_12_db": 1.28,
+   "f0_mod_12_40_c": 9.4
+  },
+  {
+   "cand": "raw40",
+   "kana": "か",
+   "romaji": "ka",
+   "gain_db": 1.2,
+   "lyric": "カ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     13
+    ],
+    [
+     "k",
+     2
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 336.9,
+   "model_f0_sd_c": 120.4,
+   "duration": 0.75,
+   "voiced": 0.4,
+   "lead_silence": 0.19,
+   "tail_silence": 0.16,
+   "peak_dbfs": -6.1,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.1,
+   "periodic": 0.97,
+   "f0_sd_c": 84.2,
+   "pitched_s": 0.38,
+   "ok": true,
+   "cycles": 115,
+   "f0": 343,
+   "jitter_pct": 1.59,
+   "shimmer_db": 0.41,
+   "slope_c": 141,
+   "f0_resid_c": 47.9,
+   "f0_mod_4_12_c": 66.83,
+   "amp_mod_4_12_db": 1.83,
+   "f0_mod_12_40_c": 9.15
+  },
+  {
+   "cand": "raw40",
+   "kana": "さ",
+   "romaji": "sa",
+   "gain_db": 2.8,
+   "lyric": "サ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     7
+    ],
+    [
+     "s",
+     8
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 342.0,
+   "model_f0_sd_c": 113.2,
+   "duration": 0.68,
+   "voiced": 0.39,
+   "lead_silence": 0.06,
+   "tail_silence": 0.23,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.07,
+   "periodic": 1.0,
+   "f0_sd_c": 74.6,
+   "pitched_s": 0.39,
+   "ok": true,
+   "cycles": 118,
+   "f0": 343,
+   "jitter_pct": 1.44,
+   "shimmer_db": 0.3,
+   "slope_c": 42,
+   "f0_resid_c": 53.0,
+   "f0_mod_4_12_c": 57.57,
+   "amp_mod_4_12_db": 2.16,
+   "f0_mod_12_40_c": 11.28
+  },
+  {
+   "cand": "raw40",
+   "kana": "た",
+   "romaji": "ta",
+   "gain_db": 3.0,
+   "lyric": "タ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     14
+    ],
+    [
+     "t",
+     1
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 337.3,
+   "model_f0_sd_c": 150.5,
+   "duration": 0.81,
+   "voiced": 0.49,
+   "lead_silence": 0.1,
+   "tail_silence": 0.22,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -21.0,
+   "decay_s": 0.02,
+   "periodic": 0.8,
+   "f0_sd_c": 100.7,
+   "pitched_s": 0.38,
+   "ok": true,
+   "cycles": 114,
+   "f0": 343,
+   "jitter_pct": 2.13,
+   "shimmer_db": 0.4,
+   "slope_c": 135,
+   "f0_resid_c": 53.8,
+   "f0_mod_4_12_c": 48.8,
+   "amp_mod_4_12_db": 1.54,
+   "f0_mod_12_40_c": 7.28
+  },
+  {
+   "cand": "raw40",
+   "kana": "な",
+   "romaji": "na",
+   "gain_db": 2.7,
+   "lyric": "ナ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "n",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 335.4,
+   "model_f0_sd_c": 117.1,
+   "duration": 0.79,
+   "voiced": 0.42,
+   "lead_silence": 0.13,
+   "tail_silence": 0.24,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 102.0,
+   "pitched_s": 0.42,
+   "ok": true,
+   "cycles": 129,
+   "f0": 343,
+   "jitter_pct": 3.32,
+   "shimmer_db": 0.34,
+   "slope_c": 177,
+   "f0_resid_c": 59.3,
+   "f0_mod_4_12_c": 65.81,
+   "amp_mod_4_12_db": 2.25,
+   "f0_mod_12_40_c": 10.54
+  },
+  {
+   "cand": "raw40",
+   "kana": "は",
+   "romaji": "ha",
+   "gain_db": 1.7,
+   "lyric": "ハ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "h",
+     3
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 328.9,
+   "model_f0_sd_c": 99.0,
+   "duration": 0.79,
+   "voiced": 0.38,
+   "lead_silence": 0.18,
+   "tail_silence": 0.23,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.08,
+   "periodic": 1.0,
+   "f0_sd_c": 78.6,
+   "pitched_s": 0.38,
+   "ok": true,
+   "cycles": 117,
+   "f0": 353,
+   "jitter_pct": 1.33,
+   "shimmer_db": 0.34,
+   "slope_c": 177,
+   "f0_resid_c": 40.2,
+   "f0_mod_4_12_c": 62.47,
+   "amp_mod_4_12_db": 1.88,
+   "f0_mod_12_40_c": 11.28
+  },
+  {
+   "cand": "raw40",
+   "kana": "ま",
+   "romaji": "ma",
+   "gain_db": 5.1,
+   "lyric": "マ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "m",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 325.8,
+   "model_f0_sd_c": 177.5,
+   "duration": 0.6,
+   "voiced": 0.42,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -5.5,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.07,
+   "periodic": 0.93,
+   "f0_sd_c": 151.8,
+   "pitched_s": 0.39,
+   "ok": true,
+   "cycles": 119,
+   "f0": 353,
+   "jitter_pct": 1.91,
+   "shimmer_db": 0.35,
+   "slope_c": 381,
+   "f0_resid_c": 70.3,
+   "f0_mod_4_12_c": 72.75,
+   "amp_mod_4_12_db": 2.15,
+   "f0_mod_12_40_c": 13.49
+  },
+  {
+   "cand": "raw40",
+   "kana": "や",
+   "romaji": "ya",
+   "gain_db": 2.7,
+   "lyric": "ヤ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "y",
+     3
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 333.6,
+   "model_f0_sd_c": 120.5,
+   "duration": 0.68,
+   "voiced": 0.41,
+   "lead_silence": 0.15,
+   "tail_silence": 0.12,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 83.1,
+   "pitched_s": 0.4,
+   "ok": true,
+   "cycles": 123,
+   "f0": 348,
+   "jitter_pct": 6.03,
+   "shimmer_db": 0.36,
+   "slope_c": 92,
+   "f0_resid_c": 105.6,
+   "f0_mod_4_12_c": 81.3,
+   "amp_mod_4_12_db": 1.9,
+   "f0_mod_12_40_c": 20.57
+  },
+  {
+   "cand": "raw40",
+   "kana": "ら",
+   "romaji": "ra",
+   "gain_db": 2.7,
+   "lyric": "ラ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "r",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 326.3,
+   "model_f0_sd_c": 117.9,
+   "duration": 0.77,
+   "voiced": 0.42,
+   "lead_silence": 0.14,
+   "tail_silence": 0.21,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.09,
+   "periodic": 1.0,
+   "f0_sd_c": 120.6,
+   "pitched_s": 0.42,
+   "ok": true,
+   "cycles": 129,
+   "f0": 353,
+   "jitter_pct": 5.66,
+   "shimmer_db": 0.46,
+   "slope_c": 341,
+   "f0_resid_c": 98.5,
+   "f0_mod_4_12_c": 83.41,
+   "amp_mod_4_12_db": 2.35,
+   "f0_mod_12_40_c": 19.07
+  },
+  {
+   "cand": "raw40",
+   "kana": "ん",
+   "romaji": "n",
+   "gain_db": -0.0,
+   "lyric": "ン",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "N",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 346.5,
+   "model_f0_sd_c": 37.3,
+   "duration": 0.76,
+   "voiced": 0.37,
+   "lead_silence": 0.18,
+   "tail_silence": 0.21,
+   "peak_dbfs": -12.9,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.04,
+   "periodic": 1.0,
+   "f0_sd_c": 24.8,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 1.55,
+   "shimmer_db": 0.2,
+   "slope_c": -16,
+   "f0_resid_c": 27.1,
+   "f0_mod_4_12_c": 12.89,
+   "amp_mod_4_12_db": 1.02,
+   "f0_mod_12_40_c": 4.68
+  },
+  {
+   "cand": "raw40",
+   "kana": "を",
+   "romaji": "wo",
+   "gain_db": -0.5,
+   "lyric": "オ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "o",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 337.5,
+   "model_f0_sd_c": 123.9,
+   "duration": 0.69,
+   "voiced": 0.35,
+   "lead_silence": 0.22,
+   "tail_silence": 0.12,
+   "peak_dbfs": -7.2,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.09,
+   "periodic": 1.0,
+   "f0_sd_c": 84.4,
+   "pitched_s": 0.34,
+   "ok": true,
+   "cycles": 102,
+   "f0": 348,
+   "jitter_pct": 0.94,
+   "shimmer_db": 0.34,
+   "slope_c": 176,
+   "f0_resid_c": 11.7,
+   "f0_mod_4_12_c": 9.2,
+   "amp_mod_4_12_db": 1.82,
+   "f0_mod_12_40_c": 6.04
+  },
+  {
+   "cand": "flatM40",
+   "kana": "あ",
+   "romaji": "a",
+   "gain_db": 3.6,
+   "lyric": "ア",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 335.8,
+   "model_f0_sd_c": 132.7,
+   "duration": 0.81,
+   "voiced": 0.38,
+   "lead_silence": 0.2,
+   "tail_silence": 0.23,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 0.95,
+   "f0_sd_c": 2.9,
+   "pitched_s": 0.36,
+   "ok": true,
+   "cycles": 108,
+   "f0": 343,
+   "jitter_pct": 3.52,
+   "shimmer_db": 0.28,
+   "slope_c": 0,
+   "f0_resid_c": 55.0,
+   "f0_mod_4_12_c": 1.43,
+   "amp_mod_4_12_db": 1.07,
+   "f0_mod_12_40_c": 3.04
+  },
+  {
+   "cand": "flatM40",
+   "kana": "か",
+   "romaji": "ka",
+   "gain_db": 1.9,
+   "lyric": "カ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     13
+    ],
+    [
+     "k",
+     2
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 337.1,
+   "model_f0_sd_c": 106.2,
+   "duration": 0.82,
+   "voiced": 0.4,
+   "lead_silence": 0.19,
+   "tail_silence": 0.23,
+   "peak_dbfs": -6.2,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.08,
+   "periodic": 0.95,
+   "f0_sd_c": 6.2,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 1.51,
+   "shimmer_db": 0.45,
+   "slope_c": -5,
+   "f0_resid_c": 14.2,
+   "f0_mod_4_12_c": 2.81,
+   "amp_mod_4_12_db": 1.51,
+   "f0_mod_12_40_c": 2.6
+  },
+  {
+   "cand": "flatM40",
+   "kana": "さ",
+   "romaji": "sa",
+   "gain_db": 3.2,
+   "lyric": "サ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     7
+    ],
+    [
+     "s",
+     8
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 337.7,
+   "model_f0_sd_c": 104.9,
+   "duration": 0.69,
+   "voiced": 0.39,
+   "lead_silence": 0.06,
+   "tail_silence": 0.24,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.08,
+   "periodic": 1.0,
+   "f0_sd_c": 4.4,
+   "pitched_s": 0.39,
+   "ok": true,
+   "cycles": 118,
+   "f0": 343,
+   "jitter_pct": 1.72,
+   "shimmer_db": 0.32,
+   "slope_c": 9,
+   "f0_resid_c": 31.2,
+   "f0_mod_4_12_c": 4.28,
+   "amp_mod_4_12_db": 1.85,
+   "f0_mod_12_40_c": 2.1
+  },
+  {
+   "cand": "flatM40",
+   "kana": "た",
+   "romaji": "ta",
+   "gain_db": 3.4,
+   "lyric": "タ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     14
+    ],
+    [
+     "t",
+     1
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 337.3,
+   "model_f0_sd_c": 149.4,
+   "duration": 0.75,
+   "voiced": 0.39,
+   "lead_silence": 0.2,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.7,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.02,
+   "periodic": 1.0,
+   "f0_sd_c": 12.4,
+   "pitched_s": 0.39,
+   "ok": true,
+   "cycles": 118,
+   "f0": 343,
+   "jitter_pct": 1.75,
+   "shimmer_db": 0.38,
+   "slope_c": -7,
+   "f0_resid_c": 16.1,
+   "f0_mod_4_12_c": 1.73,
+   "amp_mod_4_12_db": 0.99,
+   "f0_mod_12_40_c": 1.81
+  },
+  {
+   "cand": "flatM40",
+   "kana": "な",
+   "romaji": "na",
+   "gain_db": 3.2,
+   "lyric": "ナ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "n",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 335.6,
+   "model_f0_sd_c": 113.9,
+   "duration": 0.83,
+   "voiced": 0.43,
+   "lead_silence": 0.17,
+   "tail_silence": 0.23,
+   "peak_dbfs": -6.7,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 4.4,
+   "pitched_s": 0.42,
+   "ok": true,
+   "cycles": 128,
+   "f0": 343,
+   "jitter_pct": 1.6,
+   "shimmer_db": 0.26,
+   "slope_c": -6,
+   "f0_resid_c": 27.3,
+   "f0_mod_4_12_c": 2.19,
+   "amp_mod_4_12_db": 1.3,
+   "f0_mod_12_40_c": 1.92
+  },
+  {
+   "cand": "flatM40",
+   "kana": "は",
+   "romaji": "ha",
+   "gain_db": 2.6,
+   "lyric": "ハ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "h",
+     3
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 324.6,
+   "model_f0_sd_c": 152.5,
+   "duration": 0.82,
+   "voiced": 0.39,
+   "lead_silence": 0.19,
+   "tail_silence": 0.24,
+   "peak_dbfs": -6.4,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.07,
+   "periodic": 1.0,
+   "f0_sd_c": 10.3,
+   "pitched_s": 0.38,
+   "ok": true,
+   "cycles": 115,
+   "f0": 343,
+   "jitter_pct": 1.1,
+   "shimmer_db": 0.33,
+   "slope_c": 2,
+   "f0_resid_c": 11.9,
+   "f0_mod_4_12_c": 1.26,
+   "amp_mod_4_12_db": 1.55,
+   "f0_mod_12_40_c": 2.67
+  },
+  {
+   "cand": "flatM40",
+   "kana": "ま",
+   "romaji": "ma",
+   "gain_db": 5.3,
+   "lyric": "マ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "m",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 323.2,
+   "model_f0_sd_c": 192.7,
+   "duration": 0.74,
+   "voiced": 0.42,
+   "lead_silence": 0.16,
+   "tail_silence": 0.16,
+   "peak_dbfs": -6.5,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.07,
+   "periodic": 0.9,
+   "f0_sd_c": 2.8,
+   "pitched_s": 0.38,
+   "ok": true,
+   "cycles": 114,
+   "f0": 343,
+   "jitter_pct": 0.82,
+   "shimmer_db": 0.28,
+   "slope_c": 2,
+   "f0_resid_c": 12.9,
+   "f0_mod_4_12_c": 2.06,
+   "amp_mod_4_12_db": 1.91,
+   "f0_mod_12_40_c": 1.71
+  },
+  {
+   "cand": "flatM40",
+   "kana": "や",
+   "romaji": "ya",
+   "gain_db": 2.8,
+   "lyric": "ヤ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "y",
+     3
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 332.4,
+   "model_f0_sd_c": 150.1,
+   "duration": 0.72,
+   "voiced": 0.41,
+   "lead_silence": 0.15,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 2.3,
+   "pitched_s": 0.4,
+   "ok": true,
+   "cycles": 122,
+   "f0": 343,
+   "jitter_pct": 7.43,
+   "shimmer_db": 0.44,
+   "slope_c": -4,
+   "f0_resid_c": 84.2,
+   "f0_mod_4_12_c": 11.82,
+   "amp_mod_4_12_db": 1.51,
+   "f0_mod_12_40_c": 20.87
+  },
+  {
+   "cand": "flatM40",
+   "kana": "ら",
+   "romaji": "ra",
+   "gain_db": 3.2,
+   "lyric": "ラ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "r",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 316.4,
+   "model_f0_sd_c": 159.0,
+   "duration": 0.7,
+   "voiced": 0.42,
+   "lead_silence": 0.12,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.07,
+   "periodic": 1.0,
+   "f0_sd_c": 3.8,
+   "pitched_s": 0.43,
+   "ok": true,
+   "cycles": 132,
+   "f0": 343,
+   "jitter_pct": 7.78,
+   "shimmer_db": 0.49,
+   "slope_c": -4,
+   "f0_resid_c": 78.2,
+   "f0_mod_4_12_c": 4.69,
+   "amp_mod_4_12_db": 1.53,
+   "f0_mod_12_40_c": 12.42
+  },
+  {
+   "cand": "flatM40",
+   "kana": "ん",
+   "romaji": "n",
+   "gain_db": 0.4,
+   "lyric": "ン",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "N",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 347.8,
+   "model_f0_sd_c": 49.9,
+   "duration": 0.76,
+   "voiced": 0.37,
+   "lead_silence": 0.18,
+   "tail_silence": 0.21,
+   "peak_dbfs": -12.6,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.05,
+   "periodic": 1.0,
+   "f0_sd_c": 18.4,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 1.58,
+   "shimmer_db": 0.22,
+   "slope_c": 11,
+   "f0_resid_c": 21.2,
+   "f0_mod_4_12_c": 3.82,
+   "amp_mod_4_12_db": 1.17,
+   "f0_mod_12_40_c": 4.27
+  },
+  {
+   "cand": "flatM40",
+   "kana": "を",
+   "romaji": "wo",
+   "gain_db": -0.3,
+   "lyric": "オ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "o",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 336.7,
+   "model_f0_sd_c": 126.9,
+   "duration": 0.67,
+   "voiced": 0.36,
+   "lead_silence": 0.17,
+   "tail_silence": 0.14,
+   "peak_dbfs": -7.7,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.1,
+   "periodic": 1.0,
+   "f0_sd_c": 2.1,
+   "pitched_s": 0.35,
+   "ok": true,
+   "cycles": 105,
+   "f0": 343,
+   "jitter_pct": 2.35,
+   "shimmer_db": 0.36,
+   "slope_c": 25,
+   "f0_resid_c": 48.1,
+   "f0_mod_4_12_c": 4.62,
+   "amp_mod_4_12_db": 1.7,
+   "f0_mod_12_40_c": 2.77
+  },
+  {
+   "cand": "fallM40",
+   "kana": "あ",
+   "romaji": "a",
+   "gain_db": 3.2,
+   "lyric": "ア",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 336.2,
+   "model_f0_sd_c": 114.6,
+   "duration": 0.8,
+   "voiced": 0.38,
+   "lead_silence": 0.18,
+   "tail_silence": 0.24,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.05,
+   "periodic": 0.95,
+   "f0_sd_c": 13.7,
+   "pitched_s": 0.36,
+   "ok": true,
+   "cycles": 108,
+   "f0": 343,
+   "jitter_pct": 3.35,
+   "shimmer_db": 0.27,
+   "slope_c": -26,
+   "f0_resid_c": 51.4,
+   "f0_mod_4_12_c": 4.55,
+   "amp_mod_4_12_db": 1.0,
+   "f0_mod_12_40_c": 1.9
+  },
+  {
+   "cand": "fallM40",
+   "kana": "か",
+   "romaji": "ka",
+   "gain_db": 1.8,
+   "lyric": "カ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     13
+    ],
+    [
+     "k",
+     2
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 337.4,
+   "model_f0_sd_c": 143.5,
+   "duration": 0.82,
+   "voiced": 0.4,
+   "lead_silence": 0.19,
+   "tail_silence": 0.23,
+   "peak_dbfs": -6.1,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 0.95,
+   "f0_sd_c": 14.8,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 1.46,
+   "shimmer_db": 0.41,
+   "slope_c": -20,
+   "f0_resid_c": 14.9,
+   "f0_mod_4_12_c": 3.78,
+   "amp_mod_4_12_db": 1.28,
+   "f0_mod_12_40_c": 2.64
+  },
+  {
+   "cand": "fallM40",
+   "kana": "さ",
+   "romaji": "sa",
+   "gain_db": 3.5,
+   "lyric": "サ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     7
+    ],
+    [
+     "s",
+     8
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 340.4,
+   "model_f0_sd_c": 111.8,
+   "duration": 0.81,
+   "voiced": 0.4,
+   "lead_silence": 0.16,
+   "tail_silence": 0.25,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.08,
+   "periodic": 0.97,
+   "f0_sd_c": 14.5,
+   "pitched_s": 0.39,
+   "ok": true,
+   "cycles": 118,
+   "f0": 343,
+   "jitter_pct": 1.38,
+   "shimmer_db": 0.3,
+   "slope_c": -9,
+   "f0_resid_c": 29.5,
+   "f0_mod_4_12_c": 5.79,
+   "amp_mod_4_12_db": 1.97,
+   "f0_mod_12_40_c": 1.76
+  },
+  {
+   "cand": "fallM40",
+   "kana": "た",
+   "romaji": "ta",
+   "gain_db": 3.2,
+   "lyric": "タ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     14
+    ],
+    [
+     "t",
+     1
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 338.0,
+   "model_f0_sd_c": 125.4,
+   "duration": 0.78,
+   "voiced": 0.39,
+   "lead_silence": 0.18,
+   "tail_silence": 0.21,
+   "peak_dbfs": -7.4,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.02,
+   "periodic": 1.0,
+   "f0_sd_c": 18.8,
+   "pitched_s": 0.39,
+   "ok": true,
+   "cycles": 118,
+   "f0": 343,
+   "jitter_pct": 1.71,
+   "shimmer_db": 0.42,
+   "slope_c": -31,
+   "f0_resid_c": 18.1,
+   "f0_mod_4_12_c": 5.04,
+   "amp_mod_4_12_db": 1.05,
+   "f0_mod_12_40_c": 2.62
+  },
+  {
+   "cand": "fallM40",
+   "kana": "な",
+   "romaji": "na",
+   "gain_db": 3.3,
+   "lyric": "ナ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "n",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 333.1,
+   "model_f0_sd_c": 108.7,
+   "duration": 0.8,
+   "voiced": 0.42,
+   "lead_silence": 0.14,
+   "tail_silence": 0.24,
+   "peak_dbfs": -6.7,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.05,
+   "periodic": 1.0,
+   "f0_sd_c": 12.4,
+   "pitched_s": 0.42,
+   "ok": true,
+   "cycles": 128,
+   "f0": 343,
+   "jitter_pct": 1.66,
+   "shimmer_db": 0.28,
+   "slope_c": -28,
+   "f0_resid_c": 26.3,
+   "f0_mod_4_12_c": 5.29,
+   "amp_mod_4_12_db": 1.36,
+   "f0_mod_12_40_c": 1.61
+  },
+  {
+   "cand": "fallM40",
+   "kana": "は",
+   "romaji": "ha",
+   "gain_db": 2.3,
+   "lyric": "ハ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "h",
+     3
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 329.0,
+   "model_f0_sd_c": 114.7,
+   "duration": 0.79,
+   "voiced": 0.38,
+   "lead_silence": 0.2,
+   "tail_silence": 0.21,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.07,
+   "periodic": 1.0,
+   "f0_sd_c": 11.6,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 1.06,
+   "shimmer_db": 0.3,
+   "slope_c": -20,
+   "f0_resid_c": 11.2,
+   "f0_mod_4_12_c": 3.19,
+   "amp_mod_4_12_db": 1.59,
+   "f0_mod_12_40_c": 2.52
+  },
+  {
+   "cand": "fallM40",
+   "kana": "ま",
+   "romaji": "ma",
+   "gain_db": 5.4,
+   "lyric": "マ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "m",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 326.7,
+   "model_f0_sd_c": 207.6,
+   "duration": 0.7,
+   "voiced": 0.42,
+   "lead_silence": 0.05,
+   "tail_silence": 0.23,
+   "peak_dbfs": -6.5,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.07,
+   "periodic": 0.9,
+   "f0_sd_c": 9.9,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 0.87,
+   "shimmer_db": 0.28,
+   "slope_c": -5,
+   "f0_resid_c": 12.7,
+   "f0_mod_4_12_c": 2.26,
+   "amp_mod_4_12_db": 1.53,
+   "f0_mod_12_40_c": 2.12
+  },
+  {
+   "cand": "fallM40",
+   "kana": "や",
+   "romaji": "ya",
+   "gain_db": 2.8,
+   "lyric": "ヤ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "y",
+     3
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 333.6,
+   "model_f0_sd_c": 142.9,
+   "duration": 0.74,
+   "voiced": 0.41,
+   "lead_silence": 0.17,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 11.6,
+   "pitched_s": 0.4,
+   "ok": true,
+   "cycles": 121,
+   "f0": 343,
+   "jitter_pct": 6.87,
+   "shimmer_db": 0.43,
+   "slope_c": -25,
+   "f0_resid_c": 80.8,
+   "f0_mod_4_12_c": 13.59,
+   "amp_mod_4_12_db": 1.39,
+   "f0_mod_12_40_c": 18.15
+  },
+  {
+   "cand": "fallM40",
+   "kana": "ら",
+   "romaji": "ra",
+   "gain_db": 2.9,
+   "lyric": "ラ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "r",
+     4
+    ],
+    [
+     "a",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 324.8,
+   "model_f0_sd_c": 118.5,
+   "duration": 0.71,
+   "voiced": 0.42,
+   "lead_silence": 0.13,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.09,
+   "periodic": 1.0,
+   "f0_sd_c": 12.8,
+   "pitched_s": 0.42,
+   "ok": true,
+   "cycles": 128,
+   "f0": 338,
+   "jitter_pct": 7.37,
+   "shimmer_db": 0.49,
+   "slope_c": -21,
+   "f0_resid_c": 79.1,
+   "f0_mod_4_12_c": 5.73,
+   "amp_mod_4_12_db": 1.7,
+   "f0_mod_12_40_c": 12.83
+  },
+  {
+   "cand": "fallM40",
+   "kana": "ん",
+   "romaji": "n",
+   "gain_db": -0.2,
+   "lyric": "ン",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "N",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 347.8,
+   "model_f0_sd_c": 37.4,
+   "duration": 0.76,
+   "voiced": 0.37,
+   "lead_silence": 0.18,
+   "tail_silence": 0.21,
+   "peak_dbfs": -12.8,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.04,
+   "periodic": 1.0,
+   "f0_sd_c": 19.8,
+   "pitched_s": 0.37,
+   "ok": true,
+   "cycles": 111,
+   "f0": 343,
+   "jitter_pct": 1.46,
+   "shimmer_db": 0.21,
+   "slope_c": -13,
+   "f0_resid_c": 21.7,
+   "f0_mod_4_12_c": 2.3,
+   "amp_mod_4_12_db": 1.15,
+   "f0_mod_12_40_c": 3.09
+  },
+  {
+   "cand": "fallM40",
+   "kana": "を",
+   "romaji": "wo",
+   "gain_db": -0.9,
+   "lyric": "オ",
+   "note_frames": 38,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "o",
+     38
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 338.2,
+   "model_f0_sd_c": 143.8,
+   "duration": 0.73,
+   "voiced": 0.36,
+   "lead_silence": 0.22,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.1,
+   "periodic": 1.0,
+   "f0_sd_c": 9.6,
+   "pitched_s": 0.35,
+   "ok": true,
+   "cycles": 105,
+   "f0": 343,
+   "jitter_pct": 2.2,
+   "shimmer_db": 0.32,
+   "slope_c": 5,
+   "f0_resid_c": 49.4,
+   "f0_mod_4_12_c": 1.67,
+   "amp_mod_4_12_db": 1.75,
+   "f0_mod_12_40_c": 1.77
+  },
+  {
+   "cand": "flatM45",
+   "kana": "あ",
+   "romaji": "a",
+   "gain_db": 2.7,
+   "lyric": "ア",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 339.3,
+   "model_f0_sd_c": 180.9,
+   "duration": 0.83,
+   "voiced": 0.43,
+   "lead_silence": 0.18,
+   "tail_silence": 0.22,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 0.95,
+   "f0_sd_c": 2.6,
+   "pitched_s": 0.41,
+   "ok": true,
+   "cycles": 125,
+   "f0": 343,
+   "jitter_pct": 4.69,
+   "shimmer_db": 0.29,
+   "slope_c": -6,
+   "f0_resid_c": 65.1,
+   "f0_mod_4_12_c": 3.41,
+   "amp_mod_4_12_db": 1.34,
+   "f0_mod_12_40_c": 4.61
+  },
+  {
+   "cand": "flatM45",
+   "kana": "か",
+   "romaji": "ka",
+   "gain_db": 1.2,
+   "lyric": "カ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     13
+    ],
+    [
+     "k",
+     2
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 340.1,
+   "model_f0_sd_c": 146.2,
+   "duration": 0.85,
+   "voiced": 0.45,
+   "lead_silence": 0.19,
+   "tail_silence": 0.21,
+   "peak_dbfs": -6.0,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.1,
+   "periodic": 0.96,
+   "f0_sd_c": 4.4,
+   "pitched_s": 0.42,
+   "ok": true,
+   "cycles": 128,
+   "f0": 343,
+   "jitter_pct": 1.64,
+   "shimmer_db": 0.32,
+   "slope_c": -5,
+   "f0_resid_c": 15.4,
+   "f0_mod_4_12_c": 1.52,
+   "amp_mod_4_12_db": 1.92,
+   "f0_mod_12_40_c": 2.79
+  },
+  {
+   "cand": "flatM45",
+   "kana": "さ",
+   "romaji": "sa",
+   "gain_db": 2.5,
+   "lyric": "サ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     7
+    ],
+    [
+     "s",
+     8
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 339.3,
+   "model_f0_sd_c": 132.8,
+   "duration": 0.8,
+   "voiced": 0.45,
+   "lead_silence": 0.19,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.2,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.1,
+   "periodic": 0.98,
+   "f0_sd_c": 3.8,
+   "pitched_s": 0.43,
+   "ok": true,
+   "cycles": 132,
+   "f0": 343,
+   "jitter_pct": 0.97,
+   "shimmer_db": 0.24,
+   "slope_c": 13,
+   "f0_resid_c": 26.2,
+   "f0_mod_4_12_c": 3.77,
+   "amp_mod_4_12_db": 1.57,
+   "f0_mod_12_40_c": 1.25
+  },
+  {
+   "cand": "flatM45",
+   "kana": "た",
+   "romaji": "ta",
+   "gain_db": 2.1,
+   "lyric": "タ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     14
+    ],
+    [
+     "t",
+     1
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 339.0,
+   "model_f0_sd_c": 151.6,
+   "duration": 0.87,
+   "voiced": 0.43,
+   "lead_silence": 0.19,
+   "tail_silence": 0.25,
+   "peak_dbfs": -7.7,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 14.2,
+   "pitched_s": 0.43,
+   "ok": true,
+   "cycles": 132,
+   "f0": 343,
+   "jitter_pct": 1.17,
+   "shimmer_db": 0.28,
+   "slope_c": 29,
+   "f0_resid_c": 36.0,
+   "f0_mod_4_12_c": 6.58,
+   "amp_mod_4_12_db": 1.53,
+   "f0_mod_12_40_c": 2.4
+  },
+  {
+   "cand": "flatM45",
+   "kana": "な",
+   "romaji": "na",
+   "gain_db": 2.4,
+   "lyric": "ナ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "n",
+     4
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 338.6,
+   "model_f0_sd_c": 170.8,
+   "duration": 0.77,
+   "voiced": 0.47,
+   "lead_silence": 0.14,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.03,
+   "periodic": 1.0,
+   "f0_sd_c": 3.4,
+   "pitched_s": 0.47,
+   "ok": true,
+   "cycles": 146,
+   "f0": 343,
+   "jitter_pct": 1.45,
+   "shimmer_db": 0.28,
+   "slope_c": -3,
+   "f0_resid_c": 24.5,
+   "f0_mod_4_12_c": 1.04,
+   "amp_mod_4_12_db": 1.19,
+   "f0_mod_12_40_c": 1.04
+  },
+  {
+   "cand": "flatM45",
+   "kana": "は",
+   "romaji": "ha",
+   "gain_db": 1.8,
+   "lyric": "ハ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     12
+    ],
+    [
+     "h",
+     3
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 333.4,
+   "model_f0_sd_c": 150.1,
+   "duration": 0.81,
+   "voiced": 0.44,
+   "lead_silence": 0.19,
+   "tail_silence": 0.18,
+   "peak_dbfs": -7.3,
+   "rms_dbfs": -20.2,
+   "decay_s": 0.07,
+   "periodic": 1.0,
+   "f0_sd_c": 10.5,
+   "pitched_s": 0.43,
+   "ok": true,
+   "cycles": 132,
+   "f0": 343,
+   "jitter_pct": 1.42,
+   "shimmer_db": 0.28,
+   "slope_c": 3,
+   "f0_resid_c": 27.4,
+   "f0_mod_4_12_c": 1.09,
+   "amp_mod_4_12_db": 1.68,
+   "f0_mod_12_40_c": 4.4
+  },
+  {
+   "cand": "flatM45",
+   "kana": "ま",
+   "romaji": "ma",
+   "gain_db": 2.4,
+   "lyric": "マ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "m",
+     4
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 333.1,
+   "model_f0_sd_c": 192.9,
+   "duration": 0.798,
+   "voiced": 0.5,
+   "lead_silence": 0.05,
+   "tail_silence": 0.248,
+   "peak_dbfs": -6.2,
+   "rms_dbfs": -20.5,
+   "decay_s": 0.11,
+   "periodic": 0.86,
+   "f0_sd_c": 2.5,
+   "pitched_s": 0.5,
+   "ok": true,
+   "cycles": 156,
+   "f0": 343,
+   "jitter_pct": 2.65,
+   "shimmer_db": 0.54,
+   "slope_c": 3,
+   "f0_resid_c": 52.3,
+   "f0_mod_4_12_c": 1.27,
+   "amp_mod_4_12_db": 2.92,
+   "f0_mod_12_40_c": 3.63
+  },
+  {
+   "cand": "flatM45",
+   "kana": "や",
+   "romaji": "ya",
+   "gain_db": 2.6,
+   "lyric": "ヤ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "y",
+     4
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 333.9,
+   "model_f0_sd_c": 178.4,
+   "duration": 0.83,
+   "voiced": 0.47,
+   "lead_silence": 0.16,
+   "tail_silence": 0.2,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.08,
+   "periodic": 0.98,
+   "f0_sd_c": 3.0,
+   "pitched_s": 0.45,
+   "ok": true,
+   "cycles": 139,
+   "f0": 343,
+   "jitter_pct": 2.11,
+   "shimmer_db": 0.38,
+   "slope_c": 20,
+   "f0_resid_c": 43.4,
+   "f0_mod_4_12_c": 4.74,
+   "amp_mod_4_12_db": 1.64,
+   "f0_mod_12_40_c": 2.42
+  },
+  {
+   "cand": "flatM45",
+   "kana": "ら",
+   "romaji": "ra",
+   "gain_db": 2.8,
+   "lyric": "ラ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     11
+    ],
+    [
+     "r",
+     4
+    ],
+    [
+     "a",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 335.1,
+   "model_f0_sd_c": 142.0,
+   "duration": 0.84,
+   "voiced": 0.47,
+   "lead_silence": 0.14,
+   "tail_silence": 0.23,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.1,
+   "decay_s": 0.09,
+   "periodic": 1.0,
+   "f0_sd_c": 4.1,
+   "pitched_s": 0.47,
+   "ok": true,
+   "cycles": 145,
+   "f0": 343,
+   "jitter_pct": 1.67,
+   "shimmer_db": 0.4,
+   "slope_c": 10,
+   "f0_resid_c": 35.0,
+   "f0_mod_4_12_c": 1.91,
+   "amp_mod_4_12_db": 1.7,
+   "f0_mod_12_40_c": 3.16
+  },
+  {
+   "cand": "flatM45",
+   "kana": "ん",
+   "romaji": "n",
+   "gain_db": -0.3,
+   "lyric": "ン",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "N",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 347.7,
+   "model_f0_sd_c": 35.0,
+   "duration": 0.9,
+   "voiced": 0.41,
+   "lead_silence": 0.22,
+   "tail_silence": 0.27,
+   "peak_dbfs": -12.6,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.06,
+   "periodic": 1.0,
+   "f0_sd_c": 2.6,
+   "pitched_s": 0.4,
+   "ok": true,
+   "cycles": 122,
+   "f0": 343,
+   "jitter_pct": 1.54,
+   "shimmer_db": 0.21,
+   "slope_c": 10,
+   "f0_resid_c": 18.6,
+   "f0_mod_4_12_c": 3.87,
+   "amp_mod_4_12_db": 1.31,
+   "f0_mod_12_40_c": 1.8
+  },
+  {
+   "cand": "flatM45",
+   "kana": "を",
+   "romaji": "wo",
+   "gain_db": 0.7,
+   "lyric": "オ",
+   "note_frames": 42,
+   "phonemes": [
+    [
+     "pau",
+     15
+    ],
+    [
+     "o",
+     42
+    ],
+    [
+     "pau",
+     15
+    ]
+   ],
+   "model_f0_med": 343.9,
+   "model_f0_sd_c": 109.0,
+   "duration": 0.71,
+   "voiced": 0.35,
+   "lead_silence": 0.18,
+   "tail_silence": 0.18,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.1,
+   "periodic": 1.0,
+   "f0_sd_c": 2.0,
+   "pitched_s": 0.35,
+   "ok": true,
+   "cycles": 104,
+   "f0": 343,
+   "jitter_pct": 0.8,
+   "shimmer_db": 0.32,
+   "slope_c": 1,
+   "f0_resid_c": 8.9,
+   "f0_mod_4_12_c": 1.54,
+   "amp_mod_4_12_db": 1.86,
+   "f0_mod_12_40_c": 1.47
+  },
+  {
+   "cand": "N",
+   "kana": "あ",
+   "romaji": "a",
+   "duration": 0.31,
+   "voiced": 0.14,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.05,
+   "periodic": 0.43,
+   "f0_sd_c": 21.2,
+   "pitched_s": 0.08,
+   "ok": true,
+   "cycles": 13,
+   "f0": 369,
+   "jitter_pct": 11.69,
+   "shimmer_db": 1.83,
+   "slope_c": 446,
+   "f0_resid_c": 172.4,
+   "f0_mod_4_12_c": 88.28,
+   "amp_mod_4_12_db": 0.08,
+   "f0_mod_12_40_c": 231.72
+  },
+  {
+   "cand": "N",
+   "kana": "か",
+   "romaji": "ka",
+   "duration": 0.306,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.106,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.3,
+   "decay_s": 0.05,
+   "periodic": 0.53,
+   "f0_sd_c": 33.5,
+   "pitched_s": 0.1,
+   "ok": true,
+   "cycles": 20,
+   "f0": 364,
+   "jitter_pct": 11.96,
+   "shimmer_db": 1.53,
+   "slope_c": -269,
+   "f0_resid_c": 179.7,
+   "f0_mod_4_12_c": 115.82,
+   "amp_mod_4_12_db": 2.38,
+   "f0_mod_12_40_c": 181.18
+  },
+  {
+   "cand": "N",
+   "kana": "さ",
+   "romaji": "sa",
+   "duration": 0.35,
+   "voiced": 0.19,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -6.7,
+   "rms_dbfs": -20.2,
+   "decay_s": 0.03,
+   "periodic": 0.42,
+   "f0_sd_c": 47.7,
+   "pitched_s": 0.1,
+   "ok": true,
+   "cycles": 22,
+   "f0": 369,
+   "jitter_pct": 9.43,
+   "shimmer_db": 1.15,
+   "slope_c": 322,
+   "f0_resid_c": 163.9,
+   "f0_mod_4_12_c": 45.37,
+   "amp_mod_4_12_db": 0.97,
+   "f0_mod_12_40_c": 100.96
+  },
+  {
+   "cand": "N",
+   "kana": "た",
+   "romaji": "ta",
+   "duration": 0.28,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.04,
+   "periodic": 0.75,
+   "f0_sd_c": 70.0,
+   "pitched_s": 0.08,
+   "ok": true,
+   "cycles": 13,
+   "f0": 343,
+   "jitter_pct": 0.84,
+   "shimmer_db": 0.58,
+   "slope_c": 154,
+   "f0_resid_c": 9.0,
+   "f0_mod_4_12_c": 3.25,
+   "amp_mod_4_12_db": 0.12,
+   "f0_mod_12_40_c": 5.95
+  },
+  {
+   "cand": "N",
+   "kana": "な",
+   "romaji": "na",
+   "duration": 0.34,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.05,
+   "periodic": 0.61,
+   "f0_sd_c": 190.2,
+   "pitched_s": 0.16,
+   "ok": true,
+   "cycles": 38,
+   "f0": 327,
+   "jitter_pct": 6.58,
+   "shimmer_db": 0.92,
+   "slope_c": 494,
+   "f0_resid_c": 153.3,
+   "f0_mod_4_12_c": 137.59,
+   "amp_mod_4_12_db": 1.89,
+   "f0_mod_12_40_c": 136.08
+  },
+  {
+   "cand": "N",
+   "kana": "は",
+   "romaji": "ha",
+   "duration": 0.32,
+   "voiced": 0.15,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.6,
+   "decay_s": 0.03,
+   "periodic": 0.4,
+   "f0_sd_c": 20.5,
+   "pitched_s": 0.05,
+   "ok": false
+  },
+  {
+   "cand": "N",
+   "kana": "ま",
+   "romaji": "ma",
+   "duration": 0.32,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.04,
+   "periodic": 0.67,
+   "f0_sd_c": 234.2,
+   "pitched_s": 0.12,
+   "ok": true,
+   "cycles": 22,
+   "f0": 293,
+   "jitter_pct": 8.59,
+   "shimmer_db": 0.73,
+   "slope_c": 431,
+   "f0_resid_c": 113.2,
+   "f0_mod_4_12_c": 7.9,
+   "amp_mod_4_12_db": 0.17,
+   "f0_mod_12_40_c": 43.75
+  },
+  {
+   "cand": "N",
+   "kana": "や",
+   "romaji": "ya",
+   "duration": 0.339,
+   "voiced": 0.17,
+   "lead_silence": 0.05,
+   "tail_silence": 0.119,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.0,
+   "decay_s": 0.04,
+   "periodic": 0.82,
+   "f0_sd_c": 139.7,
+   "pitched_s": 0.13,
+   "ok": true,
+   "cycles": 26,
+   "f0": 310,
+   "jitter_pct": 5.19,
+   "shimmer_db": 0.49,
+   "slope_c": 367,
+   "f0_resid_c": 67.7,
+   "f0_mod_4_12_c": 10.12,
+   "amp_mod_4_12_db": 0.55,
+   "f0_mod_12_40_c": 41.45
+  },
+  {
+   "cand": "N",
+   "kana": "ら",
+   "romaji": "ra",
+   "duration": 0.34,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.4,
+   "rms_dbfs": -20.2,
+   "decay_s": 0.06,
+   "periodic": 0.67,
+   "f0_sd_c": 307.0,
+   "pitched_s": 0.17,
+   "ok": true,
+   "cycles": 40,
+   "f0": 324,
+   "jitter_pct": 9.32,
+   "shimmer_db": 1.28,
+   "slope_c": 318,
+   "f0_resid_c": 151.7,
+   "f0_mod_4_12_c": 112.73,
+   "amp_mod_4_12_db": 2.25,
+   "f0_mod_12_40_c": 115.47
+  },
+  {
+   "cand": "N",
+   "kana": "ん",
+   "romaji": "n",
+   "duration": 0.27,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -20.4,
+   "decay_s": 0.03,
+   "periodic": 1.0,
+   "f0_sd_c": 32.9,
+   "pitched_s": 0.11,
+   "ok": true,
+   "cycles": 20,
+   "f0": 308,
+   "jitter_pct": 1.54,
+   "shimmer_db": 0.47,
+   "slope_c": 74,
+   "f0_resid_c": 14.9,
+   "f0_mod_4_12_c": 6.34,
+   "amp_mod_4_12_db": 0.23,
+   "f0_mod_12_40_c": 8.05
+  },
+  {
+   "cand": "N",
+   "kana": "を",
+   "romaji": "wo",
+   "duration": 0.28,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -21.2,
+   "decay_s": 0.04,
+   "periodic": 0.67,
+   "f0_sd_c": 84.6,
+   "pitched_s": 0.1,
+   "ok": true,
+   "cycles": 19,
+   "f0": 353,
+   "jitter_pct": 3.95,
+   "shimmer_db": 1.33,
+   "slope_c": -32,
+   "f0_resid_c": 66.7,
+   "f0_mod_4_12_c": 7.88,
+   "amp_mod_4_12_db": 0.29,
+   "f0_mod_12_40_c": 15.68
+  }
+ ]
+}
