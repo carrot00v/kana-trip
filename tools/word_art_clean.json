@@ -84,5 +84,7 @@
   "youkoso": {"candidate": "word-youkoso_20261116", "dots": true, "rim": true,
               "note": "료칸 현관의 갈색 세 폭 노렌, 문틀, 옆 초롱(글자 없음). 남색 노렌에 ゆ인 word-yu와 색·초롱으로 구분"},
   "omotenashi": {"candidate": "word-omotenashi_20261116", "dots": true, "rim": true, "keep": [[655, 575, 110]],
-                 "note": "검은 칠 쟁반 위 유노미와 접시의 연분홍 화과자. 화과자의 옅은 분홍은 keep으로 지킴"}
+                 "note": "검은 칠 쟁반 위 유노미와 접시의 연분홍 화과자. 화과자의 옅은 분홍은 keep으로 지킴"},
+  "nankotsu": {"candidate": "word-nankotsu_7703", "dots": true, "rim": true,
+               "note": "사이로 꼬챙이가 보이는 각진 흰 조각 다섯 개. 20261116은 mune와 같은 큰 덩이 실루엣이라 탈락"}
 }

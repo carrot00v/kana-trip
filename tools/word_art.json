@@ -480,9 +480,10 @@
       "ko": "닭안심",
       "priority": 3,
       "scene": 6,
-      "subject": "One bamboo skewer of chicken tenderloin: two long thin flat strips of pale cream-white chicken, each strip about four times longer than it is wide, threaded lengthwise along the stick one above the other, lightly seared, with three small dabs of green wasabi paste dotted along the white meat, upright with the bare stick end at the bottom, front view.",
+      "subject": "One bamboo skewer of chicken tenderloin seen from the front, tilted diagonally: a single long smooth piece of pale cream-white chicken shaped like a long narrow leaf, about five times longer than it is wide, pierced lengthwise by the stick so the meat runs along most of the stick, lightly seared with soft pale golden edges, topped in the middle with one small mound of green wasabi paste, the bare stick end sticking out at the lower left.",
       "method": "B",
-      "firstSubject": "One bamboo skewer of chicken tenderloin: one long narrow strip of pale cream-white chicken threaded lengthwise along the stick, lightly seared, with three small dabs of green wasabi paste dotted on top of the white meat, upright with the bare stick end at the bottom, front view."
+      "firstSubject": "One bamboo skewer of chicken tenderloin: one long narrow strip of pale cream-white chicken threaded lengthwise along the stick, lightly seared, with three small dabs of green wasabi paste dotted on top of the white meat, upright with the bare stick end at the bottom, front view.",
+      "secondSubject": "One bamboo skewer of chicken tenderloin: two long thin flat strips of pale cream-white chicken, each strip about four times longer than it is wide, threaded lengthwise along the stick one above the other, lightly seared, with three small dabs of green wasabi paste dotted along the white meat, upright with the bare stick end at the bottom, front view."
     },
     {
       "name": "nankotsu",

@@ -1,0 +1,19 @@
+{
+  "word": "word-nankotsu",
+  "kana": "なんこつ",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. Clean plain surfaces. Subject: One bamboo skewer of chicken cartilage: about ten small separate pieces, each a little pale cream-white triangle with light golden grilled edges, threaded on the stick with small gaps between them so the stick shows between the pieces, the whole skewer thin and narrow, upright with the bare stick end at the bottom, front view. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 7703,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-nankotsu_7703.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-16",
+    "retouch": "스티커 흰 테 지움(574px)",
+    "note": "사이로 꼬챙이가 보이는 각진 흰 조각 다섯 개. 20261116은 mune와 같은 큰 덩이 실루엣이라 탈락"
+  }
+}
