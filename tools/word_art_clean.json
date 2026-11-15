@@ -70,5 +70,7 @@
   "nuruyu": {"candidate": "word-nuruyu_20261116", "dots": true, "rim": true,
              "note": "돌 테두리 탕 앞의 나무 팻말(빈 판). ぬる는 place_word_art.py가 합성(湯은 획 데이터가 없어 넣지 않음)"},
   "mune": {"candidate": "word-mune_20261116", "dots": true, "rim": true,
-           "note": "옅은 크림색 큰 살 덩이 세 개에 연한 석쇠 자국. 갈색 소스의 yakitori와 색으로 구분"}
+           "note": "옅은 크림색 큰 살 덩이 세 개에 연한 석쇠 자국. 갈색 소스의 yakitori와 색으로 구분"},
+  "kake": {"candidate": "word-kake_20261116", "dots": true, "rim": true,
+           "note": "크림색 그릇에 고명 없는 소바와 맑은 국물. 남색 그릇의 soba·udon과 그릇 색과 고명 없음으로 구분"}
 }
