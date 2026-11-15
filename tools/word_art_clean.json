@@ -72,5 +72,7 @@
   "mune": {"candidate": "word-mune_20261116", "dots": true, "rim": true,
            "note": "옅은 크림색 큰 살 덩이 세 개에 연한 석쇠 자국. 갈색 소스의 yakitori와 색으로 구분"},
   "kake": {"candidate": "word-kake_20261116", "dots": true, "rim": true,
-           "note": "크림색 그릇에 고명 없는 소바와 맑은 국물. 남색 그릇의 soba·udon과 그릇 색과 고명 없음으로 구분"}
+           "note": "크림색 그릇에 고명 없는 소바와 맑은 국물. 남색 그릇의 soba·udon과 그릇 색과 고명 없음으로 구분"},
+  "okame": {"candidate": "word-okame_20261116", "dots": true, "rim": true, "keep": [[550, 545, 95], [705, 575, 110]],
+            "note": "남색 그릇의 소바에 가마보코(분홍 테), 나루토, 표고, 시금치. 나루토의 분홍 소용돌이와 시금치 초록은 keep으로 지킴"}
 }
