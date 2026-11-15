@@ -73,9 +73,10 @@
       "sway": {"style": "drape", "anchor": [0.50, 0.17], "amplitude": 2}
     },
     "omatsuri": {
-      "measured": false,
-      "sway": {"style": "hang", "anchor": [0.50, 0.12], "amplitude": 3},
-      "flicker": {"center": [0.50, 0.52], "radius": [0.22, 0.26]}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-omatsuri.png 위에서: 걸이 고리 위 끝 (0.50, 0.10), 위 테 y 0.18~0.26, 몸통 x 0.21~0.79 y 0.26~0.83(가운데 0.54), 아래 테 y 0.83~0.92. 기준점은 고리 위 끝 조금 아래(0.11), 불빛 타원은 몸통 가운데(반지름 0.22 × 0.26이 몸통 안쪽 0.29 × 0.29 안)",
+      "sway": {"style": "hang", "anchor": [0.50, 0.11], "amplitude": 3},
+      "flicker": {"center": [0.50, 0.54], "radius": [0.22, 0.26]}
     },
     "gohan": {
       "measured": true,

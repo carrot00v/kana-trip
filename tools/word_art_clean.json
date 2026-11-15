@@ -32,5 +32,6 @@
               "note": "같은 배치의 1496564125(볶음밥 같은 알갱이 무늬)보다 석쇠 자국이 또렷한 이것을 고름"},
   "tonkatsu": {"candidate": "word-tonkatsu_1574898232", "dots": true, "rim": true, "keep": [[680, 648, 170]],
                "note": "접시에 담은 돈카츠로 새로 그려 아이템 그림 복사본(젓가락이 잘려 보임)을 바꿈"},
-  "otsuri": {"candidate": "word-otsuri_1496564124", "dots": true, "rim": true}
+  "otsuri": {"candidate": "word-otsuri_1496564124", "dots": true, "rim": true},
+  "omatsuri": {"candidate": "word-omatsuri_1936180909", "dots": true, "rim": true}
 }
