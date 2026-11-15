@@ -53,5 +53,6 @@
   "kutsuonuide": {"candidate": "word-kutsuonuide_1936180909", "dots": false, "rim": true,
                   "tint": [{"hue": [120, 175], "sat": [0.25, 1.0], "val": [0.3, 1.0], "toHue": 225, "satScale": 1.0, "valScale": 0.75}],
                   "note": "운동화의 초록(넓게 쓰지 않는 색, item-art/brief.md 1.1)을 남색으로 바꿈"},
-  "uzura": {"candidate": "word-uzura_1077898383", "dots": true, "rim": true}
+  "uzura": {"candidate": "word-uzura_1077898383", "dots": true, "rim": true},
+  "oheya": {"candidate": "word-oheya_1936180909", "dots": true, "rim": true}
 }
