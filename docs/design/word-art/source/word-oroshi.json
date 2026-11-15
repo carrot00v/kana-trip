@@ -1,0 +1,20 @@
+{
+  "word": "word-oroshi",
+  "kana": "おろし",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. Clean plain surfaces. Subject: One fried pork cutlet cut into thick slices on a small round pale cream plate, the golden-brown panko crust drawn with a bumpy crumb outline and pale cream-white meat showing at each cut, topped in the middle with a small white mound of grated daikon radish and a few thin muted moss olive scallion rings, seen from the front and slightly above, no sauce, not a pancake, not bread, nothing else. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 1574898232,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "harvestedFrom": "b687275f-3f60-4525-b7ac-b723404ee321",
+  "selected": {
+    "candidate": "candidates/word-oroshi_1574898232.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(27587px); 지키고 남긴 점 4개",
+    "note": "접시 밑 회색 그림자는 흰 테 지우기에서 같이 지움. 무 위의 초록 파 고리 4개는 keep으로 남김"
+  }
+}

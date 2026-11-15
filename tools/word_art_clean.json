@@ -33,5 +33,7 @@
   "tonkatsu": {"candidate": "word-tonkatsu_1574898232", "dots": true, "rim": true, "keep": [[680, 648, 170]],
                "note": "접시에 담은 돈카츠로 새로 그려 아이템 그림 복사본(젓가락이 잘려 보임)을 바꿈"},
   "otsuri": {"candidate": "word-otsuri_1496564124", "dots": true, "rim": true},
-  "omatsuri": {"candidate": "word-omatsuri_1936180909", "dots": true, "rim": true}
+  "omatsuri": {"candidate": "word-omatsuri_1936180909", "dots": true, "rim": true},
+  "oroshi": {"candidate": "word-oroshi_1574898232", "dots": true, "rim": true, "keep": [[520, 462, 60]],
+             "note": "접시 밑 회색 그림자는 흰 테 지우기에서 같이 지움. 무 위의 초록 파 고리 4개는 keep으로 남김"}
 }
