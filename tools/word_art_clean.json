@@ -76,5 +76,7 @@
   "okame": {"candidate": "word-okame_20261116", "dots": true, "rim": true, "keep": [[550, 545, 95], [705, 575, 110]],
             "note": "남색 그릇의 소바에 가마보코(분홍 테), 나루토, 표고, 시금치. 나루토의 분홍 소용돌이와 시금치 초록은 keep으로 지킴"},
   "okawari": {"candidate": "word-okawari_20261116", "dots": true, "rim": true,
-              "note": "밥알 몇 개 남은 빈 남색 공기에 밥주걱을 걸침"}
+              "note": "밥알 몇 개 남은 빈 남색 공기에 밥주걱을 걸침"},
+  "omairi": {"candidate": "word-omairi_20261116", "dots": true, "rim": true,
+             "note": "새전함, 들보에 매단 방울과 붉은·흰 꼰 줄. 방울이 둥근 스즈가 아니라 종 모양"}
 }
