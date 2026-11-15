@@ -1,0 +1,18 @@
+{
+  "word": "word-omamori",
+  "kana": "おまもり",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple. Subject: One Japanese omamori amulet: a small flat upright rectangular soft orange-red brocade pouch with a gently pointed top, a thin warm yellow border pattern, and a thin pale cream cord tied in a decorative knot at the top center with two short loops, front view, flat like a card, the front completely blank with no characters, not a bag, not a sack, nothing else. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 2070755637,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-omamori_2070755637.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(73553px)"
+  }
+}

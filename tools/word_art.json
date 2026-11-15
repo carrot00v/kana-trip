@@ -39,7 +39,8 @@
       "ko": "돈가스",
       "priority": 1,
       "scene": 2,
-      "copyFrom": "docs/design/item-art/source/tonkatsu.png"
+      "subject": "A Japanese tonkatsu plate: one whole thick fried pork cutlet with a golden-brown panko crust, cut crosswise into five parallel slices with pale cream-white meat showing at each cut, lying on a small round pale cream plate next to a fluffy heap of finely shredded pale yellow-green cabbage, seen from the front and slightly above, no chopsticks, no sauce, no bowls, no nori, nothing else.",
+      "note": "처음에는 item-art/source/tonkatsu.png(젓가락으로 집은 아이템 그림)를 복사해 썼다. 2026-11-15 2차 검수에서 접시에 담은 돈카츠로 새로 그림"
     },
     {
       "name": "katsudon",
@@ -55,7 +56,7 @@
       "ko": "안심 돈가스",
       "priority": 1,
       "scene": 2,
-      "subject": "Two thick oval pork fillet cutlets with a jagged golden-brown panko breadcrumb crust lying flat side by side on a small round pale cream plate, the front cutlet cut in half to show a thin golden crust ring around pale cream-white cooked meat, seen from the front and slightly above, no cabbage, no sauce, not bread, not buns, nothing else."
+      "subject": "Three thick round fried pork fillet cutlets on a small round pale cream plate, each one a thick puck shape covered all over in a rough golden-brown panko breadcrumb crust drawn as many small bumpy crumbs along its whole outline, the front cutlet cut in half showing pale cream-white meat inside a golden crust ring, seen from the front and slightly above, no cabbage, no sauce, not bread, not buns, not cookies, nothing else."
     },
     {
       "name": "gohan",
@@ -257,7 +258,7 @@
       "ko": "간 무를 올린",
       "priority": 2,
       "scene": 2,
-      "subject": "A round golden panko-crusted fillet cutlet with a small white mound of grated daikon radish on top and a few thin moss olive scallion rings, seen from the front and slightly above, no plate."
+      "subject": "One fried pork cutlet cut into thick slices on a small round pale cream plate, the golden-brown panko crust drawn with a bumpy crumb outline and pale cream-white meat showing at each cut, topped in the middle with a small white mound of grated daikon radish and a few thin muted moss olive scallion rings, seen from the front and slightly above, no sauce, not a pancake, not bread, nothing else."
     },
     {
       "name": "wakame",

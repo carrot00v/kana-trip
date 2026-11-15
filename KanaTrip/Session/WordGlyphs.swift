@@ -166,23 +166,53 @@ struct WordBlock: View {
 
     var body: some View {
         let compact = word.units.count >= 6
-        // 넘치는 단어(くつをぬいでください 등)는 두 줄로 나눈다.
+        // 넘치는 단어(くつをぬいでください 등)는 두 줄로 나눈다. 줄은 낱말 사이(읽기의 띄어쓰기)에서만 바꾼다.
+        // 글자마다 바꾸면 "くつをぬいでく / ださい"처럼 낱말 가운데서 끊겼다.
         CenteredFlow(spacing: 4, lineSpacing: 8) {
-            ForEach(Array(word.units.enumerated()), id: \.offset) { _, unit in
-                let ruby = !unit.isKanji && learned.contains(unit.kana) ? nil : unit.romaji
-                VStack(spacing: 0) {
-                    Text(ruby ?? " ")
-                        .font(.system(size: 15))
-                        .foregroundStyle(Color.inkSecondary)
-                        .frame(height: 20)
-                    KanaText(text: unit.kana, size: compact ? 48 : 56)
-                        .foregroundStyle(Color.ink)
+            ForEach(Array(Self.groups(word).enumerated()), id: \.offset) { _, group in
+                HStack(spacing: 4) {
+                    ForEach(group, id: \.self) { index in
+                        cell(word.units[index], compact: compact)
+                    }
                 }
-                .frame(width: compact ? 52 : 64)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text(KanaText.japanese(unit.kana)) + Text(ruby.map { ", \($0)" } ?? ""))
-                .speaks(kana: unit.kana, enabled: soundOn && !unit.isKanji)
             }
         }
+    }
+
+    private func cell(_ unit: TripWord.Unit, compact: Bool) -> some View {
+        let ruby = !unit.isKanji && learned.contains(unit.kana) ? nil : unit.romaji
+        return VStack(spacing: 0) {
+            Text(ruby ?? " ")
+                .font(.system(size: 15))
+                .foregroundStyle(Color.inkSecondary)
+                .frame(height: 20)
+            KanaText(text: unit.kana, size: compact ? 48 : 56)
+                .foregroundStyle(Color.ink)
+        }
+        .frame(width: compact ? 52 : 64)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(KanaText.japanese(unit.kana)) + Text(ruby.map { ", \($0)" } ?? ""))
+        .speaks(kana: unit.kana, enabled: soundOn && !unit.isKanji)
+    }
+
+    /// 글자 번호를 낱말별로 묶는다. 읽기(`kutsu o nuide kudasai`)의 띄어 쓴 낱말과 글자 로마자를 앞에서부터 맞춘다.
+    /// 맞지 않으면 글자 하나씩 묶는다(예전처럼 어느 글자 사이에서도 줄을 바꾼다).
+    static func groups(_ word: TripWord) -> [[Int]] {
+        let tokens = word.reading.lowercased().split(separator: " ").map(String.init)
+        var groups: [[Int]] = []
+        var index = 0
+        for token in tokens {
+            var spelled = ""
+            var group: [Int] = []
+            while index < word.units.count, spelled.count < token.count {
+                spelled += word.units[index].romaji.lowercased()
+                group.append(index)
+                index += 1
+            }
+            guard spelled == token else { return word.units.indices.map { [$0] } }
+            groups.append(group)
+        }
+        guard index == word.units.count else { return word.units.indices.map { [$0] } }
+        return groups
     }
 }

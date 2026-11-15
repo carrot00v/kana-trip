@@ -1,0 +1,19 @@
+{
+  "word": "word-soba",
+  "kana": "そば",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple. Subject: A deep round dark indigo bowl of hot soba: thin light brown buckwheat noodles in dark brown broth, topped only with a few small thin muted moss olive scallion rings, seen from the front and slightly above, no other toppings, no eggs, no balls, no chopsticks, no steam. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 2070755637,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-soba_2070755637.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(61703px); 색 점 3개 메움(자동): (432,414) 56°, (524,480) 279°, (502,509) 108°",
+    "note": "초록 파 고리 3개는 지름이 커서(약 7%) 자동 대상이 아니고 남긴다"
+  }
+}

@@ -54,7 +54,7 @@ STYLE = (
 PALETTE = (
     "Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. "
     "Never rainbow or multicolor: parts of the same kind share the same color. "
-    "No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple."
+    "Clean plain surfaces."
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -79,6 +79,8 @@ def file_name(word: dict) -> str:
 
 def build_prompt(word: dict) -> str:
     rules = OBJECT_RULES.replace("no floor, ", "") if word.get("allowFloor") else OBJECT_RULES
+    # "색 점·색 공·색 견본"을 금지어로 적으면 오히려 그려 넣는다(2차 배치에서 확인). 언급 자체를 뺀다.
+    rules = rules.replace("no color swatches, ", "")
     return f"{STYLE} {PALETTE} Subject: {word['subject']} {rules}"
 
 

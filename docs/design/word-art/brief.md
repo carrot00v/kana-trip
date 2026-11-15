@@ -93,3 +93,14 @@ python3 .claude/skills/image-progress/progress.py --dir docs/design/word-art/sou
 
 - 다시 돌릴 때: `gen_word_art.py`는 후보가 `--count`장 있으면 건너뛰므로 `--only word-tako ... --count 2`처럼 장수를 올리거나 옛 후보를 옮긴 뒤 돌린다.
 - 무지개색은 공통 PALETTE 문장(색 이름 10개)에서 오는 것으로 보인다(아이템 はちまき와 같은 현상, item-art/brief.md 3.1). onigiri의 얼굴은 STYLE의 "kawaii"가 원인일 수 있다. 공통 문장은 아이템 그림과 같이 쓰므로 고치지 않았다.
+
+### 5.2 2차 검수 (2026-11-15, developer)
+
+1차에서 다시 그린 17장(Subject 고침)과 우선순위 2 배치, 다시 그린 단어를 같은 기준으로 봤다. PM의 1차 의견은 참고만 하고 그림마다 직접 열어 판정했다.
+
+다듬기: 통과한 후보는 `tools/clean_word_art.py`가 `tools/word_art_clean.json`의 설정대로 다듬어 `source/word-{이름}.png`로 확정한다. 하는 일은 셋이다.
+
+- 색 점 자동 지우기: 채도 0.55·밝기 0.45 이상이고 지름이 그림 변의 4.5% 이하인 둥근 얼룩(빨강·초록·파랑·보라·분홍·노랑, 주황 8~45°는 음식 색이라 뺀다). 둘레 색과 비슷한 조각은 건너뛰고, 외곽선(어두운 픽셀)은 건드리지 않고 가장 가까운 면 색으로 메운다. 파 고리(soba 약 7%)·아오노리(작고 어두움)·와사비 같은 정상 부분은 크기·밝기 조건에서 빠지고, 필요하면 `keep`으로 지킨다.
+- 좌표 메우기: 자동 범위를 넘는 큰 얼룩(tako 초록 원 약 9%, tsukune 초록 원·빨간 반달), 소스 색과 가까운 주황빨강 점(takoyaki), 채도 낮은 점(inari)은 `fill`/`paint` 좌표로 메운다.
+- 스티커 흰 테 지우기(`rim`): 투명 바탕에서 시작해 밝고 채도 낮은 픽셀만 지운다.
+- 전후 비교: `build/word-art-clean/{이름}.png`(왼쪽 원본, 지운 점은 빨간 원). 확정한 그림의 `.json`의 `selected.retouch`에 한 일을 적는다.

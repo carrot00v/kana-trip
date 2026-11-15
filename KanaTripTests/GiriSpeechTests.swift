@@ -135,6 +135,24 @@ struct GiriDataTests {
 
 @Suite("기리 대사 고르기")
 struct GiriSpeechTests {
+    /// 장면 이름과 단계 이름이 겹치면 장면 이름을 빼서 "신사·축제 축제 노점"처럼 되풀이하지 않는다.
+    @Test func homeLinesDoNotRepeatSceneInStep() {
+        #expect(L.giriHomeResume(scene: "신사·축제", session: "축제 노점") == "축제 노점 하던 데부터 이어서 해요")
+        #expect(L.giriHomeStepB(scene: "신사·축제", step: "축제 노점") == "축제 노점을 읽으러 가요")
+        #expect(L.giriHomeResume(scene: "신사·축제", session: "신사") == "신사 하던 데부터 이어서 해요")
+        #expect(L.giriHomeResume(scene: "스시집", session: "간판") == "스시집 간판 하던 데부터 이어서 해요")
+        #expect(L.giriHomeResume(scene: "신사·축제", session: L.quizSessionName) == "신사·축제 종합 퀴즈 하던 데부터 이어서 해요")
+        for scene in ContentLibrary.shared.scenes {
+            for step in scene.steps {
+                let words = scene.name.split(separator: "·").map(String.init)
+                let line = L.giriHomeResume(scene: scene.name, session: step.name)
+                for word in words where step.name.contains(word) {
+                    #expect(line.components(separatedBy: word).count - 1 == 1, "\(line)")
+                }
+            }
+        }
+    }
+
     @Test func particlesFollowFinalConsonant() {
         #expect(L.giriSceneStepB("메뉴") == "이제 메뉴를 읽어 볼까요?")
         #expect(L.giriSceneStepB("간판") == "이제 간판을 읽어 볼까요?")

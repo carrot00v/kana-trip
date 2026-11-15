@@ -56,9 +56,10 @@
   },
   "words": {
     "takoyaki": {
-      "measured": false,
-      "katsuobushi": {"flakes": [[0.38, 0.40], [0.47, 0.37], [0.56, 0.39], [0.64, 0.42]]},
-      "steam": {"anchor": [0.50, 0.36], "count": 2, "spacing": 0.14, "length": 0.12, "widthScale": 1.0}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-takoyaki.png 위에서: 배 모양 접시 x 0.15~0.85 y 0.58~0.92, 공 다섯 개 윗면 y 0.52~0.64(뒤 가운데 공 꼭대기 0.52), 이쑤시개 x 0.64~0.67 y 0.44~0.55. 가쓰오부시는 공 네 개의 윗면에(이쑤시개를 피함), 김은 뒤 가운데 공 꼭대기에서. 묶음 폭 0.14 = 접시 폭의 20%",
+      "katsuobushi": {"flakes": [[0.28, 0.62], [0.44, 0.57], [0.57, 0.59], [0.71, 0.65]]},
+      "steam": {"anchor": [0.50, 0.53], "count": 2, "spacing": 0.14, "length": 0.12, "widthScale": 1.0}
     },
     "onsen": {
       "measured": true,
@@ -67,8 +68,9 @@
       "ripple": {"center": [0.50, 0.62], "maxRadius": 0.16}
     },
     "yu": {
-      "measured": false,
-      "sway": {"style": "drape", "anchor": [0.50, 0.22], "amplitude": 2}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-yu.png 위에서: 봉 y 0.12~0.16(고리 0.10~0.18), 천 x 0.14~0.86 y 0.16~0.91, ゆ 원 가운데 (0.50, 0.46). 천 전체가 봉에 걸려 있어 봉 바로 아래(0.17)를 기준점으로 천 전체를 돌린다. 자르는 선 0.15는 봉 아래 끝",
+      "sway": {"style": "drape", "anchor": [0.50, 0.17], "amplitude": 2}
     },
     "omatsuri": {
       "measured": false,
@@ -91,8 +93,9 @@
       "steam": {"anchor": [0.50, 0.32], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "houjicha": {
-      "measured": false,
-      "steam": {"anchor": [0.50, 0.38], "count": 2, "spacing": 0.08, "length": 0.12, "widthScale": 0.8}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-houjicha.png 위에서: 잔 x 0.17~0.83, 테 위 끝 y 0.21, 차 표면 y 0.30~0.43(가운데 0.38). 표면 가운데에서 0.12면 줄이 잔 안쪽 벽에만 그려져 김으로 안 읽혀, 아래 끝을 표면 뒤쪽(0.32)에 두고 길이를 0.17로 늘려 줄 위 40%가 테 위로 나오게 함",
+      "steam": {"anchor": [0.50, 0.32], "count": 2, "spacing": 0.08, "length": 0.17, "widthScale": 0.8}
     },
     "otsuri": {
       "measured": false,
@@ -103,8 +106,9 @@
       "sway": {"style": "drape", "anchor": [0.50, 0.35], "amplitude": 5}
     },
     "soba": {
-      "measured": false,
-      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-soba.png 위에서: 그릇 x 0.14~0.86, 뒤쪽 테 y 0.31~0.34, 국물 면 y 0.40~0.72, 파 x 0.40~0.60 y 0.48~0.60. udon과 같이 국물 뒤쪽 끝(0.42)에 둠. 묶음 폭 0.24 = 그릇 폭의 33%",
+      "steam": {"anchor": [0.50, 0.42], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "kitsune": {
       "measured": true,
@@ -112,8 +116,9 @@
       "steam": {"anchor": [0.50, 0.38], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "wakame": {
-      "measured": false,
-      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-wakame.png 위에서: 그릇 x 0.14~0.86, 뒤쪽 테 y 0.36~0.38, 면 y 0.42~0.72, 미역 x 0.32~0.66 y 0.40~0.58. 국물 뒤쪽 끝(0.44)에 둠. 묶음 폭 0.24 = 그릇 폭의 33%",
+      "steam": {"anchor": [0.50, 0.44], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "tanuki": {
       "measured": false,

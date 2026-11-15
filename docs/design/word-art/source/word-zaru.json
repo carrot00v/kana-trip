@@ -1,0 +1,19 @@
+{
+  "word": "word-zaru",
+  "kana": "ざる",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple. Subject: A square flat bamboo zaru tray made of thin warm wood brown slats, with a neat heap of cold thin light brown soba noodles on it and a few thin dark nori strips sprinkled on top, seen from the front and slightly above, nothing else around it: no dipping cup, no bowls, no balls, no circles, no plates. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 2070755637,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-zaru_2070755637.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(666px); 색 점 2개 메움(자동): (580,495) 119°, (490,508) 62°; 얼룩 2곳 메움(좌표): (501,436,r34), (580,495,r23)",
+    "note": "김 가닥이 모이는 가운데의 보라·파랑 점과 김 끝의 초록 점은 김 외곽선 색으로 칠함(가닥이 모이는 매듭으로 보임)"
+  }
+}

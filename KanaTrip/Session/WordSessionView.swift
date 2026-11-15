@@ -6,6 +6,10 @@ struct WordSessionView: View {
     let run: SessionRun
     let onClose: () -> Void
     let onFinished: () -> Void
+    #if DEBUG
+    /// 디버그 미리 보기(`DebugWordPreview`, 실행 인자 `-debugWord`): 이 단어를 "읽기 확인" 뒤 모습으로 보여 준다.
+    var debugWord: String? = nil
+    #endif
 
     @Environment(ProgressStore.self) private var store
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -19,6 +23,9 @@ struct WordSessionView: View {
 
     /// 아직 끝내지 않은 첫 단어.
     private var current: TripWord? {
+        #if DEBUG
+        if let debugWord { return words.first { $0.text == debugWord } }
+        #endif
         let done = run.progress.wordsDone
         return words.first { !done.contains($0.text) }
     }
@@ -47,6 +54,9 @@ struct WordSessionView: View {
                 }
             }
             .sensoryFeedback(.impact(weight: .light), trigger: revealTick)
+            #if DEBUG
+            .onAppear { if debugWord != nil { revealed = true } }
+            #endif
         } else {
             Color.appBackground
         }

@@ -1,0 +1,19 @@
+{
+  "word": "word-inari",
+  "kana": "いなり",
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: One single inari sushi: a plump oval pouch of golden-brown sweet fried tofu stuffed with white rice, the rice showing at the open top, seen from the front and slightly above, no plate. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 977337586,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-inari_977337586.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "얼룩 7곳 메움(좌표): (372,428,r15), (637,512,r15), (633,465,r18), (806,592,r22), (806,620,r22), (806,648,r22), (806,683,r21)",
+    "note": "밥 위의 옅은 파랑 점 2개·살구색 점 1개(채도가 낮아 자동에서 빠짐)와 유부 오른쪽의 느낌표 모양 자국을 메움"
+  }
+}

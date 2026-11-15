@@ -1,0 +1,19 @@
+{
+  "word": "word-takoyaki",
+  "kana": "たこやき",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple. Subject: Six round takoyaki balls, all the same golden brown color, packed in a boat-shaped warm wood brown tray, every ball covered with glossy dark brown sauce and thin white mayonnaise zigzag lines and a few tiny moss olive aonori flakes, one wooden pick stuck in one ball, seen from the front and slightly above, no blue, no purple, no bonito flakes, no steam. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 2070755637,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-takoyaki_2070755637.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(673px); 색 점 6개 메움(자동): (476,377) 95°, (619,411) 321°, (304,445) 196°, (754,501) 271°, (258,512) 311°, (656,516) 23°; 얼룩 2곳 메움(좌표): (425,440,r22), (455,563,r24)",
+    "note": "주황빨강 점 2개는 소스 색과 색상이 가까워 자동에서 빠지므로 좌표로 메움. 작은 진초록 아오노리는 남김"
+  }
+}

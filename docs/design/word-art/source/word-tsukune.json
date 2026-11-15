@@ -1,0 +1,19 @@
+{
+  "word": "word-tsukune",
+  "kana": "つくね",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple. Subject: One bamboo skewer holding a single long oval chicken meatball shaped like a stretched capsule, all glossy dark brown teriyaki glaze with a few darker grill marks, upright with the bare stick end at the bottom, front view, only one piece on the stick, no round balls, no egg, no plate. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 2070755637,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-tsukune_2070755637.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(70865px); 색 점 1개 메움(자동): (510,322) 277°; 얼룩 2곳 메움(좌표): (521,197,r31), (500,508,r36)",
+    "note": "초록 원(지름 약 5.4%)과 석쇠 자국 밑 빨간 반달은 좌표로 메움"
+  }
+}

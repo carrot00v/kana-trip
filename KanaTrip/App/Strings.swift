@@ -192,10 +192,16 @@ enum L {
     // H 홈
     static func giriHomeFirst(_ scene: String) -> String { "첫 여행지는 \(scene)\(copula(scene)). 같이 가 봐요" }
     static func giriHomeNewScene(scene: String, step: String) -> String { "다음 여행지는 \(scene)\(copula(scene)). \(step)부터 봐요" }
-    static func giriHomeStepB(scene: String, step: String) -> String { "\(scene) \(step)\(object(step)) 읽으러 가요" }
+    static func giriHomeStepB(scene: String, step: String) -> String { "\(sceneStep(scene, step))\(object(step)) 읽으러 가요" }
     static func giriHomeQuiz(_ scene: String) -> String { "\(scene)에서 읽은 걸 같이 확인해 봐요" }
     /// `session`은 단계 이름 또는 "종합 퀴즈".
-    static func giriHomeResume(scene: String, session: String) -> String { "\(scene) \(session) 하던 데부터 이어서 해요" }
+    static func giriHomeResume(scene: String, session: String) -> String { "\(sceneStep(scene, session)) 하던 데부터 이어서 해요" }
+    /// 장면 이름 뒤에 단계 이름을 붙인다. 단계 이름에 장면 이름의 낱말이 들어 있으면 장면 이름을 뺀다
+    /// ("신사·축제 축제 노점" → "축제 노점", "신사·축제 신사" → "신사"). giri-companion.md 3.11.
+    static func sceneStep(_ scene: String, _ step: String) -> String {
+        let sceneWords = scene.split(separator: "·").map { $0.trimmingCharacters(in: .whitespaces) }
+        return sceneWords.contains(where: { !$0.isEmpty && step.contains($0) }) ? step : "\(scene) \(step)"
+    }
     static let giriComingSoon = "다음 여행지는 아직 준비 중이에요"
     static let giriAllDone = "히라가나 여행을 다 마쳤어요"
 
