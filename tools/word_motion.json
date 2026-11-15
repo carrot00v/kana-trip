@@ -132,8 +132,9 @@
       "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "yakisoba": {
-      "measured": false,
-      "steam": {"anchor": [0.50, 0.45], "count": 2, "spacing": 0.12, "length": 0.13, "widthScale": 1.0}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-yakisoba.png 위에서: 종이 접시 x 0.14~0.86 y 0.66~0.92, 면 더미 x 0.20~0.80 y 0.55~0.83, 생강 x 0.40~0.58 y 0.51~0.62(더미 꼭대기). 줄 아래 끝을 생강 위쪽(0.53)에 둠. 묶음 폭 0.12 = 접시 폭의 17%",
+      "steam": {"anchor": [0.50, 0.53], "count": 2, "spacing": 0.12, "length": 0.13, "widthScale": 1.0}
     },
     "ofuro": {
       "measured": true,

@@ -21,6 +21,8 @@
 - paint / clear / line: 얼룩이 외곽선을 덮은 경우의 손질. paint {"disc": [x, y, r], "sample": [x, y] 또는 "color"}로
   한 색을 칠하고, clear [[x, y], ...] 다각형을 투명하게 지우고, line {"points": [[x, y], ...], "width": px}로
   외곽선(진갈색)을 다시 긋는다. 이 순서로 적용한다.
+- stripes / tint: 색 범위({"hue": [도, 도], "sat": [0~1, 0~1], "val": [0~1, 0~1]})로 고른 픽셀을 메우거나(stripes,
+  참치 살의 흰 줄) 색상을 바꾼다(tint, "toHue", "satScale", "valScale"). 모양은 그대로 두고 색만 실물에 맞출 때 쓴다.
 - rim: 스티커 흰 테 지우기. 투명 바탕에서 시작해 밝고 채도 낮은 픽셀(흰 테와 그 밑 회색 그림자)만 따라가며 지운다.
   진갈색 외곽선에서 멈추므로 외곽선 안의 흰 면은 남는다.
 
@@ -260,10 +262,37 @@ def clean(name: str, spec: dict) -> tuple[Image.Image, Image.Image, list[str], l
         found.append((spot, cells))
     dots = found
     manual = []
+    # 색 범위로 고르는 손질: stripes는 고른 픽셀을 구멍으로 메우고(참치의 흰 줄), tint는 색상을 바꾼다(연어색 → 붉은 참치).
+    # {"hue": [최소, 최대], "sat": [최소, 최대], "val": [최소, 최대]} 안의 불투명 픽셀만.
+    def pick(rule):
+        out = []
+        for p, (r, g, b, a) in enumerate(px):
+            if a < 200:
+                continue
+            hh, ss, vv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            lo, hi = rule.get("hue", [0, 360])
+            if lo <= hh * 360 <= hi and rule.get("sat", [0, 1])[0] <= ss <= rule.get("sat", [0, 1])[1] \
+                    and rule.get("val", [0, 1])[0] <= vv <= rule.get("val", [0, 1])[1]:
+                out.append(p)
+        return out
+    stripe_count = 0
+    for rule in spec.get("stripes", []):
+        cells = pick(rule)
+        holes |= grow(cells, 1, w, h)
+        stripe_count += len(cells)
     for x, y, r in spec.get("fill", []):
         holes |= set(disc(x, y, r, w, h))
         manual.append((x, y, r))
     nearest_fill(px, holes, w, h)
+    tint_count = 0
+    for rule in spec.get("tint", []):
+        for p in pick(rule):
+            r, g, b, a = px[p]
+            hh, ss, vv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            nr, ng, nb = colorsys.hsv_to_rgb(rule["toHue"] / 360, min(1, ss * rule.get("satScale", 1)),
+                                              min(1, vv * rule.get("valScale", 1)))
+            px[p] = (round(nr * 255), round(ng * 255), round(nb * 255), a)
+            tint_count += 1
     # 큰 얼룩이 외곽선에 걸친 경우: 한 색으로 칠하고(paint), 바깥을 지우고(clear), 외곽선을 다시 긋는다(line).
     for op in spec.get("paint", []):
         x, y, r = op["disc"]
@@ -285,6 +314,10 @@ def clean(name: str, spec: dict) -> tuple[Image.Image, Image.Image, list[str], l
         log.append("색 점 %d개 메움(자동): %s" % (len(dots), ", ".join(f"({x},{y}) {hue}°" for (x, y, r, hue), _ in dots)))
     if manual:
         log.append("얼룩 %d곳 메움(좌표): %s" % (len(manual), ", ".join(f"({x},{y},r{r})" for x, y, r in manual)))
+    if stripe_count:
+        log.append(f"색 범위로 고른 줄무늬 {stripe_count}px 메움")
+    if tint_count:
+        log.append(f"색 바꿈 {tint_count}px")
     if spec.get("line"):
         log.append("외곽선 %d줄 다시 그음" % len(spec["line"]))
     if kept:

@@ -1,0 +1,20 @@
+{
+  "word": "word-maguro",
+  "kana": "まぐろ",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. Clean plain surfaces. Subject: One single piece of lean tuna nigiri sushi: a thick slice of solid deep orange-red lean tuna in one flat color with no white fat stripes, draped over an oval block of white rice, seen from the front and slightly above, no plate, not salmon, nothing else. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 1496564124,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "harvestedFrom": "729ac711-edc2-42dd-970d-3263ad694168",
+  "selected": {
+    "candidate": "candidates/word-maguro_1496564124.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(551px); 색 범위로 고른 줄무늬 21392px 메움; 색 바꿈 173982px",
+    "note": "살의 옅은 분홍 줄무늬(지방)를 살 색으로 메우고 살을 연어색에서 붉은 참치 색으로 바꿈. 모양은 그대로"
+  }
+}

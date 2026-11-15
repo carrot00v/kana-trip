@@ -35,5 +35,12 @@
   "otsuri": {"candidate": "word-otsuri_1496564124", "dots": true, "rim": true},
   "omatsuri": {"candidate": "word-omatsuri_1936180909", "dots": true, "rim": true},
   "oroshi": {"candidate": "word-oroshi_1574898232", "dots": true, "rim": true, "keep": [[520, 462, 60]],
-             "note": "접시 밑 회색 그림자는 흰 테 지우기에서 같이 지움. 무 위의 초록 파 고리 4개는 keep으로 남김"}
+             "note": "접시 밑 회색 그림자는 흰 테 지우기에서 같이 지움. 무 위의 초록 파 고리 4개는 keep으로 남김"},
+  "maguro": {"candidate": "word-maguro_1496564124", "dots": true, "rim": true,
+             "stripes": [{"hue": [0, 25], "sat": [0.08, 0.45], "val": [0.80, 1.0]}],
+             "tint": [{"hue": [0, 25], "sat": [0.45, 1.0], "val": [0.5, 1.0], "toHue": 5, "satScale": 1.25, "valScale": 0.92}],
+             "note": "살의 옅은 분홍 줄무늬(지방)를 살 색으로 메우고 살을 연어색에서 붉은 참치 색으로 바꿈. 모양은 그대로"},
+  "yakisoba": {"candidate": "word-yakisoba_1936180909", "dots": true, "rim": true, "keep": [[400, 330, 230]],
+               "paint": [{"disc": [277, 479, 31], "sample": [660, 470]}, {"disc": [708, 462, 30], "sample": [660, 470]}],
+               "note": "면 위 진갈색 원 안의 청록·자홍 점 2개를 소스 색으로 칠함. 위쪽 생강(빨강)·양배추(연두)는 keep으로 남김"}
 }
