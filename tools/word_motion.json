@@ -98,8 +98,9 @@
       "steam": {"anchor": [0.50, 0.32], "count": 2, "spacing": 0.08, "length": 0.17, "widthScale": 0.8}
     },
     "otsuri": {
-      "measured": false,
-      "coin": {"rest": [0.50, 0.55]}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-otsuri.png 위에서: 거스름 접시 x 0.10~0.90 y 0.26~0.77(안쪽 바닥 y 0.42~0.62), 동전 세 개 x 0.24~0.78 y 0.45~0.61(가운데 동전 0.40~0.60). 넷째 동전은 가운데 동전 위에 겹쳐 놓이게(0.50, 0.47). 0.30 위(0.17)는 접시 테(0.26) 위라 떨어져 들어오는 것이 보인다",
+      "coin": {"rest": [0.50, 0.47]}
     },
     "omikuji": {
       "measured": false,
