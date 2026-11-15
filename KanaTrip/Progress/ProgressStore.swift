@@ -36,7 +36,8 @@ struct ProgressState: Codable, Equatable {
     static let currentVersion = 5
 
     var version = ProgressState.currentVersion
-    var soundOn = false
+    /// 기본값은 켜짐. 저장된 값이 있으면 그 값을 따른다.
+    var soundOn = true
     /// 세션 id → 진행.
     var sessions: [String: SessionProgress] = [:]
     /// 장면 id → 그 장면 종합 퀴즈에서 틀린 글자. 퀴즈를 처음 통과할 때 확정한다.
@@ -56,7 +57,7 @@ struct ProgressState: Codable, Equatable {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         version = (try? c.decodeIfPresent(Int.self, forKey: .version)) ?? 0
-        soundOn = (try? c.decodeIfPresent(Bool.self, forKey: .soundOn)) ?? false
+        soundOn = (try? c.decodeIfPresent(Bool.self, forKey: .soundOn)) ?? true
         rewards = (try? c.decodeIfPresent(RewardState.self, forKey: .rewards)) ?? RewardState()
         wrongKana = (try? c.decodeIfPresent([String: [String]].self, forKey: .wrongKana)) ?? [:]
         reviewQueue = (try? c.decodeIfPresent([String: Int].self, forKey: .reviewQueue)) ?? [:]
