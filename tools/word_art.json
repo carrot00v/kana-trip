@@ -385,10 +385,11 @@
       "ko": "환승",
       "priority": 3,
       "scene": 4,
-      "subject": "A wide horizontal rectangular train station guide sign board hanging from two short thin rods at the top: a plain white face with one thick soft orange band along its top edge, the large white area below the band completely plain and empty, front view, flat.",
+      "subject": "A long horizontal train station guide sign board, about three times wider than it is tall, hanging from the ceiling by two thin rods: a plain white face with one thick soft orange stripe running along its bottom edge, the large white area plain and empty, front view, flat.",
       "method": "A",
       "kanaInImage": "のりかえ",
-      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)",
+      "firstSubject": "A wide horizontal rectangular train station guide sign board hanging from two short thin rods at the top: a plain white face with one thick soft orange band along its top edge, the large white area below the band completely plain and empty, front view, flat."
     },
     {
       "name": "kochira",
@@ -429,8 +430,9 @@
       "ko": "참배",
       "priority": 3,
       "scene": 5,
-      "subject": "A Japanese shrine offering spot seen from the front: a wide warm wood brown saisen offering box with a slatted top on the ground, and above it one round golden suzu bell hanging from a short wooden beam, with a thick braided rope in soft orange-red and white hanging straight down from the bell in front of the box.",
-      "method": "C"
+      "subject": "A Japanese shrine offering spot seen from the front: a wide warm wood brown saisen offering box with a slatted grid top, and hanging above it from a short wooden beam one big round golden suzu bell shaped like a ball with a narrow horizontal slit, with a thick twisted rope in soft orange-red and white hanging straight down from the bell to just above the box.",
+      "method": "C",
+      "firstSubject": "A Japanese shrine offering spot seen from the front: a wide warm wood brown saisen offering box with a slatted top on the ground, and above it one round golden suzu bell hanging from a short wooden beam, with a thick braided rope in soft orange-red and white hanging straight down from the bell in front of the box."
     },
     {
       "name": "enmusubi",
@@ -478,8 +480,9 @@
       "ko": "닭안심",
       "priority": 3,
       "scene": 6,
-      "subject": "One bamboo skewer of chicken tenderloin: one long narrow strip of pale cream-white chicken threaded lengthwise along the stick, lightly seared, with three small dabs of green wasabi paste dotted on top of the white meat, upright with the bare stick end at the bottom, front view.",
-      "method": "B"
+      "subject": "One bamboo skewer of chicken tenderloin: two long thin flat strips of pale cream-white chicken, each strip about four times longer than it is wide, threaded lengthwise along the stick one above the other, lightly seared, with three small dabs of green wasabi paste dotted along the white meat, upright with the bare stick end at the bottom, front view.",
+      "method": "B",
+      "firstSubject": "One bamboo skewer of chicken tenderloin: one long narrow strip of pale cream-white chicken threaded lengthwise along the stick, lightly seared, with three small dabs of green wasabi paste dotted on top of the white meat, upright with the bare stick end at the bottom, front view."
     },
     {
       "name": "nankotsu",
@@ -487,8 +490,9 @@
       "ko": "오돌뼈",
       "priority": 3,
       "scene": 6,
-      "subject": "One bamboo skewer of chicken cartilage: eight small pale cream-white triangular pieces of crunchy cartilage with light golden edges packed tightly one after another along the stick, much smaller than chicken chunks, upright with the bare stick end at the bottom, front view.",
-      "method": "B"
+      "subject": "One bamboo skewer of chicken cartilage: about ten small separate pieces, each a little pale cream-white triangle with light golden grilled edges, threaded on the stick with small gaps between them so the stick shows between the pieces, the whole skewer thin and narrow, upright with the bare stick end at the bottom, front view.",
+      "method": "B",
+      "firstSubject": "One bamboo skewer of chicken cartilage: eight small pale cream-white triangular pieces of crunchy cartilage with light golden edges packed tightly one after another along the stick, much smaller than chicken chunks, upright with the bare stick end at the bottom, front view."
     },
     {
       "name": "nuruyu",
