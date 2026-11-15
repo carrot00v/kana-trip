@@ -68,5 +68,7 @@
   "hazure": {"candidate": "word-hazure_20261116", "dots": true, "rim": true,
              "note": "회청색 테의 세로 제비 종이(atari와 같은 모양). はずれ는 place_word_art.py가 가로로 합성"},
   "nuruyu": {"candidate": "word-nuruyu_20261116", "dots": true, "rim": true,
-             "note": "돌 테두리 탕 앞의 나무 팻말(빈 판). ぬる는 place_word_art.py가 합성(湯은 획 데이터가 없어 넣지 않음)"}
+             "note": "돌 테두리 탕 앞의 나무 팻말(빈 판). ぬる는 place_word_art.py가 합성(湯은 획 데이터가 없어 넣지 않음)"},
+  "mune": {"candidate": "word-mune_20261116", "dots": true, "rim": true,
+           "note": "옅은 크림색 큰 살 덩이 세 개에 연한 석쇠 자국. 갈색 소스의 yakitori와 색으로 구분"}
 }
