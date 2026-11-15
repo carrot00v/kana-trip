@@ -5,6 +5,10 @@ enum HomeRoute: Hashable {
     case scene(String)
     /// K 기리 꾸미기 (docs/design/reward-flow.md 2.2).
     case customize
+    /// 앱 정보(크레딧). "더 보기" 메뉴에서 연다.
+    case about
+    /// 앱 정보 안의 라이선스 전문.
+    case license(LicenseText)
 }
 
 /// H 홈(장면 목록).
@@ -49,6 +53,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Toggle(L.soundToggle, isOn: $store.soundOn)
+                        Button(L.about, systemImage: "info.circle") { path.append(.about) }
                         #if DEBUG
                         Button(L.devSpike) { showsSpike = true }
                         #endif
@@ -89,6 +94,10 @@ struct HomeView: View {
                     }
                 case .customize:
                     CustomizeView()
+                case .about:
+                    AboutView()
+                case .license(let license):
+                    LicenseTextView(license: license)
                 }
             }
             .alert(L.comingSoon, isPresented: $showsComingSoon) {

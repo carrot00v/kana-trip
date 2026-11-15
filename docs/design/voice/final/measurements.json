@@ -1,0 +1,5058 @@
+{
+ "voice": {
+  "slug": "tsumugi-normal",
+  "name": "春日部つむぎ",
+  "style": "ノーマル",
+  "style_id": 8,
+  "credit": "VOICEVOX:春日部つむぎ"
+ },
+ "generated": "2026-11-15",
+ "voicevox_core": "0.17.1",
+ "kana_method": {
+  "comment": "3차 N75와 같다: 'X'+뒤 박을 길이 그대로, speed_scale 0.75, 두 박 높이 같게, 글자 박 끝에서 잘라 30ms 페이드",
+  "speed_scale": 0.75,
+  "flat_pitch": true,
+  "fade_out": 0.03
+ },
+ "carriers": [
+  "タ",
+  "ト",
+  "カ",
+  "ン",
+  "ッ"
+ ],
+ "word_speed": 0.85,
+ "normalize": {
+  "rms_dbfs": -20.0,
+  "peak_dbfs": -1.0
+ },
+ "lead_silence": 0.05,
+ "tail_silence": 0.1,
+ "aac_bitrate": 64000,
+ "m4a_files": 118,
+ "m4a_bytes": 920810,
+ "silent_kana": [
+  "っ"
+ ],
+ "missing_kana": [],
+ "kana": [
+  {
+   "kana": "あ",
+   "romaji": "a",
+   "base46": true,
+   "file": "kana_a",
+   "input": "ア'ト",
+   "carrier": "ト",
+   "query_kana": "ア'ト",
+   "phonemes": [
+    "a",
+    "t+o"
+   ],
+   "gain_db": 1.2,
+   "periodic": 0.5,
+   "duration": 0.31,
+   "voiced": 0.14,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -6.9,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 8.79,
+   "f0_mod_4_12_c": 123.77,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ア'タ",
+     "phonemes": [
+      "a",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -22.3,
+     "periodic": 0.29,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "ト",
+     "query_kana": "ア'ト",
+     "phonemes": [
+      "a",
+      "t+o"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -21.2,
+     "periodic": 0.5,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5721,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -6.9
+  },
+  {
+   "kana": "い",
+   "romaji": "i",
+   "base46": true,
+   "file": "kana_i",
+   "input": "イ'タ",
+   "carrier": "タ",
+   "query_kana": "イ'タ",
+   "phonemes": [
+    "i",
+    "t+a"
+   ],
+   "gain_db": 12.3,
+   "periodic": 1.0,
+   "duration": 0.26,
+   "voiced": 0.1,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -6.6,
+   "rms_dbfs": -20.9,
+   "jitter_pct": 4.2,
+   "f0_mod_4_12_c": 28.76,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "イ'タ",
+     "phonemes": [
+      "i",
+      "t+a"
+     ],
+     "voiced": 0.08,
+     "rms_dbfs": -32.3,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5577,
+   "m4a_duration": 0.26,
+   "m4a_voiced": 0.1,
+   "m4a_rms_dbfs": -21.0,
+   "m4a_peak_dbfs": -6.7
+  },
+  {
+   "kana": "う",
+   "romaji": "u",
+   "base46": true,
+   "file": "kana_u",
+   "input": "ウ'タ",
+   "carrier": "タ",
+   "query_kana": "ウ'タ",
+   "phonemes": [
+    "u",
+    "t+a"
+   ],
+   "gain_db": 9.9,
+   "periodic": 1.0,
+   "duration": 0.25,
+   "voiced": 0.09,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -11.4,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 0.86,
+   "f0_mod_4_12_c": 1.58,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ウ'タ",
+     "phonemes": [
+      "u",
+      "t+a"
+     ],
+     "voiced": 0.09,
+     "rms_dbfs": -29.9,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5388,
+   "m4a_duration": 0.25,
+   "m4a_voiced": 0.09,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -11.3
+  },
+  {
+   "kana": "え",
+   "romaji": "e",
+   "base46": true,
+   "file": "kana_e",
+   "input": "エ'タ",
+   "carrier": "タ",
+   "query_kana": "エ'タ",
+   "phonemes": [
+    "e",
+    "t+a"
+   ],
+   "gain_db": 7.2,
+   "periodic": 1.0,
+   "duration": 0.29,
+   "voiced": 0.13,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -21.1,
+   "jitter_pct": 3.61,
+   "f0_mod_4_12_c": 9.98,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "エ'タ",
+     "phonemes": [
+      "e",
+      "t+a"
+     ],
+     "voiced": 0.1,
+     "rms_dbfs": -27.2,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5623,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.13,
+   "m4a_rms_dbfs": -21.1,
+   "m4a_peak_dbfs": -8.0
+  },
+  {
+   "kana": "お",
+   "romaji": "o",
+   "base46": true,
+   "file": "kana_o",
+   "input": "オ'タ",
+   "carrier": "タ",
+   "query_kana": "オ'タ",
+   "phonemes": [
+    "o",
+    "t+a"
+   ],
+   "gain_db": 7.1,
+   "periodic": 1.0,
+   "duration": 0.28,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -21.2,
+   "jitter_pct": 1.8,
+   "f0_mod_4_12_c": 3.51,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "オ'タ",
+     "phonemes": [
+      "o",
+      "t+a"
+     ],
+     "voiced": 0.09,
+     "rms_dbfs": -27.1,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5458,
+   "m4a_duration": 0.28,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -21.3,
+   "m4a_peak_dbfs": -9.6
+  },
+  {
+   "kana": "か",
+   "romaji": "ka",
+   "base46": true,
+   "file": "kana_ka",
+   "input": "カ'タ",
+   "carrier": "タ",
+   "query_kana": "カ'タ",
+   "phonemes": [
+    "k+a",
+    "t+a"
+   ],
+   "gain_db": 4.1,
+   "periodic": 1.0,
+   "duration": 0.306,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.106,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 7.37,
+   "f0_mod_4_12_c": 30.59,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "カ'タ",
+     "phonemes": [
+      "k+a",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -24.1,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5720,
+   "m4a_duration": 0.306,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -8.6
+  },
+  {
+   "kana": "き",
+   "romaji": "ki",
+   "base46": true,
+   "file": "kana_ki",
+   "input": "キ'タ",
+   "carrier": "タ",
+   "query_kana": "キ'タ",
+   "phonemes": [
+    "k+i",
+    "t+a"
+   ],
+   "gain_db": 7.9,
+   "periodic": 1.0,
+   "duration": 0.29,
+   "voiced": 0.13,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -6.4,
+   "rms_dbfs": -21.1,
+   "jitter_pct": 3.13,
+   "f0_mod_4_12_c": 4.84,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "キ'タ",
+     "phonemes": [
+      "k+i",
+      "t+a"
+     ],
+     "voiced": 0.1,
+     "rms_dbfs": -27.9,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5750,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.13,
+   "m4a_rms_dbfs": -21.2,
+   "m4a_peak_dbfs": -6.4
+  },
+  {
+   "kana": "く",
+   "romaji": "ku",
+   "base46": true,
+   "file": "kana_ku",
+   "input": "ク'タ",
+   "carrier": "タ",
+   "query_kana": "ク'タ",
+   "phonemes": [
+    "k+u",
+    "t+a"
+   ],
+   "gain_db": 6.6,
+   "periodic": null,
+   "duration": 0.26,
+   "voiced": 0.1,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -21.0,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ク'タ",
+     "phonemes": [
+      "k+u",
+      "t+a"
+     ],
+     "voiced": 0.08,
+     "rms_dbfs": -26.6,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5440,
+   "m4a_duration": 0.26,
+   "m4a_voiced": 0.1,
+   "m4a_rms_dbfs": -21.0,
+   "m4a_peak_dbfs": -8.5
+  },
+  {
+   "kana": "け",
+   "romaji": "ke",
+   "base46": true,
+   "file": "kana_ke",
+   "input": "ケ'タ",
+   "carrier": "タ",
+   "query_kana": "ケ'タ",
+   "phonemes": [
+    "k+e",
+    "t+a"
+   ],
+   "gain_db": 5.1,
+   "periodic": 1.0,
+   "duration": 0.31,
+   "voiced": 0.14,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 2.07,
+   "f0_mod_4_12_c": 11.03,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ケ'タ",
+     "phonemes": [
+      "k+e",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -25.1,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5914,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.0
+  },
+  {
+   "kana": "こ",
+   "romaji": "ko",
+   "base46": true,
+   "file": "kana_ko",
+   "input": "コ'タ",
+   "carrier": "タ",
+   "query_kana": "コ'タ",
+   "phonemes": [
+    "k+o",
+    "t+a"
+   ],
+   "gain_db": 3.8,
+   "periodic": 1.0,
+   "duration": 0.3,
+   "voiced": 0.14,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 3.93,
+   "f0_mod_4_12_c": 13.91,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "コ'タ",
+     "phonemes": [
+      "k+o",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -23.8,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6033,
+   "m4a_duration": 0.3,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.1
+  },
+  {
+   "kana": "さ",
+   "romaji": "sa",
+   "base46": true,
+   "file": "kana_sa",
+   "input": "サ'タ",
+   "carrier": "タ",
+   "query_kana": "サ'タ",
+   "phonemes": [
+    "s+a",
+    "t+a"
+   ],
+   "gain_db": 6.0,
+   "periodic": 1.0,
+   "duration": 0.35,
+   "voiced": 0.19,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -6.7,
+   "rms_dbfs": -20.2,
+   "jitter_pct": 8.99,
+   "f0_mod_4_12_c": 35.0,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "サ'タ",
+     "phonemes": [
+      "s+a",
+      "t+a"
+     ],
+     "voiced": 0.18,
+     "rms_dbfs": -26.0,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6412,
+   "m4a_duration": 0.35,
+   "m4a_voiced": 0.2,
+   "m4a_rms_dbfs": -20.5,
+   "m4a_peak_dbfs": -6.6
+  },
+  {
+   "kana": "し",
+   "romaji": "shi",
+   "base46": true,
+   "file": "kana_shi",
+   "input": "シ'タ",
+   "carrier": "タ",
+   "query_kana": "シ'タ",
+   "phonemes": [
+    "sh+i",
+    "t+a"
+   ],
+   "gain_db": 13.1,
+   "periodic": null,
+   "duration": 0.33,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.2,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "シ'タ",
+     "phonemes": [
+      "sh+i",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -33.1,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6163,
+   "m4a_duration": 0.33,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -9.5
+  },
+  {
+   "kana": "す",
+   "romaji": "su",
+   "base46": true,
+   "file": "kana_su",
+   "input": "ス'タ",
+   "carrier": "タ",
+   "query_kana": "ス'タ",
+   "phonemes": [
+    "s+u",
+    "t+a"
+   ],
+   "gain_db": 12.9,
+   "periodic": null,
+   "duration": 0.32,
+   "voiced": 0.15,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.3,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ス'タ",
+     "phonemes": [
+      "s+u",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -32.9,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6064,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -8.8
+  },
+  {
+   "kana": "せ",
+   "romaji": "se",
+   "base46": true,
+   "file": "kana_se",
+   "input": "セ'タ",
+   "carrier": "タ",
+   "query_kana": "セ'タ",
+   "phonemes": [
+    "s+e",
+    "t+a"
+   ],
+   "gain_db": 5.4,
+   "periodic": 1.0,
+   "duration": 0.34,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.5,
+   "jitter_pct": 0.83,
+   "f0_mod_4_12_c": 1.53,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "セ'タ",
+     "phonemes": [
+      "s+e",
+      "t+a"
+     ],
+     "voiced": 0.16,
+     "rms_dbfs": -25.4,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6556,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.5,
+   "m4a_peak_dbfs": -7.9
+  },
+  {
+   "kana": "そ",
+   "romaji": "so",
+   "base46": true,
+   "file": "kana_so",
+   "input": "ソ'タ",
+   "carrier": "タ",
+   "query_kana": "ソ'タ",
+   "phonemes": [
+    "s+o",
+    "t+a"
+   ],
+   "gain_db": 6.7,
+   "periodic": null,
+   "duration": 0.34,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.6,
+   "rms_dbfs": -20.5,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ソ'タ",
+     "phonemes": [
+      "s+o",
+      "t+a"
+     ],
+     "voiced": 0.16,
+     "rms_dbfs": -26.7,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6312,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.5,
+   "m4a_peak_dbfs": -7.6
+  },
+  {
+   "kana": "た",
+   "romaji": "ta",
+   "base46": true,
+   "file": "kana_ta",
+   "input": "タ'タ",
+   "carrier": "タ",
+   "query_kana": "タ'タ",
+   "phonemes": [
+    "t+a",
+    "t+a"
+   ],
+   "gain_db": 2.2,
+   "periodic": 1.0,
+   "duration": 0.28,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 6.63,
+   "f0_mod_4_12_c": 37.37,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "タ'タ",
+     "phonemes": [
+      "t+a",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -22.2,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5576,
+   "m4a_duration": 0.28,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -9.3
+  },
+  {
+   "kana": "ち",
+   "romaji": "chi",
+   "base46": true,
+   "file": "kana_chi",
+   "input": "チ'タ",
+   "carrier": "タ",
+   "query_kana": "チ'タ",
+   "phonemes": [
+    "ch+i",
+    "t+a"
+   ],
+   "gain_db": 8.7,
+   "periodic": null,
+   "duration": 0.31,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -21.0,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "チ'タ",
+     "phonemes": [
+      "ch+i",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -28.7,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5881,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -21.0,
+   "m4a_peak_dbfs": -8.6
+  },
+  {
+   "kana": "つ",
+   "romaji": "tsu",
+   "base46": true,
+   "file": "kana_tsu",
+   "input": "ツ'タ",
+   "carrier": "タ",
+   "query_kana": "ツ'タ",
+   "phonemes": [
+    "ts+u",
+    "t+a"
+   ],
+   "gain_db": 14.5,
+   "periodic": null,
+   "duration": 0.27,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -7.3,
+   "rms_dbfs": -21.2,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ツ'タ",
+     "phonemes": [
+      "ts+u",
+      "t+a"
+     ],
+     "voiced": 0.09,
+     "rms_dbfs": -34.5,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5608,
+   "m4a_duration": 0.27,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -21.5,
+   "m4a_peak_dbfs": -7.3
+  },
+  {
+   "kana": "て",
+   "romaji": "te",
+   "base46": true,
+   "file": "kana_te",
+   "input": "テ'タ",
+   "carrier": "タ",
+   "query_kana": "テ'タ",
+   "phonemes": [
+    "t+e",
+    "t+a"
+   ],
+   "gain_db": 4.3,
+   "periodic": 1.0,
+   "duration": 0.29,
+   "voiced": 0.13,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -20.7,
+   "jitter_pct": 1.76,
+   "f0_mod_4_12_c": 5.28,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "テ'タ",
+     "phonemes": [
+      "t+e",
+      "t+a"
+     ],
+     "voiced": 0.11,
+     "rms_dbfs": -24.3,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5687,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.13,
+   "m4a_rms_dbfs": -20.7,
+   "m4a_peak_dbfs": -8.9
+  },
+  {
+   "kana": "と",
+   "romaji": "to",
+   "base46": true,
+   "file": "kana_to",
+   "input": "ト'タ",
+   "carrier": "タ",
+   "query_kana": "ト'タ",
+   "phonemes": [
+    "t+o",
+    "t+a"
+   ],
+   "gain_db": 2.9,
+   "periodic": 1.0,
+   "duration": 0.29,
+   "voiced": 0.13,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -10.7,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 2.74,
+   "f0_mod_4_12_c": 6.98,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ト'タ",
+     "phonemes": [
+      "t+o",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -22.9,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5735,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.13,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -10.8
+  },
+  {
+   "kana": "な",
+   "romaji": "na",
+   "base46": true,
+   "file": "kana_na",
+   "input": "ナ'タ",
+   "carrier": "タ",
+   "query_kana": "ナ'タ",
+   "phonemes": [
+    "n+a",
+    "t+a"
+   ],
+   "gain_db": 3.9,
+   "periodic": 0.67,
+   "duration": 0.34,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 7.53,
+   "f0_mod_4_12_c": 63.0,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ナ'タ",
+     "phonemes": [
+      "n+a",
+      "t+a"
+     ],
+     "voiced": 0.18,
+     "rms_dbfs": -23.9,
+     "periodic": 0.67,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6253,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -8.3
+  },
+  {
+   "kana": "に",
+   "romaji": "ni",
+   "base46": true,
+   "file": "kana_ni",
+   "input": "ニ'タ",
+   "carrier": "タ",
+   "query_kana": "ニ'タ",
+   "phonemes": [
+    "n+i",
+    "t+a"
+   ],
+   "gain_db": 6.7,
+   "periodic": 1.0,
+   "duration": 0.32,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -20.6,
+   "jitter_pct": 6.26,
+   "f0_mod_4_12_c": 9.07,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ニ'タ",
+     "phonemes": [
+      "n+i",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -26.7,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6049,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -9.9
+  },
+  {
+   "kana": "ぬ",
+   "romaji": "nu",
+   "base46": true,
+   "file": "kana_nu",
+   "input": "ヌ'タ",
+   "carrier": "タ",
+   "query_kana": "ヌ'タ",
+   "phonemes": [
+    "n+u",
+    "t+a"
+   ],
+   "gain_db": 4.8,
+   "periodic": null,
+   "duration": 0.31,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -20.3,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ヌ'タ",
+     "phonemes": [
+      "n+u",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -24.8,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5879,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -10.3
+  },
+  {
+   "kana": "ね",
+   "romaji": "ne",
+   "base46": true,
+   "file": "kana_ne",
+   "input": "ネ'タ",
+   "carrier": "タ",
+   "query_kana": "ネ'タ",
+   "phonemes": [
+    "n+e",
+    "t+a"
+   ],
+   "gain_db": 5.2,
+   "periodic": 0.86,
+   "duration": 0.34,
+   "voiced": 0.17,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -10.0,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 4.83,
+   "f0_mod_4_12_c": 21.81,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ネ'タ",
+     "phonemes": [
+      "n+e",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -25.2,
+     "periodic": 0.86,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6181,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.17,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -10.4
+  },
+  {
+   "kana": "の",
+   "romaji": "no",
+   "base46": true,
+   "file": "kana_no",
+   "input": "ノ'タ",
+   "carrier": "タ",
+   "query_kana": "ノ'タ",
+   "phonemes": [
+    "n+o",
+    "t+a"
+   ],
+   "gain_db": 2.8,
+   "periodic": 0.67,
+   "duration": 0.34,
+   "voiced": 0.17,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 9.64,
+   "f0_mod_4_12_c": 99.04,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ノ'タ",
+     "phonemes": [
+      "n+o",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -22.8,
+     "periodic": 0.67,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6214,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.17,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -9.0
+  },
+  {
+   "kana": "は",
+   "romaji": "ha",
+   "base46": true,
+   "file": "kana_ha",
+   "input": "ハ'タ",
+   "carrier": "タ",
+   "query_kana": "ハ'タ",
+   "phonemes": [
+    "h+a",
+    "t+a"
+   ],
+   "gain_db": 6.7,
+   "periodic": null,
+   "duration": 0.32,
+   "voiced": 0.15,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.6,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ハ'タ",
+     "phonemes": [
+      "h+a",
+      "t+a"
+     ],
+     "voiced": 0.13,
+     "rms_dbfs": -26.7,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6172,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -7.9
+  },
+  {
+   "kana": "ひ",
+   "romaji": "hi",
+   "base46": true,
+   "file": "kana_hi",
+   "input": "ヒ'タ",
+   "carrier": "タ",
+   "query_kana": "ヒ'タ",
+   "phonemes": [
+    "h+i",
+    "t+a"
+   ],
+   "gain_db": 11.0,
+   "periodic": 0.67,
+   "duration": 0.32,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -6.1,
+   "rms_dbfs": -22.0,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ヒ'タ",
+     "phonemes": [
+      "h+i",
+      "t+a"
+     ],
+     "voiced": 0.1,
+     "rms_dbfs": -31.0,
+     "periodic": 0.67,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5897,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -22.1,
+   "m4a_peak_dbfs": -6.1
+  },
+  {
+   "kana": "ふ",
+   "romaji": "fu",
+   "base46": true,
+   "file": "kana_fu",
+   "input": "フ'カ",
+   "carrier": "カ",
+   "query_kana": "フ'カ",
+   "phonemes": [
+    "f+u",
+    "k+a"
+   ],
+   "gain_db": 20.4,
+   "periodic": null,
+   "duration": 0.29,
+   "voiced": 0.14,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -21.2,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "フ'タ",
+     "phonemes": [
+      "f+u",
+      "t+a"
+     ],
+     "voiced": 0.07,
+     "rms_dbfs": -28.8,
+     "periodic": null,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "ト",
+     "query_kana": "フ'ト",
+     "phonemes": [
+      "f+u",
+      "t+o"
+     ],
+     "voiced": 0.07,
+     "rms_dbfs": -27.3,
+     "periodic": null,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "カ",
+     "query_kana": "フ'カ",
+     "phonemes": [
+      "f+u",
+      "k+a"
+     ],
+     "voiced": 0.1,
+     "rms_dbfs": -40.4,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5767,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -21.3,
+   "m4a_peak_dbfs": -7.6
+  },
+  {
+   "kana": "へ",
+   "romaji": "he",
+   "base46": true,
+   "file": "kana_he",
+   "input": "ヘ'タ",
+   "carrier": "タ",
+   "query_kana": "ヘ'タ",
+   "phonemes": [
+    "h+e",
+    "t+a"
+   ],
+   "gain_db": 6.4,
+   "periodic": 1.0,
+   "duration": 0.3,
+   "voiced": 0.14,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.7,
+   "jitter_pct": 3.7,
+   "f0_mod_4_12_c": 25.41,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ヘ'タ",
+     "phonemes": [
+      "h+e",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -26.4,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5807,
+   "m4a_duration": 0.3,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -20.7,
+   "m4a_peak_dbfs": -8.1
+  },
+  {
+   "kana": "ほ",
+   "romaji": "ho",
+   "base46": true,
+   "file": "kana_ho",
+   "input": "ホ'タ",
+   "carrier": "タ",
+   "query_kana": "ホ'タ",
+   "phonemes": [
+    "h+o",
+    "t+a"
+   ],
+   "gain_db": 4.3,
+   "periodic": 1.0,
+   "duration": 0.29,
+   "voiced": 0.12,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 2.82,
+   "f0_mod_4_12_c": 3.11,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ホ'タ",
+     "phonemes": [
+      "h+o",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -24.3,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5962,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -8.7
+  },
+  {
+   "kana": "ま",
+   "romaji": "ma",
+   "base46": true,
+   "file": "kana_ma",
+   "input": "マ'タ",
+   "carrier": "タ",
+   "query_kana": "マ'タ",
+   "phonemes": [
+    "m+a",
+    "t+a"
+   ],
+   "gain_db": 1.2,
+   "periodic": 1.0,
+   "duration": 0.32,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 9.15,
+   "f0_mod_4_12_c": 42.02,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "マ'タ",
+     "phonemes": [
+      "m+a",
+      "t+a"
+     ],
+     "voiced": 0.15,
+     "rms_dbfs": -21.2,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6565,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -6.9
+  },
+  {
+   "kana": "み",
+   "romaji": "mi",
+   "base46": true,
+   "file": "kana_mi",
+   "input": "ミ'タ",
+   "carrier": "タ",
+   "query_kana": "ミ'タ",
+   "phonemes": [
+    "m+i",
+    "t+a"
+   ],
+   "gain_db": 4.6,
+   "periodic": 1.0,
+   "duration": 0.34,
+   "voiced": 0.17,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 5.0,
+   "f0_mod_4_12_c": 12.01,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ミ'タ",
+     "phonemes": [
+      "m+i",
+      "t+a"
+     ],
+     "voiced": 0.16,
+     "rms_dbfs": -24.6,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6566,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.17,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -10.5
+  },
+  {
+   "kana": "む",
+   "romaji": "mu",
+   "base46": true,
+   "file": "kana_mu",
+   "input": "ム'タ",
+   "carrier": "タ",
+   "query_kana": "ム'タ",
+   "phonemes": [
+    "m+u",
+    "t+a"
+   ],
+   "gain_db": 4.6,
+   "periodic": null,
+   "duration": 0.31,
+   "voiced": 0.14,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -20.3,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ム'タ",
+     "phonemes": [
+      "m+u",
+      "t+a"
+     ],
+     "voiced": 0.13,
+     "rms_dbfs": -24.6,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6276,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -11.3
+  },
+  {
+   "kana": "め",
+   "romaji": "me",
+   "base46": true,
+   "file": "kana_me",
+   "input": "メ'タ",
+   "carrier": "タ",
+   "query_kana": "メ'タ",
+   "phonemes": [
+    "m+e",
+    "t+a"
+   ],
+   "gain_db": 3.5,
+   "periodic": 1.0,
+   "duration": 0.31,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 1.72,
+   "f0_mod_4_12_c": 0.58,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "メ'タ",
+     "phonemes": [
+      "m+e",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -23.5,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5908,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -11.0
+  },
+  {
+   "kana": "も",
+   "romaji": "mo",
+   "base46": true,
+   "file": "kana_mo",
+   "input": "モ'タ",
+   "carrier": "タ",
+   "query_kana": "モ'タ",
+   "phonemes": [
+    "m+o",
+    "t+a"
+   ],
+   "gain_db": 0.7,
+   "periodic": 1.0,
+   "duration": 0.35,
+   "voiced": 0.17,
+   "lead_silence": 0.06,
+   "tail_silence": 0.12,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 1.56,
+   "f0_mod_4_12_c": 3.25,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "モ'タ",
+     "phonemes": [
+      "m+o",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -20.7,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6677,
+   "m4a_duration": 0.35,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -9.6
+  },
+  {
+   "kana": "や",
+   "romaji": "ya",
+   "base46": true,
+   "file": "kana_ya",
+   "input": "ヤ'タ",
+   "carrier": "タ",
+   "query_kana": "ヤ'タ",
+   "phonemes": [
+    "y+a",
+    "t+a"
+   ],
+   "gain_db": 1.1,
+   "periodic": 1.0,
+   "duration": 0.339,
+   "voiced": 0.17,
+   "lead_silence": 0.05,
+   "tail_silence": 0.119,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 6.5,
+   "f0_mod_4_12_c": 26.4,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ヤ'タ",
+     "phonemes": [
+      "y+a",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -21.1,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6033,
+   "m4a_duration": 0.339,
+   "m4a_voiced": 0.17,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.9
+  },
+  {
+   "kana": "ゆ",
+   "romaji": "yu",
+   "base46": true,
+   "file": "kana_yu",
+   "input": "ユ'タ",
+   "carrier": "タ",
+   "query_kana": "ユ'タ",
+   "phonemes": [
+    "y+u",
+    "t+a"
+   ],
+   "gain_db": 6.0,
+   "periodic": null,
+   "duration": 0.31,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.0,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ユ'タ",
+     "phonemes": [
+      "y+u",
+      "t+a"
+     ],
+     "voiced": 0.15,
+     "rms_dbfs": -26.0,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5831,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.9
+  },
+  {
+   "kana": "よ",
+   "romaji": "yo",
+   "base46": true,
+   "file": "kana_yo",
+   "input": "ヨ'タ",
+   "carrier": "タ",
+   "query_kana": "ヨ'タ",
+   "phonemes": [
+    "y+o",
+    "t+a"
+   ],
+   "gain_db": 2.3,
+   "periodic": 1.0,
+   "duration": 0.35,
+   "voiced": 0.19,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.1,
+   "rms_dbfs": -20.2,
+   "jitter_pct": 0.94,
+   "f0_mod_4_12_c": 4.46,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ヨ'タ",
+     "phonemes": [
+      "y+o",
+      "t+a"
+     ],
+     "voiced": 0.18,
+     "rms_dbfs": -22.3,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6173,
+   "m4a_duration": 0.35,
+   "m4a_voiced": 0.19,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -9.2
+  },
+  {
+   "kana": "ら",
+   "romaji": "ra",
+   "base46": true,
+   "file": "kana_ra",
+   "input": "ラ'タ",
+   "carrier": "タ",
+   "query_kana": "ラ'タ",
+   "phonemes": [
+    "r+a",
+    "t+a"
+   ],
+   "gain_db": 2.0,
+   "periodic": 0.71,
+   "duration": 0.34,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.4,
+   "rms_dbfs": -20.2,
+   "jitter_pct": 9.63,
+   "f0_mod_4_12_c": 87.08,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ラ'タ",
+     "phonemes": [
+      "r+a",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -22.0,
+     "periodic": 0.71,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6187,
+   "m4a_duration": 0.34,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -7.6
+  },
+  {
+   "kana": "り",
+   "romaji": "ri",
+   "base46": true,
+   "file": "kana_ri",
+   "input": "リ'タ",
+   "carrier": "タ",
+   "query_kana": "リ'タ",
+   "phonemes": [
+    "r+i",
+    "t+a"
+   ],
+   "gain_db": 9.3,
+   "periodic": 0.86,
+   "duration": 0.32,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.6,
+   "rms_dbfs": -20.6,
+   "jitter_pct": 6.21,
+   "f0_mod_4_12_c": 62.56,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "リ'タ",
+     "phonemes": [
+      "r+i",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -29.3,
+     "periodic": 0.86,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5862,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -7.9
+  },
+  {
+   "kana": "る",
+   "romaji": "ru",
+   "base46": true,
+   "file": "kana_ru",
+   "input": "ル'タ",
+   "carrier": "タ",
+   "query_kana": "ル'タ",
+   "phonemes": [
+    "r+u",
+    "t+a"
+   ],
+   "gain_db": 9.6,
+   "periodic": null,
+   "duration": 0.29,
+   "voiced": 0.14,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -21.4,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ル'タ",
+     "phonemes": [
+      "r+u",
+      "t+a"
+     ],
+     "voiced": 0.1,
+     "rms_dbfs": -29.6,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5855,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.14,
+   "m4a_rms_dbfs": -21.5,
+   "m4a_peak_dbfs": -8.0
+  },
+  {
+   "kana": "れ",
+   "romaji": "re",
+   "base46": true,
+   "file": "kana_re",
+   "input": "レ'タ",
+   "carrier": "タ",
+   "query_kana": "レ'タ",
+   "phonemes": [
+    "r+e",
+    "t+a"
+   ],
+   "gain_db": 5.7,
+   "periodic": 0.86,
+   "duration": 0.33,
+   "voiced": 0.16,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -10.3,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 7.15,
+   "f0_mod_4_12_c": 13.36,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "レ'タ",
+     "phonemes": [
+      "r+e",
+      "t+a"
+     ],
+     "voiced": 0.15,
+     "rms_dbfs": -25.7,
+     "periodic": 0.86,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6080,
+   "m4a_duration": 0.33,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -10.4
+  },
+  {
+   "kana": "ろ",
+   "romaji": "ro",
+   "base46": true,
+   "file": "kana_ro",
+   "input": "ロ'タ",
+   "carrier": "タ",
+   "query_kana": "ロ'タ",
+   "phonemes": [
+    "r+o",
+    "t+a"
+   ],
+   "gain_db": 3.3,
+   "periodic": 0.83,
+   "duration": 0.35,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -8.4,
+   "rms_dbfs": -20.2,
+   "jitter_pct": 5.6,
+   "f0_mod_4_12_c": 33.25,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ロ'タ",
+     "phonemes": [
+      "r+o",
+      "t+a"
+     ],
+     "voiced": 0.17,
+     "rms_dbfs": -23.3,
+     "periodic": 0.83,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6194,
+   "m4a_duration": 0.35,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -8.4
+  },
+  {
+   "kana": "わ",
+   "romaji": "wa",
+   "base46": true,
+   "file": "kana_wa",
+   "input": "ワ'タ",
+   "carrier": "タ",
+   "query_kana": "ワ'タ",
+   "phonemes": [
+    "w+a",
+    "t+a"
+   ],
+   "gain_db": 2.6,
+   "periodic": 0.5,
+   "duration": 0.3,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -8.6,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 13.23,
+   "f0_mod_4_12_c": 40.08,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ワ'タ",
+     "phonemes": [
+      "w+a",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -22.6,
+     "periodic": 0.5,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5721,
+   "m4a_duration": 0.3,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.5
+  },
+  {
+   "kana": "を",
+   "romaji": "wo",
+   "base46": true,
+   "file": "kana_wo",
+   "input": "オ'タ",
+   "carrier": "タ",
+   "query_kana": "オ'タ",
+   "phonemes": [
+    "o",
+    "t+a"
+   ],
+   "gain_db": 7.1,
+   "periodic": 1.0,
+   "duration": 0.28,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -21.2,
+   "jitter_pct": 1.8,
+   "f0_mod_4_12_c": 3.51,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "オ'タ",
+     "phonemes": [
+      "o",
+      "t+a"
+     ],
+     "voiced": 0.09,
+     "rms_dbfs": -27.1,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5458,
+   "m4a_duration": 0.28,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -21.3,
+   "m4a_peak_dbfs": -9.6
+  },
+  {
+   "kana": "ん",
+   "romaji": "n",
+   "base46": true,
+   "file": "kana_n",
+   "input": "ン'タ",
+   "carrier": "タ",
+   "query_kana": "ン'タ",
+   "phonemes": [
+    "N",
+    "t+a"
+   ],
+   "gain_db": 3.4,
+   "periodic": 1.0,
+   "duration": 0.27,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -20.4,
+   "jitter_pct": 1.28,
+   "f0_mod_4_12_c": 3.4,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ン'タ",
+     "phonemes": [
+      "N",
+      "t+a"
+     ],
+     "voiced": 0.11,
+     "rms_dbfs": -23.4,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5409,
+   "m4a_duration": 0.27,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -11.5
+  },
+  {
+   "kana": "ぎ",
+   "romaji": "gi",
+   "base46": false,
+   "file": "kana_gi",
+   "input": "ギ'タ",
+   "carrier": "タ",
+   "query_kana": "ギ'タ",
+   "phonemes": [
+    "g+i",
+    "t+a"
+   ],
+   "gain_db": 5.4,
+   "periodic": 1.0,
+   "duration": 0.33,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 4.21,
+   "f0_mod_4_12_c": 24.58,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ギ'タ",
+     "phonemes": [
+      "g+i",
+      "t+a"
+     ],
+     "voiced": 0.15,
+     "rms_dbfs": -25.4,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6071,
+   "m4a_duration": 0.33,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -9.0
+  },
+  {
+   "kana": "ぐ",
+   "romaji": "gu",
+   "base46": false,
+   "file": "kana_gu",
+   "input": "グ'タ",
+   "carrier": "タ",
+   "query_kana": "グ'タ",
+   "phonemes": [
+    "g+u",
+    "t+a"
+   ],
+   "gain_db": 6.1,
+   "periodic": 1.0,
+   "duration": 0.27,
+   "voiced": 0.12,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.8,
+   "jitter_pct": 2.14,
+   "f0_mod_4_12_c": 10.36,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "グ'タ",
+     "phonemes": [
+      "g+u",
+      "t+a"
+     ],
+     "voiced": 0.1,
+     "rms_dbfs": -26.1,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5450,
+   "m4a_duration": 0.27,
+   "m4a_voiced": 0.12,
+   "m4a_rms_dbfs": -20.8,
+   "m4a_peak_dbfs": -8.1
+  },
+  {
+   "kana": "ご",
+   "romaji": "go",
+   "base46": false,
+   "file": "kana_go",
+   "input": "ゴ'タ",
+   "carrier": "タ",
+   "query_kana": "ゴ'タ",
+   "phonemes": [
+    "g+o",
+    "t+a"
+   ],
+   "gain_db": 1.3,
+   "periodic": 1.0,
+   "duration": 0.33,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -9.3,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 3.57,
+   "f0_mod_4_12_c": 11.66,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ゴ'タ",
+     "phonemes": [
+      "g+o",
+      "t+a"
+     ],
+     "voiced": 0.16,
+     "rms_dbfs": -21.3,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6231,
+   "m4a_duration": 0.33,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -9.2
+  },
+  {
+   "kana": "ざ",
+   "romaji": "za",
+   "base46": false,
+   "file": "kana_za",
+   "input": "ザ'タ",
+   "carrier": "タ",
+   "query_kana": "ザ'タ",
+   "phonemes": [
+    "z+a",
+    "t+a"
+   ],
+   "gain_db": 0.7,
+   "periodic": 0.83,
+   "duration": 0.36,
+   "voiced": 0.16,
+   "lead_silence": 0.09,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.3,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 4.59,
+   "f0_mod_4_12_c": 24.61,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ザ'タ",
+     "phonemes": [
+      "z+a",
+      "t+a"
+     ],
+     "voiced": 0.16,
+     "rms_dbfs": -20.7,
+     "periodic": 0.83,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6309,
+   "m4a_duration": 0.36,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.4
+  },
+  {
+   "kana": "じ",
+   "romaji": "ji",
+   "base46": false,
+   "file": "kana_ji",
+   "input": "ジ'タ",
+   "carrier": "タ",
+   "query_kana": "ジ'タ",
+   "phonemes": [
+    "j+i",
+    "t+a"
+   ],
+   "gain_db": 9.5,
+   "periodic": 1.0,
+   "duration": 0.35,
+   "voiced": 0.18,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -5.1,
+   "rms_dbfs": -20.5,
+   "jitter_pct": 6.15,
+   "f0_mod_4_12_c": 9.05,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ジ'タ",
+     "phonemes": [
+      "j+i",
+      "t+a"
+     ],
+     "voiced": 0.16,
+     "rms_dbfs": -29.5,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6311,
+   "m4a_duration": 0.35,
+   "m4a_voiced": 0.18,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -5.3
+  },
+  {
+   "kana": "ず",
+   "romaji": "zu",
+   "base46": false,
+   "file": "kana_zu",
+   "input": "ズ'タ",
+   "carrier": "タ",
+   "query_kana": "ズ'タ",
+   "phonemes": [
+    "z+u",
+    "t+a"
+   ],
+   "gain_db": 7.9,
+   "periodic": null,
+   "duration": 0.33,
+   "voiced": 0.16,
+   "lead_silence": 0.06,
+   "tail_silence": 0.11,
+   "peak_dbfs": -7.6,
+   "rms_dbfs": -21.2,
+   "jitter_pct": null,
+   "f0_mod_4_12_c": null,
+   "cycles_ok": false,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ズ'タ",
+     "phonemes": [
+      "z+u",
+      "t+a"
+     ],
+     "voiced": 0.12,
+     "rms_dbfs": -27.9,
+     "periodic": null,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 6248,
+   "m4a_duration": 0.33,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -21.3,
+   "m4a_peak_dbfs": -7.5
+  },
+  {
+   "kana": "だ",
+   "romaji": "da",
+   "base46": false,
+   "file": "kana_da",
+   "input": "ダ'タ",
+   "carrier": "タ",
+   "query_kana": "ダ'タ",
+   "phonemes": [
+    "d+a",
+    "t+a"
+   ],
+   "gain_db": 2.7,
+   "periodic": 0.43,
+   "duration": 0.319,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.119,
+   "peak_dbfs": -8.4,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 11.42,
+   "f0_mod_4_12_c": 21.72,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ダ'タ",
+     "phonemes": [
+      "d+a",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -22.7,
+     "periodic": 0.43,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5806,
+   "m4a_duration": 0.319,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -9.0
+  },
+  {
+   "kana": "で",
+   "romaji": "de",
+   "base46": false,
+   "file": "kana_de",
+   "input": "デ'タ",
+   "carrier": "タ",
+   "query_kana": "デ'タ",
+   "phonemes": [
+    "d+e",
+    "t+a"
+   ],
+   "gain_db": 3.8,
+   "periodic": 1.0,
+   "duration": 0.32,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -10.7,
+   "rms_dbfs": -20.3,
+   "jitter_pct": 2.53,
+   "f0_mod_4_12_c": 10.93,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "デ'タ",
+     "phonemes": [
+      "d+e",
+      "t+a"
+     ],
+     "voiced": 0.15,
+     "rms_dbfs": -23.8,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5916,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -10.8
+  },
+  {
+   "kana": "ど",
+   "romaji": "do",
+   "base46": false,
+   "file": "kana_do",
+   "input": "ド'タ",
+   "carrier": "タ",
+   "query_kana": "ド'タ",
+   "phonemes": [
+    "d+o",
+    "t+a"
+   ],
+   "gain_db": 3.8,
+   "periodic": 0.86,
+   "duration": 0.31,
+   "voiced": 0.15,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 4.06,
+   "f0_mod_4_12_c": 20.75,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ド'タ",
+     "phonemes": [
+      "d+o",
+      "t+a"
+     ],
+     "voiced": 0.15,
+     "rms_dbfs": -23.8,
+     "periodic": 0.86,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5819,
+   "m4a_duration": 0.31,
+   "m4a_voiced": 0.15,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -9.5
+  },
+  {
+   "kana": "ば",
+   "romaji": "ba",
+   "base46": false,
+   "file": "kana_ba",
+   "input": "バ'タ",
+   "carrier": "タ",
+   "query_kana": "バ'タ",
+   "phonemes": [
+    "b+a",
+    "t+a"
+   ],
+   "gain_db": -0.0,
+   "periodic": 0.67,
+   "duration": 0.3,
+   "voiced": 0.13,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -9.0,
+   "rms_dbfs": -20.0,
+   "jitter_pct": 6.02,
+   "f0_mod_4_12_c": 58.86,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "バ'タ",
+     "phonemes": [
+      "b+a",
+      "t+a"
+     ],
+     "voiced": 0.13,
+     "rms_dbfs": -20.0,
+     "periodic": 0.67,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5740,
+   "m4a_duration": 0.3,
+   "m4a_voiced": 0.13,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.9
+  },
+  {
+   "kana": "び",
+   "romaji": "bi",
+   "base46": false,
+   "file": "kana_bi",
+   "input": "ビ'タ",
+   "carrier": "タ",
+   "query_kana": "ビ'タ",
+   "phonemes": [
+    "b+i",
+    "t+a"
+   ],
+   "gain_db": 6.4,
+   "periodic": 1.0,
+   "duration": 0.32,
+   "voiced": 0.16,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.6,
+   "jitter_pct": 3.86,
+   "f0_mod_4_12_c": 24.79,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "ビ'タ",
+     "phonemes": [
+      "b+i",
+      "t+a"
+     ],
+     "voiced": 0.14,
+     "rms_dbfs": -26.4,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5976,
+   "m4a_duration": 0.32,
+   "m4a_voiced": 0.16,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -8.8
+  },
+  {
+   "kana": "ぷ",
+   "romaji": "pu",
+   "base46": false,
+   "file": "kana_pu",
+   "input": "プ'ッ",
+   "carrier": "ッ",
+   "query_kana": "プ'ッ",
+   "phonemes": [
+    "p+u",
+    "cl"
+   ],
+   "gain_db": 4.4,
+   "periodic": 1.0,
+   "duration": 0.29,
+   "voiced": 0.13,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -20.7,
+   "jitter_pct": 2.95,
+   "f0_mod_4_12_c": 39.22,
+   "cycles_ok": true,
+   "tried": [
+    {
+     "carrier": "タ",
+     "query_kana": "プ'タ",
+     "phonemes": [
+      "p+u",
+      "t+a"
+     ],
+     "voiced": 0.07,
+     "rms_dbfs": -27.1,
+     "periodic": null,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "ト",
+     "query_kana": "プ'ト",
+     "phonemes": [
+      "p+u",
+      "t+o"
+     ],
+     "voiced": 0.07,
+     "rms_dbfs": -26.3,
+     "periodic": null,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "カ",
+     "query_kana": "プ'カ",
+     "phonemes": [
+      "p+u",
+      "k+a"
+     ],
+     "voiced": 0.06,
+     "rms_dbfs": -30.0,
+     "periodic": null,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "ン",
+     "query_kana": "プ'ン",
+     "phonemes": [
+      "p+u",
+      "N"
+     ],
+     "voiced": 0.05,
+     "rms_dbfs": -30.2,
+     "periodic": null,
+     "devoiced": false,
+     "ok": false
+    },
+    {
+     "carrier": "ッ",
+     "query_kana": "プ'ッ",
+     "phonemes": [
+      "p+u",
+      "cl"
+     ],
+     "voiced": 0.11,
+     "rms_dbfs": -24.4,
+     "periodic": 1.0,
+     "devoiced": false,
+     "ok": true
+    }
+   ],
+   "m4a_bytes": 5717,
+   "m4a_duration": 0.29,
+   "m4a_voiced": 0.13,
+   "m4a_rms_dbfs": -20.7,
+   "m4a_peak_dbfs": -8.8
+  }
+ ],
+ "ploop": [
+  {
+   "kana": "あ",
+   "romaji": "a",
+   "file": null,
+   "error": "pitch marks"
+  },
+  {
+   "kana": "い",
+   "romaji": "i",
+   "file": "ploop/kana_i.wav",
+   "gain_db": 5.8,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "う",
+   "romaji": "u",
+   "file": "ploop/kana_u.wav",
+   "gain_db": 6.8,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "え",
+   "romaji": "e",
+   "file": "ploop/kana_e.wav",
+   "gain_db": 6.7,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.7,
+   "rms_dbfs": -20.2
+  },
+  {
+   "kana": "お",
+   "romaji": "o",
+   "file": "ploop/kana_o.wav",
+   "gain_db": 4.3,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "か",
+   "romaji": "ka",
+   "file": "ploop/kana_ka.wav",
+   "gain_db": 6.9,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.5,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "き",
+   "romaji": "ki",
+   "file": "ploop/kana_ki.wav",
+   "gain_db": 4.3,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.8,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "く",
+   "romaji": "ku",
+   "file": "ploop/kana_ku.wav",
+   "gain_db": 4.3,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -13.8,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "け",
+   "romaji": "ke",
+   "file": "ploop/kana_ke.wav",
+   "gain_db": 1.5,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.5,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "こ",
+   "romaji": "ko",
+   "file": "ploop/kana_ko.wav",
+   "gain_db": -1.9,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.1,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "さ",
+   "romaji": "sa",
+   "file": "ploop/kana_sa.wav",
+   "gain_db": 4.2,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.3,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "し",
+   "romaji": "shi",
+   "file": "ploop/kana_shi.wav",
+   "gain_db": 6.8,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -20.2
+  },
+  {
+   "kana": "す",
+   "romaji": "su",
+   "file": "ploop/kana_su.wav",
+   "gain_db": 5.2,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "せ",
+   "romaji": "se",
+   "file": "ploop/kana_se.wav",
+   "gain_db": 3.2,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "そ",
+   "romaji": "so",
+   "file": "ploop/kana_so.wav",
+   "gain_db": 2.1,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.7,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "た",
+   "romaji": "ta",
+   "file": "ploop/kana_ta.wav",
+   "gain_db": 3.8,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.5,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ち",
+   "romaji": "chi",
+   "file": "ploop/kana_chi.wav",
+   "gain_db": 6.2,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.9,
+   "rms_dbfs": -20.2
+  },
+  {
+   "kana": "つ",
+   "romaji": "tsu",
+   "file": "ploop/kana_tsu.wav",
+   "gain_db": 6.2,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.6,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "て",
+   "romaji": "te",
+   "file": "ploop/kana_te.wav",
+   "gain_db": 3.6,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "と",
+   "romaji": "to",
+   "file": "ploop/kana_to.wav",
+   "gain_db": -1.6,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "な",
+   "romaji": "na",
+   "file": "ploop/kana_na.wav",
+   "gain_db": 4.2,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "に",
+   "romaji": "ni",
+   "file": "ploop/kana_ni.wav",
+   "gain_db": 3.1,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ぬ",
+   "romaji": "nu",
+   "file": "ploop/kana_nu.wav",
+   "gain_db": 4.9,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.8,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "ね",
+   "romaji": "ne",
+   "file": "ploop/kana_ne.wav",
+   "gain_db": 3.7,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.5,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "の",
+   "romaji": "no",
+   "file": "ploop/kana_no.wav",
+   "gain_db": -0.6,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.9,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "は",
+   "romaji": "ha",
+   "file": "ploop/kana_ha.wav",
+   "gain_db": 10.1,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -2.1,
+   "rms_dbfs": -20.2
+  },
+  {
+   "kana": "ひ",
+   "romaji": "hi",
+   "file": "ploop/kana_hi.wav",
+   "gain_db": 5.7,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.1,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "ふ",
+   "romaji": "fu",
+   "file": "ploop/kana_fu.wav",
+   "gain_db": 5.2,
+   "duration": 0.54,
+   "voiced": 0.35,
+   "lead_silence": 0.09,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.6,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "へ",
+   "romaji": "he",
+   "file": "ploop/kana_he.wav",
+   "gain_db": 2.2,
+   "duration": 0.52,
+   "voiced": 0.35,
+   "lead_silence": 0.07,
+   "tail_silence": 0.1,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ほ",
+   "romaji": "ho",
+   "file": "ploop/kana_ho.wav",
+   "gain_db": -1.3,
+   "duration": 0.53,
+   "voiced": 0.35,
+   "lead_silence": 0.08,
+   "tail_silence": 0.1,
+   "peak_dbfs": -13.3,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ま",
+   "romaji": "ma",
+   "file": "ploop/kana_ma.wav",
+   "gain_db": 3.3,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "み",
+   "romaji": "mi",
+   "file": "ploop/kana_mi.wav",
+   "gain_db": 4.6,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.6,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "む",
+   "romaji": "mu",
+   "file": "ploop/kana_mu.wav",
+   "gain_db": 4.1,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "め",
+   "romaji": "me",
+   "file": "ploop/kana_me.wav",
+   "gain_db": 2.9,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.2,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "も",
+   "romaji": "mo",
+   "file": "ploop/kana_mo.wav",
+   "gain_db": -2.0,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -12.5,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "や",
+   "romaji": "ya",
+   "file": "ploop/kana_ya.wav",
+   "gain_db": 3.6,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ゆ",
+   "romaji": "yu",
+   "file": "ploop/kana_yu.wav",
+   "gain_db": 4.2,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.7,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "よ",
+   "romaji": "yo",
+   "file": "ploop/kana_yo.wav",
+   "gain_db": 1.4,
+   "duration": 0.51,
+   "voiced": 0.35,
+   "lead_silence": 0.06,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.4,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ら",
+   "romaji": "ra",
+   "file": "ploop/kana_ra.wav",
+   "gain_db": 3.0,
+   "duration": 0.51,
+   "voiced": 0.36,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -8.2,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "り",
+   "romaji": "ri",
+   "file": "ploop/kana_ri.wav",
+   "gain_db": 5.9,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -10.4,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "る",
+   "romaji": "ru",
+   "file": "ploop/kana_ru.wav",
+   "gain_db": 8.4,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "れ",
+   "romaji": "re",
+   "file": "ploop/kana_re.wav",
+   "gain_db": 4.9,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.3,
+   "rms_dbfs": -20.1
+  },
+  {
+   "kana": "ろ",
+   "romaji": "ro",
+   "file": "ploop/kana_ro.wav",
+   "gain_db": 0.0,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.6,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "わ",
+   "romaji": "wa",
+   "file": "ploop/kana_wa.wav",
+   "gain_db": -1.1,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -9.9,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "を",
+   "romaji": "wo",
+   "file": "ploop/kana_wo.wav",
+   "gain_db": 4.3,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -11.8,
+   "rms_dbfs": -20.0
+  },
+  {
+   "kana": "ん",
+   "romaji": "n",
+   "file": "ploop/kana_n.wav",
+   "gain_db": 2.2,
+   "duration": 0.5,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.1,
+   "peak_dbfs": -14.8,
+   "rms_dbfs": -20.0
+  }
+ ],
+ "words": [
+  {
+   "text": "すし",
+   "reading": "すし",
+   "file": "word_sushi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "スシ'",
+    "phrases": 1
+   },
+   "query_kana": "スシ'",
+   "phrases": 1,
+   "phonemes": [
+    "s+u",
+    "sh+i"
+   ],
+   "mismatch": [],
+   "gain_db": 10.6,
+   "duration": 0.66,
+   "voiced": 0.48,
+   "lead_silence": 0.06,
+   "tail_silence": 0.12,
+   "peak_dbfs": -4.3,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 8830,
+   "m4a_duration": 0.66,
+   "m4a_voiced": 0.47,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -4.4
+  },
+  {
+   "text": "いか",
+   "reading": "いか",
+   "file": "word_ika",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "イカ'",
+    "phrases": 1
+   },
+   "query_kana": "イカ'",
+   "phrases": 1,
+   "phonemes": [
+    "i",
+    "k+a"
+   ],
+   "mismatch": [],
+   "gain_db": 5.3,
+   "duration": 0.52,
+   "voiced": 0.33,
+   "lead_silence": 0.05,
+   "tail_silence": 0.14,
+   "peak_dbfs": -4.5,
+   "rms_dbfs": -20.3,
+   "m4a_bytes": 7615,
+   "m4a_duration": 0.52,
+   "m4a_voiced": 0.33,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -4.5
+  },
+  {
+   "text": "たこ",
+   "reading": "たこ",
+   "file": "word_tako",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "タ'コ",
+    "phrases": 1
+   },
+   "query_kana": "タ'コ",
+   "phrases": 1,
+   "phonemes": [
+    "t+a",
+    "k+o"
+   ],
+   "mismatch": [],
+   "gain_db": 2.9,
+   "duration": 0.55,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -6.4,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 8024,
+   "m4a_duration": 0.55,
+   "m4a_voiced": 0.35,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -6.5
+  },
+  {
+   "text": "いくら",
+   "reading": "いくら",
+   "file": "word_ikura",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "イ'クラ",
+    "phrases": 1
+   },
+   "query_kana": "イ'クラ",
+   "phrases": 1,
+   "phonemes": [
+    "i",
+    "k+u",
+    "r+a"
+   ],
+   "mismatch": [],
+   "gain_db": 2.8,
+   "duration": 0.67,
+   "voiced": 0.47,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.5,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9092,
+   "m4a_duration": 0.67,
+   "m4a_voiced": 0.47,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -5.7
+  },
+  {
+   "text": "まぐろ",
+   "reading": "まぐろ",
+   "file": "word_maguro",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "マグロ'",
+    "phrases": 1
+   },
+   "query_kana": "マグロ'",
+   "phrases": 1,
+   "phonemes": [
+    "m+a",
+    "g+u",
+    "r+o"
+   ],
+   "mismatch": [],
+   "gain_db": 0.4,
+   "duration": 0.67,
+   "voiced": 0.47,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 9378,
+   "m4a_duration": 0.67,
+   "m4a_voiced": 0.47,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.0
+  },
+  {
+   "text": "えび",
+   "reading": "えび",
+   "file": "word_ebi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "エビ'",
+    "phrases": 1
+   },
+   "query_kana": "エビ'",
+   "phrases": 1,
+   "phonemes": [
+    "e",
+    "b+i"
+   ],
+   "mismatch": [],
+   "gain_db": 5.6,
+   "duration": 0.55,
+   "voiced": 0.34,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 7933,
+   "m4a_duration": 0.55,
+   "m4a_voiced": 0.34,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -9.1
+  },
+  {
+   "text": "いなり",
+   "reading": "いなり",
+   "file": "word_inari",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "イ'ナリ",
+    "phrases": 1
+   },
+   "query_kana": "イ'ナリ",
+   "phrases": 1,
+   "phonemes": [
+    "i",
+    "n+a",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": -0.0,
+   "duration": 0.58,
+   "voiced": 0.39,
+   "lead_silence": 0.06,
+   "tail_silence": 0.13,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 8262,
+   "m4a_duration": 0.58,
+   "m4a_voiced": 0.39,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.0
+  },
+  {
+   "text": "とんかつ",
+   "reading": "とんかつ",
+   "file": "word_tonkatsu",
+   "source": "kana",
+   "engine_text": {
+    "query_kana": "ト'ン/カ'ツ",
+    "phrases": 2
+   },
+   "query_kana": "トンカツ'",
+   "phrases": 1,
+   "phonemes": [
+    "t+o",
+    "N",
+    "k+a",
+    "ts+u"
+   ],
+   "mismatch": [],
+   "gain_db": 3.0,
+   "duration": 0.83,
+   "voiced": 0.63,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -4.7,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10330,
+   "m4a_duration": 0.83,
+   "m4a_voiced": 0.63,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -4.6,
+   "fix_note": "엔진이 ト'ン/カ'ツ 두 구로 나눔. 평판형(0형)으로 알려진 단어로 한 구로 합침. 사전 대조는 하지 않음"
+  },
+  {
+   "text": "かつ丼",
+   "reading": "かつどん",
+   "file": "word_katsudon",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "カツドン'",
+    "phrases": 1
+   },
+   "query_kana": "カツドン'",
+   "phrases": 1,
+   "phonemes": [
+    "k+a",
+    "ts+u",
+    "d+o",
+    "N"
+   ],
+   "mismatch": [],
+   "gain_db": 3.0,
+   "duration": 0.73,
+   "voiced": 0.51,
+   "lead_silence": 0.05,
+   "tail_silence": 0.17,
+   "peak_dbfs": -6.2,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9738,
+   "m4a_duration": 0.73,
+   "m4a_voiced": 0.51,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -6.2
+  },
+  {
+   "text": "ひれかつ",
+   "reading": "ひれかつ",
+   "file": "word_hirekatsu",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ヒレカツ'",
+    "phrases": 1
+   },
+   "query_kana": "ヒレカツ'",
+   "phrases": 1,
+   "phonemes": [
+    "h+i",
+    "r+e",
+    "k+a",
+    "ts+u"
+   ],
+   "mismatch": [],
+   "gain_db": 5.9,
+   "duration": 0.79,
+   "voiced": 0.59,
+   "lead_silence": 0.06,
+   "tail_silence": 0.14,
+   "peak_dbfs": -3.8,
+   "rms_dbfs": -20.5,
+   "m4a_bytes": 10240,
+   "m4a_duration": 0.79,
+   "m4a_voiced": 0.59,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -3.9
+  },
+  {
+   "text": "おろし",
+   "reading": "おろし",
+   "file": "word_oroshi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オロ'シ",
+    "phrases": 1
+   },
+   "query_kana": "オロ'シ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "r+o",
+    "sh+i"
+   ],
+   "mismatch": [],
+   "gain_db": 4.0,
+   "duration": 0.61,
+   "voiced": 0.44,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -6.2,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 8452,
+   "m4a_duration": 0.61,
+   "m4a_voiced": 0.44,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -6.0
+  },
+  {
+   "text": "ごはん",
+   "reading": "ごはん",
+   "file": "word_gohan",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ゴ'ハン",
+    "phrases": 1
+   },
+   "query_kana": "ゴ'ハン",
+   "phrases": 1,
+   "phonemes": [
+    "g+o",
+    "h+a",
+    "N"
+   ],
+   "mismatch": [],
+   "gain_db": 2.1,
+   "duration": 0.62,
+   "voiced": 0.39,
+   "lead_silence": 0.06,
+   "tail_silence": 0.17,
+   "peak_dbfs": -9.1,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 8494,
+   "m4a_duration": 0.62,
+   "m4a_voiced": 0.39,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -9.1
+  },
+  {
+   "text": "おかわり",
+   "reading": "おかわり",
+   "file": "word_okawari",
+   "source": "kana",
+   "engine_text": {
+    "query_kana": "オ'/カワリ'",
+    "phrases": 2
+   },
+   "query_kana": "オカ'ワリ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "k+a",
+    "w+a",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": -0.5,
+   "duration": 0.76,
+   "voiced": 0.55,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.9,
+   "rms_dbfs": -19.9,
+   "m4a_bytes": 9928,
+   "m4a_duration": 0.76,
+   "m4a_voiced": 0.55,
+   "m4a_rms_dbfs": -19.9,
+   "m4a_peak_dbfs": -8.8,
+   "fix_note": "엔진이 オ'/カワリ' 두 구로 나눔(お를 따로 떼어 읽음). 개발자 기억의 2형으로 한 구로 합침. 사전 대조 안 함, 액센트 미확인"
+  },
+  {
+   "text": "うどん",
+   "reading": "うどん",
+   "file": "word_udon",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ウドン'",
+    "phrases": 1
+   },
+   "query_kana": "ウドン'",
+   "phrases": 1,
+   "phonemes": [
+    "u",
+    "d+o",
+    "N"
+   ],
+   "mismatch": [],
+   "gain_db": 1.5,
+   "duration": 0.66,
+   "voiced": 0.44,
+   "lead_silence": 0.05,
+   "tail_silence": 0.17,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 8862,
+   "m4a_duration": 0.66,
+   "m4a_voiced": 0.44,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.5
+  },
+  {
+   "text": "そば",
+   "reading": "そば",
+   "file": "word_soba",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ソ'バ",
+    "phrases": 1
+   },
+   "query_kana": "ソ'バ",
+   "phrases": 1,
+   "phonemes": [
+    "s+o",
+    "b+a"
+   ],
+   "mismatch": [],
+   "gain_db": -0.4,
+   "duration": 0.59,
+   "voiced": 0.37,
+   "lead_silence": 0.06,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 8355,
+   "m4a_duration": 0.59,
+   "m4a_voiced": 0.37,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.1
+  },
+  {
+   "text": "きつね",
+   "reading": "きつね",
+   "file": "word_kitsune",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "_キツネ'",
+    "phrases": 1
+   },
+   "query_kana": "_キツネ'",
+   "phrases": 1,
+   "phonemes": [
+    "k+I",
+    "ts+u",
+    "n+e"
+   ],
+   "mismatch": [],
+   "gain_db": 6.7,
+   "duration": 0.69,
+   "voiced": 0.52,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.6,
+   "m4a_bytes": 9257,
+   "m4a_duration": 0.69,
+   "m4a_voiced": 0.52,
+   "m4a_rms_dbfs": -20.6,
+   "m4a_peak_dbfs": -7.9
+  },
+  {
+   "text": "かけ",
+   "reading": "かけ",
+   "file": "word_kake",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "カケ'",
+    "phrases": 1
+   },
+   "query_kana": "カケ'",
+   "phrases": 1,
+   "phonemes": [
+    "k+a",
+    "k+e"
+   ],
+   "mismatch": [],
+   "gain_db": 4.6,
+   "duration": 0.62,
+   "voiced": 0.44,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -20.4,
+   "m4a_bytes": 8539,
+   "m4a_duration": 0.62,
+   "m4a_voiced": 0.44,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -8.5
+  },
+  {
+   "text": "おかめ",
+   "reading": "おかめ",
+   "file": "word_okame",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オカメ'",
+    "phrases": 1
+   },
+   "query_kana": "オカメ'",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "k+a",
+    "m+e"
+   ],
+   "mismatch": [],
+   "gain_db": 3.5,
+   "duration": 0.69,
+   "voiced": 0.49,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.1,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9195,
+   "m4a_duration": 0.69,
+   "m4a_voiced": 0.49,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.1
+  },
+  {
+   "text": "わかめ",
+   "reading": "わかめ",
+   "file": "word_wakame",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ワ'カメ",
+    "phrases": 1
+   },
+   "query_kana": "ワ'カメ",
+   "phrases": 1,
+   "phonemes": [
+    "w+a",
+    "k+a",
+    "m+e"
+   ],
+   "mismatch": [],
+   "gain_db": 2.3,
+   "duration": 0.68,
+   "voiced": 0.48,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.3,
+   "m4a_bytes": 9327,
+   "m4a_duration": 0.68,
+   "m4a_voiced": 0.48,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -7.2
+  },
+  {
+   "text": "たぬき",
+   "reading": "たぬき",
+   "file": "word_tanuki",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "タ'ヌキ",
+    "phrases": 1
+   },
+   "query_kana": "タ'ヌキ",
+   "phrases": 1,
+   "phonemes": [
+    "t+a",
+    "n+u",
+    "k+i"
+   ],
+   "mismatch": [],
+   "gain_db": 4.6,
+   "duration": 0.69,
+   "voiced": 0.49,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.2,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 9354,
+   "m4a_duration": 0.69,
+   "m4a_voiced": 0.49,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -5.3
+  },
+  {
+   "text": "ざる",
+   "reading": "ざる",
+   "file": "word_zaru",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ザル'",
+    "phrases": 1
+   },
+   "query_kana": "ザル'",
+   "phrases": 1,
+   "phonemes": [
+    "z+a",
+    "r+u"
+   ],
+   "mismatch": [],
+   "gain_db": 2.6,
+   "duration": 0.49,
+   "voiced": 0.27,
+   "lead_silence": 0.09,
+   "tail_silence": 0.13,
+   "peak_dbfs": -8.7,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 7536,
+   "m4a_duration": 0.49,
+   "m4a_voiced": 0.27,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -8.8
+  },
+  {
+   "text": "えき",
+   "reading": "えき",
+   "file": "word_eki",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "エ'キ",
+    "phrases": 1
+   },
+   "query_kana": "エ'キ",
+   "phrases": 1,
+   "phonemes": [
+    "e",
+    "k+i"
+   ],
+   "mismatch": [],
+   "gain_db": 7.4,
+   "duration": 0.58,
+   "voiced": 0.42,
+   "lead_silence": 0.05,
+   "tail_silence": 0.11,
+   "peak_dbfs": -4.3,
+   "rms_dbfs": -20.3,
+   "m4a_bytes": 8271,
+   "m4a_duration": 0.58,
+   "m4a_voiced": 0.42,
+   "m4a_rms_dbfs": -20.4,
+   "m4a_peak_dbfs": -4.5
+  },
+  {
+   "text": "おつり",
+   "reading": "おつり",
+   "file": "word_otsuri",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オ'ツリ",
+    "phrases": 1
+   },
+   "query_kana": "オ'ツリ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "ts+u",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": 6.9,
+   "duration": 0.63,
+   "voiced": 0.46,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -7.7,
+   "rms_dbfs": -20.3,
+   "m4a_bytes": 9014,
+   "m4a_duration": 0.63,
+   "m4a_voiced": 0.46,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -7.5
+  },
+  {
+   "text": "きっぷうりば",
+   "reading": "きっぷうりば",
+   "file": "word_kippu_uriba",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "キップウ'リバ",
+    "phrases": 1
+   },
+   "query_kana": "キップウ'リバ",
+   "phrases": 1,
+   "phonemes": [
+    "k+i",
+    "cl",
+    "p+u",
+    "u",
+    "r+i",
+    "b+a"
+   ],
+   "mismatch": [],
+   "gain_db": 4.8,
+   "duration": 0.99,
+   "voiced": 0.81,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -4.7,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 12000,
+   "m4a_duration": 0.99,
+   "m4a_voiced": 0.81,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -4.5
+  },
+  {
+   "text": "のりかえ",
+   "reading": "のりかえ",
+   "file": "word_norikae",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ノリカエ'",
+    "phrases": 1
+   },
+   "query_kana": "ノリカエ'",
+   "phrases": 1,
+   "phonemes": [
+    "n+o",
+    "r+i",
+    "k+a",
+    "e"
+   ],
+   "mismatch": [],
+   "gain_db": 0.5,
+   "duration": 0.85,
+   "voiced": 0.64,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -6.4,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 10673,
+   "m4a_duration": 0.85,
+   "m4a_voiced": 0.64,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -6.4
+  },
+  {
+   "text": "こちら",
+   "reading": "こちら",
+   "file": "word_kochira",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "コチラ'",
+    "phrases": 1
+   },
+   "query_kana": "コチラ'",
+   "phrases": 1,
+   "phonemes": [
+    "k+o",
+    "ch+i",
+    "r+a"
+   ],
+   "mismatch": [],
+   "gain_db": 3.4,
+   "duration": 0.66,
+   "voiced": 0.49,
+   "lead_silence": 0.05,
+   "tail_silence": 0.12,
+   "peak_dbfs": -5.7,
+   "rms_dbfs": -20.3,
+   "m4a_bytes": 9043,
+   "m4a_duration": 0.66,
+   "m4a_voiced": 0.49,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -5.7
+  },
+  {
+   "text": "のりば",
+   "reading": "のりば",
+   "file": "word_noriba",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ノリバ'",
+    "phrases": 1
+   },
+   "query_kana": "ノリバ'",
+   "phrases": 1,
+   "phonemes": [
+    "n+o",
+    "r+i",
+    "b+a"
+   ],
+   "mismatch": [],
+   "gain_db": 0.7,
+   "duration": 0.71,
+   "voiced": 0.51,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 9514,
+   "m4a_duration": 0.71,
+   "m4a_voiced": 0.51,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.1
+  },
+  {
+   "text": "でぐち",
+   "reading": "でぐち",
+   "file": "word_deguchi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "デ'グチ",
+    "phrases": 1
+   },
+   "query_kana": "デ'グチ",
+   "phrases": 1,
+   "phonemes": [
+    "d+e",
+    "g+u",
+    "ch+i"
+   ],
+   "mismatch": [],
+   "gain_db": 6.8,
+   "duration": 0.72,
+   "voiced": 0.52,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.3,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9465,
+   "m4a_duration": 0.72,
+   "m4a_voiced": 0.52,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -5.2
+  },
+  {
+   "text": "いりぐち",
+   "reading": "いりぐち",
+   "file": "word_iriguchi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "イリグチ'",
+    "phrases": 1
+   },
+   "query_kana": "イリグチ'",
+   "phrases": 1,
+   "phonemes": [
+    "i",
+    "r+i",
+    "g+u",
+    "ch+i"
+   ],
+   "mismatch": [],
+   "gain_db": 7.2,
+   "duration": 0.83,
+   "voiced": 0.62,
+   "lead_silence": 0.06,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.3,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10725,
+   "m4a_duration": 0.83,
+   "m4a_voiced": 0.62,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.6
+  },
+  {
+   "text": "おまもり",
+   "reading": "おまもり",
+   "file": "word_omamori",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オマ'モリ",
+    "phrases": 1
+   },
+   "query_kana": "オマ'モリ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "m+a",
+    "m+o",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": -0.2,
+   "duration": 0.73,
+   "voiced": 0.54,
+   "lead_silence": 0.06,
+   "tail_silence": 0.13,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 9772,
+   "m4a_duration": 0.73,
+   "m4a_voiced": 0.54,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.0
+  },
+  {
+   "text": "おまいり",
+   "reading": "おまいり",
+   "file": "word_omairi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オマイリ'",
+    "phrases": 1
+   },
+   "query_kana": "オマイリ'",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "m+a",
+    "i",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": 2.7,
+   "duration": 0.75,
+   "voiced": 0.54,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -5.4,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 9742,
+   "m4a_duration": 0.75,
+   "m4a_voiced": 0.54,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -5.5
+  },
+  {
+   "text": "おみくじ",
+   "reading": "おみくじ",
+   "file": "word_omikuji",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オミクジ'",
+    "phrases": 1
+   },
+   "query_kana": "オミクジ'",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "m+i",
+    "k+u",
+    "j+i"
+   ],
+   "mismatch": [],
+   "gain_db": 4.6,
+   "duration": 0.85,
+   "voiced": 0.64,
+   "lead_silence": 0.06,
+   "tail_silence": 0.15,
+   "peak_dbfs": -8.1,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 11237,
+   "m4a_duration": 0.85,
+   "m4a_voiced": 0.64,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -8.2
+  },
+  {
+   "text": "えんむすび",
+   "reading": "えんむすび",
+   "file": "word_enmusubi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "エンム'スビ",
+    "phrases": 1
+   },
+   "query_kana": "エンム'スビ",
+   "phrases": 1,
+   "phonemes": [
+    "e",
+    "N",
+    "m+u",
+    "s+u",
+    "b+i"
+   ],
+   "mismatch": [],
+   "gain_db": 6.9,
+   "duration": 0.9,
+   "voiced": 0.71,
+   "lead_silence": 0.05,
+   "tail_silence": 0.14,
+   "peak_dbfs": -7.3,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 11150,
+   "m4a_duration": 0.9,
+   "m4a_voiced": 0.71,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.2
+  },
+  {
+   "text": "たこやき",
+   "reading": "たこやき",
+   "file": "word_takoyaki",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "タコヤキ'",
+    "phrases": 1
+   },
+   "query_kana": "タコヤキ'",
+   "phrases": 1,
+   "phonemes": [
+    "t+a",
+    "k+o",
+    "y+a",
+    "k+i"
+   ],
+   "mismatch": [],
+   "gain_db": 4.7,
+   "duration": 0.81,
+   "voiced": 0.63,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -5.7,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 10563,
+   "m4a_duration": 0.81,
+   "m4a_voiced": 0.63,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -5.7
+  },
+  {
+   "text": "おまつり",
+   "reading": "おまつり",
+   "file": "word_omatsuri",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オマ'ツリ",
+    "phrases": 1
+   },
+   "query_kana": "オマ'ツリ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "m+a",
+    "ts+u",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": 3.1,
+   "duration": 0.76,
+   "voiced": 0.58,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -6.2,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10005,
+   "m4a_duration": 0.76,
+   "m4a_voiced": 0.58,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -6.1
+  },
+  {
+   "text": "あたり",
+   "reading": "あたり",
+   "file": "word_atari",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ア'タリ",
+    "phrases": 1
+   },
+   "query_kana": "ア'タリ",
+   "phrases": 1,
+   "phonemes": [
+    "a",
+    "t+a",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": 0.2,
+   "duration": 0.62,
+   "voiced": 0.41,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -7.8,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 8480,
+   "m4a_duration": 0.62,
+   "m4a_voiced": 0.41,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.6
+  },
+  {
+   "text": "やきそば",
+   "reading": "やきそば",
+   "file": "word_yakisoba",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ヤ_キソバ'",
+    "phrases": 1
+   },
+   "query_kana": "ヤ_キソバ'",
+   "phrases": 1,
+   "phonemes": [
+    "y+a",
+    "k+I",
+    "s+o",
+    "b+a"
+   ],
+   "mismatch": [],
+   "gain_db": 0.4,
+   "duration": 0.87,
+   "voiced": 0.66,
+   "lead_silence": 0.06,
+   "tail_silence": 0.15,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 11288,
+   "m4a_duration": 0.87,
+   "m4a_voiced": 0.66,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -6.8
+  },
+  {
+   "text": "はずれ",
+   "reading": "はずれ",
+   "file": "word_hazure",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ハズレ'",
+    "phrases": 1
+   },
+   "query_kana": "ハズレ'",
+   "phrases": 1,
+   "phonemes": [
+    "h+a",
+    "z+u",
+    "r+e"
+   ],
+   "mismatch": [],
+   "gain_db": 3.6,
+   "duration": 0.67,
+   "voiced": 0.48,
+   "lead_silence": 0.05,
+   "tail_silence": 0.14,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -20.3,
+   "m4a_bytes": 9182,
+   "m4a_duration": 0.67,
+   "m4a_voiced": 0.48,
+   "m4a_rms_dbfs": -20.3,
+   "m4a_peak_dbfs": -8.4
+  },
+  {
+   "text": "りんごあめ",
+   "reading": "りんごあめ",
+   "file": "word_ringoame",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "リンゴ'アメ",
+    "phrases": 1
+   },
+   "query_kana": "リンゴ'アメ",
+   "phrases": 1,
+   "phonemes": [
+    "r+i",
+    "N",
+    "g+o",
+    "a",
+    "m+e"
+   ],
+   "mismatch": [],
+   "gain_db": -1.4,
+   "duration": 0.98,
+   "voiced": 0.73,
+   "lead_silence": 0.06,
+   "tail_silence": 0.19,
+   "peak_dbfs": -7.5,
+   "rms_dbfs": -19.9,
+   "m4a_bytes": 11813,
+   "m4a_duration": 0.98,
+   "m4a_voiced": 0.73,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -7.4
+  },
+  {
+   "text": "やきとり",
+   "reading": "やきとり",
+   "file": "word_yakitori",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ヤ_キトリ'",
+    "phrases": 1
+   },
+   "query_kana": "ヤ_キトリ'",
+   "phrases": 1,
+   "phonemes": [
+    "y+a",
+    "k+I",
+    "t+o",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": 5.3,
+   "duration": 0.79,
+   "voiced": 0.58,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -5.3,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10124,
+   "m4a_duration": 0.79,
+   "m4a_voiced": 0.58,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -5.4
+  },
+  {
+   "text": "つくね",
+   "reading": "つくね",
+   "file": "word_tsukune",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ツ'クネ",
+    "phrases": 1
+   },
+   "query_kana": "ツ'クネ",
+   "phrases": 1,
+   "phonemes": [
+    "ts+u",
+    "k+u",
+    "n+e"
+   ],
+   "mismatch": [],
+   "gain_db": 6.1,
+   "duration": 0.69,
+   "voiced": 0.47,
+   "lead_silence": 0.07,
+   "tail_silence": 0.15,
+   "peak_dbfs": -6.5,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 9382,
+   "m4a_duration": 0.69,
+   "m4a_voiced": 0.47,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -6.7
+  },
+  {
+   "text": "かわ",
+   "reading": "かわ",
+   "file": "word_kawa",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "カワ'",
+    "phrases": 1
+   },
+   "query_kana": "カワ'",
+   "phrases": 1,
+   "phonemes": [
+    "k+a",
+    "w+a"
+   ],
+   "mismatch": [],
+   "gain_db": -1.2,
+   "duration": 0.54,
+   "voiced": 0.33,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -8.3,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 7835,
+   "m4a_duration": 0.54,
+   "m4a_voiced": 0.33,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.4
+  },
+  {
+   "text": "むね",
+   "reading": "むね",
+   "file": "word_mune",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ムネ'",
+    "phrases": 1
+   },
+   "query_kana": "ムネ'",
+   "phrases": 1,
+   "phonemes": [
+    "m+u",
+    "n+e"
+   ],
+   "mismatch": [],
+   "gain_db": 3.7,
+   "duration": 0.56,
+   "voiced": 0.35,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -9.4,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 7941,
+   "m4a_duration": 0.56,
+   "m4a_voiced": 0.35,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -9.3
+  },
+  {
+   "text": "ささみ",
+   "reading": "ささみ",
+   "file": "word_sasami",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ササミ'",
+    "phrases": 1
+   },
+   "query_kana": "ササミ'",
+   "phrases": 1,
+   "phonemes": [
+    "s+a",
+    "s+a",
+    "m+i"
+   ],
+   "mismatch": [],
+   "gain_db": 6.0,
+   "duration": 0.77,
+   "voiced": 0.57,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.7,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 10060,
+   "m4a_duration": 0.77,
+   "m4a_voiced": 0.57,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -5.8
+  },
+  {
+   "text": "なんこつ",
+   "reading": "なんこつ",
+   "file": "word_nankotsu",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ナンコツ'",
+    "phrases": 1
+   },
+   "query_kana": "ナンコツ'",
+   "phrases": 1,
+   "phonemes": [
+    "n+a",
+    "N",
+    "k+o",
+    "ts+u"
+   ],
+   "mismatch": [],
+   "gain_db": 4.1,
+   "duration": 0.85,
+   "voiced": 0.65,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -4.4,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 11049,
+   "m4a_duration": 0.85,
+   "m4a_voiced": 0.65,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -4.4
+  },
+  {
+   "text": "しいたけ",
+   "reading": "しいたけ",
+   "file": "word_shiitake",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "シ'イタケ",
+    "phrases": 1
+   },
+   "query_kana": "シ'イタケ",
+   "phrases": 1,
+   "phonemes": [
+    "sh+i",
+    "i",
+    "t+a",
+    "k+e"
+   ],
+   "mismatch": [],
+   "gain_db": 4.9,
+   "duration": 0.89,
+   "voiced": 0.68,
+   "lead_silence": 0.06,
+   "tail_silence": 0.15,
+   "peak_dbfs": -3.3,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 11271,
+   "m4a_duration": 0.89,
+   "m4a_voiced": 0.68,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -3.4
+  },
+  {
+   "text": "おにぎり",
+   "reading": "おにぎり",
+   "file": "word_onigiri",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オニ'ギリ",
+    "phrases": 1
+   },
+   "query_kana": "オニ'ギリ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "n+i",
+    "g+i",
+    "r+i"
+   ],
+   "mismatch": [],
+   "gain_db": 5.0,
+   "duration": 0.77,
+   "voiced": 0.58,
+   "lead_silence": 0.06,
+   "tail_silence": 0.13,
+   "peak_dbfs": -8.8,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10080,
+   "m4a_duration": 0.77,
+   "m4a_voiced": 0.58,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -8.8
+  },
+  {
+   "text": "うずら",
+   "reading": "うずら",
+   "file": "word_uzura",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ウズラ'",
+    "phrases": 1
+   },
+   "query_kana": "ウズラ'",
+   "phrases": 1,
+   "phonemes": [
+    "u",
+    "z+u",
+    "r+a"
+   ],
+   "mismatch": [],
+   "gain_db": 2.4,
+   "duration": 0.65,
+   "voiced": 0.45,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -5.8,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 8838,
+   "m4a_duration": 0.65,
+   "m4a_voiced": 0.45,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -5.8
+  },
+  {
+   "text": "ゆ",
+   "reading": "ゆ",
+   "file": "word_yu",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ユ'",
+    "phrases": 1
+   },
+   "query_kana": "ユ'",
+   "phrases": 1,
+   "phonemes": [
+    "y+u"
+   ],
+   "mismatch": [],
+   "gain_db": 4.8,
+   "duration": 0.43,
+   "voiced": 0.22,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -10.2,
+   "rms_dbfs": -20.6,
+   "m4a_bytes": 6788,
+   "m4a_duration": 0.43,
+   "m4a_voiced": 0.22,
+   "m4a_rms_dbfs": -20.7,
+   "m4a_peak_dbfs": -10.3
+  },
+  {
+   "text": "おんせん",
+   "reading": "おんせん",
+   "file": "word_onsen",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オンセン'",
+    "phrases": 1
+   },
+   "query_kana": "オンセン'",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "N",
+    "s+e",
+    "N"
+   ],
+   "mismatch": [],
+   "gain_db": 2.2,
+   "duration": 0.75,
+   "voiced": 0.49,
+   "lead_silence": 0.05,
+   "tail_silence": 0.21,
+   "peak_dbfs": -8.5,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9894,
+   "m4a_duration": 0.75,
+   "m4a_voiced": 0.48,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -8.5
+  },
+  {
+   "text": "ゆかた",
+   "reading": "ゆかた",
+   "file": "word_yukata",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ユカタ'",
+    "phrases": 1
+   },
+   "query_kana": "ユカタ'",
+   "phrases": 1,
+   "phonemes": [
+    "y+u",
+    "k+a",
+    "t+a"
+   ],
+   "mismatch": [],
+   "gain_db": 1.6,
+   "duration": 0.67,
+   "voiced": 0.48,
+   "lead_silence": 0.05,
+   "tail_silence": 0.14,
+   "peak_dbfs": -7.2,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9132,
+   "m4a_duration": 0.67,
+   "m4a_voiced": 0.48,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.3
+  },
+  {
+   "text": "ぬる湯",
+   "reading": "ぬるゆ",
+   "file": "word_nuruyu",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ヌルユ'",
+    "phrases": 1
+   },
+   "query_kana": "ヌルユ'",
+   "phrases": 1,
+   "phonemes": [
+    "n+u",
+    "r+u",
+    "y+u"
+   ],
+   "mismatch": [],
+   "gain_db": 4.5,
+   "duration": 0.72,
+   "voiced": 0.52,
+   "lead_silence": 0.05,
+   "tail_silence": 0.15,
+   "peak_dbfs": -7.9,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 9456,
+   "m4a_duration": 0.72,
+   "m4a_voiced": 0.52,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.9
+  },
+  {
+   "text": "ひのき",
+   "reading": "ひのき",
+   "file": "word_hinoki",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ヒノキ'",
+    "phrases": 1
+   },
+   "query_kana": "ヒノキ'",
+   "phrases": 1,
+   "phonemes": [
+    "h+i",
+    "n+o",
+    "k+i"
+   ],
+   "mismatch": [],
+   "gain_db": 4.2,
+   "duration": 0.7,
+   "voiced": 0.49,
+   "lead_silence": 0.06,
+   "tail_silence": 0.15,
+   "peak_dbfs": -6.5,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 9500,
+   "m4a_duration": 0.7,
+   "m4a_voiced": 0.49,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -6.7
+  },
+  {
+   "text": "くつをぬいでください",
+   "reading": "くつをぬいでください",
+   "file": "word_kutsu_o_nuide_kudasai",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "_クツ'オ/ヌ'イデ/クダサ'イ",
+    "phrases": 3
+   },
+   "query_kana": "_クツ'オ/ヌ'イデ/クダサ'イ",
+   "phrases": 3,
+   "phonemes": [
+    "k+U",
+    "ts+u",
+    "o",
+    "n+u",
+    "i",
+    "d+e",
+    "k+u",
+    "d+a",
+    "s+a",
+    "i"
+   ],
+   "mismatch": [],
+   "gain_db": 2.7,
+   "duration": 1.5,
+   "voiced": 1.29,
+   "lead_silence": 0.05,
+   "tail_silence": 0.16,
+   "peak_dbfs": -4.3,
+   "rms_dbfs": -20.0,
+   "m4a_bytes": 17292,
+   "m4a_duration": 1.5,
+   "m4a_voiced": 1.29,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -4.3
+  },
+  {
+   "text": "ようこそ",
+   "reading": "ようこそ",
+   "file": "word_yokoso",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ヨ'オコソ",
+    "phrases": 1
+   },
+   "query_kana": "ヨ'オコソ",
+   "phrases": 1,
+   "phonemes": [
+    "y+o",
+    "o",
+    "k+o",
+    "s+o"
+   ],
+   "mismatch": [],
+   "gain_db": 3.0,
+   "duration": 0.83,
+   "voiced": 0.64,
+   "lead_silence": 0.05,
+   "tail_silence": 0.14,
+   "peak_dbfs": -6.3,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10779,
+   "m4a_duration": 0.83,
+   "m4a_voiced": 0.64,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -6.3
+  },
+  {
+   "text": "おもてなし",
+   "reading": "おもてなし",
+   "file": "word_omotenashi",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オモテナシ'",
+    "phrases": 1
+   },
+   "query_kana": "オモテナシ'",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "m+o",
+    "t+e",
+    "n+a",
+    "sh+i"
+   ],
+   "mismatch": [],
+   "gain_db": 4.4,
+   "duration": 0.92,
+   "voiced": 0.74,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 11183,
+   "m4a_duration": 0.92,
+   "m4a_voiced": 0.74,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -6.9
+  },
+  {
+   "text": "ほうじ茶",
+   "reading": "ほうじちゃ",
+   "file": "word_hojicha",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "ホオジチャ'",
+    "phrases": 1
+   },
+   "query_kana": "ホオジチャ'",
+   "phrases": 1,
+   "phonemes": [
+    "h+o",
+    "o",
+    "j+i",
+    "ch+a"
+   ],
+   "mismatch": [],
+   "gain_db": 0.4,
+   "duration": 0.8,
+   "voiced": 0.59,
+   "lead_silence": 0.08,
+   "tail_silence": 0.13,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 10577,
+   "m4a_duration": 0.8,
+   "m4a_voiced": 0.59,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -7.1
+  },
+  {
+   "text": "おふろ",
+   "reading": "おふろ",
+   "file": "word_ofuro",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オ'フロ",
+    "phrases": 1
+   },
+   "query_kana": "オ'フロ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "f+u",
+    "r+o"
+   ],
+   "mismatch": [],
+   "gain_db": 4.6,
+   "duration": 0.62,
+   "voiced": 0.43,
+   "lead_silence": 0.05,
+   "tail_silence": 0.14,
+   "peak_dbfs": -6.8,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 8518,
+   "m4a_duration": 0.62,
+   "m4a_voiced": 0.43,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -6.7
+  },
+  {
+   "text": "おへや",
+   "reading": "おへや",
+   "file": "word_oheya",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "オ'ヘヤ",
+    "phrases": 1
+   },
+   "query_kana": "オ'ヘヤ",
+   "phrases": 1,
+   "phonemes": [
+    "o",
+    "h+e",
+    "y+a"
+   ],
+   "mismatch": [],
+   "gain_db": 4.4,
+   "duration": 0.66,
+   "voiced": 0.48,
+   "lead_silence": 0.05,
+   "tail_silence": 0.13,
+   "peak_dbfs": -8.0,
+   "rms_dbfs": -20.2,
+   "m4a_bytes": 8819,
+   "m4a_duration": 0.66,
+   "m4a_voiced": 0.48,
+   "m4a_rms_dbfs": -20.2,
+   "m4a_peak_dbfs": -8.0
+  },
+  {
+   "text": "ふとん",
+   "reading": "ふとん",
+   "file": "word_futon",
+   "source": "text",
+   "engine_text": {
+    "query_kana": "_フトン'",
+    "phrases": 1
+   },
+   "query_kana": "_フトン'",
+   "phrases": 1,
+   "phonemes": [
+    "f+U",
+    "t+o",
+    "N"
+   ],
+   "mismatch": [],
+   "gain_db": 2.3,
+   "duration": 0.61,
+   "voiced": 0.33,
+   "lead_silence": 0.09,
+   "tail_silence": 0.19,
+   "peak_dbfs": -6.0,
+   "rms_dbfs": -20.1,
+   "m4a_bytes": 8426,
+   "m4a_duration": 0.61,
+   "m4a_voiced": 0.33,
+   "m4a_rms_dbfs": -20.1,
+   "m4a_peak_dbfs": -6.0
+  }
+ ]
+}

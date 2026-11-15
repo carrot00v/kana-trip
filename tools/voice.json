@@ -145,5 +145,36 @@
     ],
     "best_method": "P-loop",
     "preview": {"gap_seconds": 0.5, "shake_letters": ["shi", "ka", "ha"], "shake_methods": ["e-ta40", "L36", "N75", "P-loop"], "best_voices": ["tsumugi-normal", "metan-normal"]}
+  },
+
+  "final": {
+    "comment": "앱에 넣는 최종본. gen_voice.py final. 글자는 3차 (N) 방식(늘리지 않음)으로 만들고 앱에서 두 번 읽는다. 단어는 1차의 느린 속도. P-loop 글자는 비교용으로만 만든다(앱에 넣지 않음)",
+    "generated": "2026-11-15",
+    "voice": {"slug": "tsumugi-normal", "name": "春日部つむぎ", "style": "ノーマル", "style_id": 8, "credit": "VOICEVOX:春日部つむぎ"},
+    "scenes": "KanaTrip/Resources/hiragana_scenes.json",
+    "strokes": "KanaTrip/Resources/hiragana_strokes.json",
+    "output_dir": "docs/design/voice/final",
+    "app_dir": "KanaTrip/Resources/Voice",
+    "kana_method": {"comment": "3차 N75와 같다: 'X'+뒤 박을 길이 그대로, speed_scale 0.75, 두 박 높이 같게, 글자 박 끝에서 잘라 30ms 페이드", "speed_scale": 0.75, "flat_pitch": true, "fade_out": 0.03},
+    "carriers": ["タ", "ト", "カ", "ン", "ッ"],
+    "carriers_comment": "앞에서부터 시도해 소리 구간 min_voiced초 이상, 주기성(10ms 창 NACF 0.7 이상 비율) min_periodic 이상(잴 수 없으면 통과), 무성화 없음을 처음 채우는 것을 쓴다",
+    "min_voiced": 0.08,
+    "min_periodic": 0.3,
+    "common": {"pre": 0.10, "post": 0.15, "fade_in": 0.005},
+    "kana_input": {"を": "オ'"},
+    "silent_kana": ["っ"],
+    "kanji_readings": {"丼": "どん", "湯": "ゆ", "茶": "ちゃ"},
+    "word_speed": 0.85,
+    "word_kana": {
+      "とんかつ": {"kana": "トンカツ'", "note": "엔진이 ト'ン/カ'ツ 두 구로 나눔. 평판형(0형)으로 알려진 단어로 한 구로 합침. 사전 대조는 하지 않음"},
+      "おかわり": {"kana": "オカ'ワリ", "note": "엔진이 オ'/カワリ' 두 구로 나눔(お를 따로 떼어 읽음). 개발자 기억의 2형으로 한 구로 합침. 사전 대조 안 함, 액센트 미확인"}
+    },
+    "trim_floor_dbfs": -60.0,
+    "lead_silence": 0.05,
+    "tail_silence": 0.10,
+    "normalize": {"rms_dbfs": -20.0, "peak_dbfs": -1.0},
+    "aac_bitrate": 64000,
+    "kana_gap": 0.4,
+    "preview": {"letters": ["a", "i", "u", "e", "o", "ka", "ki", "ku", "ke", "ko"], "letter_gap": 0.8}
   }
 }

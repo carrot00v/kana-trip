@@ -1,3 +1,5 @@
+import AVFoundation
+import Foundation
 import Testing
 @testable import KanaTrip
 
@@ -55,5 +57,141 @@ struct SpeakerTests {
         let b = C(identifier: "ja.b", quality: 2, excluded: false)
         #expect(SpeechStyle.pickVoice([a, b], systemDefault: "ja.b") == "ja.b")
         #expect(SpeechStyle.pickVoice([b, a], systemDefault: "ja.other") == "ja.a")
+    }
+}
+
+// 번들 음성(VOICEVOX 春日部つむぎ)과 재생 순서.
+
+@Suite("번들 발음 소리")
+struct BundledVoiceTests {
+    private let library = ContentLibrary.shared
+
+    private func index() throws -> VoiceIndex {
+        try #require(VoiceIndex.bundled, "Resources/Voice/voice_index.json을 읽지 못함")
+    }
+
+    /// 기본 46자는 모두 번들 파일이 있거나, 의도적으로 뺀 목록(missingKana)에 있다.
+    @Test func everyBaseKanaHasAFileOrIsListedMissing() throws {
+        let index = try index()
+        let kana = KanaStrokeStore.loadHiragana().map(\.char)
+        #expect(kana.count == 46)
+        for char in kana {
+            if index.missingKana.contains(char) { continue }
+            let name = try #require(index.kana[char], "\(char): 목록에 없음")
+            #expect(VoiceIndex.url(of: name) != nil, "\(char): 번들에 \(name).m4a가 없음")
+        }
+    }
+
+    /// 단어 60개는 모두 번들 파일이 있거나 missingWords에 있다. 키는 화면 표기(かつ丼) 그대로다.
+    @Test func everyWordHasAFileOrIsListedMissing() throws {
+        let index = try index()
+        let words = library.scenes.flatMap(\.words)
+        #expect(words.count == 60)
+        for word in words {
+            if index.missingWords.contains(word.text) { continue }
+            let name = try #require(index.word[word.text], "\(word.text): 목록에 없음")
+            #expect(VoiceIndex.url(of: name) != nil, "\(word.text): 번들에 \(name).m4a가 없음")
+        }
+    }
+
+    /// 단어 칸을 눌러 듣는 글자(탁음, 반탁음 포함)도 모두 파일이 있거나, 소리 없는 글자이거나, 뺀 목록에 있다.
+    @Test func everyTappableWordUnitIsCovered() throws {
+        let index = try index()
+        let units = Set(library.scenes.flatMap(\.words).flatMap(\.kanaUnits).map(\.kana))
+        for unit in units.sorted() {
+            if index.silentKana.contains(unit) || index.missingKana.contains(unit) { continue }
+            let name = try #require(index.kana[unit], "\(unit): 목록에 없음")
+            #expect(VoiceIndex.url(of: name) != nil, "\(unit): 번들에 \(name).m4a가 없음")
+        }
+        #expect(index.silentKana == ["っ"])
+    }
+
+    /// 목록의 파일 이름은 ASCII이고 겹치지 않는다. 글자는 kana_, 단어는 word_로 시작한다.
+    @Test func fileNamesAreUniqueAscii() throws {
+        let index = try index()
+        let names = Array(index.kana.values) + Array(index.word.values)
+        #expect(Set(names).count == names.count)
+        for name in names {
+            #expect(name.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber || $0 == "_") }, "\(name)")
+        }
+        #expect(index.kana.values.allSatisfy { $0.hasPrefix("kana_") })
+        #expect(index.word.values.allSatisfy { $0.hasPrefix("word_") })
+        #expect(index.kana["を"] == "kana_wo")
+        #expect(index.kana["お"] == "kana_o")
+    }
+
+    /// 번들의 m4a를 iOS가 실제로 열 수 있고, 길이가 글자 0.2~0.5초, 단어 0.3~2초 안이다.
+    @Test func everyBundledFileDecodes() throws {
+        let index = try index()
+        for (names, range) in [(index.kana.values, 0.2...0.5), (index.word.values, 0.3...2.0)] {
+            for name in names {
+                let url = try #require(VoiceIndex.url(of: name), "\(name)")
+                let player = try AVAudioPlayer(contentsOf: url)
+                #expect(range.contains(player.duration), "\(name): \(player.duration)초")
+                #expect(player.numberOfChannels == 1, "\(name)")
+            }
+        }
+    }
+
+    /// 크레딧 문구는 정보 화면의 문구와 같다.
+    @Test func creditMatchesAboutScreen() throws {
+        #expect(try index().credit == L.voiceCredit)
+        #expect(L.voiceCredit == "VOICEVOX:春日部つむぎ")
+    }
+
+    // MARK: 무엇으로 읽을지
+
+    private func sampleIndex() throws -> VoiceIndex {
+        let json = """
+        {"credit": "VOICEVOX:春日部つむぎ", "kana": {"す": "kana_su", "あ": "kana_a"},
+         "word": {"すし": "word_sushi", "かつ丼": "word_katsudon"},
+         "silentKana": ["っ"], "missingKana": ["あ"], "missingWords": []}
+        """
+        return try JSONDecoder().decode(VoiceIndex.self, from: Data(json.utf8))
+    }
+
+    @Test func planUsesFileWhenBundled() throws {
+        let index = try sampleIndex()
+        let all: (String) -> Bool = { _ in true }
+        #expect(SpeechStyle.plan(for: "す", as: .kana, index: index, fileExists: all) == .file(name: "kana_su", repeats: 2))
+        #expect(SpeechStyle.plan(for: "すし", as: .word, index: index, fileExists: all) == .file(name: "word_sushi", repeats: 1))
+        #expect(SpeechStyle.plan(for: "かつ丼", as: .word, index: index, fileExists: all) == .file(name: "word_katsudon", repeats: 1))
+    }
+
+    /// 목록에 없거나 파일이 없으면 내장 음성으로 읽는다(へ는 ヘ로 바꿔 읽는 규칙도 그대로).
+    @Test func planFallsBackToSynthesizer() throws {
+        let index = try sampleIndex()
+        let none: (String) -> Bool = { _ in false }
+        let all: (String) -> Bool = { _ in true }
+        #expect(SpeechStyle.plan(for: "へ", as: .kana, index: index, fileExists: all) == .synthesized(text: "ヘ", repeats: 2))
+        #expect(SpeechStyle.plan(for: "す", as: .kana, index: index, fileExists: none) == .synthesized(text: "す", repeats: 2))
+        #expect(SpeechStyle.plan(for: "いか", as: .word, index: index, fileExists: all) == .synthesized(text: "いか", repeats: 1))
+        #expect(SpeechStyle.plan(for: "す", as: .kana, index: nil, fileExists: all) == .synthesized(text: "す", repeats: 2))
+    }
+
+    /// っ는 혼자 소리가 없어 아무것도 읽지 않는다. 단어로 넘어온 같은 글자는 해당하지 않는다.
+    @Test func planIsSilentForSmallTsu() throws {
+        let index = try sampleIndex()
+        let all: (String) -> Bool = { _ in true }
+        #expect(SpeechStyle.plan(for: "っ", as: .kana, index: index, fileExists: all) == .silent)
+        #expect(SpeechStyle.plan(for: "っ", as: .word, index: index, fileExists: all) == .synthesized(text: "っ", repeats: 1))
+    }
+
+    // MARK: 재생 순서
+
+    /// 글자는 두 번: 처음엔 오디오 경로가 열리도록 leadIn만큼 쉬고, 다음엔 파일 앞뒤 무음을 뺀 만큼 쉰다.
+    /// 그래서 두 소리 사이에 들리는 간격은 내장 음성과 같은 0.4초다.
+    @Test func fileRepeatsKeepTheSameAudibleGap() {
+        let delays = SpeechStyle.fileStartDelays(repeats: SpeechStyle.repeats(for: .kana))
+        #expect(delays.count == 2)
+        #expect(delays[0] == SpeechStyle.leadIn)
+        let audible = SpeechStyle.fileTailSilence + delays[1] + SpeechStyle.fileLeadSilence
+        #expect(abs(audible - SpeechStyle.kanaGap) < 1e-9)
+    }
+
+    @Test func wordsPlayOnce() {
+        #expect(SpeechStyle.fileStartDelays(repeats: SpeechStyle.repeats(for: .word)) == [SpeechStyle.leadIn])
+        #expect(SpeechStyle.fileStartDelays(repeats: 0).isEmpty)
+        #expect(SpeechStyle.fileStartDelays(repeats: 3).count == 3)
     }
 }

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""VOICEVOX CORE로 발음 샘플을 만든다 (시험용).
+"""VOICEVOX CORE로 발음 소리를 만든다 (1~3차 시험과 앱에 넣는 최종본).
 
 준비와 실행 방법은 docs/design/voice/README.md 참고. 설정은 tools/voice.json.
+
+    .voicevox/venv/bin/python -I tools/gen_voice.py final    # 앱용: 글자·단어 m4a와 voice_index.json (KanaTrip/Resources/Voice)
 
     .voicevox/venv/bin/python -I tools/gen_voice.py metas    # 0.vvm에 든 목소리·스타일 id
     .voicevox/venv/bin/python -I tools/gen_voice.py round1   # 1차: 글자 A/B/C, 단어 2속도 (docs/design/voice/samples)
@@ -1028,11 +1030,298 @@ def cmd_round3(cfg: dict, synth: Synthesizer) -> None:
         print(f"preview-best3-{slug}.wav", f"{len(s) / rate:.1f}s")
 
 
+# ---------------------------------------------------------------- 최종: 앱에 넣는 소리
+
+def hira_to_kata(text: str) -> str:
+    return "".join(chr(ord(c) + 0x60) if "ぁ" <= c <= "ゖ" else c for c in text)
+
+
+def trim_pad(samples: array.array, rate: int, lead: float, tail: float, floor_dbfs: float) -> array.array:
+    """floor_dbfs보다 작은 앞뒤 10ms 창을 잘라 내고 앞 lead초, 뒤 tail초 무음을 붙인다.
+    자음(s, h)이 작게 시작해도 잘리지 않도록 소리 구간 판정(-45)보다 낮은 값을 쓴다."""
+    s, e = voiced_bounds(samples, rate, 10, floor_dbfs)
+    out = silence(rate, lead)
+    out.extend(fade(samples[s:e], rate, fade_in=0.003, fade_out=0.005))
+    out.extend(silence(rate, tail))
+    return out
+
+
+def word_reading(word: dict, kanji: dict[str, str]) -> str:
+    """단어의 가나 읽기. 한자 칸은 설정의 읽기로 바꾼다(없으면 멈춘다)."""
+    parts = []
+    for u in word["units"]:
+        if u.get("kanji"):
+            if u["kana"] not in kanji:
+                raise SystemExit(f"한자 읽기가 설정에 없다: {u['kana']} ({word['text']})")
+            parts.append(kanji[u["kana"]])
+        else:
+            parts.append(u["kana"])
+    return "".join(parts)
+
+
+def ascii_name(text: str) -> str:
+    table = str.maketrans({"ā": "a", "ī": "i", "ū": "u", "ē": "e", "ō": "o", " ": "_", "-": "_", "'": ""})
+    name = text.lower().translate(table)
+    if not name or any(not (c.isascii() and (c.isalnum() or c == "_")) for c in name):
+        raise SystemExit(f"ASCII 이름으로 바꿀 수 없다: {text!r} → {name!r}")
+    return name
+
+
+def unit_matches(units: list[str], moras: list[str]) -> list[str]:
+    """엔진이 읽은 박(가타카나)이 단어 글자와 맞는지 본다. 맞지 않는 곳을 돌려준다.
+    장음은 같은 단의 모음(ヨウ→ヨオ), を는 オ로 읽는 것을 맞음으로 본다."""
+    expect = hira_to_kata("".join(units)).replace("ヲ", "オ")
+    got = "".join(moras)
+    if len(expect) != len(got):
+        return [f"길이 {expect} / {got}"]
+    bad = []
+    for i, (a, b) in enumerate(zip(expect, got)):
+        if a == b:
+            continue
+        if a == "ウ" and b == "オ" and i > 0 and expect[i - 1] in "オコソトノホモヨロゴゾドボポョ":
+            continue  # おう·よう 장음
+        if a == "イ" and b == "エ" and i > 0 and expect[i - 1] in "エケセテネヘメレゲゼデベペ":
+            continue  # えい 장음
+        bad.append(f"{i}:{a}→{b}")
+    return bad
+
+
+def letter_carrier(synth: Synthesizer, sid: int, kana_in: str, carrier: str, method: dict,
+                   common: dict) -> tuple[array.array, int, tuple[float, float], AudioQuery]:
+    """3차 (N) 방식: 'X' + carrier를 길이 그대로 합성하고 글자 박만 잘라 짧은 페이드를 건다."""
+    q = synth.create_audio_query_from_kana(kana_in + carrier, sid)
+    if method.get("flat_pitch"):
+        q = flatten_pitch(q, timeline(q)[0]["pitch"])
+    q = dataclasses.replace(q, pre_phoneme_length=common["pre"], post_phoneme_length=common["post"],
+                            speed_scale=method["speed_scale"])
+    samples, rate = pcm_of(synth.synthesis(q, sid))
+    m = timeline(q)[0]
+    fo = method["fade_out"]
+    a = max(0, int((m["start"] - 0.02) * rate))
+    b = min(len(samples), int(m["end"] * rate))
+    body = fade(samples[a:b], rate, fade_in=common["fade_in"], fade_out=fo)
+    off = -(m["start"] - 0.02)
+    return body, rate, (m["vowel_start"] + off, m["end"] + off - fo), q
+
+
+def cmd_final(cfg: dict, synth: Synthesizer) -> None:
+    import subprocess
+
+    fc = cfg["final"]
+    m_cfg = cfg["measure"]
+    n_cfg = fc["normalize"]
+    sid = fc["voice"]["style_id"]
+    common = fc["common"]
+    out_dir = ROOT / fc["output_dir"]
+    app_dir = ROOT / fc["app_dir"]
+    for d in (out_dir / "kana", out_dir / "word", out_dir / "ploop", app_dir):
+        d.mkdir(parents=True, exist_ok=True)
+    for old in app_dir.glob("*.m4a"):
+        old.unlink()
+
+    scenes = load_config(ROOT / fc["scenes"])
+    strokes = load_config(ROOT / fc["strokes"])
+    base = [(k["char"], k["romaji"]) for k in strokes["kana"]]
+    base_set = {c for c, _ in base}
+
+    # 탭으로 읽히는 글자: 기본 46자 + 단어 칸 중 한자가 아닌 글자(WordBlock이 칸마다 .speaks(kana:)를 붙인다)
+    words, unit_romaji = [], {}
+    for scene in scenes["scenes"]:
+        for step in scene["steps"]:
+            for w in step["words"]:
+                words.append(w)
+                for u in w["units"]:
+                    if not u.get("kanji"):
+                        unit_romaji.setdefault(u["kana"], u["romaji"])
+    extra = sorted((c, r) for c, r in unit_romaji.items() if c not in base_set)
+    silent = [c for c, _ in extra if c in fc["silent_kana"]]
+    letters = [(c, r, True) for c, r in base] + [(c, r, False) for c, r in extra if c not in silent]
+
+    def pass_through(samples: array.array, rate: int) -> tuple[array.array, float]:
+        samples = trim_pad(samples, rate, fc["lead_silence"], fc["tail_silence"], fc["trim_floor_dbfs"])
+        return normalize(samples, rate, m_cfg, n_cfg)
+
+    def encode(wav: Path, name: str) -> dict:
+        dst = app_dir / f"{name}.m4a"
+        subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", str(fc["aac_bitrate"]), "-c", "1",
+                        str(wav), str(dst)], check=True)
+        # 다시 풀어 길이·음량을 확인한다(인코딩으로 소리가 사라지거나 잘리지 않았는지)
+        back = out_dir / "_decoded.wav"
+        subprocess.run(["afconvert", "-f", "WAVE", "-d", "LEI16", str(dst), str(back)], check=True)
+        s, r = read_wav(back)
+        back.unlink()
+        mm = measure(s, r, m_cfg["frame_ms"], m_cfg["silence_dbfs"])
+        return {"m4a_bytes": dst.stat().st_size, "m4a_duration": mm["duration"],
+                "m4a_voiced": mm["voiced"], "m4a_rms_dbfs": mm["rms_dbfs"], "m4a_peak_dbfs": mm["peak_dbfs"]}
+
+    names: dict[str, str] = {}
+
+    def claim(name: str, owner: str) -> str:
+        if name in names:
+            raise SystemExit(f"파일 이름이 겹친다: {name} ({names[name]}, {owner})")
+        names[name] = owner
+        return name
+
+    f0 = cfg["round2"]["f0"]
+    bands = cfg["round3"]["bands"]
+    method = fc["kana_method"]
+    kana_rows, kana_index, missing_kana = [], {}, []
+    for char, romaji, is_base in letters:
+        kana_in = fc["kana_input"].get(char, hira_to_kata(char) + "'")
+        tried, chosen = [], None
+        for carrier in fc["carriers"]:
+            try:
+                body, rate, span, q = letter_carrier(synth, sid, kana_in, carrier, method, common)
+            except Exception as e:
+                tried.append({"carrier": carrier, "error": f"{type(e).__name__}: {e}"})
+                continue
+            ph = phonemes(q)
+            mm = measure(body, rate, m_cfg["frame_ms"], m_cfg["silence_dbfs"])
+            devoiced = any(c.isupper() and c != "N" for c in ph[0].split("+")[-1])
+            # 주기성(2차 지표): 모음이 너무 짧아 잴 수 없으면 None이고, 그때는 깨진 것으로 보지 않는다
+            sh = shake_stats(f0_track(body, rate, f0), span[0] + 0.02, span[1] - 0.02, f0) or {}
+            periodic = sh.get("periodic")
+            ok = (mm["voiced"] >= fc["min_voiced"] and mm["rms_dbfs"] > -60 and not devoiced
+                  and (periodic is None or periodic >= fc["min_periodic"]))
+            tried.append({"carrier": carrier, "query_kana": q.kana, "phonemes": ph, "voiced": mm["voiced"],
+                          "rms_dbfs": mm["rms_dbfs"], "periodic": periodic, "devoiced": devoiced, "ok": ok})
+            if ok:
+                chosen = (carrier, body, rate, span, q)
+                break
+        if chosen is None:
+            missing_kana.append(char)
+            kana_rows.append({"kana": char, "romaji": romaji, "base46": is_base, "file": None, "tried": tried})
+            print(f"{char} 실패: {tried}")
+            continue
+        carrier, body, rate, span, q = chosen
+        name = claim(f"kana_{ascii_name(romaji)}", char)
+        norm, gain = pass_through(body, rate)
+        wav = out_dir / "kana" / f"{name}.wav"
+        write_wav(wav, norm, rate)
+        lead = fc["lead_silence"] - 0.0
+        # 잰 구간: 원래 모음 구간을 잘라 낸 위치로 옮긴다(앞 무음을 붙인 만큼 뒤로)
+        s0, _ = voiced_bounds(body, rate, 10, fc["trim_floor_dbfs"])
+        shift = lead - s0 / rate
+        ca = cycle_analysis(norm, rate, span[0] + shift + 0.02, span[1] + shift - 0.02, f0, bands)
+        row = {"kana": char, "romaji": romaji, "base46": is_base, "file": name, "input": kana_in + carrier,
+               "carrier": carrier, "query_kana": q.kana, "phonemes": phonemes(q), "gain_db": gain,
+               "periodic": tried[-1]["periodic"],
+               **measure(norm, rate, m_cfg["frame_ms"], m_cfg["silence_dbfs"]),
+               "jitter_pct": ca.get("jitter_pct"), "f0_mod_4_12_c": (ca.get("f0_mod") or {}).get("4-12", {}).get("amp"),
+               "cycles_ok": ca.get("ok"), "tried": tried, **encode(wav, name)}
+        kana_rows.append(row)
+        kana_index[char] = name
+        print(f"{char} {name:<12} {row['input']:<6} {' '.join(row['phonemes'][:1])} 소리 {row['voiced']:.3f}s "
+              f"rms {row['rms_dbfs']} peak {row['peak_dbfs']} jit {row['jitter_pct']} m4a {row['m4a_bytes']}B")
+
+    # P-loop 비교본(앱에는 넣지 않음): 46자, 3차 방법 그대로
+    r3 = cfg["round3"]
+    loop_m = r3["methods"]["P-loop"]
+    src_m = r3["methods"][loop_m["source"]]
+    loop_common = cfg["round2"]["shake"]["common"]
+    loop_rows = []
+    for char, romaji in base:
+        aq = fc["kana_input"].get(char, hira_to_kata(char) + "'")
+        letter = {"aquestalk": aq, "long": aq, "text": char}  # make_letter3는 세 키를 모두 읽는다
+        try:
+            src = make_letter3(synth, sid, letter, src_m, loop_common)
+            lt = apply_loop(src, cfg, loop_m)
+        except Exception as e:
+            lt, err = None, f"{type(e).__name__}: {e}"
+        else:
+            err = "pitch marks"
+        if lt is None:
+            loop_rows.append({"kana": char, "romaji": romaji, "file": None, "error": err})
+            print(f"P-loop {char}: 실패 ({err})")
+            continue
+        norm, gain = pass_through(lt.samples, lt.rate)
+        name = f"kana_{ascii_name(romaji)}"
+        write_wav(out_dir / "ploop" / f"{name}.wav", norm, lt.rate)
+        loop_rows.append({"kana": char, "romaji": romaji, "file": f"ploop/{name}.wav", "gain_db": gain,
+                          **measure(norm, lt.rate, m_cfg["frame_ms"], m_cfg["silence_dbfs"])})
+
+    # 단어
+    word_rows, word_index, missing_words = [], {}, []
+    fixes = fc["word_kana"]
+    for w in words:
+        reading = word_reading(w, fc["kanji_readings"])
+        name = claim(f"word_{ascii_name(w['reading'])}", w["text"])
+        text_q = synth.create_audio_query(reading, sid)
+        engine = {"query_kana": text_q.kana, "phrases": len(text_q.accent_phrases)}
+        if w["text"] in fixes:
+            q = synth.create_audio_query_from_kana(fixes[w["text"]]["kana"], sid)
+            source = "kana"
+        else:
+            q = text_q
+            source = "text"
+        q = dataclasses.replace(q, speed_scale=fc["word_speed"])
+        moras = [m.text for ap in q.accent_phrases for m in ap.moras]
+        mismatch = unit_matches([reading], moras)
+        samples, rate = pcm_of(synth.synthesis(q, sid))
+        norm, gain = pass_through(samples, rate)
+        wav = out_dir / "word" / f"{name}.wav"
+        write_wav(wav, norm, rate)
+        row = {"text": w["text"], "reading": reading, "file": name, "source": source, "engine_text": engine,
+               "query_kana": q.kana, "phrases": len(q.accent_phrases), "phonemes": phonemes(q),
+               "mismatch": mismatch, "gain_db": gain,
+               **measure(norm, rate, m_cfg["frame_ms"], m_cfg["silence_dbfs"]), **encode(wav, name)}
+        if w["text"] in fixes:
+            row["fix_note"] = fixes[w["text"]].get("note")
+        word_rows.append(row)
+        word_index[w["text"]] = name
+        flag = " 읽기 확인 필요 " + ",".join(mismatch) if mismatch else ""
+        print(f"{w['text']:<10} {name:<28} {q.kana:<24} 구 {row['phrases']} 소리 {row['voiced']:.2f}s "
+              f"rms {row['rms_dbfs']} peak {row['peak_dbfs']}{flag}")
+
+    # 미리듣기: あ행부터 10자, 앱처럼 글자마다 두 번(소리 사이 간격 kana_gap), 글자 사이 letter_gap
+    pv = fc["preview"]
+    def preview(folder: str, out_name: str) -> float:
+        joined, rate = array.array("h"), 24000
+        for romaji in pv["letters"]:
+            p = out_dir / folder / f"kana_{romaji}.wav"
+            if not p.exists():
+                continue
+            s, rate = read_wav(p)
+            inner = fc["kana_gap"] - fc["lead_silence"] - fc["tail_silence"]
+            joined.extend(s)
+            joined.extend(silence(rate, inner))
+            joined.extend(s)
+            joined.extend(silence(rate, pv["letter_gap"]))
+        write_wav(out_dir / out_name, joined, rate)
+        return round(len(joined) / rate, 1)
+    pv_n = preview("kana", "preview-kana-N.wav")
+    pv_l = preview("ploop", "preview-kana-ploop.wav")
+    print(f"preview-kana-N.wav {pv_n}s, preview-kana-ploop.wav {pv_l}s")
+
+    index = {
+        "comment": "tools/gen_voice.py final이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).",
+        "credit": fc["voice"]["credit"], "generated": fc["generated"],
+        "kana": kana_index, "word": word_index,
+        "silentKana": silent, "missingKana": missing_kana, "missingWords": missing_words,
+    }
+    with (app_dir / "voice_index.json").open("w", encoding="utf-8") as fp:
+        json.dump(index, fp, ensure_ascii=False, indent=1, sort_keys=True)
+
+    total = sum(p.stat().st_size for p in app_dir.glob("*.m4a"))
+    summary = {
+        "voice": fc["voice"], "generated": fc["generated"], "voicevox_core": "0.17.1",
+        "kana_method": method, "carriers": fc["carriers"], "word_speed": fc["word_speed"],
+        "normalize": n_cfg, "lead_silence": fc["lead_silence"], "tail_silence": fc["tail_silence"],
+        "aac_bitrate": fc["aac_bitrate"], "m4a_files": len(list(app_dir.glob("*.m4a"))), "m4a_bytes": total,
+        "silent_kana": silent, "missing_kana": missing_kana,
+        "kana": kana_rows, "ploop": loop_rows, "words": word_rows,
+    }
+    with (out_dir / "measurements.json").open("w", encoding="utf-8") as fp:
+        json.dump(summary, fp, ensure_ascii=False, indent=1)
+    print(f"m4a {summary['m4a_files']}개 {total} B, 빠진 글자 {missing_kana}, 소리 없는 글자 {silent}")
+
+
 # ---------------------------------------------------------------- main
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("command", nargs="?", default="round1", choices=["metas", "round1", "shake", "giri", "round3"])
+    ap.add_argument("command", nargs="?", default="round1",
+                    choices=["metas", "round1", "shake", "giri", "round3", "final"])
     ap.add_argument("--config", default=str(ROOT / "tools" / "voice.json"))
     args = ap.parse_args()
     cfg = load_config(Path(args.config))
@@ -1047,6 +1336,8 @@ def main() -> None:
         cmd_giri(cfg, synth)
     elif args.command == "round3":
         cmd_round3(cfg, synth)
+    elif args.command == "final":
+        cmd_final(cfg, synth)
 
 
 if __name__ == "__main__":
