@@ -104,8 +104,10 @@
       "coin": {"rest": [0.50, 0.47]}
     },
     "omikuji": {
-      "measured": false,
-      "sway": {"style": "drape", "anchor": [0.50, 0.35], "amplitude": 5}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-omikuji.png 위에서: 나무 막대 x 0.10~0.90 y 0.45~0.50, 매듭 y 0.40~0.46, 종이 7장 x 0.17~0.835 y 0.46~0.63(한 장 폭 약 0.095). 막대 아래 끝(0.50)을 기준점으로 종이를 한 장씩(columns) 돌린다. 한 장으로 넓게 돌리면 막대 끝이 ±0.035 오르내려 줄 전체가 기울어 보였다",
+      "sway": {"style": "drape", "anchor": [0.50, 0.50], "amplitude": 5,
+               "columns": [[0.165, 0.265], [0.265, 0.36], [0.36, 0.455], [0.455, 0.555], [0.555, 0.65], [0.65, 0.745], [0.745, 0.845]]}
     },
     "soba": {
       "measured": true,

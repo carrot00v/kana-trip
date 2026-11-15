@@ -24,6 +24,8 @@ import math
 import sys
 from pathlib import Path
 
+from PIL import Image  # noqa: E402
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lottie_steam import Steam  # noqa: E402
 from place_word_art import art_names, prepare  # noqa: E402
@@ -171,6 +173,8 @@ class Builder:
         bottom.paste((0, 0, 0, 0), (0, 0, img.width, max(0, cut - overlap)))
         top_full = img.copy()
         top_full.paste((0, 0, 0, 0), (0, cut, img.width, img.height))
+        if "columns" in s:
+            return self.sway_columns(img, bottom, top_full, cut, assets, layers, next_ind)
         assets.append(image_asset("fixed", top_full))
         assets.append(image_asset("moving", bottom))
         fixed_ind = next_ind()
@@ -185,6 +189,33 @@ class Builder:
             ks = transform(a=static(anchor), p=static(anchor), r={"a": 1, "k": motion})
         layers.append(image_layer(moving_ind, "moving", self.frames, "moving", ks))
         return moving_ind
+
+    def sway_columns(self, img, bottom, top_full, cut, assets, layers, next_ind):
+        """드리움을 세로 조각(columns, 예: 제비 종이 한 장씩)마다 따로 돌린다. 조각마다 자기 가로 가운데와 걸린 줄 높이를
+        기준점으로, 이웃한 조각은 반대 방향으로 기운다. 한 장으로 넓게 돌리면 긴 줄 끝이 오르내려 줄 전체가 기우는 것처럼 보였다.
+        조각 밖의 아래 부분(줄 끝 등)은 고정 조각에 남긴다."""
+        s = self.spec["sway"]
+        ay = s["anchor"][1]
+        fixed = top_full.copy()
+        rest = bottom.copy()
+        for x0, x1 in s["columns"]:
+            rest.paste((0, 0, 0, 0), (round(x0 * self.c), 0, round(x1 * self.c), img.height))
+        rest.paste((0, 0, 0, 0), (0, 0, img.width, cut))
+        fixed.alpha_composite(rest)
+        assets.append(image_asset("fixed", fixed))
+        layers.append(image_layer(next_ind(), "fixed", self.frames, "fixed"))
+        for i, (x0, x1) in enumerate(s["columns"]):
+            piece = Image.new("RGBA", img.size)
+            box = (round(x0 * self.c), 0, round(x1 * self.c), img.height)
+            piece.paste(bottom.crop(box), box[:2])
+            ref = f"moving{i + 1}"
+            assets.append(image_asset(ref, piece))
+            anchor = [self.px((x0 + x1) / 2), self.px(ay), 0]
+            sign = 1 if i % 2 == 0 else -1
+            motion = self.sway_keyframes(sign * s["amplitude"])
+            layers.append(image_layer(next_ind(), ref, self.frames, ref,
+                                      transform(a=static(anchor), p=static(anchor), r={"a": 1, "k": motion})))
+        return None
 
     # MARK: 깜박임
 

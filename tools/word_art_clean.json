@@ -46,5 +46,8 @@
   "kawa": {"candidate": "word-kawa_1936180909", "dots": true, "rim": true, "fill": [[544, 229, 27], [552, 565, 25]],
            "note": "초록·노랑 점은 자동 범위 경계라 좌표로 메움"},
   "noriba": {"candidate": "word-noriba_2124767904", "dots": true, "rim": true,
-             "note": "같은 배치의 2124767905보다 점자 블록(노란 띠의 점)이 또렷한 이것을 고름"}
+             "note": "같은 배치의 2124767905보다 점자 블록(노란 띠의 점)이 또렷한 이것을 고름"},
+  "omikuji": {"candidate": "word-omikuji_1496564125", "dots": true, "rim": true,
+              "note": "같은 배치의 1496564124(매듭이 작아 흰 천처럼 보임)보다 리본 매듭이 또렷한 이것을 고름"},
+  "shiitake": {"candidate": "word-shiitake_1936180909", "dots": true, "rim": true}
 }
