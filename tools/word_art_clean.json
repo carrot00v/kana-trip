@@ -66,5 +66,7 @@
   "atari": {"candidate": "word-atari_20261116", "dots": true, "rim": true,
             "note": "붉은 테의 세로 제비 종이(빈 칸). あたり는 place_word_art.py가 가로로 합성"},
   "hazure": {"candidate": "word-hazure_20261116", "dots": true, "rim": true,
-             "note": "회청색 테의 세로 제비 종이(atari와 같은 모양). はずれ는 place_word_art.py가 가로로 합성"}
+             "note": "회청색 테의 세로 제비 종이(atari와 같은 모양). はずれ는 place_word_art.py가 가로로 합성"},
+  "nuruyu": {"candidate": "word-nuruyu_20261116", "dots": true, "rim": true,
+             "note": "돌 테두리 탕 앞의 나무 팻말(빈 판). ぬる는 place_word_art.py가 합성(湯은 획 데이터가 없어 넣지 않음)"}
 }

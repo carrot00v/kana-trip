@@ -88,6 +88,9 @@ KANA_IN_ART = {
     # atari와 같은 종이, 회청색 테
     "hazure": {"text": "はずれ", "color": "#4A2219",
                "panel": {"hue": [30, 60], "sat": [0.04, 0.22], "val": [0.88, 1.0]}},
+    # 탕 앞 나무 팻말, 진갈색 글자. 湯은 획 데이터(hiragana_strokes.json)에 없어 ぬる만
+    "nuruyu": {"text": "ぬる", "color": "#4A2219",
+               "panel": {"hue": [20, 45], "sat": [0.15, 0.6], "val": [0.7, 1.0]}},
 }
 
 
