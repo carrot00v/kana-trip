@@ -291,7 +291,8 @@
       "ko": "타는 곳",
       "priority": 2,
       "scene": 4,
-      "subject": "A short section of a train platform edge with a yellow tactile paving strip, and the side of a pale cream commuter train with an open door stopped beside it, seen from the front at a slight angle, no signs."
+      "subject": "A wide section of a Japanese train station platform seen from the front and slightly above: the warm beige platform floor fills the lower half, with one bright yellow bumpy tactile paving strip running along its front edge; behind the floor, only the middle part of a pale cream train car with one wide open door, the train cut off at both sides, no train front, no headlights, no green, no signs, no text, no people.",
+      "allowFloor": true
     },
     {
       "name": "omatsuri",

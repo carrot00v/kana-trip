@@ -1,0 +1,19 @@
+{
+  "word": "word-hirekatsu",
+  "kana": "ひれかつ",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. Clean plain surfaces. Subject: Three thick round fried pork fillet cutlets on a small round pale cream plate, each one a thick puck shape covered all over in a rough golden-brown panko breadcrumb crust drawn as many small bumpy crumbs along its whole outline, the front cutlet cut in half showing pale cream-white meat inside a golden crust ring, seen from the front and slightly above, no cabbage, no sauce, not bread, not buns, not cookies, nothing else. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 1574898232,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "harvestedFrom": "04c2d9e0-2cff-4c81-b04c-58e8e97e3fdb",
+  "selected": {
+    "candidate": "candidates/word-hirekatsu_1574898232.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(737px)"
+  }
+}

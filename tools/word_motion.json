@@ -121,8 +121,9 @@
       "steam": {"anchor": [0.50, 0.44], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "tanuki": {
-      "measured": false,
-      "steam": {"anchor": [0.50, 0.40], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
+      "measured": true,
+      "_measured": "2026-11-15 build/word-art/word-tanuki.png 위에서: 그릇 x 0.14~0.86, 뒤쪽 테 y 0.33~0.35, 국물 면 y 0.40~0.72, 튀김 부스러기 x 0.36~0.62 y 0.44~0.64. 국물 뒤쪽 끝(0.41)에 둠. 묶음 폭 0.24 = 그릇 폭의 33%",
+      "steam": {"anchor": [0.50, 0.41], "count": 3, "spacing": 0.12, "length": 0.16, "widthScale": 1.0}
     },
     "okame": {
       "measured": false,

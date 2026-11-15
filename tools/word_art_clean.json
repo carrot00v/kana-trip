@@ -24,5 +24,12 @@
               "note": "초록 원(지름 약 5.4%)과 석쇠 자국 밑 빨간 반달은 좌표로 메움"},
   "zaru": {"candidate": "word-zaru_2070755637", "dots": true, "rim": true,
            "paint": [{"disc": [501, 436, 34], "color": "#0A0A02"}, {"disc": [580, 495, 23], "color": "#0A0A02"}],
-           "note": "김 가닥이 모이는 가운데의 보라·파랑 점과 김 끝의 초록 점은 김 외곽선 색으로 칠함(가닥이 모이는 매듭으로 보임)"}
+           "note": "김 가닥이 모이는 가운데의 보라·파랑 점과 김 끝의 초록 점은 김 외곽선 색으로 칠함(가닥이 모이는 매듭으로 보임)"},
+  "tanuki": {"candidate": "word-tanuki_1936180909", "dots": true, "rim": true, "keep": [[541, 557, 22]],
+             "note": "튀김 부스러기 사이의 빨강·자홍·연두 점을 지움. 초록 파 고리 2개는 남김"},
+  "hirekatsu": {"candidate": "word-hirekatsu_1574898232", "dots": true, "rim": true},
+  "onigiri": {"candidate": "word-onigiri_1496564124", "dots": true, "rim": true,
+              "note": "같은 배치의 1496564125(볶음밥 같은 알갱이 무늬)보다 석쇠 자국이 또렷한 이것을 고름"},
+  "tonkatsu": {"candidate": "word-tonkatsu_1574898232", "dots": true, "rim": true, "keep": [[680, 648, 170]],
+               "note": "접시에 담은 돈카츠로 새로 그려 아이템 그림 복사본(젓가락이 잘려 보임)을 바꿈"}
 }
