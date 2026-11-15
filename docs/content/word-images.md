@@ -11,8 +11,8 @@
 |---|---|---|---|---|
 | 1 | 장면 대표, 여행 중 자주 봄 | 28 | 26 | 2 (tonkatsu, kitsune) |
 | 2 | 그리면 도움이 됨 | 16 | 15 | 1 (ひのき ← word-ofuro) |
-| 3 | 그림 없이 감 | 16 | 0 | |
-| 합계 | | 60 | 41 | 3 |
+| 3 | 처음엔 그림 없이 두었다가 2026-11-15 사용자 결정으로 채움(3차 배치) | 16 | 16 | |
+| 합계 | | 60 | 57 | 3 |
 
 - 우선순위 1을 장면마다 3~4개 두었다: 4, 4, 4, 3, 4, 3, 3, 3.
 - 한 장에 5~15분이면 우선순위 1의 새 그림 26장은 약 2시간 10분~6시간 30분이다.
@@ -37,7 +37,7 @@
 
 열 설명:
 
-- **그림**: 필요 / 없음. 우선순위 3은 없음.
+- **그림**: 필요 / 없음. 2026-11-15 사용자 결정("그림 없는 단어도 전부 채워")으로 60개 모두 필요. 우선순위 3은 3차 배치로 그린 16개이고, 비고 첫머리에 방식(A 표지판 빈 판 + 글자 합성, B 부위·구성이 보이게, C 장면의 물건)을 적었다.
 - **우선순위**: 1 = 장면 대표·여행 중 자주 봄, 2 = 그리면 도움이 됨, 3 = 그림 없이 감(이유를 비고에 적음).
 - **Subject**: 이미지 모델 프롬프트의 Subject에 그대로 넣는 영어 한 줄.
 - **움직임 후보**: 실제로 움직이는 요소가 있을 때만 적었다. 5번의 추천은 이 가운데서 골랐다.
@@ -65,7 +65,7 @@
 | 2b | ひれかつ | 안심 돈가스 | 필요 | 1 | word-hirekatsu | Three thick round medallions of pork fillet cutlet with jagged golden panko crust, the front piece cut open to show pale pink-white meat, standing close together, seen from the front and slightly above, no plate, no cabbage. | | | 2b 목표 단어. word-tonkatsu(길쭉한 한 조각)와 모양이 달라야 한다: 두툼한 동그란 조각 |
 | 2b | おろし | 간 무를 올린 | 필요 | 2 | word-oroshi | A round golden panko-crusted fillet cutlet with a small white mound of grated daikon radish on top and a few thin moss olive scallion rings, seen from the front and slightly above, no plate. | | | 단독 품명이 아니라 앞에 붙는 말(おろしひれかつ). 그림은 "간 무를 올린 돈가스" |
 | 2b | ごはん | 밥 | 필요 | 1 | word-gohan | A small round dark indigo rice bowl filled with a soft dome of white rice, seen from the front and slightly above, no chopsticks, no steam. | 김 | | 여행 중 정식마다 나오는 말 |
-| 2b | おかわり | 리필 | 없음 | 3 | | | | | 행동을 가리키는 말이라 그림(빈 그릇, 밥통)이 "그릇", "밥"으로 읽힌다. 아이템 おひつ와도 헷갈림 |
+| 2b | おかわり | 리필 | 필요 | 3 | word-okawari | An empty dark indigo rice bowl seen from the front and slightly above, the inside bare except for a few single white rice grains stuck to its inner wall, with a flat pale wood shamoji rice paddle resting beside the bowl, leaning against it. | | | 방식 C. 빈 공기(밥알 몇 개)와 밥주걱으로 "더 담는다"를 보인다. word-gohan(밥 담긴 공기)과는 빈 그릇과 주걱으로 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 
 ### 2.3 장면 3 소바·우동집
 
@@ -74,8 +74,8 @@
 | 3a | うどん | 우동 | 필요 | 1 | word-udon | A deep round dark indigo bowl of hot udon: thick glossy white udon noodles in light brown broth with a few thin moss olive scallion rings, seen from the front and slightly above, no chopsticks, no steam. | 김 | | 굵고 흰 면. word-soba와 면 굵기·색으로 구분 |
 | 3a | そば | 메밀국수 | 필요 | 1 | word-soba | A deep round dark indigo bowl of hot soba: thin light brown buckwheat noodles in dark brown broth with a few thin moss olive scallion rings, seen from the front and slightly above, no chopsticks, no steam. | 김 | | 가는 갈색 면. 면에 옅은 회색을 쓰면 바탕 지우기에서 지워질 수 있어 light brown으로 적음 |
 | 3b | きつね | 유부 올린 | 필요 | 1 | word-kitsune | (재사용. 원래 Subject는 `item-art/source/kitsune.json`) | 김 | `docs/design/item-art/source/kitsune.png` 복사 | 김이 그려져 있지 않아 Lottie 김을 얹을 수 있다. 리워드 아이템 `kitsune`(손)와 같은 그림 (4.3) |
-| 3b | かけ | 국물만 부은 기본 | 없음 | 3 | | | | | 고명 없는 소바·우동이라 그림이 word-udon, word-soba와 같아진다. "아무것도 안 올린"은 그림으로 드러나지 않는다 |
-| 3b | おかめ | 어묵 등을 올린 | 필요 | 2 | word-okame | A deep round dark indigo bowl of soba topped with several separate toppings arranged in a ring: pink-and-white kamaboko fish cake slices, a brown simmered shiitake, a yellow omelet slice, seen from the front and slightly above, no steam. | 김 | | **확인 필요.** 고명 구성은 해설 기사 한 곳뿐이다(giri-lines.md). 확인 뒤 그린다. 고명을 얼굴 모양으로 놓지 않는다(물건에 얼굴 금지) |
+| 3b | かけ | 국물만 부은 기본 | 필요 | 3 | word-kake | A deep round pale cream ceramic bowl of plain kake soba: light brown thin buckwheat noodles neatly folded in clear amber broth, the noodles and broth alone in the bowl with a smooth plain surface, seen from the front and slightly above. | 김 | | 방식 B. 고명 없이 맑은 국물과 면만. 크림색 그릇으로 word-soba·word-udon(남색 그릇, 파 고명)과 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
+| 3b | おかめ | 어묵 등을 올린 | 필요 | 2 | word-okame | A deep round dark indigo bowl of soba in clear brown broth, topped with five separate toppings laid side by side: two half-moon slices of white kamaboko fish cake with pink rims placed as a pair, one round narutomaki slice with a pink spiral, one brown simmered shiitake cap with a cross cut on top, and a small bundle of green spinach, seen from the front and slightly above, no steam. | 김 | | 방식 B. 고명 구성은 docs/research/okame-toppings.md(가마보코 한 쌍, 나루토, 표고, 시금치). 고명을 얼굴 모양으로 놓지 않는다(물건에 얼굴 금지) |
 | 3b | わかめ | 미역 올린 | 필요 | 2 | word-wakame | A deep round dark indigo bowl of hot udon with thick white noodles, topped with a heap of dark olive (#34402F) wakame seaweed, seen from the front and slightly above, no steam. | 김 | | 미역은 초록이 넓어지기 쉬워 김 색으로 적음 |
 | 3b | たぬき | 튀김 부스러기 올린 | 필요 | 2 | word-tanuki | A deep round dark indigo bowl of hot soba with thin light brown noodles, topped with a heap of small crunchy golden tempura bits and a few scallion rings, seen from the front and slightly above, no steam. | 김 | | 간토 기준 그림. 간사이에서는 가리키는 것이 다르다(giri-lines.md) |
 | 3b | ざる | 채반에 담은 찬 면 | 필요 | 1 | word-zaru | A square flat bamboo slatted zaru tray in warm wood brown with a neat heap of cold thin light brown soba noodles on it and a few thin dark nori strips on top, seen from the front and slightly above, no dipping cup. | | | 장면 그림(thumb-soba)도 자루소바지만 칸색 바탕이라 새로 그림 |
@@ -87,25 +87,25 @@
 | 4a | えき | 역 | 필요 | 1 | word-eki | A small Japanese local train station building seen from the front: pale cream walls, a dark indigo tiled roof, a round clock above the open entrance, a blank plain board where the station name would be. | | | 리워드 배경 `eki`(승강장)와 대상이 겹치지만 구도가 다르다 (4.1 규칙 2) |
 | 4a | おつり | 거스름돈 | 필요 | 1 | word-otsuri | A small rounded metal change tray in pale sky blue holding three Japanese coins: one warm yellow coin with a round center hole and two pale cream silver coins, seen from the front and slightly above, no numbers on the coins. | 떨어짐 (동전) | | 발매기·자판기에서 늘 보는 말. 확인 필요(hiragana-allocation.md [지식]) |
 | 4a | きっぷうりば | 표 파는 곳 | 필요 | 1 | word-kippuuriba | A Japanese train ticket vending machine seen from the front: a pale cream boxy machine with a blank pale sky blue touch screen, a round coin slot, a narrow ticket slot, and a few blank round buttons, no text, no numbers. | | | 아이템 `kippu`(표 한 장)를 쓰면 "표"로 읽혀 "파는 곳"이 드러나지 않는다 |
-| 4b | のりかえ | 환승 | 없음 | 3 | | | | | 갈아탐이라는 행동이라 그림(전철 두 대, 화살표)이 "전철"로 읽힌다 |
-| 4b | こちら | 이쪽 | 없음 | 3 | | | | | 방향을 가리키는 기능어. 화살표 그림은 어느 쪽이 맞는지 오해를 만든다 |
+| 4b | のりかえ | 환승 | 필요 | 3 | word-norikae | A wide horizontal rectangular train station guide sign board hanging from two short thin rods at the top: a plain white face with one thick soft orange band along its top edge, the large white area below the band completely plain and empty, front view, flat. | | | 방식 A. 흰 판과 주황 띠의 환승 안내판(모델은 빈 판만 그림)에 のりかえ를 KanjiVG 획으로 합성. 글자가 뜻이라 글자를 보인다. 2026-11-15 사용자 결정으로 채움(3차 배치) |
+| 4b | こちら | 이쪽 | 필요 | 3 | word-kochira | A wooden direction signpost: one wide horizontal pale light wood board shaped like a big arrow pointing to the right, with a pointed right end and a straight left end, mounted on a short warm wood brown post, the board face plain and empty, front view. | | | 방식 A. 화살표 모양 나무 판에 こちら를 합성. 방향은 판 모양(오른쪽 끝이 뾰족)이 보이고 따로 화살표를 그리지 않는다. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 4b | のりば | 타는 곳 | 필요 | 2 | word-noriba | A short section of a train platform edge with a yellow tactile paving strip, and the side of a pale cream commuter train with an open door stopped beside it, seen from the front at a slight angle, no signs. | | | word-eki와 구분되게 승강장 끝과 열린 문 |
-| 4b | でぐち | 출구 | 없음 | 3 | | | | | 문 그림은 입구와 출구가 같아진다. 표지판의 글자 자체가 뜻이라 그림이 뜻을 흐린다 |
-| 4b | いりぐち | 입구 | 없음 | 3 | | | | | でぐち와 같은 이유 |
+| 4b | でぐち | 출구 | 필요 | 3 | word-deguchi | A wide horizontal rectangular train station exit sign board in bright warm yellow, hanging from two short thin rods at the top, the whole yellow face plain and empty, front view, flat. | | | 방식 A. 노란 역 출구 표지판(빈 판)에 でぐち를 합성. 탁점은 바탕 글자에 두 획을 더해 그린다(획 데이터는 기본 46자). 2026-11-15 사용자 결정으로 채움(3차 배치) |
+| 4b | いりぐち | 입구 | 필요 | 3 | word-iriguchi | A wide horizontal rectangular train station entrance sign board in solid dark indigo, hanging from two short thin rods at the top, the whole dark indigo face plain and empty, front view, flat. | | | 방식 A. でぐち와 같은 모양의 남색 판에 크림색 いりぐち를 합성. 판 색(노랑/남색)으로 でぐち와 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 
 ### 2.5 장면 5 신사·축제
 
 | 단계 | 단어 | 뜻 | 그림 | 우선순위 | 파일 | Subject | 움직임 후보 | 재사용 | 비고 |
 |---|---|---|---|---|---|---|---|---|---|
 | 5a | おまもり | 부적 | 필요 | 1 | word-omamori | One small Japanese omamori charm: a flat rectangular soft orange-red brocade pouch with a simple warm yellow pattern and a pointed top tied with a looped cord and knot, front view, upright, blank front with no characters. | 흔들림 (끈) | | 확인 필요(현지 표기). 예전 리워드 아이템 후보였으나 빠져 그림이 없다 |
-| 5a | おまいり | 참배 | 없음 | 3 | | | | | 행동을 가리키는 말. 새전함·방울 그림은 "새전함", "방울"로 읽힌다 |
+| 5a | おまいり | 참배 | 필요 | 3 | word-omairi | A Japanese shrine offering spot seen from the front: a wide warm wood brown saisen offering box with a slatted top on the ground, and above it one round golden suzu bell hanging from a short wooden beam, with a thick braided rope in soft orange-red and white hanging straight down from the bell in front of the box. | | | 방식 C. 새전함, 그 위 방울과 굵은 줄. 참배하는 자리를 물건으로 보인다(사람 없음). 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 5a | おみくじ | 운세 제비 | 필요 | 1 | word-omikuji | Several narrow white paper fortune slips folded lengthwise and tied in knots along a short horizontal warm wood brown rail, front view, blank paper with no writing. | 팔랑임 (종이) | | 확인 필요(현지 표기). 신사에서 묶어 둔 모습 |
-| 5a | えんむすび | 인연 맺기 | 없음 | 3 | | | | | 기원을 가리키는 추상어. 하트·붉은 실 그림은 "사랑", "실"로 읽힌다 |
+| 5a | えんむすび | 인연 맺기 | 필요 | 3 | word-enmusubi | One heart-shaped wooden ema prayer plaque in pale warm wood with a small peaked wooden roof edge on top, hanging from a short thin soft orange-red cord tied in a small bow, the wooden face plain, front view. | | | 방식 C. 하트 모양 나무 에마와 붉은 끈. 인연 기원 신사에서 보는 물건. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 5b | たこやき | 다코야키 | 필요 | 1 | word-takoyaki | Six round takoyaki balls in a boat-shaped warm wood brown tray, covered with dark brown sauce and thin white mayonnaise zigzags, a few tiny moss olive aonori flakes, one wooden pick, seen from the front and slightly above, no bonito flakes, no steam. | 가쓰오부시 흔들림, 김 | | 축제 노점의 대표. 가쓰오부시는 Lottie 레이어로 얹으므로 정지 그림에서 뺌 |
 | 5b | おまつり | 축제 | 필요 | 2 | word-omatsuri | One round paper chochin lantern in soft orange-red with a pale cream band at the top and bottom, hanging from a short cord, front view, blank with no characters. | 흔들림, 불빛 깜박임 | | 확인 필요(현지 표기). 축제 자체는 장면이라 노점 초롱 하나로 대신함 |
-| 5b | あたり | 당첨 | 없음 | 3 | | | | | 제비뽑기 결과. 제비 그림은 あたり와 はずれ가 같아져 뜻을 흐린다 |
+| 5b | あたり | 당첨 | 필요 | 3 | word-atari | One single rectangular paper lottery slip lying flat, pale cream paper with a thick soft orange-red border frame around all four edges, the large inner cream area plain and empty, front view, flat like a card. | | | 방식 A. 붉은 테의 제비 종이 한 장(빈 칸)에 あたり를 합성. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 5b | やきそば | 볶음국수 | 필요 | 2 | word-yakisoba | A heap of brown sauce-fried yakisoba noodles with small pieces of cabbage and a little soft orange-red pickled ginger on top, in a rectangular white paper food tray, seen from the front and slightly above, no steam. | 김 | | |
-| 5b | はずれ | 꽝 | 없음 | 3 | | | | | あたり와 같은 이유 |
+| 5b | はずれ | 꽝 | 필요 | 3 | word-hazure | One single rectangular paper lottery slip lying flat, pale cream paper with a thick muted gray-blue border frame around all four edges, the large inner cream area plain and empty, front view, flat like a card. | | | 방식 A. 회청색 테의 제비 종이 한 장에 はずれ를 합성. 테 색과 글자로 あたり와 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 5b | りんごあめ | 사과 사탕 | 필요 | 1 | word-ringoame | One whole candy apple coated in a smooth soft orange-red candy shell, on a straight wooden stick pointing down, upright, front view. | | | 노점 깃발 근거 있음. 빨강은 주황빨강으로 |
 
 ### 2.6 장면 6 이자카야
@@ -115,9 +115,9 @@
 | 6a | やきとり | 닭꼬치 | 필요 | 1 | word-yakitori | One bamboo skewer with four glazed grilled chicken pieces in warm brown, upright with the bare stick end at the bottom, front view, no plate. | 김 (연기) | | 장면 그림(thumb-izakaya)은 접시 위 여러 꼬치. 단어 그림은 꼬치 하나 |
 | 6a | つくね | 다진 닭고기 꼬치 | 필요 | 1 | word-tsukune | One bamboo skewer with a single long oval glazed chicken meatball in shiny dark brown sauce, upright with the bare stick end at the bottom, front view, no plate. | | | word-yakitori와 구분되게 길쭉한 경단 하나 |
 | 6a | かわ | 닭껍질 꼬치 | 필요 | 2 | word-kawa | One bamboo skewer threaded with wavy, crispy golden-brown folded chicken skin, upright with the bare stick end at the bottom, front view, no plate. | | | |
-| 6a | むね | 닭가슴살 | 없음 | 3 | | | | | 꼬치로 그리면 word-yakitori와 구분되지 않는다. 메뉴 이름 앞에 붙는 꼴이라 단독 그림이 맞지 않음 |
-| 6b | ささみ | 닭안심 | 없음 | 3 | | | | | 꼬치로 그리면 word-yakitori와 구분되지 않는다 |
-| 6b | なんこつ | 오돌뼈 | 없음 | 3 | | | | | 꼬치로 그리면 구분되지 않고, 연골을 크게 그리면 무엇인지 알기 어렵다 |
+| 6a | むね | 닭가슴살 | 필요 | 3 | word-mune | One bamboo skewer of salt-grilled chicken breast: three large plump chunks of pale cream-white chicken meat, each chunk much bigger than a bite, with only a few light golden grill marks, threaded in a straight vertical line, upright with the bare stick end at the bottom, front view. | | | 방식 B. 크고 흰 살 덩이 세 개의 소금구이 꼬치. word-yakitori(갈색 소스 네 조각)와 색·덩이 크기로 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
+| 6b | ささみ | 닭안심 | 필요 | 3 | word-sasami | One bamboo skewer of chicken tenderloin: one long narrow strip of pale cream-white chicken threaded lengthwise along the stick, lightly seared, with three small dabs of green wasabi paste dotted on top of the white meat, upright with the bare stick end at the bottom, front view. | | | 방식 B. 길쭉한 흰 살 한 줄 꼬치 위에 와사비 점. 와사비가 ささみ의 단서. 2026-11-15 사용자 결정으로 채움(3차 배치) |
+| 6b | なんこつ | 오돌뼈 | 필요 | 3 | word-nankotsu | One bamboo skewer of chicken cartilage: eight small pale cream-white triangular pieces of crunchy cartilage with light golden edges packed tightly one after another along the stick, much smaller than chicken chunks, upright with the bare stick end at the bottom, front view. | | | 방식 B. 작고 흰 삼각 연골 조각이 여러 개 꿰인 꼬치. 조각 수와 크기로 다른 꼬치와 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 6b | しいたけ | 표고버섯 | 필요 | 2 | word-shiitake | One bamboo skewer with two grilled shiitake mushroom caps in warm brown, each cap with a cross-shaped cut on top, upright with the bare stick end at the bottom, front view, no plate. | | | |
 | 6b | おにぎり | 주먹밥 | 필요 | 1 | word-onigiri | One grilled yaki onigiri: a rounded triangle of rice with a toasty golden-brown soy glaze and a few darker grill marks, no nori, front view, upright. | | | 기리(김 두른 흰 오니기리)와 헷갈리지 않게 구운 오니기리. 이자카야 마무리 메뉴(확인 필요) |
 | 6b | うずら | 메추리알 꼬치 | 필요 | 2 | word-uzura | One bamboo skewer with four small boiled quail eggs, pale cream with a light brown glaze, upright with the bare stick end at the bottom, front view, no plate. | | | |
@@ -129,7 +129,7 @@
 | 7a | ゆ | 목욕탕 | 필요 | 1 | word-yu | A short dark indigo split noren curtain with two panels hanging from a thin warm wood brown rod, front view, with a large plain pale cream circle in the middle of the cloth left completely empty. | 흔들림 (노렌 아랫단) | | **그림 속 가나: ゆ.** 가운데 원에 KanjiVG 획으로 합성(brief.md 1.2). 리워드 배경 `yu`와 대상이 겹치지만 구도가 다르다(4.1 규칙 2). 확인 필요 |
 | 7a | おんせん | 온천 | 필요 | 1 | word-onsen | A small round outdoor hot spring pool seen from the front and slightly above: a ring of rounded warm beige-brown stones around pale sky blue water, no people, no steam. | 김, 물결 | | 확인 필요(현지 표기). 돌에 옅은 회색을 쓰면 바탕 지우기에서 지워질 수 있어 beige-brown으로 적음 |
 | 7a | ゆかた | 유카타 | 필요 | 1 | word-yukata | A cotton yukata robe with a simple dark indigo and white pattern, hung open flat on a horizontal warm wood brown kimono hanger with a narrow soft orange-red sash draped over it, front view. | 흔들림 | | 확인 필요(현지 표기) |
-| 7b | ぬる湯 | 미지근한 탕 | 없음 | 3 | | | | | "미지근함"은 그림으로 드러나지 않는다. 그리면 word-onsen과 같아진다 |
+| 7b | ぬる湯 | 미지근한 탕 | 필요 | 3 | word-nuruyu | A wooden hot spring bath sign: one large horizontal pale light wood plank on a short warm wood brown post, standing in front of the rounded stone edge of a small bath with pale sky blue water, the plank big and in front, its face plain and empty, front view. | | | 방식 A. 탕 옆 나무 팻말(빈 판)에 ぬる를 합성. 湯은 획 데이터가 없어 넣지 않는다. 팻말로 word-onsen과 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 7b | ひのき | 편백나무 | 필요 | 2 | word-hinoki | (재사용) | 김 | `word-ofuro` 복사 (2.8) | ひのき風呂(편백 욕조)로 쓰는 말이라 word-ofuro의 편백 욕조를 같이 쓴다. 새로 그리지 않음 |
 | 7b | くつをぬいでください | 신발을 벗어 주세요 | 필요 | 2 | word-kutsuonuide | A small section of a Japanese entrance: a low stone floor with a pair of sneakers placed neatly side by side, and a raised warm wood brown step behind it with a pair of pale cream slippers on top, seen from the front at a slight angle. | | | 공통 끝 문장(OBJECT_RULES)의 "no floor"를 뺀다. 단(段)이 뜻이라 필요. 문구 처리는 PLAN.md 8번 미정 |
 
@@ -137,8 +137,8 @@
 
 | 단계 | 단어 | 뜻 | 그림 | 우선순위 | 파일 | Subject | 움직임 후보 | 재사용 | 비고 |
 |---|---|---|---|---|---|---|---|---|---|
-| 8a | ようこそ | 환영합니다 | 없음 | 3 | | | | | 인사말. 절하는 사람 그림은 금지(사람 없음)이고 다른 그림은 뜻을 흐린다 |
-| 8a | おもてなし | 환대 | 없음 | 3 | | | | | 추상어 |
+| 8a | ようこそ | 환영합니다 | 필요 | 3 | word-youkoso | The entrance of a Japanese ryokan inn seen from the front: a short split noren curtain of solid deep warm brown cloth in three panels hanging from a wooden rod over a wooden sliding door frame, and one round pale cream paper lantern hanging at the side, the cloth and lantern plain. | | | 방식 C. 료칸 현관의 갈색 노렌과 초롱(글자 없음). word-yu(남색 노렌, ゆ)와 색과 초롱으로 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
+| 8a | おもてなし | 환대 | 필요 | 3 | word-omotenashi | A welcome tea set on a small round dark lacquer tray seen from the front and slightly above: one pale cream yunomi teacup without a handle filled with pale golden tea, and beside it a small plate with one round soft wagashi sweet in very pale pink and white. | | | 방식 C. 쟁반 위 찻잔과 화과자. 손님 맞이 차림. word-houjicha(찻잔 하나), word-oheya(상과 방석)와 구분. 2026-11-15 사용자 결정으로 채움(3차 배치) |
 | 8a | ほうじ茶 | 호지차 | 필요 | 1 | word-houjicha | One cylindrical Japanese yunomi teacup without a handle, pale cream with a thin dark indigo band, filled with reddish warm brown roasted tea, seen from the front and slightly above so the tea surface shows, no saucer, no steam. | 김 | | 장면 그림(thumb-ryokan)은 찻주전자와 찻잔. 단어 그림은 찻잔 하나 |
 | 8b | おふろ | 욕실, 목욕 | 필요 | 1 | word-ofuro | A square Japanese bathtub made of pale warm wood planks (hinoki cypress), filled with pale sky blue water, a small round wooden bucket resting on the rim, seen from the front and slightly above, no steam. | 김 | | ひのき(2.7)가 이 그림을 같이 쓴다 |
 | 8b | おへや | 객실 | 필요 | 2 | word-oheya | A low square warm wood brown Japanese table with a small teapot and one teacup on it and two flat square floor cushions beside it, resting on a single pale tatami mat, seen from the front and slightly above, no walls. | | | 공통 끝 문장의 "no floor"를 뺀다(다다미 한 장이 뜻의 일부) |
@@ -202,9 +202,17 @@
 | 40 | 7 온천 | word-kutsuonuide | 생성 (no floor 뺌) |
 | 41 | 8 료칸 | word-oheya | 생성 (no floor 뺌) |
 
-### 3.3 우선순위 3 (16개, 그리지 않음)
+### 3.3 우선순위 3 (16개, 3차 배치. 2026-11-15 사용자 결정으로 채움)
 
-おかわり, かけ, のりかえ, こちら, でぐち, いりぐち, おまいり, えんむすび, あたり, はずれ, むね, ささみ, なんこつ, ぬる湯, ようこそ, おもてなし. 이유는 2번 표의 비고. 크게 세 가지다: 행동·기원·인사 같은 추상어(おかわり, のりかえ, おまいり, えんむすび, ようこそ, おもてなし), 짝이 되는 말과 그림이 같아지는 말(でぐち·いりぐち, あたり·はずれ, こちら), 다른 단어 그림과 구분되지 않는 말(かけ, むね, ささみ, なんこつ, ぬる湯).
+처음에는 그리지 않았다(행동·기원·인사 같은 추상어, 짝이 되는 말과 그림이 같아지는 말, 다른 단어 그림과 구분되지 않는 말). 사용자 결정으로 모두 채우면서 그 문제를 아래 세 방식으로 푼다. 단어별 이유는 2번 표의 비고.
+
+| 방식 | 단어 | 하는 일 |
+|---|---|---|
+| A 표지판 + 글자 합성 | でぐち, いりぐち, のりかえ, こちら, ぬる湯, あたり, はずれ | 모델은 글자 없는 빈 판만 그린다. `tools/place_word_art.py`가 판의 빈 면을 찾아 KanjiVG 획으로 가나를 합성한다. 짝(でぐち·いりぐち, あたり·はずれ)은 판·테 색과 글자로 구분한다. 湯은 획 데이터가 없어 ぬる만 넣는다 |
+| B 부위·구성이 보이게 | むね, ささみ, なんこつ, かけ (+ おかめ) | 꼬치는 살의 색·덩이 크기·모양(큰 흰 덩이, 길쭉한 한 줄과 와사비, 작은 삼각 연골)으로 word-yakitori와 가른다. かけ는 고명 없는 맑은 국물과 크림색 그릇 |
+| C 장면의 물건 | おかわり, おまいり, えんむすび, ようこそ, おもてなし | 그 말을 쓰는 자리의 물건(빈 공기와 주걱, 새전함과 방울, 하트 에마, 료칸 현관 노렌과 초롱, 쟁반 위 차와 화과자) |
+
+순서: 장면 순서대로 한 번에 한 장(`gen_word_art.py --only ...`). おかめ(우선순위 2)도 이 배치에서 함께 그린다.
 
 ## 4. 리워드 아이템과의 관계
 

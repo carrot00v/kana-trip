@@ -19,14 +19,18 @@
    - 보통 그림: 긴 변을 캔버스의 0.80으로, 가로·세로 가운데.
    - 김 그림(tools/word_motion.json에서 움직임에 steam이 있는 단어): 긴 변을 0.72로, 가로 가운데, 아래 끝을 0.90에.
      김이 오를 위 공간을 남긴다.
-3. 그림 속 가나가 있는 단어(KANA_IN_ART, 지금 yu)는 그림의 빈 원(옅은 크림색의 둥근 면 가운데 가장 큰 것)을 찾아
-   그 안에 KanjiVG 획으로 가나를 합성한다(place_item_art.py의 kana_glyph, item-art/brief.md 1.2).
-   원을 그림에서 찾으므로 그림을 다시 골라도 좌표를 고칠 필요가 없다. 원을 못 찾으면 멈춘다.
+3. 그림 속 가나가 있는 단어(KANA_IN_ART)는 그림 안의 빈 자리를 찾아 KanjiVG 획으로 가나를 합성한다
+   (place_item_art.py의 kana_glyph, item-art/brief.md 1.2). 이미지 모델에는 글자를 그리게 하지 않는다.
+   - yu: 빈 원(옅은 크림색의 둥근 면 가운데 가장 큰 것) 가운데에 한 글자.
+   - 표지판·제비 종이(panel이 있는 단어, word-images.md 3.3 방식 A): 판 색(HSV 범위)인 칸으로만 된 가장 넓은
+     사각형을 찾아 그 가운데에 가로 한 줄로. 탁음(で, ぐ, ず)은 kana_glyph가 바탕 글자에 탁점 두 획을 더해 그린다.
+   자리를 그림에서 찾으므로 그림을 다시 골라도 좌표를 고칠 필요가 없다. 자리를 못 찾으면 멈춘다.
 4. 플랫폼에 묶이지 않는 결과를 build/word-art/word-{이름}.png에 두고(안드로이드용, tools/build_word_lottie.py도 이것을 쓴다),
    iOS 에셋 카탈로그 KanaTrip/Assets.xcassets/WordArt-{이름}.imageset(Single Scale)에 복사한다.
 
 필요: Pillow (tools/requirements.txt)
 """
+import colorsys
 import json
 import shutil
 import sys
@@ -63,8 +67,12 @@ SPECK_GRID = 256
 
 # 그림 속 가나 (word-images.md 1번 "글자", item-art/brief.md 1.2). 그림의 빈 원 안에 합성한다.
 # 색은 남색 노렌 위 크림색 원에 진갈색 외곽선 색(えき 역명판과 같음). 크기는 원 지름에 대한 글자 칸 한 변의 비율.
+# panel: 글자를 놓을 판의 색 범위(HSV, 색상은 도, 채도·밝기는 0~1). fill: 판 사각형에서 글자 줄이 차지하는 비율.
 KANA_IN_ART = {
     "yu": {"text": "ゆ", "color": "#4A2219", "scale": 0.74},
+    # 노란 출구 표지판, 진갈색 글자
+    "deguchi": {"text": "でぐち", "color": "#4A2219",
+                "panel": {"hue": [35, 65], "sat": [0.35, 1.0], "val": [0.75, 1.0]}},
 }
 
 
@@ -148,10 +156,99 @@ def find_blank_circle(img: Image.Image) -> tuple[float, float, float] | None:
     return best
 
 
+PANEL_GRID = 4  # 빈 판을 찾을 때 묶어 보는 칸(600px 캔버스에서 4px)
+# 판 글자의 기본값. 176pt로 보일 때 글자 칸이 40pt 넘게 되도록 칸을 겹쳐(KanjiVG 글자는 칸 안에 여백이 있다) 크게 놓고,
+# 획은 아이템 간판(KANA_WIDTH 9/109)보다 굵게 둔다(작게 보여도 획이 뭉개지지 않게).
+PANEL_FILL = 0.9
+PANEL_ADVANCE = 0.8
+PANEL_WIDTH = 11 / 109
+
+
+def panel_mask(img: Image.Image, panel: dict) -> list[list[bool]]:
+    """PANEL_GRID 칸마다 판 색(HSV 범위)인지. 칸 안 픽셀의 90% 이상이 범위 안이어야 판으로 본다."""
+    w, h = img.size
+    data = img.load()
+    hue, sat, val = panel["hue"], panel["sat"], panel["val"]
+    gw, gh = w // PANEL_GRID, h // PANEL_GRID
+    counts = [[0] * gw for _ in range(gh)]
+    for y in range(gh * PANEL_GRID):
+        row = counts[y // PANEL_GRID]
+        for x in range(gw * PANEL_GRID):
+            r, g, b, a = data[x, y]
+            if a < 200:
+                continue
+            hh, ss, vv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            deg = hh * 360
+            in_hue = hue[0] <= deg <= hue[1] if hue[0] <= hue[1] else (deg >= hue[0] or deg <= hue[1])
+            if in_hue and sat[0] <= ss <= sat[1] and val[0] <= vv <= val[1]:
+                row[x // PANEL_GRID] += 1
+    need = PANEL_GRID * PANEL_GRID * 0.9
+    return [[c >= need for c in row] for row in counts]
+
+
+def largest_rectangle(mask: list[list[bool]]) -> tuple[int, int, int, int] | None:
+    """참인 칸만으로 된 가장 넓은 축 정렬 사각형 (x0, y0, x1, y1), 칸 단위, x1·y1은 끝 다음 칸."""
+    if not mask:
+        return None
+    w = len(mask[0])
+    heights = [0] * w
+    best, best_area = None, 0
+    for y, row in enumerate(mask):
+        heights = [heights[x] + 1 if row[x] else 0 for x in range(w)]
+        stack: list[int] = []
+        for x in range(w + 1):
+            cur = heights[x] if x < w else 0
+            while stack and heights[stack[-1]] >= cur:
+                top = stack.pop()
+                hgt = heights[top]
+                left = stack[-1] + 1 if stack else 0
+                area = hgt * (x - left)
+                if area > best_area:
+                    best_area, best = area, (left, y - hgt + 1, x, y + 1)
+            stack.append(x)
+    return best
+
+
+def find_blank_panel(img: Image.Image, panel: dict) -> tuple[float, float, float, float] | None:
+    """그림 안의 빈 판(한 색의 넓은 면)에서 가장 넓은 사각형을 찾아 픽셀 (x0, y0, x1, y1)로 돌려준다."""
+    rect = largest_rectangle(panel_mask(img, panel))
+    if rect is None:
+        return None
+    x0, y0, x1, y1 = rect
+    if (x1 - x0) * (y1 - y0) * PANEL_GRID ** 2 < img.width * img.height * 0.01:
+        return None
+    # 칸 경계에서 한 칸씩 안으로(외곽선에 붙은 가장자리 칸을 피한다)
+    return ((x0 + 1) * PANEL_GRID, (y0 + 1) * PANEL_GRID, (x1 - 1) * PANEL_GRID, (y1 - 1) * PANEL_GRID)
+
+
+def compose_row(img: Image.Image, spec: dict, box: tuple[float, float, float, float]) -> Image.Image:
+    """box 안 가운데에 글자를 가로 한 줄로 놓는다. 글자 칸은 정사각이고 KanjiVG 글자에 여백이 있어 칸을
+    ADVANCE만큼 겹쳐 놓는다. 글자 칸 한 변은 box 높이의 fill, 줄 너비가 box 너비의 fill을 넘지 않게 줄인다."""
+    x0, y0, x1, y1 = box
+    text, fill, advance = spec["text"], spec.get("fill", PANEL_FILL), spec.get("advance", PANEL_ADVANCE)
+    n = len(text)
+    bw, bh = x1 - x0, y1 - y0
+    size = min(bh * fill, bw * fill / (1 + (n - 1) * advance))
+    size = round(size)
+    line = size * (1 + (n - 1) * advance)
+    left = (x0 + x1) / 2 - line / 2 + spec.get("dx", 0) * bw
+    top = (y0 + y1) / 2 - size / 2 + spec.get("dy", 0) * bh
+    out = img.copy()
+    for i, ch in enumerate(text):
+        glyph = kana_glyph(ch, size, spec["color"], spec.get("width", PANEL_WIDTH))
+        out.alpha_composite(glyph, (round(left + i * size * advance), round(top)))
+    return out
+
+
 def compose_kana(name: str, img: Image.Image) -> Image.Image:
     spec = KANA_IN_ART.get(name)
     if spec is None:
         return img
+    if "panel" in spec:
+        box = find_blank_panel(img, spec["panel"])
+        if box is None:
+            raise SystemExit(f"{name}: 글자를 넣을 빈 판을 그림에서 찾지 못했다. KANA_IN_ART의 panel 색 범위를 확인한다")
+        return compose_row(img, spec, box)
     circle = find_blank_circle(img)
     if circle is None:
         raise SystemExit(f"{name}: 가나를 넣을 빈 원을 그림에서 찾지 못했다. 그림을 확인한다")

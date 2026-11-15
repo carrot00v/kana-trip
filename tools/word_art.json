@@ -282,8 +282,9 @@
       "ko": "어묵 등을 올린",
       "priority": 2,
       "scene": 3,
-      "subject": "A deep round dark indigo bowl of soba topped with several separate toppings arranged in a ring: pink-and-white kamaboko fish cake slices, a brown simmered shiitake, a yellow omelet slice, seen from the front and slightly above, no steam.",
-      "hold": "고명 구성 확인 필요(word-images.md 2.3, giri-lines.md). 확인 뒤 hold를 지우고 생성한다"
+      "subject": "A deep round dark indigo bowl of soba in clear brown broth, topped with five separate toppings laid side by side: two half-moon slices of white kamaboko fish cake with pink rims placed as a pair, one round narutomaki slice with a pink spiral, one brown simmered shiitake cap with a cross cut on top, and a small bundle of green spinach, seen from the front and slightly above, no steam.",
+      "method": "B",
+      "note": "Subject는 docs/research/okame-toppings.md의 초안 그대로(가마보코 한 쌍, 나루토, 표고, 시금치). 얼굴 모양으로 놓지 않는다"
     },
     {
       "name": "noriba",
@@ -359,6 +360,164 @@
       "scene": 8,
       "subject": "A low square warm wood brown Japanese table with a small teapot and one teacup on it and two flat square floor cushions beside it, resting on a single pale tatami mat, seen from the front and slightly above, no walls.",
       "allowFloor": true
+    },
+    {
+      "name": "okawari",
+      "kana": "おかわり",
+      "ko": "리필",
+      "priority": 3,
+      "scene": 2,
+      "subject": "An empty dark indigo rice bowl seen from the front and slightly above, the inside bare except for a few single white rice grains stuck to its inner wall, with a flat pale wood shamoji rice paddle resting beside the bowl, leaning against it.",
+      "method": "C"
+    },
+    {
+      "name": "kake",
+      "kana": "かけ",
+      "ko": "국물만 부은 기본",
+      "priority": 3,
+      "scene": 3,
+      "subject": "A deep round pale cream ceramic bowl of plain kake soba: light brown thin buckwheat noodles neatly folded in clear amber broth, the noodles and broth alone in the bowl with a smooth plain surface, seen from the front and slightly above.",
+      "method": "B"
+    },
+    {
+      "name": "norikae",
+      "kana": "のりかえ",
+      "ko": "환승",
+      "priority": 3,
+      "scene": 4,
+      "subject": "A wide horizontal rectangular train station guide sign board hanging from two short thin rods at the top: a plain white face with one thick soft orange band along its top edge, the large white area below the band completely plain and empty, front view, flat.",
+      "method": "A",
+      "kanaInImage": "のりかえ",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+    },
+    {
+      "name": "kochira",
+      "kana": "こちら",
+      "ko": "이쪽",
+      "priority": 3,
+      "scene": 4,
+      "subject": "A wooden direction signpost: one wide horizontal pale light wood board shaped like a big arrow pointing to the right, with a pointed right end and a straight left end, mounted on a short warm wood brown post, the board face plain and empty, front view.",
+      "method": "A",
+      "kanaInImage": "こちら",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+    },
+    {
+      "name": "deguchi",
+      "kana": "でぐち",
+      "ko": "출구",
+      "priority": 3,
+      "scene": 4,
+      "subject": "A wide horizontal rectangular train station exit sign board in bright warm yellow, hanging from two short thin rods at the top, the whole yellow face plain and empty, front view, flat.",
+      "method": "A",
+      "kanaInImage": "でぐち",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+    },
+    {
+      "name": "iriguchi",
+      "kana": "いりぐち",
+      "ko": "입구",
+      "priority": 3,
+      "scene": 4,
+      "subject": "A wide horizontal rectangular train station entrance sign board in solid dark indigo, hanging from two short thin rods at the top, the whole dark indigo face plain and empty, front view, flat.",
+      "method": "A",
+      "kanaInImage": "いりぐち",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+    },
+    {
+      "name": "omairi",
+      "kana": "おまいり",
+      "ko": "참배",
+      "priority": 3,
+      "scene": 5,
+      "subject": "A Japanese shrine offering spot seen from the front: a wide warm wood brown saisen offering box with a slatted top on the ground, and above it one round golden suzu bell hanging from a short wooden beam, with a thick braided rope in soft orange-red and white hanging straight down from the bell in front of the box.",
+      "method": "C"
+    },
+    {
+      "name": "enmusubi",
+      "kana": "えんむすび",
+      "ko": "인연 맺기",
+      "priority": 3,
+      "scene": 5,
+      "subject": "One heart-shaped wooden ema prayer plaque in pale warm wood with a small peaked wooden roof edge on top, hanging from a short thin soft orange-red cord tied in a small bow, the wooden face plain, front view.",
+      "method": "C"
+    },
+    {
+      "name": "atari",
+      "kana": "あたり",
+      "ko": "당첨",
+      "priority": 3,
+      "scene": 5,
+      "subject": "One single rectangular paper lottery slip lying flat, pale cream paper with a thick soft orange-red border frame around all four edges, the large inner cream area plain and empty, front view, flat like a card.",
+      "method": "A",
+      "kanaInImage": "あたり",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+    },
+    {
+      "name": "hazure",
+      "kana": "はずれ",
+      "ko": "꽝",
+      "priority": 3,
+      "scene": 5,
+      "subject": "One single rectangular paper lottery slip lying flat, pale cream paper with a thick muted gray-blue border frame around all four edges, the large inner cream area plain and empty, front view, flat like a card.",
+      "method": "A",
+      "kanaInImage": "はずれ",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART)"
+    },
+    {
+      "name": "mune",
+      "kana": "むね",
+      "ko": "닭가슴살",
+      "priority": 3,
+      "scene": 6,
+      "subject": "One bamboo skewer of salt-grilled chicken breast: three large plump chunks of pale cream-white chicken meat, each chunk much bigger than a bite, with only a few light golden grill marks, threaded in a straight vertical line, upright with the bare stick end at the bottom, front view.",
+      "method": "B"
+    },
+    {
+      "name": "sasami",
+      "kana": "ささみ",
+      "ko": "닭안심",
+      "priority": 3,
+      "scene": 6,
+      "subject": "One bamboo skewer of chicken tenderloin: one long narrow strip of pale cream-white chicken threaded lengthwise along the stick, lightly seared, with three small dabs of green wasabi paste dotted on top of the white meat, upright with the bare stick end at the bottom, front view.",
+      "method": "B"
+    },
+    {
+      "name": "nankotsu",
+      "kana": "なんこつ",
+      "ko": "오돌뼈",
+      "priority": 3,
+      "scene": 6,
+      "subject": "One bamboo skewer of chicken cartilage: eight small pale cream-white triangular pieces of crunchy cartilage with light golden edges packed tightly one after another along the stick, much smaller than chicken chunks, upright with the bare stick end at the bottom, front view.",
+      "method": "B"
+    },
+    {
+      "name": "nuruyu",
+      "kana": "ぬる湯",
+      "ko": "미지근한 탕",
+      "priority": 3,
+      "scene": 7,
+      "subject": "A wooden hot spring bath sign: one large horizontal pale light wood plank on a short warm wood brown post, standing in front of the rounded stone edge of a small bath with pale sky blue water, the plank big and in front, its face plain and empty, front view.",
+      "method": "A",
+      "kanaInImage": "ぬる",
+      "note": "빈 판에 KanjiVG 획으로 글자를 합성한다(tools/place_word_art.py KANA_IN_ART). 湯은 획 데이터가 없어 ぬる만"
+    },
+    {
+      "name": "youkoso",
+      "kana": "ようこそ",
+      "ko": "환영합니다",
+      "priority": 3,
+      "scene": 8,
+      "subject": "The entrance of a Japanese ryokan inn seen from the front: a short split noren curtain of solid deep warm brown cloth in three panels hanging from a wooden rod over a wooden sliding door frame, and one round pale cream paper lantern hanging at the side, the cloth and lantern plain.",
+      "method": "C"
+    },
+    {
+      "name": "omotenashi",
+      "kana": "おもてなし",
+      "ko": "환대",
+      "priority": 3,
+      "scene": 8,
+      "subject": "A welcome tea set on a small round dark lacquer tray seen from the front and slightly above: one pale cream yunomi teacup without a handle filled with pale golden tea, and beside it a small plate with one round soft wagashi sweet in very pale pink and white.",
+      "method": "C"
     }
   ]
 }

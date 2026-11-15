@@ -59,16 +59,18 @@ struct SceneContentTests {
         #expect(word.count(in: library.kana(through: step)) == word.kanaUnits.count)
     }
 
-    /// 단어 그림 이름: 그림이 있는 44개 단어에만 있다. ひのき는 word-ofuro를 같이 쓴다 (word-images.md, word-art.md 9.2).
+    /// 단어 그림 이름: 60개 단어 모두에 있다(2026-11-15 그림 없는 단어도 채우기로). ひのき는 word-ofuro를 같이 쓴다 (word-images.md, word-art.md 9.2).
     @Test func wordArtNames() {
         let words = library.steps.flatMap(\.words)
-        #expect(words.count { $0.art != nil } == 44)
+        #expect(words.count { $0.art != nil } == 60)
         let art = Dictionary(uniqueKeysWithValues: words.map { ($0.text, $0.art) })
         #expect(art["とんかつ"] == "tonkatsu")
         #expect(art["きつね"] == "kitsune")
         #expect(art["くつをぬいでください"] == "kutsuonuide")
         #expect(art["ひのき"] == "ofuro")
-        #expect(art["おかわり"] == .some(nil))
+        #expect(art["おかわり"] == "okawari")
+        #expect(art["ぬる湯"] == "nuruyu")
+        #expect(art["ようこそ"] == "youkoso")
     }
 }
 

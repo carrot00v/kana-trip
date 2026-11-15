@@ -145,7 +145,7 @@ def check_word_art(scenes) -> int:
         if art is not None:
             count += 1
             check(re.fullmatch(r"[a-z]+", art) is not None, f"{w['text']}: art 이름은 소문자 로마자만 ({art!r})")
-    check(count == 44, f"art가 있는 단어 {count}개 (word-images.md 44개)")
+    check(count == 60, f"art가 있는 단어 {count}개 (word-images.md 60개 모두)")
     return count
 
 

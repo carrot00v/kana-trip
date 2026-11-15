@@ -21,6 +21,7 @@ import colorsys
 import json
 import shutil
 import sys
+import unicodedata
 from pathlib import Path
 
 from PIL import Image, ImageColor, ImageDraw
@@ -50,6 +51,9 @@ THUMB_VIEW = {
 
 KANA_COLOR = "#FFFDF7"              # 밥 흰색, 남색 노렌 위. 밝은 간판은 kanaBoxes의 "color"로 바꾼다
 KANA_WIDTH = 9 / 109                # 획 굵기 (KanjiVG 109 좌표 기준). 굵은 간판 글씨
+# 탁점 두 획(109 좌표, 위에서 아래로). 앱 획 데이터(hiragana_strokes.json)는 기본 46자뿐이라 탁음은 바탕 글자에 더해 그린다.
+DAKUTEN = [[[84.0, 9.0], [89.0, 21.0]], [[95.0, 5.0], [100.0, 17.0]]]
+DAKUTEN_BASE_SCALE = 0.86
 
 
 def px(v: float) -> int:
@@ -92,9 +96,24 @@ def crop_view(layer: Image.Image, view: tuple) -> Image.Image:
     return out.resize((THUMB_PX, THUMB_PX), Image.LANCZOS)
 
 
+def glyph_strokes(ch: str, data: dict) -> list[list[list[float]]]:
+    """한 글자의 획(109 좌표). 탁음(で, ぐ, ず…)은 획 데이터에 없으므로 바탕 글자(て, く, す)에 DAKUTEN을 더한다.
+    바탕 글자는 DAKUTEN_BASE_SCALE만큼 왼쪽 아래로 줄여 오른쪽 위에 점 자리를 낸다(인쇄 글꼴의 탁음과 같은 자리)."""
+    if ch in data:
+        return data[ch]
+    base, *marks = unicodedata.normalize("NFD", ch)
+    if marks != ["゙"] or base not in data:
+        raise KeyError(f"획 데이터에 없는 글자: {ch}")
+    s, ox, oy = DAKUTEN_BASE_SCALE, 4.0, 109 * (1 - DAKUTEN_BASE_SCALE) - 2.0
+    shrunk = [[[x * s + ox, y * s + oy] for x, y in stroke] for stroke in data[base]]
+    return shrunk + DAKUTEN
+
+
 def kana_glyph(text: str, size: int, color: str = KANA_COLOR, width: float = KANA_WIDTH) -> Image.Image:
-    """KanjiVG 획(109 좌표)으로 그린 가나 한 칸(size×size 투명 PNG). 단어 그림(place_word_art.py)도 쓴다."""
+    """KanjiVG 획(109 좌표)으로 그린 가나 한 칸(size×size 투명 PNG). 단어 그림(place_word_art.py)도 쓴다.
+    text가 여러 글자면 한 칸에 겹쳐 그린다(한 줄로 늘어놓는 일은 부르는 쪽이 한다)."""
     data = {k["char"]: k["strokes"] for k in json.loads(STROKES.read_text())["kana"]}
+    data = {ch: glyph_strokes(ch, data) for ch in text}
     view = 109
     fill = ImageColor.getcolor(color, "RGBA")
     # 크게 그린 뒤 줄여서 가장자리를 부드럽게
@@ -108,7 +127,8 @@ def kana_glyph(text: str, size: int, color: str = KANA_COLOR, width: float = KAN
             pts = [(x * k, y * k) for x, y in stroke]
             d.line(pts, fill=fill, width=line, joint="curve")
             r = line / 2
-            for cx, cy in (pts[0], pts[-1]):
+            # 끝점뿐 아니라 꺾이는 점마다 원을 찍어 선 이음매의 갈라짐(밝은 실금)을 막는다
+            for cx, cy in pts:
                 d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=fill)
     return glyph.resize((size, size), Image.LANCZOS)
 

@@ -54,5 +54,7 @@
                   "tint": [{"hue": [120, 175], "sat": [0.25, 1.0], "val": [0.3, 1.0], "toHue": 225, "satScale": 1.0, "valScale": 0.75}],
                   "note": "운동화의 초록(넓게 쓰지 않는 색, item-art/brief.md 1.1)을 남색으로 바꿈"},
   "uzura": {"candidate": "word-uzura_1077898383", "dots": true, "rim": true},
-  "oheya": {"candidate": "word-oheya_1936180909", "dots": true, "rim": true}
+  "oheya": {"candidate": "word-oheya_1936180909", "dots": true, "rim": true},
+  "deguchi": {"candidate": "word-deguchi_20261116", "dots": true, "rim": true,
+              "note": "글자 없는 노란 빈 판. でぐち는 place_word_art.py가 합성"}
 }
