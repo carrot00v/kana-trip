@@ -86,5 +86,7 @@
   "omotenashi": {"candidate": "word-omotenashi_20261116", "dots": true, "rim": true, "keep": [[655, 575, 110]],
                  "note": "검은 칠 쟁반 위 유노미와 접시의 연분홍 화과자. 화과자의 옅은 분홍은 keep으로 지킴"},
   "nankotsu": {"candidate": "word-nankotsu_7703", "dots": true, "rim": true,
-               "note": "사이로 꼬챙이가 보이는 각진 흰 조각 다섯 개. 20261116은 mune와 같은 큰 덩이 실루엣이라 탈락"}
+               "note": "사이로 꼬챙이가 보이는 각진 흰 조각 다섯 개. 20261116은 mune와 같은 큰 덩이 실루엣이라 탈락"},
+  "sasami": {"candidate": "word-sasami_3301", "dots": true, "rim": true, "keep": [[570, 445, 75]],
+             "note": "비스듬한 꼬치에 잎 모양의 길쭉한 흰 살 한 덩이와 와사비(keep). 20261116·1116102는 mune와 같은 덩이 세 개 실루엣이라 탈락(다시 그림 2회)"}
 }
