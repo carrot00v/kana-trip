@@ -49,5 +49,8 @@
              "note": "같은 배치의 2124767905보다 점자 블록(노란 띠의 점)이 또렷한 이것을 고름"},
   "omikuji": {"candidate": "word-omikuji_1496564125", "dots": true, "rim": true,
               "note": "같은 배치의 1496564124(매듭이 작아 흰 천처럼 보임)보다 리본 매듭이 또렷한 이것을 고름"},
-  "shiitake": {"candidate": "word-shiitake_1936180909", "dots": true, "rim": true}
+  "shiitake": {"candidate": "word-shiitake_1936180909", "dots": true, "rim": true},
+  "kutsuonuide": {"candidate": "word-kutsuonuide_1936180909", "dots": false, "rim": true,
+                  "tint": [{"hue": [120, 175], "sat": [0.25, 1.0], "val": [0.3, 1.0], "toHue": 225, "satScale": 1.0, "valScale": 0.75}],
+                  "note": "운동화의 초록(넓게 쓰지 않는 색, item-art/brief.md 1.1)을 남색으로 바꿈"}
 }

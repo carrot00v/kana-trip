@@ -1,0 +1,19 @@
+{
+  "word": "word-kutsuonuide",
+  "kana": "くつをぬいでください",
+  "prompt": "Flat sticker illustration of a real Japanese object, simple and clean: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Color the object in its real natural colors, slightly softened and warm, using as few colors as possible. Never rainbow or multicolor: parts of the same kind share the same color. No decorative colored balls, dots or confetti. No bright green, no crimson or magenta, no purple. Subject: A small section of a Japanese entrance: a low stone floor with a pair of sneakers placed neatly side by side, and a raised warm wood brown step behind it with a pair of pale cream slippers on top, seen from the front at a slight angle. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 1936180909,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16",
+  "selected": {
+    "candidate": "candidates/word-kutsuonuide_1936180909.png",
+    "cut": "tools/remove_bg.py",
+    "clean": "tools/clean_word_art.py (tools/word_art_clean.json)",
+    "date": "2026-11-15",
+    "retouch": "스티커 흰 테 지움(484px); 색 바꿈 9104px",
+    "note": "운동화의 초록(넓게 쓰지 않는 색, item-art/brief.md 1.1)을 남색으로 바꿈"
+  }
+}
