@@ -35,7 +35,7 @@ import unicodedata
 from functools import lru_cache
 from pathlib import Path
 
-from PIL import Image, ImageColor, ImageDraw, ImageFilter
+from PIL import Image, ImageChops, ImageColor, ImageDraw, ImageFilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import make_onigiri_svg as giri  # noqa: E402
@@ -118,11 +118,458 @@ def place_at(item: Image.Image, anchor: tuple[float, float], target: tuple[float
 
 
 def anchor_px(item: Image.Image, spec: list | None, default: tuple[float, float]) -> tuple[float, float]:
+    """닿는 점(픽셀). spec [fx, fy]는 그림 안의 비율이고, fy가 "bottom"이면 fx 열의 가장 낮은 불투명 픽셀이다
+    (띠처럼 아랫변 가운데가 그림 아래 끝이 아닐 때)."""
     fx, fy = spec or default
+    if fy == "bottom":
+        col = min(item.width - 1, max(0, round(fx * item.width)))
+        alpha = item.getchannel("A").crop((col, 0, col + 1, item.height))
+        ys = [y for y, v in enumerate(alpha.get_flattened_data()) if v >= 128]
+        return fx * item.width, (ys[-1] + 1) if ys else item.height
     return fx * item.width, fy * item.height
 
 
+# ---- 머리 맞춤 (docs/design/item-art/head-fit.md 1·5번) ----
+# 머리 아이템은 맞춤 방식(fit) 다섯 가지 중 하나로 놓는다. 순서: 놓기 → 깎기(carve, drape) → 외곽선 다시 그리기 → 자르기
+# (band. 기본 요리사 모자 swallow는 make_onigiri_svg.py의 SVG clipPath가 자른다). 결과는 앞 레이어 한 장이다.
+
+HEAD_CENTER = (150, 182)       # 꼭대기 원호 중심
+HEAD_R = 72                    # 원호 반지름 (외곽선 가운데)
+HEAD_APEX_Y = 110              # 꼭짓점 y. 깊이는 모두 이 값에서 잰다
+FACE_BAND = (96, 204, 144)     # x 96~204에서 y 144 아래 금지
+LINE_RGB = (0x4A, 0x22, 0x19)
+OUTLINE = 6                    # 다시 그리는 외곽선 굵기 = 본체 SW
+FITS = ("swallow", "band", "carve", "drape", "overlay")
+
+# 검사 기준 (head-fit.md 1.3, 5번)
+GAP_MIN, GAP_MAX, GAP_RUN = 3, 11, 7          # 3~11 틈이 7열(행) 이상 이어지면 실패
+DEPTH_RULES = {
+    # D_c 범위, D_e 기준 설명은 check_head_fit에서
+    "swallow": (26, 34),
+    "band": (26, 34),
+    "carve": (0, 6),
+    "drape": (0, 6),
+}
+BAND_TOP = (8, 16)             # band 띠 윗변 깊이
+CARVE_DE_SMALL, CARVE_DE_LARGE, CARVE_DE_SIDE = 10, 21, 4   # 폭 80 이하 / 초과 평균, 각 쪽 최소
+TENUGUI_DE = (12, 24)
+DRAPE_DE = (20, 40)
+CONTACT_MIN = {"carve": 0.60, "drape": 0.75, "carve_full": 0.75}
+BAND_OVERSHOOT = 4
+CARVED_MAX = 0.30
+OUTLINE_RANGE = (3, 9)
+INNER_THIN_MAX = 0.50
+TILT_TOL, TILT_RANGE = 3, (-15, 0)
+BAND_TILT = (-8, -4)
+OVERLAY_TILT = (-25, -15)
+OVERLAY_OVERLAP = (0.40, 0.60)
+PRESS_MAX = 30
+
+
+def head_point(dx: float) -> tuple[float, float]:
+    """꼭짓점에서 원호를 따라 dx만큼 비킨 닿는 점 P(dx) (head-fit.md 1.5)."""
+    return HEAD_CENTER[0] + dx, HEAD_CENTER[1] - math.sqrt(HEAD_R ** 2 - dx ** 2)
+
+
+def tangent_deg(dx: float) -> float:
+    return math.degrees(math.asin(dx / HEAD_R))
+
+
+def binarize(mask: Image.Image) -> Image.Image:
+    return mask.point(lambda v: 255 if v >= 128 else 0)
+
+
+def erode(mask: Image.Image, units: float) -> Image.Image:
+    """원판(반지름 units, 360 좌표)으로 깎은 마스크. 가우스 흐림 뒤 문턱으로 근사한다: 곧은 가장자리에서 거리 d의 값이
+    Φ(d/σ)이므로 σ = r/1.5, 문턱 Φ(1.5) ≈ 0.933이면 정확히 r만큼 깎인다. 네모 MinFilter와 달리 대각선에서도 굵기가 같다."""
+    if units <= 0:
+        return mask
+    r = units * SCALE
+    blur = mask.filter(ImageFilter.GaussianBlur(r / 1.5))
+    return blur.point(lambda v: 255 if v >= 238 else 0)
+
+
+def dilate(mask: Image.Image, units: float) -> Image.Image:
+    if units <= 0:
+        return mask
+    r = units * SCALE
+    blur = mask.filter(ImageFilter.GaussianBlur(r / 1.5))
+    return blur.point(lambda v: 255 if v > 17 else 0)
+
+
+def mask_and(a: Image.Image, b: Image.Image) -> Image.Image:
+    return ImageChops.multiply(a, b)
+
+
+def mask_sub(a: Image.Image, b: Image.Image) -> Image.Image:
+    return ImageChops.subtract(a, b)
+
+
+def unit_grid(mask: Image.Image) -> list[list[bool]]:
+    """마스크를 360 좌표 1 단위 격자로 줄인다. grid[y][x + 30]."""
+    small = mask.resize((360, 360), Image.BOX)
+    data = list(small.get_flattened_data())
+    return [[data[y * 360 + x] >= 128 for x in range(360)] for y in range(360)]
+
+
+@lru_cache(maxsize=1)
+def body_inner() -> Image.Image:
+    """몸 외곽선 안쪽 가장자리 안 (본체 마스크를 OUTLINE만큼 깎음)."""
+    return erode(body_mask(), OUTLINE)
+
+
+@lru_cache(maxsize=1)
+def body_ring() -> Image.Image:
+    """본체 외곽선 고리 (바깥 가장자리 ~ 안쪽 가장자리)."""
+    return mask_sub(body_mask(), body_inner())
+
+
+@lru_cache(maxsize=1)
+def body_grid() -> list[list[bool]]:
+    return unit_grid(body_mask())
+
+
+def body_top(x: int) -> int | None:
+    """360 좌표 x 열에서 몸 마스크의 맨 위 y."""
+    col = x + 30
+    if not 0 <= col < 360:
+        return None
+    g = body_grid()
+    return next((y for y in range(360) if g[y][col]), None)
+
+
+def body_side(y: int, left: bool) -> int | None:
+    row = body_grid()[y]
+    xs = [x - 30 for x in range(360) if row[x]]
+    return (xs[0] if left else xs[-1]) if xs else None
+
+
+def polygon_mask(polys: list, size: tuple[int, int], to_px) -> Image.Image:
+    m = Image.new("L", size, 0)
+    d = ImageDraw.Draw(m)
+    for poly in polys:
+        d.polygon([to_px(p) for p in poly], fill=255)
+    return m
+
+
+def apply_erase(img: Image.Image, polys: list | None) -> Image.Image:
+    """그림 손질: 잘라 낸 그림 안의 비율 좌표 다각형을 지우고 다시 잘라 낸다 (head-fit.md 2.3 `erase`)."""
+    if not polys:
+        return img
+    m = polygon_mask(polys, img.size, lambda p: (p[0] * img.width, p[1] * img.height))
+    a = ImageChops.subtract(img.getchannel("A"), m)
+    out = img.copy()
+    out.putalpha(a)
+    return trim(out)
+
+
+def shift_down(layer: Image.Image, units: float) -> Image.Image:
+    if not units:
+        return layer
+    out = Image.new("RGBA", layer.size)
+    out.alpha_composite(layer, (0, round(units * SCALE)))
+    return out
+
+
+def lowest_per_column(mask: Image.Image) -> dict[int, int]:
+    """360 좌표 x → 그 열의 가장 낮은 불투명 y."""
+    g = unit_grid(mask)
+    out = {}
+    for col in range(360):
+        ys = [y for y in range(360) if g[y][col]]
+        if ys:
+            out[col - 30] = ys[-1]
+    return out
+
+
+def press_amount(layer: Image.Image, item: dict, need: float) -> int:
+    """눌러 놓기 (head-fit.md 1.4.3의 2): 아이템 폭 가운데 contactSpan의 아랫변이 모두 몸 안쪽으로 need 이상
+    들어갈 때까지 내리는 양 (0~PRESS_MAX)."""
+    mask = alpha_mask(layer)
+    bbox = mask.getbbox()
+    x0, x1 = bbox[0] / SCALE - 30, bbox[2] / SCALE - 30
+    span = item.get("contactSpan", 0.8)
+    cx, half = (x0 + x1) / 2, (x1 - x0) * span / 2
+    low = lowest_per_column(mask)
+    p = 0
+    for x in range(math.ceil(cx - half), math.floor(cx + half) + 1):
+        yb = body_top(x)
+        if yb is None or x not in low:
+            continue
+        p = max(p, math.ceil(need - (low[x] - yb)))
+    return max(0, min(PRESS_MAX, p))
+
+
+def redraw_outline(layer: Image.Image) -> Image.Image:
+    """바깥 외곽선 다시 그리기 (head-fit.md 1.6): 실루엣 안쪽 OUTLINE 폭 고리를 #4A2219로 칠한다. 실루엣은 넓어지지 않는다."""
+    a = alpha_mask(layer)
+    ring = mask_sub(a, erode(a, OUTLINE)).filter(ImageFilter.GaussianBlur(1))
+    line = Image.new("RGBA", layer.size, LINE_RGB + (0,))
+    line.putalpha(layer.getchannel("A"))
+    return Image.composite(line, layer, ring)
+
+
+def outline_thickness(layer: Image.Image) -> float | None:
+    """원래 외곽선 굵기 근사 (5번 검사 6): 가장자리 안쪽 10 안의 어두운 픽셀 면적 ÷ 가장자리 길이."""
+    a = alpha_mask(layer)
+    edge = mask_sub(a, a.filter(ImageFilter.MinFilter(3)))
+    length = count(edge) / SCALE
+    if not length:
+        return None
+    band = mask_sub(a, erode(a, 10))
+    dark = Image.new("L", layer.size)
+    dark.putdata([255 if a_ >= 128 and max(r, g, b) < 110 else 0 for r, g, b, a_ in layer.get_flattened_data()])
+    return count(mask_and(band, dark)) / SCALE ** 2 / length
+
+
+def inner_line_thin(layer: Image.Image) -> tuple[float, int] | None:
+    """안쪽 무늬 선 굵기 (5번 검사 7): 외곽선 고리 안쪽의 진한 선 픽셀 중 굵기 3 미만이라 1.5 깎으면 사라지는 비율.
+    깎은 뒤 다시 1.5 늘려(열기) 남지 않는 픽셀을 센다. 깎기만 하면 굵기 4.5 선도 픽셀의 67%가 줄어 실패로 나온다."""
+    a = alpha_mask(layer)
+    inside = erode(a, OUTLINE + 1)
+    dark = Image.new("L", layer.size)
+    dark.putdata([255 if a_ >= 128 and max(r, g, b) < 130 else 0 for r, g, b, a_ in layer.get_flattened_data()])
+    lines = mask_and(inside, dark)
+    n = count(lines)
+    if n < 20 * SCALE ** 2:
+        return None
+    # 열기(1.5 깎고 1.5 늘림)로 남지 않는 선 = 굵기 3 미만인 선
+    kept = count(mask_and(dilate(erode(lines, 1.5), 1.5), lines))
+    return 1 - kept / n, round(n / SCALE ** 2)
+
+
+def place_head(src: Image.Image, item: dict) -> tuple[Image.Image, dict]:
+    """머리 아이템을 맞춤 방식대로 놓는다. (레이어, 검사용 정보)."""
+    kind = item.get("kind", "hat")
+    how = item.get("fit")
+    w, h = item.get("box", TOP_BOX[kind])
+    img = apply_erase(trim(src), item.get("erase"))
+    if item.get("squash"):
+        # 임시 손질: 비율을 지키지 않고 상자에 맞춘다 (head-fit.md 3.5의 임시 처방, 다시 그림 대기)
+        img = img.resize((px(w), px(h)), Image.LANCZOS)
+    else:
+        img = fit(img, px(w), px(h))
+    rotate = item.get("rotate", 0)
+    info: dict = {"fit": how}
+    if how == "overlay":
+        anchor = anchor_px(img, item.get("anchor"), (0.5, 0.5))
+        target = tuple(item["center"])
+    elif how == "band":
+        anchor = anchor_px(img, item.get("anchor"), (0.5, 1.0))
+        target = tuple(item["bandTarget"])
+    elif how in ("carve", "drape"):
+        anchor = anchor_px(img, item.get("anchor"), (0.5, 1.0))
+        target = head_point(item.get("dx", 0))
+    else:
+        raise ValueError(f"{item['id']}: 그림으로 놓을 수 없는 맞춤 방식 {how}")
+    info["contact_x"] = target[0]
+    layer = place_at(img, anchor, target, rotate)
+    info["outline_before"] = outline_thickness(layer)
+
+    if how in ("carve", "drape"):
+        inset = item.get("carveInset", 0)
+        press = item.get("press", "auto")
+        p = press_amount(layer, item, OUTLINE + inset) if press == "auto" else press
+        layer = shift_down(layer, p)
+        info["press"] = p
+        before = alpha_mask(layer)
+        info["height_before"] = (lambda b: (b[3] - b[1]) / SCALE)(before.getbbox())
+        cut = erode(body_mask(), OUTLINE + inset)
+        a = ImageChops.subtract(layer.getchannel("A"), cut)
+        layer.putalpha(a)
+        removed = mask_and(before, cut)
+        low = unit_grid(removed)
+        info["carved"] = max((sum(1 for y in range(360) if low[y][c]) for c in range(360)), default=0)
+
+    layer = redraw_outline(layer)
+
+    if how == "band":
+        pre = alpha_mask(layer)
+        exempt = polygon_mask(item.get("clipExempt", []), layer.size, lambda p: (gx(p[0]), px(p[1])))
+        keep = ImageChops.lighter(body_inner(), exempt).filter(ImageFilter.GaussianBlur(1))
+        layer.putalpha(ImageChops.multiply(layer.getchannel("A"), keep))
+        info["overshoot"] = band_overshoot(pre, alpha_mask(layer), target[0])
+    return layer, info
+
+
+def band_overshoot(pre: Image.Image, post: Image.Image, contact_x: float) -> tuple[float, float]:
+    """자르기 전 띠가 몸 외곽선 바깥 가장자리 밖으로 나간 길이 (왼쪽, 오른쪽) (5번 검사 4). 자르기로 지워진 픽셀이
+    그쪽에 있고 자른 뒤 띠가 몸 안쪽 가장자리 가까이(25 이내) 남아 있는 행마다 (몸 옆 끝 x − 지워진 픽셀의 바깥 끝 x)를 재고
+    가장 작은 값을 쓴다. 띠 위·아래 가장자리 2행씩은 뺀다(둥근 모서리)."""
+    removed = unit_grid(mask_sub(pre, post))
+    kept = unit_grid(post)
+    result = []
+    for left in (True, False):
+        vals = []
+        for y in range(360):
+            xs = [x - 30 for x in range(360) if removed[y][x] and ((x - 30 < contact_x) if left else (x - 30 > contact_x))]
+            bx = body_side(y, left)
+            if not xs or bx is None:
+                continue
+            inner = range(bx + 6, bx + 31) if left else range(bx - 30, bx - 5)
+            if not any(0 <= x + 30 < 360 and kept[y][x + 30] for x in inner):
+                continue
+            vals.append((bx - min(xs)) if left else (max(xs) - bx))
+        vals = vals[2:-2] if len(vals) > 6 else vals
+        result.append(min(vals, default=float("nan")))
+    return result[0], result[1]
+
+
+def runs(values: list, lo: float, hi: float) -> int:
+    """lo~hi 값이 연속으로 이어진 가장 긴 길이."""
+    best = cur = 0
+    for v in values:
+        cur = cur + 1 if v is not None and lo <= v <= hi else 0
+        best = max(best, cur)
+    return best
+
+
+def gap_profiles(mask: Image.Image) -> tuple[list, list]:
+    """(세로 틈 열 목록, 가로 틈 행 목록) (5번 검사 1·2). 겹치면 0, 아이템이 없으면 None."""
+    g = unit_grid(mask)
+    vertical = []
+    for col in range(360):
+        x = col - 30
+        yb = body_top(x)
+        ys = [y for y in range(360) if g[y][col]]
+        if yb is None or not ys:
+            vertical.append(None)
+        elif any(y >= yb for y in ys):
+            vertical.append(0)
+        else:
+            above = [y for y in ys if y < yb]
+            vertical.append(yb - above[-1] - 1 if above else None)
+    horizontal = []
+    for y in range(10, 159):
+        for left in (True, False):
+            bx = body_side(y, left)
+            if bx is None or (left and bx > 96) or (not left and bx < 204):
+                continue
+            row = g[y]
+            if left:
+                near = [x - 30 for x in range(max(0, 64 + 30), bx + 30 + 3) if row[x]]
+                out = [x for x in near if x < bx]
+                horizontal.append(0 if any(x >= bx for x in near) else (bx - out[-1] - 1 if out else None))
+            else:
+                near = [x - 30 for x in range(bx - 3 + 30, min(360, 236 + 30)) if row[x]]
+                out = [x for x in near if x > bx]
+                horizontal.append(0 if any(x <= bx for x in near) else (out[0] - bx - 1 if out else None))
+    return vertical, horizontal
+
+
+def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str, bool]]:
+    """head-fit.md 5번 검사 1~10."""
+    how = info["fit"]
+    mask = alpha_mask(layer)
+    g = unit_grid(mask)
+    body = body_grid()
+    ring = unit_grid(body_ring())
+    out: list[tuple[str, bool]] = []
+
+    vertical, horizontal = gap_profiles(mask)
+    rv, rh = runs(vertical, GAP_MIN, GAP_MAX), runs(horizontal, GAP_MIN, GAP_MAX)
+    out.append((f"틈 세로 3~11 연속 {rv}열, 가로 {rh}행 (7 미만)", rv < GAP_RUN and rh < GAP_RUN))
+
+    xc = round(info["contact_x"])
+    col = xc + 30
+    in_body = [y for y in range(360) if g[y][col] and body[y][col]]
+    if how != "overlay":
+        dc = (in_body[-1] - HEAD_APEX_Y) if in_body else None
+        lo, hi = DEPTH_RULES[how]
+        if how in ("carve", "drape"):
+            hi += item.get("carveInset", 0)
+        text = f"겹침 D_c {dc} ({lo}~{hi}, x {xc})"
+        ok = dc is not None and lo <= dc <= hi
+        if how == "band":
+            top = [y for y in range(360) if g[y][col]]
+            bt = (top[0] - HEAD_APEX_Y) if top else None
+            text += f", 띠 윗변 {bt} ({BAND_TOP[0]}~{BAND_TOP[1]})"
+            ok = ok and bt is not None and BAND_TOP[0] <= bt <= BAND_TOP[1]
+        out.append((text, ok))
+
+        # D_e: 몸 외곽선 중 아이템에 덮이거나 닿은(1 이내) 것의 가장 낮은 y
+        near = unit_grid(dilate(mask, 1))
+        de = []
+        for left in (True, False):
+            cols = range(0, col) if left else range(col + 1, 360)
+            ys = [y for c in cols for y in range(360) if ring[y][c] and near[y][c]]
+            de.append(max(ys) - HEAD_APEX_Y if ys else None)
+        dl, dr = de
+        bbox = mask.getbbox()
+        width = (bbox[2] - bbox[0]) / SCALE
+        if how in ("swallow", "band"):
+            ok = dl is not None and dr is not None and (how == "band" or min(dl, dr) >= 15)
+            out.append((f"D_e {dl}·{dr} (" + ("양쪽 15 이상" if how == "swallow" else "양 끝이 외곽선에 닿음") + ")", ok))
+        elif how == "drape":
+            ok = dl is not None and dr is not None and all(DRAPE_DE[0] <= v <= DRAPE_DE[1] for v in de)
+            out.append((f"D_e {dl}·{dr} (각 {DRAPE_DE[0]}~{DRAPE_DE[1]})", ok))
+        elif item.get("contactSpan", 0.8) >= 1.0 and item.get("kind") == "hat":
+            ok = dl is not None and dr is not None and all(TENUGUI_DE[0] <= v <= TENUGUI_DE[1] for v in de)
+            out.append((f"D_e {dl}·{dr} (각 {TENUGUI_DE[0]}~{TENUGUI_DE[1]}, 수건)", ok))
+        else:
+            need = CARVE_DE_SMALL if width <= 80 else CARVE_DE_LARGE
+            avg = (dl + dr) / 2 if dl is not None and dr is not None else None
+            ok = avg is not None and avg >= need and min(dl, dr) >= CARVE_DE_SIDE
+            out.append((f"D_e {dl}·{dr} 평균 {avg} (폭 {width:.0f} → {need} 이상, 각 {CARVE_DE_SIDE} 이상)", ok))
+
+        # 닿는 폭
+        if how in ("carve", "drape"):
+            cov = [c for c in range(360) if any(ring[y][c] and g[y][c] for y in range(360))]
+            ratio = ((cov[-1] - cov[0] + 1) / width) if cov else 0
+            full = how == "drape" or item.get("contactSpan", 0.8) >= 1.0
+            need = CONTACT_MIN["carve_full" if how == "carve" and full else how]
+            out.append((f"닿는 폭 {ratio:.0%} ({need:.0%} 이상)", ratio >= need))
+        else:
+            ol, orr = info.get("overshoot", (None, None))
+            if ol is None:
+                out.append(("띠 끝 (SVG 자르기, 따로 잼)", True))
+            else:
+                ok = ol >= BAND_OVERSHOOT and orr >= BAND_OVERSHOOT
+                out.append((f"띠 끝 +{ol:.0f}·+{orr:.0f} ({BAND_OVERSHOOT} 이상)", ok))
+
+    if "carved" in info:
+        ratio = info["carved"] / info["height_before"]
+        out.append((f"깎인 높이 {info['carved']} / {info['height_before']:.0f} = {ratio:.0%} (30% 이하), 눌러 놓기 {info['press']}",
+                    ratio <= CARVED_MAX))
+
+    ob = info.get("outline_before")
+    if ob is not None:
+        # 3 미만은 다시 그린 선(6)이 덮으므로 "다시 그림 후보" 표시만 한다. 9 넘는 선은 다시 그려도 남으므로 확인 (1.6의 4).
+        note = "" if ob >= OUTLINE_RANGE[0] else ", 가늘어 다시 그린 선으로 바뀜: 다시 그림 후보"
+        out.append((f"원래 외곽선 굵기 {ob:.1f} ({OUTLINE_RANGE[0]}~{OUTLINE_RANGE[1]}{note})", ob <= OUTLINE_RANGE[1]))
+    thin = inner_line_thin(layer)
+    if thin is None:
+        out.append(("안쪽 무늬 선 없음", True))
+    else:
+        out.append((f"안쪽 진한 선 {thin[1]}: 굵기 3 미만 {thin[0]:.0%} (50% 이하)", thin[0] <= INNER_THIN_MAX))
+
+    rot = item.get("rotate", 0)
+    if how == "band":
+        out.append((f"기울기 {rot}° ({BAND_TILT[0]}~{BAND_TILT[1]})", BAND_TILT[0] <= rot <= BAND_TILT[1]))
+    elif how == "overlay":
+        vis = item.get("visibleTilt", rot)
+        out.append((f"보이는 기울기 {vis}° (rotate {rot}°, {OVERLAY_TILT[0]}~{OVERLAY_TILT[1]})",
+                    OVERLAY_TILT[0] <= vis <= OVERLAY_TILT[1]))
+    else:
+        t = tangent_deg(item.get("dx", 0))
+        diff = abs(rot - t)
+        ok = diff <= TILT_TOL and TILT_RANGE[0] <= rot <= TILT_RANGE[1]
+        out.append((f"접선 차 {diff:.1f}° (rotate {rot}°, 접선 {t:.1f}°)", ok))
+
+    if how == "overlay":
+        inside = sum(1 for y in range(360) for c in range(360) if g[y][c] and body[y][c])
+        total = sum(1 for y in range(360) for c in range(360) if g[y][c])
+        ratio = inside / total if total else 0
+        out.append((f"머리와 겹침 {ratio:.0%} (40~60%)", OVERLAY_OVERLAP[0] <= ratio <= OVERLAY_OVERLAP[1]))
+
+    face = [y for y in range(360) for c in range(FACE_BAND[0] + 30, FACE_BAND[1] + 31) if g[y][c]]
+    low = max(face) + 1 if face else 0
+    out.append((f"얼굴 띠 가장 낮은 y {low} (144 이하)", low <= FACE_BAND[2]))
+    return out
+
+
 def place_top(src: Image.Image, item: dict) -> Image.Image:
+    """맞춤 방식(fit)이 없는 머리 아이템의 옛 놓기 (brief.md 2.1.6). 지금 목록에는 쓰는 아이템이 없다."""
     kind = item.get("kind", "hat")
     w, h = item.get("box", TOP_BOX[kind])
     img = fit(trim(src), px(w), px(h))
@@ -224,16 +671,44 @@ def write_imageset(name: str, img: Image.Image) -> None:
     (folder / "Contents.json").write_text(json.dumps(contents, indent=2) + "\n")
 
 
-def build(item: dict) -> dict[str, Image.Image]:
-    """플랫폼에 묶이지 않는 결과: 파일 이름 → 그림."""
-    src = Image.open(SOURCE / f"{item['id']}.png").convert("RGBA")
+def magenta_layer(rgb: Image.Image) -> Image.Image:
+    """자홍 바탕에 그린 그림을 RGBA로. 가장자리의 자홍 섞인 픽셀은 외곽선 색으로 바꾼다(그림 가장자리는 모두 외곽선이다)."""
+    layer = rgb.convert("RGBA")
+    layer.putalpha(magenta_mask(rgb))
+    fringe = Image.new("L", rgb.size)
+    fringe.putdata([255 if (r - g > 60 and b - g > 60) else 0 for r, g, b in rgb.get_flattened_data()])
+    line = Image.new("RGBA", rgb.size, LINE_RGB + (255,))
+    line.putalpha(layer.getchannel("A"))
+    return Image.composite(line, layer, fringe)
+
+
+def svg_item_layer(draw) -> Image.Image:
+    """make_onigiri_svg.py가 그리는 머리 아이템(기본 요리사 모자)을 레이어로. 자홍 바탕에 그려 알파를 만든다."""
+    return magenta_layer(render_svg(giri.wrap('<rect x="-30" y="0" width="360" height="360" fill="#FF00FF"/>' + draw())))
+
+
+def build(item: dict, info: dict | None = None) -> dict[str, Image.Image]:
+    """플랫폼에 묶이지 않는 결과: 파일 이름 → 그림. info를 주면 머리 맞춤 검사용 정보를 채운다."""
     slot, iid = item["slot"], item["id"]
+    info = {} if info is None else info
+    if item.get("drawnBy"):
+        # 기본 요리사 모자: SVG가 띠를 자른다. 검사만 같은 함수로 한다 (head-fit.md 5번).
+        layer = svg_item_layer(getattr(giri, item["drawnBy"]))
+        unclipped = svg_item_layer(lambda: giri.hat(clip=False))
+        cx = head_point(item["dx"])[0]
+        info.update(fit=item["fit"], contact_x=cx,
+                    overshoot=band_overshoot(alpha_mask(unclipped), alpha_mask(layer), cx))
+        return {iid: layer, f"{iid}-thumb": crop_view(layer, THUMB_VIEW[slot])}
+    src = Image.open(SOURCE / f"{item['id']}.png").convert("RGBA")
     if slot == "background":
         side = min(src.size)
         sq = src.crop(((src.width - side) // 2, (src.height - side) // 2,
                        (src.width + side) // 2, (src.height + side) // 2))
         layer = sq.resize((SIDE, SIDE), Image.LANCZOS)
         draw_kana(layer, item.get("kanaBoxes", []))
+    elif slot == "top" and item.get("fit"):
+        layer, placed = place_head(src, item)
+        info.update(placed)
     elif slot == "top":
         layer = place_top(src, item)
     elif slot == "filling":
@@ -271,11 +746,14 @@ def magenta_mask(img: Image.Image) -> Image.Image:
     return out
 
 
-@lru_cache(maxsize=1)
+# 기본 요리사 모자 실루엣의 불투명 픽셀 수 (brief.md 2.1.4의 면적 기준값, SCALE 3 레이어).
+# 2026-11-17 모자를 바꾸기 전(head-fit.md 3.1)의 hat()에서 잰 값으로 얼린다. 새 모자는 띠가 잘리고 관이 좁아져
+# 면적이 줄어드는데, 기준이 같이 줄면 다른 아이템의 상한이 몰래 좁아지기 때문이다.
+CHEF_HAT_AREA = 112513
+
+
 def chef_hat_area() -> int:
-    """기본 요리사 모자 실루엣의 불투명 픽셀 수 (brief.md 2.1.4의 기준값)."""
-    content = giri.wrap('<rect x="-30" y="0" width="360" height="360" fill="#FF00FF"/>' + giri.hat())
-    return sum(1 for v in magenta_mask(render_svg(content)).get_flattened_data() if v)
+    return CHEF_HAT_AREA
 
 
 @lru_cache(maxsize=1)
@@ -438,8 +916,12 @@ def main() -> int:
     check_only = "--check" in args
     args = [a for a in args if a != "--check"]
     items = {i["id"]: i for i in json.loads((ART / "items.json").read_text())["items"]}
-    ids = args or sorted(i for i in items if (SOURCE / f"{i}.png").exists())
-    missing = [i for i in ids if i not in items or not (SOURCE / f"{i}.png").exists()]
+
+    def available(i: str) -> bool:
+        return i in items and (bool(items[i].get("drawnBy")) or (SOURCE / f"{i}.png").exists())
+
+    ids = args or sorted(i for i in items if available(i))
+    missing = [i for i in ids if not available(i)]
     if missing:
         print(f"source/에 그림이 없거나 items.json에 없는 id: {missing}", file=sys.stderr)
         return 2
@@ -447,14 +929,19 @@ def main() -> int:
     failed = False
     for iid in ids:
         item = items[iid]
-        results = build(item)
+        info: dict = {}
+        results = build(item, info)
+        svg_drawn = bool(item.get("drawnBy"))
         if not check_only:
             for file, img in results.items():
                 img.save(NEUTRAL / f"{file}.png")
-                write_imageset(ios_name(file), img)
-        g, pr = forbidden_ratio(Image.open(SOURCE / f"{iid}.png"))
+                if not svg_drawn:     # SVG 에셋은 make_onigiri_svg.py가 쓴다
+                    write_imageset(ios_name(file), img)
+        g, pr = forbidden_ratio(results[iid] if svg_drawn else Image.open(SOURCE / f"{iid}.png"))
         checks = [(f"초록 {g:.0%}, 분홍빨강 {pr:.0%}", max(g, pr) <= 0.10)]
-        if item["slot"] == "top":
+        if item["slot"] == "top" and info.get("fit"):
+            checks = check_top(item, results[iid]) + check_head_fit(item, results[iid], info) + checks
+        elif item["slot"] == "top":
             checks = check_top(item, results[iid]) + checks
         elif item["slot"] == "filling":
             checks = check_filling(item, results[iid]) + checks

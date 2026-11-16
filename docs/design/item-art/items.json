@@ -1,9 +1,25 @@
 {
- "_comment": "리워드 아이템 그림 작업 목록 (docs/design/item-art/brief.md 2·3·4번). 이미지 모델에 prompt를 한 줄씩 넘긴다(gen_item_art.py). 밥(goma, yakionigiri)과 기본 차림(chef_hat, plain_rice)은 tools/make_onigiri_svg.py가 그리므로 여기에 없다. 넣는 단계(place_item_art.py)의 값: 머리(top)는 kind(hat 모자류 / topping 토핑), box [폭, 높이] 상한 안으로 줄이고, 그림의 닿는 점(anchor, 잘라 낸 그림 안의 비율 [x, y]. 없으면 아래 가장자리 가운데)을 contact(360 좌표계, 없으면 P (150, 110))에 맞춘 뒤 rotate(도, SVG rotate와 같은 부호. 음수면 오른쪽이 올라감)만큼 돌린다(brief.md 2.1.6). 속재료(filling)는 layer(back/front), direction(왼쪽 수평에서 위로 도), depth(E (54, 189)에서 몸 안쪽 거리), length(긴 축 길이), anchor(안쪽 끝, 없으면 오른쪽 가장자리 가운데)로 놓는다(brief.md 2.3.5·2.3.6). 배경(background)은 targetBox 360×360과 kanaBoxes(그림에 합성할 가나와 자리)다. 기리 좌표는 모두 360 좌표계(viewBox -30 0 360 360).",
+ "_comment": "리워드 아이템 그림 작업 목록 (docs/design/item-art/brief.md 2·3·4번). 이미지 모델에 prompt를 한 줄씩 넘긴다(gen_item_art.py). 밥(goma, yakionigiri)과 흰 밥(plain_rice)은 tools/make_onigiri_svg.py가 그리므로 여기에 없다. 기본 요리사 모자(chef_hat)는 make_onigiri_svg.py의 hat()이 그리고(drawnBy), 여기에는 넣는 도구의 검사용 놓는 값만 둔다. 넣는 단계(place_item_art.py)의 값: 머리(top)는 head-fit.md의 맞춤 방식 fit(swallow 삼키기 / band 가로지르기 / carve 깎아 얹기 / drape 걸치기 / overlay 앞에 겹치기)으로 놓는다. kind(hat 모자류 / topping 토핑)와 box [폭, 높이]는 크기 상한용이고 그림을 이 상자 안으로 줄인다. anchor는 잘라 낸 그림 안의 닿는 점 비율 [x, y](없으면 carve·drape·band는 아래 가장자리 가운데, overlay는 한가운데). carve·drape는 닿는 점 P(dx) = (150 + dx, 182 − √(72² − dx²))에 anchor를 맞추고 rotate(도, SVG rotate 부호. 음수면 오른쪽이 올라감)만큼 돌린 뒤 press(\"auto\"면 contactSpan(기본 0.8) 구간의 아랫변이 몸 외곽선 안쪽 가장자리 + carveInset까지 들어가게 누름)하고 본체 마스크를 6 + carveInset 깎은 영역으로 깎는다. band는 anchor를 bandTarget(360 좌표)에 맞추고 몸 외곽선 안쪽 가장자리로 자른다(clipExempt 다각형은 자르지 않음). overlay는 anchor를 center에 맞춘다(visibleTilt: 그림 자체 기울기를 더한 보이는 기울기). erase는 그림 손질로 지울 다각형(잘라 낸 그림 안의 비율 좌표), squash는 비율을 지키지 않고 box에 맞추는 임시 손질이다. 모든 머리 아이템은 넣는 단계에서 바깥 외곽선을 굵기 6으로 다시 그린다. 속재료(filling)는 layer(back/front), direction(왼쪽 수평에서 위로 도), depth(E (54, 189)에서 몸 안쪽 거리), length(긴 축 길이), anchor(안쪽 끝, 없으면 오른쪽 가장자리 가운데)로 놓는다(brief.md 2.3.5·2.3.6). 배경(background)은 targetBox 360×360과 kanaBoxes(그림에 합성할 가나와 자리)다. 기리 좌표는 모두 360 좌표계(viewBox -30 0 360 360).",
  "styleRef": [
   "reference/onigiri-default.png"
  ],
  "items": [
+  {
+   "id": "chef_hat",
+   "slot": "top",
+   "kana": "",
+   "nameKo": "요리사 모자 (기본 차림)",
+   "scene": "기본",
+   "kind": "hat",
+   "drawnBy": "hat",
+   "fit": "swallow",
+   "dx": -8,
+   "rotate": -6,
+   "box": [
+    136,
+    120
+   ]
+  },
   {
    "id": "noren",
    "slot": "background",
@@ -46,11 +62,15 @@
    "nameKo": "달걀말이",
    "scene": "sushi 스시집",
    "kind": "topping",
+   "fit": "drape",
+   "dx": -6,
+   "rotate": -5,
    "box": [
     128,
     52
    ],
-   "rotate": -3,
+   "press": "auto",
+   "contactSpan": 1.0,
    "prompt": "One thick slice of Japanese tamagoyaki (sweet rolled omelette) shown alone as a flat object, seen straight from the front with no perspective: a soft warm yellow strip of even thickness bent into a rainbow-shaped arch, the middle highest and both ends hanging down equally, the underside follows the same arch so it is hollow underneath like an upside-down U, as if resting on a ball (do not draw the ball). One narrow dark seaweed band wrapped around its middle from top to bottom. No top surface, no shadow. Only the omelette slice and the seaweed band, nothing under it."
   },
   {
@@ -60,11 +80,15 @@
    "nameKo": "돈카츠 한 조각",
    "scene": "tonkatsu 돈카츠집",
    "kind": "topping",
+   "fit": "carve",
+   "dx": -10,
+   "rotate": -8,
    "box": [
-    128,
-    60
+    112,
+    52
    ],
-   "rotate": -5,
+   "press": "auto",
+   "contactSpan": 0.8,
    "prompt": "One single slice of tonkatsu (breaded pork cutlet) shown alone as a flat object, seen straight from the front showing its cut face: a long rounded strip with a thick warm wood brown crust border with a softly wavy outline all around, and a pale cream meat center. The slice is gently bent into a shallow arch, the middle higher than the ends, so its underside is concave as if resting on a ball (do not draw the ball). Only one slice, no cabbage, no sauce, no crumbs, no plate."
   },
   {
@@ -74,11 +98,15 @@
    "nameKo": "치쿠와 튀김",
    "scene": "soba 소바·우동집",
    "kind": "topping",
+   "fit": "carve",
+   "dx": -6,
+   "rotate": -5,
    "box": [
     128,
     44
    ],
-   "rotate": -6,
+   "press": "auto",
+   "contactSpan": 0.8,
    "prompt": "One chikuwa (Japanese tube-shaped fish cake) lying sideways, shown alone as a flat object seen from the side: the tube is bent into a shallow arch with the middle higher than the ends so its underside is concave, as if resting on a ball (do not draw the ball). Only the left end is turned slightly toward the viewer, showing its round dark hole. Off-white ends and a wide toasted warm brown band covering the middle. Only the one tube, no sauce, no seaweed powder."
   },
   {
@@ -162,17 +190,39 @@
    "kana": "おめん",
    "nameKo": "축제 가면",
    "scene": "shrine 신사·축제",
-   "prompt": "A small white Japanese fox festival mask (kitsune omen) shown alone as a flat object, front view, upright: a rounded face shape with two pointed ears on top, two narrow curved eye slits, simple orange-red markings on the cheeks and forehead. Flat sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it.",
    "kind": "hat",
-   "box": [
-    140,
-    106
+   "fit": "overlay",
+   "center": [
+    134,
+    108
    ],
-   "rotate": -6,
-   "contact": [
-    150,
-    122
-   ]
+   "rotate": -5,
+   "visibleTilt": -20,
+   "box": [
+    60,
+    60
+   ],
+   "erase": [
+    [
+     [
+      0,
+      0.6
+     ],
+     [
+      0.09,
+      0.6
+     ],
+     [
+      0.09,
+      0.78
+     ],
+     [
+      0,
+      0.78
+     ]
+    ]
+   ],
+   "prompt": "A small white Japanese fox festival mask (kitsune omen) shown alone as a flat object, front view, upright: a rounded face shape with two pointed ears on top, two narrow curved eye slits, simple orange-red markings on the cheeks and forehead. Flat sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it."
   },
   {
    "id": "hachimaki",
@@ -180,17 +230,42 @@
    "kana": "はちまき",
    "nameKo": "머리띠",
    "scene": "izakaya 이자카야",
-   "prompt": "A twisted cloth headband (nejiri hachimaki) seen straight from the front as one long flat horizontal strip, not a ring and not a loop: a thick rope-like band of dark indigo blue and white twisted together, very slightly curved like a wide smile with the middle a little lower than the ends, the left end cut off straight, and at the right end a small round knot with two short tails pointing up to the upper right. Flat front view with no perspective, no inside surface, no back part of a ring. Only indigo and white, no other colors.",
    "kind": "hat",
-   "box": [
-    150,
-    92
+   "fit": "band",
+   "bandTarget": [
+    148,
+    140
    ],
    "rotate": -5,
-   "contact": [
-    150,
-    124
-   ]
+   "box": [
+    156,
+    56
+   ],
+   "anchor": [
+    0.45,
+    "bottom"
+   ],
+   "clipExempt": [
+    [
+     [
+      196,
+      88
+     ],
+     [
+      236,
+      88
+     ],
+     [
+      236,
+      158
+     ],
+     [
+      196,
+      158
+     ]
+    ]
+   ],
+   "prompt": "A twisted cloth headband (nejiri hachimaki) seen straight from the front as one long flat horizontal strip, not a ring and not a loop: a thick rope-like band of dark indigo blue and white twisted together, very slightly curved like a wide smile with the middle a little lower than the ends, the left end cut off straight, and at the right end a small round knot with two short tails pointing up to the upper right. Flat front view with no perspective, no inside surface, no back part of a ring. Only indigo and white, no other colors."
   },
   {
    "id": "yu",
@@ -224,17 +299,17 @@
    "kana": "てぬぐい",
    "nameKo": "머리에 얹은 수건",
    "scene": "onsen 온천",
-   "prompt": "A small folded white tenugui hand towel shown alone as a flat object, seen straight from the front with no perspective: a thick soft pad folded into a short rectangle with rounded corners, about three times as wide as it is thick, very slightly bent so the middle is a little higher than the ends and the underside is slightly concave, one fold line across it and one or two thin indigo stripes. The ends do not hang down. No top surface, no shadow. Only the towel.",
    "kind": "hat",
+   "fit": "carve",
+   "dx": -4,
+   "rotate": -3,
    "box": [
-    112,
-    62
+    88,
+    34
    ],
-   "rotate": -4,
-   "contact": [
-    150,
-    118
-   ]
+   "press": "auto",
+   "contactSpan": 1.0,
+   "prompt": "A small folded white tenugui hand towel shown alone as a flat object, seen straight from the front with no perspective: a thick soft pad folded into a short rectangle with rounded corners, about three times as wide as it is thick, very slightly bent so the middle is a little higher than the ends and the underside is slightly concave, one fold line across it and one or two thin indigo stripes. The ends do not hang down. No top surface, no shadow. Only the towel."
   },
   {
    "id": "manjuu",
@@ -243,11 +318,16 @@
    "nameKo": "온천 만주",
    "scene": "ryokan 료칸",
    "kind": "topping",
+   "fit": "carve",
+   "dx": -16,
+   "rotate": -12,
    "box": [
     76,
     52
    ],
-   "rotate": 0,
+   "press": "auto",
+   "contactSpan": 0.8,
+   "carveInset": 4,
    "prompt": "One small round Japanese steamed bun (onsen manju) shown alone as a flat object, front view: a soft squishy low dome in warm wood brown with a narrow pale cream band along the lower side, gently slumped as if sitting on top of a ball, so its underside is slightly concave and not flat (do not draw the ball). Plain and smooth with no stamp, no mark, no text. Only the one bun, whole and uncut, nothing under it."
   },
   {

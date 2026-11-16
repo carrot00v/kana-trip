@@ -88,7 +88,7 @@ def main() -> int:
     if not a.ids or unknown:
         print(f"아이템 id를 주세요. 모르는 id: {unknown}" if unknown else "아이템 id를 주세요 (--list)")
         return 2
-    not_generated = [x for x in a.ids if items[x]["slot"] not in GENERATED_SLOTS]
+    not_generated = [x for x in a.ids if items[x]["slot"] not in GENERATED_SLOTS or items[x].get("drawnBy")]
     if not_generated:
         print(f"이미지 모델로 그리지 않는 종류의 아이템: {not_generated} (밥은 tools/make_onigiri_svg.py)")
         return 2
