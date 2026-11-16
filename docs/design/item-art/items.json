@@ -51,7 +51,7 @@
     52
    ],
    "rotate": -3,
-   "prompt": "One thick slice of Japanese tamagoyaki (sweet rolled omelette) shown alone as a flat object, front view: a soft rounded rectangle slab in warm yellow, bent into a gentle arch with the middle higher than the two ends, like a shallow upside-down U, with one narrow dark seaweed band wrapped around its middle from top to bottom. Only the omelette slice and the seaweed band, nothing under it."
+   "prompt": "One thick slice of Japanese tamagoyaki (sweet rolled omelette) shown alone as a flat object, seen straight from the front with no perspective: a soft warm yellow strip of even thickness bent into a rainbow-shaped arch, the middle highest and both ends hanging down equally, the underside follows the same arch so it is hollow underneath like an upside-down U, as if resting on a ball (do not draw the ball). One narrow dark seaweed band wrapped around its middle from top to bottom. No top surface, no shadow. Only the omelette slice and the seaweed band, nothing under it."
   },
   {
    "id": "tonkatsu_slice",
@@ -65,7 +65,7 @@
     60
    ],
    "rotate": -5,
-   "prompt": "One single slice of tonkatsu (breaded pork cutlet) shown alone as a flat object, tilted so the cut face is visible: a thick crust in warm wood brown with a softly wavy outline, and a pale cream cut face of meat inside. The bottom edge is gently rounded. Only one slice, no cabbage, no sauce, no crumbs, no plate."
+   "prompt": "One single slice of tonkatsu (breaded pork cutlet) shown alone as a flat object, seen straight from the front showing its cut face: a long rounded strip with a thick warm wood brown crust border with a softly wavy outline all around, and a pale cream meat center. The slice is gently bent into a shallow arch, the middle higher than the ends, so its underside is concave as if resting on a ball (do not draw the ball). Only one slice, no cabbage, no sauce, no crumbs, no plate."
   },
   {
    "id": "chikuwa",
@@ -79,7 +79,7 @@
     44
    ],
    "rotate": -6,
-   "prompt": "One chikuwa (Japanese tube-shaped fish cake) lying sideways, shown alone as a flat object, gently curved like a shallow arch with the middle higher than the ends, slightly turned so one open end with its round dark hole is visible. Off-white ends and a wide toasted warm brown band covering the middle. Only the one tube, no sauce, no seaweed powder."
+   "prompt": "One chikuwa (Japanese tube-shaped fish cake) lying sideways, shown alone as a flat object seen from the side: the tube is bent into a shallow arch with the middle higher than the ends so its underside is concave, as if resting on a ball (do not draw the ball). Only the left end is turned slightly toward the viewer, showing its round dark hole. Off-white ends and a wide toasted warm brown band covering the middle. Only the one tube, no sauce, no seaweed powder."
   },
   {
    "id": "ebiten",
@@ -162,7 +162,7 @@
    "kana": "おめん",
    "nameKo": "축제 가면",
    "scene": "shrine 신사·축제",
-   "prompt": "A cute white festival fox mask (kitsune omen) floating alone, front view tilted about 20 degrees: white face shape with pointed fox ears, simple orange-red markings, empty eye holes, a thin cord loop at the side. Only the flat mask itself, nothing behind or under it.",
+   "prompt": "A white Japanese fox festival mask (kitsune omen) shown alone as a flat object, seen from the side in three-quarter view and turned to the left: the pointed snout points left, one pointed ear on top, only one narrow eye slit visible, simple orange-red markings on the cheek and forehead. Flat front-facing sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it.",
    "kind": "hat",
    "box": [
     140,
@@ -180,7 +180,7 @@
    "kana": "はちまき",
    "nameKo": "머리띠",
    "scene": "izakaya 이자카야",
-   "prompt": "A twisted cloth headband (nejiri hachimaki) shown alone as a flat object, front view: a thick rope-like band made of only two colors, dark indigo blue and white, twisted together in a spiral, bent into a wide shallow upward arc like a smile (not a closed ring), with a small knot and two short tails at the right end. Only indigo and white, no other colors.",
+   "prompt": "A twisted cloth headband (nejiri hachimaki) seen straight from the front as one long flat horizontal strip, not a ring and not a loop: a thick rope-like band of dark indigo blue and white twisted together, very slightly curved like a wide smile with the middle a little lower than the ends, the left end cut off straight, and at the right end a small round knot with two short tails pointing up to the upper right. Flat front view with no perspective, no inside surface, no back part of a ring. Only indigo and white, no other colors.",
    "kind": "hat",
    "box": [
     150,
@@ -224,7 +224,7 @@
    "kana": "てぬぐい",
    "nameKo": "머리에 얹은 수건",
    "scene": "onsen 온천",
-   "prompt": "A small folded tenugui hand towel lying flat, front view: white cotton with a simple indigo wave pattern, folded into a neat flat rectangle, slightly tilted. Only the folded towel, nothing under it.",
+   "prompt": "A folded white tenugui hand towel shown alone as a flat object, seen straight from the front with no perspective: a long strip of even thickness bent into a gentle rainbow-shaped arch, the middle highest and both ends hanging down equally, the top and bottom edges are parallel curves, both ends cut straight, a simple indigo wave pattern of two or three lines on the cloth. No top surface, no thickness, no shadow. Only the towel.",
    "kind": "hat",
    "box": [
     112,
@@ -248,7 +248,7 @@
     52
    ],
    "rotate": 0,
-   "prompt": "One small round Japanese steamed bun (onsen manju) shown alone as a flat object, front view: a soft low dome with a flat bottom, warm wood brown top and a narrow pale cream band along the lower side. Plain and smooth with no stamp, no mark, no text. Only the one bun, whole and uncut, nothing under it."
+   "prompt": "One small round Japanese steamed bun (onsen manju) shown alone as a flat object, front view: a soft squishy low dome in warm wood brown with a narrow pale cream band along the lower side, gently slumped as if sitting on top of a ball, so its underside is slightly concave and not flat (do not draw the ball). Plain and smooth with no stamp, no mark, no text. Only the one bun, whole and uncut, nothing under it."
   },
   {
    "id": "umeboshi",
