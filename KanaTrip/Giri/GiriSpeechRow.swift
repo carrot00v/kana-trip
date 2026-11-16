@@ -143,7 +143,7 @@ struct GiriSpeechRow: View {
             if let customFigure {
                 customFigure.frame(width: size, height: size)
             } else {
-                GiriView(pose: pose, outfit: store.rewards.equipped, side: size)
+                GiriView(pose: pose, outfit: store.giriOutfit, side: size)
             }
         }
             // 반복 애니메이션은 크기에만 건다. 바깥 배치 변화(자리 이동)까지 반복되지 않게 범위를 좁힌다.

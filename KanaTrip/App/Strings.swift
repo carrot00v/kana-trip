@@ -155,29 +155,50 @@ enum L {
     static let defaultOutfit = "기본 차림"
     static let balanceTitle = "가진 엔"
     static let none = "없음"
-    static let wearing = "입는 중"
+    // 2026-11-16: 토핑·밥·배경을 "입는다"고 하지 않으려고 동사를 바꿨다 (reward-flow.md 3.0, 10번).
+    static let wearing = "쓰는 중"
     static let owned = "가짐"
 
     static func slotName(_ slot: RewardSlot) -> String {
         switch slot {
-        case .hat: "모자"
-        case .scarf: "두건"
-        case .hand: "손"
+        case .top: "머리"
+        case .filling: "속재료"
+        case .rice: "밥"
         case .background: "배경"
         }
     }
-    static func slotWearing(_ slot: RewardSlot) -> String { "\(slotName(slot))에 입고 있어요" }
-    static func slotEmpty(_ slot: RewardSlot) -> String {
-        "\(slotName(slot))\(hasFinalConsonant(slotName(slot)) ? "이" : "가") 비어 있어요"
+    /// 안내 줄 "처음" 문구 (reward-flow.md 3.8). 조사는 받침 판별 없이 슬롯마다 따로 둔다.
+    static func slotWearing(_ slot: RewardSlot) -> String {
+        switch slot {
+        case .top: "머리에 쓰고 있어요"
+        case .filling: "속재료로 쓰고 있어요"
+        case .rice: "이 밥으로 쓰고 있어요"
+        case .background: "배경으로 쓰고 있어요"
+        }
     }
-    static let wearingNow = "지금 입고 있어요"
-    static let equipped = "입었어요"
-    static func slotCleared(_ slot: RewardSlot) -> String { "\(slotName(slot)) 자리를 비웠어요" }
-    static func tryingOn(price: Int) -> String { "입어 보는 중이에요 · \(yen(price))" }
+    /// 밥은 비울 수 없어 쓰지 않는다.
+    static func slotEmpty(_ slot: RewardSlot) -> String {
+        switch slot {
+        case .top: "머리가 비어 있어요"
+        case .filling: "속재료가 비어 있어요"
+        case .rice, .background: "배경이 비어 있어요"
+        }
+    }
+    static let wearingNow = "지금 쓰고 있어요"
+    static let equipped = "바꿨어요"
+    /// 밥은 비울 수 없어 쓰지 않는다.
+    static func slotCleared(_ slot: RewardSlot) -> String {
+        switch slot {
+        case .top: "머리를 비웠어요"
+        case .filling: "속재료를 비웠어요"
+        case .rice, .background: "배경을 비웠어요"
+        }
+    }
+    static func tryingOn(price: Int) -> String { "미리 보는 중이에요 · \(yen(price))" }
     static func shortOf(_ n: Int) -> String { "\(yen(n))이 더 있으면 살 수 있어요" }
     static func lockedItemTitle(scene: String) -> String { "\(scene) 장면 아이템" }
     static func unlocksWith(scene: String) -> String { "\(scene) 장면을 끝내면 열려요" }
-    static let bought = "사서 입었어요"
+    static let bought = "사서 바꿨어요"
     static let outfitReset = "기본 차림으로 돌아왔어요"
     static func buyQuestion(kana: String, nameKo: String, price: Int) -> String {
         "\(kana)(\(nameKo))\(hasFinalConsonant(nameKo) ? "을" : "를") \(yen(price))에 살까요?"
@@ -313,10 +334,10 @@ enum L {
     static let giri = "기리"
     static let canBuy = "살 수 있음"
     static func short(_ n: Int) -> String { "\(yen(n)) 모자람" }
-    static let tryingOnLabel = "입어 보는 중"
-    static func clearSlotLabel(_ slot: RewardSlot) -> String { "\(slotName(slot)) 자리 비우기" }
+    static let tryingOnLabel = "미리 보는 중"
+    static func clearSlotLabel(_ slot: RewardSlot) -> String { "\(slotName(slot)) 비우기" }
     static let canBuyInSlot = "살 수 있는 아이템 있음"
-    static let resetOutfitHint = "모자와 두건을 처음 차림으로 바꾸고 손과 배경을 비워요"
+    static let resetOutfitHint = "머리를 요리사 모자로, 밥을 흰 밥으로 바꾸고 속재료와 배경을 비워요"
 
     /// 한글 낱말이 받침으로 끝나는지. 조사를 고를 때 쓴다. 끝의 괄호·공백은 건너뛰고 마지막 한글로 본다.
     static func hasFinalConsonant(_ word: String) -> Bool {

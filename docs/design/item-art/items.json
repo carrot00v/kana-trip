@@ -1,22 +1,266 @@
 {
-  "_comment": "리워드 아이템 그림 작업 목록. 이미지 모델에 한 줄씩 넘긴다. 규격과 공통 프롬프트는 brief.md. targetBox는 기리 360 좌표계(viewBox -30 0 360 360)에서 그림이 들어갈 상자 [x1, y1, x2, y2]로, 생성 후 배치할 때 쓴다(reward-flow.md 8.2). 손 아이템의 targetBox는 쥐는 점 (0,0) 기준 아이템 자체 좌표다. kanaBoxes는 배경 그림에 합성할 가나와 그 자리(360 좌표계 정사각형 [x1, y1, x2, y2])로, 고른 그림의 노렌 자락에 맞춰 정했다. 그림을 바꾸면 다시 맞춘다.",
-  "styleRef": ["reference/onigiri-default.png", "reference/slot-guide.png"],
-  "items": [
-    {"id": "noren", "slot": "background", "kana": "のれん", "nameKo": "노렌이 걸린 가게 앞", "scene": "sushi 스시집", "targetBox": [-30, 0, 330, 360], "kanaInImage": "すし (노렌 위, 나중에 합성)", "prompt": "A simple front view of a small Japanese eatery entrance: a dark indigo split noren curtain hanging across the top-left of a wooden doorway, light cream plaster wall, a little potted plant at the bottom-right edge. The center of the picture is a calm, very light, almost empty wall area. Leave the noren cloth plain with no letters.", "kanaBoxes": [{"text": "す", "box": [-14, 62, 36, 112]}, {"text": "し", "box": [236, 62, 286, 112]}]},
-    {"id": "sushi", "slot": "hand", "kana": "すし", "nameKo": "초밥 한 점", "scene": "sushi 스시집", "targetBox": [-40, -80, 40, 20], "prompt": "A single piece of nigiri sushi: an oval white rice block with a salmon slice draped on top, salmon in warm orange with light stripes. Viewed from slightly above, held upright as if pinched at its bottom center."},
-    {"id": "oshinko", "slot": "hand", "kana": "おしんこ", "nameKo": "절임 반찬 (다쿠앙)", "scene": "tonkatsu 돈카츠집", "targetBox": [-40, -80, 40, 20], "prompt": "Two thick slices of takuan (Japanese yellow pickled daikon radish) stacked slightly offset, held upright between a pair of plain wooden chopsticks that come in from the bottom. Each slice is a thick half-moon shape in solid bright warm yellow with a visible thick side edge, flat plain fill, no lines, no segments, no seeds, no rind. Clearly yellow pickled radish, not citrus, not lemon."},
-    {"id": "ohitsu", "slot": "hat", "kana": "おひつ", "nameKo": "나무 밥통", "scene": "tonkatsu 돈카츠집", "targetBox": [60, 0, 245, 158], "prompt": "A small round wooden ohitsu rice tub with its flat wooden lid on, warm light wood with two thin dark copper hoop bands, short and wide, slightly tilted as if resting on top of a head like a little hat. Only the tub."},
-    {"id": "kitsune", "slot": "hand", "kana": "きつね", "nameKo": "유부 우동 한 그릇", "scene": "soba 소바·우동집", "targetBox": [-40, -80, 40, 20], "prompt": "A small round bowl of kitsune udon seen from the front and slightly above: a dark indigo bowl, thick white udon noodles, a big golden-brown sheet of fried tofu (aburaage) on top, a couple of thin green-olive scallion rings. Upright, held from the bottom of the bowl."},
-    {"id": "tasuki", "slot": "scarf", "kana": "たすき", "nameKo": "어깨띠", "scene": "soba 소바·우동집", "targetBox": [-30, 196, 280, 300], "prompt": "A festival tasuki sash: a long, narrow indigo cloth band with a thin white edge line, running diagonally from lower left to upper right, with a small tied bow at the left end. Only the band."},
-    {"id": "eki", "slot": "background", "kana": "えき", "nameKo": "역 승강장", "scene": "station 역", "targetBox": [-30, 0, 330, 360], "kanaInImage": "えき (역명판, 나중에 합성)", "prompt": "A simple, completely empty Japanese train station platform with nobody on it: pale sky, a blank station name board on two short posts at the top-left, a yellow tactile line along the platform edge at the bottom, a bit of a train window at the right edge. The middle of the picture is just empty pale platform and sky. Leave the station name board blank with no letters.", "kanaBoxes": [{"text": "え", "box": [-3, 45, 29, 77], "color": "#4A2219"}, {"text": "き", "box": [31, 45, 63, 77], "color": "#4A2219"}]},
-    {"id": "kippu", "slot": "hand", "kana": "きっぷ", "nameKo": "기차표", "scene": "station 역", "targetBox": [-40, -80, 40, 20], "prompt": "A small rectangular Japanese train ticket, cream paper with a thin sky-blue band and a tiny punched hole, standing upright as if held at its bottom edge. No readable text, only two short abstract lines."},
-    {"id": "torii", "slot": "background", "kana": "とりい", "nameKo": "도리이가 선 참배길", "scene": "shrine 신사·축제", "targetBox": [-30, 0, 330, 360], "prompt": "A simple shrine approach: a vermilion torii gate framing the picture with its top beam across the top and its two pillars at the left and right edges, a light stone path in the middle, soft green-grey shrubs at the bottom corners, pale sky. The center is a calm, very light, almost empty area."},
-    {"id": "omen", "slot": "hat", "kana": "おめん", "nameKo": "머리 옆에 건 축제 가면", "scene": "shrine 신사·축제", "targetBox": [60, 0, 245, 158], "prompt": "A cute white festival fox mask (kitsune omen) floating alone, front view tilted about 20 degrees: white face shape with pointed fox ears, simple orange-red markings, empty eye holes, a thin cord loop at the side. Only the flat mask itself, nothing behind or under it."},
-    {"id": "hachimaki", "slot": "hat", "kana": "はちまき", "nameKo": "머리띠", "scene": "izakaya 이자카야", "targetBox": [78, 62, 226, 158], "prompt": "A twisted cloth headband (nejiri hachimaki) shown alone as a flat object, front view: a thick rope-like band made of only two colors, dark indigo blue and white, twisted together in a spiral, bent into a wide shallow upward arc like a smile (not a closed ring), with a small knot and two short tails at the right end. Only indigo and white, no other colors."},
-    {"id": "maekake", "slot": "scarf", "kana": "まえかけ", "nameKo": "앞치마 (가게 앞치마)", "scene": "izakaya 이자카야", "targetBox": [90, 200, 210, 322], "prompt": "A Japanese shop apron (maekake): a thick indigo canvas apron with a plain cream waist band tied across, front view, short and wide. A simple circle emblem with no letters in the middle. Only the apron."},
-    {"id": "yu", "slot": "background", "kana": "ゆ", "nameKo": "목욕탕 노렌 앞", "scene": "onsen 온천", "targetBox": [-30, 0, 330, 360], "kanaInImage": "ゆ (노렌 위, 나중에 합성)", "prompt": "A simple bathhouse entrance: an indigo noren curtain hanging at the top-left, warm wooden frame, a light wooden floor and a pair of small sandals at the bottom-right edge, faint soft steam curls. The center is a calm, very light, almost empty area. Leave the noren cloth plain with no letters.", "kanaBoxes": [{"text": "ゆ", "box": [0, 44, 52, 96]}]},
-    {"id": "tenugui", "slot": "hat", "kana": "てぬぐい", "nameKo": "머리에 얹은 수건", "scene": "onsen 온천", "targetBox": [92, 82, 212, 150], "prompt": "A small folded tenugui hand towel lying flat, front view: white cotton with a simple indigo wave pattern, folded into a neat flat rectangle, slightly tilted. Only the folded towel, nothing under it."},
-    {"id": "furoshiki", "slot": "scarf", "kana": "ふろしき", "nameKo": "보자기", "scene": "ryokan 료칸", "targetBox": [-30, 196, 280, 300], "prompt": "A long folded furoshiki cloth worn like a neckerchief, shown alone as a flat object: a plum purple band with a light swirl pattern running diagonally from lower left to upper right, with a simple square knot and two short pointed ends at the left. Only the purple cloth, one color."},
-    {"id": "youkan", "slot": "hand", "kana": "ようかん", "nameKo": "양갱 (객실 다과)", "scene": "ryokan 료칸", "targetBox": [-40, -80, 40, 20], "prompt": "A small round wooden plate with one rectangular slice of dark red-brown yokan (sweet bean jelly) on it and a little bamboo pick stuck in the slice. Only the plate and the yokan on the plain gray background: no balls, no circles, no dots, no other food, nothing behind them."}
-  ]
+ "_comment": "리워드 아이템 그림 작업 목록 (docs/design/item-art/brief.md 2·3·4번). 이미지 모델에 prompt를 한 줄씩 넘긴다(gen_item_art.py). 밥(goma, yakionigiri)과 기본 차림(chef_hat, plain_rice)은 tools/make_onigiri_svg.py가 그리므로 여기에 없다. 넣는 단계(place_item_art.py)의 값: 머리(top)는 kind(hat 모자류 / topping 토핑), box [폭, 높이] 상한 안으로 줄이고, 그림의 닿는 점(anchor, 잘라 낸 그림 안의 비율 [x, y]. 없으면 아래 가장자리 가운데)을 contact(360 좌표계, 없으면 P (150, 110))에 맞춘 뒤 rotate(도, SVG rotate와 같은 부호. 음수면 오른쪽이 올라감)만큼 돌린다(brief.md 2.1.6). 속재료(filling)는 layer(back/front), direction(왼쪽 수평에서 위로 도), depth(E (54, 189)에서 몸 안쪽 거리), length(긴 축 길이), anchor(안쪽 끝, 없으면 오른쪽 가장자리 가운데)로 놓는다(brief.md 2.3.5·2.3.6). 배경(background)은 targetBox 360×360과 kanaBoxes(그림에 합성할 가나와 자리)다. 기리 좌표는 모두 360 좌표계(viewBox -30 0 360 360).",
+ "styleRef": [
+  "reference/onigiri-default.png"
+ ],
+ "items": [
+  {
+   "id": "noren",
+   "slot": "background",
+   "kana": "のれん",
+   "nameKo": "노렌이 걸린 가게 앞",
+   "scene": "sushi 스시집",
+   "targetBox": [
+    -30,
+    0,
+    330,
+    360
+   ],
+   "kanaInImage": "すし (노렌 위, 나중에 합성)",
+   "prompt": "A simple front view of a small Japanese eatery entrance: a dark indigo split noren curtain hanging across the top-left of a wooden doorway, light cream plaster wall, a little potted plant at the bottom-right edge. The center of the picture is a calm, very light, almost empty wall area. Leave the noren cloth plain with no letters.",
+   "kanaBoxes": [
+    {
+     "text": "す",
+     "box": [
+      -14,
+      62,
+      36,
+      112
+     ]
+    },
+    {
+     "text": "し",
+     "box": [
+      236,
+      62,
+      286,
+      112
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tamago",
+   "slot": "top",
+   "kana": "たまご",
+   "nameKo": "달걀말이",
+   "scene": "sushi 스시집",
+   "kind": "topping",
+   "box": [
+    128,
+    52
+   ],
+   "rotate": -3,
+   "prompt": "One thick slice of Japanese tamagoyaki (sweet rolled omelette) shown alone as a flat object, front view: a soft rounded rectangle slab in warm yellow, bent into a gentle arch with the middle higher than the two ends, like a shallow upside-down U, with one narrow dark seaweed band wrapped around its middle from top to bottom. Only the omelette slice and the seaweed band, nothing under it."
+  },
+  {
+   "id": "tonkatsu_slice",
+   "slot": "top",
+   "kana": "とんかつ",
+   "nameKo": "돈카츠 한 조각",
+   "scene": "tonkatsu 돈카츠집",
+   "kind": "topping",
+   "box": [
+    128,
+    60
+   ],
+   "rotate": -5,
+   "prompt": "One single slice of tonkatsu (breaded pork cutlet) shown alone as a flat object, tilted so the cut face is visible: a thick crust in warm wood brown with a softly wavy outline, and a pale cream cut face of meat inside. The bottom edge is gently rounded. Only one slice, no cabbage, no sauce, no crumbs, no plate."
+  },
+  {
+   "id": "chikuwa",
+   "slot": "top",
+   "kana": "ちくわ",
+   "nameKo": "치쿠와 튀김",
+   "scene": "soba 소바·우동집",
+   "kind": "topping",
+   "box": [
+    128,
+    44
+   ],
+   "rotate": -6,
+   "prompt": "One chikuwa (Japanese tube-shaped fish cake) lying sideways, shown alone as a flat object, gently curved like a shallow arch with the middle higher than the ends, slightly turned so one open end with its round dark hole is visible. Off-white ends and a wide toasted warm brown band covering the middle. Only the one tube, no sauce, no seaweed powder."
+  },
+  {
+   "id": "ebiten",
+   "slot": "filling",
+   "kana": "えび天",
+   "nameKo": "새우튀김",
+   "scene": "soba 소바·우동집",
+   "layer": "back",
+   "direction": 15,
+   "depth": 8,
+   "length": 84,
+   "prompt": "One shrimp tempura (ebi tempura) lying horizontally, shown alone as a flat object: a long body in warm yellow batter with a softly wavy outline, the right end cut straight across, and at the left end a small fan-shaped orange red shrimp tail sticking out. Only the one tempura, no sauce, no crumbs, no plate."
+  },
+  {
+   "id": "eki",
+   "slot": "background",
+   "kana": "えき",
+   "nameKo": "역 승강장",
+   "scene": "station 역",
+   "targetBox": [
+    -30,
+    0,
+    330,
+    360
+   ],
+   "kanaInImage": "えき (역명판, 나중에 합성)",
+   "prompt": "A simple, completely empty Japanese train station platform with nobody on it: pale sky, a blank station name board on two short posts at the top-left, a yellow tactile line along the platform edge at the bottom, a bit of a train window at the right edge. The middle of the picture is just empty pale platform and sky. Leave the station name board blank with no letters.",
+   "kanaBoxes": [
+    {
+     "text": "え",
+     "box": [
+      -3,
+      45,
+      29,
+      77
+     ],
+     "color": "#4A2219"
+    },
+    {
+     "text": "き",
+     "box": [
+      31,
+      45,
+      63,
+      77
+     ],
+     "color": "#4A2219"
+    }
+   ]
+  },
+  {
+   "id": "shake",
+   "slot": "filling",
+   "kana": "しゃけ",
+   "nameKo": "연어",
+   "scene": "station 역",
+   "layer": "back",
+   "direction": 20,
+   "depth": 6,
+   "length": 70,
+   "prompt": "One chunk of grilled salted salmon (shake) lying horizontally, shown alone as a flat object: a rounded wedge in soft salmon orange with two thin curved off-white fat lines across it, the right end cut straight across. No skin, no grill marks. Only the one salmon piece."
+  },
+  {
+   "id": "torii",
+   "slot": "background",
+   "kana": "とりい",
+   "nameKo": "도리이가 선 참배길",
+   "scene": "shrine 신사·축제",
+   "targetBox": [
+    -30,
+    0,
+    330,
+    360
+   ],
+   "prompt": "A simple shrine approach: a vermilion torii gate framing the picture with its top beam across the top and its two pillars at the left and right edges, a light stone path in the middle, soft green-grey shrubs at the bottom corners, pale sky. The center is a calm, very light, almost empty area."
+  },
+  {
+   "id": "omen",
+   "slot": "top",
+   "kana": "おめん",
+   "nameKo": "축제 가면",
+   "scene": "shrine 신사·축제",
+   "prompt": "A cute white festival fox mask (kitsune omen) floating alone, front view tilted about 20 degrees: white face shape with pointed fox ears, simple orange-red markings, empty eye holes, a thin cord loop at the side. Only the flat mask itself, nothing behind or under it.",
+   "kind": "hat",
+   "box": [
+    140,
+    106
+   ],
+   "rotate": -6,
+   "contact": [
+    150,
+    122
+   ]
+  },
+  {
+   "id": "hachimaki",
+   "slot": "top",
+   "kana": "はちまき",
+   "nameKo": "머리띠",
+   "scene": "izakaya 이자카야",
+   "prompt": "A twisted cloth headband (nejiri hachimaki) shown alone as a flat object, front view: a thick rope-like band made of only two colors, dark indigo blue and white, twisted together in a spiral, bent into a wide shallow upward arc like a smile (not a closed ring), with a small knot and two short tails at the right end. Only indigo and white, no other colors.",
+   "kind": "hat",
+   "box": [
+    150,
+    92
+   ],
+   "rotate": -5,
+   "contact": [
+    150,
+    124
+   ]
+  },
+  {
+   "id": "yu",
+   "slot": "background",
+   "kana": "ゆ",
+   "nameKo": "목욕탕 노렌 앞",
+   "scene": "onsen 온천",
+   "targetBox": [
+    -30,
+    0,
+    330,
+    360
+   ],
+   "kanaInImage": "ゆ (노렌 위, 나중에 합성)",
+   "prompt": "A simple bathhouse entrance: an indigo noren curtain hanging at the top-left, warm wooden frame, a light wooden floor and a pair of small sandals at the bottom-right edge, faint soft steam curls. The center is a calm, very light, almost empty area. Leave the noren cloth plain with no letters.",
+   "kanaBoxes": [
+    {
+     "text": "ゆ",
+     "box": [
+      0,
+      44,
+      52,
+      96
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tenugui",
+   "slot": "top",
+   "kana": "てぬぐい",
+   "nameKo": "머리에 얹은 수건",
+   "scene": "onsen 온천",
+   "prompt": "A small folded tenugui hand towel lying flat, front view: white cotton with a simple indigo wave pattern, folded into a neat flat rectangle, slightly tilted. Only the folded towel, nothing under it.",
+   "kind": "hat",
+   "box": [
+    112,
+    62
+   ],
+   "rotate": -4,
+   "contact": [
+    150,
+    118
+   ]
+  },
+  {
+   "id": "manjuu",
+   "slot": "top",
+   "kana": "まんじゅう",
+   "nameKo": "온천 만주",
+   "scene": "ryokan 료칸",
+   "kind": "topping",
+   "box": [
+    76,
+    52
+   ],
+   "rotate": 0,
+   "prompt": "One small round Japanese steamed bun (onsen manju) shown alone as a flat object, front view: a soft low dome with a flat bottom, warm wood brown top and a narrow pale cream band along the lower side. Plain and smooth with no stamp, no mark, no text. Only the one bun, whole and uncut, nothing under it."
+  },
+  {
+   "id": "umeboshi",
+   "slot": "filling",
+   "kana": "うめぼし",
+   "nameKo": "우메보시",
+   "scene": "ryokan 료칸",
+   "layer": "back",
+   "direction": 30,
+   "depth": 8,
+   "length": 44,
+   "prompt": "One Japanese pickled plum (umeboshi) shown alone as a flat object, front view: a round slightly squashed ball in soft orange red with one or two short curved wrinkle lines on its surface. No leaf, no seed, no stem, no bowl. Only the one plum."
+  }
+ ]
 }
