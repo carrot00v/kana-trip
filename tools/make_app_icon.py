@@ -14,7 +14,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from make_onigiri_svg import ARMS, body_clip_def, body_layers, body_path, face, hat, scarf  # noqa: E402
+from make_onigiri_svg import arms, body_clip_def, body_layers, body_path, cheeks, face, hat, scarf  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SVG_OUT = ROOT / "docs/design/character/app-icon.svg"
@@ -40,12 +40,13 @@ def icon_svg(bg=BG, scale=SCALE):
   <rect width="{SIZE}" height="{SIZE}" fill="{bg}"/>
   <g transform="translate({tx:.1f} {ty:.1f}) scale({scale})">
   <!-- 팔 -->
-  {ARMS["default"]}
+  {arms("default")}
 
   <!-- 몸통 -->
   {body_layers(body)}
 {scarf()}
 {hat()}
+{cheeks()}
 {face("default")}
   </g>
 </svg>

@@ -1,15 +1,16 @@
 import SwiftUI
 
-/// K 기리 꾸미기 (docs/design/reward-flow.md 3번).
-/// 위: 미리보기와 안내 줄. 아래 절반: 슬롯 버튼 4개와 아이템 격자.
+/// K 기리 꾸미기 (docs/design/reward-flow.md 3번, 3.0의 2026-11-16 개편).
+/// 위: 미리보기와 안내 줄. 아래 절반: 슬롯 탭(머리·속재료·밥·배경)과 아이템 격자.
+/// 탭 하나 = 슬롯 하나 = "없음"(밥은 흰 밥) 칸 하나. 아이템이 없는 슬롯의 탭은 숨긴다.
 struct CustomizeView: View {
     @Environment(ProgressStore.self) private var store
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    @State private var slot: RewardSlot = .hat
+    @State private var slot: RewardSlot = .top
     @State private var didPickSlot = false
-    /// 입어 보는 중인 아이템. 저장하지 않는다.
+    /// 미리 보는 중인 아이템. 저장하지 않는다.
     @State private var trying: RewardItem?
     /// 안내 줄. nil이면 고른 슬롯의 "처음" 문구.
     @State private var info: Info?
@@ -69,7 +70,7 @@ struct CustomizeView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(L.resetOutfit, action: resetOutfit)
-                    .disabled(rewards.equipped == catalog.defaultOutfit)
+                    .disabled(rewards.isDefaultOutfit)
                     .accessibilityHint(L.resetOutfitHint)
             }
         }
@@ -87,10 +88,13 @@ struct CustomizeView: View {
         return min(260, max(200, screenHeight / 2 - top - 70))
     }
 
-    private var previewOutfit: [String: String] {
-        var outfit = rewards.equipped
-        if let trying { outfit[trying.slot.rawValue] = trying.id }
-        return outfit
+    private var previewOutfit: GiriOutfit {
+        GiriOutfit(state: rewards, catalog: catalog, trying: trying)
+    }
+
+    /// 보여 줄 탭: 팔 아이템이 하나라도 있는 슬롯 (3.0 "빈 탭"). 지금 목록은 넷 모두 있다.
+    private var visibleSlots: [RewardSlot] {
+        RewardSlot.allCases.filter { slot in catalog.items(in: slot).contains { !$0.isDefault } }
     }
 
     private func preview(side: CGFloat) -> some View {
@@ -107,7 +111,7 @@ struct CustomizeView: View {
     }
 
     private var previewLabel: String {
-        let parts = RewardSlot.allCases.map { slot in
+        let parts = visibleSlots.map { slot in
             "\(L.slotName(slot)) \(rewards.equippedID(slot).flatMap(catalog.item(id:))?.nameKo ?? L.none)"
         }
         let head = trying.map { "\(L.tryingOnLabel) \($0.kana ?? $0.nameKo), " } ?? ""
@@ -128,10 +132,16 @@ struct CustomizeView: View {
                 grid(columns: columns)
                     .padding(.top, 12)
             } else {
-                ScrollView {
-                    grid(columns: columns)
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        grid(columns: columns)
+                    }
+                    .onAppear {
+                        // 고른 탭에 살 수 있는 아이템이 있으면 그 칸이 다 보이게 시작한다 (3.6). 처음 2행 안이면 그대로다.
+                        if let item = latestBuyable(in: slot) { proxy.scrollTo(item.id, anchor: .bottom) }
+                    }
                 }
-                // 슬롯을 바꾸면 맨 위에서 다시 시작한다.
+                // 슬롯을 바꾸면 처음 위치에서 다시 시작한다.
                 .id(slot)
                 .padding(.top, 12)
             }
@@ -189,7 +199,7 @@ struct CustomizeView: View {
 
     private func slotButtons(columns: Int) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: columns), spacing: 8) {
-            ForEach(RewardSlot.allCases, id: \.self) { slot in
+            ForEach(visibleSlots, id: \.self) { slot in
                 slotButton(slot)
             }
         }
@@ -201,9 +211,9 @@ struct CustomizeView: View {
         let hasBuyable = catalog.items(in: slot).contains { itemState($0) == .buyable }
         let label = HStack(spacing: 4) {
             Text(L.slotName(slot))
-                .font(.headline)
+                .font(.subheadline.weight(.semibold))
                 .lineLimit(1)
-                .minimumScaleFactor(0.8)
+                .minimumScaleFactor(0.75)
             if hasBuyable {
                 Image(systemName: "yensign.circle.fill")
                     .font(.system(size: 13))
@@ -236,9 +246,9 @@ struct CustomizeView: View {
         .padding(.bottom, 8)
     }
 
-    /// 칸 순서: 없음, 기본 차림 아이템, 나머지를 장면 순서대로 (3.5). 아이템 데이터가 그 순서다.
+    /// 칸 순서: 없음(밥에는 없음), 기본 차림 아이템, 나머지를 장면 순서대로 (3.5). 아이템 데이터가 그 순서다.
     private var cells: [Cell] {
-        [.none] + catalog.items(in: slot).map { .item($0) }
+        (slot.canBeEmpty ? [.none] : []) + catalog.items(in: slot).map { .item($0) }
     }
 
     // MARK: - 칸
@@ -449,18 +459,26 @@ struct CustomizeView: View {
         AccessibilityNotification.Announcement((newInfo ?? initialInfo(slot)).detail).post()
     }
 
-    /// 살 수 있는 아이템이 있으면 그중 가장 늦은 장면의, 데이터 순서가 앞인 아이템의 슬롯. 없으면 모자 (3.6).
+    /// 살 수 있는 아이템이 있으면 그중 가장 늦은 장면의 아이템이 든 탭. 같은 장면에 둘이면 탭 순서가 앞인 탭.
+    /// 없으면 머리 (3.6). 그 탭에서 처음 보여 줄 칸(가장 늦은 장면의 살 수 있는 아이템)도 정한다.
     private func pickInitialSlot() {
         guard !didPickSlot else { return }
         didPickSlot = true
+        slot = visibleSlots.first ?? .top
+        guard let item = latestBuyable(in: nil) else { return }
+        slot = item.slot
+    }
+
+    /// 살 수 있는 아이템 가운데 가장 늦은 장면의 것. 같은 장면이면 탭 순서, 같은 탭이면 데이터 순서가 앞인 것.
+    private func latestBuyable(in slot: RewardSlot?) -> RewardItem? {
         let buyable = RewardRules.buyableItems(state: rewards, catalog: catalog)
+            .filter { slot == nil || $0.slot == slot }
         let order = { (item: RewardItem) in
             item.sceneID.flatMap { ContentLibrary.shared.scene(id: $0)?.order } ?? 0
         }
-        guard let latest = buyable.map(order).max(),
-              let item = buyable.first(where: { order($0) == latest })
-        else { return }
-        slot = item.slot
+        let tabIndex = { (item: RewardItem) in RewardSlot.allCases.firstIndex(of: item.slot) ?? 0 }
+        guard let latest = buyable.map(order).max() else { return nil }
+        return buyable.filter { order($0) == latest }.min { tabIndex($0) < tabIndex($1) }
     }
 
     private func select(_ newSlot: RewardSlot) {
@@ -496,7 +514,7 @@ struct CustomizeView: View {
             show(nameInfo(item, L.tryingOn(price: item.price)))
             buying = item
         case .short(let n):
-            // 같은 칸을 다시 누르면 입어 보기를 끝낸다.
+            // 같은 칸을 다시 누르면 미리 보기를 끝낸다.
             if trying?.id == item.id {
                 trying = nil
                 show(nil)

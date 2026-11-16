@@ -291,7 +291,7 @@ private struct CelebrationCharacter: View {
 
     var body: some View {
         let shown = appeared || reduceMotion
-        GiriView(pose: .happy, outfit: store.rewards.equipped, side: side)
+        GiriView(pose: .happy, outfit: store.giriOutfit, side: side)
             .overlay {
                 Image(systemName: "checkmark.circle.fill")
                     .resizable()

@@ -1,17 +1,17 @@
 {
-  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2). 히라가나 16개만, 장면 순서(개편안 B). 장면의 종합 퀴즈({장면 id}-quiz)를 처음 통과하면 그 장면의 두 아이템이 열린다. 화면용 짧은 이름은 PLAN.md 8번 미정. units의 っ 표기는 단어 데이터(きっぷ)와 같다. とんかつ는 2026-11-15에 아이템에서 빼고 단어 그림으로만 쓴다(docs/content/word-images.md 4.1·4.2). 돈카츠집 손 아이템은 おしんこ.",
+  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2, 7번). 꾸미기 종류는 top(머리)·filling(속재료)·rice(밥)·background(배경) 4개(2026-11-16). 기본 차림은 chef_hat + plain_rice. 히라가나 16개, 장면 순서. 장면의 종합 퀴즈를 처음 통과하면 그 장면의 두 아이템이 열린다. layer는 속재료만: back(본체 뒤, 기본) 또는 front(본체 앞). 요음(しゃ, じゅ)은 한 칸으로 묶고, 앞 글자를 배웠으면 읽을 수 있는 칸으로 센다(PLAN.md 8번 임시 규칙). 한자 칸은 kanji: true. 밥 색·무늬는 tools/make_onigiri_svg.py의 RICES에만 둔다.",
   "items": [
     {
       "id": "chef_hat",
-      "slot": "hat",
+      "slot": "top",
       "nameKo": "요리사 모자",
       "isDefault": true,
       "price": 0
     },
     {
-      "id": "red_scarf",
-      "slot": "scarf",
-      "nameKo": "빨간 두건",
+      "id": "plain_rice",
+      "slot": "rice",
+      "nameKo": "흰 밥",
       "isDefault": true,
       "price": 0
     },
@@ -39,103 +39,11 @@
       ]
     },
     {
-      "id": "sushi",
-      "slot": "hand",
-      "kana": "すし",
-      "nameKo": "초밥 한 점",
+      "id": "tamago",
+      "slot": "top",
+      "kana": "たまご",
+      "nameKo": "달걀말이",
       "sceneID": "sushi",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "す",
-          "romaji": "su"
-        },
-        {
-          "kana": "し",
-          "romaji": "shi"
-        }
-      ]
-    },
-    {
-      "id": "oshinko",
-      "slot": "hand",
-      "kana": "おしんこ",
-      "nameKo": "절임 반찬",
-      "sceneID": "tonkatsu",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "お",
-          "romaji": "o"
-        },
-        {
-          "kana": "し",
-          "romaji": "shi"
-        },
-        {
-          "kana": "ん",
-          "romaji": "n"
-        },
-        {
-          "kana": "こ",
-          "romaji": "ko"
-        }
-      ]
-    },
-    {
-      "id": "ohitsu",
-      "slot": "hat",
-      "kana": "おひつ",
-      "nameKo": "나무 밥통",
-      "sceneID": "tonkatsu",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "お",
-          "romaji": "o"
-        },
-        {
-          "kana": "ひ",
-          "romaji": "hi"
-        },
-        {
-          "kana": "つ",
-          "romaji": "tsu"
-        }
-      ]
-    },
-    {
-      "id": "kitsune",
-      "slot": "hand",
-      "kana": "きつね",
-      "nameKo": "유부 우동 한 그릇",
-      "sceneID": "soba",
-      "isDefault": false,
-      "price": 300,
-      "units": [
-        {
-          "kana": "き",
-          "romaji": "ki"
-        },
-        {
-          "kana": "つ",
-          "romaji": "tsu"
-        },
-        {
-          "kana": "ね",
-          "romaji": "ne"
-        }
-      ]
-    },
-    {
-      "id": "tasuki",
-      "slot": "scarf",
-      "kana": "たすき",
-      "nameKo": "어깨띠",
-      "sceneID": "soba",
       "isDefault": false,
       "price": 300,
       "units": [
@@ -144,12 +52,106 @@
           "romaji": "ta"
         },
         {
-          "kana": "す",
-          "romaji": "su"
+          "kana": "ま",
+          "romaji": "ma"
         },
         {
-          "kana": "き",
-          "romaji": "ki"
+          "kana": "ご",
+          "romaji": "go"
+        }
+      ]
+    },
+    {
+      "id": "tonkatsu_slice",
+      "slot": "top",
+      "kana": "とんかつ",
+      "nameKo": "돈카츠 한 조각",
+      "sceneID": "tonkatsu",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "と",
+          "romaji": "to"
+        },
+        {
+          "kana": "ん",
+          "romaji": "n"
+        },
+        {
+          "kana": "か",
+          "romaji": "ka"
+        },
+        {
+          "kana": "つ",
+          "romaji": "tsu"
+        }
+      ]
+    },
+    {
+      "id": "goma",
+      "slot": "rice",
+      "kana": "ごま",
+      "nameKo": "깨 뿌린 밥",
+      "sceneID": "tonkatsu",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "ご",
+          "romaji": "go"
+        },
+        {
+          "kana": "ま",
+          "romaji": "ma"
+        }
+      ]
+    },
+    {
+      "id": "chikuwa",
+      "slot": "top",
+      "kana": "ちくわ",
+      "nameKo": "치쿠와 튀김",
+      "sceneID": "soba",
+      "isDefault": false,
+      "price": 300,
+      "units": [
+        {
+          "kana": "ち",
+          "romaji": "chi"
+        },
+        {
+          "kana": "く",
+          "romaji": "ku"
+        },
+        {
+          "kana": "わ",
+          "romaji": "wa"
+        }
+      ]
+    },
+    {
+      "id": "ebiten",
+      "slot": "filling",
+      "kana": "えび天",
+      "nameKo": "새우튀김",
+      "sceneID": "soba",
+      "isDefault": false,
+      "price": 300,
+      "layer": "back",
+      "units": [
+        {
+          "kana": "え",
+          "romaji": "e"
+        },
+        {
+          "kana": "び",
+          "romaji": "bi"
+        },
+        {
+          "kana": "天",
+          "romaji": "ten",
+          "kanji": true
         }
       ]
     },
@@ -173,25 +175,22 @@
       ]
     },
     {
-      "id": "kippu",
-      "slot": "hand",
-      "kana": "きっぷ",
-      "nameKo": "기차표",
+      "id": "shake",
+      "slot": "filling",
+      "kana": "しゃけ",
+      "nameKo": "연어",
       "sceneID": "station",
       "isDefault": false,
       "price": 300,
+      "layer": "back",
       "units": [
         {
-          "kana": "き",
-          "romaji": "ki"
+          "kana": "しゃ",
+          "romaji": "sha"
         },
         {
-          "kana": "っ",
-          "romaji": "p"
-        },
-        {
-          "kana": "ぷ",
-          "romaji": "pu"
+          "kana": "け",
+          "romaji": "ke"
         }
       ]
     },
@@ -220,9 +219,9 @@
     },
     {
       "id": "omen",
-      "slot": "hat",
+      "slot": "top",
       "kana": "おめん",
-      "nameKo": "머리 옆에 건 축제 가면",
+      "nameKo": "축제 가면",
       "sceneID": "shrine",
       "isDefault": false,
       "price": 300,
@@ -243,7 +242,7 @@
     },
     {
       "id": "hachimaki",
-      "slot": "hat",
+      "slot": "top",
       "kana": "はちまき",
       "nameKo": "머리띠",
       "sceneID": "izakaya",
@@ -269,29 +268,37 @@
       ]
     },
     {
-      "id": "maekake",
-      "slot": "scarf",
-      "kana": "まえかけ",
-      "nameKo": "앞치마 (가게 앞치마)",
+      "id": "yakionigiri",
+      "slot": "rice",
+      "kana": "やきおにぎり",
+      "nameKo": "야키오니기리",
       "sceneID": "izakaya",
       "isDefault": false,
       "price": 300,
       "units": [
         {
-          "kana": "ま",
-          "romaji": "ma"
+          "kana": "や",
+          "romaji": "ya"
         },
         {
-          "kana": "え",
-          "romaji": "e"
+          "kana": "き",
+          "romaji": "ki"
         },
         {
-          "kana": "か",
-          "romaji": "ka"
+          "kana": "お",
+          "romaji": "o"
         },
         {
-          "kana": "け",
-          "romaji": "ke"
+          "kana": "に",
+          "romaji": "ni"
+        },
+        {
+          "kana": "ぎ",
+          "romaji": "gi"
+        },
+        {
+          "kana": "り",
+          "romaji": "ri"
         }
       ]
     },
@@ -312,7 +319,7 @@
     },
     {
       "id": "tenugui",
-      "slot": "hat",
+      "slot": "top",
       "kana": "てぬぐい",
       "nameKo": "머리에 얹은 수건",
       "sceneID": "onsen",
@@ -338,56 +345,57 @@
       ]
     },
     {
-      "id": "furoshiki",
-      "slot": "scarf",
-      "kana": "ふろしき",
-      "nameKo": "보자기",
+      "id": "manjuu",
+      "slot": "top",
+      "kana": "まんじゅう",
+      "nameKo": "온천 만주",
       "sceneID": "ryokan",
       "isDefault": false,
       "price": 300,
       "units": [
         {
-          "kana": "ふ",
-          "romaji": "fu"
+          "kana": "ま",
+          "romaji": "ma"
         },
         {
-          "kana": "ろ",
-          "romaji": "ro"
+          "kana": "ん",
+          "romaji": "n"
         },
         {
-          "kana": "し",
-          "romaji": "shi"
+          "kana": "じゅ",
+          "romaji": "ju"
         },
         {
-          "kana": "き",
-          "romaji": "ki"
+          "kana": "う",
+          "romaji": "u"
         }
       ]
     },
     {
-      "id": "youkan",
-      "slot": "hand",
-      "kana": "ようかん",
-      "nameKo": "양갱 (객실 다과)",
+      "id": "umeboshi",
+      "slot": "filling",
+      "kana": "うめぼし",
+      "nameKo": "우메보시",
       "sceneID": "ryokan",
       "isDefault": false,
       "price": 300,
+      "layer": "back",
       "units": [
-        {
-          "kana": "よ",
-          "romaji": "yo"
-        },
         {
           "kana": "う",
           "romaji": "u"
         },
         {
-          "kana": "か",
-          "romaji": "ka"
+          "kana": "め",
+          "romaji": "me"
         },
         {
-          "kana": "ん",
-          "romaji": "n"
+          "kana": "ぼ",
+          "romaji": "bo"
+        },
+        {
+          "kana": "し",
+          "romaji": "shi"
         }
       ]
     }

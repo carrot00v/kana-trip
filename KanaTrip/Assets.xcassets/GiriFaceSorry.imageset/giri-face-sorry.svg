@@ -1,8 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
 
-  <!-- 볼 -->
-  <ellipse cx="94" cy="190" rx="15" ry="10" fill="#F5A7A0"/>
-  <ellipse cx="206" cy="190" rx="15" ry="10" fill="#F5A7A0"/>
   <!-- 얼굴 -->
   <path d="M104 161 L120 170 L104 179" fill="none" stroke="#4A2219" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M196 161 L180 170 L196 179" fill="none" stroke="#4A2219" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>

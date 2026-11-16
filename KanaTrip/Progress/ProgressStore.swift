@@ -121,7 +121,7 @@ final class ProgressStore {
         self.rewardCatalog = catalog
         let loaded = storage.load()
         var state = Self.migrated(loaded)
-        // 완료했는데 지급하지 않은 지점에 지급하고, 목록에 없는 아이템을 입은 슬롯을 되돌린다 (reward-system.md 6.2, 6.3).
+        // 완료했는데 지급하지 않은 지점에 지급하고, 목록에 없는 아이템과 옛 슬롯 키를 버린다 (reward-system.md 6.2, 6.4).
         _ = RewardRules.settle(completedSessions: state.completedSessionIDs, state: &state.rewards, catalog: catalog)
         state.rewards = RewardRules.sanitized(state.rewards, catalog: catalog)
         self.state = state
@@ -231,6 +231,9 @@ final class ProgressStore {
     // MARK: - 리워드
 
     var rewards: RewardState { state.rewards }
+
+    /// 기리를 그릴 차림 (머리·속재료·밥·배경). 말풍선 줄, 완료 화면이 쓴다.
+    var giriOutfit: GiriOutfit { GiriOutfit(state: state.rewards, catalog: rewardCatalog) }
 
     /// 지금 살 수 있는 아이템이 있는지. 홈의 기리 행과 장면 완료의 "기리 꾸미기"에 쓴다.
     var canBuyAnyItem: Bool {

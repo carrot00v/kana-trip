@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """리워드 아이템 그림 후보를 로컬 Z-Image Turbo로 뽑는다 (docs/design/item-art/brief.md).
 
-  .venv/bin/python tools/gen_item_art.py kippu noren yu --count 4
+  .venv/bin/python tools/gen_item_art.py tamago ebiten --count 4
   .venv/bin/python tools/gen_item_art.py --list
 
 아이템마다 items.json의 prompt 앞뒤에 공통 문장을 붙여 gen_image.py로 생성하고,
-모자·두건·손 아이템은 tools/remove_bg.py로 바탕을 지워 투명 PNG를 함께 만든다.
+머리(top)·속재료(filling) 아이템은 tools/remove_bg.py로 바탕을 지워 투명 PNG를 함께 만든다.
+배경(background)은 불투명 그대로 둔다. 밥(rice)은 그림을 생성하지 않는다(tools/make_onigiri_svg.py가 그린다,
+brief.md 2.4).
 결과: docs/design/item-art/source/candidates/{id}_{seed}.png (원본), {id}_{seed}-cut.png (투명)
 고른 한 장을 source/{id}.png로 복사하는 일은 사람이 한다 (brief.md 4번).
 
@@ -58,6 +60,11 @@ def load_items() -> list[dict]:
     return json.loads((ART / "items.json").read_text())["items"]
 
 
+# 바탕을 지워 투명 PNG를 만드는 종류. 배경은 불투명 그대로, 밥은 생성하지 않는다.
+CUT_SLOTS = {"top", "filling"}
+GENERATED_SLOTS = CUT_SLOTS | {"background"}
+
+
 def build_prompt(item: dict) -> str:
     rules = BACKGROUND_RULES if item["slot"] == "background" else OBJECT_RULES
     return f"{STYLE} {PALETTE} Subject: {item['prompt']} {rules}"
@@ -75,11 +82,15 @@ def main() -> int:
     items = {i["id"]: i for i in load_items()}
     if a.list:
         for i in items.values():
-            print(f"{i['id']:10} {i['slot']:10} {i['kana']}  {i['nameKo']}")
+            print(f"{i['id']:15} {i['slot']:10} {i['kana']}  {i['nameKo']}")
         return 0
     unknown = [x for x in a.ids if x not in items]
     if not a.ids or unknown:
         print(f"아이템 id를 주세요. 모르는 id: {unknown}" if unknown else "아이템 id를 주세요 (--list)")
+        return 2
+    not_generated = [x for x in a.ids if items[x]["slot"] not in GENERATED_SLOTS]
+    if not_generated:
+        print(f"이미지 모델로 그리지 않는 종류의 아이템: {not_generated} (밥은 tools/make_onigiri_svg.py)")
         return 2
 
     OUT.mkdir(parents=True, exist_ok=True)
@@ -94,7 +105,7 @@ def main() -> int:
             if r.returncode != 0:
                 continue
             src = OUT / f"{item_id}_{s}.png"
-            if item["slot"] != "background":
+            if item["slot"] in CUT_SLOTS:
                 cut, _, ratio = remove_bg(Image.open(src))
                 cut.save(src.with_name(f"{item_id}_{s}-cut.png"))
                 print(f"  바탕 지움 {ratio * 100:.0f}%", flush=True)

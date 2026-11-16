@@ -129,27 +129,57 @@ enum RewardRules {
         return true
     }
 
+    /// 슬롯을 비운다. 머리는 빈 문자열로 남겨 "키 없음 = 기본 모자"와 구분한다.
+    /// 밥은 비울 수 없어 흰 밥으로 돌린다 (reward-system.md 5.1).
     static func clear(_ slot: RewardSlot, state: inout RewardState) {
-        state.equipped[slot.rawValue] = nil
+        switch slot {
+        case .rice:
+            state.equipped[slot.rawValue] = slot.defaultItemID
+        case .top:
+            state.equipped[slot.rawValue] = RewardState.emptyMark
+        case .filling, .background:
+            state.equipped[slot.rawValue] = nil
+        }
     }
 
+    /// 네 슬롯을 기본 차림(요리사 모자, 속재료 없음, 흰 밥, 배경 없음)으로 되돌린다.
     static func resetOutfit(state: inout RewardState, catalog: RewardCatalog) {
         state.equipped = catalog.defaultOutfit
     }
 
-    /// 불러온 착용 상태를 아이템 목록에 맞춘다. 목록에 없거나 가지지 않은 아이템을 입은 슬롯은
-    /// 기본 차림으로 되돌린다 (reward-system.md 6.3 마지막 줄). 모르는 슬롯 키는 지운다.
+    /// 불러온 리워드 상태를 아이템 목록에 맞춘다 (reward-system.md 6.4). 환불·이전은 하지 않는다.
+    /// - `owned`: 목록에 없는 id, 기본 아이템, 중복을 버린다.
+    /// - `equipped`: 슬롯 id가 아닌 키(옛 `hat`, `scarf`, `hand` 등)는 버린다. 목록에 없거나 그 슬롯의 아이템이 아니거나
+    ///   가지지 않은 아이템을 입은 슬롯은 기본으로 둔다. 머리를 비운 표시(빈 문자열)는 남긴다.
+    ///   결과는 기본이 있는 슬롯(top, rice)에 키를 늘 두고, 빈 슬롯(filling, background)은 키를 지운 꼴이다.
+    /// - `coins`, `paid`는 그대로 둔다.
     static func sanitized(_ state: RewardState, catalog: RewardCatalog) -> RewardState {
         var result = state
-        let defaults = catalog.defaultOutfit
-        for (key, id) in state.equipped {
-            guard let slot = RewardSlot(rawValue: key) else {
-                result.equipped[key] = nil
-                continue
-            }
-            if let item = catalog.item(id: id), item.slot == slot, isOwned(item, state: state) { continue }
-            result.equipped[key] = defaults[key]
+        var seen: Set<String> = []
+        result.owned = state.owned.filter { id in
+            guard let item = catalog.item(id: id), !item.isDefault else { return false }
+            return seen.insert(id).inserted
         }
+        var equipped: [String: String] = [:]
+        for slot in RewardSlot.allCases {
+            let key = slot.rawValue
+            var value = slot.defaultItemID
+            if let raw = state.equipped[key] {
+                if raw == RewardState.emptyMark {
+                    if slot.canBeEmpty { value = nil }
+                } else if let item = catalog.item(id: raw), item.slot == slot, isOwned(item, state: result) {
+                    value = raw
+                }
+            }
+            if let value {
+                equipped[key] = value
+            } else if slot.defaultItemID != nil {
+                // 기본이 있는 슬롯(머리)을 비웠다.
+                equipped[key] = RewardState.emptyMark
+            }
+        }
+        result.equipped = equipped
+        result.version = RewardState.currentVersion
         return result
     }
 }

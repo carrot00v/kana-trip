@@ -8,4 +8,4 @@ PM(메인 세션)이 관리한다. 기획 결정과 미정 항목은 [PLAN.md](.
 
 | 올린 날 | 작업 | 미룬 이유 | 다시 할 조건 | 참고 |
 |---|---|---|---|---|
-| - | (없음. 2026-11-16 단어 그림 60개를 모두 채워 word-okame 줄을 지움) | | | |
+| 2026-11-16 | 꾸미기 새 아이템 그림 7장: tamago, tonkatsu_slice, chikuwa, manjuu(머리), ebiten, shake, umeboshi(속재료). 앱에는 임시 그림이 들어가 있다 | ComfyUI(127.0.0.1:8188)가 응답하지 않음 | `curl -s -m 2 http://127.0.0.1:8188/system_stats`가 응답하고 모델 파일이 있을 때 | 프롬프트와 놓는 값: docs/design/item-art/brief.md 3.2, 2.2, 2.3.6. 다 그리면 place_item_art.py로 놓고 "가장 복잡한 조합" 비교 시트 확인 |

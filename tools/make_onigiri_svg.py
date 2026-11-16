@@ -1,10 +1,15 @@
 """오니기리 캐릭터 SVG를 만든다.
 
 밥알이 뭉친 울퉁불퉁한 외곽선은 손으로 그리기 어려워서 계산으로 만든다.
-실행: python3 tools/make_onigiri_svg.py
+실행: python3 tools/make_onigiri_svg.py   (.venv/bin/python이면 그린 픽셀 비교까지 한다. Pillow 필요)
 산출물: docs/design/character/onigiri-{default,happy,talk,point,think,sorry}.svg, 레이어 SVG와 앱 에셋
         docs/design/character/layers/, items/ (꾸미기용 레이어, docs/design/reward-flow.md 8.1)
-        KanaTrip/Assets.xcassets의 레이어 에셋 (Giri*, Item-*, ItemThumb-*)
+        KanaTrip/Assets.xcassets의 레이어 에셋 (GiriBase*[-{밥 id}], GiriFace*, GiriSparkles, Item-chef_hat, ItemThumb-*)
+
+밥 바꾸기 (docs/design/item-art/brief.md 2.4): 본체 레이어(그림자, 다리, 팔, 몸, 무늬, 김, 외곽선, 볼, 빨간 두건)를
+밥 정의 표 RICES마다 만든다. 흰 밥(plain_rice)은 접미사 없는 지금 이름(GiriBaseDefault, GiriBaseHappy)이다.
+밥 색·무늬 값은 이 표에만 둔다(rewards.json에는 넣지 않는다). 실행할 때 대비와 얼굴 금지 구역을 검사해 출력하고,
+기준을 못 넘으면 멈춘다.
 """
 import math
 from pathlib import Path
@@ -21,7 +26,34 @@ RED = "#E2533F"       # 두건, 모자 띠
 CHEEK = "#F5A7A0"     # 볼
 TONGUE = "#EE8A8A"
 YELLOW = "#F6B92B"    # 강조 표시
+TOAST = "#EBBE7E"     # やきおにぎり 밥 바탕 (brief.md 2.4.5)
+WOOD = "#C68A52"      # やきおにぎり 그을림
+CHEEK_DEEP = "#E8857A"  # やきおにぎり 볼
+SHADOW = "#E8D4BE"    # 그림자 (밥과 상관없이 그대로)
 SW = 6                # 외곽선 굵기
+
+# 밥알 결 선 (흰 밥만). 무늬 있는 밥은 결 선 대신 무늬를 그린다 (brief.md 2.4.4).
+GRAIN_LINES = ["M182 132 q6 2 9 8", "M78 156 q-2 6 0 11", "M222 192 q4 4 4 10",
+               "M44 270 q6 4 12 3", "M226 260 q-2 6 -8 9", "M60 296 q6 3 12 2"]
+
+# 밥 정의 표 (brief.md 2.4.5). 무늬는 (cx, cy, rx, ry, rotate) 타원 목록. 외곽선 없이 bodyClip 안에서 그린다.
+RICES = {
+    "plain_rice": {"fill": RICE, "pattern": None, "pattern_color": GRAIN, "cheek": CHEEK},
+    "goma": {
+        "fill": RICE, "pattern_color": LINE, "cheek": CHEEK,
+        # 검은깨 9알 (18 × 9)
+        "pattern": [(126, 123, 9, 4.5, -10), (150, 121, 9, 4.5, 0), (174, 123, 9, 4.5, 10),
+                    (62, 203, 9, 4.5, -35), (238, 203, 9, 4.5, 35),
+                    (232, 262, 9, 4.5, 15), (246, 284, 9, 4.5, -25), (222, 300, 9, 4.5, -20),
+                    (74, 300, 9, 4.5, 20)],
+    },
+    "yakionigiri": {
+        "fill": TOAST, "pattern_color": WOOD, "cheek": CHEEK_DEEP,
+        # 가장자리 그을림 5조각
+        "pattern": [(150, 116, 36, 14, 0), (55, 195, 18, 15, -53), (245, 195, 18, 15, 53),
+                    (54, 292, 28, 18, 46), (246, 292, 28, 18, -46)],
+    },
+}
 
 
 def rounded_triangle(verts, r, n):
@@ -94,10 +126,10 @@ def body_path():
     return scallop_path(pts, c, 4)
 
 
-def stub(d, width=22):
-    """흰 막대(팔·다리)에 외곽선을 두른다."""
+def stub(d, width=22, fill=RICE):
+    """밥 색 막대(팔·다리)에 외곽선을 두른다. 팔·다리에는 무늬를 넣지 않는다 (brief.md 2.4.4)."""
     return (f'<path d="{d}" stroke="{LINE}" stroke-width="{width}" stroke-linecap="round" fill="none"/>'
-            f'<path d="{d}" stroke="{RICE}" stroke-width="{width - 2 * SW}" stroke-linecap="round" fill="none"/>')
+            f'<path d="{d}" stroke="{fill}" stroke-width="{width - 2 * SW}" stroke-linecap="round" fill="none"/>')
 
 
 def hat():
@@ -167,10 +199,15 @@ EXPRESSIONS = {
     "sorry": ("sorry", "default", False),
 }
 
+# 팔 자세 → 팔 막대 경로. 색은 밥을 따른다.
 ARMS = {
-    "default": stub("M36 266 L22 284", 24) + stub("M264 266 L278 284", 24),
-    "happy": stub("M258 214 Q298 204 290 164", 24),
+    "default": ["M36 266 L22 284", "M264 266 L278 284"],
+    "happy": ["M258 214 Q298 204 290 164"],
 }
+
+
+def arms(kind, fill=RICE):
+    return "".join(stub(d, 24, fill) for d in ARMS[kind])
 
 MARKS = f'''
   <!-- 강조 표시 -->
@@ -186,45 +223,69 @@ def body_clip_def(body):
     return f'<clipPath id="bodyClip"><path d="{body}"/></clipPath>'
 
 
-def body_layers(body):
-    """밥, 밥알 결, 김, 몸통 외곽선. body_clip_def가 함께 있어야 한다."""
-    grains = "".join(
-        f'<path d="{d}" fill="none" stroke="{GRAIN}" stroke-width="4" stroke-linecap="round"/>'
-        for d in ["M182 132 q6 2 9 8", "M78 156 q-2 6 0 11", "M222 192 q4 4 4 10",
-                  "M44 270 q6 4 12 3", "M226 260 q-2 6 -8 9", "M60 296 q6 3 12 2"])
-    return f'''<path d="{body}" fill="{RICE}"/>
+def ellipse(e, color):
+    cx, cy, rx, ry, rot = e
+    return f'<ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}" transform="rotate({rot} {cx} {cy})" fill="{color}"/>'
+
+
+def rice_pattern(rice):
+    """몸 위의 선·무늬: 흰 밥은 밥알 결 선, 나머지는 무늬 타원. bodyClip 안, 김보다 먼저 그린다."""
+    r = RICES[rice]
+    if r["pattern"] is None:
+        return "".join(
+            f'<path d="{d}" fill="none" stroke="{r["pattern_color"]}" stroke-width="4" stroke-linecap="round"/>'
+            for d in GRAIN_LINES)
+    return "".join(ellipse(e, r["pattern_color"]) for e in r["pattern"])
+
+
+def body_layers(body, rice="plain_rice"):
+    """밥, 무늬(또는 밥알 결), 김, 몸통 외곽선. body_clip_def가 함께 있어야 한다."""
+    return f'''<path d="{body}" fill="{RICES[rice]["fill"]}"/>
   <g clip-path="url(#bodyClip)">
-    {grains}
+    {rice_pattern(rice)}
     <rect x="96" y="232" width="108" height="114" fill="{NORI}" stroke="{LINE}" stroke-width="4"/>
   </g>
   <path d="{body}" fill="none" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>'''
 
 
-def face(kind):
-    """볼과 표정."""
+def cheeks(color=CHEEK):
     return f'''
   <!-- 볼 -->
-  <ellipse cx="94" cy="190" rx="15" ry="10" fill="{CHEEK}"/>
-  <ellipse cx="206" cy="190" rx="15" ry="10" fill="{CHEEK}"/>
+  <ellipse cx="94" cy="190" rx="15" ry="10" fill="{color}"/>
+  <ellipse cx="206" cy="190" rx="15" ry="10" fill="{color}"/>'''
+
+
+def face(kind):
+    """표정 (눈, 입). 볼은 밥마다 색이 달라 본체 레이어로 옮겼다 (giri-companion.md 4.3의 6)."""
+    return f'''
   <!-- 얼굴 -->{FACES[kind]}'''
 
 
-def base(kind):
-    """본체 레이어: 그림자, 다리, 팔, 몸, 밥알 결, 김. 팔이 표정마다 다르다."""
+def base(kind, rice="plain_rice"):
+    """본체 레이어: 그림자, 다리, 팔, 몸, 무늬, 김, 외곽선, 볼, 빨간 두건 (reward-flow.md 8.1).
+    팔은 자세마다, 몸·팔·다리 색과 무늬·볼 색은 밥마다 다르다."""
     body = body_path()
+    fill = RICES[rice]["fill"]
     return f'''
   <!-- 그림자 -->
-  <ellipse cx="150" cy="346" rx="90" ry="9" fill="#E8D4BE" opacity="0.8"/>
+  <ellipse cx="150" cy="346" rx="90" ry="9" fill="{SHADOW}" opacity="0.8"/>
 
   <!-- 다리 -->
-  {stub("M128 314 L128 332", 36)}
-  {stub("M172 314 L172 332", 36)}
+  {stub("M128 314 L128 332", 36, fill)}
+  {stub("M172 314 L172 332", 36, fill)}
 
   <!-- 팔 -->
-  {ARMS[kind]}
+  {arms(kind, fill)}
 
   <!-- 몸통 -->
-  {body_layers(body)}'''
+  {body_layers(body, rice)}
+{cheeks(RICES[rice]["cheek"])}
+{scarf()}'''
+
+
+def rice_thumb(rice):
+    """밥 썸네일: 몸 바탕 + 무늬(또는 결 선) + 김 + 몸 외곽선만 (brief.md 2.6). 얼굴·볼·팔·다리·두건·그림자는 없다."""
+    return body_layers(body_path(), rice)
 
 
 def wrap(inner, view_box="-30 0 360 360", defs=""):
@@ -240,8 +301,8 @@ def wrap(inner, view_box="-30 0 360 360", defs=""):
 '''
 
 
-def svg(face_kind, arm_kind=None, sparkles=None):
-    """완성 그림. 레이어를 기본 차림(요리사 모자, 빨간 두건)으로 겹친 것과 같다.
+def svg(face_kind, arm_kind=None, sparkles=None, rice="plain_rice"):
+    """완성 그림. 앱이 겹치는 레이어(본체, 머리, 얼굴, 반짝임)를 기본 차림(요리사 모자)으로 이은 것이다.
     팔과 반짝임을 주지 않으면 얼굴 이름을 따른다(default, happy)."""
     arm_kind = arm_kind or face_kind
     sparkles = (face_kind == "happy") if sparkles is None else sparkles
@@ -250,8 +311,7 @@ def svg(face_kind, arm_kind=None, sparkles=None):
   <defs>
     {body_clip_def(body)}
   </defs>
-{base(arm_kind)}
-{scarf()}
+{base(arm_kind, rice)}
 {hat()}
 {face(face_kind)}
 {MARKS if sparkles else ""}
@@ -259,37 +319,71 @@ def svg(face_kind, arm_kind=None, sparkles=None):
 '''
 
 
+def legacy_svg(kind):
+    """2026-11-16 전의 완성 그림(볼이 얼굴 레이어, 두건이 따로 있던 순서). 그린 픽셀 비교의 기준이다."""
+    body = body_path()
+    old_face = cheeks() + face(kind)
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
+  <defs>
+    {body_clip_def(body)}
+  </defs>
+  <ellipse cx="150" cy="346" rx="90" ry="9" fill="{SHADOW}" opacity="0.8"/>
+  {stub("M128 314 L128 332", 36)}
+  {stub("M172 314 L172 332", 36)}
+  {arms(kind)}
+  {body_layers(body)}
+{scarf()}
+{hat()}
+{old_face}
+{MARKS if kind == "happy" else ""}
+</svg>
+'''
+
+
 # 꾸미기 레이어 (reward-flow.md 8.1). 모두 viewBox -30 0 360 360의 같은 정사각형이라 겹치기만 하면 맞는다.
-# 썸네일은 슬롯별 viewBox로 잘라 낸 별도 파일이다 (8.4).
+# 썸네일은 종류별 viewBox로 잘라 낸 별도 파일이다 (brief.md 2.6).
 THUMB_VIEWBOX = {
-    "hat": "57 -16 190 190",
-    "scarf": "-30 104 310 310",
+    "top": "57 -16 190 190",
+    "rice": "6 72 288 288",
 }
 
-# 기본 차림 아이템. 지금 그림의 함수를 그대로 레이어로 쓴다. 새 아이템 그림은 아직 없다 (PLAN.md 8번).
+# 기본 차림의 머리 아이템. 지금 그림의 함수를 그대로 레이어로 쓴다. 다른 머리·속재료·배경 그림은 place_item_art.py가 만든다.
 DEFAULT_ITEMS = {
-    "chef_hat": ("hat", hat),
-    "red_scarf": ("scarf", scarf),
+    "chef_hat": ("top", hat),
 }
+
+
+def base_asset_name(kind, rice):
+    """GiriBase{자세}, 흰 밥이 아니면 뒤에 -{밥 id}."""
+    return f"GiriBase{kind.title()}" + ("" if rice == "plain_rice" else f"-{rice}")
+
+
+def base_file_name(kind, rice):
+    return f"layers/giri-base-{kind}" + ("" if rice == "plain_rice" else f"-{rice}") + ".svg"
 
 
 def layer_files():
     """(문서 안 상대 경로, 에셋 이름, SVG 내용)."""
     files = []
-    # 본체는 팔 자세마다, 얼굴은 표정마다 하나 (giri-companion.md 4.3)
-    for kind in ARMS:
-        files.append((f"layers/giri-base-{kind}.svg", f"GiriBase{kind.title()}",
-                      wrap(base(kind), defs=body_clip_def(body_path()))))
+    clip = body_clip_def(body_path())
+    # 본체는 팔 자세 × 밥마다, 얼굴은 표정마다 하나 (giri-companion.md 4.3, brief.md 2.4.2)
+    for rice in RICES:
+        for kind in ARMS:
+            files.append((base_file_name(kind, rice), base_asset_name(kind, rice), wrap(base(kind, rice), defs=clip)))
+        files.append((f"items/{rice}-thumb.svg", f"ItemThumb-{rice}",
+                      wrap(rice_thumb(rice), THUMB_VIEWBOX["rice"], defs=clip)))
     for kind in FACES:
         files.append((f"layers/giri-face-{kind}.svg", f"GiriFace{kind.title()}", wrap(face(kind))))
     files.append(("layers/giri-sparkles.svg", "GiriSparkles", wrap(MARKS)))
-    # 손 아이템이 있을 때: x = 150을 축으로 뒤집어 왼쪽 위에 (reward-flow.md 7번)
-    files.append(("layers/giri-sparkles-left.svg", "GiriSparklesLeft",
-                  wrap(f'<g transform="translate(300 0) scale(-1 1)">{MARKS}</g>')))
     for item_id, (slot, draw) in DEFAULT_ITEMS.items():
         files.append((f"items/{item_id}.svg", f"Item-{item_id}", wrap(draw())))
         files.append((f"items/{item_id}-thumb.svg", f"ItemThumb-{item_id}", wrap(draw(), THUMB_VIEWBOX[slot])))
     return files
+
+
+# 2026-11-16 개편으로 쓰지 않게 된 산출물. 실행할 때 지운다.
+OBSOLETE_FILES = ["layers/giri-sparkles-left.svg", "items/red_scarf.svg", "items/red_scarf-thumb.svg"]
+OBSOLETE_ASSETS = ["GiriSparklesLeft", "Item-red_scarf", "ItemThumb-red_scarf"]
 
 
 def write_imageset(name, filename, content):
@@ -318,24 +412,178 @@ def write_imageset(name, filename, content):
 """ % filename, encoding="utf-8")
 
 
-def check_layers_match():
-    """기본 차림 레이어를 순서대로 이은 내용이 완성 그림과 같은지 본다 (reward-flow.md 8.1)."""
-    for kind in ARMS:
-        stacked = base(kind) + scarf() + hat() + face(kind) + (MARKS if kind == "happy" else "")
-        whole = svg(kind)
-        squash = lambda t: "".join(t.split())
-        assert squash(stacked) in squash(whole), f"{kind}: 레이어를 겹친 결과가 완성 그림과 다름"
+# ---- 검사 (brief.md 2.4.2의 5) ----
+
+def luminance(hex_color):
+    """WCAG 상대 휘도."""
+    h = hex_color.lstrip("#")
+    def ch(v):
+        c = int(v, 16) / 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    r, g, b = (ch(h[i:i + 2]) for i in (0, 2, 4))
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def contrast(a, b):
+    la, lb = sorted((luminance(a), luminance(b)), reverse=True)
+    return (la + 0.05) / (lb + 0.05)
+
+
+def hue_saturation(hex_color):
+    import colorsys
+    h = hex_color.lstrip("#")
+    r, g, b = (int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
+    hh, ll, ss = colorsys.rgb_to_hls(r, g, b)
+    return hh * 360, ss
+
+
+def body_polygon(steps=8):
+    """몸 외곽선(이차 곡선 이음)을 점 목록으로 편다."""
+    import re
+    nums = [float(v) for v in re.findall(r"-?\d+\.?\d*", body_path())]
+    x0, y0 = nums[0], nums[1]
+    pts = [(x0, y0)]
+    rest = nums[2:]
+    for i in range(0, len(rest), 4):
+        cx, cy, x1, y1 = rest[i:i + 4]
+        for k in range(1, steps + 1):
+            t = k / steps
+            pts.append(((1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t * t * x1,
+                        (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t * t * y1))
+        x0, y0 = x1, y1
+    return pts
+
+
+def inside(poly, x, y):
+    hit = False
+    j = len(poly) - 1
+    for i in range(len(poly)):
+        xi, yi = poly[i]
+        xj, yj = poly[j]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / (yj - yi) + xi:
+            hit = not hit
+        j = i
+    return hit
+
+
+def in_ellipse(e, x, y):
+    cx, cy, rx, ry, rot = e
+    a = math.radians(rot)
+    dx, dy = x - cx, y - cy
+    u = dx * math.cos(a) + dy * math.sin(a)
+    v = -dx * math.sin(a) + dy * math.cos(a)
+    return (u / rx) ** 2 + (v / ry) ** 2 <= 1
+
+
+def ellipse_bbox(e):
+    cx, cy, rx, ry, rot = e
+    a = math.radians(rot)
+    hw = math.hypot(rx * math.cos(a), ry * math.sin(a))
+    hh = math.hypot(rx * math.sin(a), ry * math.cos(a))
+    return cx - hw, cy - hh, cx + hw, cy + hh
+
+
+def check_rices():
+    """대비 네 가지와 볼·무늬 대비, 금지 색상, 얼굴 금지 구역 안의 조각 수, 무늬 면적 비율, 조각의 가장 작은 폭.
+    기준을 못 넘으면 AssertionError (brief.md 2.4.3, 2.4.4)."""
+    poly = body_polygon()
+    xs = [p[0] for p in poly]
+    ys = [p[1] for p in poly]
+    body_px = [(x + 0.5, y + 0.5) for x in range(int(min(xs)), int(max(xs)) + 1)
+               for y in range(int(min(ys)), int(max(ys)) + 1) if inside(poly, x + 0.5, y + 0.5)]
+    body_area = len(body_px)
+    failures = []
+    for rid, r in RICES.items():
+        fill = r["fill"]
+        lum = luminance(fill)
+        c_line, c_nori, c_red = contrast(fill, LINE), contrast(fill, NORI), contrast(fill, RED)
+        c_cheek = contrast(fill, r["cheek"])
+        hue, sat = hue_saturation(fill)
+        line = (f"{rid:12} 바탕 {fill} 휘도 {lum:.2f} | 외곽선 {c_line:.1f} 김 {c_nori:.1f} 두건 {c_red:.1f} "
+                f"볼 {c_cheek:.2f}")
+        checks = [(lum >= 0.50, "바탕 휘도 0.50 미만"), (c_line >= 7, "외곽선 대비 7 미만"),
+                  (c_nori >= 4.5, "김 대비 4.5 미만"), (c_red >= 2, "두건 대비 2 미만"),
+                  (c_cheek >= 1.4, "볼 대비 1.4 미만"),
+                  (not ((125 <= hue <= 160 and sat >= 0.25) or hue >= 330), "바탕 색상 금지 범위")]
+        if r["pattern"]:
+            color = r["pattern_color"]
+            c_pat = contrast(fill, color)
+            dark = luminance(color) < 0.15
+            zone = (72, 130 if dark else 150, 228, 214)
+            in_zone = sum(1 for e in r["pattern"]
+                          if not (ellipse_bbox(e)[2] < zone[0] or ellipse_bbox(e)[0] > zone[2]
+                                  or ellipse_bbox(e)[3] < zone[1] or ellipse_bbox(e)[1] > zone[3]))
+            covered = sum(1 for x, y in body_px if any(in_ellipse(e, x, y) for e in r["pattern"]))
+            ratio = covered / body_area
+            elongated = [max(e[2], e[3]) >= 1.5 * min(e[2], e[3]) for e in r["pattern"]]
+            min_short = min(2 * min(e[2], e[3]) for e in r["pattern"])
+            min_long = min(2 * max(e[2], e[3]) for e in r["pattern"])
+            size_ok = all((2 * max(e[2], e[3]) >= 16 and 2 * min(e[2], e[3]) >= 8) if el
+                          else 2 * min(e[2], e[3]) >= 16 for e, el in zip(r["pattern"], elongated))
+            line += (f" | 무늬 {color} 대비 {c_pat:.2f}, {len(r['pattern'])}조각, 금지 구역 안 {in_zone}, "
+                     f"면적 {ratio:.1%}, 가장 작은 폭 {min_short:g}(긴 쪽 {min_long:g})")
+            checks += [(c_pat >= 1.6, "무늬 대비 1.6 미만"), (in_zone == 0, "얼굴 금지 구역에 무늬"),
+                       (len(r["pattern"]) <= 12, "무늬 12조각 넘음"), (ratio <= 0.15, "무늬 면적 15% 넘음"),
+                       (size_ok, "무늬 조각 폭 부족")]
+            if dark:
+                checks.append((all(e[2] >= e[3] and abs(e[4]) <= 45 for e in r["pattern"]),
+                               "어두운 무늬가 세로로 김"))
+        else:
+            line += " | 결 선"
+        print(line)
+        failures += [f"{rid}: {msg}" for ok, msg in checks if not ok]
+    print(f"몸 면적 {body_area}")
+    assert not failures, "밥 검사 실패: " + ", ".join(failures)
+
+
+def check_pixels_match():
+    """흰 밥 기본 차림을 새 레이어 순서(볼·두건이 본체 안)로 겹친 결과가 옛 완성 그림과 같은 픽셀인지 본다.
+    볼 순서가 바뀌므로 문자열이 아니라 그린 픽셀로 비교한다 (brief.md 2.4.2의 5). Pillow가 없으면 건너뛴다."""
+    try:
+        from PIL import Image, ImageChops
+    except ImportError:
+        print("Pillow가 없어 픽셀 비교를 건너뜀 (.venv/bin/python으로 실행)")
+        return
+    import subprocess
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        exe = tmp / "svg_to_png"
+        subprocess.run(["swiftc", "-O", str(Path(__file__).resolve().parent / "svg_to_png.swift"), "-o", str(exe)],
+                       check=True)
+        for kind in ARMS:
+            pngs = []
+            for name, content in (("new", svg(kind)), ("old", legacy_svg(kind))):
+                src, out = tmp / f"{kind}-{name}.svg", tmp / f"{kind}-{name}.png"
+                src.write_text(content, encoding="utf-8")
+                subprocess.run([str(exe), str(src), str(out), "720"], check=True)
+                pngs.append(Image.open(out).convert("RGB"))
+            diff = ImageChops.difference(*pngs)
+            changed = sum(1 for p in diff.get_flattened_data() if max(p) > 8)
+            print(f"픽셀 비교 {kind}: 다른 픽셀 {changed} / {720 * 720}")
+            assert changed == 0, f"{kind}: 새 레이어 순서의 그림이 옛 완성 그림과 다름"
 
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
+    check_rices()
+    check_pixels_match()
     for name, (face_kind, arm_kind, sparkles) in EXPRESSIONS.items():
         (OUT / f"onigiri-{name}.svg").write_text(svg(face_kind, arm_kind, sparkles), encoding="utf-8")
         print("wrote", OUT / f"onigiri-{name}.svg")
-    check_layers_match()
     for rel, asset, content in layer_files():
         path = OUT / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
         write_imageset(asset, path.name, content)
         print("wrote", path, "->", asset)
+    for rel in OBSOLETE_FILES:
+        if (OUT / rel).exists():
+            (OUT / rel).unlink()
+            print("removed", OUT / rel)
+    for asset in OBSOLETE_ASSETS:
+        folder = ASSETS / f"{asset}.imageset"
+        if folder.exists():
+            import shutil
+            shutil.rmtree(folder)
+            print("removed", folder)
