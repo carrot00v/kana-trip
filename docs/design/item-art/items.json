@@ -71,7 +71,7 @@
    ],
    "press": "auto",
    "contactSpan": 1.0,
-   "prompt": "One thick slice of Japanese tamagoyaki (sweet rolled omelette) shown alone as a flat object, seen straight from the front with no perspective: a soft warm yellow strip of even thickness bent into a rainbow-shaped arch, the middle highest and both ends hanging down equally, the underside follows the same arch so it is hollow underneath like an upside-down U, as if resting on a ball (do not draw the ball). One narrow dark seaweed band wrapped around its middle from top to bottom. No top surface, no shadow. Only the omelette slice and the seaweed band, nothing under it."
+   "prompt": "One slice of Japanese tamagoyaki (sweet rolled omelette) drawn completely flat in 2D, seen from the side: a long soft yellow strip of even thickness, about three times as wide as it is tall, bent into a shallow arch like a wide frown, the middle higher than both ends, so its bottom edge is clearly curved upward (concave), as if draped on top of a ball (do not draw the ball). One narrow dark seaweed band wrapped around its middle from top to bottom. Flat solid colors with no gradient, no 3D end face, no spiral, no shadow. Only the omelette strip and the seaweed band."
   },
   {
    "id": "tonkatsu_slice",
@@ -89,7 +89,7 @@
    ],
    "press": "auto",
    "contactSpan": 0.8,
-   "prompt": "One single slice of tonkatsu (breaded pork cutlet) shown alone as a flat object, seen straight from the front showing its cut face: a long rounded strip with a thick warm wood brown crust border with a softly wavy outline all around, and a pale cream meat center. The slice is gently bent into a shallow arch, the middle higher than the ends, so its underside is concave as if resting on a ball (do not draw the ball). Only one slice, no cabbage, no sauce, no crumbs, no plate."
+   "prompt": "One cut slice of tonkatsu (breaded fried pork cutlet) drawn completely flat in 2D, shaped like a wide rainbow arch: a long curved strip about three times as wide as it is tall, bent like an upside-down U that is very shallow, both ends lower than the middle, the top edge and the bottom edge are parallel curves, so the bottom edge arches upward in the middle with empty space under it. A thick golden brown crispy crust border all around with a bumpy, softly wavy outline, and a pale cream pork meat center. Plain meat with no dots, no marks, no face. Flat fills, no 3D side, no white sticker border, nothing under it."
   },
   {
    "id": "chikuwa",
@@ -102,12 +102,12 @@
    "dx": -6,
    "rotate": -5,
    "box": [
-    128,
-    44
+    136,
+    56
    ],
    "press": "auto",
    "contactSpan": 0.8,
-   "prompt": "One chikuwa (Japanese tube-shaped fish cake) lying sideways, shown alone as a flat object seen from the side: the tube is bent into a shallow arch with the middle higher than the ends so its underside is concave, as if resting on a ball (do not draw the ball). Only the left end is turned slightly toward the viewer, showing its round dark hole. Off-white ends and a wide toasted warm brown band covering the middle. Only the one tube, no sauce, no seaweed powder."
+   "prompt": "One chikuwa (Japanese tube-shaped fish cake) drawn completely flat in 2D, lying horizontally and seen from the side: a long tube about three times as wide as it is tall, bent into a shallow arch like a wide frown, the middle higher than both ends, so its bottom edge is clearly curved upward (concave), as if resting on top of a ball (do not draw the ball). Only the left end is turned slightly toward the viewer, showing a large round dark hole. Off-white ends and one wide toasted warm brown band covering the middle, flat solid colors with no gradient. Only the one tube, no sauce, no seaweed powder."
   },
   {
    "id": "ebiten",
@@ -222,7 +222,8 @@
      ]
     ]
    ],
-   "prompt": "A small white Japanese fox festival mask (kitsune omen) shown alone as a flat object, front view, upright: a rounded face shape with two pointed ears on top, two narrow curved eye slits, simple orange-red markings on the cheeks and forehead. Flat sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it."
+   "prompt": "A small white Japanese fox festival mask (kitsune omen) shown alone as a flat object, front view, upright: a rounded face shape with two pointed ears on top, two narrow curved eye slits drawn with thick bold lines, a few simple broad orange-red markings on the cheeks and forehead. Very few inner lines, all as thick as the outline. Flat sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it.",
+   "palette": "Use only two fill colors: warm off-white and soft orange red. No blue, no grey, no other colors."
   },
   {
    "id": "hachimaki",
@@ -233,13 +234,13 @@
    "kind": "hat",
    "fit": "band",
    "bandTarget": [
-    148,
-    140
+    142,
+    142
    ],
    "rotate": -5,
    "box": [
-    156,
-    56
+    160,
+    72
    ],
    "anchor": [
     0.45,
@@ -248,24 +249,53 @@
    "clipExempt": [
     [
      [
-      196,
-      88
+      200,
+      10
      ],
      [
       236,
-      88
+      10
      ],
      [
       236,
       158
      ],
      [
-      196,
+      200,
       158
      ]
     ]
    ],
-   "prompt": "A twisted cloth headband (nejiri hachimaki) seen straight from the front as one long flat horizontal strip, not a ring and not a loop: a thick rope-like band of dark indigo blue and white twisted together, very slightly curved like a wide smile with the middle a little lower than the ends, the left end cut off straight, and at the right end a small round knot with two short tails pointing up to the upper right. Flat front view with no perspective, no inside surface, no back part of a ring. Only indigo and white, no other colors."
+   "prompt": "One straight piece of thick twisted cloth rope lying horizontally, drawn flat in 2D: dark indigo blue and white strands twisted together like a candy cane stripe, about six times as wide as it is tall, very slightly curved like a wide smile, the middle a little lower than the ends. The left end is cut off straight. At the right end there is a small round knot with two short flat tails sticking up to the upper right. It is an open straight strip with two separate ends, not a circle, not a ring, not a loop, no hole in the middle, no perspective.",
+   "palette": "Use only two colors: dark indigo blue and warm off-white rice white. No other colors at all.",
+   "erase": [
+    [
+     [
+      0,
+      0
+     ],
+     [
+      0.82,
+      0
+     ],
+     [
+      0.82,
+      0.3
+     ],
+     [
+      0.87,
+      0.45
+     ],
+     [
+      0.88,
+      0.66
+     ],
+     [
+      0,
+      0.66
+     ]
+    ]
+   ]
   },
   {
    "id": "yu",
@@ -309,7 +339,8 @@
    ],
    "press": "auto",
    "contactSpan": 1.0,
-   "prompt": "A small folded white tenugui hand towel shown alone as a flat object, seen straight from the front with no perspective: a thick soft pad folded into a short rectangle with rounded corners, about three times as wide as it is thick, very slightly bent so the middle is a little higher than the ends and the underside is slightly concave, one fold line across it and one or two thin indigo stripes. The ends do not hang down. No top surface, no shadow. Only the towel."
+   "prompt": "A small folded white tenugui hand towel drawn completely flat in 2D, seen exactly from the side at eye level so only its folded front edge shows, like a thick soft pillow seen from the side: a long rounded strip about three times as wide as it is tall, bent into a shallow arch like a wide frown, the middle higher than both ends, so its bottom edge is clearly curved upward (concave), as if folded over the top of a ball (do not draw the ball). One fold line along its length and one or two thin indigo stripes across it. No top surface visible, no perspective, the ends do not hang down. Only the towel.",
+   "palette": "Use only two colors: warm off-white rice white and dark indigo blue. No other colors at all."
   },
   {
    "id": "manjuu",
@@ -328,7 +359,7 @@
    "press": "auto",
    "contactSpan": 0.8,
    "carveInset": 4,
-   "prompt": "One small round Japanese steamed bun (onsen manju) shown alone as a flat object, front view: a soft squishy low dome in warm wood brown with a narrow pale cream band along the lower side, gently slumped as if sitting on top of a ball, so its underside is slightly concave and not flat (do not draw the ball). Plain and smooth with no stamp, no mark, no text. Only the one bun, whole and uncut, nothing under it."
+   "prompt": "One small Japanese steamed bun (onsen manju) drawn completely flat in 2D, front view: one plain soft bun in a single flat warm wood brown color, shaped like a soft cushion slumped over the top of a ball (do not draw the ball): a rounded top, about one and a half times as wide as it is tall, and the bottom edge clearly curved upward in the middle (concave), with both lower corners drooping a little lower than the middle. Smooth surface with nothing on top: no cream, no icing, no white cap, no stamp, no mark, no highlight, no gradient. Only the one bun."
   },
   {
    "id": "umeboshi",
