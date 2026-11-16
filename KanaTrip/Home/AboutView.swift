@@ -20,7 +20,9 @@ struct AboutView: View {
 
             Section {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(KanaText.japanese(L.voiceCredit))
+                    Text(KanaText.japanese(L.voiceCreditLine))
+                        .font(.headline)
+                    Text(KanaText.japanese(L.songTeacherCreditLine))
                         .font(.headline)
                     Text(note(L.voiceCreditNote))
                         .font(.subheadline)
@@ -67,11 +69,13 @@ struct AboutView: View {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "-"
     }
 
-    /// 한글 문장 속 가나(春日部つむぎ)도 일본어 글꼴로 그리고 읽게 한다.
+    /// 한글 문장 속 일본어(春日部つむぎ, 波音リツ, 歌い方)도 일본어 글꼴로 그리고 읽게 한다.
     private func note(_ text: String) -> AttributedString {
         var string = AttributedString(text)
-        if let range = string.range(of: "春日部つむぎ") {
-            string[range].languageIdentifier = "ja"
+        for word in ["春日部つむぎ", "波音リツ", "歌い方"] {
+            if let range = string.range(of: word) {
+                string[range].languageIdentifier = "ja"
+            }
         }
         return string
     }

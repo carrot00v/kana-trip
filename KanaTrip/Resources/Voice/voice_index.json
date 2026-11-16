@@ -1,7 +1,7 @@
 {
  "comment": "tools/gen_voice.py final이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).",
  "credit": "VOICEVOX:春日部つむぎ",
- "generated": "2026-11-15",
+ "generated": "2026-11-16",
  "kana": {
   "あ": "kana_a",
   "い": "kana_i",

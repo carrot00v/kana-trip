@@ -148,13 +148,30 @@
   },
 
   "final": {
-    "comment": "앱에 넣는 최종본. gen_voice.py final. 글자는 3차 (N) 방식(늘리지 않음)으로 만들고 앱에서 두 번 읽는다. 단어는 1차의 느린 속도. P-loop 글자는 비교용으로만 만든다(앱에 넣지 않음)",
-    "generated": "2026-11-15",
+    "comment": "앱에 넣는 최종본. gen_voice.py final (글자만: final --kana-only). 글자는 5차 노래 합성 flatM40(2026-11-16 사용자 선택)으로 만들고 앱에서 한 번 읽는다. 단어는 1차의 느린 속도(2026-11-15 그대로). P-loop 글자는 비교용으로만 만든다(앱에 넣지 않음)",
+    "generated": "2026-11-16",
     "voice": {"slug": "tsumugi-normal", "name": "春日部つむぎ", "style": "ノーマル", "style_id": 8, "credit": "VOICEVOX:春日部つむぎ"},
     "scenes": "KanaTrip/Resources/hiragana_scenes.json",
     "strokes": "KanaTrip/Resources/hiragana_strokes.json",
     "output_dir": "docs/design/voice/final",
     "app_dir": "KanaTrip/Resources/Voice",
+    "kana_song": {
+      "comment": "5차 flatM40: 쿼리·f0·음량은 波音リツ 가창 교사(6000), 소리는 春日部つむぎ 노래(3008). 쉼 15프레임 + 음표 0.40초 + 쉼 15프레임, f0는 target_hz(5차에서 앱 단어 60개 F0 중앙값으로 잰 값)로 평탄하게 덮어씀, 음량은 첫 봉우리 뒤로 줄기만 하게(mono). を는 가사 ヲ가 거부되어 オ",
+      "vvm": "models/vvms/s0.vvm",
+      "teacher_style_id": 6000,
+      "singer_style_id": 3008,
+      "note_s": 0.4,
+      "f0": "flat",
+      "volume": "mono",
+      "rest_pre": 15,
+      "rest_post": 15,
+      "target_hz": 341.7,
+      "lyric": {"を": "オ"},
+      "limits": {"comment": "이상치 표시 기준(만들기는 멈추지 않음)", "min_voiced": 0.3, "silent_rms_dbfs": -60.0, "max_peak_dbfs": -0.9}
+    },
+    "n_kana_dir": "docs/design/voice/final/kanaN",
+    "n_measurements": "docs/design/voice/final/measurements-N.json",
+    "n_comment": "아래 kana_method·carriers·common·kana_input·min_voiced·min_periodic과 n_*는 2026-11-15 앱본 글자(3차 N 방식) 기록이다. final은 더 쓰지 않고 round4(C 후보)·round5(N 비교)가 읽는다",
     "kana_method": {"comment": "3차 N75와 같다: 'X'+뒤 박을 길이 그대로, speed_scale 0.75, 두 박 높이 같게, 글자 박 끝에서 잘라 30ms 페이드", "speed_scale": 0.75, "flat_pitch": true, "fade_out": 0.03},
     "carriers": ["タ", "ト", "カ", "ン", "ッ"],
     "carriers_comment": "앞에서부터 시도해 소리 구간 min_voiced초 이상, 주기성(10ms 창 NACF 0.7 이상 비율) min_periodic 이상(잴 수 없으면 통과), 무성화 없음을 처음 채우는 것을 쓴다",
@@ -174,7 +191,6 @@
     "tail_silence": 0.10,
     "normalize": {"rms_dbfs": -20.0, "peak_dbfs": -1.0},
     "aac_bitrate": 64000,
-    "kana_gap": 0.4,
     "preview": {"letters": ["a", "i", "u", "e", "o", "ka", "ki", "ku", "ke", "ko"], "letter_gap": 0.8}
   },
   "round4": {

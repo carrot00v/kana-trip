@@ -29,11 +29,13 @@ struct SpeakerTests {
         }
     }
 
-    /// 글자는 단어보다 느리고, 둘 다 기본 속도(0.5)보다 느리다. 글자는 두 번 읽는다.
+    /// 글자는 단어보다 느리고, 둘 다 기본 속도(0.5)보다 느리다. 글자도 단어도 한 번 읽는다(노래 합성 한 박).
     @Test func ratesAreSlowerForKana() {
         #expect(SpeechStyle.kanaRate < SpeechStyle.wordRate)
         #expect(SpeechStyle.wordRate < 0.5)
-        #expect(SpeechStyle.kanaRepeats == 2)
+        #expect(SpeechStyle.kanaRepeats == 1)
+        #expect(SpeechStyle.repeats(for: .kana) == 1)
+        #expect(SpeechStyle.repeats(for: .word) == 1)
     }
 
     @Test func voicePrefersHigherQuality() {
@@ -120,10 +122,11 @@ struct BundledVoiceTests {
         #expect(index.kana["お"] == "kana_o")
     }
 
-    /// 번들의 m4a를 iOS가 실제로 열 수 있고, 길이가 글자 0.2~0.5초, 단어 0.3~2초 안이다.
+    /// 번들의 m4a를 iOS가 실제로 열 수 있고, 길이가 글자 0.4~1.0초(노래 합성 한 박 0.4초 + 앞뒤 무음과 잦아드는 끝),
+    /// 단어 0.3~2초 안이다.
     @Test func everyBundledFileDecodes() throws {
         let index = try index()
-        for (names, range) in [(index.kana.values, 0.2...0.5), (index.word.values, 0.3...2.0)] {
+        for (names, range) in [(index.kana.values, 0.4...1.0), (index.word.values, 0.3...2.0)] {
             for name in names {
                 let url = try #require(VoiceIndex.url(of: name), "\(name)")
                 let player = try AVAudioPlayer(contentsOf: url)
@@ -137,6 +140,14 @@ struct BundledVoiceTests {
     @Test func creditMatchesAboutScreen() throws {
         #expect(try index().credit == L.voiceCredit)
         #expect(L.voiceCredit == "VOICEVOX:春日部つむぎ")
+    }
+
+    /// 정보 화면의 두 줄: 들리는 목소리(春日部つむぎ)와 글자 소리의 가창 교사(波音リツ).
+    /// 기존 표기 `VOICEVOX:春日部つむぎ`는 그대로 들어 있어야 한다.
+    @Test func creditLinesNameBothVoices() {
+        #expect(L.voiceCreditLine == "音声: VOICEVOX:春日部つむぎ")
+        #expect(L.voiceCreditLine.contains(L.voiceCredit))
+        #expect(L.songTeacherCreditLine == "歌い方(教師): VOICEVOX:波音リツ")
     }
 
     // MARK: 무엇으로 읽을지
@@ -153,7 +164,7 @@ struct BundledVoiceTests {
     @Test func planUsesFileWhenBundled() throws {
         let index = try sampleIndex()
         let all: (String) -> Bool = { _ in true }
-        #expect(SpeechStyle.plan(for: "す", as: .kana, index: index, fileExists: all) == .file(name: "kana_su", repeats: 2))
+        #expect(SpeechStyle.plan(for: "す", as: .kana, index: index, fileExists: all) == .file(name: "kana_su", repeats: 1))
         #expect(SpeechStyle.plan(for: "すし", as: .word, index: index, fileExists: all) == .file(name: "word_sushi", repeats: 1))
         #expect(SpeechStyle.plan(for: "かつ丼", as: .word, index: index, fileExists: all) == .file(name: "word_katsudon", repeats: 1))
     }
@@ -163,10 +174,10 @@ struct BundledVoiceTests {
         let index = try sampleIndex()
         let none: (String) -> Bool = { _ in false }
         let all: (String) -> Bool = { _ in true }
-        #expect(SpeechStyle.plan(for: "へ", as: .kana, index: index, fileExists: all) == .synthesized(text: "ヘ", repeats: 2))
-        #expect(SpeechStyle.plan(for: "す", as: .kana, index: index, fileExists: none) == .synthesized(text: "す", repeats: 2))
+        #expect(SpeechStyle.plan(for: "へ", as: .kana, index: index, fileExists: all) == .synthesized(text: "ヘ", repeats: 1))
+        #expect(SpeechStyle.plan(for: "す", as: .kana, index: index, fileExists: none) == .synthesized(text: "す", repeats: 1))
         #expect(SpeechStyle.plan(for: "いか", as: .word, index: index, fileExists: all) == .synthesized(text: "いか", repeats: 1))
-        #expect(SpeechStyle.plan(for: "す", as: .kana, index: nil, fileExists: all) == .synthesized(text: "す", repeats: 2))
+        #expect(SpeechStyle.plan(for: "す", as: .kana, index: nil, fileExists: all) == .synthesized(text: "す", repeats: 1))
     }
 
     /// っ는 혼자 소리가 없어 아무것도 읽지 않는다. 단어로 넘어온 같은 글자는 해당하지 않는다.
@@ -177,21 +188,13 @@ struct BundledVoiceTests {
         #expect(SpeechStyle.plan(for: "っ", as: .word, index: index, fileExists: all) == .synthesized(text: "っ", repeats: 1))
     }
 
-    // MARK: 재생 순서
+    // MARK: 글자 수
 
-    /// 글자는 두 번: 처음엔 오디오 경로가 열리도록 leadIn만큼 쉬고, 다음엔 파일 앞뒤 무음을 뺀 만큼 쉰다.
-    /// 그래서 두 소리 사이에 들리는 간격은 내장 음성과 같은 0.4초다.
-    @Test func fileRepeatsKeepTheSameAudibleGap() {
-        let delays = SpeechStyle.fileStartDelays(repeats: SpeechStyle.repeats(for: .kana))
-        #expect(delays.count == 2)
-        #expect(delays[0] == SpeechStyle.leadIn)
-        let audible = SpeechStyle.fileTailSilence + delays[1] + SpeechStyle.fileLeadSilence
-        #expect(abs(audible - SpeechStyle.kanaGap) < 1e-9)
-    }
-
-    @Test func wordsPlayOnce() {
-        #expect(SpeechStyle.fileStartDelays(repeats: SpeechStyle.repeats(for: .word)) == [SpeechStyle.leadIn])
-        #expect(SpeechStyle.fileStartDelays(repeats: 0).isEmpty)
-        #expect(SpeechStyle.fileStartDelays(repeats: 3).count == 3)
+    /// 앱이 읽는 글자 58개(기본 46자 + 단어 칸의 탁음·반탁음 12자)가 모두 번들 파일로 있다. 빠진 글자는 없다.
+    @Test func allFiftyEightKanaAreBundled() throws {
+        let index = try index()
+        #expect(index.kana.count == 58)
+        #expect(index.missingKana.isEmpty)
+        #expect(index.missingWords.isEmpty)
     }
 }

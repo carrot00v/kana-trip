@@ -4,7 +4,7 @@ import UIKit
 
 /// 무엇을 읽는지. 글자 하나와 단어는 속도와 읽는 방식이 다르다.
 enum SpeechKind {
-    /// 글자 하나(す, へ 등). 두 번 읽는다.
+    /// 글자 하나(す, へ 등). 한 번 읽는다.
     case kana
     /// 단어 전체(すし, かつ丼 등). 한 번 읽는다.
     case word
@@ -69,8 +69,8 @@ enum SpeechPlan: Equatable {
 /// 발음 속도와 읽는 방식.
 ///
 /// 번들 음성(VOICEVOX)이 있으면 그것을 쓰고, 없으면 기기 내장 음성으로 읽는다.
-/// 글자 하나는 길게 늘이면 떨려 들려서(docs/design/voice/README.md 3차) 모델이 정한 길이 그대로 두고,
-/// 내장 음성과 같이 0.4초 쉬고 한 번 더 읽는다.
+/// 글자 하나는 노래 합성으로 0.4초 안팎의 한 박을 만들어 넣었으므로(docs/design/voice/README.md
+/// "최종 적용 2") 한 번만 읽는다. 짧은 말소리를 두 번 읽던 방식(2026-11-15)은 그만두었다.
 ///
 /// 내장 음성의 속도 값은 iPhone 17 Pro 시뮬레이터(iOS 26.5, Kyoko super-compact)에서
 /// `AVSpeechSynthesizer.write`로 합성 길이를 재서 정했다.
@@ -80,32 +80,17 @@ enum SpeechPlan: Equatable {
 enum SpeechStyle {
     static let kanaRate: Float = 0.35
     static let wordRate: Float = 0.42
-    /// 글자 하나를 읽는 횟수와 그 사이 쉬는 시간(들리는 소리 사이).
-    static let kanaRepeats = 2
+    /// 글자 하나를 읽는 횟수. 2 이상이면 내장 음성은 `kanaGap`만큼 쉬고, 파일은 이어서(파일 앞뒤 무음만큼 쉬고) 다시 읽는다.
+    static let kanaRepeats = 1
     static let kanaGap: TimeInterval = 0.4
     /// 첫 음 앞에 두는 여백. 오디오 경로가 열리는 동안 앞이 잘리지 않게 한다.
-    /// 실기기는 세션을 켠 뒤 출력이 열리기까지 시간이 걸려, 0.15초짜리 글자 소리가 통째로 묻힐 수 있다.
+    /// 실기기는 세션을 켠 뒤 출력이 열리기까지 시간이 걸려, 짧은 글자 소리의 앞이 묻힐 수 있다.
     static let leadIn: TimeInterval = 0.3
     /// 읽기가 끝난 뒤 세션을 닫기까지 기다리는 시간. 이어서 누르면 출력을 다시 열지 않는다.
     static let sessionLinger: TimeInterval = 3
 
-    /// 번들 음성 파일의 앞뒤 무음(초). `tools/voice.json`의 final.lead_silence, tail_silence와 같다.
-    static let fileLeadSilence: TimeInterval = 0.05
-    static let fileTailSilence: TimeInterval = 0.10
-
-    /// 파일을 다시 재생하기 전에 쉬는 시간. 파일 앞뒤 무음을 빼서, 들리는 간격이 `kanaGap`이 되게 한다.
-    static var fileRepeatDelay: TimeInterval {
-        max(0, kanaGap - fileLeadSilence - fileTailSilence)
-    }
-
     static func repeats(for kind: SpeechKind) -> Int {
         kind == .kana ? kanaRepeats : 1
-    }
-
-    /// 파일을 재생할 때마다 그 앞에 쉬는 시간. 첫 재생은 `leadIn`, 그다음부터는 `fileRepeatDelay`.
-    static func fileStartDelays(repeats: Int) -> [TimeInterval] {
-        guard repeats > 0 else { return [] }
-        return [leadIn] + Array(repeating: fileRepeatDelay, count: repeats - 1)
     }
 
     /// 무엇으로 읽을지 정한다. `fileExists`는 번들에 그 이름의 파일이 있는지 확인한다.
@@ -165,9 +150,8 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
     /// 지금 읽는 소리를 시작한 화면. 그 화면이 사라질 때만 멈춘다.
     private var owner: UUID?
     private var lastUtterance: AVSpeechUtterance?
-    /// 지금 재생 중인 음성 파일과, 남은 재생마다 앞에 쉴 시간.
+    /// 지금 재생 중인 음성 파일.
     private var player: AVAudioPlayer?
-    private var pendingDelays: [TimeInterval] = []
     private var sessionConfigured = false
     /// 예약한 재생과 세션 닫기를 무효로 만드는 번호. 새로 읽거나 멈출 때마다 올린다.
     private var generation = 0
@@ -203,10 +187,10 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
             lastUtterance = nil
             activateSession()
             player.delegate = self
+            player.numberOfLoops = max(0, repeats - 1)
             player.prepareToPlay()
             self.player = player
-            pendingDelays = SpeechStyle.fileStartDelays(repeats: repeats)
-            playNext(player)
+            play(player, after: SpeechStyle.leadIn)
         case .synthesized(let spoken, let repeats):
             speakSynthesized(spoken, kind: kind, repeats: repeats)
         }
@@ -226,24 +210,20 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
         generation += 1
         player?.stop()
         player = nil
-        pendingDelays = []
         synthesizer.stopSpeaking(at: .immediate)
     }
 
     // MARK: 음성 파일
 
-    private func playNext(_ player: AVAudioPlayer) {
-        guard !pendingDelays.isEmpty else { return }
-        let delay = pendingDelays.removeFirst()
+    /// `delay`만큼 기다렸다가 재생한다. 오디오 경로가 열리는 동안 앞이 잘리지 않게 한다.
+    private func play(_ player: AVAudioPlayer, after delay: TimeInterval) {
         let token = generation
         // play(atTime:)은 출력 장치 시계에 기대므로 쓰지 않고, 기다렸다가 바로 재생한다.
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
             guard let self, token == self.generation, player === self.player else { return }
-            player.currentTime = 0
             if !player.play() {
                 Self.log.error("음성 파일 재생을 시작하지 못함")
                 self.player = nil
-                self.pendingDelays = []
                 self.deactivateSession()
             }
         }
@@ -251,12 +231,7 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         guard player === self.player else { return }  // 다시 눌러 바뀐 뒤 늦게 온 알림
-        if flag, !pendingDelays.isEmpty {
-            playNext(player)
-            return
-        }
         self.player = nil
-        pendingDelays = []
         owner = nil
         deactivateSession()
     }
@@ -264,7 +239,6 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         guard player === self.player else { return }
         self.player = nil
-        pendingDelays = []
         owner = nil
         deactivateSession()
     }

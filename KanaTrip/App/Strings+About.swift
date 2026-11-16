@@ -3,7 +3,8 @@ import Foundation
 /// 앱 정보 화면의 문구 (홈 "더 보기" 메뉴 → 앱 정보).
 /// 크레딧과 라이선스 표기는 권리자가 정한 문구를 그대로 쓴다. 고치기 전에 출처 문서를 확인한다.
 /// - 발음 소리: docs/research/voicevox-terms.md "추가 조사: 春日部つむぎ" (크레딧 `VOICEVOX:春日部つむぎ`,
-///   목소리를 직접 녹음했거나 자체 제작한 것처럼 쓰지 않는다)
+///   목소리를 직접 녹음했거나 자체 제작한 것처럼 쓰지 않는다), 글자 소리의 가창 교사 표기는
+///   docs/research/voicevox-song-credit.md (`VOICEVOX:波音リツ`)
 /// - 획 데이터: KanjiVG (CC BY-SA 3.0, Ulrich Apel), tools/build_kana_strokes.py
 /// - 움직임: lottie-ios (Apache License 2.0), 라이선스 전문은 Resources/Licenses/lottie-ios-LICENSE.txt
 extension L {
@@ -11,9 +12,14 @@ extension L {
     static func appVersion(_ version: String, build: String) -> String { "버전 \(version) (\(build))" }
 
     static let aboutVoiceHeader = "발음 소리"
-    /// VOICEVOX 春日部つむぎ 약관의 크레딧 표기 예 그대로.
+    /// VOICEVOX 春日部つむぎ 약관의 크레딧 표기 예 그대로. 이 문자열은 바꾸지 않는다(voice_index.json의 credit과 같다).
     static let voiceCredit = "VOICEVOX:春日部つむぎ"
-    static let voiceCreditNote = "글자와 단어 발음에 VOICEVOX의 春日部つむぎ 음성을 썼어요"
+    /// 글자 소리는 노래 합성이라 음 길이·세기를 波音リツ 가창 교사 모델이 만든다(docs/research/voicevox-song-credit.md 표기 제안 A).
+    static let songTeacherCredit = "VOICEVOX:波音リツ"
+    /// 정보 화면에 보이는 두 줄. 역할을 나눠 적어 들리는 목소리가 波音リツ로 오해되지 않게 한다.
+    static let voiceCreditLine = "音声: \(voiceCredit)"
+    static let songTeacherCreditLine = "歌い方(教師): \(songTeacherCredit)"
+    static let voiceCreditNote = "글자와 단어 발음에 VOICEVOX의 春日部つむぎ 음성을 썼어요. 글자 발음의 歌い方는 波音リツ 모델로 만들었어요"
 
     static let aboutStrokeHeader = "획 데이터"
     static let kanjiVG = "KanjiVG"
