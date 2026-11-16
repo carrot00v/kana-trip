@@ -67,7 +67,9 @@ GENERATED_SLOTS = CUT_SLOTS | {"background"}
 
 def build_prompt(item: dict) -> str:
     rules = BACKGROUND_RULES if item["slot"] == "background" else OBJECT_RULES
-    return f"{STYLE} {PALETTE} Subject: {item['prompt']} {rules}"
+    # 색이 정해진 아이템(はちまき의 남색·흰색 등)은 items.json의 palette가 공통 색 목록을 대신한다.
+    # 공통 목록을 그대로 주면 색 이름을 하나씩 다 써서 무지개 줄무늬가 나왔다(2026-11-17).
+    return f"{STYLE} {item.get('palette', PALETTE)} Subject: {item['prompt']} {rules}"
 
 
 def main() -> int:

@@ -394,21 +394,26 @@ def place_head(src: Image.Image, item: dict) -> tuple[Image.Image, dict]:
 
 def band_overshoot(pre: Image.Image, post: Image.Image, contact_x: float) -> tuple[float, float]:
     """자르기 전 띠가 몸 외곽선 바깥 가장자리 밖으로 나간 길이 (왼쪽, 오른쪽) (5번 검사 4). 자르기로 지워진 픽셀이
-    그쪽에 있고 자른 뒤 띠가 몸 안쪽 가장자리 가까이(25 이내) 남아 있는 행마다 (몸 옆 끝 x − 지워진 픽셀의 바깥 끝 x)를 재고
+    그쪽에 있고 자른 뒤 띠가 몸 안쪽 가장자리 가까이(25 이내) 남아 있는 행마다 (몸 옆 끝 x − 자르기 전 아이템의 바깥 끝 x)를 재고
     가장 작은 값을 쓴다. 띠 위·아래 가장자리 2행씩은 뺀다(둥근 모서리)."""
     removed = unit_grid(mask_sub(pre, post))
     kept = unit_grid(post)
+    whole = unit_grid(pre)
     result = []
     for left in (True, False):
         vals = []
         for y in range(360):
-            xs = [x - 30 for x in range(360) if removed[y][x] and ((x - 30 < contact_x) if left else (x - 30 > contact_x))]
+            side = (lambda x: x - 30 < contact_x) if left else (lambda x: x - 30 > contact_x)
+            if not any(removed[y][x] and side(x) for x in range(360)):
+                continue
             bx = body_side(y, left)
-            if not xs or bx is None:
+            if bx is None:
                 continue
             inner = range(bx + 6, bx + 31) if left else range(bx - 30, bx - 5)
             if not any(0 <= x + 30 < 360 and kept[y][x + 30] for x in inner):
                 continue
+            # 그 행에서 자르기 전 아이템의 바깥 끝 (자르지 않는 매듭도 포함)
+            xs = [x - 30 for x in range(360) if whole[y][x] and side(x)]
             vals.append((bx - min(xs)) if left else (max(xs) - bx))
         vals = vals[2:-2] if len(vals) > 6 else vals
         result.append(min(vals, default=float("nan")))
