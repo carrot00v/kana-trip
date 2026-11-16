@@ -162,7 +162,7 @@
    "kana": "おめん",
    "nameKo": "축제 가면",
    "scene": "shrine 신사·축제",
-   "prompt": "A white Japanese fox festival mask (kitsune omen) shown alone as a flat object, seen from the side in three-quarter view and turned to the left: the pointed snout points left, one pointed ear on top, only one narrow eye slit visible, simple orange-red markings on the cheek and forehead. Flat front-facing sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it.",
+   "prompt": "A small white Japanese fox festival mask (kitsune omen) shown alone as a flat object, front view, upright: a rounded face shape with two pointed ears on top, two narrow curved eye slits, simple orange-red markings on the cheeks and forehead. Flat sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it.",
    "kind": "hat",
    "box": [
     140,
@@ -224,7 +224,7 @@
    "kana": "てぬぐい",
    "nameKo": "머리에 얹은 수건",
    "scene": "onsen 온천",
-   "prompt": "A folded white tenugui hand towel shown alone as a flat object, seen straight from the front with no perspective: a long strip of even thickness bent into a gentle rainbow-shaped arch, the middle highest and both ends hanging down equally, the top and bottom edges are parallel curves, both ends cut straight, a simple indigo wave pattern of two or three lines on the cloth. No top surface, no thickness, no shadow. Only the towel.",
+   "prompt": "A small folded white tenugui hand towel shown alone as a flat object, seen straight from the front with no perspective: a thick soft pad folded into a short rectangle with rounded corners, about three times as wide as it is thick, very slightly bent so the middle is a little higher than the ends and the underside is slightly concave, one fold line across it and one or two thin indigo stripes. The ends do not hang down. No top surface, no shadow. Only the towel.",
    "kind": "hat",
    "box": [
     112,
