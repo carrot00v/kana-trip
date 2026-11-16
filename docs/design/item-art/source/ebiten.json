@@ -1,0 +1,9 @@
+{
+  "prompt": "Cute flat sticker illustration in a simple Japanese kawaii sticker style: thick uniform dark chocolate brown outlines (#4A2219) around every shape, flat solid fills, rounded soft shapes, no gradients, no texture, no shading, no highlights, no drop shadow. Use only these soft colors: warm off-white rice white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted moss olive, plum purple. No bright green, no crimson or magenta. Subject: One shrimp tempura (ebi tempura) lying horizontally, shown alone as a flat object: a long body in warm yellow batter with a softly wavy outline, the right end cut straight across, and at the left end a small fan-shaped orange red shrimp tail sticking out. Only the one tempura, no sauce, no crumbs, no plate. Single isolated object, centered, generous empty margin around it. The object is not a character: it has no face, no eyes, no mouth, no blush. No ground shadow, no floor, no character, no animal, no creature, no head under it, no hands, no color swatches, no text, no letters, no numbers, no logo. Plain solid flat light gray background filling the whole image.",
+  "seed": 7701,
+  "width": 1024,
+  "height": 1024,
+  "steps": 8,
+  "shift": 3.0,
+  "model": "z_image_turbo_bf16"
+}

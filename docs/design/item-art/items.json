@@ -119,7 +119,8 @@
    "direction": 15,
    "depth": 8,
    "length": 84,
-   "prompt": "One shrimp tempura (ebi tempura) lying horizontally, shown alone as a flat object: a long body in warm yellow batter with a softly wavy outline, the right end cut straight across, and at the left end a small fan-shaped orange red shrimp tail sticking out. Only the one tempura, no sauce, no crumbs, no plate."
+   "prompt": "One shrimp tempura (ebi tempura) lying horizontally, shown alone as a flat object: a long body in warm yellow batter with a softly wavy outline, the right end cut straight across, and at the left end a small fan-shaped orange red shrimp tail sticking out. Only the one tempura, no sauce, no crumbs, no plate.",
+   "sourceRotate": -12
   },
   {
    "id": "eki",
@@ -168,7 +169,27 @@
    "direction": 20,
    "depth": 6,
    "length": 70,
-   "prompt": "One chunk of grilled salted salmon (shake) lying horizontally, shown alone as a flat object: a rounded wedge in soft salmon orange with two thin curved off-white fat lines across it, the right end cut straight across. No skin, no grill marks. Only the one salmon piece."
+   "prompt": "One chunk of grilled salted salmon (shake) lying horizontally, shown alone as a flat object: a rounded wedge in soft salmon orange with two thin curved off-white fat lines across it, the right end cut straight across. No skin, no grill marks. Only the one salmon piece.",
+   "erase": [
+    [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      0.42
+     ],
+     [
+      0,
+      0.42
+     ]
+    ]
+   ]
   },
   {
    "id": "torii",
@@ -331,16 +352,20 @@
    "scene": "onsen 온천",
    "kind": "hat",
    "fit": "carve",
-   "dx": -4,
-   "rotate": -3,
+   "dx": -2,
+   "rotate": -2,
    "box": [
-    88,
-    34
+    100,
+    52
    ],
    "press": "auto",
-   "contactSpan": 1.0,
-   "prompt": "A small folded white tenugui hand towel drawn completely flat in 2D, seen exactly from the side at eye level so only its folded front edge shows, like a thick soft pillow seen from the side: a long rounded strip about three times as wide as it is tall, bent into a shallow arch like a wide frown, the middle higher than both ends, so its bottom edge is clearly curved upward (concave), as if folded over the top of a ball (do not draw the ball). One fold line along its length and one or two thin indigo stripes across it. No top surface visible, no perspective, the ends do not hang down. Only the towel.",
-   "palette": "Use only two colors: warm off-white rice white and dark indigo blue. No other colors at all."
+   "contactSpan": 0.9,
+   "prompt": "A neatly folded white cotton hand towel drawn completely flat in 2D as one simple shape: a thick soft rounded rectangle bar, like a plump marshmallow bar seen from the front, about three times as wide as it is tall, with rounded corners, bent into a shallow arch like a wide frown, the middle higher than both ends, so its bottom edge is clearly curved upward (concave), as if lying over the top of a ball (do not draw the ball). Two thin dark indigo stripes running across it from top to bottom near each end, and one short fold line. No perspective, no top surface, no loose cloth, nothing hanging down.",
+   "palette": "Use only two colors: warm off-white rice white and dark indigo blue. No other colors at all.",
+   "deRange": [
+    12,
+    24
+   ]
   },
   {
    "id": "manjuu",
@@ -371,7 +396,8 @@
    "direction": 30,
    "depth": 8,
    "length": 44,
-   "prompt": "One Japanese pickled plum (umeboshi) shown alone as a flat object, front view: a round slightly squashed ball in soft orange red with one or two short curved wrinkle lines on its surface. No leaf, no seed, no stem, no bowl. Only the one plum."
+   "prompt": "One Japanese pickled plum (umeboshi) shown alone as a flat object, front view: a round slightly squashed ball in soft orange red with one or two short curved wrinkle lines on its surface. No leaf, no seed, no stem, no bowl. Only the one plum.",
+   "palette": "Use only soft orange red for the fill. No other colors, no color swatches."
   }
  ]
 }
