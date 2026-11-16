@@ -1,0 +1,9237 @@
+{
+ "model": "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16",
+ "speaker": "Ono_Anna",
+ "language": "Japanese",
+ "temperature": 0.5,
+ "load_s": 1.8,
+ "methods": {
+  "Q1": {
+   "comment": "한 글자만(마침표)",
+   "text": "{k}。",
+   "max_tokens": 40,
+   "instruct": null,
+   "letters": [
+    {
+     "kana": "あ",
+     "rom": "a",
+     "text": "あ。",
+     "best": 5,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.55,
+       "raw_s": 3.2,
+       "duration": 2.58,
+       "voiced": 2.42,
+       "rms_dbfs": -21.9,
+       "peak_dbfs": -7.3,
+       "decay_s": 0.93,
+       "segs": 1,
+       "periodic": 0.66,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 148.0,
+       "f0_jump_c": 37.2,
+       "f0_range_c": 653,
+       "flags": [
+        "long"
+       ],
+       "score": 15.544
+      },
+      {
+       "take": 2,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.81,
+       "voiced": 0.65,
+       "rms_dbfs": -22.7,
+       "peak_dbfs": -7.3,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.26,
+       "onset_noise_s": 0.012,
+       "f0": 215,
+       "f0_sd_c": 71.4,
+       "f0_jump_c": 169.1,
+       "f0_range_c": 229,
+       "flags": [
+        "long"
+       ],
+       "score": 11.678
+      },
+      {
+       "take": 3,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -6.7,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.43,
+       "onset_noise_s": 0.002,
+       "f0": 260,
+       "f0_sd_c": 137.5,
+       "f0_jump_c": 200.6,
+       "f0_range_c": 410,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.384
+      },
+      {
+       "take": 4,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.07,
+       "voiced": 0.86,
+       "rms_dbfs": -25.0,
+       "peak_dbfs": -6.0,
+       "decay_s": 0.59,
+       "segs": 2,
+       "periodic": 0.2,
+       "onset_noise_s": 0.002,
+       "f0": 507,
+       "f0_sd_c": 478.9,
+       "f0_jump_c": 535.3,
+       "f0_range_c": 1497,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 37.393
+      },
+      {
+       "take": 5,
+       "gen_s": 0.31,
+       "raw_s": 0.56,
+       "duration": 0.56,
+       "voiced": 0.41,
+       "rms_dbfs": -21.3,
+       "peak_dbfs": -9.6,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.73,
+       "onset_noise_s": 0.002,
+       "f0": 197,
+       "f0_sd_c": 141.6,
+       "f0_jump_c": 50.7,
+       "f0_range_c": 435,
+       "flags": [],
+       "score": 1.665
+      },
+      {
+       "take": 6,
+       "gen_s": 0.26,
+       "raw_s": 0.48,
+       "duration": 0.5,
+       "voiced": 0.34,
+       "rms_dbfs": -21.9,
+       "peak_dbfs": -5.4,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 0.44,
+       "onset_noise_s": 0.012,
+       "f0": 512,
+       "f0_sd_c": 616.0,
+       "f0_jump_c": 133.9,
+       "f0_range_c": 1462,
+       "flags": [],
+       "score": 6.826
+      },
+      {
+       "take": 7,
+       "gen_s": 0.5,
+       "raw_s": 1.04,
+       "duration": 1.05,
+       "voiced": 0.9,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -3.4,
+       "decay_s": 0.07,
+       "segs": 2,
+       "periodic": 0.19,
+       "onset_noise_s": 0.022,
+       "f0": 252,
+       "f0_sd_c": 276.5,
+       "f0_jump_c": 86.6,
+       "f0_range_c": 1071,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 23.954
+      },
+      {
+       "take": 8,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.27,
+       "voiced": 2.11,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.17,
+       "segs": 3,
+       "periodic": 0.29,
+       "onset_noise_s": 0.022,
+       "f0": 490,
+       "f0_sd_c": 534.8,
+       "f0_jump_c": 339.1,
+       "f0_range_c": 1583,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.798
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.57,
+       "voiced": 0.41,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.9,
+       "onset_noise_s": 0.012,
+       "f0": 351,
+       "f0_sd_c": 441.5,
+       "f0_jump_c": 910.7,
+       "f0_range_c": 1242,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 17.531
+      },
+      {
+       "take": 10,
+       "gen_s": 0.24,
+       "raw_s": 0.4,
+       "duration": 0.44,
+       "voiced": 0.28,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.14,
+       "onset_noise_s": 0.012,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "short",
+        "no_pitch"
+       ],
+       "score": 22.34
+      }
+     ]
+    },
+    {
+     "kana": "か",
+     "rom": "ka",
+     "text": "か。",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -28.0,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.0,
+       "segs": 3,
+       "periodic": 0.1,
+       "onset_noise_s": 0.022,
+       "f0": 493,
+       "f0_sd_c": 611.8,
+       "f0_jump_c": 1066.9,
+       "f0_range_c": 1696,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 45.014
+      },
+      {
+       "take": 2,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.77,
+       "voiced": 0.62,
+       "rms_dbfs": -29.1,
+       "peak_dbfs": -15.6,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "no_pitch"
+       ],
+       "score": 22.34
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.68,
+       "voiced": 0.52,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -8.3,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.15,
+       "onset_noise_s": 0.012,
+       "f0": 254,
+       "f0_sd_c": 22.8,
+       "f0_jump_c": 42.6,
+       "f0_range_c": 58,
+       "flags": [],
+       "score": 0.51
+      },
+      {
+       "take": 4,
+       "gen_s": 0.53,
+       "raw_s": 1.04,
+       "duration": 1.06,
+       "voiced": 0.9,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -8.8,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.81,
+       "onset_noise_s": 0.072,
+       "f0": 319,
+       "f0_sd_c": 205.0,
+       "f0_jump_c": 74.7,
+       "f0_range_c": 1121,
+       "flags": [
+        "long"
+       ],
+       "score": 13.199
+      },
+      {
+       "take": 5,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.26,
+       "voiced": 1.04,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -6.9,
+       "decay_s": 0.25,
+       "segs": 1,
+       "periodic": 0.32,
+       "onset_noise_s": 0.002,
+       "f0": 261,
+       "f0_sd_c": 199.8,
+       "f0_jump_c": 54.0,
+       "f0_range_c": 1219,
+       "flags": [
+        "long"
+       ],
+       "score": 13.358
+      },
+      {
+       "take": 6,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.07,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -11.5,
+       "decay_s": 0.95,
+       "segs": 2,
+       "periodic": 0.74,
+       "onset_noise_s": 0.033,
+       "f0": 236,
+       "f0_sd_c": 262.0,
+       "f0_jump_c": 98.9,
+       "f0_range_c": 1769,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.19
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.96,
+       "voiced": 0.63,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -6.5,
+       "decay_s": 0.22,
+       "segs": 1,
+       "periodic": 0.51,
+       "onset_noise_s": 0.122,
+       "f0": 519,
+       "f0_sd_c": 626.2,
+       "f0_jump_c": 52.2,
+       "f0_range_c": 1597,
+       "flags": [
+        "long"
+       ],
+       "score": 16.796
+      },
+      {
+       "take": 8,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 1.09,
+       "voiced": 0.93,
+       "rms_dbfs": -22.0,
+       "peak_dbfs": -6.8,
+       "decay_s": 0.34,
+       "segs": 2,
+       "periodic": 0.32,
+       "onset_noise_s": 0.002,
+       "f0": 218,
+       "f0_sd_c": 518.1,
+       "f0_jump_c": 185.4,
+       "f0_range_c": 1983,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.759
+      },
+      {
+       "take": 9,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.24,
+       "voiced": 2.09,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.2,
+       "segs": 2,
+       "periodic": 0.38,
+       "onset_noise_s": 0.012,
+       "f0": 495,
+       "f0_sd_c": 380.3,
+       "f0_jump_c": 757.0,
+       "f0_range_c": 1190,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.606
+      },
+      {
+       "take": 10,
+       "gen_s": 0.41,
+       "raw_s": 0.8,
+       "duration": 0.87,
+       "voiced": 0.71,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -5.5,
+       "decay_s": 0.14,
+       "segs": 2,
+       "periodic": 0.55,
+       "onset_noise_s": 0.002,
+       "f0": 271,
+       "f0_sd_c": 660.6,
+       "f0_jump_c": 783.0,
+       "f0_range_c": 1742,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.736
+      }
+     ]
+    },
+    {
+     "kana": "さ",
+     "rom": "sa",
+     "text": "さ。",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.43,
+       "raw_s": 0.88,
+       "duration": 0.89,
+       "voiced": 0.74,
+       "rms_dbfs": -22.5,
+       "peak_dbfs": -9.2,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 0.32,
+       "onset_noise_s": 0.293,
+       "f0": 275,
+       "f0_sd_c": 26.5,
+       "f0_jump_c": 28.4,
+       "f0_range_c": 111,
+       "flags": [
+        "long"
+       ],
+       "score": 10.94
+      },
+      {
+       "take": 2,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 0.71,
+       "voiced": 0.55,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -7.9,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.172,
+       "f0": 241,
+       "f0_sd_c": 93.1,
+       "f0_jump_c": 97.3,
+       "f0_range_c": 316,
+       "flags": [],
+       "score": 1.455
+      },
+      {
+       "take": 3,
+       "gen_s": 0.6,
+       "raw_s": 1.2,
+       "duration": 1.21,
+       "voiced": 1.02,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.1,
+       "decay_s": 0.07,
+       "segs": 2,
+       "periodic": 0.63,
+       "onset_noise_s": 0.383,
+       "f0": 427,
+       "f0_sd_c": 359.1,
+       "f0_jump_c": 57.7,
+       "f0_range_c": 1138,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 24.923
+      },
+      {
+       "take": 4,
+       "gen_s": 0.33,
+       "raw_s": 0.64,
+       "duration": 0.68,
+       "voiced": 0.53,
+       "rms_dbfs": -21.2,
+       "peak_dbfs": -3.2,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.15,
+       "onset_noise_s": 0.153,
+       "f0": 254,
+       "f0_sd_c": 63.7,
+       "f0_jump_c": 21.6,
+       "f0_range_c": 162,
+       "flags": [],
+       "score": 0.869
+      },
+      {
+       "take": 5,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -23.1,
+       "peak_dbfs": -9.2,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "no_pitch"
+       ],
+       "score": 27.34
+      },
+      {
+       "take": 6,
+       "gen_s": 0.4,
+       "raw_s": 0.72,
+       "duration": 0.77,
+       "voiced": 0.62,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -7.9,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.58,
+       "onset_noise_s": 0.193,
+       "f0": 271,
+       "f0_sd_c": 381.1,
+       "f0_jump_c": 39.9,
+       "f0_range_c": 1568,
+       "flags": [
+        "long"
+       ],
+       "score": 14.284
+      },
+      {
+       "take": 7,
+       "gen_s": 0.34,
+       "raw_s": 0.64,
+       "duration": 0.68,
+       "voiced": 0.53,
+       "rms_dbfs": -21.7,
+       "peak_dbfs": -7.3,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 0.13,
+       "onset_noise_s": 0.422,
+       "f0": 256,
+       "f0_sd_c": 25.5,
+       "f0_jump_c": 37.9,
+       "f0_range_c": 62,
+       "flags": [],
+       "score": 0.541
+      },
+      {
+       "take": 8,
+       "gen_s": 0.57,
+       "raw_s": 1.2,
+       "duration": 1.23,
+       "voiced": 1.07,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -6.8,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.55,
+       "onset_noise_s": 0.293,
+       "f0": 308,
+       "f0_sd_c": 236.3,
+       "f0_jump_c": 30.7,
+       "f0_range_c": 674,
+       "flags": [
+        "long"
+       ],
+       "score": 13.705
+      },
+      {
+       "take": 9,
+       "gen_s": 0.66,
+       "raw_s": 1.36,
+       "duration": 1.38,
+       "voiced": 1.22,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.3,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.81,
+       "onset_noise_s": 0.182,
+       "f0": 312,
+       "f0_sd_c": 103.4,
+       "f0_jump_c": 163.1,
+       "f0_range_c": 394,
+       "flags": [
+        "long"
+       ],
+       "score": 13.118
+      },
+      {
+       "take": 10,
+       "gen_s": 0.51,
+       "raw_s": 1.04,
+       "duration": 1.07,
+       "voiced": 0.92,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -7.7,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.5,
+       "onset_noise_s": 0.302,
+       "f0": 286,
+       "f0_sd_c": 30.0,
+       "f0_jump_c": 40.9,
+       "f0_range_c": 165,
+       "flags": [
+        "long"
+       ],
+       "score": 11.376
+      }
+     ]
+    },
+    {
+     "kana": "た",
+     "rom": "ta",
+     "text": "た。",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 1.29,
+       "voiced": 1.14,
+       "rms_dbfs": -23.7,
+       "peak_dbfs": -8.0,
+       "decay_s": 0.54,
+       "segs": 1,
+       "periodic": 0.52,
+       "onset_noise_s": 0.042,
+       "f0": 197,
+       "f0_sd_c": 651.3,
+       "f0_jump_c": 538.2,
+       "f0_range_c": 2136,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 29.687
+      },
+      {
+       "take": 2,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -10.6,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.012,
+       "f0": 608,
+       "f0_sd_c": 23.0,
+       "f0_jump_c": 20.4,
+       "f0_range_c": 147,
+       "flags": [
+        "long"
+       ],
+       "score": 15.638
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.3,
+       "voiced": 0.15,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -10.3,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 0.67,
+       "onset_noise_s": 0.002,
+       "f0": 234,
+       "f0_sd_c": 56.6,
+       "f0_jump_c": 73.9,
+       "f0_range_c": 160,
+       "flags": [
+        "short"
+       ],
+       "score": 11.412
+      },
+      {
+       "take": 4,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.57,
+       "voiced": 0.36,
+       "rms_dbfs": -21.2,
+       "peak_dbfs": -6.8,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.47,
+       "onset_noise_s": 0.052,
+       "f0": 250,
+       "f0_sd_c": 676.2,
+       "f0_jump_c": 1226.2,
+       "f0_range_c": 1694,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 21.029
+      },
+      {
+       "take": 5,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.51,
+       "voiced": 1.35,
+       "rms_dbfs": -21.4,
+       "peak_dbfs": -4.2,
+       "decay_s": 0.4,
+       "segs": 3,
+       "periodic": 0.42,
+       "onset_noise_s": 0.042,
+       "f0": 515,
+       "f0_sd_c": 675.1,
+       "f0_jump_c": 392.9,
+       "f0_range_c": 2021,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.861
+      },
+      {
+       "take": 6,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.2,
+       "voiced": 0.79,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -7.2,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.86,
+       "onset_noise_s": 0.072,
+       "f0": 220,
+       "f0_sd_c": 130.6,
+       "f0_jump_c": 40.3,
+       "f0_range_c": 442,
+       "flags": [
+        "long"
+       ],
+       "score": 12.12
+      },
+      {
+       "take": 7,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.26,
+       "voiced": 3.11,
+       "rms_dbfs": -22.0,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.18,
+       "segs": 3,
+       "periodic": 0.01,
+       "onset_noise_s": 0.383,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "extra_segment",
+        "no_pitch"
+       ],
+       "score": 37.32
+      },
+      {
+       "take": 8,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.84,
+       "voiced": 0.69,
+       "rms_dbfs": -21.8,
+       "peak_dbfs": -6.6,
+       "decay_s": 0.24,
+       "segs": 1,
+       "periodic": 0.45,
+       "onset_noise_s": 0.213,
+       "f0": 191,
+       "f0_sd_c": 81.3,
+       "f0_jump_c": 188.2,
+       "f0_range_c": 271,
+       "flags": [
+        "long"
+       ],
+       "score": 11.92
+      },
+      {
+       "take": 9,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.1,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.37,
+       "onset_noise_s": 0.022,
+       "f0": 261,
+       "f0_sd_c": 432.9,
+       "f0_jump_c": 1376.2,
+       "f0_range_c": 1962,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 44.256
+      },
+      {
+       "take": 10,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.172,
+       "f0": 270,
+       "f0_sd_c": 31.9,
+       "f0_jump_c": 109.1,
+       "f0_range_c": 343,
+       "flags": [
+        "long"
+       ],
+       "score": 16.023
+      }
+     ]
+    },
+    {
+     "kana": "な",
+     "rom": "na",
+     "text": "な。",
+     "best": 6,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.13,
+       "voiced": 2.97,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -6.0,
+       "decay_s": 0.49,
+       "segs": 2,
+       "periodic": 0.36,
+       "onset_noise_s": 0.512,
+       "f0": 235,
+       "f0_sd_c": 284.5,
+       "f0_jump_c": 215.6,
+       "f0_range_c": 1733,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.604
+      },
+      {
+       "take": 2,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.56,
+       "voiced": 2.4,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -3.2,
+       "decay_s": 0.56,
+       "segs": 2,
+       "periodic": 0.2,
+       "onset_noise_s": 0.002,
+       "f0": 279,
+       "f0_sd_c": 554.1,
+       "f0_jump_c": 1172.5,
+       "f0_range_c": 2148,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.349
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.6,
+       "voiced": 1.43,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -5.9,
+       "decay_s": 0.04,
+       "segs": 3,
+       "periodic": 0.35,
+       "onset_noise_s": 0.003,
+       "f0": 296,
+       "f0_sd_c": 439.5,
+       "f0_jump_c": 66.2,
+       "f0_range_c": 1499,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.576
+      },
+      {
+       "take": 4,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.82,
+       "voiced": 0.52,
+       "rms_dbfs": -21.4,
+       "peak_dbfs": -13.2,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.85,
+       "onset_noise_s": 0.002,
+       "f0": 242,
+       "f0_sd_c": 392.2,
+       "f0_jump_c": 92.9,
+       "f0_range_c": 1708,
+       "flags": [],
+       "score": 4.372
+      },
+      {
+       "take": 5,
+       "gen_s": 0.68,
+       "raw_s": 1.36,
+       "duration": 1.37,
+       "voiced": 1.21,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -6.4,
+       "decay_s": 0.19,
+       "segs": 2,
+       "periodic": 0.41,
+       "onset_noise_s": 0.002,
+       "f0": 257,
+       "f0_sd_c": 119.0,
+       "f0_jump_c": 186.9,
+       "f0_range_c": 470,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 23.333
+      },
+      {
+       "take": 6,
+       "gen_s": 0.3,
+       "raw_s": 0.56,
+       "duration": 0.57,
+       "voiced": 0.41,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.71,
+       "onset_noise_s": 0.002,
+       "f0": 262,
+       "f0_sd_c": 50.8,
+       "f0_jump_c": 63.8,
+       "f0_range_c": 164,
+       "flags": [],
+       "score": 0.801
+      },
+      {
+       "take": 7,
+       "gen_s": 0.33,
+       "raw_s": 0.64,
+       "duration": 0.65,
+       "voiced": 0.48,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -12.0,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.003,
+       "f0": 268,
+       "f0_sd_c": 91.7,
+       "f0_jump_c": 74.2,
+       "f0_range_c": 265,
+       "flags": [],
+       "score": 1.224
+      },
+      {
+       "take": 8,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 2.18,
+       "voiced": 2.02,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -3.3,
+       "decay_s": 0.17,
+       "segs": 2,
+       "periodic": 0.32,
+       "onset_noise_s": 0.002,
+       "f0": 359,
+       "f0_sd_c": 486.4,
+       "f0_jump_c": 647.7,
+       "f0_range_c": 1636,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 40.163
+      },
+      {
+       "take": 9,
+       "gen_s": 0.37,
+       "raw_s": 0.72,
+       "duration": 0.73,
+       "voiced": 0.57,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -10.4,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.86,
+       "onset_noise_s": 0.002,
+       "f0": 250,
+       "f0_sd_c": 66.3,
+       "f0_jump_c": 23.2,
+       "f0_range_c": 204,
+       "flags": [],
+       "score": 0.98
+      },
+      {
+       "take": 10,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.94,
+       "voiced": 0.77,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.002,
+       "f0": 220,
+       "f0_sd_c": 223.6,
+       "f0_jump_c": 46.4,
+       "f0_range_c": 1494,
+       "flags": [
+        "long"
+       ],
+       "score": 13.031
+      }
+     ]
+    },
+    {
+     "kana": "は",
+     "rom": "ha",
+     "text": "は。",
+     "best": 1,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.77,
+       "voiced": 0.6,
+       "rms_dbfs": -21.5,
+       "peak_dbfs": -9.7,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.002,
+       "f0": 247,
+       "f0_sd_c": 48.8,
+       "f0_jump_c": 144.3,
+       "f0_range_c": 224,
+       "flags": [],
+       "score": 1.269
+      },
+      {
+       "take": 2,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.51,
+       "voiced": 2.36,
+       "rms_dbfs": -26.8,
+       "peak_dbfs": -9.8,
+       "decay_s": 1.66,
+       "segs": 2,
+       "periodic": 0.14,
+       "onset_noise_s": 0.002,
+       "f0": 239,
+       "f0_sd_c": 34.8,
+       "f0_jump_c": 105.0,
+       "f0_range_c": 115,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 24.518
+      },
+      {
+       "take": 3,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.05,
+       "voiced": 0.9,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -5.0,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.56,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 257.8,
+       "f0_jump_c": 58.9,
+       "f0_range_c": 1742,
+       "flags": [
+        "long"
+       ],
+       "score": 13.674
+      },
+      {
+       "take": 4,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 2.43,
+       "voiced": 2.28,
+       "rms_dbfs": -21.6,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.13,
+       "segs": 2,
+       "periodic": 0.03,
+       "onset_noise_s": 1.902,
+       "f0": 490,
+       "f0_sd_c": 9.8,
+       "f0_jump_c": 4.7,
+       "f0_range_c": 27,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 23.774
+      },
+      {
+       "take": 5,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.52,
+       "voiced": 1.35,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -3.3,
+       "decay_s": 0.59,
+       "segs": 1,
+       "periodic": 0.93,
+       "onset_noise_s": 0.002,
+       "f0": 227,
+       "f0_sd_c": 150.8,
+       "f0_jump_c": 31.9,
+       "f0_range_c": 461,
+       "flags": [
+        "long"
+       ],
+       "score": 13.414
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.59,
+       "voiced": 0.41,
+       "rms_dbfs": -22.3,
+       "peak_dbfs": -7.2,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.07,
+       "onset_noise_s": 0.022,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.08
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.76,
+       "voiced": 1.6,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -2.8,
+       "decay_s": 0.38,
+       "segs": 1,
+       "periodic": 0.94,
+       "onset_noise_s": 0.092,
+       "f0": 228,
+       "f0_sd_c": 178.0,
+       "f0_jump_c": 94.8,
+       "f0_range_c": 543,
+       "flags": [
+        "long"
+       ],
+       "score": 14.396
+      },
+      {
+       "take": 8,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.63,
+       "voiced": 0.33,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -8.2,
+       "decay_s": 0.15,
+       "segs": 1,
+       "periodic": 0.61,
+       "onset_noise_s": 0.022,
+       "f0": 315,
+       "f0_sd_c": 119.8,
+       "f0_jump_c": 98.8,
+       "f0_range_c": 379,
+       "flags": [],
+       "score": 1.767
+      },
+      {
+       "take": 9,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.71,
+       "voiced": 0.54,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -7.1,
+       "decay_s": 0.17,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.18
+      },
+      {
+       "take": 10,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.73,
+       "voiced": 2.58,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.13,
+       "segs": 3,
+       "periodic": 0.34,
+       "onset_noise_s": 0.133,
+       "f0": 546,
+       "f0_sd_c": 975.2,
+       "f0_jump_c": 1477.6,
+       "f0_range_c": 2561,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 48.937
+      }
+     ]
+    },
+    {
+     "kana": "ま",
+     "rom": "ma",
+     "text": "ま。",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.44,
+       "voiced": 0.28,
+       "rms_dbfs": -24.3,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.39,
+       "onset_noise_s": 0.012,
+       "f0": 220,
+       "f0_sd_c": 733.9,
+       "f0_jump_c": 69.3,
+       "f0_range_c": 1673,
+       "flags": [
+        "short"
+       ],
+       "score": 17.91
+      },
+      {
+       "take": 2,
+       "gen_s": 0.41,
+       "raw_s": 0.8,
+       "duration": 0.82,
+       "voiced": 0.66,
+       "rms_dbfs": -21.7,
+       "peak_dbfs": -9.7,
+       "decay_s": 0.23,
+       "segs": 1,
+       "periodic": 0.74,
+       "onset_noise_s": 0.002,
+       "f0": 250,
+       "f0_sd_c": 115.6,
+       "f0_jump_c": 524.5,
+       "f0_range_c": 594,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 23.324
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.44,
+       "voiced": 2.28,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -4.6,
+       "decay_s": 0.25,
+       "segs": 2,
+       "periodic": 0.39,
+       "onset_noise_s": 0.002,
+       "f0": 265,
+       "f0_sd_c": 429.1,
+       "f0_jump_c": 100.3,
+       "f0_range_c": 1472,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.285
+      },
+      {
+       "take": 4,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.69,
+       "voiced": 1.54,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -3.6,
+       "decay_s": 0.16,
+       "segs": 2,
+       "periodic": 0.37,
+       "onset_noise_s": 0.002,
+       "f0": 221,
+       "f0_sd_c": 618.6,
+       "f0_jump_c": 967.0,
+       "f0_range_c": 1864,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.589
+      },
+      {
+       "take": 5,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.48,
+       "voiced": 1.24,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -4.5,
+       "decay_s": 0.24,
+       "segs": 2,
+       "periodic": 0.36,
+       "onset_noise_s": 0.012,
+       "f0": 368,
+       "f0_sd_c": 361.7,
+       "f0_jump_c": 665.4,
+       "f0_range_c": 1483,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 37.415
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.9,
+       "voiced": 0.74,
+       "rms_dbfs": -21.8,
+       "peak_dbfs": -7.2,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.19,
+       "onset_noise_s": 0.022,
+       "f0": 255,
+       "f0_sd_c": 47.9,
+       "f0_jump_c": 94.2,
+       "f0_range_c": 139,
+       "flags": [
+        "long"
+       ],
+       "score": 11.373
+      },
+      {
+       "take": 7,
+       "gen_s": 0.45,
+       "raw_s": 0.88,
+       "duration": 0.89,
+       "voiced": 0.71,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -12.2,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.003,
+       "f0": 288,
+       "f0_sd_c": 68.4,
+       "f0_jump_c": 39.4,
+       "f0_range_c": 265,
+       "flags": [
+        "long"
+       ],
+       "score": 11.335
+      },
+      {
+       "take": 8,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 2.62,
+       "voiced": 2.47,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -6.0,
+       "decay_s": 0.22,
+       "segs": 2,
+       "periodic": 0.53,
+       "onset_noise_s": 0.002,
+       "f0": 207,
+       "f0_sd_c": 139.9,
+       "f0_jump_c": 54.8,
+       "f0_range_c": 624,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.622
+      },
+      {
+       "take": 9,
+       "gen_s": 0.52,
+       "raw_s": 1.04,
+       "duration": 1.04,
+       "voiced": 0.84,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.0,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 0.83,
+       "onset_noise_s": 0.002,
+       "f0": 268,
+       "f0_sd_c": 125.3,
+       "f0_jump_c": 55.4,
+       "f0_range_c": 458,
+       "flags": [
+        "long"
+       ],
+       "score": 12.218
+      },
+      {
+       "take": 10,
+       "gen_s": 0.55,
+       "raw_s": 1.12,
+       "duration": 1.18,
+       "voiced": 1.01,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -8.3,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.93,
+       "onset_noise_s": 0.003,
+       "f0": 220,
+       "f0_sd_c": 152.7,
+       "f0_jump_c": 37.6,
+       "f0_range_c": 485,
+       "flags": [
+        "long"
+       ],
+       "score": 12.772
+      }
+     ]
+    },
+    {
+     "kana": "や",
+     "rom": "ya",
+     "text": "や。",
+     "best": 2,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.26,
+       "raw_s": 0.48,
+       "duration": 0.55,
+       "voiced": 0.39,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.79,
+       "onset_noise_s": 0.002,
+       "f0": 212,
+       "f0_sd_c": 66.6,
+       "f0_jump_c": 49.8,
+       "f0_range_c": 226,
+       "flags": [],
+       "score": 0.952
+      },
+      {
+       "take": 2,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.58,
+       "voiced": 0.42,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -8.5,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.24,
+       "onset_noise_s": 0.002,
+       "f0": 302,
+       "f0_sd_c": 54.9,
+       "f0_jump_c": 54.2,
+       "f0_range_c": 143,
+       "flags": [],
+       "score": 0.79
+      },
+      {
+       "take": 3,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -10.6,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 244,
+       "f0_sd_c": 179.2,
+       "f0_jump_c": 26.2,
+       "f0_range_c": 717,
+       "flags": [
+        "long"
+       ],
+       "score": 17.219
+      },
+      {
+       "take": 4,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.76,
+       "voiced": 0.51,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -8.0,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.9,
+       "onset_noise_s": 0.002,
+       "f0": 333,
+       "f0_sd_c": 253.2,
+       "f0_jump_c": 196.5,
+       "f0_range_c": 665,
+       "flags": [],
+       "score": 3.307
+      },
+      {
+       "take": 5,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.63,
+       "voiced": 1.1,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -8.3,
+       "decay_s": 0.11,
+       "segs": 3,
+       "periodic": 0.85,
+       "onset_noise_s": 0.002,
+       "f0": 282,
+       "f0_sd_c": 408.8,
+       "f0_jump_c": 724.7,
+       "f0_range_c": 1764,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 37.804
+      },
+      {
+       "take": 6,
+       "gen_s": 0.58,
+       "raw_s": 1.12,
+       "duration": 1.13,
+       "voiced": 0.97,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -4.5,
+       "decay_s": 0.05,
+       "segs": 1,
+       "periodic": 0.69,
+       "onset_noise_s": 0.002,
+       "f0": 218,
+       "f0_sd_c": 107.4,
+       "f0_jump_c": 113.1,
+       "f0_range_c": 481,
+       "flags": [
+        "long"
+       ],
+       "score": 12.491
+      },
+      {
+       "take": 7,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.19,
+       "voiced": 3.03,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.18,
+       "segs": 4,
+       "periodic": 0.27,
+       "onset_noise_s": 0.002,
+       "f0": 447,
+       "f0_sd_c": 633.6,
+       "f0_jump_c": 2269.3,
+       "f0_range_c": 2269,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 49.06
+      },
+      {
+       "take": 8,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.38,
+       "voiced": 0.99,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.3,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 0.93,
+       "onset_noise_s": 0.012,
+       "f0": 231,
+       "f0_sd_c": 110.3,
+       "f0_jump_c": 45.0,
+       "f0_range_c": 437,
+       "flags": [
+        "long"
+       ],
+       "score": 12.333
+      },
+      {
+       "take": 9,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.86,
+       "voiced": 0.68,
+       "rms_dbfs": -21.2,
+       "peak_dbfs": -8.5,
+       "decay_s": 0.21,
+       "segs": 1,
+       "periodic": 0.87,
+       "onset_noise_s": 0.002,
+       "f0": 267,
+       "f0_sd_c": 84.8,
+       "f0_jump_c": 141.5,
+       "f0_range_c": 293,
+       "flags": [
+        "long"
+       ],
+       "score": 11.78
+      },
+      {
+       "take": 10,
+       "gen_s": 0.31,
+       "raw_s": 0.56,
+       "duration": 0.62,
+       "voiced": 0.46,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -9.6,
+       "decay_s": 0.05,
+       "segs": 1,
+       "periodic": 0.67,
+       "onset_noise_s": 0.002,
+       "f0": 263,
+       "f0_sd_c": 162.9,
+       "f0_jump_c": 62.2,
+       "f0_range_c": 444,
+       "flags": [],
+       "score": 1.856
+      }
+     ]
+    },
+    {
+     "kana": "ら",
+     "rom": "ra",
+     "text": "ら。",
+     "best": 10,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 2.91,
+       "voiced": 2.69,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -5.2,
+       "decay_s": 0.31,
+       "segs": 2,
+       "periodic": 0.35,
+       "onset_noise_s": 0.002,
+       "f0": 260,
+       "f0_sd_c": 113.5,
+       "f0_jump_c": 47.2,
+       "f0_range_c": 461,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.772
+      },
+      {
+       "take": 2,
+       "gen_s": 0.45,
+       "raw_s": 0.88,
+       "duration": 0.88,
+       "voiced": 0.62,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -10.1,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.002,
+       "f0": 244,
+       "f0_sd_c": 486.2,
+       "f0_jump_c": 1218.2,
+       "f0_range_c": 1944,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 29.263
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.71,
+       "voiced": 2.56,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -11.0,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 227,
+       "f0_sd_c": 65.9,
+       "f0_jump_c": 29.3,
+       "f0_range_c": 216,
+       "flags": [
+        "long"
+       ],
+       "score": 14.977
+      },
+      {
+       "take": 4,
+       "gen_s": 0.59,
+       "raw_s": 1.2,
+       "duration": 1.22,
+       "voiced": 1.07,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 242,
+       "f0_sd_c": 166.5,
+       "f0_jump_c": 38.9,
+       "f0_range_c": 522,
+       "flags": [
+        "long"
+       ],
+       "score": 13.035
+      },
+      {
+       "take": 5,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.0,
+       "segs": 3,
+       "periodic": 0.72,
+       "onset_noise_s": 0.002,
+       "f0": 232,
+       "f0_sd_c": 274.8,
+       "f0_jump_c": 155.8,
+       "f0_range_c": 1897,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.607
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.11,
+       "onset_noise_s": 0.002,
+       "f0": 214,
+       "f0_sd_c": 71.0,
+       "f0_jump_c": 100.5,
+       "f0_range_c": 295,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.385
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.42,
+       "voiced": 2.25,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -2.7,
+       "decay_s": 0.39,
+       "segs": 3,
+       "periodic": 0.25,
+       "onset_noise_s": 0.002,
+       "f0": 277,
+       "f0_sd_c": 220.6,
+       "f0_jump_c": 60.0,
+       "f0_range_c": 1661,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.006
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.77,
+       "voiced": 1.61,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -7.8,
+       "decay_s": 0.35,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 264,
+       "f0_sd_c": 28.5,
+       "f0_jump_c": 42.9,
+       "f0_range_c": 203,
+       "flags": [
+        "long"
+       ],
+       "score": 12.748
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.8,
+       "voiced": 2.65,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -2.6,
+       "decay_s": 0.27,
+       "segs": 2,
+       "periodic": 0.48,
+       "onset_noise_s": 0.002,
+       "f0": 220,
+       "f0_sd_c": 139.2,
+       "f0_jump_c": 59.2,
+       "f0_range_c": 480,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.989
+      },
+      {
+       "take": 10,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.94,
+       "voiced": 0.78,
+       "rms_dbfs": -21.4,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.65,
+       "onset_noise_s": 0.012,
+       "f0": 250,
+       "f0_sd_c": 88.1,
+       "f0_jump_c": 100.5,
+       "f0_range_c": 298,
+       "flags": [
+        "long"
+       ],
+       "score": 11.876
+      }
+     ]
+    },
+    {
+     "kana": "ん",
+     "rom": "n",
+     "text": "ん。",
+     "best": 4,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.85,
+       "voiced": 1.69,
+       "rms_dbfs": -22.3,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.19,
+       "segs": 2,
+       "periodic": 0.17,
+       "onset_noise_s": 0.002,
+       "f0": 237,
+       "f0_sd_c": 633.5,
+       "f0_jump_c": 148.6,
+       "f0_range_c": 2096,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 29.31
+      },
+      {
+       "take": 2,
+       "gen_s": 0.48,
+       "raw_s": 0.96,
+       "duration": 1.03,
+       "voiced": 0.87,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.5,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.93,
+       "onset_noise_s": 0.002,
+       "f0": 288,
+       "f0_sd_c": 237.4,
+       "f0_jump_c": 60.1,
+       "f0_range_c": 789,
+       "flags": [
+        "long"
+       ],
+       "score": 13.414
+      },
+      {
+       "take": 3,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.26,
+       "voiced": 2.06,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.18,
+       "segs": 2,
+       "periodic": 0.46,
+       "onset_noise_s": 0.002,
+       "f0": 555,
+       "f0_sd_c": 356.8,
+       "f0_jump_c": 872.2,
+       "f0_range_c": 1035,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.695
+      },
+      {
+       "take": 4,
+       "gen_s": 0.32,
+       "raw_s": 0.56,
+       "duration": 0.58,
+       "voiced": 0.42,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -11.4,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 208,
+       "f0_sd_c": 124.7,
+       "f0_jump_c": 26.1,
+       "f0_range_c": 398,
+       "flags": [],
+       "score": 1.394
+      },
+      {
+       "take": 5,
+       "gen_s": 0.66,
+       "raw_s": 1.36,
+       "duration": 1.36,
+       "voiced": 1.2,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.1,
+       "decay_s": 0.22,
+       "segs": 1,
+       "periodic": 0.91,
+       "onset_noise_s": 0.002,
+       "f0": 295,
+       "f0_sd_c": 155.9,
+       "f0_jump_c": 73.6,
+       "f0_range_c": 519,
+       "flags": [
+        "long"
+       ],
+       "score": 13.304
+      },
+      {
+       "take": 6,
+       "gen_s": 0.3,
+       "raw_s": 0.56,
+       "duration": 0.57,
+       "voiced": 0.42,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -10.3,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.002,
+       "f0": 261,
+       "f0_sd_c": 276.1,
+       "f0_jump_c": 131.1,
+       "f0_range_c": 825,
+       "flags": [],
+       "score": 3.258
+      },
+      {
+       "take": 7,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -7.3,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.71,
+       "onset_noise_s": 0.002,
+       "f0": 317,
+       "f0_sd_c": 376.5,
+       "f0_jump_c": 428.2,
+       "f0_range_c": 2169,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 40.532
+      },
+      {
+       "take": 8,
+       "gen_s": 0.31,
+       "raw_s": 0.56,
+       "duration": 0.56,
+       "voiced": 0.4,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 293,
+       "f0_sd_c": 206.3,
+       "f0_jump_c": 91.4,
+       "f0_range_c": 683,
+       "flags": [],
+       "score": 2.468
+      },
+      {
+       "take": 9,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -3.9,
+       "decay_s": 0.01,
+       "segs": 2,
+       "periodic": 0.34,
+       "onset_noise_s": 0.002,
+       "f0": 221,
+       "f0_sd_c": 379.0,
+       "f0_jump_c": 954.9,
+       "f0_range_c": 2164,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 42.313
+      },
+      {
+       "take": 10,
+       "gen_s": 0.63,
+       "raw_s": 1.28,
+       "duration": 1.28,
+       "voiced": 1.11,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -12.0,
+       "decay_s": 0.22,
+       "segs": 1,
+       "periodic": 0.98,
+       "onset_noise_s": 0.012,
+       "f0": 289,
+       "f0_sd_c": 335.7,
+       "f0_jump_c": 49.2,
+       "f0_range_c": 1080,
+       "flags": [
+        "long"
+       ],
+       "score": 14.841
+      }
+     ]
+    },
+    {
+     "kana": "を",
+     "rom": "wo",
+     "text": "を。",
+     "best": 10,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -10.1,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 288,
+       "f0_sd_c": 142.3,
+       "f0_jump_c": 14.7,
+       "f0_range_c": 664,
+       "flags": [
+        "long"
+       ],
+       "score": 16.812
+      },
+      {
+       "take": 2,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -11.8,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 250,
+       "f0_sd_c": 19.1,
+       "f0_jump_c": 21.1,
+       "f0_range_c": 99,
+       "flags": [
+        "long"
+       ],
+       "score": 15.601
+      },
+      {
+       "take": 3,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.1,
+       "voiced": 0.83,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -10.3,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.94,
+       "onset_noise_s": 0.002,
+       "f0": 251,
+       "f0_sd_c": 829.9,
+       "f0_jump_c": 734.8,
+       "f0_range_c": 1943,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 31.508
+      },
+      {
+       "take": 4,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.16,
+       "voiced": 3.0,
+       "rms_dbfs": -21.9,
+       "peak_dbfs": -7.1,
+       "decay_s": 2.32,
+       "segs": 2,
+       "periodic": 0.36,
+       "onset_noise_s": 0.002,
+       "f0": 227,
+       "f0_sd_c": 663.5,
+       "f0_jump_c": 1921.3,
+       "f0_range_c": 1999,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 48.139
+      },
+      {
+       "take": 5,
+       "gen_s": 1.02,
+       "raw_s": 2.16,
+       "duration": 2.19,
+       "voiced": 2.04,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 259,
+       "f0_sd_c": 302.3,
+       "f0_jump_c": 31.8,
+       "f0_range_c": 918,
+       "flags": [
+        "long"
+       ],
+       "score": 16.309
+      },
+      {
+       "take": 6,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.14,
+       "voiced": 0.72,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -10.6,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 0.86,
+       "onset_noise_s": 0.003,
+       "f0": 394,
+       "f0_sd_c": 161.0,
+       "f0_jump_c": 41.1,
+       "f0_range_c": 872,
+       "flags": [
+        "long"
+       ],
+       "score": 12.287
+      },
+      {
+       "take": 7,
+       "gen_s": 0.73,
+       "raw_s": 1.52,
+       "duration": 1.55,
+       "voiced": 1.4,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.6,
+       "decay_s": 0.05,
+       "segs": 1,
+       "periodic": 0.98,
+       "onset_noise_s": 0.002,
+       "f0": 274,
+       "f0_sd_c": 332.5,
+       "f0_jump_c": 66.2,
+       "f0_range_c": 942,
+       "flags": [
+        "long"
+       ],
+       "score": 15.446
+      },
+      {
+       "take": 8,
+       "gen_s": 0.44,
+       "raw_s": 0.88,
+       "duration": 0.89,
+       "voiced": 0.73,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 240,
+       "f0_sd_c": 143.2,
+       "f0_jump_c": 46.1,
+       "f0_range_c": 425,
+       "flags": [
+        "long"
+       ],
+       "score": 12.146
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.08,
+       "voiced": 0.77,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -9.7,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.81,
+       "onset_noise_s": 0.072,
+       "f0": 268,
+       "f0_sd_c": 136.9,
+       "f0_jump_c": 38.4,
+       "f0_range_c": 496,
+       "flags": [
+        "long"
+       ],
+       "score": 12.137
+      },
+      {
+       "take": 10,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.55,
+       "voiced": 0.37,
+       "rms_dbfs": -22.0,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 0.43,
+       "onset_noise_s": 0.012,
+       "f0": 271,
+       "f0_sd_c": 74.3,
+       "f0_jump_c": 46.7,
+       "f0_range_c": 227,
+       "flags": [],
+       "score": 1.059
+      }
+     ]
+    }
+   ]
+  },
+  "Q1b": {
+   "comment": "추가 비교: 한 글자만(마침표 없음)",
+   "text": "{k}",
+   "max_tokens": 40,
+   "instruct": null,
+   "letters": [
+    {
+     "kana": "あ",
+     "rom": "a",
+     "text": "あ",
+     "best": 2,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.16,
+       "voiced": 3.0,
+       "rms_dbfs": -23.0,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.38,
+       "segs": 2,
+       "periodic": 0.1,
+       "onset_noise_s": 0.002,
+       "f0": 269,
+       "f0_sd_c": 463.7,
+       "f0_jump_c": 1087.8,
+       "f0_range_c": 1550,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.363
+      },
+      {
+       "take": 2,
+       "gen_s": 0.32,
+       "raw_s": 0.56,
+       "duration": 0.57,
+       "voiced": 0.42,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.74,
+       "onset_noise_s": 0.002,
+       "f0": 246,
+       "f0_sd_c": 91.1,
+       "f0_jump_c": 80.6,
+       "f0_range_c": 305,
+       "flags": [],
+       "score": 1.24
+      },
+      {
+       "take": 3,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.26,
+       "voiced": 3.11,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.9,
+       "decay_s": 0.0,
+       "segs": 3,
+       "periodic": 0.27,
+       "onset_noise_s": 0.012,
+       "f0": 306,
+       "f0_sd_c": 485.4,
+       "f0_jump_c": 1621.6,
+       "f0_range_c": 1838,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 45.579
+      },
+      {
+       "take": 4,
+       "gen_s": 0.27,
+       "raw_s": 0.48,
+       "duration": 0.5,
+       "voiced": 0.35,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -9.1,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.91,
+       "onset_noise_s": 0.002,
+       "f0": 265,
+       "f0_sd_c": 359.8,
+       "f0_jump_c": 590.7,
+       "f0_range_c": 1743,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 15.767
+      },
+      {
+       "take": 5,
+       "gen_s": 0.36,
+       "raw_s": 0.72,
+       "duration": 0.73,
+       "voiced": 0.58,
+       "rms_dbfs": -21.5,
+       "peak_dbfs": -9.6,
+       "decay_s": 0.2,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.022,
+       "f0": 210,
+       "f0_sd_c": 80.4,
+       "f0_jump_c": 111.3,
+       "f0_range_c": 321,
+       "flags": [],
+       "score": 1.435
+      },
+      {
+       "take": 6,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.42,
+       "voiced": 0.95,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -7.8,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 257,
+       "f0_sd_c": 119.5,
+       "f0_jump_c": 24.0,
+       "f0_range_c": 378,
+       "flags": [
+        "long"
+       ],
+       "score": 12.275
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.13,
+       "voiced": 1.95,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -7.2,
+       "decay_s": 0.05,
+       "segs": 2,
+       "periodic": 0.39,
+       "onset_noise_s": 0.003,
+       "f0": 271,
+       "f0_sd_c": 530.5,
+       "f0_jump_c": 867.6,
+       "f0_range_c": 1853,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.197
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.26,
+       "voiced": 3.11,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -1.6,
+       "decay_s": 0.23,
+       "segs": 6,
+       "periodic": 0.27,
+       "onset_noise_s": 0.022,
+       "f0": 269,
+       "f0_sd_c": 350.4,
+       "f0_jump_c": 833.3,
+       "f0_range_c": 1811,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.602
+      },
+      {
+       "take": 9,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -7.1,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 0.98,
+       "onset_noise_s": 0.052,
+       "f0": 230,
+       "f0_sd_c": 117.8,
+       "f0_jump_c": 18.6,
+       "f0_range_c": 380,
+       "flags": [
+        "long"
+       ],
+       "score": 16.58
+      },
+      {
+       "take": 10,
+       "gen_s": 0.34,
+       "raw_s": 0.64,
+       "duration": 0.65,
+       "voiced": 0.48,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -7.3,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.33,
+       "onset_noise_s": 0.022,
+       "f0": 299,
+       "f0_sd_c": 515.1,
+       "f0_jump_c": 127.4,
+       "f0_range_c": 1178,
+       "flags": [],
+       "score": 5.636
+      }
+     ]
+    },
+    {
+     "kana": "か",
+     "rom": "ka",
+     "text": "か",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.1,
+       "decay_s": 0.03,
+       "segs": 3,
+       "periodic": 0.28,
+       "onset_noise_s": 0.002,
+       "f0": 275,
+       "f0_sd_c": 174.0,
+       "f0_jump_c": 156.3,
+       "f0_range_c": 1056,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.601
+      },
+      {
+       "take": 2,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.21,
+       "voiced": 3.06,
+       "rms_dbfs": -23.9,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.13,
+       "segs": 2,
+       "periodic": 0.04,
+       "onset_noise_s": 0.502,
+       "f0": 350,
+       "f0_sd_c": 534.1,
+       "f0_jump_c": 561.1,
+       "f0_range_c": 1441,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 42.431
+      },
+      {
+       "take": 3,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.22,
+       "voiced": 3.05,
+       "rms_dbfs": -23.9,
+       "peak_dbfs": -1.0,
+       "decay_s": 1.71,
+       "segs": 2,
+       "periodic": 0.15,
+       "onset_noise_s": 0.002,
+       "f0": 345,
+       "f0_sd_c": 626.5,
+       "f0_jump_c": 1195.2,
+       "f0_range_c": 1974,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 45.449
+      },
+      {
+       "take": 4,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.09,
+       "voiced": 0.93,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.0,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 0.89,
+       "onset_noise_s": 0.022,
+       "f0": 220,
+       "f0_sd_c": 496.3,
+       "f0_jump_c": 705.1,
+       "f0_range_c": 2210,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 28.273
+      },
+      {
+       "take": 5,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.83,
+       "voiced": 1.68,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -1.8,
+       "decay_s": 0.02,
+       "segs": 3,
+       "periodic": 0.15,
+       "onset_noise_s": 0.022,
+       "f0": 323,
+       "f0_sd_c": 486.0,
+       "f0_jump_c": 1164.8,
+       "f0_range_c": 1328,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.203
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.24,
+       "voiced": 0.96,
+       "rms_dbfs": -24.0,
+       "peak_dbfs": -7.1,
+       "decay_s": 0.57,
+       "segs": 1,
+       "periodic": 0.06,
+       "onset_noise_s": 0.022,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "no_pitch"
+       ],
+       "score": 23.02
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.08,
+       "voiced": 1.83,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -8.9,
+       "decay_s": 0.42,
+       "segs": 1,
+       "periodic": 0.54,
+       "onset_noise_s": 0.283,
+       "f0": 280,
+       "f0_sd_c": 61.2,
+       "f0_jump_c": 71.6,
+       "f0_range_c": 215,
+       "flags": [
+        "long"
+       ],
+       "score": 13.611
+      },
+      {
+       "take": 8,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.35,
+       "voiced": 1.12,
+       "rms_dbfs": -21.9,
+       "peak_dbfs": -2.3,
+       "decay_s": 0.47,
+       "segs": 3,
+       "periodic": 0.16,
+       "onset_noise_s": 0.002,
+       "f0": 299,
+       "f0_sd_c": 352.7,
+       "f0_jump_c": 61.3,
+       "f0_range_c": 1572,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.071
+      },
+      {
+       "take": 9,
+       "gen_s": 1.52,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.9,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.33,
+       "onset_noise_s": 0.022,
+       "f0": 338,
+       "f0_sd_c": 339.5,
+       "f0_jump_c": 1022.1,
+       "f0_range_c": 1181,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 42.142
+      },
+      {
+       "take": 10,
+       "gen_s": 1.3,
+       "raw_s": 2.8,
+       "duration": 2.82,
+       "voiced": 2.67,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -3.0,
+       "decay_s": 0.11,
+       "segs": 4,
+       "periodic": 0.31,
+       "onset_noise_s": 0.002,
+       "f0": 280,
+       "f0_sd_c": 544.3,
+       "f0_jump_c": 1977.2,
+       "f0_range_c": 1989,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 46.474
+      }
+     ]
+    },
+    {
+     "kana": "さ",
+     "rom": "sa",
+     "text": "さ",
+     "best": 1,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.37,
+       "raw_s": 0.72,
+       "duration": 0.76,
+       "voiced": 0.6,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -7.9,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.172,
+       "f0": 262,
+       "f0_sd_c": 26.0,
+       "f0_jump_c": 52.4,
+       "f0_range_c": 132,
+       "flags": [],
+       "score": 0.735
+      },
+      {
+       "take": 2,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.67,
+       "voiced": 2.51,
+       "rms_dbfs": -21.5,
+       "peak_dbfs": -3.6,
+       "decay_s": 0.6,
+       "segs": 3,
+       "periodic": 0.31,
+       "onset_noise_s": 0.193,
+       "f0": 250,
+       "f0_sd_c": 135.9,
+       "f0_jump_c": 38.9,
+       "f0_range_c": 945,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.609
+      },
+      {
+       "take": 3,
+       "gen_s": 0.59,
+       "raw_s": 1.2,
+       "duration": 1.22,
+       "voiced": 1.07,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -8.5,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.46,
+       "onset_noise_s": 0.462,
+       "f0": 227,
+       "f0_sd_c": 71.3,
+       "f0_jump_c": 204.2,
+       "f0_range_c": 298,
+       "flags": [
+        "long"
+       ],
+       "score": 12.634
+      },
+      {
+       "take": 4,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 0.85,
+       "voiced": 0.64,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.7,
+       "onset_noise_s": 0.153,
+       "f0": 285,
+       "f0_sd_c": 160.9,
+       "f0_jump_c": 108.5,
+       "f0_range_c": 503,
+       "flags": [
+        "long"
+       ],
+       "score": 12.351
+      },
+      {
+       "take": 5,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.09,
+       "voiced": 2.93,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -5.3,
+       "decay_s": 0.33,
+       "segs": 2,
+       "periodic": 0.43,
+       "onset_noise_s": 0.122,
+       "f0": 260,
+       "f0_sd_c": 298.1,
+       "f0_jump_c": 225.8,
+       "f0_range_c": 1912,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.694
+      },
+      {
+       "take": 6,
+       "gen_s": 1.36,
+       "raw_s": 2.96,
+       "duration": 3.03,
+       "voiced": 2.88,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.01,
+       "segs": 2,
+       "periodic": 0.14,
+       "onset_noise_s": 0.223,
+       "f0": 308,
+       "f0_sd_c": 530.0,
+       "f0_jump_c": 1147.9,
+       "f0_range_c": 2421,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.986
+      },
+      {
+       "take": 7,
+       "gen_s": 0.55,
+       "raw_s": 1.12,
+       "duration": 1.14,
+       "voiced": 0.99,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -3.6,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.31,
+       "onset_noise_s": 0.343,
+       "f0": 287,
+       "f0_sd_c": 79.0,
+       "f0_jump_c": 172.5,
+       "f0_range_c": 261,
+       "flags": [
+        "long"
+       ],
+       "score": 12.445
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.46,
+       "voiced": 2.31,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -7.1,
+       "decay_s": 0.63,
+       "segs": 1,
+       "periodic": 0.78,
+       "onset_noise_s": 0.312,
+       "f0": 294,
+       "f0_sd_c": 177.3,
+       "f0_jump_c": 15.9,
+       "f0_range_c": 554,
+       "flags": [
+        "long"
+       ],
+       "score": 15.546
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.83,
+       "voiced": 0.67,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -5.5,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 0.55,
+       "onset_noise_s": 0.172,
+       "f0": 276,
+       "f0_sd_c": 306.5,
+       "f0_jump_c": 846.8,
+       "f0_range_c": 1155,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 26.328
+      },
+      {
+       "take": 10,
+       "gen_s": 0.83,
+       "raw_s": 1.76,
+       "duration": 1.79,
+       "voiced": 1.64,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -2.7,
+       "decay_s": 0.06,
+       "segs": 2,
+       "periodic": 0.42,
+       "onset_noise_s": 0.172,
+       "f0": 252,
+       "f0_sd_c": 548.7,
+       "f0_jump_c": 128.2,
+       "f0_range_c": 1973,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.294
+      }
+     ]
+    },
+    {
+     "kana": "た",
+     "rom": "ta",
+     "text": "た",
+     "best": 6,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 1.01,
+       "voiced": 0.86,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -6.3,
+       "decay_s": 0.37,
+       "segs": 1,
+       "periodic": 0.64,
+       "onset_noise_s": 0.022,
+       "f0": 224,
+       "f0_sd_c": 787.5,
+       "f0_jump_c": 514.0,
+       "f0_range_c": 2146,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 30.408
+      },
+      {
+       "take": 2,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -8.7,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.012,
+       "f0": 692,
+       "f0_sd_c": 339.6,
+       "f0_jump_c": 1199.1,
+       "f0_range_c": 1200,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 32.733
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.29,
+       "voiced": 0.14,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.57,
+       "onset_noise_s": 0.012,
+       "f0": 224,
+       "f0_sd_c": 15.7,
+       "f0_jump_c": 26.6,
+       "f0_range_c": 39,
+       "flags": [
+        "short"
+       ],
+       "score": 10.866
+      },
+      {
+       "take": 4,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.41,
+       "voiced": 1.12,
+       "rms_dbfs": -21.9,
+       "peak_dbfs": -3.8,
+       "decay_s": 0.41,
+       "segs": 1,
+       "periodic": 0.42,
+       "onset_noise_s": 0.293,
+       "f0": 249,
+       "f0_sd_c": 428.5,
+       "f0_jump_c": 182.2,
+       "f0_range_c": 1701,
+       "flags": [
+        "long"
+       ],
+       "score": 16.232
+      },
+      {
+       "take": 5,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.28,
+       "voiced": 1.09,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -9.5,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.86,
+       "onset_noise_s": 0.002,
+       "f0": 247,
+       "f0_sd_c": 87.0,
+       "f0_jump_c": 111.9,
+       "f0_range_c": 330,
+       "flags": [
+        "long"
+       ],
+       "score": 12.523
+      },
+      {
+       "take": 6,
+       "gen_s": 0.31,
+       "raw_s": 0.56,
+       "duration": 0.58,
+       "voiced": 0.43,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -7.4,
+       "decay_s": 0.05,
+       "segs": 1,
+       "periodic": 0.79,
+       "onset_noise_s": 0.092,
+       "f0": 213,
+       "f0_sd_c": 89.3,
+       "f0_jump_c": 155.0,
+       "f0_range_c": 287,
+       "flags": [],
+       "score": 1.45
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.04,
+       "voiced": 2.84,
+       "rms_dbfs": -24.6,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.19,
+       "segs": 3,
+       "periodic": 0.1,
+       "onset_noise_s": 0.263,
+       "f0": 636,
+       "f0_sd_c": 372.3,
+       "f0_jump_c": 225.3,
+       "f0_range_c": 1044,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 29.254
+      },
+      {
+       "take": 8,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.69,
+       "voiced": 0.53,
+       "rms_dbfs": -23.0,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.15,
+       "onset_noise_s": 0.102,
+       "f0": 316,
+       "f0_sd_c": 557.1,
+       "f0_jump_c": 3.2,
+       "f0_range_c": 1352,
+       "flags": [],
+       "score": 5.742
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.12,
+       "voiced": 0.95,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.23,
+       "segs": 1,
+       "periodic": 0.85,
+       "onset_noise_s": 0.012,
+       "f0": 223,
+       "f0_sd_c": 68.5,
+       "f0_jump_c": 114.1,
+       "f0_range_c": 324,
+       "flags": [
+        "long"
+       ],
+       "score": 12.065
+      },
+      {
+       "take": 10,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.58,
+       "voiced": 2.35,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -6.7,
+       "decay_s": 0.08,
+       "segs": 2,
+       "periodic": 0.57,
+       "onset_noise_s": 0.002,
+       "f0": 261,
+       "f0_sd_c": 235.6,
+       "f0_jump_c": 107.7,
+       "f0_range_c": 1906,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.515
+      }
+     ]
+    },
+    {
+     "kana": "な",
+     "rom": "na",
+     "text": "な",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.31,
+       "raw_s": 0.56,
+       "duration": 0.55,
+       "voiced": 0.34,
+       "rms_dbfs": -21.2,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.71,
+       "onset_noise_s": 0.022,
+       "f0": 279,
+       "f0_sd_c": 533.9,
+       "f0_jump_c": 677.9,
+       "f0_range_c": 1470,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 17.819
+      },
+      {
+       "take": 2,
+       "gen_s": 0.4,
+       "raw_s": 0.8,
+       "duration": 0.83,
+       "voiced": 0.67,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.93,
+       "onset_noise_s": 0.002,
+       "f0": 288,
+       "f0_sd_c": 167.0,
+       "f0_jump_c": 1203.1,
+       "f0_range_c": 1224,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 26.12
+      },
+      {
+       "take": 3,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 2.14,
+       "voiced": 1.97,
+       "rms_dbfs": -21.8,
+       "peak_dbfs": -2.9,
+       "decay_s": 0.75,
+       "segs": 3,
+       "periodic": 0.15,
+       "onset_noise_s": 0.002,
+       "f0": 292,
+       "f0_sd_c": 241.8,
+       "f0_jump_c": 61.1,
+       "f0_range_c": 1311,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.662
+      },
+      {
+       "take": 4,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.34,
+       "voiced": 1.1,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.1,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 0.97,
+       "onset_noise_s": 0.003,
+       "f0": 298,
+       "f0_sd_c": 88.1,
+       "f0_jump_c": 46.0,
+       "f0_range_c": 342,
+       "flags": [
+        "long"
+       ],
+       "score": 12.334
+      },
+      {
+       "take": 5,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -6.0,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 237,
+       "f0_sd_c": 31.9,
+       "f0_jump_c": 28.1,
+       "f0_range_c": 209,
+       "flags": [
+        "long"
+       ],
+       "score": 15.753
+      },
+      {
+       "take": 6,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.11,
+       "voiced": 2.52,
+       "rms_dbfs": -21.4,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.22,
+       "segs": 4,
+       "periodic": 0.25,
+       "onset_noise_s": 0.002,
+       "f0": 352,
+       "f0_sd_c": 542.8,
+       "f0_jump_c": 980.9,
+       "f0_range_c": 2045,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 42.838
+      },
+      {
+       "take": 7,
+       "gen_s": 0.27,
+       "raw_s": 0.48,
+       "duration": 0.48,
+       "voiced": 0.32,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -11.5,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.94,
+       "onset_noise_s": 0.003,
+       "f0": 238,
+       "f0_sd_c": 66.6,
+       "f0_jump_c": 31.5,
+       "f0_range_c": 232,
+       "flags": [],
+       "score": 1.031
+      },
+      {
+       "take": 8,
+       "gen_s": 0.33,
+       "raw_s": 0.64,
+       "duration": 0.66,
+       "voiced": 0.5,
+       "rms_dbfs": -21.9,
+       "peak_dbfs": -8.4,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.012,
+       "f0": 256,
+       "f0_sd_c": 310.6,
+       "f0_jump_c": 1241.3,
+       "f0_range_c": 1489,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 17.344
+      },
+      {
+       "take": 9,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 1.6,
+       "voiced": 1.44,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -6.1,
+       "decay_s": 0.2,
+       "segs": 2,
+       "periodic": 0.35,
+       "onset_noise_s": 0.002,
+       "f0": 241,
+       "f0_sd_c": 631.3,
+       "f0_jump_c": 907.5,
+       "f0_range_c": 1788,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.318
+      },
+      {
+       "take": 10,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.87,
+       "voiced": 1.71,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.27,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 283,
+       "f0_sd_c": 93.4,
+       "f0_jump_c": 88.1,
+       "f0_range_c": 396,
+       "flags": [
+        "long"
+       ],
+       "score": 13.748
+      }
+     ]
+    },
+    {
+     "kana": "は",
+     "rom": "ha",
+     "text": "は",
+     "best": 8,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -23.8,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.27,
+       "segs": 2,
+       "periodic": 0.14,
+       "onset_noise_s": 0.002,
+       "f0": 350,
+       "f0_sd_c": 522.3,
+       "f0_jump_c": 307.8,
+       "f0_range_c": 1696,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.589
+      },
+      {
+       "take": 2,
+       "gen_s": 0.27,
+       "raw_s": 0.48,
+       "duration": 0.49,
+       "voiced": 0.34,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.05,
+       "segs": 1,
+       "periodic": 0.82,
+       "onset_noise_s": 0.012,
+       "f0": 254,
+       "f0_sd_c": 107.0,
+       "f0_jump_c": 48.9,
+       "f0_range_c": 325,
+       "flags": [],
+       "score": 1.453
+      },
+      {
+       "take": 3,
+       "gen_s": 1.53,
+       "raw_s": 3.2,
+       "duration": 0.64,
+       "voiced": 0.38,
+       "rms_dbfs": -23.5,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.22,
+       "segs": 1,
+       "periodic": 0.55,
+       "onset_noise_s": 0.002,
+       "f0": 301,
+       "f0_sd_c": 370.1,
+       "f0_jump_c": 591.1,
+       "f0_range_c": 1231,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 15.811
+      },
+      {
+       "take": 4,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.68,
+       "voiced": 1.53,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.09,
+       "segs": 2,
+       "periodic": 0.07,
+       "onset_noise_s": 0.232,
+       "f0": 511,
+       "f0_sd_c": 72.4,
+       "f0_jump_c": 106.9,
+       "f0_range_c": 186,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 23.24
+      },
+      {
+       "take": 5,
+       "gen_s": 0.62,
+       "raw_s": 1.28,
+       "duration": 1.31,
+       "voiced": 1.15,
+       "rms_dbfs": -21.5,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.54,
+       "segs": 3,
+       "periodic": 0.24,
+       "onset_noise_s": 0.343,
+       "f0": 452,
+       "f0_sd_c": 355.0,
+       "f0_jump_c": 657.2,
+       "f0_range_c": 1235,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 37.141
+      },
+      {
+       "take": 6,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 0.47,
+       "voiced": 0.31,
+       "rms_dbfs": -22.5,
+       "peak_dbfs": -8.0,
+       "decay_s": 0.15,
+       "segs": 1,
+       "periodic": 0.55,
+       "onset_noise_s": 0.002,
+       "f0": 252,
+       "f0_sd_c": 478.1,
+       "f0_jump_c": 62.2,
+       "f0_range_c": 1813,
+       "flags": [],
+       "score": 5.268
+      },
+      {
+       "take": 7,
+       "gen_s": 0.76,
+       "raw_s": 1.6,
+       "duration": 1.65,
+       "voiced": 1.5,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -2.2,
+       "decay_s": 0.09,
+       "segs": 2,
+       "periodic": 0.12,
+       "onset_noise_s": 0.002,
+       "f0": 317,
+       "f0_sd_c": 73.9,
+       "f0_jump_c": 19.6,
+       "f0_range_c": 203,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 22.904
+      },
+      {
+       "take": 8,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 0.62,
+       "voiced": 0.47,
+       "rms_dbfs": -22.3,
+       "peak_dbfs": -10.2,
+       "decay_s": 0.17,
+       "segs": 1,
+       "periodic": 0.51,
+       "onset_noise_s": 0.022,
+       "f0": 225,
+       "f0_sd_c": 30.4,
+       "f0_jump_c": 70.5,
+       "f0_range_c": 118,
+       "flags": [],
+       "score": 0.579
+      },
+      {
+       "take": 9,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.96,
+       "voiced": 0.81,
+       "rms_dbfs": -25.4,
+       "peak_dbfs": -7.8,
+       "decay_s": 0.15,
+       "segs": 1,
+       "periodic": 0.26,
+       "onset_noise_s": 0.002,
+       "f0": 509,
+       "f0_sd_c": 365.7,
+       "f0_jump_c": 103.8,
+       "f0_range_c": 1352,
+       "flags": [
+        "long"
+       ],
+       "score": 14.723
+      },
+      {
+       "take": 10,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.83,
+       "voiced": 2.68,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.09,
+       "segs": 2,
+       "periodic": 0.11,
+       "onset_noise_s": 0.012,
+       "f0": 489,
+       "f0_sd_c": 513.7,
+       "f0_jump_c": 724.4,
+       "f0_range_c": 1391,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 42.012
+      }
+     ]
+    },
+    {
+     "kana": "ま",
+     "rom": "ma",
+     "text": "ま",
+     "best": 4,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 1.05,
+       "voiced": 0.85,
+       "rms_dbfs": -22.1,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.4,
+       "segs": 2,
+       "periodic": 0.48,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 79.4,
+       "f0_jump_c": 101.9,
+       "f0_range_c": 458,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 21.934
+      },
+      {
+       "take": 2,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.06,
+       "voiced": 0.59,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.9,
+       "onset_noise_s": 0.002,
+       "f0": 258,
+       "f0_sd_c": 238.4,
+       "f0_jump_c": 1014.1,
+       "f0_range_c": 1715,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 16.044
+      },
+      {
+       "take": 3,
+       "gen_s": 0.48,
+       "raw_s": 0.96,
+       "duration": 0.95,
+       "voiced": 0.79,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -8.4,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.97,
+       "onset_noise_s": 0.002,
+       "f0": 316,
+       "f0_sd_c": 218.8,
+       "f0_jump_c": 64.6,
+       "f0_range_c": 945,
+       "flags": [
+        "long"
+       ],
+       "score": 13.083
+      },
+      {
+       "take": 4,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 0.62,
+       "voiced": 0.47,
+       "rms_dbfs": -23.1,
+       "peak_dbfs": -9.0,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.17,
+       "onset_noise_s": 0.002,
+       "f0": 520,
+       "f0_sd_c": 281.2,
+       "f0_jump_c": 34.7,
+       "f0_range_c": 613,
+       "flags": [],
+       "score": 2.968
+      },
+      {
+       "take": 5,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.09,
+       "voiced": 0.92,
+       "rms_dbfs": -22.5,
+       "peak_dbfs": -10.4,
+       "decay_s": 0.44,
+       "segs": 1,
+       "periodic": 0.62,
+       "onset_noise_s": 0.002,
+       "f0": 216,
+       "f0_sd_c": 244.8,
+       "f0_jump_c": 121.2,
+       "f0_range_c": 1833,
+       "flags": [
+        "long"
+       ],
+       "score": 13.792
+      },
+      {
+       "take": 6,
+       "gen_s": 0.44,
+       "raw_s": 0.88,
+       "duration": 0.9,
+       "voiced": 0.74,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.7,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.002,
+       "f0": 222,
+       "f0_sd_c": 121.8,
+       "f0_jump_c": 48.5,
+       "f0_range_c": 465,
+       "flags": [
+        "long"
+       ],
+       "score": 11.96
+      },
+      {
+       "take": 7,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 2.69,
+       "voiced": 2.52,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -3.5,
+       "decay_s": 0.34,
+       "segs": 2,
+       "periodic": 0.32,
+       "onset_noise_s": 0.002,
+       "f0": 262,
+       "f0_sd_c": 450.3,
+       "f0_jump_c": 971.9,
+       "f0_range_c": 1928,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.883
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.64,
+       "voiced": 2.49,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -2.7,
+       "decay_s": 0.39,
+       "segs": 3,
+       "periodic": 0.22,
+       "onset_noise_s": 0.002,
+       "f0": 303,
+       "f0_sd_c": 488.4,
+       "f0_jump_c": 1263.6,
+       "f0_range_c": 2389,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.176
+      },
+      {
+       "take": 9,
+       "gen_s": 1.48,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.6,
+       "decay_s": 0.02,
+       "segs": 5,
+       "periodic": 0.37,
+       "onset_noise_s": 0.002,
+       "f0": 284,
+       "f0_sd_c": 206.1,
+       "f0_jump_c": 134.9,
+       "f0_range_c": 1852,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.851
+      },
+      {
+       "take": 10,
+       "gen_s": 1.48,
+       "raw_s": 3.2,
+       "duration": 1.27,
+       "voiced": 1.0,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -10.1,
+       "decay_s": 0.17,
+       "segs": 1,
+       "periodic": 0.91,
+       "onset_noise_s": 0.002,
+       "f0": 226,
+       "f0_sd_c": 177.9,
+       "f0_jump_c": 141.8,
+       "f0_range_c": 1841,
+       "flags": [
+        "long"
+       ],
+       "score": 13.352
+      }
+     ]
+    },
+    {
+     "kana": "や",
+     "rom": "ya",
+     "text": "や",
+     "best": 10,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.42,
+       "raw_s": 0.8,
+       "duration": 0.81,
+       "voiced": 0.64,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -8.2,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.88,
+       "onset_noise_s": 0.002,
+       "f0": 348,
+       "f0_sd_c": 279.0,
+       "f0_jump_c": 92.9,
+       "f0_range_c": 822,
+       "flags": [
+        "long"
+       ],
+       "score": 13.48
+      },
+      {
+       "take": 2,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -6.3,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.78,
+       "onset_noise_s": 0.012,
+       "f0": 280,
+       "f0_sd_c": 216.8,
+       "f0_jump_c": 74.0,
+       "f0_range_c": 781,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.755
+      },
+      {
+       "take": 3,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -10.7,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 241,
+       "f0_sd_c": 28.3,
+       "f0_jump_c": 23.3,
+       "f0_range_c": 146,
+       "flags": [
+        "long"
+       ],
+       "score": 15.701
+      },
+      {
+       "take": 4,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.08,
+       "voiced": 0.89,
+       "rms_dbfs": -22.5,
+       "peak_dbfs": -10.1,
+       "decay_s": 0.39,
+       "segs": 1,
+       "periodic": 0.62,
+       "onset_noise_s": 0.012,
+       "f0": 318,
+       "f0_sd_c": 251.0,
+       "f0_jump_c": 247.4,
+       "f0_range_c": 1659,
+       "flags": [
+        "long"
+       ],
+       "score": 14.215
+      },
+      {
+       "take": 5,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -3.2,
+       "decay_s": 1.26,
+       "segs": 2,
+       "periodic": 0.81,
+       "onset_noise_s": 0.002,
+       "f0": 272,
+       "f0_sd_c": 168.9,
+       "f0_jump_c": 68.0,
+       "f0_range_c": 1488,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.256
+      },
+      {
+       "take": 6,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.11,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -11.0,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.003,
+       "f0": 622,
+       "f0_sd_c": 27.9,
+       "f0_jump_c": 15.4,
+       "f0_range_c": 142,
+       "flags": [
+        "long"
+       ],
+       "score": 15.65
+      },
+      {
+       "take": 7,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -4.6,
+       "decay_s": 0.14,
+       "segs": 3,
+       "periodic": 0.59,
+       "onset_noise_s": 0.002,
+       "f0": 314,
+       "f0_sd_c": 298.5,
+       "f0_jump_c": 296.0,
+       "f0_range_c": 1239,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 29.312
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.51,
+       "voiced": 1.35,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -2.7,
+       "decay_s": 0.16,
+       "segs": 3,
+       "periodic": 0.31,
+       "onset_noise_s": 0.002,
+       "f0": 264,
+       "f0_sd_c": 566.5,
+       "f0_jump_c": 1350.3,
+       "f0_range_c": 2055,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.966
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.11,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.3,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.56,
+       "onset_noise_s": 0.003,
+       "f0": 347,
+       "f0_sd_c": 277.2,
+       "f0_jump_c": 272.3,
+       "f0_range_c": 1551,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 29.0
+      },
+      {
+       "take": 10,
+       "gen_s": 0.23,
+       "raw_s": 0.4,
+       "duration": 0.42,
+       "voiced": 0.27,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -10.8,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 243,
+       "f0_sd_c": 75.2,
+       "f0_jump_c": 44.2,
+       "f0_range_c": 231,
+       "flags": [
+        "short"
+       ],
+       "score": 11.259
+      }
+     ]
+    },
+    {
+     "kana": "ら",
+     "rom": "ra",
+     "text": "ら",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.61,
+       "raw_s": 1.28,
+       "duration": 1.28,
+       "voiced": 1.13,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -8.2,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.96,
+       "onset_noise_s": 0.002,
+       "f0": 275,
+       "f0_sd_c": 62.8,
+       "f0_jump_c": 63.3,
+       "f0_range_c": 235,
+       "flags": [
+        "long"
+       ],
+       "score": 12.199
+      },
+      {
+       "take": 2,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -6.9,
+       "decay_s": 0.01,
+       "segs": 2,
+       "periodic": 0.7,
+       "onset_noise_s": 0.002,
+       "f0": 291,
+       "f0_sd_c": 201.7,
+       "f0_jump_c": 1157.0,
+       "f0_range_c": 1831,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.214
+      },
+      {
+       "take": 3,
+       "gen_s": 0.38,
+       "raw_s": 0.72,
+       "duration": 0.73,
+       "voiced": 0.57,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -11.0,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.7,
+       "onset_noise_s": 0.002,
+       "f0": 232,
+       "f0_sd_c": 27.7,
+       "f0_jump_c": 26.6,
+       "f0_range_c": 93,
+       "flags": [],
+       "score": 0.606
+      },
+      {
+       "take": 4,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 0.83,
+       "voiced": 0.66,
+       "rms_dbfs": -22.1,
+       "peak_dbfs": -8.4,
+       "decay_s": 0.31,
+       "segs": 1,
+       "periodic": 0.3,
+       "onset_noise_s": 0.012,
+       "f0": 257,
+       "f0_sd_c": 54.5,
+       "f0_jump_c": 59.8,
+       "f0_range_c": 198,
+       "flags": [
+        "long"
+       ],
+       "score": 11.164
+      },
+      {
+       "take": 5,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.55,
+       "voiced": 0.4,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 248,
+       "f0_sd_c": 166.2,
+       "f0_jump_c": 87.4,
+       "f0_range_c": 507,
+       "flags": [],
+       "score": 2.053
+      },
+      {
+       "take": 6,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -2.0,
+       "decay_s": 0.0,
+       "segs": 3,
+       "periodic": 0.28,
+       "onset_noise_s": 0.012,
+       "f0": 463,
+       "f0_sd_c": 543.2,
+       "f0_jump_c": 434.7,
+       "f0_range_c": 1749,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 42.221
+      },
+      {
+       "take": 7,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -23.1,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.01,
+       "segs": 4,
+       "periodic": 0.14,
+       "onset_noise_s": 0.033,
+       "f0": 327,
+       "f0_sd_c": 608.9,
+       "f0_jump_c": 1343.1,
+       "f0_range_c": 1625,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 45.906
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.02,
+       "voiced": 0.66,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -8.5,
+       "decay_s": 0.04,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 371,
+       "f0_sd_c": 375.0,
+       "f0_jump_c": 120.1,
+       "f0_range_c": 1333,
+       "flags": [
+        "long"
+       ],
+       "score": 14.57
+      },
+      {
+       "take": 9,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -4.9,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.63,
+       "onset_noise_s": 0.002,
+       "f0": 294,
+       "f0_sd_c": 311.9,
+       "f0_jump_c": 419.0,
+       "f0_range_c": 2066,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.856
+      },
+      {
+       "take": 10,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -3.7,
+       "decay_s": 0.0,
+       "segs": 3,
+       "periodic": 0.47,
+       "onset_noise_s": 0.012,
+       "f0": 231,
+       "f0_sd_c": 130.2,
+       "f0_jump_c": 166.3,
+       "f0_range_c": 518,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.196
+      }
+     ]
+    },
+    {
+     "kana": "ん",
+     "rom": "n",
+     "text": "ん",
+     "best": 6,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.35,
+       "voiced": 1.19,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.52,
+       "segs": 1,
+       "periodic": 0.76,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 212.5,
+       "f0_jump_c": 155.2,
+       "f0_range_c": 691,
+       "flags": [
+        "long"
+       ],
+       "score": 14.122
+      },
+      {
+       "take": 2,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 2.55,
+       "voiced": 2.39,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 231,
+       "f0_sd_c": 85.3,
+       "f0_jump_c": 59.5,
+       "f0_range_c": 371,
+       "flags": [
+        "long"
+       ],
+       "score": 14.931
+      },
+      {
+       "take": 3,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.84,
+       "voiced": 2.68,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -2.3,
+       "decay_s": 0.04,
+       "segs": 3,
+       "periodic": 0.71,
+       "onset_noise_s": 0.033,
+       "f0": 289,
+       "f0_sd_c": 238.5,
+       "f0_jump_c": 174.5,
+       "f0_range_c": 971,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.427
+      },
+      {
+       "take": 4,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.5,
+       "voiced": 1.33,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -11.9,
+       "decay_s": 0.32,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 224,
+       "f0_sd_c": 58.7,
+       "f0_jump_c": 38.9,
+       "f0_range_c": 286,
+       "flags": [
+        "long"
+       ],
+       "score": 12.477
+      },
+      {
+       "take": 5,
+       "gen_s": 0.44,
+       "raw_s": 0.88,
+       "duration": 0.91,
+       "voiced": 0.76,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -11.5,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.002,
+       "f0": 257,
+       "f0_sd_c": 125.9,
+       "f0_jump_c": 52.1,
+       "f0_range_c": 416,
+       "flags": [
+        "long"
+       ],
+       "score": 12.053
+      },
+      {
+       "take": 6,
+       "gen_s": 0.5,
+       "raw_s": 1.04,
+       "duration": 1.0,
+       "voiced": 0.84,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -13.4,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.003,
+       "f0": 239,
+       "f0_sd_c": 46.4,
+       "f0_jump_c": 28.4,
+       "f0_range_c": 215,
+       "flags": [
+        "long"
+       ],
+       "score": 11.339
+      },
+      {
+       "take": 7,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 1.32,
+       "voiced": 1.08,
+       "rms_dbfs": -21.7,
+       "peak_dbfs": -9.5,
+       "decay_s": 0.45,
+       "segs": 1,
+       "periodic": 0.65,
+       "onset_noise_s": 0.002,
+       "f0": 255,
+       "f0_sd_c": 117.8,
+       "f0_jump_c": 112.9,
+       "f0_range_c": 400,
+       "flags": [
+        "long"
+       ],
+       "score": 12.814
+      },
+      {
+       "take": 8,
+       "gen_s": 0.72,
+       "raw_s": 1.52,
+       "duration": 1.58,
+       "voiced": 1.42,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.37,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 222,
+       "f0_sd_c": 138.1,
+       "f0_jump_c": 21.1,
+       "f0_range_c": 451,
+       "flags": [
+        "long"
+       ],
+       "score": 13.391
+      },
+      {
+       "take": 9,
+       "gen_s": 0.51,
+       "raw_s": 1.04,
+       "duration": 1.06,
+       "voiced": 0.91,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -13.7,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 240,
+       "f0_sd_c": 84.9,
+       "f0_jump_c": 91.5,
+       "f0_range_c": 503,
+       "flags": [
+        "long"
+       ],
+       "score": 12.074
+      },
+      {
+       "take": 10,
+       "gen_s": 1.42,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -5.2,
+       "decay_s": 0.0,
+       "segs": 3,
+       "periodic": 0.79,
+       "onset_noise_s": 0.002,
+       "f0": 249,
+       "f0_sd_c": 393.1,
+       "f0_jump_c": 1164.1,
+       "f0_range_c": 2029,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.151
+      }
+     ]
+    },
+    {
+     "kana": "を",
+     "rom": "wo",
+     "text": "を",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.44,
+       "voiced": 2.27,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -5.4,
+       "decay_s": 0.26,
+       "segs": 2,
+       "periodic": 0.4,
+       "onset_noise_s": 0.022,
+       "f0": 315,
+       "f0_sd_c": 519.3,
+       "f0_jump_c": 737.9,
+       "f0_range_c": 1855,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.293
+      },
+      {
+       "take": 2,
+       "gen_s": 0.62,
+       "raw_s": 1.28,
+       "duration": 1.33,
+       "voiced": 1.17,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.3,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 247,
+       "f0_sd_c": 106.2,
+       "f0_jump_c": 29.1,
+       "f0_range_c": 356,
+       "flags": [
+        "long"
+       ],
+       "score": 12.599
+      },
+      {
+       "take": 3,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 1.63,
+       "voiced": 1.47,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -10.8,
+       "decay_s": 0.27,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 209,
+       "f0_sd_c": 150.9,
+       "f0_jump_c": 36.0,
+       "f0_range_c": 442,
+       "flags": [
+        "long"
+       ],
+       "score": 13.669
+      },
+      {
+       "take": 4,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 2.42,
+       "voiced": 2.11,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -11.5,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.98,
+       "onset_noise_s": 0.003,
+       "f0": 283,
+       "f0_sd_c": 179.1,
+       "f0_jump_c": 1123.7,
+       "f0_range_c": 1596,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 28.857
+      },
+      {
+       "take": 5,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.2,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.033,
+       "f0": 212,
+       "f0_sd_c": 7.4,
+       "f0_jump_c": 16.0,
+       "f0_range_c": 47,
+       "flags": [
+        "long"
+       ],
+       "score": 15.467
+      },
+      {
+       "take": 6,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.3,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 259,
+       "f0_sd_c": 168.1,
+       "f0_jump_c": 37.9,
+       "f0_range_c": 636,
+       "flags": [
+        "long"
+       ],
+       "score": 17.147
+      },
+      {
+       "take": 7,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 0.26,
+       "voiced": 0.11,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -11.3,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.82,
+       "onset_noise_s": 0.002,
+       "f0": 227,
+       "f0_sd_c": 45.0,
+       "f0_jump_c": 37.8,
+       "f0_range_c": 128,
+       "flags": [
+        "short"
+       ],
+       "score": 11.256
+      },
+      {
+       "take": 8,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -3.2,
+       "decay_s": 0.03,
+       "segs": 2,
+       "periodic": 0.3,
+       "onset_noise_s": 0.002,
+       "f0": 243,
+       "f0_sd_c": 433.3,
+       "f0_jump_c": 1277.0,
+       "f0_range_c": 2054,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.93
+      },
+      {
+       "take": 9,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 0.95,
+       "voiced": 0.79,
+       "rms_dbfs": -24.6,
+       "peak_dbfs": -8.3,
+       "decay_s": 0.46,
+       "segs": 2,
+       "periodic": 0.56,
+       "onset_noise_s": 0.002,
+       "f0": 465,
+       "f0_sd_c": 723.5,
+       "f0_jump_c": 593.3,
+       "f0_range_c": 1917,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.893
+      },
+      {
+       "take": 10,
+       "gen_s": 1.43,
+       "raw_s": 3.2,
+       "duration": 2.96,
+       "voiced": 2.8,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.18,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 250,
+       "f0_sd_c": 72.4,
+       "f0_jump_c": 11.4,
+       "f0_range_c": 254,
+       "flags": [
+        "long"
+       ],
+       "score": 15.462
+      }
+     ]
+    }
+   ]
+  },
+  "Q2": {
+   "comment": "세 번 읽고 가운데를 무음 기준으로 잘라 냄",
+   "text": "{k}、{k}、{k}。",
+   "max_tokens": 80,
+   "instruct": null,
+   "letters": [
+    {
+     "kana": "あ",
+     "rom": "a",
+     "text": "あ、あ、あ。",
+     "best": 2,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 1.0,
+       "raw_s": 2.08,
+       "split_segs": 3,
+       "duration": 0.34,
+       "voiced": 0.19,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.04,
+       "segs": 1,
+       "periodic": 0.68,
+       "onset_noise_s": 0.012,
+       "f0": 295,
+       "f0_sd_c": 24.7,
+       "f0_jump_c": 17.2,
+       "f0_range_c": 78,
+       "flags": [
+        "short"
+       ],
+       "score": 10.824
+      },
+      {
+       "take": 3,
+       "gen_s": 0.57,
+       "raw_s": 1.12,
+       "split_segs": 3,
+       "duration": 0.44,
+       "voiced": 0.28,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -6.2,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.43,
+       "onset_noise_s": 0.102,
+       "f0": 444,
+       "f0_sd_c": 299.4,
+       "f0_jump_c": 59.5,
+       "f0_range_c": 786,
+       "flags": [
+        "short"
+       ],
+       "score": 13.532
+      },
+      {
+       "take": 4,
+       "gen_s": 2.85,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 2.96,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 2.91,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 0.85,
+       "raw_s": 1.76,
+       "split_segs": 3,
+       "duration": 0.35,
+       "voiced": 0.17,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -8.7,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.59,
+       "onset_noise_s": 0.022,
+       "f0": 382,
+       "f0_sd_c": 28.3,
+       "f0_jump_c": 34.3,
+       "f0_range_c": 81,
+       "flags": [
+        "short"
+       ],
+       "score": 10.957
+      },
+      {
+       "take": 8,
+       "gen_s": 0.7,
+       "raw_s": 1.44,
+       "split_segs": 3,
+       "duration": 0.25,
+       "voiced": 0.09,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.56,
+       "onset_noise_s": 0.002,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "short",
+        "no_pitch"
+       ],
+       "score": 22.72
+      },
+      {
+       "take": 9,
+       "gen_s": 1.66,
+       "raw_s": 3.6,
+       "split_segs": 3,
+       "duration": 0.43,
+       "voiced": 0.23,
+       "rms_dbfs": -22.1,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.91,
+       "onset_noise_s": 0.012,
+       "f0": 322,
+       "f0_sd_c": 435.5,
+       "f0_jump_c": 1046.4,
+       "f0_range_c": 1489,
+       "flags": [
+        "short",
+        "pitch_jump"
+       ],
+       "score": 28.283
+      },
+      {
+       "take": 10,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.26,
+       "voiced": 0.1,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.7,
+       "onset_noise_s": 0.012,
+       "f0": 320,
+       "f0_sd_c": 36.6,
+       "f0_jump_c": 50.2,
+       "f0_range_c": 95,
+       "flags": [
+        "short"
+       ],
+       "score": 11.233
+      }
+     ]
+    },
+    {
+     "kana": "か",
+     "rom": "ka",
+     "text": "か、か、か。",
+     "best": 8,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.75,
+       "raw_s": 1.52,
+       "split_segs": 3,
+       "duration": 0.3,
+       "voiced": 0.14,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -5.8,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.43,
+       "onset_noise_s": 0.042,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "short",
+        "no_pitch"
+       ],
+       "score": 22.62
+      },
+      {
+       "take": 2,
+       "gen_s": 1.38,
+       "raw_s": 2.96,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.35,
+       "voiced": 0.2,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -5.4,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "short",
+        "no_pitch"
+       ],
+       "score": 22.5
+      },
+      {
+       "take": 5,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 7,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 1.75,
+       "raw_s": 3.76,
+       "split_segs": 3,
+       "duration": 0.39,
+       "voiced": 0.23,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -8.8,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.78,
+       "onset_noise_s": 0.052,
+       "f0": 349,
+       "f0_sd_c": 73.2,
+       "f0_jump_c": 110.5,
+       "f0_range_c": 235,
+       "flags": [
+        "short"
+       ],
+       "score": 11.54
+      },
+      {
+       "take": 9,
+       "gen_s": 2.15,
+       "raw_s": 4.72,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "さ",
+     "rom": "sa",
+     "text": "さ、さ、さ。",
+     "best": 6,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.39,
+       "raw_s": 2.96,
+       "split_segs": 3,
+       "duration": 1.12,
+       "voiced": 0.96,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -6.4,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.34,
+       "onset_noise_s": 0.352,
+       "f0": 280,
+       "f0_sd_c": 93.3,
+       "f0_jump_c": 41.5,
+       "f0_range_c": 320,
+       "flags": [
+        "long"
+       ],
+       "score": 12.091
+      },
+      {
+       "take": 2,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.93,
+       "voiced": 0.78,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -8.9,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 0.79,
+       "onset_noise_s": 0.083,
+       "f0": 257,
+       "f0_sd_c": 16.0,
+       "f0_jump_c": 33.4,
+       "f0_range_c": 100,
+       "flags": [
+        "long"
+       ],
+       "score": 10.931
+      },
+      {
+       "take": 4,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 5,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 0.91,
+       "raw_s": 1.92,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 1.56,
+       "raw_s": 3.36,
+       "split_segs": 3,
+       "duration": 0.61,
+       "voiced": 0.45,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -7.4,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.42,
+       "onset_noise_s": 0.203,
+       "f0": 192,
+       "f0_sd_c": 525.4,
+       "f0_jump_c": 51.3,
+       "f0_range_c": 2182,
+       "flags": [],
+       "score": 5.425
+      },
+      {
+       "take": 7,
+       "gen_s": 1.45,
+       "raw_s": 3.12,
+       "split_segs": 3,
+       "duration": 0.55,
+       "voiced": 0.4,
+       "rms_dbfs": -21.6,
+       "peak_dbfs": -2.8,
+       "decay_s": 0.04,
+       "segs": 1,
+       "periodic": 0.03,
+       "onset_noise_s": 0.393,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.1
+      },
+      {
+       "take": 8,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 0.81,
+       "raw_s": 1.68,
+       "split_segs": 3,
+       "duration": 0.41,
+       "voiced": 0.25,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -9.2,
+       "decay_s": 0.04,
+       "segs": 1,
+       "periodic": 0.72,
+       "onset_noise_s": 0.033,
+       "f0": 247,
+       "f0_sd_c": 22.6,
+       "f0_jump_c": 21.9,
+       "f0_range_c": 83,
+       "flags": [
+        "short"
+       ],
+       "score": 10.699
+      },
+      {
+       "take": 10,
+       "gen_s": 2.85,
+       "raw_s": 6.24,
+       "split_segs": 5,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "た",
+     "rom": "ta",
+     "text": "た、た、た。",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.55,
+       "raw_s": 3.36,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.42,
+       "voiced": 0.27,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -10.3,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.89,
+       "onset_noise_s": 0.022,
+       "f0": 275,
+       "f0_sd_c": 33.3,
+       "f0_jump_c": 28.2,
+       "f0_range_c": 113,
+       "flags": [
+        "short"
+       ],
+       "score": 10.787
+      },
+      {
+       "take": 3,
+       "gen_s": 2.94,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.48,
+       "voiced": 0.32,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.97,
+       "onset_noise_s": 0.012,
+       "f0": 232,
+       "f0_sd_c": 12.7,
+       "f0_jump_c": 13.3,
+       "f0_range_c": 57,
+       "flags": [],
+       "score": 0.431
+      },
+      {
+       "take": 4,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.41,
+       "voiced": 0.25,
+       "rms_dbfs": -21.6,
+       "peak_dbfs": -12.0,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.6,
+       "onset_noise_s": 0.002,
+       "f0": 218,
+       "f0_sd_c": 838.0,
+       "f0_jump_c": 39.0,
+       "f0_range_c": 1950,
+       "flags": [
+        "short"
+       ],
+       "score": 18.91
+      },
+      {
+       "take": 6,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.53,
+       "voiced": 0.38,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -11.1,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.79,
+       "onset_noise_s": 0.072,
+       "f0": 241,
+       "f0_sd_c": 52.9,
+       "f0_jump_c": 191.9,
+       "f0_range_c": 206,
+       "flags": [],
+       "score": 1.309
+      },
+      {
+       "take": 7,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 5,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 0.86,
+       "raw_s": 1.76,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 2.86,
+       "raw_s": 6.4,
+       "split_segs": 5,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 0,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "な",
+     "rom": "na",
+     "text": "な、な、な。",
+     "best": null,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 0.56,
+       "raw_s": 1.12,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.01,
+       "raw_s": 4.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 2.07,
+       "raw_s": 4.48,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "は",
+     "rom": "ha",
+     "text": "は、は、は。",
+     "best": 1,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.33,
+       "voiced": 0.13,
+       "rms_dbfs": -22.7,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.69,
+       "onset_noise_s": 0.032,
+       "f0": 376,
+       "f0_sd_c": 9.8,
+       "f0_jump_c": 17.4,
+       "f0_range_c": 26,
+       "flags": [
+        "short"
+       ],
+       "score": 10.796
+      },
+      {
+       "take": 2,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 6,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.91,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 2.91,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 2.93,
+       "raw_s": 6.4,
+       "split_segs": 6,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.49,
+       "voiced": 0.34,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -7.0,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.18,
+       "onset_noise_s": 0.012,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.22
+      },
+      {
+       "take": 10,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "ま",
+     "rom": "ma",
+     "text": "ま、ま、ま。",
+     "best": null,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.91,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 0.74,
+       "raw_s": 1.52,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.06,
+       "raw_s": 4.48,
+       "split_segs": 8,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 0.95,
+       "raw_s": 2.0,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 0.49,
+       "raw_s": 0.96,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 2.86,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 1.78,
+       "raw_s": 3.84,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 0.74,
+       "raw_s": 1.52,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "や",
+     "rom": "ya",
+     "text": "や、や、や。",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.88,
+       "voiced": 0.72,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -8.9,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.75,
+       "onset_noise_s": 0.143,
+       "f0": 284,
+       "f0_sd_c": 85.8,
+       "f0_jump_c": 58.4,
+       "f0_range_c": 389,
+       "flags": [
+        "long"
+       ],
+       "score": 11.593
+      },
+      {
+       "take": 3,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.62,
+       "voiced": 0.46,
+       "rms_dbfs": -21.3,
+       "peak_dbfs": -12.0,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.78,
+       "onset_noise_s": 0.002,
+       "f0": 225,
+       "f0_sd_c": 55.6,
+       "f0_jump_c": 73.0,
+       "f0_range_c": 261,
+       "flags": [],
+       "score": 0.819
+      },
+      {
+       "take": 4,
+       "gen_s": 0.39,
+       "raw_s": 0.72,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 2.85,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 1.33,
+       "raw_s": 2.56,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 1.0,
+       "raw_s": 2.08,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 0.71,
+       "raw_s": 1.44,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "ら",
+     "rom": "ra",
+     "text": "ら、ら、ら。",
+     "best": null,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 2.77,
+       "raw_s": 6.08,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 1.74,
+       "raw_s": 3.6,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 1.46,
+       "raw_s": 3.12,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 5,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "ん",
+     "rom": "n",
+     "text": "ん、ん、ん。",
+     "best": 4,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 0.34,
+       "voiced": 0.16,
+       "rms_dbfs": -22.0,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 0.75,
+       "onset_noise_s": 0.002,
+       "f0": 315,
+       "f0_sd_c": 112.3,
+       "f0_jump_c": 89.8,
+       "f0_range_c": 322,
+       "flags": [
+        "short"
+       ],
+       "score": 12.002
+      },
+      {
+       "take": 5,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 6,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 7,
+       "gen_s": 2.87,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 8,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.9,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    },
+    {
+     "kana": "を",
+     "rom": "wo",
+     "text": "を、を、を。",
+     "best": 5,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 2,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 3,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 4,
+       "gen_s": 2.93,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 5,
+       "gen_s": 1.98,
+       "raw_s": 4.16,
+       "split_segs": 3,
+       "duration": 0.25,
+       "voiced": 0.09,
+       "rms_dbfs": -21.1,
+       "peak_dbfs": -11.9,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 243,
+       "f0_sd_c": 47.3,
+       "f0_jump_c": 46.2,
+       "f0_range_c": 132,
+       "flags": [
+        "short"
+       ],
+       "score": 11.347
+      },
+      {
+       "take": 6,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 1.34,
+       "voiced": 1.17,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -10.1,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.92,
+       "onset_noise_s": 0.033,
+       "f0": 438,
+       "f0_sd_c": 271.5,
+       "f0_jump_c": 79.7,
+       "f0_range_c": 1078,
+       "flags": [
+        "long"
+       ],
+       "score": 14.421
+      },
+      {
+       "take": 7,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 3,
+       "duration": 1.63,
+       "voiced": 1.48,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 262,
+       "f0_sd_c": 128.5,
+       "f0_jump_c": 27.8,
+       "f0_range_c": 447,
+       "flags": [
+        "long"
+       ],
+       "score": 13.438
+      },
+      {
+       "take": 8,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 2,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 9,
+       "gen_s": 2.89,
+       "raw_s": 6.4,
+       "split_segs": 1,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      },
+      {
+       "take": 10,
+       "gen_s": 2.88,
+       "raw_s": 6.4,
+       "split_segs": 4,
+       "flags": [
+        "split_fail"
+       ],
+       "score": 99.0
+      }
+     ]
+    }
+   ]
+  },
+  "Q3": {
+   "comment": "중립 지시문 + 한 글자",
+   "text": "{k}。",
+   "max_tokens": 40,
+   "instruct": "日本語の先生が、ひらがなを一文字だけ、ゆっくりはっきり、落ち着いた声で読み上げる。",
+   "letters": [
+    {
+     "kana": "あ",
+     "rom": "a",
+     "text": "あ。",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.46,
+       "raw_s": 0.88,
+       "duration": 0.93,
+       "voiced": 0.77,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 278,
+       "f0_sd_c": 148.6,
+       "f0_jump_c": 23.2,
+       "f0_range_c": 470,
+       "flags": [
+        "long"
+       ],
+       "score": 12.203
+      },
+      {
+       "take": 2,
+       "gen_s": 0.42,
+       "raw_s": 0.8,
+       "duration": 0.86,
+       "voiced": 0.71,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.86,
+       "onset_noise_s": 0.012,
+       "f0": 249,
+       "f0_sd_c": 89.8,
+       "f0_jump_c": 74.6,
+       "f0_range_c": 334,
+       "flags": [
+        "long"
+       ],
+       "score": 11.667
+      },
+      {
+       "take": 3,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -5.7,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.39,
+       "onset_noise_s": 0.002,
+       "f0": 239,
+       "f0_sd_c": 284.3,
+       "f0_jump_c": 474.5,
+       "f0_range_c": 1770,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 39.765
+      },
+      {
+       "take": 4,
+       "gen_s": 0.33,
+       "raw_s": 0.56,
+       "duration": 0.56,
+       "voiced": 0.41,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.66,
+       "onset_noise_s": 0.012,
+       "f0": 229,
+       "f0_sd_c": 101.4,
+       "f0_jump_c": 59.9,
+       "f0_range_c": 355,
+       "flags": [],
+       "score": 1.294
+      },
+      {
+       "take": 5,
+       "gen_s": 0.46,
+       "raw_s": 0.88,
+       "duration": 0.93,
+       "voiced": 0.78,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -8.6,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 208,
+       "f0_sd_c": 88.8,
+       "f0_jump_c": 54.9,
+       "f0_range_c": 428,
+       "flags": [
+        "long"
+       ],
+       "score": 11.731
+      },
+      {
+       "take": 6,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 2.11,
+       "voiced": 1.95,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -4.1,
+       "decay_s": 1.42,
+       "segs": 2,
+       "periodic": 0.3,
+       "onset_noise_s": 0.012,
+       "f0": 265,
+       "f0_sd_c": 98.6,
+       "f0_jump_c": 94.6,
+       "f0_range_c": 411,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 24.301
+      },
+      {
+       "take": 7,
+       "gen_s": 0.39,
+       "raw_s": 0.72,
+       "duration": 0.72,
+       "voiced": 0.57,
+       "rms_dbfs": -21.5,
+       "peak_dbfs": -8.7,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.21,
+       "onset_noise_s": 0.092,
+       "f0": 255,
+       "f0_sd_c": 11.9,
+       "f0_jump_c": 17.2,
+       "f0_range_c": 33,
+       "flags": [],
+       "score": 0.416
+      },
+      {
+       "take": 8,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.44,
+       "voiced": 1.28,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.21,
+       "segs": 2,
+       "periodic": 0.03,
+       "onset_noise_s": 0.002,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "extra_segment",
+        "no_pitch"
+       ],
+       "score": 33.66
+      },
+      {
+       "take": 9,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.62,
+       "voiced": 0.47,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -7.4,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.36,
+       "onset_noise_s": 0.042,
+       "f0": 481,
+       "f0_sd_c": 539.1,
+       "f0_jump_c": 572.7,
+       "f0_range_c": 1536,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 17.34
+      },
+      {
+       "take": 10,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.22,
+       "voiced": 3.07,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -4.7,
+       "decay_s": 0.17,
+       "segs": 2,
+       "periodic": 0.56,
+       "onset_noise_s": 0.033,
+       "f0": 222,
+       "f0_sd_c": 105.8,
+       "f0_jump_c": 129.4,
+       "f0_range_c": 357,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.729
+      }
+     ]
+    },
+    {
+     "kana": "か",
+     "rom": "ka",
+     "text": "か。",
+     "best": 7,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.45,
+       "voiced": 0.22,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -8.0,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.32,
+       "onset_noise_s": 0.033,
+       "f0": 514,
+       "f0_sd_c": 500.2,
+       "f0_jump_c": 31.9,
+       "f0_range_c": 1077,
+       "flags": [
+        "short"
+       ],
+       "score": 15.568
+      },
+      {
+       "take": 2,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.53,
+       "voiced": 0.25,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -8.5,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.36,
+       "onset_noise_s": 0.042,
+       "f0": 240,
+       "f0_sd_c": 602.0,
+       "f0_jump_c": 31.8,
+       "f0_range_c": 1662,
+       "flags": [
+        "short"
+       ],
+       "score": 16.526
+      },
+      {
+       "take": 3,
+       "gen_s": 1.49,
+       "raw_s": 3.2,
+       "duration": 1.29,
+       "voiced": 1.14,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -1.3,
+       "decay_s": 0.1,
+       "segs": 2,
+       "periodic": 0.19,
+       "onset_noise_s": 0.193,
+       "f0": 486,
+       "f0_sd_c": 677.6,
+       "f0_jump_c": 871.8,
+       "f0_range_c": 2029,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.062
+      },
+      {
+       "take": 4,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.63,
+       "voiced": 0.48,
+       "rms_dbfs": -23.5,
+       "peak_dbfs": -8.8,
+       "decay_s": 0.2,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.06
+      },
+      {
+       "take": 5,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.73,
+       "voiced": 0.58,
+       "rms_dbfs": -21.5,
+       "peak_dbfs": -5.7,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.26
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.57,
+       "voiced": 0.41,
+       "rms_dbfs": -23.0,
+       "peak_dbfs": -8.0,
+       "decay_s": 0.2,
+       "segs": 1,
+       "periodic": 0.15,
+       "onset_noise_s": 0.072,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.08
+      },
+      {
+       "take": 7,
+       "gen_s": 0.33,
+       "raw_s": 0.56,
+       "duration": 0.56,
+       "voiced": 0.4,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -8.9,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.65,
+       "onset_noise_s": 0.122,
+       "f0": 209,
+       "f0_sd_c": 136.9,
+       "f0_jump_c": 32.2,
+       "f0_range_c": 419,
+       "flags": [],
+       "score": 1.576
+      },
+      {
+       "take": 8,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.12,
+       "voiced": 0.76,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -4.9,
+       "decay_s": 0.19,
+       "segs": 2,
+       "periodic": 0.55,
+       "onset_noise_s": 0.002,
+       "f0": 307,
+       "f0_sd_c": 591.3,
+       "f0_jump_c": 105.4,
+       "f0_range_c": 1726,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.884
+      },
+      {
+       "take": 9,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.4,
+       "voiced": 1.24,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -3.9,
+       "decay_s": 0.14,
+       "segs": 2,
+       "periodic": 0.14,
+       "onset_noise_s": 0.232,
+       "f0": 584,
+       "f0_sd_c": 42.4,
+       "f0_jump_c": 88.5,
+       "f0_range_c": 156,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 22.299
+      },
+      {
+       "take": 10,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 2.38,
+       "voiced": 2.13,
+       "rms_dbfs": -22.4,
+       "peak_dbfs": -9.6,
+       "decay_s": 1.08,
+       "segs": 1,
+       "periodic": 0.58,
+       "onset_noise_s": 0.002,
+       "f0": 233,
+       "f0_sd_c": 236.7,
+       "f0_jump_c": 221.8,
+       "f0_range_c": 1947,
+       "flags": [
+        "long"
+       ],
+       "score": 16.466
+      }
+     ]
+    },
+    {
+     "kana": "さ",
+     "rom": "sa",
+     "text": "さ。",
+     "best": 4,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.36,
+       "raw_s": 0.64,
+       "duration": 0.7,
+       "voiced": 0.55,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -7.1,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.51,
+       "onset_noise_s": 0.162,
+       "f0": 221,
+       "f0_sd_c": 76.4,
+       "f0_jump_c": 113.0,
+       "f0_range_c": 282,
+       "flags": [],
+       "score": 1.341
+      },
+      {
+       "take": 2,
+       "gen_s": 0.36,
+       "raw_s": 0.64,
+       "duration": 0.69,
+       "voiced": 0.54,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -7.0,
+       "decay_s": 0.04,
+       "segs": 1,
+       "periodic": 0.59,
+       "onset_noise_s": 0.172,
+       "f0": 266,
+       "f0_sd_c": 127.8,
+       "f0_jump_c": 86.3,
+       "f0_range_c": 346,
+       "flags": [],
+       "score": 1.746
+      },
+      {
+       "take": 3,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -8.6,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 0.83,
+       "onset_noise_s": 0.522,
+       "f0": 351,
+       "f0_sd_c": 168.6,
+       "f0_jump_c": 116.2,
+       "f0_range_c": 764,
+       "flags": [
+        "long"
+       ],
+       "score": 17.413
+      },
+      {
+       "take": 4,
+       "gen_s": 0.32,
+       "raw_s": 0.56,
+       "duration": 0.58,
+       "voiced": 0.43,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -8.6,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 0.26,
+       "onset_noise_s": 0.182,
+       "f0": 222,
+       "f0_sd_c": 45.1,
+       "f0_jump_c": 135.6,
+       "f0_range_c": 136,
+       "flags": [],
+       "score": 0.943
+      },
+      {
+       "take": 5,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.24,
+       "voiced": 1.08,
+       "rms_dbfs": -21.8,
+       "peak_dbfs": -6.1,
+       "decay_s": 0.32,
+       "segs": 1,
+       "periodic": 0.12,
+       "onset_noise_s": 0.472,
+       "f0": 270,
+       "f0_sd_c": 47.5,
+       "f0_jump_c": 37.7,
+       "f0_range_c": 149,
+       "flags": [
+        "long"
+       ],
+       "score": 11.861
+      },
+      {
+       "take": 6,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.54,
+       "voiced": 0.38,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -3.3,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.21,
+       "onset_noise_s": 0.162,
+       "f0": 285,
+       "f0_sd_c": 57.0,
+       "f0_jump_c": 91.7,
+       "f0_range_c": 156,
+       "flags": [],
+       "score": 1.016
+      },
+      {
+       "take": 7,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.04,
+       "voiced": 0.88,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -9.7,
+       "decay_s": 0.26,
+       "segs": 1,
+       "periodic": 0.42,
+       "onset_noise_s": 0.182,
+       "f0": 223,
+       "f0_sd_c": 36.1,
+       "f0_jump_c": 43.6,
+       "f0_range_c": 173,
+       "flags": [
+        "long"
+       ],
+       "score": 11.366
+      },
+      {
+       "take": 8,
+       "gen_s": 0.25,
+       "raw_s": 0.4,
+       "duration": 0.4,
+       "voiced": 0.23,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -7.9,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.57,
+       "onset_noise_s": 0.102,
+       "f0": 256,
+       "f0_sd_c": 77.3,
+       "f0_jump_c": 45.6,
+       "f0_range_c": 219,
+       "flags": [
+        "short"
+       ],
+       "score": 11.365
+      },
+      {
+       "take": 9,
+       "gen_s": 1.48,
+       "raw_s": 3.2,
+       "duration": 2.31,
+       "voiced": 2.14,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -7.4,
+       "decay_s": 0.24,
+       "segs": 1,
+       "periodic": 0.88,
+       "onset_noise_s": 0.263,
+       "f0": 385,
+       "f0_sd_c": 223.9,
+       "f0_jump_c": 23.1,
+       "f0_range_c": 694,
+       "flags": [
+        "long"
+       ],
+       "score": 15.696
+      },
+      {
+       "take": 10,
+       "gen_s": 0.36,
+       "raw_s": 0.64,
+       "duration": 0.67,
+       "voiced": 0.5,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -8.6,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.5,
+       "onset_noise_s": 0.223,
+       "f0": 236,
+       "f0_sd_c": 120.6,
+       "f0_jump_c": 49.3,
+       "f0_range_c": 336,
+       "flags": [],
+       "score": 1.47
+      }
+     ]
+    },
+    {
+     "kana": "た",
+     "rom": "ta",
+     "text": "た。",
+     "best": 4,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.13,
+       "voiced": 0.98,
+       "rms_dbfs": -20.8,
+       "peak_dbfs": -5.4,
+       "decay_s": 0.07,
+       "segs": 2,
+       "periodic": 0.19,
+       "onset_noise_s": 0.002,
+       "f0": 288,
+       "f0_sd_c": 543.9,
+       "f0_jump_c": 211.0,
+       "f0_range_c": 1410,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.202
+      },
+      {
+       "take": 2,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.03,
+       "voiced": 0.86,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -11.6,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 227,
+       "f0_sd_c": 74.4,
+       "f0_jump_c": 86.2,
+       "f0_range_c": 300,
+       "flags": [
+        "long"
+       ],
+       "score": 11.851
+      },
+      {
+       "take": 3,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -11.8,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.022,
+       "f0": 267,
+       "f0_sd_c": 84.1,
+       "f0_jump_c": 24.1,
+       "f0_range_c": 388,
+       "flags": [
+        "long"
+       ],
+       "score": 16.261
+      },
+      {
+       "take": 4,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.7,
+       "voiced": 0.54,
+       "rms_dbfs": -23.8,
+       "peak_dbfs": -9.3,
+       "decay_s": 0.32,
+       "segs": 1,
+       "periodic": 0.44,
+       "onset_noise_s": 0.002,
+       "f0": 500,
+       "f0_sd_c": 109.9,
+       "f0_jump_c": 188.5,
+       "f0_range_c": 530,
+       "flags": [],
+       "score": 1.907
+      },
+      {
+       "take": 5,
+       "gen_s": 0.22,
+       "raw_s": 0.32,
+       "duration": 0.37,
+       "voiced": 0.19,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.2,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.53,
+       "onset_noise_s": 0.002,
+       "f0": 231,
+       "f0_sd_c": 706.7,
+       "f0_jump_c": 27.7,
+       "f0_range_c": 1945,
+       "flags": [
+        "short"
+       ],
+       "score": 17.679
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 2.14,
+       "voiced": 1.99,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -7.9,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.022,
+       "f0": 237,
+       "f0_sd_c": 20.0,
+       "f0_jump_c": 23.4,
+       "f0_range_c": 129,
+       "flags": [
+        "long"
+       ],
+       "score": 13.358
+      },
+      {
+       "take": 7,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.03,
+       "voiced": 0.83,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -8.3,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.4,
+       "onset_noise_s": 0.022,
+       "f0": 261,
+       "f0_sd_c": 37.8,
+       "f0_jump_c": 44.1,
+       "f0_range_c": 135,
+       "flags": [
+        "long"
+       ],
+       "score": 11.285
+      },
+      {
+       "take": 8,
+       "gen_s": 1.49,
+       "raw_s": 3.2,
+       "duration": 1.51,
+       "voiced": 1.35,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -10.2,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.012,
+       "f0": 199,
+       "f0_sd_c": 39.7,
+       "f0_jump_c": 180.2,
+       "f0_range_c": 227,
+       "flags": [
+        "long"
+       ],
+       "score": 12.798
+      },
+      {
+       "take": 9,
+       "gen_s": 0.26,
+       "raw_s": 0.4,
+       "duration": 0.38,
+       "voiced": 0.23,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.03,
+       "segs": 1,
+       "periodic": 0.83,
+       "onset_noise_s": 0.002,
+       "f0": 236,
+       "f0_sd_c": 449.4,
+       "f0_jump_c": 1249.7,
+       "f0_range_c": 1780,
+       "flags": [
+        "short",
+        "pitch_jump"
+       ],
+       "score": 29.1
+      },
+      {
+       "take": 10,
+       "gen_s": 0.54,
+       "raw_s": 1.04,
+       "duration": 1.06,
+       "voiced": 0.91,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -7.5,
+       "decay_s": 0.23,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 199,
+       "f0_sd_c": 124.6,
+       "f0_jump_c": 62.8,
+       "f0_range_c": 535,
+       "flags": [
+        "long"
+       ],
+       "score": 12.375
+      }
+     ]
+    },
+    {
+     "kana": "な",
+     "rom": "na",
+     "text": "な。",
+     "best": 6,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.47,
+       "raw_s": 0.88,
+       "duration": 0.89,
+       "voiced": 0.73,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.6,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.79,
+       "onset_noise_s": 0.002,
+       "f0": 279,
+       "f0_sd_c": 126.7,
+       "f0_jump_c": 52.2,
+       "f0_range_c": 472,
+       "flags": [
+        "long"
+       ],
+       "score": 12.001
+      },
+      {
+       "take": 2,
+       "gen_s": 0.36,
+       "raw_s": 0.64,
+       "duration": 0.64,
+       "voiced": 0.48,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -12.8,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 0.85,
+       "onset_noise_s": 0.002,
+       "f0": 248,
+       "f0_sd_c": 116.2,
+       "f0_jump_c": 37.7,
+       "f0_range_c": 323,
+       "flags": [],
+       "score": 1.348
+      },
+      {
+       "take": 3,
+       "gen_s": 0.28,
+       "raw_s": 0.48,
+       "duration": 0.53,
+       "voiced": 0.37,
+       "rms_dbfs": -20.5,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.92,
+       "onset_noise_s": 0.002,
+       "f0": 234,
+       "f0_sd_c": 60.7,
+       "f0_jump_c": 107.6,
+       "f0_range_c": 241,
+       "flags": [],
+       "score": 1.126
+      },
+      {
+       "take": 4,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.96,
+       "voiced": 0.8,
+       "rms_dbfs": -20.6,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 219,
+       "f0_sd_c": 48.4,
+       "f0_jump_c": 85.7,
+       "f0_range_c": 205,
+       "flags": [
+        "long"
+       ],
+       "score": 11.47
+      },
+      {
+       "take": 5,
+       "gen_s": 0.64,
+       "raw_s": 1.28,
+       "duration": 1.35,
+       "voiced": 1.19,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.32,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.012,
+       "f0": 233,
+       "f0_sd_c": 136.0,
+       "f0_jump_c": 35.2,
+       "f0_range_c": 413,
+       "flags": [
+        "long"
+       ],
+       "score": 12.957
+      },
+      {
+       "take": 6,
+       "gen_s": 0.25,
+       "raw_s": 0.4,
+       "duration": 0.46,
+       "voiced": 0.31,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -12.3,
+       "decay_s": 0.04,
+       "segs": 1,
+       "periodic": 0.97,
+       "onset_noise_s": 0.002,
+       "f0": 259,
+       "f0_sd_c": 27.4,
+       "f0_jump_c": 27.2,
+       "f0_range_c": 114,
+       "flags": [],
+       "score": 0.645
+      },
+      {
+       "take": 7,
+       "gen_s": 0.42,
+       "raw_s": 0.8,
+       "duration": 0.8,
+       "voiced": 0.65,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.7,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 222,
+       "f0_sd_c": 108.3,
+       "f0_jump_c": 42.5,
+       "f0_range_c": 351,
+       "flags": [
+        "long"
+       ],
+       "score": 11.625
+      },
+      {
+       "take": 8,
+       "gen_s": 0.46,
+       "raw_s": 0.88,
+       "duration": 0.94,
+       "voiced": 0.78,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.16,
+       "segs": 1,
+       "periodic": 0.96,
+       "onset_noise_s": 0.002,
+       "f0": 225,
+       "f0_sd_c": 108.5,
+       "f0_jump_c": 42.4,
+       "f0_range_c": 362,
+       "flags": [
+        "long"
+       ],
+       "score": 11.886
+      },
+      {
+       "take": 9,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.57,
+       "voiced": 0.42,
+       "rms_dbfs": -22.6,
+       "peak_dbfs": -8.6,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "no_pitch"
+       ],
+       "score": 12.06
+      },
+      {
+       "take": 10,
+       "gen_s": 0.47,
+       "raw_s": 0.88,
+       "duration": 0.93,
+       "voiced": 0.69,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.15,
+       "segs": 1,
+       "periodic": 0.87,
+       "onset_noise_s": 0.002,
+       "f0": 245,
+       "f0_sd_c": 228.4,
+       "f0_jump_c": 71.9,
+       "f0_range_c": 1759,
+       "flags": [
+        "long"
+       ],
+       "score": 13.004
+      }
+     ]
+    },
+    {
+     "kana": "は",
+     "rom": "ha",
+     "text": "は。",
+     "best": 10,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.38,
+       "raw_s": 2.96,
+       "duration": 2.97,
+       "voiced": 2.82,
+       "rms_dbfs": -22.4,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.03,
+       "segs": 2,
+       "periodic": 0.1,
+       "onset_noise_s": 0.042,
+       "f0": 256,
+       "f0_sd_c": 73.2,
+       "f0_jump_c": 108.7,
+       "f0_range_c": 226,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.834
+      },
+      {
+       "take": 2,
+       "gen_s": 1.48,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -3.1,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.37,
+       "onset_noise_s": 0.012,
+       "f0": 231,
+       "f0_sd_c": 196.3,
+       "f0_jump_c": 52.7,
+       "f0_range_c": 684,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.479
+      },
+      {
+       "take": 3,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.9,
+       "voiced": 0.68,
+       "rms_dbfs": -22.7,
+       "peak_dbfs": -4.8,
+       "decay_s": 0.32,
+       "segs": 1,
+       "periodic": 0.32,
+       "onset_noise_s": 0.213,
+       "f0": 335,
+       "f0_sd_c": 429.5,
+       "f0_jump_c": 1104.5,
+       "f0_range_c": 1172,
+       "flags": [
+        "long",
+        "pitch_jump"
+       ],
+       "score": 28.437
+      },
+      {
+       "take": 4,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 2.54,
+       "voiced": 2.39,
+       "rms_dbfs": -21.2,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.11,
+       "segs": 3,
+       "periodic": 0.27,
+       "onset_noise_s": 0.062,
+       "f0": 369,
+       "f0_sd_c": 909.7,
+       "f0_jump_c": 1541.5,
+       "f0_range_c": 2433,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 48.115
+      },
+      {
+       "take": 5,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.95,
+       "voiced": 0.8,
+       "rms_dbfs": -26.2,
+       "peak_dbfs": -7.5,
+       "decay_s": 0.52,
+       "segs": 2,
+       "periodic": 0.11,
+       "onset_noise_s": 0.283,
+       "f0": 558,
+       "f0_sd_c": 373.6,
+       "f0_jump_c": 56.0,
+       "f0_range_c": 971,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 24.623
+      },
+      {
+       "take": 6,
+       "gen_s": 0.6,
+       "raw_s": 1.2,
+       "duration": 1.26,
+       "voiced": 1.11,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.33,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.052,
+       "f0": 208,
+       "f0_sd_c": 134.5,
+       "f0_jump_c": 50.7,
+       "f0_range_c": 408,
+       "flags": [
+        "long"
+       ],
+       "score": 12.834
+      },
+      {
+       "take": 7,
+       "gen_s": 0.56,
+       "raw_s": 1.12,
+       "duration": 1.18,
+       "voiced": 1.02,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -8.5,
+       "decay_s": 0.17,
+       "segs": 1,
+       "periodic": 0.87,
+       "onset_noise_s": 0.113,
+       "f0": 258,
+       "f0_sd_c": 146.2,
+       "f0_jump_c": 54.2,
+       "f0_range_c": 475,
+       "flags": [
+        "long"
+       ],
+       "score": 12.783
+      },
+      {
+       "take": 8,
+       "gen_s": 0.59,
+       "raw_s": 1.2,
+       "duration": 1.24,
+       "voiced": 1.08,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -7.2,
+       "decay_s": 0.3,
+       "segs": 1,
+       "periodic": 0.93,
+       "onset_noise_s": 0.083,
+       "f0": 247,
+       "f0_sd_c": 222.0,
+       "f0_jump_c": 80.3,
+       "f0_range_c": 634,
+       "flags": [
+        "long"
+       ],
+       "score": 13.748
+      },
+      {
+       "take": 9,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.0,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.022,
+       "f0": 297,
+       "f0_sd_c": 221.8,
+       "f0_jump_c": 22.7,
+       "f0_range_c": 789,
+       "flags": [
+        "long"
+       ],
+       "score": 17.634
+      },
+      {
+       "take": 10,
+       "gen_s": 0.26,
+       "raw_s": 0.4,
+       "duration": 0.41,
+       "voiced": 0.26,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -9.5,
+       "decay_s": 0.05,
+       "segs": 1,
+       "periodic": 0.77,
+       "onset_noise_s": 0.002,
+       "f0": 217,
+       "f0_sd_c": 41.1,
+       "f0_jump_c": 135.7,
+       "f0_range_c": 182,
+       "flags": [
+        "short"
+       ],
+       "score": 11.243
+      }
+     ]
+    },
+    {
+     "kana": "ま",
+     "rom": "ma",
+     "text": "ま。",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.16,
+       "voiced": 1.0,
+       "rms_dbfs": -21.3,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.34,
+       "segs": 1,
+       "periodic": 0.7,
+       "onset_noise_s": 0.012,
+       "f0": 283,
+       "f0_sd_c": 93.7,
+       "f0_jump_c": 156.4,
+       "f0_range_c": 287,
+       "flags": [
+        "long"
+       ],
+       "score": 12.558
+      },
+      {
+       "take": 2,
+       "gen_s": 1.48,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -25.6,
+       "peak_dbfs": -11.0,
+       "decay_s": 2.21,
+       "segs": 1,
+       "periodic": 0.32,
+       "onset_noise_s": 0.002,
+       "f0": 207,
+       "f0_sd_c": 89.5,
+       "f0_jump_c": 133.8,
+       "f0_range_c": 418,
+       "flags": [
+        "long"
+       ],
+       "score": 16.681
+      },
+      {
+       "take": 3,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.64,
+       "voiced": 0.48,
+       "rms_dbfs": -22.8,
+       "peak_dbfs": -12.0,
+       "decay_s": 0.22,
+       "segs": 1,
+       "periodic": 0.52,
+       "onset_noise_s": 0.002,
+       "f0": 220,
+       "f0_sd_c": 58.6,
+       "f0_jump_c": 142.0,
+       "f0_range_c": 203,
+       "flags": [],
+       "score": 1.119
+      },
+      {
+       "take": 4,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.79,
+       "voiced": 0.63,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -10.4,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.89,
+       "onset_noise_s": 0.002,
+       "f0": 219,
+       "f0_sd_c": 85.7,
+       "f0_jump_c": 60.5,
+       "f0_range_c": 298,
+       "flags": [
+        "long"
+       ],
+       "score": 11.419
+      },
+      {
+       "take": 5,
+       "gen_s": 0.65,
+       "raw_s": 1.28,
+       "duration": 1.29,
+       "voiced": 1.14,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -10.5,
+       "decay_s": 0.29,
+       "segs": 1,
+       "periodic": 0.86,
+       "onset_noise_s": 0.002,
+       "f0": 225,
+       "f0_sd_c": 94.4,
+       "f0_jump_c": 58.8,
+       "f0_range_c": 468,
+       "flags": [
+        "long"
+       ],
+       "score": 12.52
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -6.2,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.51,
+       "onset_noise_s": 0.002,
+       "f0": 241,
+       "f0_sd_c": 374.3,
+       "f0_jump_c": 248.4,
+       "f0_range_c": 1734,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 29.911
+      },
+      {
+       "take": 7,
+       "gen_s": 0.36,
+       "raw_s": 0.64,
+       "duration": 0.7,
+       "voiced": 0.54,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -10.7,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.96,
+       "onset_noise_s": 0.002,
+       "f0": 222,
+       "f0_sd_c": 109.6,
+       "f0_jump_c": 69.5,
+       "f0_range_c": 324,
+       "flags": [],
+       "score": 1.508
+      },
+      {
+       "take": 8,
+       "gen_s": 0.56,
+       "raw_s": 1.12,
+       "duration": 1.13,
+       "voiced": 0.97,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -9.6,
+       "decay_s": 0.13,
+       "segs": 1,
+       "periodic": 0.9,
+       "onset_noise_s": 0.002,
+       "f0": 247,
+       "f0_sd_c": 72.2,
+       "f0_jump_c": 31.2,
+       "f0_range_c": 237,
+       "flags": [
+        "long"
+       ],
+       "score": 11.866
+      },
+      {
+       "take": 9,
+       "gen_s": 0.28,
+       "raw_s": 0.48,
+       "duration": 0.53,
+       "voiced": 0.36,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -9.2,
+       "decay_s": 0.09,
+       "segs": 1,
+       "periodic": 0.75,
+       "onset_noise_s": 0.003,
+       "f0": 289,
+       "f0_sd_c": 162.7,
+       "f0_jump_c": 64.4,
+       "f0_range_c": 441,
+       "flags": [],
+       "score": 2.022
+      },
+      {
+       "take": 10,
+       "gen_s": 0.32,
+       "raw_s": 0.56,
+       "duration": 0.59,
+       "voiced": 0.43,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.002,
+       "f0": 229,
+       "f0_sd_c": 153.6,
+       "f0_jump_c": 44.1,
+       "f0_range_c": 518,
+       "flags": [],
+       "score": 1.723
+      }
+     ]
+    },
+    {
+     "kana": "や",
+     "rom": "ya",
+     "text": "や。",
+     "best": 9,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.03,
+       "voiced": 0.87,
+       "rms_dbfs": -21.8,
+       "peak_dbfs": -9.8,
+       "decay_s": 0.28,
+       "segs": 1,
+       "periodic": 0.23,
+       "onset_noise_s": 0.002,
+       "f0": 217,
+       "f0_sd_c": 36.9,
+       "f0_jump_c": 125.2,
+       "f0_range_c": 129,
+       "flags": [
+        "long"
+       ],
+       "score": 11.626
+      },
+      {
+       "take": 2,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.85,
+       "voiced": 0.68,
+       "rms_dbfs": -20.7,
+       "peak_dbfs": -6.6,
+       "decay_s": 0.15,
+       "segs": 1,
+       "periodic": 0.43,
+       "onset_noise_s": 0.012,
+       "f0": 248,
+       "f0_sd_c": 100.1,
+       "f0_jump_c": 71.6,
+       "f0_range_c": 335,
+       "flags": [
+        "long"
+       ],
+       "score": 11.7
+      },
+      {
+       "take": 3,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -24.4,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.01,
+       "segs": 4,
+       "periodic": 0.37,
+       "onset_noise_s": 0.002,
+       "f0": 229,
+       "f0_sd_c": 665.1,
+       "f0_jump_c": 324.1,
+       "f0_range_c": 2072,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 43.071
+      },
+      {
+       "take": 4,
+       "gen_s": 0.47,
+       "raw_s": 0.88,
+       "duration": 0.92,
+       "voiced": 0.76,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 263,
+       "f0_sd_c": 95.1,
+       "f0_jump_c": 37.0,
+       "f0_range_c": 351,
+       "flags": [
+        "long"
+       ],
+       "score": 11.694
+      },
+      {
+       "take": 5,
+       "gen_s": 0.6,
+       "raw_s": 1.2,
+       "duration": 1.25,
+       "voiced": 1.09,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -5.9,
+       "decay_s": 0.44,
+       "segs": 1,
+       "periodic": 0.96,
+       "onset_noise_s": 0.002,
+       "f0": 212,
+       "f0_sd_c": 236.7,
+       "f0_jump_c": 25.8,
+       "f0_range_c": 737,
+       "flags": [
+        "long"
+       ],
+       "score": 13.733
+      },
+      {
+       "take": 6,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 0.55,
+       "voiced": 0.4,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -11.0,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.45,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 47.6,
+       "f0_jump_c": 137.8,
+       "f0_range_c": 148,
+       "flags": [],
+       "score": 1.035
+      },
+      {
+       "take": 7,
+       "gen_s": 0.41,
+       "raw_s": 0.72,
+       "duration": 0.73,
+       "voiced": 0.57,
+       "rms_dbfs": -20.2,
+       "peak_dbfs": -8.9,
+       "decay_s": 0.07,
+       "segs": 1,
+       "periodic": 0.89,
+       "onset_noise_s": 0.002,
+       "f0": 245,
+       "f0_sd_c": 208.7,
+       "f0_jump_c": 37.0,
+       "f0_range_c": 567,
+       "flags": [],
+       "score": 2.45
+      },
+      {
+       "take": 8,
+       "gen_s": 0.32,
+       "raw_s": 0.56,
+       "duration": 0.57,
+       "voiced": 0.42,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -10.6,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 0.9,
+       "onset_noise_s": 0.002,
+       "f0": 223,
+       "f0_sd_c": 92.2,
+       "f0_jump_c": 52.7,
+       "f0_range_c": 273,
+       "flags": [],
+       "score": 1.158
+      },
+      {
+       "take": 9,
+       "gen_s": 0.39,
+       "raw_s": 0.72,
+       "duration": 0.76,
+       "voiced": 0.58,
+       "rms_dbfs": -21.2,
+       "peak_dbfs": -10.9,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.79,
+       "onset_noise_s": 0.002,
+       "f0": 237,
+       "f0_sd_c": 52.3,
+       "f0_jump_c": 71.5,
+       "f0_range_c": 199,
+       "flags": [],
+       "score": 1.021
+      },
+      {
+       "take": 10,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.79,
+       "voiced": 0.63,
+       "rms_dbfs": -22.5,
+       "peak_dbfs": -11.3,
+       "decay_s": 0.3,
+       "segs": 1,
+       "periodic": 0.67,
+       "onset_noise_s": 0.002,
+       "f0": 226,
+       "f0_sd_c": 631.6,
+       "f0_jump_c": 153.7,
+       "f0_range_c": 1796,
+       "flags": [
+        "long"
+       ],
+       "score": 17.188
+      }
+     ]
+    },
+    {
+     "kana": "ら",
+     "rom": "ra",
+     "text": "ら。",
+     "best": 6,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 0.33,
+       "raw_s": 0.56,
+       "duration": 0.62,
+       "voiced": 0.45,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -7.2,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 0.87,
+       "onset_noise_s": 0.003,
+       "f0": 233,
+       "f0_sd_c": 356.6,
+       "f0_jump_c": 111.6,
+       "f0_range_c": 861,
+       "flags": [],
+       "score": 3.938
+      },
+      {
+       "take": 2,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -5.8,
+       "decay_s": 0.19,
+       "segs": 2,
+       "periodic": 0.67,
+       "onset_noise_s": 0.002,
+       "f0": 277,
+       "f0_sd_c": 267.7,
+       "f0_jump_c": 1153.0,
+       "f0_range_c": 1819,
+       "flags": [
+        "long",
+        "extra_segment",
+        "pitch_jump"
+       ],
+       "score": 41.86
+      },
+      {
+       "take": 3,
+       "gen_s": 0.4,
+       "raw_s": 0.72,
+       "duration": 0.74,
+       "voiced": 0.55,
+       "rms_dbfs": -21.0,
+       "peak_dbfs": -9.1,
+       "decay_s": 0.14,
+       "segs": 1,
+       "periodic": 0.8,
+       "onset_noise_s": 0.002,
+       "f0": 234,
+       "f0_sd_c": 321.7,
+       "f0_jump_c": 40.4,
+       "f0_range_c": 1594,
+       "flags": [],
+       "score": 3.552
+      },
+      {
+       "take": 4,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 2.21,
+       "voiced": 2.03,
+       "rms_dbfs": -25.8,
+       "peak_dbfs": -7.8,
+       "decay_s": 1.5,
+       "segs": 2,
+       "periodic": 0.16,
+       "onset_noise_s": 0.012,
+       "f0": 225,
+       "f0_sd_c": 152.5,
+       "f0_jump_c": 60.0,
+       "f0_range_c": 452,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 24.885
+      },
+      {
+       "take": 5,
+       "gen_s": 0.46,
+       "raw_s": 0.88,
+       "duration": 0.88,
+       "voiced": 0.71,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -11.1,
+       "decay_s": 0.1,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.002,
+       "f0": 308,
+       "f0_sd_c": 163.8,
+       "f0_jump_c": 43.3,
+       "f0_range_c": 532,
+       "flags": [
+        "long"
+       ],
+       "score": 12.302
+      },
+      {
+       "take": 6,
+       "gen_s": 0.32,
+       "raw_s": 0.56,
+       "duration": 0.56,
+       "voiced": 0.41,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -10.3,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.54,
+       "onset_noise_s": 0.002,
+       "f0": 225,
+       "f0_sd_c": 29.7,
+       "f0_jump_c": 33.0,
+       "f0_range_c": 103,
+       "flags": [],
+       "score": 0.487
+      },
+      {
+       "take": 7,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.07,
+       "voiced": 0.91,
+       "rms_dbfs": -22.1,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.7,
+       "segs": 2,
+       "periodic": 0.07,
+       "onset_noise_s": 0.002,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "extra_segment",
+        "no_pitch"
+       ],
+       "score": 32.92
+      },
+      {
+       "take": 8,
+       "gen_s": 0.5,
+       "raw_s": 0.96,
+       "duration": 0.96,
+       "voiced": 0.8,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -9.3,
+       "decay_s": 0.12,
+       "segs": 1,
+       "periodic": 0.99,
+       "onset_noise_s": 0.002,
+       "f0": 222,
+       "f0_sd_c": 28.1,
+       "f0_jump_c": 50.0,
+       "f0_range_c": 136,
+       "flags": [
+        "long"
+       ],
+       "score": 11.148
+      },
+      {
+       "take": 9,
+       "gen_s": 1.44,
+       "raw_s": 3.2,
+       "duration": 2.66,
+       "voiced": 2.34,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -3.6,
+       "decay_s": 0.13,
+       "segs": 2,
+       "periodic": 0.24,
+       "onset_noise_s": 1.442,
+       "f0": 269,
+       "f0_sd_c": 263.5,
+       "f0_jump_c": 40.6,
+       "f0_range_c": 738,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 26.55
+      },
+      {
+       "take": 10,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 0.75,
+       "voiced": 0.52,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -7.3,
+       "decay_s": 0.27,
+       "segs": 1,
+       "periodic": 0.46,
+       "onset_noise_s": 0.002,
+       "f0": 264,
+       "f0_sd_c": 751.0,
+       "f0_jump_c": 60.9,
+       "f0_range_c": 2353,
+       "flags": [],
+       "score": 7.853
+      }
+     ]
+    },
+    {
+     "kana": "ん",
+     "rom": "n",
+     "text": "ん。",
+     "best": 1,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 0.67,
+       "voiced": 0.44,
+       "rms_dbfs": -22.2,
+       "peak_dbfs": -8.7,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.39,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 54.0,
+       "f0_jump_c": 63.8,
+       "f0_range_c": 169,
+       "flags": [],
+       "score": 0.773
+      },
+      {
+       "take": 2,
+       "gen_s": 0.6,
+       "raw_s": 1.2,
+       "duration": 1.21,
+       "voiced": 1.05,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -12.8,
+       "decay_s": 0.2,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 241,
+       "f0_sd_c": 251.9,
+       "f0_jump_c": 52.9,
+       "f0_range_c": 766,
+       "flags": [
+        "long"
+       ],
+       "score": 13.895
+      },
+      {
+       "take": 3,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.06,
+       "voiced": 0.77,
+       "rms_dbfs": -20.9,
+       "peak_dbfs": -10.8,
+       "decay_s": 0.34,
+       "segs": 1,
+       "periodic": 0.88,
+       "onset_noise_s": 0.002,
+       "f0": 211,
+       "f0_sd_c": 107.2,
+       "f0_jump_c": 98.7,
+       "f0_range_c": 446,
+       "flags": [
+        "long"
+       ],
+       "score": 12.041
+      },
+      {
+       "take": 4,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.26,
+       "voiced": 1.1,
+       "rms_dbfs": -21.8,
+       "peak_dbfs": -9.9,
+       "decay_s": 0.49,
+       "segs": 1,
+       "periodic": 0.64,
+       "onset_noise_s": 0.002,
+       "f0": 224,
+       "f0_sd_c": 38.6,
+       "f0_jump_c": 47.3,
+       "f0_range_c": 236,
+       "flags": [
+        "long"
+       ],
+       "score": 11.844
+      },
+      {
+       "take": 5,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 1.1,
+       "voiced": 0.93,
+       "rms_dbfs": -21.3,
+       "peak_dbfs": -5.5,
+       "decay_s": 0.33,
+       "segs": 1,
+       "periodic": 0.0,
+       "onset_noise_s": null,
+       "f0": null,
+       "f0_sd_c": null,
+       "f0_jump_c": null,
+       "f0_range_c": null,
+       "flags": [
+        "long",
+        "no_pitch"
+       ],
+       "score": 22.96
+      },
+      {
+       "take": 6,
+       "gen_s": 0.44,
+       "raw_s": 0.8,
+       "duration": 0.87,
+       "voiced": 0.7,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -11.3,
+       "decay_s": 0.24,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 224,
+       "f0_sd_c": 192.4,
+       "f0_jump_c": 43.4,
+       "f0_range_c": 566,
+       "flags": [
+        "long"
+       ],
+       "score": 12.569
+      },
+      {
+       "take": 7,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.59,
+       "voiced": 0.43,
+       "rms_dbfs": -22.4,
+       "peak_dbfs": -10.0,
+       "decay_s": 0.19,
+       "segs": 1,
+       "periodic": 0.49,
+       "onset_noise_s": 0.002,
+       "f0": 366,
+       "f0_sd_c": 802.3,
+       "f0_jump_c": 416.2,
+       "f0_range_c": 1895,
+       "flags": [
+        "pitch_jump"
+       ],
+       "score": 19.45
+      },
+      {
+       "take": 8,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 2.04,
+       "voiced": 1.85,
+       "rms_dbfs": -22.3,
+       "peak_dbfs": -1.0,
+       "decay_s": 0.36,
+       "segs": 3,
+       "periodic": 0.75,
+       "onset_noise_s": 0.062,
+       "f0": 441,
+       "f0_sd_c": 344.4,
+       "f0_jump_c": 246.6,
+       "f0_range_c": 1034,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 27.066
+      },
+      {
+       "take": 9,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -5.9,
+       "decay_s": 0.0,
+       "segs": 2,
+       "periodic": 0.47,
+       "onset_noise_s": 0.002,
+       "f0": 238,
+       "f0_sd_c": 250.2,
+       "f0_jump_c": 128.2,
+       "f0_range_c": 804,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 28.269
+      },
+      {
+       "take": 10,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 1.16,
+       "voiced": 1.0,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -10.3,
+       "decay_s": 0.22,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 299,
+       "f0_sd_c": 532.1,
+       "f0_jump_c": 148.2,
+       "f0_range_c": 1609,
+       "flags": [
+        "long"
+       ],
+       "score": 16.915
+      }
+     ]
+    },
+    {
+     "kana": "を",
+     "rom": "wo",
+     "text": "を。",
+     "best": 3,
+     "takes": [
+      {
+       "take": 1,
+       "gen_s": 1.52,
+       "raw_s": 3.2,
+       "duration": 2.9,
+       "voiced": 2.75,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -13.6,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 249,
+       "f0_sd_c": 29.6,
+       "f0_jump_c": 13.7,
+       "f0_range_c": 149,
+       "flags": [
+        "long"
+       ],
+       "score": 14.942
+      },
+      {
+       "take": 2,
+       "gen_s": 0.55,
+       "raw_s": 1.04,
+       "duration": 1.08,
+       "voiced": 0.92,
+       "rms_dbfs": -20.4,
+       "peak_dbfs": -11.7,
+       "decay_s": 0.11,
+       "segs": 1,
+       "periodic": 0.95,
+       "onset_noise_s": 0.002,
+       "f0": 228,
+       "f0_sd_c": 246.6,
+       "f0_jump_c": 24.6,
+       "f0_range_c": 639,
+       "flags": [
+        "long"
+       ],
+       "score": 13.488
+      },
+      {
+       "take": 3,
+       "gen_s": 1.45,
+       "raw_s": 3.2,
+       "duration": 0.55,
+       "voiced": 0.29,
+       "rms_dbfs": -24.2,
+       "peak_dbfs": -10.8,
+       "decay_s": 0.17,
+       "segs": 1,
+       "periodic": 0.38,
+       "onset_noise_s": 0.002,
+       "f0": 222,
+       "f0_sd_c": 25.6,
+       "f0_jump_c": 24.2,
+       "f0_range_c": 67,
+       "flags": [
+        "short"
+       ],
+       "score": 10.657
+      },
+      {
+       "take": 4,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 2.43,
+       "voiced": 2.25,
+       "rms_dbfs": -20.3,
+       "peak_dbfs": -11.2,
+       "decay_s": 0.46,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.003,
+       "f0": 239,
+       "f0_sd_c": 165.6,
+       "f0_jump_c": 71.5,
+       "f0_range_c": 576,
+       "flags": [
+        "long"
+       ],
+       "score": 15.494
+      },
+      {
+       "take": 5,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 1.58,
+       "voiced": 1.43,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -12.5,
+       "decay_s": 0.08,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 508,
+       "f0_sd_c": 66.1,
+       "f0_jump_c": 44.5,
+       "f0_range_c": 371,
+       "flags": [
+        "long"
+       ],
+       "score": 12.769
+      },
+      {
+       "take": 6,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.11,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -7.0,
+       "decay_s": 0.03,
+       "segs": 2,
+       "periodic": 0.62,
+       "onset_noise_s": 0.003,
+       "f0": 266,
+       "f0_sd_c": 371.3,
+       "f0_jump_c": 55.8,
+       "f0_range_c": 1106,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 29.219
+      },
+      {
+       "take": 7,
+       "gen_s": 1.46,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -24.8,
+       "peak_dbfs": -10.3,
+       "decay_s": 2.07,
+       "segs": 2,
+       "periodic": 0.35,
+       "onset_noise_s": 0.002,
+       "f0": 226,
+       "f0_sd_c": 11.7,
+       "f0_jump_c": 35.1,
+       "f0_range_c": 87,
+       "flags": [
+        "long",
+        "extra_segment"
+       ],
+       "score": 25.574
+      },
+      {
+       "take": 8,
+       "gen_s": 0.74,
+       "raw_s": 1.52,
+       "duration": 1.53,
+       "voiced": 1.37,
+       "rms_dbfs": -20.1,
+       "peak_dbfs": -10.4,
+       "decay_s": 0.06,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.002,
+       "f0": 237,
+       "f0_sd_c": 25.1,
+       "f0_jump_c": 36.2,
+       "f0_range_c": 122,
+       "flags": [
+        "long"
+       ],
+       "score": 12.212
+      },
+      {
+       "take": 9,
+       "gen_s": 0.43,
+       "raw_s": 0.8,
+       "duration": 0.82,
+       "voiced": 0.64,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -9.4,
+       "decay_s": 0.02,
+       "segs": 1,
+       "periodic": 0.97,
+       "onset_noise_s": 0.003,
+       "f0": 241,
+       "f0_sd_c": 104.2,
+       "f0_jump_c": 22.2,
+       "f0_range_c": 355,
+       "flags": [
+        "long"
+       ],
+       "score": 11.496
+      },
+      {
+       "take": 10,
+       "gen_s": 1.47,
+       "raw_s": 3.2,
+       "duration": 3.27,
+       "voiced": 3.12,
+       "rms_dbfs": -20.0,
+       "peak_dbfs": -7.8,
+       "decay_s": 0.01,
+       "segs": 1,
+       "periodic": 1.0,
+       "onset_noise_s": 0.012,
+       "f0": 213,
+       "f0_sd_c": 63.6,
+       "f0_jump_c": 26.6,
+       "f0_range_c": 333,
+       "flags": [
+        "long"
+       ],
+       "score": 16.065
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "words": [
+  {
+   "word": "すし",
+   "rom": "sushi",
+   "best": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 2.16,
+     "duration": 1.7,
+     "voiced": 1.54,
+     "rms_dbfs": -20.3,
+     "peak_dbfs": -7.6,
+     "decay_s": 0.17,
+     "segs": 1,
+     "periodic": 0.53,
+     "onset_noise_s": 0.312,
+     "f0": 225,
+     "f0_sd_c": 253.9,
+     "f0_jump_c": 52.8,
+     "f0_range_c": 824,
+     "flags": [],
+     "echo40": 4.39
+    },
+    {
+     "take": 2,
+     "gen_s": 0.54,
+     "duration": 1.05,
+     "voiced": 0.9,
+     "rms_dbfs": -20.3,
+     "peak_dbfs": -7.7,
+     "decay_s": 0.05,
+     "segs": 1,
+     "periodic": 0.42,
+     "onset_noise_s": 0.353,
+     "f0": 249,
+     "f0_sd_c": 92.4,
+     "f0_jump_c": 146.4,
+     "f0_range_c": 391,
+     "flags": [],
+     "echo40": 5.45
+    },
+    {
+     "take": 3,
+     "gen_s": 0.4,
+     "duration": 0.86,
+     "voiced": 0.71,
+     "rms_dbfs": -20.7,
+     "peak_dbfs": -7.9,
+     "decay_s": 0.08,
+     "segs": 1,
+     "periodic": 0.21,
+     "onset_noise_s": 0.182,
+     "f0": 214,
+     "f0_sd_c": 75.9,
+     "f0_jump_c": 116.5,
+     "f0_range_c": 254,
+     "flags": [],
+     "echo40": 4.81
+    },
+    {
+     "take": 4,
+     "gen_s": 0.43,
+     "duration": 0.93,
+     "voiced": 0.78,
+     "rms_dbfs": -20.4,
+     "peak_dbfs": -8.1,
+     "decay_s": 0.06,
+     "segs": 1,
+     "periodic": 0.32,
+     "onset_noise_s": 0.302,
+     "f0": 231,
+     "f0_sd_c": 92.9,
+     "f0_jump_c": 139.6,
+     "f0_range_c": 346,
+     "flags": [],
+     "echo40": 5.04
+    }
+   ]
+  },
+  {
+   "word": "でぐち",
+   "rom": "deguchi",
+   "best": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 1.0,
+     "duration": 2.21,
+     "voiced": 2.05,
+     "rms_dbfs": -20.1,
+     "peak_dbfs": -9.4,
+     "decay_s": 0.06,
+     "segs": 2,
+     "periodic": 0.87,
+     "onset_noise_s": 0.002,
+     "f0": 227,
+     "f0_sd_c": 53.6,
+     "f0_jump_c": 107.6,
+     "f0_range_c": 256,
+     "flags": [],
+     "echo40": 5.75
+    },
+    {
+     "take": 2,
+     "gen_s": 2.15,
+     "duration": 4.87,
+     "voiced": 4.72,
+     "rms_dbfs": -20.0,
+     "peak_dbfs": -7.1,
+     "decay_s": 0.01,
+     "segs": 2,
+     "periodic": 0.94,
+     "onset_noise_s": 0.002,
+     "f0": 212,
+     "f0_sd_c": 87.9,
+     "f0_jump_c": 55.8,
+     "f0_range_c": 420,
+     "flags": [],
+     "echo40": 6.13
+    },
+    {
+     "take": 3,
+     "gen_s": 2.15,
+     "duration": 3.3,
+     "voiced": 3.15,
+     "rms_dbfs": -20.0,
+     "peak_dbfs": -4.0,
+     "decay_s": 0.0,
+     "segs": 3,
+     "periodic": 0.21,
+     "onset_noise_s": 0.193,
+     "f0": 226,
+     "f0_sd_c": 633.9,
+     "f0_jump_c": 217.7,
+     "f0_range_c": 2113,
+     "flags": [],
+     "echo40": 4.34
+    },
+    {
+     "take": 4,
+     "gen_s": 0.89,
+     "duration": 1.86,
+     "voiced": 1.69,
+     "rms_dbfs": -20.1,
+     "peak_dbfs": -9.4,
+     "decay_s": 0.04,
+     "segs": 2,
+     "periodic": 0.91,
+     "onset_noise_s": 0.003,
+     "f0": 287,
+     "f0_sd_c": 248.3,
+     "f0_jump_c": 198.6,
+     "f0_range_c": 1053,
+     "flags": [],
+     "echo40": 8.68
+    }
+   ]
+  },
+  {
+   "word": "おんせん",
+   "rom": "onsen",
+   "best": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.41,
+     "duration": 0.83,
+     "voiced": 0.67,
+     "rms_dbfs": -20.3,
+     "peak_dbfs": -8.9,
+     "decay_s": 0.08,
+     "segs": 1,
+     "periodic": 0.82,
+     "onset_noise_s": 0.012,
+     "f0": 256,
+     "f0_sd_c": 252.6,
+     "f0_jump_c": 59.8,
+     "f0_range_c": 922,
+     "flags": [],
+     "echo40": 5.68
+    },
+    {
+     "take": 2,
+     "gen_s": 0.62,
+     "duration": 1.33,
+     "voiced": 1.17,
+     "rms_dbfs": -20.1,
+     "peak_dbfs": -8.7,
+     "decay_s": 0.12,
+     "segs": 1,
+     "periodic": 0.74,
+     "onset_noise_s": 0.002,
+     "f0": 238,
+     "f0_sd_c": 150.7,
+     "f0_jump_c": 100.1,
+     "f0_range_c": 525,
+     "flags": [],
+     "echo40": 4.58
+    },
+    {
+     "take": 3,
+     "gen_s": 0.48,
+     "duration": 1.03,
+     "voiced": 0.87,
+     "rms_dbfs": -20.2,
+     "peak_dbfs": -8.8,
+     "decay_s": 0.07,
+     "segs": 1,
+     "periodic": 0.83,
+     "onset_noise_s": 0.012,
+     "f0": 275,
+     "f0_sd_c": 249.6,
+     "f0_jump_c": 57.3,
+     "f0_range_c": 825,
+     "flags": [],
+     "echo40": 4.23
+    },
+    {
+     "take": 4,
+     "gen_s": 0.54,
+     "duration": 1.14,
+     "voiced": 0.98,
+     "rms_dbfs": -20.1,
+     "peak_dbfs": -8.5,
+     "decay_s": 0.08,
+     "segs": 2,
+     "periodic": 0.85,
+     "onset_noise_s": 0.002,
+     "f0": 239,
+     "f0_sd_c": 102.0,
+     "f0_jump_c": 48.2,
+     "f0_range_c": 408,
+     "flags": [],
+     "echo40": 4.83
+    }
+   ]
+  }
+ ],
+ "app": [
+  {
+   "kana": "あ",
+   "rom": "a",
+   "duration": 0.81,
+   "voiced": 0.38,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -8.6,
+   "decay_s": 0.06,
+   "segs": 1,
+   "periodic": 0.95,
+   "onset_noise_s": 0.022,
+   "f0": 342,
+   "f0_sd_c": 2.2,
+   "f0_jump_c": 7.0,
+   "f0_range_c": 9,
+   "flags": [],
+   "echo40": 13.31
+  },
+  {
+   "kana": "か",
+   "rom": "ka",
+   "duration": 0.75,
+   "voiced": 0.4,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -6.0,
+   "decay_s": 0.08,
+   "segs": 1,
+   "periodic": 0.95,
+   "onset_noise_s": 0.013,
+   "f0": 341,
+   "f0_sd_c": 2.5,
+   "f0_jump_c": 4.7,
+   "f0_range_c": 10,
+   "flags": [],
+   "echo40": 9.36
+  },
+  {
+   "kana": "さ",
+   "rom": "sa",
+   "duration": 0.68,
+   "voiced": 0.4,
+   "rms_dbfs": -20.1,
+   "peak_dbfs": -6.9,
+   "decay_s": 0.05,
+   "segs": 1,
+   "periodic": 0.97,
+   "onset_noise_s": 0.012,
+   "f0": 342,
+   "f0_sd_c": 1.3,
+   "f0_jump_c": 2.5,
+   "f0_range_c": 7,
+   "flags": [],
+   "echo40": 4.68
+  },
+  {
+   "kana": "た",
+   "rom": "ta",
+   "duration": 0.72,
+   "voiced": 0.49,
+   "rms_dbfs": -21.0,
+   "peak_dbfs": -7.4,
+   "decay_s": 0.02,
+   "segs": 1,
+   "periodic": 0.8,
+   "onset_noise_s": 0.102,
+   "f0": 342,
+   "f0_sd_c": 2.4,
+   "f0_jump_c": 9.0,
+   "f0_range_c": 15,
+   "flags": [],
+   "echo40": 4.98
+  },
+  {
+   "kana": "な",
+   "rom": "na",
+   "duration": 0.8,
+   "voiced": 0.42,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -6.8,
+   "decay_s": 0.02,
+   "segs": 1,
+   "periodic": 1.0,
+   "onset_noise_s": 0.002,
+   "f0": 342,
+   "f0_sd_c": 1.6,
+   "f0_jump_c": 3.6,
+   "f0_range_c": 8,
+   "flags": [],
+   "echo40": 7.02
+  },
+  {
+   "kana": "は",
+   "rom": "ha",
+   "duration": 0.78,
+   "voiced": 0.38,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -6.6,
+   "decay_s": 0.07,
+   "segs": 1,
+   "periodic": 1.0,
+   "onset_noise_s": 0.003,
+   "f0": 342,
+   "f0_sd_c": 1.3,
+   "f0_jump_c": 5.2,
+   "f0_range_c": 6,
+   "flags": [],
+   "echo40": 6.37
+  },
+  {
+   "kana": "ま",
+   "rom": "ma",
+   "duration": 0.63,
+   "voiced": 0.42,
+   "rms_dbfs": -20.1,
+   "peak_dbfs": -6.2,
+   "decay_s": 0.08,
+   "segs": 1,
+   "periodic": 0.88,
+   "onset_noise_s": 0.002,
+   "f0": 342,
+   "f0_sd_c": 2.7,
+   "f0_jump_c": 12.2,
+   "f0_range_c": 15,
+   "flags": [],
+   "echo40": 12.44
+  },
+  {
+   "kana": "や",
+   "rom": "ya",
+   "duration": 0.72,
+   "voiced": 0.41,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -7.8,
+   "decay_s": 0.05,
+   "segs": 1,
+   "periodic": 1.0,
+   "onset_noise_s": 0.003,
+   "f0": 342,
+   "f0_sd_c": 1.7,
+   "f0_jump_c": 5.7,
+   "f0_range_c": 7,
+   "flags": [],
+   "echo40": 7.36
+  },
+  {
+   "kana": "ら",
+   "rom": "ra",
+   "duration": 0.72,
+   "voiced": 0.42,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -7.9,
+   "decay_s": 0.08,
+   "segs": 1,
+   "periodic": 1.0,
+   "onset_noise_s": 0.002,
+   "f0": 342,
+   "f0_sd_c": 2.8,
+   "f0_jump_c": 10.2,
+   "f0_range_c": 17,
+   "flags": [],
+   "echo40": 7.85
+  },
+  {
+   "kana": "ん",
+   "rom": "n",
+   "duration": 0.77,
+   "voiced": 0.36,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -13.2,
+   "decay_s": 0.04,
+   "segs": 1,
+   "periodic": 1.0,
+   "onset_noise_s": 0.003,
+   "f0": 342,
+   "f0_sd_c": 2.0,
+   "f0_jump_c": 3.0,
+   "f0_range_c": 10,
+   "flags": [],
+   "echo40": 10.65
+  },
+  {
+   "kana": "を",
+   "rom": "wo",
+   "duration": 0.76,
+   "voiced": 0.36,
+   "rms_dbfs": -20.0,
+   "peak_dbfs": -7.6,
+   "decay_s": 0.1,
+   "segs": 1,
+   "periodic": 1.0,
+   "onset_noise_s": 0.003,
+   "f0": 342,
+   "f0_sd_c": 1.4,
+   "f0_jump_c": 2.7,
+   "f0_range_c": 5,
+   "flags": [],
+   "echo40": 8.98
+  }
+ ],
+ "sentence": {
+  "text": "すみません、出口はどこですか。",
+  "gen_s": 1.53,
+  "voiced": 3.14,
+  "echo40": 7.22
+ },
+ "app_words_echo40": {
+  "sushi": 4.61,
+  "deguchi": 4.6,
+  "onsen": 4.13
+ }
+}

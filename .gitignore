@@ -9,3 +9,4 @@ docs/design/word-art/source/candidates/
 .venv/
 __pycache__/
 .voicevox/
+.venv-tts/
