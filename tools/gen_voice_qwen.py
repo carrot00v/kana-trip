@@ -12,6 +12,8 @@ VOICEVOX용 tools/gen_voice.py와 따로 둔다. 앱 파일(KanaTrip/Resources/V
     .venv-tts/bin/python -I tools/gen_voice_qwen.py speakers        # 화자·언어 목록
     .venv-tts/bin/python -I tools/gen_voice_qwen.py round6          # Q1·Q2·Q3, 단어, 미리듣기
     .venv-tts/bin/python -I tools/gen_voice_qwen.py round6 --takes 2 --letters あ,は   # 일부만
+    .venv-tts/bin/python -I tools/gen_voice_qwen.py probe7          # 7차: 지시문 언어·화자별 문장 톤 지표 (build/voice7)
+    .venv-tts/bin/python -I tools/gen_voice_qwen.py round7          # 7차: 톤 변형 T0~T4 (docs/design/voice/samples7)
 
 모델 mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16 은 첫 실행 때 ~/.cache/huggingface/hub/에 받아진다(4.5GB).
 측정은 numpy로 한다. 정의는 gen_voice.py의 measure4와 맞췄다(소리 구간 -45 dBFS, 10ms 창, F0는 정규화 자기상관).
@@ -276,18 +278,20 @@ def load():
     return model, time.perf_counter() - t0
 
 
-def check_speaker(model) -> None:
+def check_speaker(model, name: str | None = None) -> None:
+    name = name or CFG["speaker"]
     spk = getattr(model.config.talker_config, "spk_id", None) or {}
-    if CFG["speaker"].lower() not in spk:
+    if name.lower() not in spk:
         # mlx-audio는 모르는 화자를 조용히 무시하므로 여기서 멈춘다
-        raise SystemExit(f"화자 {CFG['speaker']}가 없다. 있는 화자: {sorted(spk)}")
+        raise SystemExit(f"화자 {name}가 없다. 있는 화자: {sorted(spk)}")
 
 
-def synth(model, text: str, instruct: str | None, seed: int, max_tokens: int) -> tuple[np.ndarray, float]:
+def synth(model, text: str, instruct: str | None, seed: int, max_tokens: int,
+          speaker: str | None = None) -> tuple[np.ndarray, float]:
     import mlx.core as mx
     mx.random.seed(seed)
     t0 = time.perf_counter()
-    res = list(model.generate_custom_voice(text=text, speaker=CFG["speaker"], language=CFG["language"],
+    res = list(model.generate_custom_voice(text=text, speaker=speaker or CFG["speaker"], language=CFG["language"],
                                            instruct=instruct, temperature=CFG["temperature"],
                                            max_tokens=max_tokens))
     audio = np.concatenate([np.array(r.audio, dtype=np.float64).reshape(-1) for r in res])
@@ -418,10 +422,171 @@ def cmd_round6(takes: int, only: list[str] | None, methods: list[str], words: bo
     print("wrote", out)
 
 
+# ---------------------------------------------------------------- 7차: 톤(더 귀엽고 어리게)
+
+TONE = {
+    # 사용자: "좋긴 한데 톤이 너무 야하다, 좀 더 귀엽고 어린 톤". 숨소리 섞임, 낮고 느린 톤, 끝을 끄는 말투를 피하게 쓴다.
+    "instructs": {
+        "ja1": "明るくてかわいい、元気な小さな女の子の声。息を混ぜず、ささやかず、高めの声で、はきはきと一音ずつはっきり話す。語尾は伸ばさず短く切る。",
+        "en1": "A bright, cute, cheerful little girl's voice. Clear and crisp with no breathiness and no whispering. "
+               "Higher pitch, lively and articulate, every sound distinct, short clean endings without trailing off.",
+        "zh1": "明亮、可爱、清脆的小女孩声音。不要气声，不要耳语。音调偏高，活泼开朗，每个音都清清楚楚，句尾干脆利落，不拖音。",
+        "ja2": "アニメのマスコットキャラクターのような、とても幼い女の子の声。高くて弾むような、元気いっぱいの明るい声。"
+               "息っぽさ、ささやき、色っぽさは一切なし。テンポよく、はきはきと短く話す。",
+        "en2": "A very young girl's voice like an anime mascot character. High-pitched, bouncy, super energetic and bright. "
+               "Absolutely no breathiness, no whispering, no sultry or sensual tone. Quick, crisp and short.",
+        "zh2": "像动画吉祥物角色一样的非常年幼的小女孩声音。声音很高，蹦蹦跳跳，元气满满，非常明亮。"
+               "完全没有气声、耳语或性感的感觉。节奏轻快，干脆短促。",
+    },
+    "letter_suffix": {"ja": "ひらがなを一文字だけ読む。", "en": "Read just this one kana.", "zh": "只读这一个假名。"},
+    "sentence": "すみません、出口はどこですか。",
+    "sentence_moras": 14,  # す み ま せ ん で ぐ ち は ど こ で す か
+    "probe_seeds": [11, 12, 13],
+    "output_dir": "docs/design/voice/samples7",
+    "takes_dir": "build/voice7/takes",
+    "letter_takes": 10,
+    "letter_max_tokens": 40,
+}
+
+
+def tone_metrics(y: np.ndarray, moras: int | None = None) -> dict:
+    """톤 지표.
+    f0_mean: 주기 창(NACF 0.7 이상) F0 평균(Hz). f0_p90: 90백분위(높은 쪽).
+    hnr_db: 소리 창(-45 dBFS 위)의 NACF r로 10*log10(r/(1-r))의 중앙값. 숨소리가 섞이면 낮아진다.
+    breath_pct: 소리 창 중 NACF 0.45 미만(주기가 거의 없는 잡음) 비율. 무성 자음도 들어간다.
+    hf_db: 소리 구간에서 4kHz 위 에너지 / 전체(dB). 숨소리·마찰음이 많으면, 또 맑은 고음이면 커진다.
+    rate: 모라 / 소리 창 시간(초). 쉼은 빼고 센다.
+    tail_s: 마지막 소리 창의 끝 감쇠(measure의 decay_s와 같은 정의)."""
+    f = CFG["f0"]
+    tr = f0_track(y, f)
+    on = [(t, fr, c) for t, fr, c in tr if c > 0]  # f0_track은 -45 dBFS 아래 창을 c=0으로 둔다
+    per = [fr for t, fr, c in on if fr and c >= f["periodic_nacf"]]
+    rs = np.clip(np.array([c for _, _, c in on]), 1e-3, 0.999) if on else np.array([0.5])
+    hnr = 10 * np.log10(rs / (1 - rs))
+    vs, ve = voiced_bounds(y, -45.0)
+    seg = y[vs:ve]
+    spec = np.abs(np.fft.rfft(seg * np.hanning(len(seg)))) ** 2 if len(seg) else np.ones(2)
+    freqs = np.fft.rfftfreq(len(seg), 1 / SR) if len(seg) else np.array([0, 1])
+    active = len(on) * f["hop_s"]
+    res = {"f0_mean": round(float(np.mean(per)), 1) if per else None,
+           "f0_p90": round(float(np.percentile(per, 90)), 1) if per else None,
+           "hnr_db": round(float(np.median(hnr)), 1),
+           "breath_pct": round(100 * float(np.mean(rs < 0.45)), 1),
+           "hf_db": round(10 * math.log10(spec[freqs >= 4000].sum() / spec.sum()), 1),
+           "active_s": round(active, 2), "tail_s": measure(y)["decay_s"]}
+    if moras:
+        res["rate"] = round(moras / active, 2) if active else None
+    return res
+
+
+def variants() -> dict:
+    """T0은 6차 기준(지시문 없음). T1~T4는 probe 결과로 고른 것(README 7차)."""
+    ins = TONE["instructs"]
+    return {
+        "T0": {"speaker": "Ono_Anna", "instruct": None, "lang": None, "comment": "6차 기준: Ono_Anna, 지시문 없음"},
+        "T1": {"speaker": "Ono_Anna", "instruct": ins["en1"], "lang": "en",
+               "comment": "Ono_Anna + 귀엽고 어린 톤(영어 지시문: probe에서 숨소리 지표가 가장 낮고 F0가 오름)"},
+        "T2": {"speaker": "Ono_Anna", "instruct": ins["zh2"], "lang": "zh",
+               "comment": "Ono_Anna + 더 강하게(중국어 지시문: probe에서 F0가 가장 많이 오름. 영어 en2는 거의 안 바뀜)"},
+        "T3": {"speaker": "Vivian", "instruct": ins["en1"], "lang": "en", "comment": "Vivian(밝고 또렷한 젊은 여성) + T1 지시문"},
+        "T4": {"speaker": "Serena", "instruct": ins["en1"], "lang": "en",
+               "comment": "Serena + T1 지시문(Sohee는 zh1에서 소리가 무너지고 en1에서 F0가 오르지 않아 뺐다)"},
+    }
+
+
+def cmd_probe7() -> None:
+    """지시문 언어·화자 고르기: 문장 하나를 시드 3개로 만들어 톤 지표를 잰다."""
+    model, _ = load()
+    out = ROOT / TONE["takes_dir"] / "probe"
+    rows = []
+    combos = [("Ono_Anna", None)] + [("Ono_Anna", k) for k in TONE["instructs"]]
+    combos += [(spk, k) for spk in ("Vivian", "Serena", "Sohee") for k in (None, "ja1", "zh1", "en1")]
+    for spk, key in combos:
+        check_speaker(model, spk)
+        ms = []
+        for seed in TONE["probe_seeds"]:
+            raw, gen_s = synth(model, TONE["sentence"], TONE["instructs"].get(key), seed, 200, spk)
+            y = normalize(trim_pad(raw), -20.0, -1.0)
+            write(out / f"{spk}_{key}_{seed}.wav", y)
+            ms.append(tone_metrics(y, TONE["sentence_moras"]))
+        agg = {k: round(st.median(m[k] for m in ms if m[k] is not None), 2) for k in ms[0]}
+        rows.append({"speaker": spk, "instruct": key, **agg, "takes": ms})
+        print(f"{spk:9s} {str(key):4s} " + " ".join(f"{k} {v}" for k, v in agg.items()), flush=True)
+    (out / "probe.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
+def cmd_round7(names: list[str]) -> None:
+    out = ROOT / TONE["output_dir"]
+    tdir = ROOT / TONE["takes_dir"]
+    p = CFG["post"]
+    model, _ = load()
+    synth(model, "あ。", None, 0, 40)
+    mpath = out / "measurements.json"
+    report = json.loads(mpath.read_text(encoding="utf-8")) if mpath.exists() else {}
+    report.setdefault("variants", {})
+    for name in names:
+        v = variants()[name]
+        spk, ins = v["speaker"], v["instruct"]
+        check_speaker(model, spk)
+        letter_ins = (ins + " " + TONE["letter_suffix"][v["lang"]]) if ins else CFG["methods"]["Q3"]["instruct"]
+        rec = {**v, "letter_instruct": letter_ins, "sentence": [], "words": [], "letters": []}
+        files: list[Path] = []
+        # 문장: 시드 3개 중 길이가 중앙값인 것
+        cands = []
+        for seed in TONE["probe_seeds"]:
+            raw, gen_s = synth(model, TONE["sentence"], ins, seed, 200, spk)
+            y = normalize(trim_pad(raw), p["rms_dbfs"], p["peak_dbfs"])
+            write(tdir / name / f"sentence_{seed}.wav", y)
+            cands.append({"seed": seed, "gen_s": round(gen_s, 2), **tone_metrics(y, TONE["sentence_moras"])})
+        best = sorted(cands, key=lambda c: c["active_s"])[len(cands) // 2]
+        rec["sentence"] = {"best": best["seed"], "takes": cands}
+        y, _ = sf.read(tdir / name / f"sentence_{best['seed']}.wav", dtype="float64")
+        write(out / name / "sentence.wav", y)
+        files.append(out / name / "sentence.wav")
+        # 단어: 6차와 같은 선택(이상치 없고 소리 길이가 모라 x 0.2초에 가까운 것)
+        for word, rom, moras in CFG["words"]:
+            wc = []
+            for t in range(1, CFG["word_takes"] + 1):
+                raw, gen_s = synth(model, f"{word}。", ins, 2000 * t + len(word), CFG["word_max_tokens"], spk)
+                y = normalize(trim_pad(raw), p["rms_dbfs"], p["peak_dbfs"])
+                write(tdir / name / f"word_{rom}_{t}.wav", y)
+                m = measure(y)
+                m["flags"] = [f for f in m["flags"] if f not in ("long", "extra_segment")]
+                wc.append({"take": t, "gen_s": round(gen_s, 2), **m, **tone_metrics(y, moras)})
+            b = min(wc, key=lambda c: (len(c["flags"]), abs(c["voiced"] - moras * CFG["word_mora_s"])))
+            y, _ = sf.read(tdir / name / f"word_{rom}_{b['take']}.wav", dtype="float64")
+            write(out / name / f"word_{rom}.wav", y)
+            files.append(out / name / f"word_{rom}.wav")
+            rec["words"].append({"word": word, "rom": rom, "best": b["take"], "takes": wc})
+        # 글자: 6차 Q3와 같은 선택
+        for kana, rom in CFG["letters"]:
+            lc = []
+            for t in range(1, TONE["letter_takes"] + 1):
+                raw, gen_s = synth(model, f"{kana}。", letter_ins, 1000 * t + ord(kana), TONE["letter_max_tokens"], spk)
+                y = normalize(trim_pad(raw), p["rms_dbfs"], p["peak_dbfs"])
+                write(tdir / name / f"kana_{rom}_{t}.wav", y)
+                m = measure(y)
+                lc.append({"take": t, "gen_s": round(gen_s, 2), **m, "score": score(m), **tone_metrics(y)})
+            b = min(lc, key=lambda c: c["score"])
+            y, _ = sf.read(tdir / name / f"kana_{rom}_{b['take']}.wav", dtype="float64")
+            write(out / name / f"kana_{rom}.wav", y)
+            files.append(out / name / f"kana_{rom}.wav")
+            rec["letters"].append({"kana": kana, "rom": rom, "best": b["take"], "takes": lc})
+            print(f"{name} {kana}: best t{b['take']} voiced {b['voiced']} flags {b['flags']} "
+                  f"clean {sum(1 for c in lc if not c['flags'])}/10", flush=True)
+        write(out / f"preview-{name}.wav", concat(files, CFG["preview_gap_s"]))
+        report["variants"][name] = rec
+        mpath.write_text(json.dumps(report, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        print("wrote", out / f"preview-{name}.wav", flush=True)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("speakers")
+    sub.add_parser("probe7")
+    r7 = sub.add_parser("round7")
+    r7.add_argument("--variants", default="T0,T1,T2,T3,T4")
     r6 = sub.add_parser("round6")
     r6.add_argument("--takes", type=int, default=CFG["takes"])
     r6.add_argument("--letters", default="", help="쉼표로 구분한 가나(기본: 11자 전부)")
@@ -433,6 +598,10 @@ def main() -> None:
         CFG["temperature"] = a.temperature
     if a.cmd == "speakers":
         cmd_speakers()
+    elif a.cmd == "probe7":
+        cmd_probe7()
+    elif a.cmd == "round7":
+        cmd_round7([x for x in a.variants.split(",") if x])
     else:
         cmd_round6(a.takes, [x for x in a.letters.split(",") if x] or None,
                    [x for x in a.methods.split(",") if x], not a.no_words)
