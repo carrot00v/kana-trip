@@ -88,7 +88,7 @@ def main() -> int:
 
     items = {i["id"]: i for i in json.loads((pia.ART / "items.json").read_text())["items"]}
     heads = [i for i in items.values() if i["slot"] == "top"]
-    ids = a.ids or [i["id"] for i in heads if i.get("drawnBy") or (pia.SOURCE / f"{i['id']}.png").exists()]
+    ids = a.ids or [i["id"] for i in heads]
 
     if a.zoom:
         for iid in ids:
@@ -103,7 +103,7 @@ def main() -> int:
     small = ImageFont.truetype(FONT, 16)
     big, mid, tiny, thumb = 260, 96, 80, 60
     cols = [("이전 (기본)", big), ("새 배치 (기본)", big), ("새 배치 (웃음)", big), ("96pt · 80pt", mid + tiny + 16),
-            ("썸네일 60pt", thumb)]
+            ("썸네일 60pt", thumb + 70)]
     pad, label_w, head_h = 16, 150, 40
     width = label_w + sum(w for _, w in cols) + pad * (len(cols) + 1)
     row_h = big + pad
@@ -119,9 +119,16 @@ def main() -> int:
         d.text((pad, y + 10), iid, fill=INK, font=font)
         d.text((pad, y + 40), item.get("fit", ""), fill=INK, font=small)
         d.text((pad, y + 60), item.get("nameKo", "")[:9], fill=INK, font=small)
-        res = pia.build(item)
-        new, th = res[iid], res[f"{iid}-thumb"]
-        old = before_layer(a.before, iid, (item.get("kana") or "")[:1])
+        label = (item.get("kana") or "")[:1]
+        if item.get("drawnBy") or (pia.SOURCE / f"{iid}.png").exists():
+            res = pia.build(item)
+            new, th = res[iid], res[f"{iid}-thumb"]
+        else:
+            # 아직 그림이 없다: 앱처럼 임시 표시를 그린다
+            new = placeholder(label)
+            th = pia.crop_view(new, pia.THUMB_VIEW["top"])
+            d.text((pad, y + 80), "(그림 보류)", fill=INK, font=small)
+        old = before_layer(a.before, iid, label)
         x = label_w + pad
         for img in (giri(old, False), giri(new, False), giri(new, True)):
             sheet.paste(img.convert("RGB").resize((big, big), Image.LANCZOS), (x, y))

@@ -308,6 +308,19 @@ def redraw_outline(layer: Image.Image) -> Image.Image:
     return Image.composite(line, layer, ring)
 
 
+def grow_inner_lines(layer: Image.Image, units: float) -> Image.Image:
+    """안쪽 진한 선을 양쪽으로 units씩 굵게 칠한다 (items.json `innerGrow`). 작은 아이템(가면 52 폭)은 모델이 그린 선이
+    줄이면 1.5 안팎이 되어 검사 7(굵기 3)을 다시 그리기로는 넘을 수 없어서 넣는 단계에서 굵힌다. 외곽선 고리 안쪽에서만 칠한다."""
+    a = alpha_mask(layer)
+    inside = erode(a, OUTLINE)
+    dark = Image.new("L", layer.size)
+    dark.putdata([255 if a_ >= 128 and max(r, g, b) < 130 else 0 for r, g, b, a_ in layer.get_flattened_data()])
+    grown = mask_and(dilate(mask_and(dark, inside), units), inside).filter(ImageFilter.GaussianBlur(1))
+    line = Image.new("RGBA", layer.size, LINE_RGB + (0,))
+    line.putalpha(layer.getchannel("A"))
+    return Image.composite(line, layer, grown)
+
+
 def outline_thickness(layer: Image.Image) -> float | None:
     """원래 외곽선 굵기 근사 (5번 검사 6): 가장자리 안쪽 10 안의 어두운 픽셀 면적 ÷ 가장자리 길이."""
     a = alpha_mask(layer)
@@ -381,6 +394,8 @@ def place_head(src: Image.Image, item: dict) -> tuple[Image.Image, dict]:
         info["carved"] = max((sum(1 for y in range(360) if low[y][c]) for c in range(360)), default=0)
 
     layer = redraw_outline(layer)
+    if item.get("innerGrow"):
+        layer = grow_inner_lines(layer, item["innerGrow"])
 
     if how == "band":
         pre = alpha_mask(layer)
