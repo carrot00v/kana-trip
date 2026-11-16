@@ -132,7 +132,50 @@ def stub(d, width=22, fill=RICE):
             f'<path d="{d}" stroke="{fill}" stroke-width="{width - 2 * SW}" stroke-linecap="round" fill="none"/>')
 
 
-def hat():
+def head_inner_path():
+    """몸 외곽선 안쪽 가장자리(본체 경로를 SW/2 = 3 안쪽으로 줄인 모양). 머리 아이템의 띠를 머리 안쪽에서 자를 때 쓴다
+    (docs/design/item-art/head-fit.md 3.1)."""
+    pts, c = rounded_triangle([(150, 182), (202, 250), (98, 250)], 72 - SW / 2, 32)
+    return scallop_path(pts, c, 4)
+
+
+# 기본 요리사 모자의 놓는 값 (head-fit.md 3.1): 모자 안 좌표 (150, 138)(띠 아랫변 가운데)을 기리 좌표 (142, 138)에 두고
+# 그 점을 축으로 −6° 돌린다. dx −8, θ = asin(−8/72) ≈ −6.4°.
+HAT_TRANSFORM = "translate(-8 0) rotate(-6 150 138)"
+
+
+def hat(clip=True):
+    """기본 요리사 모자 (head-fit.md 3.1, 맞춤 방식 swallow). 띠는 웃는 모양 곡선으로 머리보다 넓게 그리고
+    머리 안쪽(headInner)에서 자른다. 관은 아래가 좁은 사다리꼴, 뭉게구름은 머리 어깨와 12 이상 떨어진다.
+    clip=False는 자르기 전 띠 길이를 재는 검사용이다(place_item_art.py)."""
+    # 구름은 문서 3.1의 값((112, 64) r28, (150, 48) r32, (188, 64) r28)에서 낮추고 줄였다. 문서 값이면 전체 높이 133,
+    # 왼쪽 끝 x 62로 크기 상한(높이 120)과 범위(x 64)를 넘는다.
+    puffs = [(114, 72, 26), (150, 58, 29), (186, 72, 26)]
+    outline = "".join(f'<circle cx="{x}" cy="{y}" r="{r}"/>' for x, y, r in puffs)
+    # 관 윗변을 문서의 y 84에서 76으로 올려 가운데 구름(아래 끝 80)과의 틈을 메운다. 보이는 옆선 기울기는 같다.
+    outline += '<polygon points="100.4,76 199.6,76 176,128 124,128"/>'
+    return f'''
+  <!-- 요리사 모자: 띠가 머리를 가로지르고 머리 안쪽에서 잘린다 (head-fit.md 3.1) -->
+  <defs><clipPath id="headInner"><path d="{head_inner_path()}"/></clipPath></defs>
+  <g transform="{HAT_TRANSFORM}">
+    <g fill="{LINE}" stroke="{LINE}" stroke-width="{SW * 2}" stroke-linejoin="round">{outline}</g>
+    <g fill="{RICE}">{outline}</g>
+    <path d="M104 68 Q109 58 120 56" fill="none" stroke="{GRAIN}" stroke-width="4" stroke-linecap="round"/>
+    <!-- 모자 앞의 오니기리 표시 -->
+    <path d="M150 84 Q153 84 167 108 Q168 112 164 112 L136 112 Q132 112 133 108 Q147 84 150 84Z" fill="{RICE}" stroke="{LINE}" stroke-width="4.5" stroke-linejoin="round"/>
+    <rect x="145" y="99" width="10" height="13" fill="{NORI}"/>
+  </g>
+  <!-- 모자 띠: clipPath는 기리 좌표(변환 바깥)에 건다. 문서의 86~214보다 양쪽 6 길게 그려 오른쪽 끝도 외곽선 밖 4 이상 나간다 -->
+  <g{' clip-path="url(#headInner)"' if clip else ''}>
+    <g transform="{HAT_TRANSFORM}">
+      <path d="M80 131 Q150 145 220 131 L220 113 Q150 127 80 113Z" fill="{RED}" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>
+    </g>
+  </g>'''
+
+
+def hat_icon():
+    """2026-11-17 전의 요리사 모자. 앱 아이콘(make_app_icon.py)만 쓴다. 아이콘을 새 모자로 맞출지는 PM 결정 대기
+    (head-fit.md 3.1)."""
     puffs = [(112, 72, 30), (150, 54, 36), (188, 72, 30)]
     rect = (98, 70, 104, 36)
     outline = "".join(f'<circle cx="{x}" cy="{y}" r="{r}"/>' for x, y, r in puffs)
