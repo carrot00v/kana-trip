@@ -1,0 +1,2411 @@
+{
+ "model": "mlx-community/whisper-large-v3-turbo",
+ "words": [
+  {
+   "word": "すし",
+   "reading": "すし",
+   "file": "word_sushi",
+   "before": {
+    "text": "寿司",
+    "avg_logprob": -0.755,
+    "no_speech": 0.0,
+    "norm": "すし",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "寿司",
+    "avg_logprob": -0.755,
+    "no_speech": 0.0,
+    "norm": "すし",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "いか",
+   "reading": "いか",
+   "file": "word_ika",
+   "before": {
+    "text": "いかい",
+    "avg_logprob": -0.927,
+    "no_speech": 0.0,
+    "norm": "いかい",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 4,
+    "voiced": 0.29,
+    "flags": [],
+    "text": "いか",
+    "avg_logprob": -0.422,
+    "no_speech": 0.0,
+    "norm": "いか",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": true,
+   "tries": 4,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.56,
+     "flags": [
+      "pause"
+     ],
+     "text": "いっか",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 0.49,
+     "flags": [],
+     "text": "いかい",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 0.3,
+     "flags": [],
+     "text": "いかん",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 0.29,
+     "flags": [],
+     "text": "いか",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "たこ",
+   "reading": "たこ",
+   "file": "word_tako",
+   "before": {
+    "text": "あこう",
+    "avg_logprob": -1.246,
+    "no_speech": 0.0,
+    "norm": "あこう",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 1,
+    "voiced": 0.69,
+    "flags": [],
+    "text": "タコ",
+    "avg_logprob": -0.611,
+    "no_speech": 0.0,
+    "norm": "たこ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 1,
+   "changed": true,
+   "tries": 1,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.69,
+     "flags": [],
+     "text": "タコ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "いくら",
+   "reading": "いくら",
+   "file": "word_ikura",
+   "before": {
+    "text": "いくら?",
+    "avg_logprob": -0.546,
+    "no_speech": 0.0,
+    "norm": "いくら",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "いくら?",
+    "avg_logprob": -0.546,
+    "no_speech": 0.0,
+    "norm": "いくら",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "まぐろ",
+   "reading": "まぐろ",
+   "file": "word_maguro",
+   "before": {
+    "text": "真っ黒",
+    "avg_logprob": -0.302,
+    "no_speech": 0.0,
+    "norm": "真っ黒",
+    "how": "unknown",
+    "ok": false
+   },
+   "before_flags": [
+    "pause"
+   ],
+   "final": {
+    "take": 8,
+    "voiced": 1.07,
+    "flags": [],
+    "text": "マグロ",
+    "avg_logprob": -0.508,
+    "no_speech": 0.0,
+    "norm": "まぐろ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 8,
+   "changed": true,
+   "tries": 8,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 1.68,
+     "flags": [
+      "long"
+     ],
+     "text": "マークロ",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 0.96,
+     "flags": [
+      "pause"
+     ],
+     "text": "真っ黒",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 2.4,
+     "flags": [
+      "long"
+     ],
+     "text": "マーグロ",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 1.23,
+     "flags": [
+      "long"
+     ],
+     "text": "マグロ…",
+     "ok": true
+    },
+    {
+     "take": 5,
+     "voiced": 1.11,
+     "flags": [
+      "long"
+     ],
+     "text": "マグロ?",
+     "ok": true
+    },
+    {
+     "take": 6,
+     "voiced": 2.14,
+     "flags": [
+      "long"
+     ],
+     "text": "マークロー",
+     "ok": false
+    },
+    {
+     "take": 7,
+     "voiced": 1.37,
+     "flags": [
+      "long"
+     ],
+     "text": "マグロー",
+     "ok": true
+    },
+    {
+     "take": 8,
+     "voiced": 1.07,
+     "flags": [],
+     "text": "マグロ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "えび",
+   "reading": "えび",
+   "file": "word_ebi",
+   "before": {
+    "text": "エビ",
+    "avg_logprob": -0.435,
+    "no_speech": 0.0,
+    "norm": "えび",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "エビ",
+    "avg_logprob": -0.435,
+    "no_speech": 0.0,
+    "norm": "えび",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "いなり",
+   "reading": "いなり",
+   "file": "word_inari",
+   "before": {
+    "text": "いなりー",
+    "avg_logprob": -0.691,
+    "no_speech": 0.0,
+    "norm": "いなり",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "いなりー",
+    "avg_logprob": -0.691,
+    "no_speech": 0.0,
+    "norm": "いなり",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "とんかつ",
+   "reading": "とんかつ",
+   "file": "word_tonkatsu",
+   "before": {
+    "text": "とんかつ",
+    "avg_logprob": -0.349,
+    "no_speech": 0.0,
+    "norm": "とんかつ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "とんかつ",
+    "avg_logprob": -0.349,
+    "no_speech": 0.0,
+    "norm": "とんかつ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "かつ丼",
+   "reading": "かつどん",
+   "file": "word_katsudon",
+   "before": {
+    "text": "カツトン",
+    "avg_logprob": -0.787,
+    "no_speech": 0.0,
+    "norm": "かつとん",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 1,
+    "voiced": 0.92,
+    "flags": [],
+    "text": "カツ丼",
+    "avg_logprob": -0.483,
+    "no_speech": 0.0,
+    "norm": "かつどん",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": true,
+   "tries": 1,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.92,
+     "flags": [],
+     "text": "カツ丼",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "ひれかつ",
+   "reading": "ひれかつ",
+   "file": "word_hirekatsu",
+   "before": {
+    "text": "ヒレカツ",
+    "avg_logprob": -0.619,
+    "no_speech": 0.0,
+    "norm": "ひれかつ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [
+    "long"
+   ],
+   "final": {
+    "take": 20,
+    "voiced": 1.14,
+    "flags": [],
+    "text": "ヒレカツー",
+    "avg_logprob": -0.584,
+    "no_speech": 0.0,
+    "norm": "ひれかつ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 20,
+   "changed": true,
+   "tries": 20,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 4.72,
+     "flags": [
+      "long"
+     ],
+     "text": "ひぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃぃ",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 1.64,
+     "flags": [
+      "long"
+     ],
+     "text": "ヒレカツ",
+     "ok": true
+    },
+    {
+     "take": 3,
+     "voiced": 4.12,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "きれいかつう",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 4.72,
+     "flags": [
+      "long"
+     ],
+     "text": "キー",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 1.55,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "キレカツ",
+     "ok": false
+    },
+    {
+     "take": 6,
+     "voiced": 2.37,
+     "flags": [
+      "long"
+     ],
+     "text": "ヒレカツー?",
+     "ok": true
+    },
+    {
+     "take": 7,
+     "voiced": 1.38,
+     "flags": [
+      "long"
+     ],
+     "text": "ひれかつ",
+     "ok": true
+    },
+    {
+     "take": 8,
+     "voiced": 0.97,
+     "flags": [],
+     "text": "キレカツ",
+     "ok": false
+    },
+    {
+     "take": 9,
+     "voiced": 4.15,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ご視聴ありがとうございました",
+     "ok": false
+    },
+    {
+     "take": 10,
+     "voiced": 0.86,
+     "flags": [],
+     "text": "キレカツ",
+     "ok": false
+    },
+    {
+     "take": 11,
+     "voiced": 2.79,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ヒレカツヒレカツ",
+     "ok": false
+    },
+    {
+     "take": 12,
+     "voiced": 1.37,
+     "flags": [
+      "long"
+     ],
+     "text": "ヒレカツー",
+     "ok": true
+    },
+    {
+     "take": 13,
+     "voiced": 3.01,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "キレカツ",
+     "ok": false
+    },
+    {
+     "take": 14,
+     "voiced": 1.38,
+     "flags": [
+      "long"
+     ],
+     "text": "ひれかつ",
+     "ok": true
+    },
+    {
+     "take": 15,
+     "voiced": 1.39,
+     "flags": [
+      "long"
+     ],
+     "text": "ヒレカツ",
+     "ok": true
+    },
+    {
+     "take": 16,
+     "voiced": 1.42,
+     "flags": [
+      "long"
+     ],
+     "text": "ヒレカツー",
+     "ok": true
+    },
+    {
+     "take": 17,
+     "voiced": 1.35,
+     "flags": [],
+     "text": "ひるかつ",
+     "ok": false
+    },
+    {
+     "take": 18,
+     "voiced": 2.04,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ひれかず",
+     "ok": false
+    },
+    {
+     "take": 19,
+     "voiced": 1.7,
+     "flags": [
+      "long"
+     ],
+     "text": "ひれかつ",
+     "ok": true
+    },
+    {
+     "take": 20,
+     "voiced": 1.14,
+     "flags": [],
+     "text": "ヒレカツー",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "おろし",
+   "reading": "おろし",
+   "file": "word_oroshi",
+   "before": {
+    "text": "おろし",
+    "avg_logprob": -0.618,
+    "no_speech": 0.0,
+    "norm": "おろし",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [
+    "long"
+   ],
+   "final": {
+    "take": 5,
+    "voiced": 0.83,
+    "flags": [],
+    "text": "おろし",
+    "avg_logprob": -0.779,
+    "no_speech": 0.0,
+    "norm": "おろし",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 5,
+   "changed": true,
+   "tries": 5,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 1.89,
+     "flags": [
+      "long"
+     ],
+     "text": "青色押しー",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 1.53,
+     "flags": [
+      "long"
+     ],
+     "text": "おろし",
+     "ok": true
+    },
+    {
+     "take": 3,
+     "voiced": 1.21,
+     "flags": [
+      "long"
+     ],
+     "text": "おろし",
+     "ok": true
+    },
+    {
+     "take": 4,
+     "voiced": 2.01,
+     "flags": [
+      "long"
+     ],
+     "text": "おろし",
+     "ok": true
+    },
+    {
+     "take": 5,
+     "voiced": 0.83,
+     "flags": [],
+     "text": "おろし",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "ごはん",
+   "reading": "ごはん",
+   "file": "word_gohan",
+   "before": {
+    "text": "ごはん",
+    "avg_logprob": -0.789,
+    "no_speech": 0.0,
+    "norm": "ごはん",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "ごはん",
+    "avg_logprob": -0.789,
+    "no_speech": 0.0,
+    "norm": "ごはん",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "おかわり",
+   "reading": "おかわり",
+   "file": "word_okawari",
+   "before": {
+    "text": "おかわり",
+    "avg_logprob": -0.28,
+    "no_speech": 0.0,
+    "norm": "おかわり",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "おかわり",
+    "avg_logprob": -0.28,
+    "no_speech": 0.0,
+    "norm": "おかわり",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "うどん",
+   "reading": "うどん",
+   "file": "word_udon",
+   "before": {
+    "text": "うどーん",
+    "avg_logprob": -0.538,
+    "no_speech": 0.0,
+    "norm": "うどーん",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 1,
+    "voiced": 0.73,
+    "flags": [],
+    "text": "うどん",
+    "avg_logprob": -0.465,
+    "no_speech": 0.0,
+    "norm": "うどん",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 1,
+   "changed": true,
+   "tries": 1,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.73,
+     "flags": [],
+     "text": "うどん",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "そば",
+   "reading": "そば",
+   "file": "word_soba",
+   "before": {
+    "text": "そば",
+    "avg_logprob": -0.453,
+    "no_speech": 0.0,
+    "norm": "そば",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "そば",
+    "avg_logprob": -0.453,
+    "no_speech": 0.0,
+    "norm": "そば",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "きつね",
+   "reading": "きつね",
+   "file": "word_kitsune",
+   "before": {
+    "text": "キツネ",
+    "avg_logprob": -0.4,
+    "no_speech": 0.0,
+    "norm": "きつね",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "キツネ",
+    "avg_logprob": -0.4,
+    "no_speech": 0.0,
+    "norm": "きつね",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "かけ",
+   "reading": "かけ",
+   "file": "word_kake",
+   "before": {
+    "text": "かけ",
+    "avg_logprob": -0.87,
+    "no_speech": 0.0,
+    "norm": "かけ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "かけ",
+    "avg_logprob": -0.87,
+    "no_speech": 0.0,
+    "norm": "かけ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "おかめ",
+   "reading": "おかめ",
+   "file": "word_okame",
+   "before": {
+    "text": "おかめ",
+    "avg_logprob": -0.492,
+    "no_speech": 0.0,
+    "norm": "おかめ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "おかめ",
+    "avg_logprob": -0.492,
+    "no_speech": 0.0,
+    "norm": "おかめ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "わかめ",
+   "reading": "わかめ",
+   "file": "word_wakame",
+   "before": {
+    "text": "わかめ",
+    "avg_logprob": -0.334,
+    "no_speech": 0.0,
+    "norm": "わかめ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "わかめ",
+    "avg_logprob": -0.334,
+    "no_speech": 0.0,
+    "norm": "わかめ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "たぬき",
+   "reading": "たぬき",
+   "file": "word_tanuki",
+   "before": {
+    "text": "たぬき",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "たぬき",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "たぬき",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "たぬき",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "ざる",
+   "reading": "ざる",
+   "file": "word_zaru",
+   "before": {
+    "text": "ザーリー",
+    "avg_logprob": -0.659,
+    "no_speech": 0.0,
+    "norm": "ざーり",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 11,
+    "voiced": 0.48,
+    "flags": [],
+    "text": "ザル?",
+    "avg_logprob": -0.548,
+    "no_speech": 0.0,
+    "norm": "ざる",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 11,
+   "changed": true,
+   "tries": 11,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 3.66,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ザル、シ、ヒーズー",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 2.04,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "誰?しゃもう",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 1.01,
+     "flags": [
+      "long"
+     ],
+     "text": "さーりー",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 0.49,
+     "flags": [],
+     "text": "ザーリー",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 0.38,
+     "flags": [],
+     "text": "とある",
+     "ok": false
+    },
+    {
+     "take": 6,
+     "voiced": 0.43,
+     "flags": [],
+     "text": "じゃーり!",
+     "ok": false
+    },
+    {
+     "take": 7,
+     "voiced": 0.54,
+     "flags": [],
+     "text": "ザール",
+     "ok": false
+    },
+    {
+     "take": 8,
+     "voiced": 3.37,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ザル!ザル!",
+     "ok": false
+    },
+    {
+     "take": 9,
+     "voiced": 0.46,
+     "flags": [],
+     "text": "じゃある!",
+     "ok": false
+    },
+    {
+     "take": 10,
+     "voiced": 0.32,
+     "flags": [],
+     "text": "ザリー",
+     "ok": false
+    },
+    {
+     "take": 11,
+     "voiced": 0.48,
+     "flags": [],
+     "text": "ザル?",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "えき",
+   "reading": "えき",
+   "file": "word_eki",
+   "before": {
+    "text": "エキ",
+    "avg_logprob": -0.508,
+    "no_speech": 0.0,
+    "norm": "えき",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "エキ",
+    "avg_logprob": -0.508,
+    "no_speech": 0.0,
+    "norm": "えき",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "おつり",
+   "reading": "おつり",
+   "file": "word_otsuri",
+   "before": {
+    "text": "お釣り",
+    "avg_logprob": -0.586,
+    "no_speech": 0.0,
+    "norm": "おつり",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "お釣り",
+    "avg_logprob": -0.586,
+    "no_speech": 0.0,
+    "norm": "おつり",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "きっぷうりば",
+   "reading": "きっぷうりば",
+   "file": "word_kippu_uriba",
+   "before": {
+    "text": "きっぷりば",
+    "avg_logprob": -0.484,
+    "no_speech": 0.0,
+    "norm": "きっぷりば",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 7,
+    "voiced": 0.94,
+    "flags": [],
+    "text": "切符売り場",
+    "avg_logprob": -0.31,
+    "no_speech": 0.0,
+    "norm": "きっぷうりば",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 7,
+   "changed": true,
+   "tries": 7,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 2.02,
+     "flags": [
+      "long"
+     ],
+     "text": "キプリッパ",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 1.66,
+     "flags": [],
+     "text": "きっぷりば",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 1.37,
+     "flags": [],
+     "text": "きっぷりば",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 1.43,
+     "flags": [],
+     "text": "きっぷりば",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 3.17,
+     "flags": [
+      "long"
+     ],
+     "text": "寄付売り場",
+     "ok": false
+    },
+    {
+     "take": 6,
+     "voiced": 1.63,
+     "flags": [],
+     "text": "キープ売り場",
+     "ok": false
+    },
+    {
+     "take": 7,
+     "voiced": 0.94,
+     "flags": [],
+     "text": "切符売り場",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "のりかえ",
+   "reading": "のりかえ",
+   "file": "word_norikae",
+   "before": {
+    "text": "乗り換え",
+    "avg_logprob": -0.407,
+    "no_speech": 0.0,
+    "norm": "のりかえ",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "乗り換え",
+    "avg_logprob": -0.407,
+    "no_speech": 0.0,
+    "norm": "のりかえ",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "こちら",
+   "reading": "こちら",
+   "file": "word_kochira",
+   "before": {
+    "text": "こちら",
+    "avg_logprob": -0.52,
+    "no_speech": 0.0,
+    "norm": "こちら",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "こちら",
+    "avg_logprob": -0.52,
+    "no_speech": 0.0,
+    "norm": "こちら",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "のりば",
+   "reading": "のりば",
+   "file": "word_noriba",
+   "before": {
+    "text": "乗り場",
+    "avg_logprob": -0.372,
+    "no_speech": 0.0,
+    "norm": "のりば",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "乗り場",
+    "avg_logprob": -0.372,
+    "no_speech": 0.0,
+    "norm": "のりば",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "でぐち",
+   "reading": "でぐち",
+   "file": "word_deguchi",
+   "before": {
+    "text": "出口",
+    "avg_logprob": -0.658,
+    "no_speech": 0.0,
+    "norm": "でぐち",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "出口",
+    "avg_logprob": -0.658,
+    "no_speech": 0.0,
+    "norm": "でぐち",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "いりぐち",
+   "reading": "いりぐち",
+   "file": "word_iriguchi",
+   "before": {
+    "text": "入り口",
+    "avg_logprob": -0.339,
+    "no_speech": 0.0,
+    "norm": "いりぐち",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "入り口",
+    "avg_logprob": -0.339,
+    "no_speech": 0.0,
+    "norm": "いりぐち",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "おまもり",
+   "reading": "おまもり",
+   "file": "word_omamori",
+   "before": {
+    "text": "お守り",
+    "avg_logprob": -0.514,
+    "no_speech": 0.0,
+    "norm": "おまもり",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "お守り",
+    "avg_logprob": -0.514,
+    "no_speech": 0.0,
+    "norm": "おまもり",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "おまいり",
+   "reading": "おまいり",
+   "file": "word_omairi",
+   "before": {
+    "text": "お参り",
+    "avg_logprob": -0.51,
+    "no_speech": 0.0,
+    "norm": "おまいり",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "お参り",
+    "avg_logprob": -0.51,
+    "no_speech": 0.0,
+    "norm": "おまいり",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "おみくじ",
+   "reading": "おみくじ",
+   "file": "word_omikuji",
+   "before": {
+    "text": "おみくじ",
+    "avg_logprob": -0.386,
+    "no_speech": 0.0,
+    "norm": "おみくじ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "おみくじ",
+    "avg_logprob": -0.386,
+    "no_speech": 0.0,
+    "norm": "おみくじ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "えんむすび",
+   "reading": "えんむすび",
+   "file": "word_enmusubi",
+   "before": {
+    "text": "縁結び?",
+    "avg_logprob": -0.486,
+    "no_speech": 0.0,
+    "norm": "えんむすび",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "縁結び?",
+    "avg_logprob": -0.486,
+    "no_speech": 0.0,
+    "norm": "えんむすび",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "たこやき",
+   "reading": "たこやき",
+   "file": "word_takoyaki",
+   "before": {
+    "text": "たこ焼き",
+    "avg_logprob": -0.547,
+    "no_speech": 0.0,
+    "norm": "たこやき",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "たこ焼き",
+    "avg_logprob": -0.547,
+    "no_speech": 0.0,
+    "norm": "たこやき",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "おまつり",
+   "reading": "おまつり",
+   "file": "word_omatsuri",
+   "before": {
+    "text": "お祭り",
+    "avg_logprob": -0.443,
+    "no_speech": 0.0,
+    "norm": "おまつり",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "お祭り",
+    "avg_logprob": -0.443,
+    "no_speech": 0.0,
+    "norm": "おまつり",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "あたり",
+   "reading": "あたり",
+   "file": "word_atari",
+   "before": {
+    "text": "あたり",
+    "avg_logprob": -0.492,
+    "no_speech": 0.0,
+    "norm": "あたり",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "あたり",
+    "avg_logprob": -0.492,
+    "no_speech": 0.0,
+    "norm": "あたり",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "やきそば",
+   "reading": "やきそば",
+   "file": "word_yakisoba",
+   "before": {
+    "text": "焼きそば",
+    "avg_logprob": -0.296,
+    "no_speech": 0.0,
+    "norm": "やきそば",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "焼きそば",
+    "avg_logprob": -0.296,
+    "no_speech": 0.0,
+    "norm": "やきそば",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "はずれ",
+   "reading": "はずれ",
+   "file": "word_hazure",
+   "before": {
+    "text": "ハツレ",
+    "avg_logprob": -0.458,
+    "no_speech": 0.0,
+    "norm": "はつれ",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 3,
+    "voiced": 0.49,
+    "flags": [],
+    "text": "ハズレ",
+    "avg_logprob": -0.292,
+    "no_speech": 0.0,
+    "norm": "はずれ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 3,
+   "changed": true,
+   "tries": 3,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.56,
+     "flags": [],
+     "text": "ハツレ",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 0.9,
+     "flags": [],
+     "text": "あーずれー",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 0.49,
+     "flags": [],
+     "text": "ハズレ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "りんごあめ",
+   "reading": "りんごあめ",
+   "file": "word_ringoame",
+   "before": {
+    "text": "りんご飴",
+    "avg_logprob": -0.535,
+    "no_speech": 0.0,
+    "norm": "りんごあめ",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "りんご飴",
+    "avg_logprob": -0.535,
+    "no_speech": 0.0,
+    "norm": "りんごあめ",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "やきとり",
+   "reading": "やきとり",
+   "file": "word_yakitori",
+   "before": {
+    "text": "焼き鳥",
+    "avg_logprob": -0.559,
+    "no_speech": 0.0,
+    "norm": "やきとり",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "焼き鳥",
+    "avg_logprob": -0.559,
+    "no_speech": 0.0,
+    "norm": "やきとり",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "つくね",
+   "reading": "つくね",
+   "file": "word_tsukune",
+   "before": {
+    "text": "つくね",
+    "avg_logprob": -0.431,
+    "no_speech": 0.0,
+    "norm": "つくね",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "つくね",
+    "avg_logprob": -0.431,
+    "no_speech": 0.0,
+    "norm": "つくね",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "かわ",
+   "reading": "かわ",
+   "file": "word_kawa",
+   "before": {
+    "text": "川",
+    "avg_logprob": -0.974,
+    "no_speech": 0.0,
+    "norm": "川",
+    "how": "unknown",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 5,
+    "voiced": 0.69,
+    "flags": [],
+    "text": "かわ",
+    "avg_logprob": -0.949,
+    "no_speech": 0.0,
+    "norm": "かわ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 5,
+   "changed": true,
+   "tries": 5,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.62,
+     "flags": [],
+     "text": "革?",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 0.61,
+     "flags": [],
+     "text": "川",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 4.31,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "かわーうちもうちもおいせ",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 0.88,
+     "flags": [
+      "long"
+     ],
+     "text": "かわ",
+     "ok": true
+    },
+    {
+     "take": 5,
+     "voiced": 0.69,
+     "flags": [],
+     "text": "かわ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "むね",
+   "reading": "むね",
+   "file": "word_mune",
+   "before": {
+    "text": "胸",
+    "avg_logprob": -0.566,
+    "no_speech": 0.0,
+    "norm": "むね",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "胸",
+    "avg_logprob": -0.566,
+    "no_speech": 0.0,
+    "norm": "むね",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "ささみ",
+   "reading": "ささみ",
+   "file": "word_sasami",
+   "before": {
+    "text": "ささみ?",
+    "avg_logprob": -0.361,
+    "no_speech": 0.0,
+    "norm": "ささみ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "ささみ?",
+    "avg_logprob": -0.361,
+    "no_speech": 0.0,
+    "norm": "ささみ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "なんこつ",
+   "reading": "なんこつ",
+   "file": "word_nankotsu",
+   "before": {
+    "text": "軟骨",
+    "avg_logprob": -0.402,
+    "no_speech": 0.0,
+    "norm": "なんこつ",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "軟骨",
+    "avg_logprob": -0.402,
+    "no_speech": 0.0,
+    "norm": "なんこつ",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "しいたけ",
+   "reading": "しいたけ",
+   "file": "word_shiitake",
+   "before": {
+    "text": "Cだけ",
+    "avg_logprob": -0.392,
+    "no_speech": 0.0,
+    "norm": "Cだけ",
+    "how": "latin",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 1,
+    "voiced": 0.98,
+    "flags": [],
+    "text": "椎茸",
+    "avg_logprob": -0.489,
+    "no_speech": 0.0,
+    "norm": "しいたけ",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": true,
+   "tries": 1,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.98,
+     "flags": [],
+     "text": "椎茸",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "おにぎり",
+   "reading": "おにぎり",
+   "file": "word_onigiri",
+   "before": {
+    "text": "おにぎり",
+    "avg_logprob": -0.479,
+    "no_speech": 0.0,
+    "norm": "おにぎり",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "おにぎり",
+    "avg_logprob": -0.479,
+    "no_speech": 0.0,
+    "norm": "おにぎり",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "うずら",
+   "reading": "うずら",
+   "file": "word_uzura",
+   "before": {
+    "text": "うずら",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "うずら",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "うずら",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "うずら",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "ゆ",
+   "reading": "ゆ",
+   "file": "word_yu",
+   "before": {
+    "text": "ゆう",
+    "avg_logprob": -0.859,
+    "no_speech": 0.0,
+    "norm": "ゆう",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 5,
+    "voiced": 0.37,
+    "flags": [],
+    "text": "ゆ",
+    "avg_logprob": -1.207,
+    "no_speech": 0.0,
+    "norm": "ゆ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 5,
+   "changed": true,
+   "tries": 5,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.54,
+     "flags": [],
+     "text": "ゆう",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 4.11,
+     "flags": [
+      "long"
+     ],
+     "text": "イーン",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 1.01,
+     "flags": [
+      "long"
+     ],
+     "text": "ゆー",
+     "ok": true
+    },
+    {
+     "take": 4,
+     "voiced": 3.31,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "Dよー",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 0.37,
+     "flags": [],
+     "text": "ゆ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "おんせん",
+   "reading": "おんせん",
+   "file": "word_onsen",
+   "before": {
+    "text": "温泉",
+    "avg_logprob": -0.363,
+    "no_speech": 0.0,
+    "norm": "おんせん",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "温泉",
+    "avg_logprob": -0.363,
+    "no_speech": 0.0,
+    "norm": "おんせん",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "ゆかた",
+   "reading": "ゆかた",
+   "file": "word_yukata",
+   "before": {
+    "text": "浴衣",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "ゆかた",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "浴衣",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "ゆかた",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "ぬる湯",
+   "reading": "ぬるゆ",
+   "file": "word_nuruyu",
+   "before": {
+    "text": "どるよー",
+    "avg_logprob": -0.823,
+    "no_speech": 0.0,
+    "norm": "どるよ",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 17,
+    "voiced": 0.66,
+    "flags": [],
+    "text": "ぬるゆ",
+    "avg_logprob": -0.443,
+    "no_speech": 0.0,
+    "norm": "ぬるゆ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 17,
+   "changed": true,
+   "tries": 17,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 1.67,
+     "flags": [
+      "long"
+     ],
+     "text": "寝るよい",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 1.1,
+     "flags": [],
+     "text": "ぬるいえ",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 4.71,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ねるよあはは言ってんわわいだったな",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 0.89,
+     "flags": [],
+     "text": "どるよー",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 1.29,
+     "flags": [
+      "long"
+     ],
+     "text": "ミリュー",
+     "ok": false
+    },
+    {
+     "take": 6,
+     "voiced": 2.08,
+     "flags": [
+      "long"
+     ],
+     "text": "ぬるいえん",
+     "ok": false
+    },
+    {
+     "take": 7,
+     "voiced": 2.21,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "えへっ、ぬるゆー。",
+     "ok": false
+    },
+    {
+     "take": 8,
+     "voiced": 1.29,
+     "flags": [
+      "long"
+     ],
+     "text": "無理へ",
+     "ok": false
+    },
+    {
+     "take": 9,
+     "voiced": 0.67,
+     "flags": [],
+     "text": "ぬるい",
+     "ok": false
+    },
+    {
+     "take": 10,
+     "voiced": 4.51,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ぬるゆえ?え?え?",
+     "ok": false
+    },
+    {
+     "take": 11,
+     "voiced": 1.22,
+     "flags": [
+      "long"
+     ],
+     "text": "塗り湯",
+     "ok": false
+    },
+    {
+     "take": 12,
+     "voiced": 1.38,
+     "flags": [
+      "long"
+     ],
+     "text": "ねるゆー",
+     "ok": false
+    },
+    {
+     "take": 13,
+     "voiced": 1.17,
+     "flags": [
+      "long"
+     ],
+     "text": "ぬるゆ",
+     "ok": true
+    },
+    {
+     "take": 14,
+     "voiced": 1.73,
+     "flags": [
+      "long"
+     ],
+     "text": "ぬるゆー",
+     "ok": true
+    },
+    {
+     "take": 15,
+     "voiced": 0.79,
+     "flags": [],
+     "text": "塗るよ",
+     "ok": false
+    },
+    {
+     "take": 16,
+     "voiced": 0.7,
+     "flags": [],
+     "text": "むるゆ",
+     "ok": false
+    },
+    {
+     "take": 17,
+     "voiced": 0.66,
+     "flags": [],
+     "text": "ぬるゆ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "ひのき",
+   "reading": "ひのき",
+   "file": "word_hinoki",
+   "before": {
+    "text": "ヒノキ",
+    "avg_logprob": -0.407,
+    "no_speech": 0.0,
+    "norm": "ひのき",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "ヒノキ",
+    "avg_logprob": -0.407,
+    "no_speech": 0.0,
+    "norm": "ひのき",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "くつをぬいでください",
+   "reading": "くつをぬいでください",
+   "file": "word_kutsu_o_nuide_kudasai",
+   "before": {
+    "text": "靴を脱いでください",
+    "avg_logprob": -0.206,
+    "no_speech": 0.0,
+    "norm": "くつをぬいでください",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "靴を脱いでください",
+    "avg_logprob": -0.206,
+    "no_speech": 0.0,
+    "norm": "くつをぬいでください",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 4,
+   "changed": false
+  },
+  {
+   "word": "ようこそ",
+   "reading": "ようこそ",
+   "file": "word_yokoso",
+   "before": {
+    "text": "ようこそ",
+    "avg_logprob": -0.491,
+    "no_speech": 0.0,
+    "norm": "ようこそ",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "ようこそ",
+    "avg_logprob": -0.491,
+    "no_speech": 0.0,
+    "norm": "ようこそ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "おもてなし",
+   "reading": "おもてなし",
+   "file": "word_omotenashi",
+   "before": {
+    "text": "おもてなし",
+    "avg_logprob": -0.296,
+    "no_speech": 0.0,
+    "norm": "おもてなし",
+    "how": "kana",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "おもてなし",
+    "avg_logprob": -0.296,
+    "no_speech": 0.0,
+    "norm": "おもてなし",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 1,
+   "changed": false
+  },
+  {
+   "word": "ほうじ茶",
+   "reading": "ほうじちゃ",
+   "file": "word_hojicha",
+   "before": {
+    "text": "おじじゃ",
+    "avg_logprob": -0.828,
+    "no_speech": 0.0,
+    "norm": "おじじゃ",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 7,
+    "voiced": 0.98,
+    "flags": [],
+    "text": "ほうじちゃ",
+    "avg_logprob": -0.552,
+    "no_speech": 0.0,
+    "norm": "ほうじちゃ",
+    "how": "kana",
+    "ok": true
+   },
+   "take": 7,
+   "changed": true,
+   "tries": 7,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 1.26,
+     "flags": [],
+     "text": "おじちゃー",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 1.14,
+     "flags": [],
+     "text": "おいじちゃーん",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 2.27,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ほうじちゃ",
+     "ok": true
+    },
+    {
+     "take": 4,
+     "voiced": 0.9,
+     "flags": [],
+     "text": "おじじゃ",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 4.72,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "おじちゃんシェネシェネ",
+     "ok": false
+    },
+    {
+     "take": 6,
+     "voiced": 1.12,
+     "flags": [],
+     "text": "おじちゃん",
+     "ok": false
+    },
+    {
+     "take": 7,
+     "voiced": 0.98,
+     "flags": [],
+     "text": "ほうじちゃ",
+     "ok": true
+    }
+   ]
+  },
+  {
+   "word": "おふろ",
+   "reading": "おふろ",
+   "file": "word_ofuro",
+   "before": {
+    "text": "お風呂",
+    "avg_logprob": -0.373,
+    "no_speech": 0.0,
+    "norm": "おふろ",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "お風呂",
+    "avg_logprob": -0.373,
+    "no_speech": 0.0,
+    "norm": "おふろ",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 3,
+   "changed": false
+  },
+  {
+   "word": "おへや",
+   "reading": "おへや",
+   "file": "word_oheya",
+   "before": {
+    "text": "お部屋",
+    "avg_logprob": -0.477,
+    "no_speech": 0.0,
+    "norm": "おへや",
+    "how": "kanji",
+    "ok": true
+   },
+   "before_flags": [],
+   "final": {
+    "text": "お部屋",
+    "avg_logprob": -0.477,
+    "no_speech": 0.0,
+    "norm": "おへや",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 2,
+   "changed": false
+  },
+  {
+   "word": "ふとん",
+   "reading": "ふとん",
+   "file": "word_futon",
+   "before": {
+    "text": "ふとーん",
+    "avg_logprob": -0.962,
+    "no_speech": 0.0,
+    "norm": "ふとーん",
+    "how": "kana",
+    "ok": false
+   },
+   "before_flags": [],
+   "final": {
+    "take": 6,
+    "voiced": 0.7,
+    "flags": [],
+    "text": "布団",
+    "avg_logprob": -0.775,
+    "no_speech": 0.0,
+    "norm": "ふとん",
+    "how": "kanji",
+    "ok": true
+   },
+   "take": 6,
+   "changed": true,
+   "tries": 6,
+   "candidates": [
+    {
+     "take": 1,
+     "voiced": 0.78,
+     "flags": [],
+     "text": "ふとーん",
+     "ok": false
+    },
+    {
+     "take": 2,
+     "voiced": 0.63,
+     "flags": [
+      "pause"
+     ],
+     "text": "ストーン",
+     "ok": false
+    },
+    {
+     "take": 3,
+     "voiced": 1.13,
+     "flags": [
+      "long",
+      "pause"
+     ],
+     "text": "ふたー",
+     "ok": false
+    },
+    {
+     "take": 4,
+     "voiced": 4.72,
+     "flags": [
+      "long"
+     ],
+     "text": "2分間",
+     "ok": false
+    },
+    {
+     "take": 5,
+     "voiced": 0.85,
+     "flags": [
+      "pause"
+     ],
+     "text": "ストーン?",
+     "ok": false
+    },
+    {
+     "take": 6,
+     "voiced": 0.7,
+     "flags": [],
+     "text": "布団",
+     "ok": true
+    }
+   ]
+  }
+ ],
+ "before_ok": 44,
+ "final_ok": 60,
+ "changed": [
+  "いか",
+  "たこ",
+  "まぐろ",
+  "かつ丼",
+  "ひれかつ",
+  "おろし",
+  "うどん",
+  "ざる",
+  "きっぷうりば",
+  "はずれ",
+  "かわ",
+  "しいたけ",
+  "ゆ",
+  "ぬる湯",
+  "ほうじ茶",
+  "ふとん"
+ ],
+ "failed": {}
+}

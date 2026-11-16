@@ -1,0 +1,4922 @@
+{
+ "model": "mlx-community/whisper-large-v3-turbo",
+ "words": [
+  {
+   "text": "寿司",
+   "reading": "すし",
+   "file": "word_sushi",
+   "avg_logprob": -0.414,
+   "no_speech": 0.0,
+   "norm": "すし",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "いか",
+   "reading": "いか",
+   "file": "word_ika",
+   "avg_logprob": -0.61,
+   "no_speech": 0.0,
+   "norm": "いか",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "タコ",
+   "reading": "たこ",
+   "file": "word_tako",
+   "avg_logprob": -0.571,
+   "no_speech": 0.0,
+   "norm": "たこ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "いくら?",
+   "reading": "いくら",
+   "file": "word_ikura",
+   "avg_logprob": -0.394,
+   "no_speech": 0.0,
+   "norm": "いくら",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "マグロ",
+   "reading": "まぐろ",
+   "file": "word_maguro",
+   "avg_logprob": -0.367,
+   "no_speech": 0.0,
+   "norm": "まぐろ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "エビ",
+   "reading": "えび",
+   "file": "word_ebi",
+   "avg_logprob": -0.475,
+   "no_speech": 0.0,
+   "norm": "えび",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "稲荷",
+   "reading": "いなり",
+   "file": "word_inari",
+   "avg_logprob": -0.306,
+   "no_speech": 0.0,
+   "norm": "いなり",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "とんかつ",
+   "reading": "とんかつ",
+   "file": "word_tonkatsu",
+   "avg_logprob": -0.348,
+   "no_speech": 0.0,
+   "norm": "とんかつ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "カツ丼",
+   "reading": "かつどん",
+   "file": "word_katsudon",
+   "avg_logprob": -0.281,
+   "no_speech": 0.0,
+   "norm": "かつどん",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "ヒレカツ",
+   "reading": "ひれかつ",
+   "file": "word_hirekatsu",
+   "avg_logprob": -0.315,
+   "no_speech": 0.0,
+   "norm": "ひれかつ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "おろし",
+   "reading": "おろし",
+   "file": "word_oroshi",
+   "avg_logprob": -0.568,
+   "no_speech": 0.0,
+   "norm": "おろし",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "ご飯",
+   "reading": "ごはん",
+   "file": "word_gohan",
+   "avg_logprob": -0.349,
+   "no_speech": 0.0,
+   "norm": "ごはん",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "おかわり",
+   "reading": "おかわり",
+   "file": "word_okawari",
+   "avg_logprob": -0.262,
+   "no_speech": 0.0,
+   "norm": "おかわり",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "うどん",
+   "reading": "うどん",
+   "file": "word_udon",
+   "avg_logprob": -0.44,
+   "no_speech": 0.0,
+   "norm": "うどん",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "そば",
+   "reading": "そば",
+   "file": "word_soba",
+   "avg_logprob": -0.395,
+   "no_speech": 0.0,
+   "norm": "そば",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "キツネ",
+   "reading": "きつね",
+   "file": "word_kitsune",
+   "avg_logprob": -0.305,
+   "no_speech": 0.0,
+   "norm": "きつね",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "かけ",
+   "reading": "かけ",
+   "file": "word_kake",
+   "avg_logprob": -0.846,
+   "no_speech": 0.0,
+   "norm": "かけ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "おかめ",
+   "reading": "おかめ",
+   "file": "word_okame",
+   "avg_logprob": -0.534,
+   "no_speech": 0.0,
+   "norm": "おかめ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "わかめ",
+   "reading": "わかめ",
+   "file": "word_wakame",
+   "avg_logprob": -0.395,
+   "no_speech": 0.0,
+   "norm": "わかめ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "たぬき",
+   "reading": "たぬき",
+   "file": "word_tanuki",
+   "avg_logprob": -0.334,
+   "no_speech": 0.0,
+   "norm": "たぬき",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "ザル",
+   "reading": "ざる",
+   "file": "word_zaru",
+   "avg_logprob": -0.477,
+   "no_speech": 0.0,
+   "norm": "ざる",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "ケッキー",
+   "reading": "えき",
+   "file": "word_eki",
+   "avg_logprob": -0.965,
+   "no_speech": 0.0,
+   "norm": "けっき",
+   "how": "kana",
+   "ok": false
+  },
+  {
+   "text": "おつり",
+   "reading": "おつり",
+   "file": "word_otsuri",
+   "avg_logprob": -0.506,
+   "no_speech": 0.0,
+   "norm": "おつり",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "きっぷりば",
+   "reading": "きっぷうりば",
+   "file": "word_kippu_uriba",
+   "avg_logprob": -0.38,
+   "no_speech": 0.0,
+   "norm": "きっぷりば",
+   "how": "kana",
+   "ok": false
+  },
+  {
+   "text": "乗り換え",
+   "reading": "のりかえ",
+   "file": "word_norikae",
+   "avg_logprob": -0.349,
+   "no_speech": 0.0,
+   "norm": "のりかえ",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "こちら",
+   "reading": "こちら",
+   "file": "word_kochira",
+   "avg_logprob": -0.536,
+   "no_speech": 0.0,
+   "norm": "こちら",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "乗り場",
+   "reading": "のりば",
+   "file": "word_noriba",
+   "avg_logprob": -0.388,
+   "no_speech": 0.0,
+   "norm": "のりば",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "出口",
+   "reading": "でぐち",
+   "file": "word_deguchi",
+   "avg_logprob": -0.364,
+   "no_speech": 0.0,
+   "norm": "でぐち",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "入り口",
+   "reading": "いりぐち",
+   "file": "word_iriguchi",
+   "avg_logprob": -0.34,
+   "no_speech": 0.0,
+   "norm": "いりぐち",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "お守り",
+   "reading": "おまもり",
+   "file": "word_omamori",
+   "avg_logprob": -0.463,
+   "no_speech": 0.0,
+   "norm": "おまもり",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "お参り",
+   "reading": "おまいり",
+   "file": "word_omairi",
+   "avg_logprob": -0.536,
+   "no_speech": 0.0,
+   "norm": "おまいり",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "おみくじ",
+   "reading": "おみくじ",
+   "file": "word_omikuji",
+   "avg_logprob": -0.333,
+   "no_speech": 0.0,
+   "norm": "おみくじ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "縁結び",
+   "reading": "えんむすび",
+   "file": "word_enmusubi",
+   "avg_logprob": -0.375,
+   "no_speech": 0.0,
+   "norm": "えんむすび",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "たこ焼き",
+   "reading": "たこやき",
+   "file": "word_takoyaki",
+   "avg_logprob": -0.453,
+   "no_speech": 0.0,
+   "norm": "たこやき",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "お祭り",
+   "reading": "おまつり",
+   "file": "word_omatsuri",
+   "avg_logprob": -0.462,
+   "no_speech": 0.0,
+   "norm": "おまつり",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "あたり",
+   "reading": "あたり",
+   "file": "word_atari",
+   "avg_logprob": -0.452,
+   "no_speech": 0.0,
+   "norm": "あたり",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "焼きそば",
+   "reading": "やきそば",
+   "file": "word_yakisoba",
+   "avg_logprob": -0.226,
+   "no_speech": 0.0,
+   "norm": "やきそば",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "ハズレ",
+   "reading": "はずれ",
+   "file": "word_hazure",
+   "avg_logprob": -0.384,
+   "no_speech": 0.0,
+   "norm": "はずれ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "りんご飴",
+   "reading": "りんごあめ",
+   "file": "word_ringoame",
+   "avg_logprob": -0.386,
+   "no_speech": 0.0,
+   "norm": "りんごあめ",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "焼き鳥",
+   "reading": "やきとり",
+   "file": "word_yakitori",
+   "avg_logprob": -0.262,
+   "no_speech": 0.0,
+   "norm": "やきとり",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "つくね",
+   "reading": "つくね",
+   "file": "word_tsukune",
+   "avg_logprob": -0.403,
+   "no_speech": 0.0,
+   "norm": "つくね",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "皮",
+   "reading": "かわ",
+   "file": "word_kawa",
+   "avg_logprob": -1.065,
+   "no_speech": 0.0,
+   "norm": "かわ",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "胸",
+   "reading": "むね",
+   "file": "word_mune",
+   "avg_logprob": -0.421,
+   "no_speech": 0.0,
+   "norm": "むね",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "ささみ",
+   "reading": "ささみ",
+   "file": "word_sasami",
+   "avg_logprob": -0.439,
+   "no_speech": 0.0,
+   "norm": "ささみ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "軟骨",
+   "reading": "なんこつ",
+   "file": "word_nankotsu",
+   "avg_logprob": -0.302,
+   "no_speech": 0.0,
+   "norm": "なんこつ",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "椎茸",
+   "reading": "しいたけ",
+   "file": "word_shiitake",
+   "avg_logprob": -0.401,
+   "no_speech": 0.0,
+   "norm": "しいたけ",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "おにぎり",
+   "reading": "おにぎり",
+   "file": "word_onigiri",
+   "avg_logprob": -0.324,
+   "no_speech": 0.0,
+   "norm": "おにぎり",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "うずら",
+   "reading": "うずら",
+   "file": "word_uzura",
+   "avg_logprob": -0.353,
+   "no_speech": 0.0,
+   "norm": "うずら",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "ゆっ",
+   "reading": "ゆ",
+   "file": "word_yu",
+   "avg_logprob": -0.975,
+   "no_speech": 0.0,
+   "norm": "ゆ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "温泉",
+   "reading": "おんせん",
+   "file": "word_onsen",
+   "avg_logprob": -0.265,
+   "no_speech": 0.0,
+   "norm": "おんせん",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "浴衣",
+   "reading": "ゆかた",
+   "file": "word_yukata",
+   "avg_logprob": -0.288,
+   "no_speech": 0.0,
+   "norm": "ゆかた",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "ぬるいよ",
+   "reading": "ぬるゆ",
+   "file": "word_nuruyu",
+   "avg_logprob": -0.617,
+   "no_speech": 0.0,
+   "norm": "ぬるいよ",
+   "how": "kana",
+   "ok": false
+  },
+  {
+   "text": "ヒノキ",
+   "reading": "ひのき",
+   "file": "word_hinoki",
+   "avg_logprob": -0.355,
+   "no_speech": 0.0,
+   "norm": "ひのき",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "靴を脱いでください",
+   "reading": "くつをぬいでください",
+   "file": "word_kutsu_o_nuide_kudasai",
+   "avg_logprob": -0.211,
+   "no_speech": 0.0,
+   "norm": "くつをぬいでください",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "ようこそ",
+   "reading": "ようこそ",
+   "file": "word_yokoso",
+   "avg_logprob": -0.549,
+   "no_speech": 0.0,
+   "norm": "ようこそ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "おもてなし",
+   "reading": "おもてなし",
+   "file": "word_omotenashi",
+   "avg_logprob": -0.218,
+   "no_speech": 0.0,
+   "norm": "おもてなし",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "ほうじちゃ",
+   "reading": "ほうじちゃ",
+   "file": "word_hojicha",
+   "avg_logprob": -0.389,
+   "no_speech": 0.0,
+   "norm": "ほうじちゃ",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "お風呂",
+   "reading": "おふろ",
+   "file": "word_ofuro",
+   "avg_logprob": -0.457,
+   "no_speech": 0.0,
+   "norm": "おふろ",
+   "how": "kanji",
+   "ok": true
+  },
+  {
+   "text": "おへや",
+   "reading": "おへや",
+   "file": "word_oheya",
+   "avg_logprob": -0.63,
+   "no_speech": 0.0,
+   "norm": "おへや",
+   "how": "kana",
+   "ok": true
+  },
+  {
+   "text": "ふぱん",
+   "reading": "ふとん",
+   "file": "word_futon",
+   "avg_logprob": -0.558,
+   "no_speech": 0.0,
+   "norm": "ふぱん",
+   "how": "kana",
+   "ok": false
+  }
+ ],
+ "kanaS": [
+  {
+   "kana": "あ",
+   "file": "kana_a",
+   "P": {
+    "text": "あー",
+    "avg_logprob": -0.871,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "あーあーあー",
+    "avg_logprob": -0.865,
+    "no_speech": 0.0,
+    "norm": "あーあーあ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "あー",
+    "avg_logprob": -0.982,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "あ あ あ",
+    "avg_logprob": -1.12,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "い",
+   "file": "kana_i",
+   "P": {
+    "text": "いい",
+    "avg_logprob": -0.724,
+    "no_speech": 0.0,
+    "norm": "いい",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "いい、いい、いい",
+    "avg_logprob": -0.532,
+    "no_speech": 0.0,
+    "norm": "いいいいいい",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "いい",
+    "avg_logprob": -1.133,
+    "no_speech": 0.0,
+    "norm": "いい",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "いい いい いい",
+    "avg_logprob": -0.784,
+    "no_speech": 0.0,
+    "norm": "いいいいいい",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "う",
+   "file": "kana_u",
+   "P": {
+    "text": "うん",
+    "avg_logprob": -0.633,
+    "no_speech": 0.0,
+    "norm": "うん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ううう",
+    "avg_logprob": -0.768,
+    "no_speech": 0.0,
+    "norm": "ううう",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "うん",
+    "avg_logprob": -0.926,
+    "no_speech": 0.0,
+    "norm": "うん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "う う う う",
+    "avg_logprob": -0.827,
+    "no_speech": 0.0,
+    "norm": "うううう",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "え",
+   "file": "kana_e",
+   "P": {
+    "text": "えぇ",
+    "avg_logprob": -0.951,
+    "no_speech": 0.0,
+    "norm": "えぇ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "え、え、え",
+    "avg_logprob": -0.487,
+    "no_speech": 0.0,
+    "norm": "えええ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "えぇ",
+    "avg_logprob": -1.054,
+    "no_speech": 0.0,
+    "norm": "えぇ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "え、え、え",
+    "avg_logprob": -0.735,
+    "no_speech": 0.0,
+    "norm": "えええ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "お",
+   "file": "kana_o",
+   "P": {
+    "text": "お",
+    "avg_logprob": -0.696,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "お、お、お",
+    "avg_logprob": -0.476,
+    "no_speech": 0.0,
+    "norm": "おおお",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "お",
+    "avg_logprob": -0.855,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "お お お",
+    "avg_logprob": -0.882,
+    "no_speech": 0.0,
+    "norm": "おおお",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "か",
+   "file": "kana_ka",
+   "P": {
+    "text": "かー",
+    "avg_logprob": -1.04,
+    "no_speech": 0.0,
+    "norm": "か",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "かわっかわっかわっ",
+    "avg_logprob": -0.62,
+    "no_speech": 0.0,
+    "norm": "かわっかわっかわっ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "かー",
+    "avg_logprob": -1.233,
+    "no_speech": 0.0,
+    "norm": "か",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "かわっかわっかわっ",
+    "avg_logprob": -0.801,
+    "no_speech": 0.0,
+    "norm": "かわっかわっかわっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "き",
+   "file": "kana_ki",
+   "P": {
+    "text": "てぃ",
+    "avg_logprob": -0.907,
+    "no_speech": 0.0,
+    "norm": "てぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ティー ティー ティー",
+    "avg_logprob": -0.438,
+    "no_speech": 0.0,
+    "norm": "てぃーてぃーてぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "てぃ",
+    "avg_logprob": -0.976,
+    "no_speech": 0.0,
+    "norm": "てぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ティー ティー ティー",
+    "avg_logprob": -0.482,
+    "no_speech": 0.0,
+    "norm": "てぃーてぃーてぃ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ぎ",
+   "file": "kana_gi",
+   "P": {
+    "text": "てぃ",
+    "avg_logprob": -0.932,
+    "no_speech": 0.0,
+    "norm": "てぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ティティティ",
+    "avg_logprob": -0.523,
+    "no_speech": 0.0,
+    "norm": "てぃてぃてぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "てぃ",
+    "avg_logprob": -1.059,
+    "no_speech": 0.0,
+    "norm": "てぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ティー ティー ティー",
+    "avg_logprob": -0.501,
+    "no_speech": 0.0,
+    "norm": "てぃーてぃーてぃ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "く",
+   "file": "kana_ku",
+   "P": {
+    "text": "く",
+    "avg_logprob": -1.004,
+    "no_speech": 0.0,
+    "norm": "く",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "く く く",
+    "avg_logprob": -0.657,
+    "no_speech": 0.0,
+    "norm": "くくく",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "くー",
+    "avg_logprob": -1.025,
+    "no_speech": 0.0,
+    "norm": "く",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "く く く く",
+    "avg_logprob": -0.5,
+    "no_speech": 0.0,
+    "norm": "くくくく",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ぐ",
+   "file": "kana_gu",
+   "P": {
+    "text": "くー",
+    "avg_logprob": -0.836,
+    "no_speech": 0.0,
+    "norm": "く",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "くー くー くー",
+    "avg_logprob": -0.608,
+    "no_speech": 0.0,
+    "norm": "くーくーく",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "くー",
+    "avg_logprob": -0.943,
+    "no_speech": 0.0,
+    "norm": "く",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "くー くー くー くー",
+    "avg_logprob": -0.481,
+    "no_speech": 0.0,
+    "norm": "くーくーくーく",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "け",
+   "file": "kana_ke",
+   "P": {
+    "text": "けー",
+    "avg_logprob": -1.053,
+    "no_speech": 0.0,
+    "norm": "け",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "けけけ",
+    "avg_logprob": -0.65,
+    "no_speech": 0.0,
+    "norm": "けけけ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "けー",
+    "avg_logprob": -1.177,
+    "no_speech": 0.0,
+    "norm": "け",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "けけけけ",
+    "avg_logprob": -0.821,
+    "no_speech": 0.0,
+    "norm": "けけけけ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "こ",
+   "file": "kana_ko",
+   "P": {
+    "text": "こう",
+    "avg_logprob": -0.822,
+    "no_speech": 0.0,
+    "norm": "こう",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "こ、こ、こ",
+    "avg_logprob": -0.591,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "こう",
+    "avg_logprob": -1.203,
+    "no_speech": 0.0,
+    "norm": "こう",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "こ こ こ",
+    "avg_logprob": -1.126,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ご",
+   "file": "kana_go",
+   "P": {
+    "text": "こう",
+    "avg_logprob": -0.787,
+    "no_speech": 0.0,
+    "norm": "こう",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "こ、こ、こ",
+    "avg_logprob": -0.623,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "こう",
+    "avg_logprob": -1.227,
+    "no_speech": 0.0,
+    "norm": "こう",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "こ こ こ",
+    "avg_logprob": -1.177,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "さ",
+   "file": "kana_sa",
+   "P": {
+    "text": "たーん",
+    "avg_logprob": -0.867,
+    "no_speech": 0.0,
+    "norm": "たーん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "たーんたーんたーん",
+    "avg_logprob": -0.533,
+    "no_speech": 0.0,
+    "norm": "たーんたーんたーん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "たーん",
+    "avg_logprob": -0.963,
+    "no_speech": 0.0,
+    "norm": "たーん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "たーんたーんたーん",
+    "avg_logprob": -0.822,
+    "no_speech": 0.0,
+    "norm": "たーんたーんたーん",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ざ",
+   "file": "kana_za",
+   "P": {
+    "text": "じゃあ",
+    "avg_logprob": -0.999,
+    "no_speech": 0.0,
+    "norm": "じゃあ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "たたた",
+    "avg_logprob": -0.893,
+    "no_speech": 0.0,
+    "norm": "たたた",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "じゃあ",
+    "avg_logprob": -1.401,
+    "no_speech": 0.0,
+    "norm": "じゃあ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "たたたた",
+    "avg_logprob": -1.047,
+    "no_speech": 0.0,
+    "norm": "たたたた",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "し",
+   "file": "kana_shi",
+   "P": {
+    "text": "C",
+    "avg_logprob": -0.681,
+    "no_speech": 0.0,
+    "norm": "C",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "しーしーしー",
+    "avg_logprob": -0.621,
+    "no_speech": 0.0,
+    "norm": "しーしーし",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "C",
+    "avg_logprob": -0.978,
+    "no_speech": 0.0,
+    "norm": "C",
+    "how": "latin",
+    "ok": false
+   },
+   "R3P": {
+    "text": "しーしーしー",
+    "avg_logprob": -0.645,
+    "no_speech": 0.0,
+    "norm": "しーしーし",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "じ",
+   "file": "kana_ji",
+   "P": {
+    "text": "ちー",
+    "avg_logprob": -1.22,
+    "no_speech": 0.0,
+    "norm": "ち",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ティティティ",
+    "avg_logprob": -0.552,
+    "no_speech": 0.0,
+    "norm": "てぃてぃてぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "じー",
+    "avg_logprob": -1.243,
+    "no_speech": 0.0,
+    "norm": "じ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ティティティ",
+    "avg_logprob": -0.747,
+    "no_speech": 0.0,
+    "norm": "てぃてぃてぃ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "す",
+   "file": "kana_su",
+   "P": {
+    "text": "すー",
+    "avg_logprob": -0.944,
+    "no_speech": 0.0,
+    "norm": "す",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "スー スー スー",
+    "avg_logprob": -0.518,
+    "no_speech": 0.0,
+    "norm": "すーすーす",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "つー",
+    "avg_logprob": -1.16,
+    "no_speech": 0.0,
+    "norm": "つ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "スー スー スー",
+    "avg_logprob": -0.663,
+    "no_speech": 0.0,
+    "norm": "すーすーす",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ず",
+   "file": "kana_zu",
+   "P": {
+    "text": "つー",
+    "avg_logprob": -0.979,
+    "no_speech": 0.0,
+    "norm": "つ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "てーてーてー",
+    "avg_logprob": -0.894,
+    "no_speech": 0.0,
+    "norm": "てーてーて",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "つぅ",
+    "avg_logprob": -0.781,
+    "no_speech": 0.0,
+    "norm": "つぅ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "てぅてぅてぅてぅ",
+    "avg_logprob": -0.734,
+    "no_speech": 0.0,
+    "norm": "てぅてぅてぅてぅ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "せ",
+   "file": "kana_se",
+   "P": {
+    "text": "せー",
+    "avg_logprob": -0.864,
+    "no_speech": 0.0,
+    "norm": "せ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "せん せん せん",
+    "avg_logprob": -0.536,
+    "no_speech": 0.0,
+    "norm": "せんせんせん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "せー",
+    "avg_logprob": -0.856,
+    "no_speech": 0.0,
+    "norm": "せ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "せん せん せん",
+    "avg_logprob": -0.564,
+    "no_speech": 0.0,
+    "norm": "せんせんせん",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "そ",
+   "file": "kana_so",
+   "P": {
+    "text": "そう",
+    "avg_logprob": -0.728,
+    "no_speech": 0.0,
+    "norm": "そう",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ゾウ ゾウ ゾウ",
+    "avg_logprob": -0.393,
+    "no_speech": 0.0,
+    "norm": "ぞうぞうぞう",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "そう",
+    "avg_logprob": -1.083,
+    "no_speech": 0.0,
+    "norm": "そう",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ゾウゾウゾウ",
+    "avg_logprob": -0.557,
+    "no_speech": 0.0,
+    "norm": "ぞうぞうぞう",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "た",
+   "file": "kana_ta",
+   "P": {
+    "text": "たー",
+    "avg_logprob": -0.871,
+    "no_speech": 0.0,
+    "norm": "た",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "たたた",
+    "avg_logprob": -0.745,
+    "no_speech": 0.0,
+    "norm": "たたた",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "たー",
+    "avg_logprob": -1.12,
+    "no_speech": 0.0,
+    "norm": "た",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "たーたーたー",
+    "avg_logprob": -0.744,
+    "no_speech": 0.0,
+    "norm": "たーたーた",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "だ",
+   "file": "kana_da",
+   "P": {
+    "text": "たー",
+    "avg_logprob": -1.004,
+    "no_speech": 0.0,
+    "norm": "た",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "たーたーたー",
+    "avg_logprob": -0.586,
+    "no_speech": 0.0,
+    "norm": "たーたーた",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "たー",
+    "avg_logprob": -1.186,
+    "no_speech": 0.0,
+    "norm": "た",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "たーたーたー",
+    "avg_logprob": -0.738,
+    "no_speech": 0.0,
+    "norm": "たーたーた",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ち",
+   "file": "kana_chi",
+   "P": {
+    "text": "ちー",
+    "avg_logprob": -0.796,
+    "no_speech": 0.0,
+    "norm": "ち",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ちーちーちー",
+    "avg_logprob": -0.447,
+    "no_speech": 0.0,
+    "norm": "ちーちーち",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ちぃ",
+    "avg_logprob": -0.823,
+    "no_speech": 0.0,
+    "norm": "ちぃ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ちーちーちーちー",
+    "avg_logprob": -0.569,
+    "no_speech": 0.0,
+    "norm": "ちーちーちーち",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "つ",
+   "file": "kana_tsu",
+   "P": {
+    "text": "つぅ",
+    "avg_logprob": -0.672,
+    "no_speech": 0.0,
+    "norm": "つぅ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "つんつんつん",
+    "avg_logprob": -0.607,
+    "no_speech": 0.0,
+    "norm": "つんつんつん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "つぅ",
+    "avg_logprob": -0.761,
+    "no_speech": 0.0,
+    "norm": "つぅ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "つん つん つん つん",
+    "avg_logprob": -0.56,
+    "no_speech": 0.0,
+    "norm": "つんつんつんつん",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "て",
+   "file": "kana_te",
+   "P": {
+    "text": "てー",
+    "avg_logprob": -0.92,
+    "no_speech": 0.0,
+    "norm": "て",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "てーてーてー",
+    "avg_logprob": -0.59,
+    "no_speech": 0.0,
+    "norm": "てーてーて",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "てぇ",
+    "avg_logprob": -1.119,
+    "no_speech": 0.0,
+    "norm": "てぇ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "てーてーてーてー",
+    "avg_logprob": -0.736,
+    "no_speech": 0.0,
+    "norm": "てーてーてーて",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "で",
+   "file": "kana_de",
+   "P": {
+    "text": "でー",
+    "avg_logprob": -0.935,
+    "no_speech": 0.0,
+    "norm": "で",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "てててて",
+    "avg_logprob": -0.752,
+    "no_speech": 0.0,
+    "norm": "てててて",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "でー",
+    "avg_logprob": -0.955,
+    "no_speech": 0.0,
+    "norm": "で",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "てててて",
+    "avg_logprob": -0.933,
+    "no_speech": 0.0,
+    "norm": "てててて",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "と",
+   "file": "kana_to",
+   "P": {
+    "text": "と",
+    "avg_logprob": -0.769,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ととと",
+    "avg_logprob": -0.549,
+    "no_speech": 0.0,
+    "norm": "ととと",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "と",
+    "avg_logprob": -0.972,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "と",
+    "avg_logprob": -1.063,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ど",
+   "file": "kana_do",
+   "P": {
+    "text": "と",
+    "avg_logprob": -0.877,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ととと",
+    "avg_logprob": -0.97,
+    "no_speech": 0.0,
+    "norm": "ととと",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "と",
+    "avg_logprob": -1.055,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "と と と",
+    "avg_logprob": -1.04,
+    "no_speech": 0.0,
+    "norm": "ととと",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "な",
+   "file": "kana_na",
+   "P": {
+    "text": "なー",
+    "avg_logprob": -0.823,
+    "no_speech": 0.0,
+    "norm": "な",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "なーなーなー",
+    "avg_logprob": -0.542,
+    "no_speech": 0.0,
+    "norm": "なーなーな",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "なぁ",
+    "avg_logprob": -0.902,
+    "no_speech": 0.0,
+    "norm": "なぁ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "なあ なあ なあ",
+    "avg_logprob": -0.726,
+    "no_speech": 0.0,
+    "norm": "なあなあなあ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "に",
+   "file": "kana_ni",
+   "P": {
+    "text": "みー",
+    "avg_logprob": -1.018,
+    "no_speech": 0.0,
+    "norm": "み",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "リーリーリー",
+    "avg_logprob": -0.714,
+    "no_speech": 0.0,
+    "norm": "りーりーり",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "に",
+    "avg_logprob": -1.405,
+    "no_speech": 0.0,
+    "norm": "に",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "リーリーリー",
+    "avg_logprob": -0.866,
+    "no_speech": 0.0,
+    "norm": "りーりーり",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ぬ",
+   "file": "kana_nu",
+   "P": {
+    "text": "ぬぅ",
+    "avg_logprob": -0.568,
+    "no_speech": 0.0,
+    "norm": "ぬぅ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ぬぬぬ",
+    "avg_logprob": -0.432,
+    "no_speech": 0.0,
+    "norm": "ぬぬぬ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ぬぅ",
+    "avg_logprob": -0.716,
+    "no_speech": 0.0,
+    "norm": "ぬぅ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ぬぬぬぬ",
+    "avg_logprob": -0.469,
+    "no_speech": 0.0,
+    "norm": "ぬぬぬぬ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ね",
+   "file": "kana_ne",
+   "P": {
+    "text": "ねえ",
+    "avg_logprob": -0.721,
+    "no_speech": 0.0,
+    "norm": "ねえ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ねえねえねえ",
+    "avg_logprob": -0.437,
+    "no_speech": 0.0,
+    "norm": "ねえねえねえ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ねえ",
+    "avg_logprob": -1.009,
+    "no_speech": 0.0,
+    "norm": "ねえ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ねえねえねえ",
+    "avg_logprob": -0.602,
+    "no_speech": 0.0,
+    "norm": "ねえねえねえ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "の",
+   "file": "kana_no",
+   "P": {
+    "text": "の",
+    "avg_logprob": -0.812,
+    "no_speech": 0.0,
+    "norm": "の",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ののの",
+    "avg_logprob": -0.798,
+    "no_speech": 0.0,
+    "norm": "ののの",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "の",
+    "avg_logprob": -0.917,
+    "no_speech": 0.0,
+    "norm": "の",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "の、の、の",
+    "avg_logprob": -0.826,
+    "no_speech": 0.0,
+    "norm": "ののの",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "は",
+   "file": "kana_ha",
+   "P": {
+    "text": "あー",
+    "avg_logprob": -0.974,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "あーあーあー",
+    "avg_logprob": -0.755,
+    "no_speech": 0.0,
+    "norm": "あーあーあ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "あー",
+    "avg_logprob": -1.168,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "あーあーあー",
+    "avg_logprob": -0.916,
+    "no_speech": 0.0,
+    "norm": "あーあーあ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ば",
+   "file": "kana_ba",
+   "P": {
+    "text": "ばー",
+    "avg_logprob": -0.848,
+    "no_speech": 0.0,
+    "norm": "ば",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "パー、パー、パー",
+    "avg_logprob": -0.496,
+    "no_speech": 0.0,
+    "norm": "ぱーぱーぱ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "ばー",
+    "avg_logprob": -0.938,
+    "no_speech": 0.0,
+    "norm": "ば",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ぱーぱーぱーぱー",
+    "avg_logprob": -0.484,
+    "no_speech": 0.0,
+    "norm": "ぱーぱーぱーぱ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ひ",
+   "file": "kana_hi",
+   "P": {
+    "text": "P",
+    "avg_logprob": -1.285,
+    "no_speech": 0.0,
+    "norm": "P",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "ティー ティー ティー",
+    "avg_logprob": -0.476,
+    "no_speech": 0.0,
+    "norm": "てぃーてぃーてぃ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "ぴー",
+    "avg_logprob": -1.08,
+    "no_speech": 0.0,
+    "norm": "ぴ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ティー ティー ティー",
+    "avg_logprob": -0.512,
+    "no_speech": 0.0,
+    "norm": "てぃーてぃーてぃ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "び",
+   "file": "kana_bi",
+   "P": {
+    "text": "B",
+    "avg_logprob": -0.75,
+    "no_speech": 0.0,
+    "norm": "B",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "ビー、ビー、ビー",
+    "avg_logprob": -0.486,
+    "no_speech": 0.0,
+    "norm": "びーびーび",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "B",
+    "avg_logprob": -1.281,
+    "no_speech": 0.0,
+    "norm": "B",
+    "how": "latin",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ビー ビー ビー",
+    "avg_logprob": -0.533,
+    "no_speech": 0.0,
+    "norm": "びーびーび",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ふ",
+   "file": "kana_fu",
+   "P": {
+    "text": "う",
+    "avg_logprob": -1.125,
+    "no_speech": 0.0,
+    "norm": "う",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "うううう",
+    "avg_logprob": -0.581,
+    "no_speech": 0.0,
+    "norm": "うううう",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "う",
+    "avg_logprob": -1.193,
+    "no_speech": 0.0,
+    "norm": "う",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "うううううう",
+    "avg_logprob": -0.724,
+    "no_speech": 0.0,
+    "norm": "うううううう",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ぷ",
+   "file": "kana_pu",
+   "P": {
+    "text": "ぷー",
+    "avg_logprob": -0.599,
+    "no_speech": 0.0,
+    "norm": "ぷ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ぺんぺんぺん",
+    "avg_logprob": -0.393,
+    "no_speech": 0.0,
+    "norm": "ぺんぺんぺん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "ぷー",
+    "avg_logprob": -0.727,
+    "no_speech": 0.0,
+    "norm": "ぷ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ぺんぺんぺん",
+    "avg_logprob": -0.547,
+    "no_speech": 0.0,
+    "norm": "ぺんぺんぺん",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "へ",
+   "file": "kana_he",
+   "P": {
+    "text": "ぺーん",
+    "avg_logprob": -0.859,
+    "no_speech": 0.0,
+    "norm": "ぺーん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "平安 平安 平安",
+    "avg_logprob": -0.479,
+    "no_speech": 0.0,
+    "norm": "平安平安平安",
+    "how": "unknown",
+    "ok": false
+   },
+   "PP": {
+    "text": "ぺーん",
+    "avg_logprob": -0.98,
+    "no_speech": 0.0,
+    "norm": "ぺーん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "平安 平安 平安",
+    "avg_logprob": -0.63,
+    "no_speech": 0.0,
+    "norm": "平安平安平安",
+    "how": "unknown",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ほ",
+   "file": "kana_ho",
+   "P": {
+    "text": "おー",
+    "avg_logprob": -0.799,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "お、お、お",
+    "avg_logprob": -0.468,
+    "no_speech": 0.0,
+    "norm": "おおお",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "おー",
+    "avg_logprob": -1.072,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "おー おー おー",
+    "avg_logprob": -0.889,
+    "no_speech": 0.0,
+    "norm": "おーおーお",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ま",
+   "file": "kana_ma",
+   "P": {
+    "text": "まぁ",
+    "avg_logprob": -1.239,
+    "no_speech": 0.0,
+    "norm": "まぁ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "まーまーまー",
+    "avg_logprob": -0.529,
+    "no_speech": 0.0,
+    "norm": "まーまーま",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "まぁ",
+    "avg_logprob": -1.285,
+    "no_speech": 0.0,
+    "norm": "まぁ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "まーまーまー",
+    "avg_logprob": -0.658,
+    "no_speech": 0.0,
+    "norm": "まーまーま",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "み",
+   "file": "kana_mi",
+   "P": {
+    "text": "みー",
+    "avg_logprob": -0.839,
+    "no_speech": 0.0,
+    "norm": "み",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "みみみ",
+    "avg_logprob": -0.819,
+    "no_speech": 0.0,
+    "norm": "みみみ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "みー",
+    "avg_logprob": -0.904,
+    "no_speech": 0.0,
+    "norm": "み",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "みー みー みー みー",
+    "avg_logprob": -0.457,
+    "no_speech": 0.0,
+    "norm": "みーみーみーみ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "む",
+   "file": "kana_mu",
+   "P": {
+    "text": "むむ",
+    "avg_logprob": -0.781,
+    "no_speech": 0.0,
+    "norm": "むむ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "むむむむむむ",
+    "avg_logprob": -0.548,
+    "no_speech": 0.0,
+    "norm": "むむむむむむ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "むむ",
+    "avg_logprob": -1.136,
+    "no_speech": 0.0,
+    "norm": "むむ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "むむむむむむ",
+    "avg_logprob": -0.555,
+    "no_speech": 0.0,
+    "norm": "むむむむむむ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "め",
+   "file": "kana_me",
+   "P": {
+    "text": "めー",
+    "avg_logprob": -0.699,
+    "no_speech": 0.0,
+    "norm": "め",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "めーめーめー",
+    "avg_logprob": -0.496,
+    "no_speech": 0.0,
+    "norm": "めーめーめ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "めー",
+    "avg_logprob": -1.021,
+    "no_speech": 0.0,
+    "norm": "め",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "めーめーめー",
+    "avg_logprob": -0.695,
+    "no_speech": 0.0,
+    "norm": "めーめーめ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "も",
+   "file": "kana_mo",
+   "P": {
+    "text": "もー",
+    "avg_logprob": -0.711,
+    "no_speech": 0.0,
+    "norm": "も",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "もーもーもー",
+    "avg_logprob": -0.526,
+    "no_speech": 0.0,
+    "norm": "もーもーも",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "もー",
+    "avg_logprob": -0.938,
+    "no_speech": 0.0,
+    "norm": "も",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "もーもーもー",
+    "avg_logprob": -0.655,
+    "no_speech": 0.0,
+    "norm": "もーもーも",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "や",
+   "file": "kana_ya",
+   "P": {
+    "text": "やー",
+    "avg_logprob": -0.872,
+    "no_speech": 0.0,
+    "norm": "や",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "りゃー",
+    "avg_logprob": -0.808,
+    "no_speech": 0.0,
+    "norm": "りゃ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "やー",
+    "avg_logprob": -1.207,
+    "no_speech": 0.0,
+    "norm": "や",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "りゃー",
+    "avg_logprob": -0.885,
+    "no_speech": 0.0,
+    "norm": "りゃ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ゆ",
+   "file": "kana_yu",
+   "P": {
+    "text": "ゆー",
+    "avg_logprob": -1.244,
+    "no_speech": 0.0,
+    "norm": "ゆ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "りゅー",
+    "avg_logprob": -0.78,
+    "no_speech": 0.0,
+    "norm": "りゅ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "きゅう",
+    "avg_logprob": -0.734,
+    "no_speech": 0.0,
+    "norm": "きゅう",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "りゅー",
+    "avg_logprob": -0.824,
+    "no_speech": 0.0,
+    "norm": "りゅ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "よ",
+   "file": "kana_yo",
+   "P": {
+    "text": "よー",
+    "avg_logprob": -0.754,
+    "no_speech": 0.0,
+    "norm": "よ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "よーよーよー",
+    "avg_logprob": -0.565,
+    "no_speech": 0.0,
+    "norm": "よーよーよ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "よー",
+    "avg_logprob": -0.959,
+    "no_speech": 0.0,
+    "norm": "よ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "よーよーよー",
+    "avg_logprob": -0.762,
+    "no_speech": 0.0,
+    "norm": "よーよーよ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ら",
+   "file": "kana_ra",
+   "P": {
+    "text": "なーん",
+    "avg_logprob": -1.017,
+    "no_speech": 0.0,
+    "norm": "なーん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ラン ラン ラン",
+    "avg_logprob": -0.316,
+    "no_speech": 0.0,
+    "norm": "らんらんらん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "なぁ",
+    "avg_logprob": -1.155,
+    "no_speech": 0.0,
+    "norm": "なぁ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ラン ラン ラン",
+    "avg_logprob": -0.511,
+    "no_speech": 0.0,
+    "norm": "らんらんらん",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "り",
+   "file": "kana_ri",
+   "P": {
+    "text": "B",
+    "avg_logprob": -1.024,
+    "no_speech": 0.0,
+    "norm": "B",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "リーリーリー",
+    "avg_logprob": -0.635,
+    "no_speech": 0.0,
+    "norm": "りーりーり",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "に",
+    "avg_logprob": -1.477,
+    "no_speech": 0.0,
+    "norm": "に",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "リーリーリー",
+    "avg_logprob": -0.698,
+    "no_speech": 0.0,
+    "norm": "りーりーり",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "る",
+   "file": "kana_ru",
+   "P": {
+    "text": "るー",
+    "avg_logprob": -0.919,
+    "no_speech": 0.0,
+    "norm": "る",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "るるる",
+    "avg_logprob": -0.805,
+    "no_speech": 0.0,
+    "norm": "るるる",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "る",
+    "avg_logprob": -0.994,
+    "no_speech": 0.0,
+    "norm": "る",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "るるる",
+    "avg_logprob": -0.884,
+    "no_speech": 0.0,
+    "norm": "るるる",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "れ",
+   "file": "kana_re",
+   "P": {
+    "text": "ねえ",
+    "avg_logprob": -0.641,
+    "no_speech": 0.0,
+    "norm": "ねえ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "レレレ",
+    "avg_logprob": -0.878,
+    "no_speech": 0.0,
+    "norm": "れれれ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ねえ",
+    "avg_logprob": -0.945,
+    "no_speech": 0.0,
+    "norm": "ねえ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "レー レー レー",
+    "avg_logprob": -0.699,
+    "no_speech": 0.0,
+    "norm": "れーれーれ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ろ",
+   "file": "kana_ro",
+   "P": {
+    "text": "ロー",
+    "avg_logprob": -0.706,
+    "no_speech": 0.0,
+    "norm": "ろ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ロロロ",
+    "avg_logprob": -0.791,
+    "no_speech": 0.0,
+    "norm": "ろろろ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ロー",
+    "avg_logprob": -0.914,
+    "no_speech": 0.0,
+    "norm": "ろ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ロー ロー ロー ロー",
+    "avg_logprob": -0.548,
+    "no_speech": 0.0,
+    "norm": "ろーろーろーろ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "わ",
+   "file": "kana_wa",
+   "P": {
+    "text": "わー",
+    "avg_logprob": -0.743,
+    "no_speech": 0.0,
+    "norm": "わ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "わーわーわー",
+    "avg_logprob": -0.383,
+    "no_speech": 0.0,
+    "norm": "わーわーわ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "わー",
+    "avg_logprob": -0.839,
+    "no_speech": 0.0,
+    "norm": "わ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "わーわーわー",
+    "avg_logprob": -0.562,
+    "no_speech": 0.0,
+    "norm": "わーわーわ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "を",
+   "file": "kana_wo",
+   "P": {
+    "text": "お",
+    "avg_logprob": -0.697,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "お、お、お",
+    "avg_logprob": -0.472,
+    "no_speech": 0.0,
+    "norm": "おおお",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "お",
+    "avg_logprob": -0.861,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "お お お",
+    "avg_logprob": -0.883,
+    "no_speech": 0.0,
+    "norm": "おおお",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ん",
+   "file": "kana_n",
+   "P": {
+    "text": "ん",
+    "avg_logprob": -0.608,
+    "no_speech": 0.0,
+    "norm": "ん",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "んんん",
+    "avg_logprob": -0.552,
+    "no_speech": 0.0,
+    "norm": "んんん",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ん",
+    "avg_logprob": -1.056,
+    "no_speech": 0.0,
+    "norm": "ん",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう",
+    "avg_logprob": -0.067,
+    "no_speech": 0.0,
+    "norm": "ううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううううう",
+    "how": "kana",
+    "ok": false
+   }
+  }
+ ],
+ "kanaN": [
+  {
+   "kana": "あ",
+   "file": "kana_a",
+   "P": {
+    "text": "あ",
+    "avg_logprob": -0.754,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "あっあっあっ",
+    "avg_logprob": -0.554,
+    "no_speech": 0.0,
+    "norm": "あっあっあっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "あっ",
+    "avg_logprob": -0.866,
+    "no_speech": 0.0,
+    "norm": "あっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "あっあっあっ",
+    "avg_logprob": -0.629,
+    "no_speech": 0.0,
+    "norm": "あっあっあっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "い",
+   "file": "kana_i",
+   "P": {
+    "text": "1",
+    "avg_logprob": -0.869,
+    "no_speech": 0.0,
+    "norm": "1",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "いっいっ",
+    "avg_logprob": -0.74,
+    "no_speech": 0.0,
+    "norm": "いっいっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "いっ",
+    "avg_logprob": -1.124,
+    "no_speech": 0.0,
+    "norm": "いっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "いっいっいっ",
+    "avg_logprob": -0.795,
+    "no_speech": 0.0,
+    "norm": "いっいっいっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "う",
+   "file": "kana_u",
+   "P": {
+    "text": "うっ",
+    "avg_logprob": -1.01,
+    "no_speech": 0.0,
+    "norm": "うっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "んんんん",
+    "avg_logprob": -0.817,
+    "no_speech": 0.0,
+    "norm": "んんんん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "うっ",
+    "avg_logprob": -0.875,
+    "no_speech": 0.0,
+    "norm": "うっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "んっんっんっ",
+    "avg_logprob": -0.952,
+    "no_speech": 0.0,
+    "norm": "んっんっんっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "え",
+   "file": "kana_e",
+   "P": {
+    "text": "えっ",
+    "avg_logprob": -0.692,
+    "no_speech": 0.0,
+    "norm": "えっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "え、え、え",
+    "avg_logprob": -0.458,
+    "no_speech": 0.0,
+    "norm": "えええ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "えっ",
+    "avg_logprob": -0.832,
+    "no_speech": 0.0,
+    "norm": "えっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "えっえっえっ",
+    "avg_logprob": -0.87,
+    "no_speech": 0.0,
+    "norm": "えっえっえっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "お",
+   "file": "kana_o",
+   "P": {
+    "text": "あ",
+    "avg_logprob": -0.989,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "あ、あ、あ",
+    "avg_logprob": -0.492,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "あ",
+    "avg_logprob": -1.179,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "あ、あ、あ",
+    "avg_logprob": -0.558,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "か",
+   "file": "kana_ka",
+   "P": {
+    "text": "かっ",
+    "avg_logprob": -0.902,
+    "no_speech": 0.0,
+    "norm": "かっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "かっかっかっ",
+    "avg_logprob": -0.567,
+    "no_speech": 0.0,
+    "norm": "かっかっかっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "カッ",
+    "avg_logprob": -0.761,
+    "no_speech": 0.0,
+    "norm": "かっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "カッカッカッ",
+    "avg_logprob": -0.524,
+    "no_speech": 0.0,
+    "norm": "かっかっかっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "き",
+   "file": "kana_ki",
+   "P": {
+    "text": "きっ",
+    "avg_logprob": -0.632,
+    "no_speech": 0.0,
+    "norm": "きっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "キックキックキック",
+    "avg_logprob": -0.587,
+    "no_speech": 0.0,
+    "norm": "きっくきっくきっく",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "きっかけ",
+    "avg_logprob": -1.062,
+    "no_speech": 0.0,
+    "norm": "きっかけ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "キックキックキック",
+    "avg_logprob": -0.62,
+    "no_speech": 0.0,
+    "norm": "きっくきっくきっく",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ぎ",
+   "file": "kana_gi",
+   "P": {
+    "text": "きっ",
+    "avg_logprob": -0.973,
+    "no_speech": 0.0,
+    "norm": "きっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "キキキ",
+    "avg_logprob": -0.603,
+    "no_speech": 0.0,
+    "norm": "ききき",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "きっ",
+    "avg_logprob": -0.982,
+    "no_speech": 0.0,
+    "norm": "きっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "き き き き",
+    "avg_logprob": -0.517,
+    "no_speech": 0.0,
+    "norm": "きききき",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "く",
+   "file": "kana_ku",
+   "P": {
+    "text": "くっ",
+    "avg_logprob": -0.613,
+    "no_speech": 0.0,
+    "norm": "くっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "くっくっくっ",
+    "avg_logprob": -0.417,
+    "no_speech": 0.0,
+    "norm": "くっくっくっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "くっ",
+    "avg_logprob": -0.673,
+    "no_speech": 0.0,
+    "norm": "くっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "くっくっくっ",
+    "avg_logprob": -0.413,
+    "no_speech": 0.0,
+    "norm": "くっくっくっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ぐ",
+   "file": "kana_gu",
+   "P": {
+    "text": "ご視聴ありがとうございました",
+    "avg_logprob": -0.383,
+    "no_speech": 0.0,
+    "norm": "ご視聴ありがとうございました",
+    "how": "unknown",
+    "ok": false
+   },
+   "R3": {
+    "text": "ぐっぐっぐっ",
+    "avg_logprob": -0.554,
+    "no_speech": 0.0,
+    "norm": "ぐっぐっぐっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "くっ",
+    "avg_logprob": -0.784,
+    "no_speech": 0.0,
+    "norm": "くっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ぐっぐっぐっ",
+    "avg_logprob": -0.503,
+    "no_speech": 0.0,
+    "norm": "ぐっぐっぐっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "け",
+   "file": "kana_ke",
+   "P": {
+    "text": "てっ",
+    "avg_logprob": -0.674,
+    "no_speech": 0.0,
+    "norm": "てっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ててて",
+    "avg_logprob": -0.812,
+    "no_speech": 0.0,
+    "norm": "ててて",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "てっ",
+    "avg_logprob": -0.904,
+    "no_speech": 0.0,
+    "norm": "てっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "てっ てっ てっ てっ",
+    "avg_logprob": -0.591,
+    "no_speech": 0.0,
+    "norm": "てってってってっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "こ",
+   "file": "kana_ko",
+   "P": {
+    "text": "こっ",
+    "avg_logprob": -0.92,
+    "no_speech": 0.0,
+    "norm": "こっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "こ、こ、こ",
+    "avg_logprob": -0.438,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "こっ",
+    "avg_logprob": -0.915,
+    "no_speech": 0.0,
+    "norm": "こっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "こ、こ、こ",
+    "avg_logprob": -0.676,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ご",
+   "file": "kana_go",
+   "P": {
+    "text": "5",
+    "avg_logprob": -0.934,
+    "no_speech": 0.0,
+    "norm": "5",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "こ、こ、こ",
+    "avg_logprob": -0.466,
+    "no_speech": 0.0,
+    "norm": "こここ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "こっ",
+    "avg_logprob": -1.143,
+    "no_speech": 0.0,
+    "norm": "こっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "こっこっこっ",
+    "avg_logprob": -0.609,
+    "no_speech": 0.0,
+    "norm": "こっこっこっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "さ",
+   "file": "kana_sa",
+   "P": {
+    "text": "さて",
+    "avg_logprob": -0.751,
+    "no_speech": 0.0,
+    "norm": "さて",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "さっさっさっ",
+    "avg_logprob": -0.533,
+    "no_speech": 0.0,
+    "norm": "さっさっさっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "さて",
+    "avg_logprob": -0.965,
+    "no_speech": 0.0,
+    "norm": "さて",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "さっさっさっ",
+    "avg_logprob": -0.557,
+    "no_speech": 0.0,
+    "norm": "さっさっさっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ざ",
+   "file": "kana_za",
+   "P": {
+    "text": "ザ・",
+    "avg_logprob": -0.557,
+    "no_speech": 0.0,
+    "norm": "ざ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ザ・ザ・ザ",
+    "avg_logprob": -0.233,
+    "no_speech": 0.0,
+    "norm": "ざざざ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ザ・",
+    "avg_logprob": -0.916,
+    "no_speech": 0.0,
+    "norm": "ざ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ザ・ザ・ザ",
+    "avg_logprob": -0.396,
+    "no_speech": 0.0,
+    "norm": "ざざざ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "し",
+   "file": "kana_shi",
+   "P": {
+    "text": "次回予告",
+    "avg_logprob": -0.525,
+    "no_speech": 0.0,
+    "norm": "次回予告",
+    "how": "unknown",
+    "ok": false
+   },
+   "R3": {
+    "text": "し、し、し",
+    "avg_logprob": -0.424,
+    "no_speech": 0.0,
+    "norm": "ししし",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "しっかりとして",
+    "avg_logprob": -1.326,
+    "no_speech": 0.0,
+    "norm": "しっかりとして",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "しっしっしっ",
+    "avg_logprob": -0.539,
+    "no_speech": 0.0,
+    "norm": "しっしっしっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "じ",
+   "file": "kana_ji",
+   "P": {
+    "text": "次",
+    "avg_logprob": -0.673,
+    "no_speech": 0.0,
+    "norm": "次",
+    "how": "unknown",
+    "ok": false
+   },
+   "R3": {
+    "text": "じっじっじっ",
+    "avg_logprob": -0.547,
+    "no_speech": 0.0,
+    "norm": "じっじっじっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "字幕は、ご視聴ありがとうございました。",
+    "avg_logprob": -1.077,
+    "no_speech": 0.0,
+    "norm": "じ幕はご視聴ありがとうございました",
+    "how": "unknown",
+    "ok": false
+   },
+   "R3P": {
+    "text": "字 字 字",
+    "avg_logprob": -0.63,
+    "no_speech": 0.0,
+    "norm": "じじじ",
+    "how": "kanji",
+    "ok": true
+   }
+  },
+  {
+   "kana": "す",
+   "file": "kana_su",
+   "P": {
+    "text": "すっ",
+    "avg_logprob": -0.61,
+    "no_speech": 0.0,
+    "norm": "すっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "すすす",
+    "avg_logprob": -0.692,
+    "no_speech": 0.0,
+    "norm": "すすす",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "すっ",
+    "avg_logprob": -1.075,
+    "no_speech": 0.0,
+    "norm": "すっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "すっすっすっ",
+    "avg_logprob": -0.654,
+    "no_speech": 0.0,
+    "norm": "すっすっすっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ず",
+   "file": "kana_zu",
+   "P": {
+    "text": "ずっと",
+    "avg_logprob": -0.643,
+    "no_speech": 0.0,
+    "norm": "ずっと",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ずっずっずっ",
+    "avg_logprob": -0.542,
+    "no_speech": 0.0,
+    "norm": "ずっずっずっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ずっと",
+    "avg_logprob": -0.952,
+    "no_speech": 0.0,
+    "norm": "ずっと",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ずっずっずっ",
+    "avg_logprob": -0.622,
+    "no_speech": 0.0,
+    "norm": "ずっずっずっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "せ",
+   "file": "kana_se",
+   "P": {
+    "text": "セット",
+    "avg_logprob": -0.609,
+    "no_speech": 0.0,
+    "norm": "せっと",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "せっ、せっ、せっ",
+    "avg_logprob": -0.443,
+    "no_speech": 0.0,
+    "norm": "せっせっせっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "セット",
+    "avg_logprob": -0.996,
+    "no_speech": 0.0,
+    "norm": "せっと",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "せっ せっ せっ",
+    "avg_logprob": -0.511,
+    "no_speech": 0.0,
+    "norm": "せっせっせっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "そ",
+   "file": "kana_so",
+   "P": {
+    "text": "そっ",
+    "avg_logprob": -0.853,
+    "no_speech": 0.0,
+    "norm": "そっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "そっそっそっ",
+    "avg_logprob": -0.484,
+    "no_speech": 0.0,
+    "norm": "そっそっそっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "そっ",
+    "avg_logprob": -1.119,
+    "no_speech": 0.0,
+    "norm": "そっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "そっそっそっ",
+    "avg_logprob": -0.467,
+    "no_speech": 0.0,
+    "norm": "そっそっそっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "た",
+   "file": "kana_ta",
+   "P": {
+    "text": "あ",
+    "avg_logprob": -0.864,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "た、た、た",
+    "avg_logprob": -0.38,
+    "no_speech": 0.0,
+    "norm": "たたた",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "あ",
+    "avg_logprob": -1.263,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "た、た、た",
+    "avg_logprob": -0.595,
+    "no_speech": 0.0,
+    "norm": "たたた",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "だ",
+   "file": "kana_da",
+   "P": {
+    "text": "だ",
+    "avg_logprob": -0.621,
+    "no_speech": 0.0,
+    "norm": "だ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "た、た、た",
+    "avg_logprob": -0.5,
+    "no_speech": 0.0,
+    "norm": "たたた",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "だ",
+    "avg_logprob": -1.197,
+    "no_speech": 0.0,
+    "norm": "だ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "た、た、た",
+    "avg_logprob": -0.729,
+    "no_speech": 0.0,
+    "norm": "たたた",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ち",
+   "file": "kana_chi",
+   "P": {
+    "text": "ちっ",
+    "avg_logprob": -0.941,
+    "no_speech": 0.0,
+    "norm": "ちっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ちちち",
+    "avg_logprob": -0.544,
+    "no_speech": 0.0,
+    "norm": "ちちち",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ちっ",
+    "avg_logprob": -1.131,
+    "no_speech": 0.0,
+    "norm": "ちっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ちちち",
+    "avg_logprob": -0.731,
+    "no_speech": 0.0,
+    "norm": "ちちち",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "つ",
+   "file": "kana_tsu",
+   "P": {
+    "text": "ご視聴ありがとうございました",
+    "avg_logprob": -0.244,
+    "no_speech": 0.0,
+    "norm": "ご視聴ありがとうございました",
+    "how": "unknown",
+    "ok": false
+   },
+   "R3": {
+    "text": "ご視聴ありがとうございました",
+    "avg_logprob": -0.242,
+    "no_speech": 0.0,
+    "norm": "ご視聴ありがとうございました",
+    "how": "unknown",
+    "ok": false
+   },
+   "PP": {
+    "text": "ご視聴ありがとうございました",
+    "avg_logprob": -0.525,
+    "no_speech": 0.0,
+    "norm": "ご視聴ありがとうございました",
+    "how": "unknown",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ご視聴ありがとうございました",
+    "avg_logprob": -0.595,
+    "no_speech": 0.0,
+    "norm": "ご視聴ありがとうございました",
+    "how": "unknown",
+    "ok": false
+   }
+  },
+  {
+   "kana": "て",
+   "file": "kana_te",
+   "P": {
+    "text": "てっ",
+    "avg_logprob": -0.701,
+    "no_speech": 0.0,
+    "norm": "てっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ててて",
+    "avg_logprob": -0.697,
+    "no_speech": 0.0,
+    "norm": "ててて",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "てっ",
+    "avg_logprob": -0.813,
+    "no_speech": 0.0,
+    "norm": "てっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "てっ てっ てっ てっ",
+    "avg_logprob": -0.614,
+    "no_speech": 0.0,
+    "norm": "てってってってっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "で",
+   "file": "kana_de",
+   "P": {
+    "text": "で",
+    "avg_logprob": -0.442,
+    "no_speech": 0.0,
+    "norm": "で",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "で、で、で",
+    "avg_logprob": -0.285,
+    "no_speech": 0.0,
+    "norm": "ででで",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "で",
+    "avg_logprob": -0.971,
+    "no_speech": 0.0,
+    "norm": "で",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "で、で、で",
+    "avg_logprob": -0.496,
+    "no_speech": 0.0,
+    "norm": "ででで",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "と",
+   "file": "kana_to",
+   "P": {
+    "text": "お",
+    "avg_logprob": -0.914,
+    "no_speech": 0.0,
+    "norm": "お",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ぽぽぽ",
+    "avg_logprob": -0.467,
+    "no_speech": 0.0,
+    "norm": "ぽぽぽ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "あ",
+    "avg_logprob": -1.241,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ぽ ぽ ぽ ぽ",
+    "avg_logprob": -0.458,
+    "no_speech": 0.0,
+    "norm": "ぽぽぽぽ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ど",
+   "file": "kana_do",
+   "P": {
+    "text": "と",
+    "avg_logprob": -0.659,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "と、と、と",
+    "avg_logprob": -0.415,
+    "no_speech": 0.0,
+    "norm": "ととと",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "と",
+    "avg_logprob": -1.145,
+    "no_speech": 0.0,
+    "norm": "と",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "と、と、と",
+    "avg_logprob": -0.64,
+    "no_speech": 0.0,
+    "norm": "ととと",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "な",
+   "file": "kana_na",
+   "P": {
+    "text": "な",
+    "avg_logprob": -0.416,
+    "no_speech": 0.0,
+    "norm": "な",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "な、な、な",
+    "avg_logprob": -0.303,
+    "no_speech": 0.0,
+    "norm": "ななな",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "なっ",
+    "avg_logprob": -0.965,
+    "no_speech": 0.0,
+    "norm": "なっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "な、な、な",
+    "avg_logprob": -0.569,
+    "no_speech": 0.0,
+    "norm": "ななな",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "に",
+   "file": "kana_ni",
+   "P": {
+    "text": "2.",
+    "avg_logprob": -0.788,
+    "no_speech": 0.0,
+    "norm": "2",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "ににに",
+    "avg_logprob": -0.686,
+    "no_speech": 0.0,
+    "norm": "ににに",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "2",
+    "avg_logprob": -1.342,
+    "no_speech": 0.0,
+    "norm": "2",
+    "how": "latin",
+    "ok": false
+   },
+   "R3P": {
+    "text": "にっにっにっ",
+    "avg_logprob": -0.696,
+    "no_speech": 0.0,
+    "norm": "にっにっにっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ぬ",
+   "file": "kana_nu",
+   "P": {
+    "text": "なって",
+    "avg_logprob": -1.056,
+    "no_speech": 0.0,
+    "norm": "なって",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ぬっぬっぬっ",
+    "avg_logprob": -0.445,
+    "no_speech": 0.0,
+    "norm": "ぬっぬっぬっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "なっ",
+    "avg_logprob": -1.191,
+    "no_speech": 0.0,
+    "norm": "なっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ぬっぬっぬっ",
+    "avg_logprob": -0.497,
+    "no_speech": 0.0,
+    "norm": "ぬっぬっぬっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ね",
+   "file": "kana_ne",
+   "P": {
+    "text": "ねっ",
+    "avg_logprob": -0.742,
+    "no_speech": 0.0,
+    "norm": "ねっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ねっねっねっ",
+    "avg_logprob": -0.617,
+    "no_speech": 0.0,
+    "norm": "ねっねっねっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ねっ",
+    "avg_logprob": -1.009,
+    "no_speech": 0.0,
+    "norm": "ねっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ねっ ねっ ねっ",
+    "avg_logprob": -0.681,
+    "no_speech": 0.0,
+    "norm": "ねっねっねっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "の",
+   "file": "kana_no",
+   "P": {
+    "text": "の",
+    "avg_logprob": -0.658,
+    "no_speech": 0.0,
+    "norm": "の",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "の、の、の",
+    "avg_logprob": -0.453,
+    "no_speech": 0.0,
+    "norm": "ののの",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "の",
+    "avg_logprob": -1.295,
+    "no_speech": 0.0,
+    "norm": "の",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "のっのっのっ",
+    "avg_logprob": -0.695,
+    "no_speech": 0.0,
+    "norm": "のっのっのっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "は",
+   "file": "kana_ha",
+   "P": {
+    "text": "はっ",
+    "avg_logprob": -0.831,
+    "no_speech": 0.0,
+    "norm": "はっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "はっはっはっ",
+    "avg_logprob": -0.447,
+    "no_speech": 0.0,
+    "norm": "はっはっはっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "はっ",
+    "avg_logprob": -0.743,
+    "no_speech": 0.0,
+    "norm": "はっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "はっはっはっ",
+    "avg_logprob": -0.432,
+    "no_speech": 0.0,
+    "norm": "はっはっはっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ば",
+   "file": "kana_ba",
+   "P": {
+    "text": "あ",
+    "avg_logprob": -0.798,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "わっわっわ",
+    "avg_logprob": -0.635,
+    "no_speech": 0.0,
+    "norm": "わっわっわ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "あ",
+    "avg_logprob": -1.176,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ばっばっばっ",
+    "avg_logprob": -0.829,
+    "no_speech": 0.0,
+    "norm": "ばっばっばっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ひ",
+   "file": "kana_hi",
+   "P": {
+    "text": "きっ",
+    "avg_logprob": -0.78,
+    "no_speech": 0.0,
+    "norm": "きっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "キックキックキック",
+    "avg_logprob": -0.513,
+    "no_speech": 0.0,
+    "norm": "きっくきっくきっく",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "きっ",
+    "avg_logprob": -1.079,
+    "no_speech": 0.0,
+    "norm": "きっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "キックキックキック",
+    "avg_logprob": -0.564,
+    "no_speech": 0.0,
+    "norm": "きっくきっくきっく",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "び",
+   "file": "kana_bi",
+   "P": {
+    "text": "リッ",
+    "avg_logprob": -1.068,
+    "no_speech": 0.0,
+    "norm": "りっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "りりり",
+    "avg_logprob": -0.704,
+    "no_speech": 0.0,
+    "norm": "りりり",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "リッ",
+    "avg_logprob": -1.394,
+    "no_speech": 0.0,
+    "norm": "りっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "りりり",
+    "avg_logprob": -0.862,
+    "no_speech": 0.0,
+    "norm": "りりり",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ふ",
+   "file": "kana_fu",
+   "P": {
+    "text": "はっ",
+    "avg_logprob": -0.59,
+    "no_speech": 0.0,
+    "norm": "はっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "はっはっはっ",
+    "avg_logprob": -0.456,
+    "no_speech": 0.0,
+    "norm": "はっはっはっ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "はっ",
+    "avg_logprob": -0.796,
+    "no_speech": 0.0,
+    "norm": "はっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "はっはっはっはっ",
+    "avg_logprob": -0.517,
+    "no_speech": 0.0,
+    "norm": "はっはっはっはっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ぷ",
+   "file": "kana_pu",
+   "P": {
+    "text": "ぷっ",
+    "avg_logprob": -0.732,
+    "no_speech": 0.0,
+    "norm": "ぷっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ぷっぷっぷっ",
+    "avg_logprob": -0.428,
+    "no_speech": 0.0,
+    "norm": "ぷっぷっぷっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "ぷっ",
+    "avg_logprob": -0.752,
+    "no_speech": 0.0,
+    "norm": "ぷっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ぷっ ぷっ ぷっ",
+    "avg_logprob": -0.436,
+    "no_speech": 0.0,
+    "norm": "ぷっぷっぷっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "へ",
+   "file": "kana_he",
+   "P": {
+    "text": "へっ",
+    "avg_logprob": -1.059,
+    "no_speech": 0.0,
+    "norm": "へっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "てっ",
+    "avg_logprob": -1.239,
+    "no_speech": 0.0,
+    "norm": "てっ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "ヘッ",
+    "avg_logprob": -1.114,
+    "no_speech": 0.0,
+    "norm": "へっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "てっ てっ てっ てっ",
+    "avg_logprob": -0.684,
+    "no_speech": 0.0,
+    "norm": "てってってってっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ほ",
+   "file": "kana_ho",
+   "P": {
+    "text": "あ",
+    "avg_logprob": -1.007,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ほっほっほっ",
+    "avg_logprob": -0.421,
+    "no_speech": 0.0,
+    "norm": "ほっほっほっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "あ",
+    "avg_logprob": -1.117,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ほっほっほっ",
+    "avg_logprob": -0.427,
+    "no_speech": 0.0,
+    "norm": "ほっほっほっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ま",
+   "file": "kana_ma",
+   "P": {
+    "text": "まっ",
+    "avg_logprob": -0.764,
+    "no_speech": 0.0,
+    "norm": "まっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "ま、ま、ま",
+    "avg_logprob": -0.32,
+    "no_speech": 0.0,
+    "norm": "ままま",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "まっ",
+    "avg_logprob": -0.85,
+    "no_speech": 0.0,
+    "norm": "まっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "ま、ま、ま",
+    "avg_logprob": -0.525,
+    "no_speech": 0.0,
+    "norm": "ままま",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "み",
+   "file": "kana_mi",
+   "P": {
+    "text": "3",
+    "avg_logprob": -0.962,
+    "no_speech": 0.0,
+    "norm": "3",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "み、み、み",
+    "avg_logprob": -0.474,
+    "no_speech": 0.0,
+    "norm": "みみみ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "みっ",
+    "avg_logprob": -1.183,
+    "no_speech": 0.0,
+    "norm": "みっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "み、み、み",
+    "avg_logprob": -0.636,
+    "no_speech": 0.0,
+    "norm": "みみみ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "む",
+   "file": "kana_mu",
+   "P": {
+    "text": "また",
+    "avg_logprob": -0.547,
+    "no_speech": 0.0,
+    "norm": "また",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "まっまっまっ",
+    "avg_logprob": -0.558,
+    "no_speech": 0.0,
+    "norm": "まっまっまっ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "またね",
+    "avg_logprob": -0.842,
+    "no_speech": 0.0,
+    "norm": "またね",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "むっむっむっ",
+    "avg_logprob": -0.622,
+    "no_speech": 0.0,
+    "norm": "むっむっむっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "め",
+   "file": "kana_me",
+   "P": {
+    "text": "めっ",
+    "avg_logprob": -0.736,
+    "no_speech": 0.0,
+    "norm": "めっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "めっめっめっ",
+    "avg_logprob": -0.529,
+    "no_speech": 0.0,
+    "norm": "めっめっめっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "めっ",
+    "avg_logprob": -0.92,
+    "no_speech": 0.0,
+    "norm": "めっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "めっめっめっ",
+    "avg_logprob": -0.588,
+    "no_speech": 0.0,
+    "norm": "めっめっめっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "も",
+   "file": "kana_mo",
+   "P": {
+    "text": "もっ",
+    "avg_logprob": -0.856,
+    "no_speech": 0.0,
+    "norm": "もっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "もっもっもっ",
+    "avg_logprob": -0.569,
+    "no_speech": 0.0,
+    "norm": "もっもっもっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "もっ",
+    "avg_logprob": -0.855,
+    "no_speech": 0.0,
+    "norm": "もっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "もっもっもっ",
+    "avg_logprob": -0.524,
+    "no_speech": 0.0,
+    "norm": "もっもっもっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "や",
+   "file": "kana_ya",
+   "P": {
+    "text": "やっ",
+    "avg_logprob": -0.927,
+    "no_speech": 0.0,
+    "norm": "やっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "や、や、や",
+    "avg_logprob": -0.436,
+    "no_speech": 0.0,
+    "norm": "ややや",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "やっ",
+    "avg_logprob": -0.976,
+    "no_speech": 0.0,
+    "norm": "やっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "やややや",
+    "avg_logprob": -0.767,
+    "no_speech": 0.0,
+    "norm": "やややや",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ゆ",
+   "file": "kana_yu",
+   "P": {
+    "text": "やっ",
+    "avg_logprob": -0.704,
+    "no_speech": 0.0,
+    "norm": "やっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ゆっ、ゆっ、ゆっ",
+    "avg_logprob": -0.465,
+    "no_speech": 0.0,
+    "norm": "ゆっゆっゆっ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "やっ",
+    "avg_logprob": -1.125,
+    "no_speech": 0.0,
+    "norm": "やっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ゆっ、ゆっ、ゆっ",
+    "avg_logprob": -0.62,
+    "no_speech": 0.0,
+    "norm": "ゆっゆっゆっ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "よ",
+   "file": "kana_yo",
+   "P": {
+    "text": "よ",
+    "avg_logprob": -0.65,
+    "no_speech": 0.0,
+    "norm": "よ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "よ、よ、よ",
+    "avg_logprob": -0.423,
+    "no_speech": 0.0,
+    "norm": "よよよ",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "よっ",
+    "avg_logprob": -1.006,
+    "no_speech": 0.0,
+    "norm": "よっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3P": {
+    "text": "よ、よ、よ",
+    "avg_logprob": -0.549,
+    "no_speech": 0.0,
+    "norm": "よよよ",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "ら",
+   "file": "kana_ra",
+   "P": {
+    "text": "な",
+    "avg_logprob": -0.431,
+    "no_speech": 0.0,
+    "norm": "な",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "な、な、な",
+    "avg_logprob": -0.348,
+    "no_speech": 0.0,
+    "norm": "ななな",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "なっ",
+    "avg_logprob": -0.929,
+    "no_speech": 0.0,
+    "norm": "なっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "な、な、な",
+    "avg_logprob": -0.567,
+    "no_speech": 0.0,
+    "norm": "ななな",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "り",
+   "file": "kana_ri",
+   "P": {
+    "text": "2.",
+    "avg_logprob": -0.71,
+    "no_speech": 0.0,
+    "norm": "2",
+    "how": "latin",
+    "ok": false
+   },
+   "R3": {
+    "text": "リリリ",
+    "avg_logprob": -0.7,
+    "no_speech": 0.0,
+    "norm": "りりり",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "2. リクエスト",
+    "avg_logprob": -1.422,
+    "no_speech": 0.0,
+    "norm": "2りくえすと",
+    "how": "latin",
+    "ok": false
+   },
+   "R3P": {
+    "text": "リリリ",
+    "avg_logprob": -0.914,
+    "no_speech": 0.0,
+    "norm": "りりり",
+    "how": "kana",
+    "ok": true
+   }
+  },
+  {
+   "kana": "る",
+   "file": "kana_ru",
+   "P": {
+    "text": "ルッ",
+    "avg_logprob": -0.991,
+    "no_speech": 0.0,
+    "norm": "るっ",
+    "how": "kana",
+    "ok": true
+   },
+   "R3": {
+    "text": "んんん",
+    "avg_logprob": -0.94,
+    "no_speech": 0.0,
+    "norm": "んんん",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "ぶっ",
+    "avg_logprob": -1.037,
+    "no_speech": 0.0,
+    "norm": "ぶっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "むっむっむっ",
+    "avg_logprob": -0.77,
+    "no_speech": 0.0,
+    "norm": "むっむっむっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "れ",
+   "file": "kana_re",
+   "P": {
+    "text": "ねっ",
+    "avg_logprob": -0.677,
+    "no_speech": 0.0,
+    "norm": "ねっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ねっねっねっ",
+    "avg_logprob": -0.503,
+    "no_speech": 0.0,
+    "norm": "ねっねっねっ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "ねっ",
+    "avg_logprob": -0.886,
+    "no_speech": 0.0,
+    "norm": "ねっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "ねっねっねっ",
+    "avg_logprob": -0.642,
+    "no_speech": 0.0,
+    "norm": "ねっねっねっ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ろ",
+   "file": "kana_ro",
+   "P": {
+    "text": "まっ",
+    "avg_logprob": -1.045,
+    "no_speech": 0.0,
+    "norm": "まっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "な、な、な",
+    "avg_logprob": -0.372,
+    "no_speech": 0.0,
+    "norm": "ななな",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "まっ",
+    "avg_logprob": -1.07,
+    "no_speech": 0.0,
+    "norm": "まっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "な、な、な",
+    "avg_logprob": -0.587,
+    "no_speech": 0.0,
+    "norm": "ななな",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "わ",
+   "file": "kana_wa",
+   "P": {
+    "text": "あっ",
+    "avg_logprob": -0.733,
+    "no_speech": 0.0,
+    "norm": "あっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "あ、あ、あ",
+    "avg_logprob": -0.435,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "あっ",
+    "avg_logprob": -0.936,
+    "no_speech": 0.0,
+    "norm": "あっ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "あ、あ、あ",
+    "avg_logprob": -0.573,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "を",
+   "file": "kana_wo",
+   "P": {
+    "text": "あ",
+    "avg_logprob": -0.989,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "あ、あ、あ",
+    "avg_logprob": -0.492,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": false
+   },
+   "PP": {
+    "text": "あ",
+    "avg_logprob": -1.179,
+    "no_speech": 0.0,
+    "norm": "あ",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "あ、あ、あ",
+    "avg_logprob": -0.558,
+    "no_speech": 0.0,
+    "norm": "あああ",
+    "how": "kana",
+    "ok": false
+   }
+  },
+  {
+   "kana": "ん",
+   "file": "kana_n",
+   "P": {
+    "text": "うん",
+    "avg_logprob": -0.657,
+    "no_speech": 0.0,
+    "norm": "うん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3": {
+    "text": "ん",
+    "avg_logprob": -0.911,
+    "no_speech": 0.0,
+    "norm": "ん",
+    "how": "kana",
+    "ok": true
+   },
+   "PP": {
+    "text": "うん",
+    "avg_logprob": -0.854,
+    "no_speech": 0.0,
+    "norm": "うん",
+    "how": "kana",
+    "ok": false
+   },
+   "R3P": {
+    "text": "んんんんんん",
+    "avg_logprob": -0.898,
+    "no_speech": 0.0,
+    "norm": "んんんんんん",
+    "how": "kana",
+    "ok": false
+   }
+  }
+ ],
+ "summary": {
+  "words": "56/60",
+  "words_how": {
+   "kanji": 24,
+   "kana": 36
+  },
+  "kanaS": {
+   "P": "35/58",
+   "R3": "31/58",
+   "PP": "35/58",
+   "R3P": "30/58",
+   "P&R3": "26/58",
+   "P|R3": "40/58"
+  },
+  "kanaS_wrong_P": {
+   "う": "うん",
+   "き": "てぃ",
+   "ぎ": "てぃ",
+   "ぐ": "くー",
+   "ご": "こう",
+   "さ": "たーん",
+   "ざ": "じゃあ",
+   "し": "C",
+   "じ": "ちー",
+   "ず": "つー",
+   "だ": "たー",
+   "ど": "と",
+   "に": "みー",
+   "は": "あー",
+   "ひ": "P",
+   "び": "B",
+   "ふ": "う",
+   "へ": "ぺーん",
+   "ほ": "おー",
+   "む": "むむ",
+   "ら": "なーん",
+   "り": "B",
+   "れ": "ねえ"
+  },
+  "kanaS_wrong_R3": {
+   "か": "かわっかわっかわっ",
+   "き": "ティー ティー ティー",
+   "ぎ": "ティティティ",
+   "ぐ": "くー くー くー",
+   "ご": "こ、こ、こ",
+   "さ": "たーんたーんたーん",
+   "ざ": "たたた",
+   "じ": "ティティティ",
+   "ず": "てーてーてー",
+   "せ": "せん せん せん",
+   "そ": "ゾウ ゾウ ゾウ",
+   "だ": "たーたーたー",
+   "つ": "つんつんつん",
+   "で": "てててて",
+   "ど": "ととと",
+   "に": "リーリーリー",
+   "は": "あーあーあー",
+   "ば": "パー、パー、パー",
+   "ひ": "ティー ティー ティー",
+   "ふ": "うううう",
+   "ぷ": "ぺんぺんぺん",
+   "へ": "平安 平安 平安",
+   "ほ": "お、お、お",
+   "む": "むむむむむむ",
+   "や": "りゃー",
+   "ゆ": "りゅー",
+   "ら": "ラン ラン ラン"
+  },
+  "kanaN": {
+   "P": "26/58",
+   "R3": "36/58",
+   "PP": "26/58",
+   "R3P": "37/58",
+   "P&R3": "21/58",
+   "P|R3": "41/58"
+  },
+  "kanaN_wrong_P": {
+   "い": "1",
+   "お": "あ",
+   "ぎ": "きっ",
+   "ぐ": "ご視聴ありがとうございました",
+   "け": "てっ",
+   "ご": "5",
+   "さ": "さて",
+   "し": "次回予告",
+   "じ": "次",
+   "ず": "ずっと",
+   "せ": "セット",
+   "た": "あ",
+   "つ": "ご視聴ありがとうございました",
+   "と": "お",
+   "ど": "と",
+   "に": "2.",
+   "ぬ": "なって",
+   "ば": "あ",
+   "ひ": "きっ",
+   "び": "リッ",
+   "ふ": "はっ",
+   "ほ": "あ",
+   "み": "3",
+   "む": "また",
+   "ゆ": "やっ",
+   "ら": "な",
+   "り": "2.",
+   "れ": "ねっ",
+   "ろ": "まっ",
+   "わ": "あっ",
+   "を": "あ",
+   "ん": "うん"
+  },
+  "kanaN_wrong_R3": {
+   "う": "んんんん",
+   "お": "あ、あ、あ",
+   "き": "キックキックキック",
+   "ぎ": "キキキ",
+   "け": "ててて",
+   "ご": "こ、こ、こ",
+   "だ": "た、た、た",
+   "つ": "ご視聴ありがとうございました",
+   "と": "ぽぽぽ",
+   "ど": "と、と、と",
+   "ば": "わっわっわ",
+   "ひ": "キックキックキック",
+   "び": "りりり",
+   "ふ": "はっはっはっ",
+   "へ": "てっ",
+   "む": "まっまっまっ",
+   "ら": "な、な、な",
+   "る": "んんん",
+   "れ": "ねっねっねっ",
+   "ろ": "な、な、な",
+   "わ": "あ、あ、あ",
+   "を": "あ、あ、あ"
+  }
+ },
+ "whisper_calls": 524,
+ "whisper_s_per_call": 0.494
+}
