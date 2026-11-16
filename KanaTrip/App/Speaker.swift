@@ -10,8 +10,8 @@ enum SpeechKind {
     case word
 }
 
-/// 앱에 넣은 발음 소리 목록 (`Resources/Voice/voice_index.json`, `tools/gen_voice.py final`이 만든다).
-/// VOICEVOX 春日部つむぎ로 미리 합성한 m4a 파일의 이름을 글자·단어 표기로 찾는다.
+/// 앱에 넣은 발음 소리 목록 (`Resources/Voice/voice_index.json`). 미리 합성한 m4a 파일의 이름을 글자·단어 표기로 찾는다.
+/// 단어는 VOICEVOX 春日部つむぎ(`tools/gen_voice.py final`), 글자는 Qwen3-TTS(`tools/gen_voice_qwen.py final`)로 만들었다.
 /// 목록에 없는 글자·단어는 기기 내장 음성으로 읽는다.
 struct VoiceIndex: Decodable {
     /// 크레딧 문구 (`VOICEVOX:春日部つむぎ`). 정보 화면에 그대로 쓴다.
@@ -68,9 +68,9 @@ enum SpeechPlan: Equatable {
 
 /// 발음 속도와 읽는 방식.
 ///
-/// 번들 음성(VOICEVOX)이 있으면 그것을 쓰고, 없으면 기기 내장 음성으로 읽는다.
-/// 글자 하나는 노래 합성으로 0.4초 안팎의 한 박을 만들어 넣었으므로(docs/design/voice/README.md
-/// "최종 적용 2") 한 번만 읽는다. 짧은 말소리를 두 번 읽던 방식(2026-11-15)은 그만두었다.
+/// 번들 음성이 있으면 그것을 쓰고, 없으면 기기 내장 음성으로 읽는다.
+/// 글자 하나는 0.3~0.6초짜리 소리를 넣었으므로(docs/design/voice/README.md "최종 적용 3") 한 번만 읽는다.
+/// 짧은 말소리를 두 번 읽던 방식(2026-11-15)은 그만두었다.
 ///
 /// 내장 음성의 속도 값은 iPhone 17 Pro 시뮬레이터(iOS 26.5, Kyoko super-compact)에서
 /// `AVSpeechSynthesizer.write`로 합성 길이를 재서 정했다.
@@ -85,6 +85,8 @@ enum SpeechStyle {
     static let kanaGap: TimeInterval = 0.4
     /// 첫 음 앞에 두는 여백. 오디오 경로가 열리는 동안 앞이 잘리지 않게 한다.
     /// 실기기는 세션을 켠 뒤 출력이 열리기까지 시간이 걸려, 짧은 글자 소리의 앞이 묻힐 수 있다.
+    /// 글자 파일은 앞 무음이 0.025초이고 본음(-30 dBFS)이 파일 0.02~0.10초(중앙 0.04초)에 시작해,
+    /// 누른 뒤 들리기까지 약 0.34초다(2026-11-17, 노래 합성 때는 약 0.47초). 0.2 아래로는 내리지 않는다.
     static let leadIn: TimeInterval = 0.3
     /// 읽기가 끝난 뒤 세션을 닫기까지 기다리는 시간. 이어서 누르면 출력을 다시 열지 않는다.
     static let sessionLinger: TimeInterval = 3

@@ -226,13 +226,19 @@ def trim_pad(y: np.ndarray) -> np.ndarray:
 
 
 def normalize(y: np.ndarray, rms_dbfs: float, peak_dbfs: float) -> np.ndarray:
-    s, e = voiced_bounds(y, CFG["measure"]["silence_dbfs"])
-    seg = y[s:e]
-    if not len(seg):
-        return y
-    g = 10 ** (rms_dbfs / 20) / float(np.sqrt(np.mean(seg ** 2)))
-    g = min(g, 10 ** (peak_dbfs / 20) / float(np.max(np.abs(y))))
-    return y * g
+    """소리 구간 RMS를 맞춘다. 이득을 올리면 -45 dBFS를 넘는 구간이 넓어져 RMS가 다시 내려가므로
+    구간을 다시 정해 세 번까지 되풀이한다(최종 적용 3에서 고침. 6·7차 파일은 한 번만 맞췄다)."""
+    for _ in range(3):
+        s, e = voiced_bounds(y, CFG["measure"]["silence_dbfs"])
+        seg = y[s:e]
+        if not len(seg):
+            return y
+        g = 10 ** (rms_dbfs / 20) / float(np.sqrt(np.mean(seg ** 2)))
+        g = min(g, 10 ** (peak_dbfs / 20) / float(np.max(np.abs(y))))
+        y = y * g
+        if abs(20 * math.log10(g)) < 0.05:
+            break
+    return y
 
 
 def cut_middle(y: np.ndarray) -> tuple[np.ndarray | None, int]:
@@ -580,10 +586,375 @@ def cmd_round7(names: list[str]) -> None:
         print("wrote", out / f"preview-{name}.wav", flush=True)
 
 
+# ---------------------------------------------------------------- 최종 적용 3: 글자 58자를 T4(Serena + en1)로
+
+FINAL = {
+    # 사용자가 7차 T4를 골랐다(2026-11-17).
+    "speaker": "Serena",
+    "instruct": TONE["instructs"]["en1"] + " " + TONE["letter_suffix"]["en"],
+    "max_tokens": 40,
+    "min_takes": 8,        # 처음에 글자마다 만드는 수
+    "max_takes": 30,       # 좋은 후보가 없으면 이만큼까지 더 만든다
+    "kata_takes": 10,      # 그래도 좋은 후보(이상치·읽기 확인·음높이 통과)가 없으면 같은 소리의 가타카나(「プ。」)로 이만큼 더 만든다
+    "lead_s": 0.025,       # 앞 무음(누른 뒤 소리까지의 지연을 줄인다)
+    "tail_s": 0.10,        # 끝은 -60 dBFS까지 살리고 뒤에 무음
+    "fade_in_s": 0.003,
+    "fade_out_s": 0.01,
+    "pitch_off_c": 350,    # 58자 F0 중앙값에서 이만큼(센트) 넘게 벗어나면 피한다
+    "h_noise_min_s": 0.025,  # は·へ: 주기 시작 전 무성 마찰 구간이 이만큼 있어야 h로 본다
+    "app_dir": "KanaTrip/Resources/Voice",
+    "wav_dir": "docs/design/voice/final/kana",
+    "measurements": "docs/design/voice/final/measurements-qwen.json",
+    "takes_dir": "build/voice_final/takes",
+    "aac_bitrate": 64000,
+    "preview": ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ"],
+    "preview_gap_s": 0.8,
+}
+VOWELS = {"a": "あ", "i": "い", "u": "う", "e": "え", "o": "お"}
+
+
+def mel_bank(n_fft: int, n_mels: int = 24, fmin: float = 150, fmax: float = 6000) -> np.ndarray:
+    mel = lambda f: 2595 * np.log10(1 + f / 700)
+    imel = lambda m: 700 * (10 ** (m / 2595) - 1)
+    pts = imel(np.linspace(mel(fmin), mel(fmax), n_mels + 2))
+    bins = np.fft.rfftfreq(n_fft, 1 / SR)
+    fb = np.zeros((n_mels, len(bins)))
+    for i in range(n_mels):
+        lo, c, hi = pts[i], pts[i + 1], pts[i + 2]
+        fb[i] = np.clip(np.minimum((bins - lo) / (c - lo), (hi - bins) / (hi - c)), 0, None)
+    return fb
+
+
+def mfcc_mean(y: np.ndarray, t0: float, t1: float, n_coef: int = 12) -> np.ndarray | None:
+    """t0~t1 구간 25ms 창 MFCC(c1..c12)의 평균. 음높이 배음이 아니라 성도 모양(모음)을 본다."""
+    W, H = int(0.025 * SR), int(0.01 * SR)
+    a, b = int(t0 * SR), int(t1 * SR)
+    if b - a < W:
+        return None
+    fb = mel_bank(1024)
+    k = np.arange(fb.shape[0])
+    dct = np.cos(np.pi / fb.shape[0] * (k + 0.5)[None, :] * np.arange(1, n_coef + 1)[:, None])
+    out = []
+    for s in range(a, b - W + 1, H):
+        spec = np.abs(np.fft.rfft(y[s:s + W] * np.hanning(W), 1024)) ** 2
+        out.append(dct @ np.log(fb @ spec + 1e-10))
+    return np.mean(out, axis=0)
+
+
+def letter_features(y: np.ndarray) -> dict:
+    """읽기 확인용 특징.
+    vowel_mfcc: 주기 구간의 45~85%(모음이 자리 잡은 곳). onset_mfcc: 주기 시작부터 40ms(わ·を의 w 같은 미끄러짐).
+    h_noise_s: 소리(-50 dBFS) 시작부터 첫 주기 창까지 NACF 0.5 미만인 창의 시간(무성 마찰 h, s 등).
+    hf1k_db: 주기 구간에서 1kHz 위 에너지 / 전체(ん 같은 콧소리는 낮다).
+    onset_s: 파일 앞에서 10ms 창이 처음 -30 dBFS를 넘는 곳(누른 뒤 들리기까지)."""
+    f = CFG["f0"]
+    tr = f0_track(y, f)
+    per = [t for t, fr, c in tr if fr and c >= f["periodic_nacf"]]
+    n = SR // 100
+    r = frame_rms(y, n)
+    loud = np.nonzero(r >= 10 ** (-30 / 20))[0]
+    res: dict = {"onset_s": round(float(loud[0]) * n / SR, 3) if len(loud) else None}
+    if len(per) < 3:
+        return {**res, "vowel_mfcc": None, "onset_mfcc": None, "h_noise_s": None, "hf1k_db": None}
+    p0, p1 = per[0], per[-1]
+    res["vowel_mfcc"] = mfcc_mean(y, p0 + 0.45 * (p1 - p0), p0 + 0.85 * (p1 - p0))
+    res["onset_mfcc"] = mfcc_mean(y, p0, min(p1, p0 + 0.04))
+    start = voiced_bounds(y, -50.0)[0] / SR
+    res["h_noise_s"] = round(sum(f["hop_s"] for t, fr, c in tr if start <= t < p0 and 0 < c < 0.5), 3)
+    seg = y[int(p0 * SR):int(p1 * SR)]
+    spec = np.abs(np.fft.rfft(seg * np.hanning(len(seg)))) ** 2
+    freqs = np.fft.rfftfreq(len(seg), 1 / SR)
+    res["hf1k_db"] = round(10 * math.log10(spec[freqs >= 1000].sum() / spec.sum()), 1)
+    return res
+
+
+def expected_vowel(rom: str) -> str | None:
+    return None if rom == "n" else rom[-1]
+
+
+def final_post(raw: np.ndarray) -> np.ndarray:
+    s, e = voiced_bounds(raw, CFG["measure"]["floor_dbfs"])
+    y = fade(raw[s:e], FINAL["fade_in_s"], FINAL["fade_out_s"])
+    y = np.concatenate([np.zeros(int(SR * FINAL["lead_s"])), y, np.zeros(int(SR * FINAL["tail_s"]))])
+    return normalize(y, CFG["post"]["rms_dbfs"], CFG["post"]["peak_dbfs"])
+
+
+def gen_letter_takes(model, kana: str, rom: str, start: int, stop: int, tdir: Path, text: str | None = None) -> list[dict]:
+    rows = []
+    text = text or kana
+    for t in range(start, stop + 1):
+        raw, gen_s = synth(model, f"{text}。", FINAL["instruct"], 1000 * t + ord(kana), FINAL["max_tokens"],
+                           FINAL["speaker"])
+        y = final_post(raw)
+        write(tdir / f"kana_{rom}_{t}.wav", y)
+        m = measure(y)
+        rows.append({"take": t, "text": f"{text}。", "gen_s": round(gen_s, 2), "raw_s": round(len(raw) / SR, 3), **m})
+    return rows
+
+
+def judge(rows_by_kana: dict, roms: dict, tdir: Path) -> tuple[dict, dict]:
+    """후보마다 읽기 확인과 음높이 거리를 붙이고 글자마다 하나를 고른다."""
+    feats = {}
+    for kana, rows in rows_by_kana.items():
+        for row in rows:
+            y, _ = sf.read(tdir / f"kana_{roms[kana]}_{row['take']}.wav", dtype="float64")
+            feats[(kana, row["take"])] = letter_features(y)
+    clean = lambda r: not r["flags"]
+    # 모음 기준: 모음이 같은 글자들(あ段·い段…)의 깨끗한 후보 MFCC 평균. 판정하는 글자 자신은 빼고 만든다
+    # (한 후보를 기준으로 쓰면 그 후보가 틀렸을 때 전체가 흔들린다). MFCC는 계수마다 전체 후보로 표준화한다.
+    allv = np.array([fe["vowel_mfcc"] for fe in feats.values() if fe["vowel_mfcc"] is not None])
+    mu, sd = allv.mean(axis=0), allv.std(axis=0) + 1e-9
+    z = lambda v: (v - mu) / sd
+    groups: dict = {}
+    for kana, rows in rows_by_kana.items():
+        ev = expected_vowel(roms[kana])
+        if ev is None:
+            continue
+        for r in rows:
+            fv = feats[(kana, r["take"])]["vowel_mfcc"]
+            if clean(r) and fv is not None:
+                groups.setdefault(ev, {}).setdefault(kana, []).append(z(fv))
+    sums = {v: (sum(np.sum(x, axis=0) for x in g.values()), sum(len(x) for x in g.values())) for v, g in groups.items()}
+
+    def centroid(v: str, exclude: str) -> np.ndarray | None:
+        tot, n = sums[v]
+        own = groups[v].get(exclude, [])
+        if n - len(own) < 3:
+            return None
+        return (tot - (np.sum(own, axis=0) if own else 0)) / (n - len(own))
+    refs = {v: True for v in groups}
+    onset_refs = {k: feats[(k, min([r for r in rows_by_kana[k] if clean(r)] or rows_by_kana[k],
+                                    key=lambda r: r["score"])["take"])]["onset_mfcc"]
+                  for k in ("お", "わ") if k in rows_by_kana}
+    # 58자 음높이 중앙값: 글자마다 깨끗한 후보 F0 중앙값의 중앙값
+    per_kana = [st.median(r["f0"] for r in rows if clean(r) and r["f0"])
+                for rows in rows_by_kana.values() if any(clean(r) and r["f0"] for r in rows)]
+    f0_center = st.median(per_kana)
+    info = {"f0_center": round(f0_center, 1),
+            "vowel_refs": {v: {k: len(x) for k, x in g.items()} for v, g in groups.items()}}
+    picks = {}
+    for kana, rows in rows_by_kana.items():
+        rom = roms[kana]
+        ev = expected_vowel(rom)
+        for r in rows:
+            fe = feats[(kana, r["take"])]
+            r["onset_s"] = fe["onset_s"]
+            r["h_noise_s"] = fe["h_noise_s"]
+            r["hf1k_db"] = fe["hf1k_db"]
+            r["pitch_off_c"] = round(abs(1200 * math.log2(r["f0"] / f0_center))) if r["f0"] else None
+            checks = []
+            if fe["vowel_mfcc"] is not None and refs:
+                cs = {v: centroid(v, kana) for v in groups}
+                d = {v: float(np.linalg.norm(z(fe["vowel_mfcc"]) - c)) for v, c in cs.items() if c is not None}
+                r["vowel_dist"] = {v: round(x, 1) for v, x in d.items()}
+                r["vowel"] = min(d, key=d.get)
+                if ev and r["vowel"] != ev:
+                    checks.append(f"vowel_{r['vowel']}")
+            else:
+                r["vowel"] = None
+                checks.append("vowel_unknown")
+            if kana in ("は", "ひ", "ふ", "へ", "ほ") and (fe["h_noise_s"] or 0) < FINAL["h_noise_min_s"]:
+                checks.append("no_h")
+            if kana == "を" and fe["onset_mfcc"] is not None and len(onset_refs) == 2:
+                do = float(np.linalg.norm(fe["onset_mfcc"] - onset_refs["お"]))
+                dw = float(np.linalg.norm(fe["onset_mfcc"] - onset_refs["わ"]))
+                r["onset_dist_o_w"] = [round(do, 1), round(dw, 1)]
+                if dw < do:
+                    checks.append("onset_like_wa")
+            if r["pitch_off_c"] is None or r["pitch_off_c"] > FINAL["pitch_off_c"]:
+                checks.append("pitch_off")
+            r["checks"] = checks
+            r["good"] = clean(r) and not checks
+            # 이상치 > 읽기 확인 > 음높이 거리 > 6차 점수
+            r["rank"] = round(10 * len(r["flags"]) + 5 * len(checks) + (r["pitch_off_c"] or 1200) / 300
+                              + r["score"], 3)
+        picks[kana] = min(rows, key=lambda r: r["rank"])
+    return picks, info
+
+
+def cmd_final(select_only: bool) -> None:
+    import subprocess
+    app_dir = ROOT / FINAL["app_dir"]
+    index = json.loads((app_dir / "voice_index.json").read_text(encoding="utf-8"))
+    roms = {k: v.removeprefix("kana_") for k, v in index["kana"].items()}
+    tdir = ROOT / FINAL["takes_dir"]
+    cache = tdir / "takes.json"
+    rows_by_kana: dict = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+    t_start = time.perf_counter()
+    if not select_only:
+        model, _ = load()
+        check_speaker(model, FINAL["speaker"])
+        synth(model, "あ。", None, 0, 40, FINAL["speaker"])
+        for kana, rom in roms.items():
+            have = len(rows_by_kana.get(kana, []))
+            if have < FINAL["min_takes"]:
+                rows = gen_letter_takes(model, kana, rom, have + 1, FINAL["min_takes"], tdir)
+                for r in rows:
+                    r["score"] = score(r)
+                rows_by_kana.setdefault(kana, []).extend(rows)
+                print(f"{kana}: clean {sum(1 for r in rows_by_kana[kana] if not r['flags'])}/{FINAL['min_takes']}",
+                      flush=True)
+            cache.write_text(json.dumps(rows_by_kana, ensure_ascii=False) + "\n", encoding="utf-8")
+        # 좋은 후보(이상치·읽기 확인·음높이 모두 통과)가 없는 글자는 더 만든다
+        for _ in range(FINAL["max_takes"]):
+            picks, info = judge(rows_by_kana, roms, tdir)
+            todo = [k for k, p in picks.items() if not p["good"] and len(rows_by_kana[k]) < FINAL["max_takes"]]
+            if not todo:
+                break
+            for kana in todo:
+                have = len(rows_by_kana[kana])
+                rows = gen_letter_takes(model, kana, roms[kana], have + 1, min(have + 4, FINAL["max_takes"]), tdir)
+                for r in rows:
+                    r["score"] = score(r)
+                rows_by_kana[kana].extend(rows)
+            cache.write_text(json.dumps(rows_by_kana, ensure_ascii=False) + "\n", encoding="utf-8")
+            print(f"more takes: {''.join(todo)}", flush=True)
+        for kana, rows in rows_by_kana.items():
+            if not any(r.get("good") for r in rows) and len(rows) < FINAL["max_takes"] + FINAL["kata_takes"]:
+                kata = chr(ord(kana) + 0x60)
+                new = gen_letter_takes(model, kana, roms[kana], len(rows) + 1,
+                                       FINAL["max_takes"] + FINAL["kata_takes"], tdir, kata)
+                for r in new:
+                    r["score"] = score(r)
+                rows.extend(new)
+                print(f"katakana {kata}: clean {sum(1 for r in new if not r['flags'])}/{len(new)}", flush=True)
+                judge(rows_by_kana, roms, tdir)
+            cache.write_text(json.dumps(rows_by_kana, ensure_ascii=False) + "\n", encoding="utf-8")
+    picks, info = judge(rows_by_kana, roms, tdir)
+
+    # 앱 m4a 교체(글자만), 기록용 wav
+    wav_dir = ROOT / FINAL["wav_dir"]
+    wav_dir.mkdir(parents=True, exist_ok=True)
+    out_rows = []
+    for kana, rom in roms.items():
+        p = picks[kana]
+        y, _ = sf.read(tdir / f"kana_{rom}_{p['take']}.wav", dtype="float64")
+        y = normalize(y, CFG["post"]["rms_dbfs"], CFG["post"]["peak_dbfs"])  # 후보는 한 번만 맞춘 것이라 다시
+        p = {**p, **{k: v for k, v in measure(y).items() if k in ("duration", "voiced", "rms_dbfs", "peak_dbfs",
+                                                                  "decay_s")}}
+        name = index["kana"][kana]
+        wav = wav_dir / f"{name}.wav"
+        write(wav, y)
+        dst = app_dir / f"{name}.m4a"
+        subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", str(FINAL["aac_bitrate"]), "-c", "1",
+                        str(wav), str(dst)], check=True)
+        back = tdir / "_decoded.wav"
+        subprocess.run(["afconvert", "-f", "WAVE", "-d", "LEI16", str(dst), str(back)], check=True)
+        yb, _ = sf.read(back, dtype="float64")
+        back.unlink()
+        mb = measure(yb)
+        out_rows.append({"kana": kana, "file": name, "take": p["take"], "text": p.get("text", f"{kana}。"),
+                         "takes": len(rows_by_kana[kana]),
+                         "good_takes": sum(1 for r in rows_by_kana[kana] if r["good"]),
+                         **{k: p.get(k) for k in ("duration", "voiced", "rms_dbfs", "peak_dbfs", "decay_s", "f0",
+                                                  "f0_sd_c", "f0_jump_c", "pitch_off_c", "segs", "flags", "checks",
+                                                  "vowel", "vowel_dist", "h_noise_s", "hf1k_db", "onset_s",
+                                                  "onset_dist_o_w", "gen_s")},
+                         "m4a_bytes": dst.stat().st_size, "m4a_duration": mb["duration"], "m4a_voiced": mb["voiced"],
+                         "m4a_rms_dbfs": mb["rms_dbfs"]})
+        print(f"{kana} t{p['take']}/{len(rows_by_kana[kana])} voiced {p['voiced']} f0 {p['f0']} "
+              f"off {p['pitch_off_c']} vowel {p.get('vowel')} h {p['h_noise_s']} flags {p['flags']} {p['checks']}")
+    write(ROOT / "docs/design/voice/final/preview-kana.wav",
+          concat([wav_dir / f"{index['kana'][k]}.wav" for k in FINAL["preview"]], FINAL["preview_gap_s"]))
+    # 모음 판정 자체 확인: 깨끗한 후보가 자기 모음으로 분류되는 비율(글자 하나를 빼고 만든 기준으로)
+    vt = [(k, r) for k, rows in rows_by_kana.items() for r in rows
+          if not r["flags"] and r.get("vowel") and expected_vowel(roms[k])]
+    info["vowel_self_check"] = f"{sum(1 for k, r in vt if r['vowel'] == expected_vowel(roms[k]))}/{len(vt)}"
+    info["h_noise_by_kana"] = {k: [r["h_noise_s"] for r in rows_by_kana[k] if not r["flags"]]
+                               for k in ("あ", "え", "は", "ひ", "ふ", "へ", "ほ", "わ")}
+    summary = {"model": CFG["model"], "speaker": FINAL["speaker"], "instruct": FINAL["instruct"],
+               "temperature": CFG["temperature"], "generated": time.strftime("%Y-%m-%d"),
+               "settings": {k: v for k, v in FINAL.items() if k not in ("instruct", "preview")},
+               **info, "total_takes": sum(len(v) for v in rows_by_kana.values()),
+               "gen_wall_s": round(time.perf_counter() - t_start), "kana": out_rows}
+    (ROOT / FINAL["measurements"]).write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
+                                              encoding="utf-8")
+    index["generated"] = time.strftime("%Y-%m-%d")
+    index["comment"] = ("글자 m4a는 tools/gen_voice_qwen.py final(Qwen3-TTS Serena), 단어 m4a는 tools/gen_voice.py final"
+                        "(VOICEVOX 春日部つむぎ)이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).")
+    (app_dir / "voice_index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n",
+                                              encoding="utf-8")
+    print("f0 center", info["f0_center"], "vowel refs", info["vowel_refs"], "self", info["vowel_self_check"])
+
+
+def cmd_words8(select_only: bool = False) -> None:
+    """단어 60개 후보(앱에 넣지 않음). 읽기는 장면 데이터의 가나 칸(한자 칸은 voice.json의 kanji_readings)."""
+    vcfg = json.loads((ROOT / "tools/voice.json").read_text(encoding="utf-8"))["final"]
+    scenes = json.loads((ROOT / vcfg["scenes"]).read_text(encoding="utf-8"))
+    index = json.loads((ROOT / FINAL["app_dir"] / "voice_index.json").read_text(encoding="utf-8"))
+    words = []
+    for scene in scenes["scenes"]:
+        for step in scene["steps"]:
+            for w in step["words"]:
+                reading = "".join(vcfg["kanji_readings"][u["kana"]] if u.get("kanji") else u["kana"]
+                                  for u in w["units"])
+                words.append((w["text"], reading, index["word"][w["text"]]))
+    out = ROOT / "docs/design/voice/samples8"
+    tdir = ROOT / "build/voice8/takes"
+    p = CFG["post"]
+    ins = TONE["instructs"]["en1"]
+    old = {}
+    if select_only:
+        prev = json.loads((out / "measurements.json").read_text(encoding="utf-8"))
+        old = {(w["file"], c["take"]): c["gen_s"] for w in prev["words"] for c in w["takes"]}
+    else:
+        model, _ = load()
+        synth(model, "あ。", None, 0, 40, FINAL["speaker"])
+    small = set("ゃゅょぁぃぅぇぉ")
+    rows, files = [], []
+    for text, reading, name in words:
+        moras = sum(1 for c in reading if c not in small)
+        app_y, _ = sf.read(ROOT / "docs/design/voice/final/word" / f"{name}.wav", dtype="float64")
+        app_voiced = measure(app_y)["voiced"]
+        # 기대 길이: 모라당 0.2초(7차 Serena 문장 7.1 모라/초보다 느리게 잡음). 말이 붙었다고 볼 상한은 모라 x 0.25 + 0.35초.
+        expect = 0.2 * moras
+        long_s, short_s = 0.25 * moras + 0.35, 0.08 * moras
+        cands = []
+        for t in range(1, 5):
+            if select_only:
+                y, _ = sf.read(tdir / f"{name}_{t}.wav", dtype="float64")
+                gen_s = old.get((name, t), 0.0)
+            else:
+                raw, gen_s = synth(model, f"{reading}。", ins, 3000 * t + len(reading), CFG["word_max_tokens"],
+                                   FINAL["speaker"])
+                y = normalize(trim_pad(raw), p["rms_dbfs"], p["peak_dbfs"])
+                write(tdir / f"{name}_{t}.wav", y)
+            m = measure(y)
+            # 0.15초 넘게 쉬고 다시 나는 소리(파열음 막힘보다 긴 쉼)는 말이 붙은 것으로 본다
+            pauses = len(segments(y, CFG["split"]["seg_dbfs"], 0.15, 0.03)) - 1
+            flags = []
+            if m["voiced"] > long_s:
+                flags.append("long")
+            if m["voiced"] < short_s:
+                flags.append("short")
+            if pauses > 0 and "っ" not in reading:
+                flags.append("pause")
+            if "silent" in m["flags"]:
+                flags.append("silent")
+            cands.append({"take": t, "gen_s": round(gen_s, 2), "voiced": m["voiced"], "pauses": pauses,
+                          "f0": m["f0"], "f0_jump_c": m["f0_jump_c"], "flags": flags})
+        best = min(cands, key=lambda c: (len(c["flags"]), abs(c["voiced"] - expect)))
+        y, _ = sf.read(tdir / f"{name}_{best['take']}.wav", dtype="float64")
+        write(out / "words" / f"{name}.wav", y)
+        files.append(out / "words" / f"{name}.wav")
+        rows.append({"word": text, "reading": reading, "file": name, "moras": moras, "app_voiced": app_voiced,
+                     "expect": round(expect, 2), "long_s": round(long_s, 2), "best": best["take"], "best_flags": best["flags"],
+                     "clean_takes": sum(1 for c in cands if not c["flags"]), "takes": cands})
+        print(f"{text} ({reading}): t{best['take']} {best['voiced']}s expect {expect:.2f} {best['flags']}", flush=True)
+    write(out / "preview-words-all.wav", concat(files, CFG["preview_gap_s"]))
+    (out / "measurements.json").write_text(json.dumps({"speaker": FINAL["speaker"], "instruct": ins,
+                                                       "temperature": CFG["temperature"], "words": rows},
+                                                      ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("speakers")
+    fin = sub.add_parser("final")
+    fin.add_argument("--select-only", action="store_true", help="만든 후보(build/voice_final)에서 다시 고르기만")
+    w8 = sub.add_parser("words8")
+    w8.add_argument("--select-only", action="store_true")
     sub.add_parser("probe7")
     r7 = sub.add_parser("round7")
     r7.add_argument("--variants", default="T0,T1,T2,T3,T4")
@@ -598,6 +969,10 @@ def main() -> None:
         CFG["temperature"] = a.temperature
     if a.cmd == "speakers":
         cmd_speakers()
+    elif a.cmd == "final":
+        cmd_final(a.select_only)
+    elif a.cmd == "words8":
+        cmd_words8(a.select_only)
     elif a.cmd == "probe7":
         cmd_probe7()
     elif a.cmd == "round7":

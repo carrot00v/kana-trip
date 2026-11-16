@@ -1,0 +1,3151 @@
+{
+ "speaker": "Serena",
+ "instruct": "A bright, cute, cheerful little girl's voice. Clear and crisp with no breathiness and no whispering. Higher pitch, lively and articulate, every sound distinct, short clean endings without trailing off.",
+ "temperature": 0.5,
+ "words": [
+  {
+   "word": "すし",
+   "reading": "すし",
+   "file": "word_sushi",
+   "moras": 2,
+   "app_voiced": 0.48,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.43,
+     "voiced": 0.63,
+     "pauses": 0,
+     "f0": 386,
+     "f0_jump_c": 137.0,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.4,
+     "voiced": 0.62,
+     "pauses": 0,
+     "f0": 511,
+     "f0_jump_c": 38.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.53,
+     "voiced": 0.89,
+     "pauses": 0,
+     "f0": 375,
+     "f0_jump_c": 90.8,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.53,
+     "voiced": 0.86,
+     "pauses": 0,
+     "f0": 449,
+     "f0_jump_c": 113.7,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "いか",
+   "reading": "いか",
+   "file": "word_ika",
+   "moras": 2,
+   "app_voiced": 0.33,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.36,
+     "voiced": 0.56,
+     "pauses": 1,
+     "f0": 414,
+     "f0_jump_c": 87.1,
+     "flags": [
+      "pause"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.36,
+     "voiced": 0.49,
+     "pauses": 0,
+     "f0": 449,
+     "f0_jump_c": 54.2,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.25,
+     "voiced": 0.3,
+     "pauses": 0,
+     "f0": 438,
+     "f0_jump_c": 139.7,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.25,
+     "voiced": 0.29,
+     "pauses": 0,
+     "f0": 518,
+     "f0_jump_c": 113.3,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "たこ",
+   "reading": "たこ",
+   "file": "word_tako",
+   "moras": 2,
+   "app_voiced": 0.35,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.43,
+     "voiced": 0.69,
+     "pauses": 0,
+     "f0": 489,
+     "f0_jump_c": 48.2,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.36,
+     "voiced": 0.55,
+     "pauses": 0,
+     "f0": 366,
+     "f0_jump_c": 112.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.53,
+     "voiced": 0.85,
+     "pauses": 0,
+     "f0": 360,
+     "f0_jump_c": 22.1,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 2.28,
+     "voiced": 2.54,
+     "pauses": 1,
+     "f0": 372,
+     "f0_jump_c": 25.6,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "いくら",
+   "reading": "いくら",
+   "file": "word_ikura",
+   "moras": 3,
+   "app_voiced": 0.47,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.41,
+     "voiced": 0.47,
+     "pauses": 0,
+     "f0": 416,
+     "f0_jump_c": 78.8,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.77,
+     "voiced": 1.38,
+     "pauses": 0,
+     "f0": 379,
+     "f0_jump_c": 103.3,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.4,
+     "voiced": 0.6,
+     "pauses": 0,
+     "f0": 458,
+     "f0_jump_c": 105.3,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.67,
+     "voiced": 1.12,
+     "pauses": 0,
+     "f0": 455,
+     "f0_jump_c": 125.7,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "まぐろ",
+   "reading": "まぐろ",
+   "file": "word_maguro",
+   "moras": 3,
+   "app_voiced": 0.47,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 2,
+   "best_flags": [
+    "pause"
+   ],
+   "clean_takes": 0,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.91,
+     "voiced": 1.68,
+     "pauses": 0,
+     "f0": 299,
+     "f0_jump_c": 132.6,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.57,
+     "voiced": 0.96,
+     "pauses": 1,
+     "f0": 395,
+     "f0_jump_c": 103.5,
+     "flags": [
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 1.4,
+     "voiced": 2.4,
+     "pauses": 0,
+     "f0": 313,
+     "f0_jump_c": 163.1,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.76,
+     "voiced": 1.23,
+     "pauses": 0,
+     "f0": 315,
+     "f0_jump_c": 135.0,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "えび",
+   "reading": "えび",
+   "file": "word_ebi",
+   "moras": 2,
+   "app_voiced": 0.34,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 2.49,
+     "voiced": 4.72,
+     "pauses": 2,
+     "f0": 322,
+     "f0_jump_c": 158.8,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.37,
+     "voiced": 0.38,
+     "pauses": 0,
+     "f0": 305,
+     "f0_jump_c": 158.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.54,
+     "voiced": 0.88,
+     "pauses": 0,
+     "f0": 367,
+     "f0_jump_c": 125.5,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.4,
+     "voiced": 0.59,
+     "pauses": 0,
+     "f0": 470,
+     "f0_jump_c": 140.2,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "いなり",
+   "reading": "いなり",
+   "file": "word_inari",
+   "moras": 3,
+   "app_voiced": 0.39,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.47,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 337,
+     "f0_jump_c": 72.3,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.5,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 306,
+     "f0_jump_c": 68.5,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.57,
+     "voiced": 1.04,
+     "pauses": 0,
+     "f0": 249,
+     "f0_jump_c": 47.2,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.51,
+     "voiced": 0.78,
+     "pauses": 0,
+     "f0": 325,
+     "f0_jump_c": 86.1,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "とんかつ",
+   "reading": "とんかつ",
+   "file": "word_tonkatsu",
+   "moras": 4,
+   "app_voiced": 0.63,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.72,
+     "voiced": 1.3,
+     "pauses": 0,
+     "f0": 307,
+     "f0_jump_c": 72.6,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.55,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 250,
+     "f0_jump_c": 67.1,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.78,
+     "voiced": 1.39,
+     "pauses": 0,
+     "f0": 258,
+     "f0_jump_c": 93.0,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.46,
+     "voiced": 0.73,
+     "pauses": 0,
+     "f0": 381,
+     "f0_jump_c": 58.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "かつ丼",
+   "reading": "かつどん",
+   "file": "word_katsudon",
+   "moras": 4,
+   "app_voiced": 0.51,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.55,
+     "voiced": 0.92,
+     "pauses": 0,
+     "f0": 241,
+     "f0_jump_c": 107.6,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.62,
+     "voiced": 1.05,
+     "pauses": 1,
+     "f0": 275,
+     "f0_jump_c": 116.6,
+     "flags": [
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.54,
+     "voiced": 0.93,
+     "pauses": 0,
+     "f0": 311,
+     "f0_jump_c": 154.0,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.54,
+     "voiced": 0.9,
+     "pauses": 0,
+     "f0": 342,
+     "f0_jump_c": 98.3,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ひれかつ",
+   "reading": "ひれかつ",
+   "file": "word_hirekatsu",
+   "moras": 4,
+   "app_voiced": 0.59,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [
+    "long"
+   ],
+   "clean_takes": 0,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 2.31,
+     "voiced": 4.72,
+     "pauses": 0,
+     "f0": 356,
+     "f0_jump_c": 13.8,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.89,
+     "voiced": 1.64,
+     "pauses": 0,
+     "f0": 323,
+     "f0_jump_c": 110.3,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 2.02,
+     "voiced": 4.12,
+     "pauses": 2,
+     "f0": 188,
+     "f0_jump_c": 123.2,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 2.28,
+     "voiced": 4.72,
+     "pauses": 0,
+     "f0": 266,
+     "f0_jump_c": 11.4,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "おろし",
+   "reading": "おろし",
+   "file": "word_oroshi",
+   "moras": 3,
+   "app_voiced": 0.44,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [
+    "long"
+   ],
+   "clean_takes": 0,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.98,
+     "voiced": 1.89,
+     "pauses": 0,
+     "f0": 393,
+     "f0_jump_c": 111.9,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.83,
+     "voiced": 1.53,
+     "pauses": 0,
+     "f0": 281,
+     "f0_jump_c": 87.0,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.68,
+     "voiced": 1.21,
+     "pauses": 0,
+     "f0": 312,
+     "f0_jump_c": 148.2,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 1.05,
+     "voiced": 2.01,
+     "pauses": 0,
+     "f0": 259,
+     "f0_jump_c": 74.8,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "ごはん",
+   "reading": "ごはん",
+   "file": "word_gohan",
+   "moras": 3,
+   "app_voiced": 0.39,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 2.22,
+     "voiced": 3.96,
+     "pauses": 3,
+     "f0": 281,
+     "f0_jump_c": 76.8,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.47,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 339,
+     "f0_jump_c": 40.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.36,
+     "voiced": 0.48,
+     "pauses": 0,
+     "f0": 452,
+     "f0_jump_c": 101.8,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.44,
+     "voiced": 0.67,
+     "pauses": 0,
+     "f0": 495,
+     "f0_jump_c": 49.2,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おかわり",
+   "reading": "おかわり",
+   "file": "word_okawari",
+   "moras": 4,
+   "app_voiced": 0.55,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.58,
+     "voiced": 1.02,
+     "pauses": 0,
+     "f0": 433,
+     "f0_jump_c": 1198.2,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.5,
+     "voiced": 0.81,
+     "pauses": 0,
+     "f0": 325,
+     "f0_jump_c": 173.3,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.36,
+     "voiced": 0.46,
+     "pauses": 0,
+     "f0": 397,
+     "f0_jump_c": 338.8,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.47,
+     "voiced": 0.74,
+     "pauses": 0,
+     "f0": 318,
+     "f0_jump_c": 54.1,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "うどん",
+   "reading": "うどん",
+   "file": "word_udon",
+   "moras": 3,
+   "app_voiced": 0.44,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.46,
+     "voiced": 0.73,
+     "pauses": 0,
+     "f0": 359,
+     "f0_jump_c": 178.7,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.43,
+     "voiced": 0.7,
+     "pauses": 0,
+     "f0": 261,
+     "f0_jump_c": 113.5,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.51,
+     "voiced": 0.85,
+     "pauses": 0,
+     "f0": 319,
+     "f0_jump_c": 76.2,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.65,
+     "voiced": 1.1,
+     "pauses": 0,
+     "f0": 295,
+     "f0_jump_c": 69.7,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "そば",
+   "reading": "そば",
+   "file": "word_soba",
+   "moras": 2,
+   "app_voiced": 0.37,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.54,
+     "voiced": 0.89,
+     "pauses": 0,
+     "f0": 341,
+     "f0_jump_c": 39.0,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.61,
+     "voiced": 1.05,
+     "pauses": 1,
+     "f0": 473,
+     "f0_jump_c": 96.6,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.46,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 361,
+     "f0_jump_c": 82.7,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.39,
+     "voiced": 0.56,
+     "pauses": 0,
+     "f0": 522,
+     "f0_jump_c": 108.6,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "きつね",
+   "reading": "きつね",
+   "file": "word_kitsune",
+   "moras": 3,
+   "app_voiced": 0.52,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.47,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 286,
+     "f0_jump_c": 72.3,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.4,
+     "voiced": 0.58,
+     "pauses": 0,
+     "f0": 253,
+     "f0_jump_c": 109.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.4,
+     "voiced": 0.6,
+     "pauses": 0,
+     "f0": 339,
+     "f0_jump_c": 21.2,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.46,
+     "voiced": 0.76,
+     "pauses": 0,
+     "f0": 254,
+     "f0_jump_c": 29.2,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "かけ",
+   "reading": "かけ",
+   "file": "word_kake",
+   "moras": 2,
+   "app_voiced": 0.44,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.32,
+     "voiced": 0.41,
+     "pauses": 0,
+     "f0": 427,
+     "f0_jump_c": 48.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.58,
+     "voiced": 0.96,
+     "pauses": 1,
+     "f0": 402,
+     "f0_jump_c": 43.2,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.47,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 272,
+     "f0_jump_c": 38.6,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.39,
+     "voiced": 0.56,
+     "pauses": 0,
+     "f0": 404,
+     "f0_jump_c": 70.4,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おかめ",
+   "reading": "おかめ",
+   "file": "word_okame",
+   "moras": 3,
+   "app_voiced": 0.49,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.4,
+     "voiced": 0.54,
+     "pauses": 0,
+     "f0": 387,
+     "f0_jump_c": 68.7,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.36,
+     "voiced": 0.48,
+     "pauses": 0,
+     "f0": 342,
+     "f0_jump_c": 108.7,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.47,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 288,
+     "f0_jump_c": 109.7,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.4,
+     "voiced": 0.58,
+     "pauses": 0,
+     "f0": 295,
+     "f0_jump_c": 53.5,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "わかめ",
+   "reading": "わかめ",
+   "file": "word_wakame",
+   "moras": 3,
+   "app_voiced": 0.48,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.54,
+     "voiced": 0.88,
+     "pauses": 0,
+     "f0": 409,
+     "f0_jump_c": 43.7,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.43,
+     "voiced": 0.64,
+     "pauses": 0,
+     "f0": 251,
+     "f0_jump_c": 70.4,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.72,
+     "voiced": 1.3,
+     "pauses": 1,
+     "f0": 354,
+     "f0_jump_c": 40.6,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 2.22,
+     "voiced": 4.72,
+     "pauses": 4,
+     "f0": 392,
+     "f0_jump_c": 1169.4,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "たぬき",
+   "reading": "たぬき",
+   "file": "word_tanuki",
+   "moras": 3,
+   "app_voiced": 0.49,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.66,
+     "voiced": 1.18,
+     "pauses": 0,
+     "f0": 298,
+     "f0_jump_c": 124.0,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.58,
+     "voiced": 0.94,
+     "pauses": 0,
+     "f0": 332,
+     "f0_jump_c": 108.2,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.5,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 353,
+     "f0_jump_c": 183.6,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.61,
+     "voiced": 1.02,
+     "pauses": 0,
+     "f0": 441,
+     "f0_jump_c": 100.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ざる",
+   "reading": "ざる",
+   "file": "word_zaru",
+   "moras": 2,
+   "app_voiced": 0.27,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 1,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 1.79,
+     "voiced": 3.66,
+     "pauses": 1,
+     "f0": 371,
+     "f0_jump_c": 120.7,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 2.27,
+     "voiced": 2.04,
+     "pauses": 1,
+     "f0": 288,
+     "f0_jump_c": 127.7,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.6,
+     "voiced": 1.01,
+     "pauses": 0,
+     "f0": 300,
+     "f0_jump_c": 56.5,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.37,
+     "voiced": 0.49,
+     "pauses": 0,
+     "f0": 332,
+     "f0_jump_c": 106.6,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "えき",
+   "reading": "えき",
+   "file": "word_eki",
+   "moras": 2,
+   "app_voiced": 0.42,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.26,
+     "voiced": 0.29,
+     "pauses": 0,
+     "f0": null,
+     "f0_jump_c": null,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.59,
+     "voiced": 0.99,
+     "pauses": 0,
+     "f0": 496,
+     "f0_jump_c": 63.4,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.41,
+     "voiced": 0.57,
+     "pauses": 0,
+     "f0": 465,
+     "f0_jump_c": 65.6,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.4,
+     "voiced": 0.55,
+     "pauses": 0,
+     "f0": 450,
+     "f0_jump_c": 124.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おつり",
+   "reading": "おつり",
+   "file": "word_otsuri",
+   "moras": 3,
+   "app_voiced": 0.46,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.56,
+     "voiced": 0.92,
+     "pauses": 0,
+     "f0": 341,
+     "f0_jump_c": 392.5,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.37,
+     "voiced": 0.46,
+     "pauses": 0,
+     "f0": 398,
+     "f0_jump_c": 108.4,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.4,
+     "voiced": 0.58,
+     "pauses": 0,
+     "f0": 400,
+     "f0_jump_c": 117.0,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.47,
+     "voiced": 0.71,
+     "pauses": 0,
+     "f0": 540,
+     "f0_jump_c": 75.4,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "きっぷうりば",
+   "reading": "きっぷうりば",
+   "file": "word_kippu_uriba",
+   "moras": 6,
+   "app_voiced": 0.81,
+   "expect": 1.2,
+   "long_s": 1.85,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 1.35,
+     "voiced": 2.02,
+     "pauses": 2,
+     "f0": 235,
+     "f0_jump_c": 104.4,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.88,
+     "voiced": 1.66,
+     "pauses": 1,
+     "f0": 218,
+     "f0_jump_c": 299.2,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.76,
+     "voiced": 1.37,
+     "pauses": 1,
+     "f0": 245,
+     "f0_jump_c": 211.3,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.79,
+     "voiced": 1.43,
+     "pauses": 1,
+     "f0": 242,
+     "f0_jump_c": 160.5,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "のりかえ",
+   "reading": "のりかえ",
+   "file": "word_norikae",
+   "moras": 4,
+   "app_voiced": 0.64,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.5,
+     "voiced": 0.84,
+     "pauses": 0,
+     "f0": 328,
+     "f0_jump_c": 94.9,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.47,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 205,
+     "f0_jump_c": 120.6,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.79,
+     "voiced": 1.5,
+     "pauses": 0,
+     "f0": 265,
+     "f0_jump_c": 78.1,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.4,
+     "voiced": 0.62,
+     "pauses": 0,
+     "f0": 227,
+     "f0_jump_c": 79.3,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "こちら",
+   "reading": "こちら",
+   "file": "word_kochira",
+   "moras": 3,
+   "app_voiced": 0.49,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.63,
+     "voiced": 1.1,
+     "pauses": 0,
+     "f0": 286,
+     "f0_jump_c": 36.9,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.46,
+     "voiced": 0.65,
+     "pauses": 0,
+     "f0": 384,
+     "f0_jump_c": 164.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.65,
+     "voiced": 1.1,
+     "pauses": 0,
+     "f0": 321,
+     "f0_jump_c": 73.5,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.4,
+     "voiced": 0.58,
+     "pauses": 0,
+     "f0": 323,
+     "f0_jump_c": 90.3,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "のりば",
+   "reading": "のりば",
+   "file": "word_noriba",
+   "moras": 3,
+   "app_voiced": 0.51,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.61,
+     "voiced": 1.09,
+     "pauses": 0,
+     "f0": 249,
+     "f0_jump_c": 163.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.51,
+     "voiced": 0.82,
+     "pauses": 0,
+     "f0": 263,
+     "f0_jump_c": 137.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.7,
+     "voiced": 1.23,
+     "pauses": 0,
+     "f0": 200,
+     "f0_jump_c": 98.4,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.44,
+     "voiced": 0.68,
+     "pauses": 0,
+     "f0": 292,
+     "f0_jump_c": 127.7,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "でぐち",
+   "reading": "でぐち",
+   "file": "word_deguchi",
+   "moras": 3,
+   "app_voiced": 0.52,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 2.44,
+     "voiced": 3.66,
+     "pauses": 3,
+     "f0": 270,
+     "f0_jump_c": 414.9,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.65,
+     "voiced": 0.89,
+     "pauses": 0,
+     "f0": 345,
+     "f0_jump_c": 197.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.44,
+     "voiced": 0.7,
+     "pauses": 0,
+     "f0": 358,
+     "f0_jump_c": 913.2,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.63,
+     "voiced": 1.05,
+     "pauses": 1,
+     "f0": 317,
+     "f0_jump_c": 133.8,
+     "flags": [
+      "pause"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "いりぐち",
+   "reading": "いりぐち",
+   "file": "word_iriguchi",
+   "moras": 4,
+   "app_voiced": 0.62,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.61,
+     "voiced": 0.99,
+     "pauses": 0,
+     "f0": 307,
+     "f0_jump_c": 196.6,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 2.34,
+     "voiced": 4.72,
+     "pauses": 3,
+     "f0": 279,
+     "f0_jump_c": 1124.8,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.66,
+     "voiced": 1.07,
+     "pauses": 0,
+     "f0": 265,
+     "f0_jump_c": 227.5,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.44,
+     "voiced": 0.65,
+     "pauses": 0,
+     "f0": 333,
+     "f0_jump_c": 209.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おまもり",
+   "reading": "おまもり",
+   "file": "word_omamori",
+   "moras": 4,
+   "app_voiced": 0.54,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.51,
+     "voiced": 0.83,
+     "pauses": 0,
+     "f0": 424,
+     "f0_jump_c": 108.5,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.72,
+     "voiced": 1.3,
+     "pauses": 0,
+     "f0": 342,
+     "f0_jump_c": 181.7,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.51,
+     "voiced": 0.84,
+     "pauses": 0,
+     "f0": 449,
+     "f0_jump_c": 178.4,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.51,
+     "voiced": 0.87,
+     "pauses": 0,
+     "f0": 264,
+     "f0_jump_c": 89.4,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おまいり",
+   "reading": "おまいり",
+   "file": "word_omairi",
+   "moras": 4,
+   "app_voiced": 0.54,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.52,
+     "voiced": 0.78,
+     "pauses": 0,
+     "f0": 289,
+     "f0_jump_c": 174.3,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.56,
+     "voiced": 0.89,
+     "pauses": 0,
+     "f0": 206,
+     "f0_jump_c": 121.6,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 1.81,
+     "voiced": 3.35,
+     "pauses": 1,
+     "f0": 273,
+     "f0_jump_c": 1290.2,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.59,
+     "voiced": 1.03,
+     "pauses": 0,
+     "f0": 246,
+     "f0_jump_c": 77.5,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おみくじ",
+   "reading": "おみくじ",
+   "file": "word_omikuji",
+   "moras": 4,
+   "app_voiced": 0.64,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.65,
+     "voiced": 1.13,
+     "pauses": 0,
+     "f0": 344,
+     "f0_jump_c": 135.5,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.55,
+     "voiced": 0.88,
+     "pauses": 0,
+     "f0": 289,
+     "f0_jump_c": 134.4,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.54,
+     "voiced": 0.95,
+     "pauses": 0,
+     "f0": 256,
+     "f0_jump_c": 149.6,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.66,
+     "voiced": 1.13,
+     "pauses": 0,
+     "f0": 290,
+     "f0_jump_c": 84.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "えんむすび",
+   "reading": "えんむすび",
+   "file": "word_enmusubi",
+   "moras": 5,
+   "app_voiced": 0.71,
+   "expect": 1.0,
+   "long_s": 1.6,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.44,
+     "voiced": 0.68,
+     "pauses": 0,
+     "f0": 360,
+     "f0_jump_c": 215.0,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.43,
+     "voiced": 0.66,
+     "pauses": 0,
+     "f0": 243,
+     "f0_jump_c": 174.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.54,
+     "voiced": 0.91,
+     "pauses": 0,
+     "f0": 285,
+     "f0_jump_c": 230.6,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.69,
+     "voiced": 1.24,
+     "pauses": 0,
+     "f0": 427,
+     "f0_jump_c": 211.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "たこやき",
+   "reading": "たこやき",
+   "file": "word_takoyaki",
+   "moras": 4,
+   "app_voiced": 0.63,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.4,
+     "voiced": 0.57,
+     "pauses": 0,
+     "f0": 285,
+     "f0_jump_c": 62.0,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.62,
+     "voiced": 1.11,
+     "pauses": 0,
+     "f0": 276,
+     "f0_jump_c": 71.2,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.67,
+     "voiced": 1.14,
+     "pauses": 0,
+     "f0": 219,
+     "f0_jump_c": 172.5,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.49,
+     "voiced": 0.77,
+     "pauses": 0,
+     "f0": 327,
+     "f0_jump_c": 81.7,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おまつり",
+   "reading": "おまつり",
+   "file": "word_omatsuri",
+   "moras": 4,
+   "app_voiced": 0.58,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.44,
+     "voiced": 0.66,
+     "pauses": 0,
+     "f0": 364,
+     "f0_jump_c": 153.4,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.54,
+     "voiced": 0.9,
+     "pauses": 0,
+     "f0": 278,
+     "f0_jump_c": 85.6,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.6,
+     "voiced": 1.02,
+     "pauses": 0,
+     "f0": 285,
+     "f0_jump_c": 108.3,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.54,
+     "voiced": 0.94,
+     "pauses": 0,
+     "f0": 306,
+     "f0_jump_c": 111.5,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "あたり",
+   "reading": "あたり",
+   "file": "word_atari",
+   "moras": 3,
+   "app_voiced": 0.41,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.48,
+     "voiced": 0.75,
+     "pauses": 0,
+     "f0": 439,
+     "f0_jump_c": 114.2,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.56,
+     "voiced": 0.94,
+     "pauses": 0,
+     "f0": 269,
+     "f0_jump_c": 62.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.48,
+     "voiced": 0.75,
+     "pauses": 0,
+     "f0": 312,
+     "f0_jump_c": 96.5,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.48,
+     "voiced": 0.73,
+     "pauses": 0,
+     "f0": 347,
+     "f0_jump_c": 71.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "やきそば",
+   "reading": "やきそば",
+   "file": "word_yakisoba",
+   "moras": 4,
+   "app_voiced": 0.66,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.62,
+     "voiced": 1.11,
+     "pauses": 0,
+     "f0": 461,
+     "f0_jump_c": 59.7,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.51,
+     "voiced": 0.8,
+     "pauses": 0,
+     "f0": 293,
+     "f0_jump_c": 59.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.52,
+     "voiced": 0.86,
+     "pauses": 0,
+     "f0": 299,
+     "f0_jump_c": 57.2,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.54,
+     "voiced": 0.84,
+     "pauses": 0,
+     "f0": 413,
+     "f0_jump_c": 65.6,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "はずれ",
+   "reading": "はずれ",
+   "file": "word_hazure",
+   "moras": 3,
+   "app_voiced": 0.48,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.42,
+     "voiced": 0.56,
+     "pauses": 0,
+     "f0": 307,
+     "f0_jump_c": 236.9,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.54,
+     "voiced": 0.9,
+     "pauses": 0,
+     "f0": 391,
+     "f0_jump_c": 107.3,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.36,
+     "voiced": 0.49,
+     "pauses": 0,
+     "f0": 358,
+     "f0_jump_c": 217.4,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.58,
+     "voiced": 0.97,
+     "pauses": 0,
+     "f0": 319,
+     "f0_jump_c": 81.7,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "りんごあめ",
+   "reading": "りんごあめ",
+   "file": "word_ringoame",
+   "moras": 5,
+   "app_voiced": 0.73,
+   "expect": 1.0,
+   "long_s": 1.6,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.51,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 295,
+     "f0_jump_c": 95.7,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 2.4,
+     "voiced": 4.36,
+     "pauses": 2,
+     "f0": 229,
+     "f0_jump_c": 72.6,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.55,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 267,
+     "f0_jump_c": 79.6,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.47,
+     "voiced": 0.76,
+     "pauses": 0,
+     "f0": 371,
+     "f0_jump_c": 206.6,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "やきとり",
+   "reading": "やきとり",
+   "file": "word_yakitori",
+   "moras": 4,
+   "app_voiced": 0.58,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.66,
+     "voiced": 1.19,
+     "pauses": 0,
+     "f0": 324,
+     "f0_jump_c": 79.0,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.58,
+     "voiced": 0.98,
+     "pauses": 0,
+     "f0": 308,
+     "f0_jump_c": 105.1,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.48,
+     "voiced": 0.76,
+     "pauses": 0,
+     "f0": 444,
+     "f0_jump_c": 111.1,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.48,
+     "voiced": 0.78,
+     "pauses": 0,
+     "f0": 387,
+     "f0_jump_c": 70.6,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "つくね",
+   "reading": "つくね",
+   "file": "word_tsukune",
+   "moras": 3,
+   "app_voiced": 0.47,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.38,
+     "voiced": 0.48,
+     "pauses": 0,
+     "f0": 290,
+     "f0_jump_c": 99.4,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.36,
+     "voiced": 0.5,
+     "pauses": 0,
+     "f0": 291,
+     "f0_jump_c": 236.3,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.47,
+     "voiced": 0.74,
+     "pauses": 0,
+     "f0": 256,
+     "f0_jump_c": 45.5,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.49,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 354,
+     "f0_jump_c": 97.2,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "かわ",
+   "reading": "かわ",
+   "file": "word_kawa",
+   "moras": 2,
+   "app_voiced": 0.33,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.4,
+     "voiced": 0.62,
+     "pauses": 0,
+     "f0": 297,
+     "f0_jump_c": 90.6,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.4,
+     "voiced": 0.61,
+     "pauses": 0,
+     "f0": 215,
+     "f0_jump_c": 85.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 2.29,
+     "voiced": 4.31,
+     "pauses": 1,
+     "f0": 308,
+     "f0_jump_c": 234.8,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.62,
+     "voiced": 0.88,
+     "pauses": 0,
+     "f0": 230,
+     "f0_jump_c": 41.1,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "むね",
+   "reading": "むね",
+   "file": "word_mune",
+   "moras": 2,
+   "app_voiced": 0.35,
+   "expect": 0.4,
+   "long_s": 0.85,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.4,
+     "voiced": 0.58,
+     "pauses": 0,
+     "f0": 218,
+     "f0_jump_c": 78.2,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.63,
+     "voiced": 1.1,
+     "pauses": 0,
+     "f0": 444,
+     "f0_jump_c": 76.9,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.33,
+     "voiced": 0.34,
+     "pauses": 0,
+     "f0": 315,
+     "f0_jump_c": 129.0,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.35,
+     "voiced": 0.42,
+     "pauses": 0,
+     "f0": 326,
+     "f0_jump_c": 86.3,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ささみ",
+   "reading": "ささみ",
+   "file": "word_sasami",
+   "moras": 3,
+   "app_voiced": 0.57,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.49,
+     "voiced": 0.73,
+     "pauses": 0,
+     "f0": 319,
+     "f0_jump_c": 95.7,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.48,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 434,
+     "f0_jump_c": 47.4,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.45,
+     "voiced": 0.62,
+     "pauses": 0,
+     "f0": 352,
+     "f0_jump_c": 47.3,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.4,
+     "voiced": 0.55,
+     "pauses": 0,
+     "f0": 431,
+     "f0_jump_c": 64.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "なんこつ",
+   "reading": "なんこつ",
+   "file": "word_nankotsu",
+   "moras": 4,
+   "app_voiced": 0.65,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.7,
+     "voiced": 1.22,
+     "pauses": 0,
+     "f0": 325,
+     "f0_jump_c": 64.5,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.71,
+     "voiced": 1.23,
+     "pauses": 0,
+     "f0": 302,
+     "f0_jump_c": 69.6,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.91,
+     "voiced": 1.66,
+     "pauses": 0,
+     "f0": 350,
+     "f0_jump_c": 85.2,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.63,
+     "voiced": 1.03,
+     "pauses": 0,
+     "f0": 248,
+     "f0_jump_c": 83.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "しいたけ",
+   "reading": "しいたけ",
+   "file": "word_shiitake",
+   "moras": 4,
+   "app_voiced": 0.68,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.59,
+     "voiced": 0.98,
+     "pauses": 0,
+     "f0": 304,
+     "f0_jump_c": 73.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.73,
+     "voiced": 1.34,
+     "pauses": 0,
+     "f0": 245,
+     "f0_jump_c": 75.5,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.56,
+     "voiced": 0.9,
+     "pauses": 0,
+     "f0": 319,
+     "f0_jump_c": 145.2,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.48,
+     "voiced": 0.77,
+     "pauses": 0,
+     "f0": 350,
+     "f0_jump_c": 99.3,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おにぎり",
+   "reading": "おにぎり",
+   "file": "word_onigiri",
+   "moras": 4,
+   "app_voiced": 0.58,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.44,
+     "voiced": 0.68,
+     "pauses": 0,
+     "f0": 327,
+     "f0_jump_c": 160.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.66,
+     "voiced": 1.04,
+     "pauses": 0,
+     "f0": 365,
+     "f0_jump_c": 120.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.44,
+     "voiced": 0.68,
+     "pauses": 0,
+     "f0": 325,
+     "f0_jump_c": 104.8,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.48,
+     "voiced": 0.74,
+     "pauses": 0,
+     "f0": 419,
+     "f0_jump_c": 101.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "うずら",
+   "reading": "うずら",
+   "file": "word_uzura",
+   "moras": 3,
+   "app_voiced": 0.45,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.46,
+     "voiced": 0.64,
+     "pauses": 0,
+     "f0": 451,
+     "f0_jump_c": 108.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 1.06,
+     "voiced": 1.89,
+     "pauses": 0,
+     "f0": 293,
+     "f0_jump_c": 117.5,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.55,
+     "voiced": 0.8,
+     "pauses": 0,
+     "f0": 366,
+     "f0_jump_c": 175.9,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.44,
+     "voiced": 0.61,
+     "pauses": 0,
+     "f0": 292,
+     "f0_jump_c": 117.2,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ゆ",
+   "reading": "ゆ",
+   "file": "word_yu",
+   "moras": 1,
+   "app_voiced": 0.22,
+   "expect": 0.2,
+   "long_s": 0.6,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 1,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.38,
+     "voiced": 0.54,
+     "pauses": 0,
+     "f0": 378,
+     "f0_jump_c": 148.3,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 2.09,
+     "voiced": 4.11,
+     "pauses": 0,
+     "f0": 501,
+     "f0_jump_c": 75.9,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.63,
+     "voiced": 1.01,
+     "pauses": 0,
+     "f0": 352,
+     "f0_jump_c": 64.9,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 1.81,
+     "voiced": 3.31,
+     "pauses": 3,
+     "f0": 516,
+     "f0_jump_c": 100.6,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "おんせん",
+   "reading": "おんせん",
+   "file": "word_onsen",
+   "moras": 4,
+   "app_voiced": 0.49,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.65,
+     "voiced": 0.96,
+     "pauses": 0,
+     "f0": 432,
+     "f0_jump_c": 119.2,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.48,
+     "voiced": 0.65,
+     "pauses": 0,
+     "f0": 251,
+     "f0_jump_c": 79.9,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.45,
+     "voiced": 0.67,
+     "pauses": 0,
+     "f0": 331,
+     "f0_jump_c": 109.8,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.58,
+     "voiced": 0.97,
+     "pauses": 0,
+     "f0": 380,
+     "f0_jump_c": 121.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ゆかた",
+   "reading": "ゆかた",
+   "file": "word_yukata",
+   "moras": 3,
+   "app_voiced": 0.48,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.41,
+     "voiced": 0.61,
+     "pauses": 0,
+     "f0": 331,
+     "f0_jump_c": 71.3,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.55,
+     "voiced": 0.89,
+     "pauses": 0,
+     "f0": 490,
+     "f0_jump_c": 155.1,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 1.0,
+     "voiced": 1.69,
+     "pauses": 1,
+     "f0": 415,
+     "f0_jump_c": 164.4,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.45,
+     "voiced": 0.55,
+     "pauses": 0,
+     "f0": 394,
+     "f0_jump_c": 55.9,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ぬる湯",
+   "reading": "ぬるゆ",
+   "file": "word_nuruyu",
+   "moras": 3,
+   "app_voiced": 0.52,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 2,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.97,
+     "voiced": 1.67,
+     "pauses": 0,
+     "f0": 295,
+     "f0_jump_c": 37.9,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 2,
+     "gen_s": 0.63,
+     "voiced": 1.1,
+     "pauses": 0,
+     "f0": 349,
+     "f0_jump_c": 97.8,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 2.31,
+     "voiced": 4.71,
+     "pauses": 1,
+     "f0": 374,
+     "f0_jump_c": 505.0,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.59,
+     "voiced": 0.89,
+     "pauses": 0,
+     "f0": 430,
+     "f0_jump_c": 80.8,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ひのき",
+   "reading": "ひのき",
+   "file": "word_hinoki",
+   "moras": 3,
+   "app_voiced": 0.49,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.4,
+     "voiced": 0.61,
+     "pauses": 0,
+     "f0": 286,
+     "f0_jump_c": 155.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.41,
+     "voiced": 0.63,
+     "pauses": 0,
+     "f0": 259,
+     "f0_jump_c": 111.1,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.47,
+     "voiced": 0.75,
+     "pauses": 0,
+     "f0": 297,
+     "f0_jump_c": 101.3,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.78,
+     "voiced": 1.38,
+     "pauses": 0,
+     "f0": 237,
+     "f0_jump_c": 158.0,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "くつをぬいでください",
+   "reading": "くつをぬいでください",
+   "file": "word_kutsu_o_nuide_kudasai",
+   "moras": 10,
+   "app_voiced": 1.29,
+   "expect": 2.0,
+   "long_s": 2.85,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.63,
+     "voiced": 1.09,
+     "pauses": 0,
+     "f0": 415,
+     "f0_jump_c": 130.1,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.7,
+     "voiced": 1.25,
+     "pauses": 0,
+     "f0": 362,
+     "f0_jump_c": 138.6,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.73,
+     "voiced": 1.27,
+     "pauses": 0,
+     "f0": 407,
+     "f0_jump_c": 179.8,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.77,
+     "voiced": 1.33,
+     "pauses": 0,
+     "f0": 360,
+     "f0_jump_c": 127.5,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ようこそ",
+   "reading": "ようこそ",
+   "file": "word_yokoso",
+   "moras": 4,
+   "app_voiced": 0.64,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.59,
+     "voiced": 1.0,
+     "pauses": 0,
+     "f0": 327,
+     "f0_jump_c": 55.6,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.52,
+     "voiced": 0.79,
+     "pauses": 0,
+     "f0": 387,
+     "f0_jump_c": 93.2,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.67,
+     "voiced": 1.14,
+     "pauses": 0,
+     "f0": 439,
+     "f0_jump_c": 64.7,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.55,
+     "voiced": 0.92,
+     "pauses": 0,
+     "f0": 358,
+     "f0_jump_c": 100.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おもてなし",
+   "reading": "おもてなし",
+   "file": "word_omotenashi",
+   "moras": 5,
+   "app_voiced": 0.74,
+   "expect": 1.0,
+   "long_s": 1.6,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.63,
+     "voiced": 1.06,
+     "pauses": 0,
+     "f0": 273,
+     "f0_jump_c": 63.8,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.92,
+     "voiced": 1.74,
+     "pauses": 0,
+     "f0": 276,
+     "f0_jump_c": 54.1,
+     "flags": [
+      "long"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.63,
+     "voiced": 1.07,
+     "pauses": 0,
+     "f0": 323,
+     "f0_jump_c": 81.8,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.81,
+     "voiced": 1.47,
+     "pauses": 0,
+     "f0": 367,
+     "f0_jump_c": 100.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ほうじ茶",
+   "reading": "ほうじちゃ",
+   "file": "word_hojicha",
+   "moras": 4,
+   "app_voiced": 0.59,
+   "expect": 0.8,
+   "long_s": 1.35,
+   "best": 4,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.7,
+     "voiced": 1.26,
+     "pauses": 0,
+     "f0": 255,
+     "f0_jump_c": 127.9,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.66,
+     "voiced": 1.14,
+     "pauses": 0,
+     "f0": 398,
+     "f0_jump_c": 103.0,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 1.18,
+     "voiced": 2.27,
+     "pauses": 1,
+     "f0": 307,
+     "f0_jump_c": 80.0,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 0.55,
+     "voiced": 0.9,
+     "pauses": 0,
+     "f0": 237,
+     "f0_jump_c": 75.0,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "おふろ",
+   "reading": "おふろ",
+   "file": "word_ofuro",
+   "moras": 3,
+   "app_voiced": 0.43,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 3,
+   "best_flags": [],
+   "clean_takes": 3,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.48,
+     "voiced": 0.73,
+     "pauses": 0,
+     "f0": 271,
+     "f0_jump_c": 56.4,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.58,
+     "voiced": 0.96,
+     "pauses": 0,
+     "f0": 339,
+     "f0_jump_c": 76.0,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.37,
+     "voiced": 0.53,
+     "pauses": 0,
+     "f0": 460,
+     "f0_jump_c": 45.5,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.8,
+     "voiced": 1.5,
+     "pauses": 0,
+     "f0": 270,
+     "f0_jump_c": 79.7,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  },
+  {
+   "word": "おへや",
+   "reading": "おへや",
+   "file": "word_oheya",
+   "moras": 3,
+   "app_voiced": 0.48,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 2,
+   "best_flags": [],
+   "clean_takes": 4,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.55,
+     "voiced": 0.88,
+     "pauses": 0,
+     "f0": 296,
+     "f0_jump_c": 22.2,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.41,
+     "voiced": 0.6,
+     "pauses": 0,
+     "f0": 422,
+     "f0_jump_c": 114.1,
+     "flags": []
+    },
+    {
+     "take": 3,
+     "gen_s": 0.48,
+     "voiced": 0.72,
+     "pauses": 0,
+     "f0": 328,
+     "f0_jump_c": 112.7,
+     "flags": []
+    },
+    {
+     "take": 4,
+     "gen_s": 0.41,
+     "voiced": 0.61,
+     "pauses": 0,
+     "f0": 366,
+     "f0_jump_c": 79.2,
+     "flags": []
+    }
+   ]
+  },
+  {
+   "word": "ふとん",
+   "reading": "ふとん",
+   "file": "word_futon",
+   "moras": 3,
+   "app_voiced": 0.33,
+   "expect": 0.6,
+   "long_s": 1.1,
+   "best": 1,
+   "best_flags": [],
+   "clean_takes": 1,
+   "takes": [
+    {
+     "take": 1,
+     "gen_s": 0.48,
+     "voiced": 0.78,
+     "pauses": 0,
+     "f0": 466,
+     "f0_jump_c": 79.4,
+     "flags": []
+    },
+    {
+     "take": 2,
+     "gen_s": 0.43,
+     "voiced": 0.63,
+     "pauses": 1,
+     "f0": 440,
+     "f0_jump_c": 68.2,
+     "flags": [
+      "pause"
+     ]
+    },
+    {
+     "take": 3,
+     "gen_s": 0.71,
+     "voiced": 1.13,
+     "pauses": 1,
+     "f0": 258,
+     "f0_jump_c": 57.0,
+     "flags": [
+      "long",
+      "pause"
+     ]
+    },
+    {
+     "take": 4,
+     "gen_s": 2.39,
+     "voiced": 4.72,
+     "pauses": 0,
+     "f0": null,
+     "f0_jump_c": null,
+     "flags": [
+      "long"
+     ]
+    }
+   ]
+  }
+ ]
+}

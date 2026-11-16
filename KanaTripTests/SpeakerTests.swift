@@ -122,7 +122,7 @@ struct BundledVoiceTests {
         #expect(index.kana["お"] == "kana_o")
     }
 
-    /// 번들의 m4a를 iOS가 실제로 열 수 있고, 길이가 글자 0.4~1.0초(노래 합성 한 박 0.4초 + 앞뒤 무음과 잦아드는 끝),
+    /// 번들의 m4a를 iOS가 실제로 열 수 있고, 길이가 글자 0.4~1.0초(Qwen3-TTS 소리 0.3~0.6초 + 앞 0.025초·뒤 0.1초 무음),
     /// 단어 0.3~2초 안이다.
     @Test func everyBundledFileDecodes() throws {
         let index = try index()
@@ -142,12 +142,14 @@ struct BundledVoiceTests {
         #expect(L.voiceCredit == "VOICEVOX:春日部つむぎ")
     }
 
-    /// 정보 화면의 두 줄: 들리는 목소리(春日部つむぎ)와 글자 소리의 가창 교사(波音リツ).
-    /// 기존 표기 `VOICEVOX:春日部つむぎ`는 그대로 들어 있어야 한다.
+    /// 정보 화면의 두 줄: 단어 목소리(春日部つむぎ)와 글자 목소리(Qwen3-TTS).
+    /// 기존 표기 `VOICEVOX:春日部つむぎ`는 그대로 들어 있어야 하고, 노래 합성 가창 교사(波音リツ)는 더 적지 않는다.
     @Test func creditLinesNameBothVoices() {
         #expect(L.voiceCreditLine == "音声: VOICEVOX:春日部つむぎ")
         #expect(L.voiceCreditLine.contains(L.voiceCredit))
-        #expect(L.songTeacherCreditLine == "歌い方(教師): VOICEVOX:波音リツ")
+        #expect(L.kanaVoiceCreditLine == "글자 발음: Qwen3-TTS (Apache 2.0)")
+        #expect(L.voiceCreditNote.contains("春日部つむぎ") && L.voiceCreditNote.contains("Qwen3-TTS"))
+        #expect(!L.voiceCreditNote.contains("波音リツ"))
     }
 
     // MARK: 무엇으로 읽을지

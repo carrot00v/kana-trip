@@ -1,7 +1,7 @@
 {
- "comment": "tools/gen_voice.py final이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).",
+ "comment": "글자 m4a는 tools/gen_voice_qwen.py final(Qwen3-TTS Serena), 단어 m4a는 tools/gen_voice.py final(VOICEVOX 春日部つむぎ)이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).",
  "credit": "VOICEVOX:春日部つむぎ",
- "generated": "2026-11-16",
+ "generated": "2026-11-17",
  "kana": {
   "あ": "kana_a",
   "い": "kana_i",
