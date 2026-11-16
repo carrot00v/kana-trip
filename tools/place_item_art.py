@@ -152,7 +152,6 @@ DEPTH_RULES = {
 }
 BAND_TOP = (8, 16)             # band 띠 윗변 깊이
 CARVE_DE_SMALL, CARVE_DE_LARGE, CARVE_DE_SIDE = 10, 21, 4   # 폭 80 이하 / 초과 평균, 각 쪽 최소
-TENUGUI_DE = (12, 24)
 DRAPE_DE = (20, 40)
 CONTACT_MIN = {"carve": 0.60, "drape": 0.75, "carve_full": 0.75}
 BAND_OVERSHOOT = 4
@@ -508,9 +507,11 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
         elif how == "drape":
             ok = dl is not None and dr is not None and all(DRAPE_DE[0] <= v <= DRAPE_DE[1] for v in de)
             out.append((f"D_e {dl}·{dr} (각 {DRAPE_DE[0]}~{DRAPE_DE[1]})", ok))
-        elif item.get("contactSpan", 0.8) >= 1.0 and item.get("kind") == "hat":
-            ok = dl is not None and dr is not None and all(TENUGUI_DE[0] <= v <= TENUGUI_DE[1] for v in de)
-            out.append((f"D_e {dl}·{dr} (각 {TENUGUI_DE[0]}~{TENUGUI_DE[1]}, 수건)", ok))
+        elif item.get("deRange"):
+            # 접은 수건처럼 양쪽 범위를 따로 정한 아이템 (head-fit.md 1.3의 tenugui 12~24)
+            lo_, hi_ = item["deRange"]
+            ok = dl is not None and dr is not None and all(lo_ <= v <= hi_ for v in de)
+            out.append((f"D_e {dl}·{dr} (각 {lo_}~{hi_})", ok))
         else:
             need = CARVE_DE_SMALL if width <= 80 else CARVE_DE_LARGE
             avg = (dl + dr) / 2 if dl is not None and dr is not None else None
@@ -521,7 +522,7 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
         if how in ("carve", "drape"):
             cov = [c for c in range(360) if any(ring[y][c] and g[y][c] for y in range(360))]
             ratio = ((cov[-1] - cov[0] + 1) / width) if cov else 0
-            full = how == "drape" or item.get("contactSpan", 0.8) >= 1.0
+            full = how == "drape" or item.get("contactSpan", 0.8) >= 1.0 or bool(item.get("deRange"))
             need = CONTACT_MIN["carve_full" if how == "carve" and full else how]
             out.append((f"닿는 폭 {ratio:.0%} ({need:.0%} 이상)", ratio >= need))
         else:
@@ -582,8 +583,14 @@ def place_top(src: Image.Image, item: dict) -> Image.Image:
     return place_at(img, anchor, tuple(item.get("contact", TOP_CONTACT)), item.get("rotate", 0))
 
 
+def level(src: Image.Image, item: dict) -> Image.Image:
+    """sourceRotate(도, SVG 부호): 그림 자체가 기울어 있을 때 먼저 바로 세운다. 그림의 긴 축이 오른쪽으로 내려가면 음수."""
+    deg = item.get("sourceRotate", 0)
+    return src.rotate(-deg, resample=Image.BICUBIC, expand=True) if deg else src
+
+
 def place_filling(src: Image.Image, item: dict) -> Image.Image:
-    img = trim(src)
+    img = apply_erase(trim(level(src, item)), item.get("erase"))
     s = px(item["length"]) / img.width
     img = img.resize((max(1, round(img.width * s)), max(1, round(img.height * s))), Image.LANCZOS)
     anchor = anchor_px(img, item.get("anchor"), (1.0, 0.5))
