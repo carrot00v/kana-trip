@@ -217,34 +217,15 @@
     134,
     108
    ],
-   "rotate": -5,
+   "rotate": -20,
    "visibleTilt": -20,
    "box": [
-    60,
-    60
-   ],
-   "erase": [
-    [
-     [
-      0,
-      0.6
-     ],
-     [
-      0.09,
-      0.6
-     ],
-     [
-      0.09,
-      0.78
-     ],
-     [
-      0,
-      0.78
-     ]
-    ]
+    52,
+    56
    ],
    "prompt": "A small white Japanese fox festival mask (kitsune omen) shown alone as a flat object, front view, upright: a rounded face shape with two pointed ears on top, two narrow curved eye slits drawn with thick bold lines, a few simple broad orange-red markings on the cheeks and forehead. Very few inner lines, all as thick as the outline. Flat sticker drawing of the mask itself, no cord, no string, no head inside it, nothing behind it.",
-   "palette": "Use only two fill colors: warm off-white and soft orange red. No blue, no grey, no other colors."
+   "palette": "Use only two fill colors: warm off-white and soft orange red. No blue, no grey, no other colors.",
+   "innerGrow": 1.25
   },
   {
    "id": "hachimaki",
@@ -396,8 +377,28 @@
    "direction": 30,
    "depth": 8,
    "length": 44,
-   "prompt": "One Japanese pickled plum (umeboshi) shown alone as a flat object, front view: a round slightly squashed ball in soft orange red with one or two short curved wrinkle lines on its surface. No leaf, no seed, no stem, no bowl. Only the one plum.",
-   "palette": "Use only soft orange red for the fill. No other colors, no color swatches."
+   "prompt": "One Japanese pickled plum (umeboshi) drawn completely flat in 2D, front view: a slightly squashed wrinkly round shape, a little wider than tall, in one flat soft orange red color, with two or three short curved wrinkle lines on its surface drawn in the outline color. It is a soft shrivelled pickled plum, not a fresh fruit: no stem, no leaf, no seed, no shine, no highlight, no bowl. Only the one plum.",
+   "palette": "Use only soft orange red for the fill. No other colors, no color swatches.",
+   "erase": [
+    [
+     [
+      0.42,
+      0
+     ],
+     [
+      0.62,
+      0
+     ],
+     [
+      0.62,
+      0.065
+     ],
+     [
+      0.42,
+      0.065
+     ]
+    ]
+   ]
   }
  ]
 }
