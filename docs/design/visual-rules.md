@@ -6,6 +6,7 @@
 - 상태: 초안. 실기기에서 확인하지 않은 값은 9번 절에 모았다. 2026-11-13 개정의 선택 사항(캔버스 외곽선 없음, 강조색 진갈색, 다크 배경, 축하 효과 범위, 캐릭터 자리, 가나 고딕 유지, 캐릭터 SVG 한 장)은 사용자가 확정했다
 - 기준 문서: `PLAN.md` 3번, `.claude/agents/designer.md`, `KanaTrip/Writing/WritingCanvas.swift`, `tools/make_onigiri_svg.py`(캐릭터 색 값)
 - 함께 보는 문서: [scene-flow.md](scene-flow.md) (화면별 배치와 상태), [reward-flow.md](reward-flow.md) (기리 꾸미기 화면과 아이템 그림 규격), [character/](character/) (캐릭터 SVG)
+- 2026-11-17 구상: 배경 아이템을 앱 스킨으로 바꾸면 1.1의 `AppBackground`·`AccentColor`·`AccentForeground`가 스킨마다 달라진다. 안은 [app-skin.md](app-skin.md). 결정 전까지는 이 문서의 값이 기준이다
 
 SwiftUI 기본 컴포넌트, 시스템 글꼴, SF Symbols를 쓴다. 색은 시스템 색 대신 에셋 카탈로그의 Color Set(1.1)을 쓰고, 라이트·다크 값은 Color Set에 함께 넣는다. 외부 글꼴과 외부 패키지는 쓰지 않는다. 그림은 캐릭터 레이어 SVG와 아이템 SVG만 쓴다(7.2, [reward-flow.md](reward-flow.md) 8번).
 

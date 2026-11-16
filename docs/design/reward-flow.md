@@ -4,6 +4,7 @@
 - 상태: 확정 (2026-11-13). 리워드 규칙(`docs/content/reward-system.md`)의 결정(100엔/세션, 아이템 300엔, 슬롯 4개, 장면당 아이템 2개, 산 직후 자동 착용, 기본 차림으로 되돌리기, 16장면 완료 때 남은 아이템 지급)을 전제로 그렸다. 14번 절의 권장안은 모두 확정됐다. 반짝임 처리는 이 문서의 "왼쪽으로 뒤집기"로 정해졌다(7번 절)
 - 개정: 2026-11-16 슬롯이 모자·두건·손·배경 4개에서 **머리·속재료·밥·배경 4개**로 바뀌었다(PLAN.md 3번 "기리 꾸미기", 같은 날 거친 머리·배경 2슬롯 안을 사용자가 "추천안대로" 확정한 4종류 안으로 바꿈). 손 소품과 두건 자리 천은 없고, 빨간 두건과 김은 고정 차림, 요리사 모자는 머리 슬롯, 흰 밥은 밥 슬롯의 기본 아이템이다. 바뀐 점은 3.0, 탭 규격은 3.2, 레이어는 8.1, 그림 기준은 item-art/brief.md 2.0~2.6. 아이템 목록은 item-art/brief.md 5번(reward-system.md 4.2와 같음)
 - 기준 문서: `docs/content/reward-system.md` 전체, `PLAN.md` 3번, [visual-rules.md](visual-rules.md) 전체, [scene-flow.md](scene-flow.md) 4번·11번·12번·14번, `docs/design/character/*.svg`, `tools/make_onigiri_svg.py`, `KanaTrip/Home/HomeView.swift`, `KanaTrip/Session/CompletionViews.swift`
+- 2026-11-17 구상: "배경" 아이템을 앱 전체 스킨으로 바꾸는 안은 [app-skin.md](app-skin.md). 결정 전까지는 이 문서의 배경 규칙이 기준이다
 - `scene-flow.md`와 `visual-rules.md`에는 바뀐 규칙과 수치만 반영하고 자세한 것은 이 문서의 절 번호로 가리켰다. 반영한 곳은 12번 절에 있다
 
 새 화면 기호: **K 기리 꾸미기**. 나머지 기호(H, S, C1, C2 등)는 scene-flow.md 1번과 같다.
