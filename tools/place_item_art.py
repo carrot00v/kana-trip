@@ -165,10 +165,16 @@ OVERLAY_TILT = (-25, -15)          # items.json `tiltRange`가 없을 때
 OVERLAY_OVERLAP = (0.40, 0.60)     # items.json `overlapRange`(%)가 없을 때
 PRESS_MAX = 30
 
-# 검사 11: 접은 수건 (head-fit.md 3.5.1). items.json에 `indigoRange`가 있는 아이템만 잰다.
+# 검사 11: 접은 수건 (head-fit.md 3.5.1, (나)는 3.5.2 3차 수정). items.json에 `indigoRange`가 있는 아이템만 잰다.
 TOWEL_CORNER_IN = 8                # 아래 두 모서리가 몸 외곽선 안쪽 가장자리에서 안쪽으로
-TOWEL_STRIPE_MIN = 16              # 남색 띠 하나의 보이는 폭 (가장 좁은 행)
+TOWEL_STRIPES = (2, 3)             # 가로 남색 줄 개수
+TOWEL_STRIPE_LEN = 0.70            # 줄 하나의 가로 길이 ÷ 안쪽 채움 폭
+TOWEL_STRIPE_THICK = (4, 7)        # 줄 두께 (열마다 잰 세로 두께의 중앙값)
+TOWEL_GAP_EDGE, TOWEL_GAP_BETWEEN = 3, 4   # 가운데 열의 위·아래 흰 틈, 줄 사이 흰 틈
 INDIGO_HUE, INDIGO_VALUE = (200, 235), 0.55
+
+# 가로 늘림 `squash` (head-fit.md 3.5.2): 가로 배율 ÷ 세로 배율. items.json `squashMax`로 차선(1.7)까지 넓힌다.
+SQUASH_RANGE = (1.0, 1.5)
 
 # 검사 12: 크기 하한 (head-fit.md 1.9.3). 맞춤 방식별 기본 종류, items.json `sizeClass`로 바꾼다.
 BODY_WIDTH = 248                   # 몸 폭 (외곽선 가운데)
@@ -177,7 +183,7 @@ SIZE_CLASS = {"swallow": "chef", "band": "band", "carve": "long", "drape": "long
 SIZE_MIN = {
     # w: 보이는 폭, h: 보이는 높이, thick: 가운데 열의 위아래 거리(띠 굵기·수건 두께), knot: 매듭 폭, area: 면적 비율
     "chef": {"area": 0.80},
-    "band": {"w": 120, "thick": 20, "knot": 28, "area": 0.28},
+    "band": {"w": 120, "thick": 20, "knot": 30, "knotMax": 38, "area": 0.28},   # 매듭 30~38 (3.2.2)
     "mask": {"w": 72, "h": 72, "area": 0.30},
     "towel": {"w": 88, "thick": 36, "area": 0.26},
     "long": {"w": 104, "h": 52, "area": 0.35},
@@ -271,7 +277,7 @@ def polygon_mask(polys: list, size: tuple[int, int], to_px) -> Image.Image:
     return m
 
 
-def apply_erase(img: Image.Image, polys: list | None) -> Image.Image:
+def apply_erase(img: Image.Image, polys: list | None, retrim: bool = True) -> Image.Image:
     """그림 손질: 잘라 낸 그림 안의 비율 좌표 다각형을 지우고 다시 잘라 낸다 (head-fit.md 2.3 `erase`)."""
     if not polys:
         return img
@@ -279,7 +285,62 @@ def apply_erase(img: Image.Image, polys: list | None) -> Image.Image:
     a = ImageChops.subtract(img.getchannel("A"), m)
     out = img.copy()
     out.putalpha(a)
-    return trim(out)
+    return trim(out) if retrim else out
+
+
+def tail_trim_polygon(spec: dict, size: tuple[int, int]) -> list[tuple[float, float]]:
+    """꼬리 반원 자르기 `tailTrim` 한 개 (head-fit.md 3.2.2 손질 1)를 지울 다각형(픽셀)으로.
+    spec: {"center": [fx, fy] 남길 끝 반원의 가운데(그림 비율), "angle": 꼬리 끝이 향하는 방향(위 0°, 시계 방향 +),
+    "radius": 반원 반지름(그림 폭 비율), "reach": 옆으로 지울 너비(반지름 배수, 기본 2)}.
+    center를 지나 꼬리에 수직인 선 너머를 지우되 반지름 radius의 반원은 남긴다. 반원은 점 24개로 근사한다."""
+    w, h = size
+    cx, cy = spec["center"][0] * w, spec["center"][1] * h
+    r = spec["radius"] * w
+    a = math.radians(spec["angle"])
+    out = (math.sin(a), -math.cos(a))             # 꼬리 끝 방향 (y 아래로 +)
+    perp = (math.cos(a), math.sin(a))             # 오른쪽 옆
+    reach, far = r * spec.get("reach", 2), max(w, h)
+
+    def pt(u: float, v: float) -> tuple[float, float]:
+        """u: 옆(perp) 거리, v: 끝 방향(out) 거리."""
+        return cx + perp[0] * u + out[0] * v, cy + perp[1] * u + out[1] * v
+
+    arc = [pt(r * math.cos(t), r * math.sin(t)) for t in (math.pi * (1 - i / 24) for i in range(25))]
+    return [pt(-reach, 0), pt(-reach, far), pt(reach, far), pt(reach, 0)] + arc[::-1]
+
+
+def tail_rotate(img: Image.Image, specs: list) -> Image.Image:
+    """꼬리 돌리기 `tailRotate` (head-fit.md 3.2.2 손질 2): [[다각형], [축 fx, fy], 각도]마다 다각형 안을 떼어 축을
+    중심으로 각도(SVG 부호, + 시계 방향)만큼 돌린 뒤 나머지 그림 **밑에** 다시 붙인다(매듭이 이음매를 덮는다).
+    좌표는 모두 그림 비율. 돌린 조각이 그림 밖으로 나가도 잘리지 않게 둘레를 넓혀 돌리고, 부르는 쪽이 다시 잘라 낸다."""
+    w, h = img.size
+    pad = max(w, h) // 2
+    big = Image.new("RGBA", (w + 2 * pad, h + 2 * pad))
+    big.alpha_composite(img, (pad, pad))
+    for poly, pivot, deg in specs:
+        to_px = (lambda p: (pad + p[0] * w, pad + p[1] * h))
+        m = polygon_mask([poly], big.size, to_px)
+        piece = big.copy()
+        piece.putalpha(ImageChops.multiply(big.getchannel("A"), m))
+        rest = big.copy()
+        rest.putalpha(ImageChops.subtract(big.getchannel("A"), m))
+        piece = piece.rotate(-deg, resample=Image.BICUBIC, center=to_px(pivot))
+        big = Image.new("RGBA", big.size)
+        big.alpha_composite(piece)
+        big.alpha_composite(rest)
+    return big
+
+
+def retouch(img: Image.Image, item: dict) -> Image.Image:
+    """그림 손질 순서 (head-fit.md 3.2.2): erase → 꼬리 반원 자르기 → 꼬리 돌리기 → 다시 잘라 내기.
+    세 손질의 비율 좌표는 모두 손질 전 잘라 낸 그림(trim(source)) 기준이다."""
+    img = apply_erase(img, item.get("erase"), retrim=False)
+    if item.get("tailTrim"):
+        polys = [tail_trim_polygon(s, img.size) for s in item["tailTrim"]]
+        img = apply_erase(img, [[(x / img.width, y / img.height) for x, y in p] for p in polys], retrim=False)
+    if item.get("tailRotate"):
+        img = tail_rotate(img, item["tailRotate"])
+    return trim(img)
 
 
 def shift_down(layer: Image.Image, units: float) -> Image.Image:
@@ -375,14 +436,15 @@ def place_head(src: Image.Image, item: dict) -> tuple[Image.Image, dict]:
     kind = item.get("kind", "hat")
     how = item.get("fit")
     w, h = item.get("box", TOP_BOX[kind])
-    img = apply_erase(trim(src), item.get("erase"))
+    img = retouch(trim(src), item)
+    info: dict = {"fit": how}
     if item.get("squash"):
-        # 임시 손질: 비율을 지키지 않고 상자에 맞춘다 (head-fit.md 3.5의 임시 처방, 다시 그림 대기)
+        # 가로 늘림 (head-fit.md 3.5.2 정식 손질): 비율을 지키지 않고 상자에 맞춘다. 가로 배율 ÷ 세로 배율을 검사한다.
+        info["squash"] = (px(w) / img.width) / (px(h) / img.height)
         img = img.resize((px(w), px(h)), Image.LANCZOS)
     else:
         img = fit(img, px(w), px(h))
     rotate = item.get("rotate", 0)
-    info: dict = {"fit": how}
     if how == "overlay":
         anchor = anchor_px(img, item.get("anchor"), (0.5, 0.5))
         target = tuple(item["center"])
@@ -602,7 +664,7 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
         total = sum(1 for y in range(360) for c in range(360) if g[y][c])
         ratio = inside / total if total else 0
         o_lo, o_hi = (v / 100 for v in item["overlapRange"]) if item.get("overlapRange") else OVERLAY_OVERLAP
-        out.append((f"머리와 겹침 {ratio:.0%} ({o_lo:.0%}~{o_hi:.0%})", o_lo <= ratio <= o_hi))
+        out.append((f"머리와 겹침 {ratio:.1%} ({o_lo:.0%}~{o_hi:.0%})", o_lo <= ratio <= o_hi))
         if item.get("indigoRange"):
             # 접은 수건: 아랫변 가운데 깊이 D_c (1.3의 overlay tenugui 24~30)
             cx = round(info["contact_x"]) + 30
@@ -610,6 +672,10 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
             dc = ys[-1] - HEAD_APEX_Y if ys else None
             lo, hi = item.get("depthRange", (24, 30))
             out.append((f"아랫변 가운데 D_c {dc} ({lo}~{hi}, x {cx - 30})", dc is not None and lo <= dc <= hi))
+
+    if "squash" in info:
+        s_lo, s_hi = SQUASH_RANGE[0], item.get("squashMax", SQUASH_RANGE[1])
+        out.append((f"가로 늘림 {info['squash']:.2f}배 ({s_lo}~{s_hi})", s_lo - 0.005 <= info["squash"] <= s_hi + 0.005))
 
     face = [y for y in range(360) for c in range(FACE_BAND[0] + 30, FACE_BAND[1] + 31) if g[y][c]]
     low = max(face) + 1 if face else 0
@@ -621,7 +687,7 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
 
 
 def check_towel(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
-    """검사 11 (head-fit.md 5번, 3.5.1): 접은 수건의 아래 두 모서리와 양 끝 남색 띠."""
+    """검사 11 (head-fit.md 5번, 3.5.1·3.5.2): 접은 수건의 아래 두 모서리와 가로 남색 줄."""
     mask = alpha_mask(layer)
     g = unit_grid(mask)
     inner = unit_grid(body_inner())
@@ -642,7 +708,7 @@ def check_towel(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
     ok = all(d is not None and d >= TOWEL_CORNER_IN for d, _, _ in ins)
     out.append((f"아래 모서리 안쪽 거리 {text} ({TOWEL_CORNER_IN} 이상)", ok))
 
-    # (나) 남색: 외곽선 고리 안쪽 채움 중 INDIGO 계열 비율, 남색 덩어리 수와 각각의 가장 좁은 행 폭
+    # (나) 남색 (3.5.2): 외곽선 고리 안쪽 채움 중 INDIGO 계열 비율, 가로 줄(덩어리)의 수·길이·두께, 가운데 열의 흰 틈
     fill = erode(mask, OUTLINE)
     indigo = Image.new("L", layer.size)
     data = []
@@ -657,20 +723,50 @@ def check_towel(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
     ratio = n_ind / n_fill if n_fill else 0
     lo, hi = item["indigoRange"]
     out.append((f"남색 면적 {ratio:.0%} ({lo}~{hi}%)", lo / 100 <= ratio <= hi / 100))
-    blobs = components(unit_grid(indigo), min_size=40)
-    widths = []
-    for blob in sorted(blobs, key=lambda b: min(x for x, _ in b)):
-        rows: dict[int, list[int]] = {}
-        for x, y in blob:
-            rows.setdefault(y, []).append(x)
-        ys = sorted(rows)
-        # 위·아래 끝 20%는 둥근 모서리와 외곽선 고리에 깎이므로 뺀다
-        cut = max(1, round(len(ys) * 0.2))
-        mid = ys[cut:-cut] or ys
-        widths.append(min(max(rows[y]) - min(rows[y]) + 1 for y in mid))
-    ok = len(blobs) == 2 and all(w >= TOWEL_STRIPE_MIN for w in widths)
-    out.append((f"남색 띠 {len(blobs)}개, 가장 좁은 행 폭 {'·'.join(str(w) for w in widths) or '-'} "
-                f"(2개, 각 {TOWEL_STRIPE_MIN} 이상)", ok))
+    fill_g, ind_g = unit_grid(fill), unit_grid(indigo)
+    fill_cols = [c for c in range(360) if any(fill_g[y][c] for y in range(360))]
+    inner_w = (fill_cols[-1] - fill_cols[0] + 1) if fill_cols else 0
+    # 줄: 작은 얼룩(외곽선 가장자리 섞임)은 빼고 센다. 위에서 아래 순서.
+    blobs = sorted(components(ind_g, min_size=20), key=lambda b: sum(y for _, y in b) / len(b))
+    lens, thicks = [], []
+    for blob in blobs:
+        cols: dict[int, int] = {}
+        for x, _ in blob:
+            cols[x] = cols.get(x, 0) + 1
+        lens.append(len(cols) / inner_w if inner_w else 0)
+        t = sorted(cols.values())
+        thicks.append(t[len(t) // 2])
+    n_lo, n_hi = TOWEL_STRIPES
+    t_lo, t_hi = TOWEL_STRIPE_THICK
+    ok = (n_lo <= len(blobs) <= n_hi and all(v >= TOWEL_STRIPE_LEN for v in lens)
+          and all(t_lo <= t <= t_hi for t in thicks))
+    out.append((f"남색 줄 {len(blobs)}개, 길이 {'·'.join(f'{v:.0%}' for v in lens) or '-'}, "
+                f"두께 {'·'.join(str(t) for t in thicks) or '-'} "
+                f"({n_lo}~{n_hi}개, 각 길이 {TOWEL_STRIPE_LEN:.0%} 이상, 두께 {t_lo}~{t_hi})", ok))
+
+    # 가운데 열: 채움 위 끝 → 줄 → … → 채움 아래 끝 사이의 흰 틈
+    bbox = mask.getbbox()
+    cc = round((bbox[0] + bbox[2]) / 2 / SCALE)
+    ys = [y for y in range(360) if fill_g[y][cc]]
+    gaps: list[int] = []
+    if ys:
+        top, bottom = ys[0], ys[-1]
+        runs_: list[list[int]] = []
+        for y in range(top, bottom + 1):
+            if ind_g[y][cc]:
+                if runs_ and runs_[-1][1] == y - 1:
+                    runs_[-1][1] = y
+                else:
+                    runs_.append([y, y])
+        edges = [top - 1] + [v for r_ in runs_ for v in r_] + [bottom + 1]
+        gaps = [edges[i + 1] - edges[i] - 1 for i in range(0, len(edges), 2)]
+    if len(gaps) >= 3:
+        ok = (gaps[0] >= TOWEL_GAP_EDGE and gaps[-1] >= TOWEL_GAP_EDGE
+              and all(v >= TOWEL_GAP_BETWEEN for v in gaps[1:-1]))
+        text = f"위 {gaps[0]}, 사이 {'·'.join(str(v) for v in gaps[1:-1])}, 아래 {gaps[-1]}"
+    else:
+        ok, text = False, f"줄 {max(0, len(gaps) - 1)}개만 지남"
+    out.append((f"가운데 열(x {cc - 30}) 흰 틈 {text} (위·아래 {TOWEL_GAP_EDGE} 이상, 사이 {TOWEL_GAP_BETWEEN} 이상)", ok))
     return out
 
 
@@ -751,8 +847,8 @@ def check_size(item: dict, layer: Image.Image, info: dict) -> list[tuple[str, bo
         lim.append(f"{'굵기' if cls == 'band' else '두께'} {need['thick']}")
     if "knot" in need:
         parts.append(f"매듭 폭 {s.get('knot', 0)}")
-        ok = ok and s.get("knot", 0) >= need["knot"]
-        lim.append(f"매듭 {need['knot']}")
+        ok = ok and need["knot"] <= s.get("knot", 0) <= need.get("knotMax", math.inf)
+        lim.append(f"매듭 {need['knot']}" + (f"~{need['knotMax']}" if "knotMax" in need else ""))
     return [(f"{' / '.join(parts)} ({cls} 하한: {', '.join(lim)} 이상)", ok)]
 
 
