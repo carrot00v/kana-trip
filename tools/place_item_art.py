@@ -62,8 +62,9 @@ THUMB_VIEW = {
 TOP_CONTACT = (150, 110)                       # 기준점 P
 TOP_RANGE = (64, 10, 236, 144)                 # 그려도 되는 범위
 TOP_SIDE_RANGES = [(64, 10, 96, 158), (204, 10, 236, 158)]   # 옆에 거는 부분
-TOP_BOX = {"hat": (160, 120), "topping": (136, 72)}           # 크기 상한
-TOP_AREA = {"hat": 1.10, "topping": 0.70}                     # 기본 모자 대비 면적 상한
+TOP_BOX = {"hat": (160, 120), "topping": (160, 80)}           # 크기 상한 (토핑은 2026-11-17 2차 수정에서 136×72 → 160×80)
+TOP_AREA = {"hat": 1.10, "topping": 0.80}                     # 기본 모자 대비 면적 상한 (토핑 70% → 80%)
+TOPPING_TOP_Y = 30                                            # 토핑 위 끝 y 이상 (brief.md 2.1.4)
 TOP_COLORS = 3
 
 # 속재료 (brief.md 2.3)
@@ -160,9 +161,28 @@ OUTLINE_RANGE = (3, 9)
 INNER_THIN_MAX = 0.50
 TILT_TOL, TILT_RANGE = 3, (-15, 0)
 BAND_TILT = (-8, -4)
-OVERLAY_TILT = (-25, -15)
-OVERLAY_OVERLAP = (0.40, 0.60)
+OVERLAY_TILT = (-25, -15)          # items.json `tiltRange`가 없을 때
+OVERLAY_OVERLAP = (0.40, 0.60)     # items.json `overlapRange`(%)가 없을 때
 PRESS_MAX = 30
+
+# 검사 11: 접은 수건 (head-fit.md 3.5.1). items.json에 `indigoRange`가 있는 아이템만 잰다.
+TOWEL_CORNER_IN = 8                # 아래 두 모서리가 몸 외곽선 안쪽 가장자리에서 안쪽으로
+TOWEL_STRIPE_MIN = 16              # 남색 띠 하나의 보이는 폭 (가장 좁은 행)
+INDIGO_HUE, INDIGO_VALUE = (200, 235), 0.55
+
+# 검사 12: 크기 하한 (head-fit.md 1.9.3). 맞춤 방식별 기본 종류, items.json `sizeClass`로 바꾼다.
+BODY_WIDTH = 248                   # 몸 폭 (외곽선 가운데)
+PT80 = 80 / 360                    # 가장 작은 기리(80pt)에서 360 좌표 1
+SIZE_CLASS = {"swallow": "chef", "band": "band", "carve": "long", "drape": "long", "overlay": "mask"}
+SIZE_MIN = {
+    # w: 보이는 폭, h: 보이는 높이, thick: 가운데 열의 위아래 거리(띠 굵기·수건 두께), knot: 매듭 폭, area: 면적 비율
+    "chef": {"area": 0.80},
+    "band": {"w": 120, "thick": 20, "knot": 28, "area": 0.28},
+    "mask": {"w": 72, "h": 72, "area": 0.30},
+    "towel": {"w": 88, "thick": 36, "area": 0.26},
+    "long": {"w": 104, "h": 52, "area": 0.35},
+    "round": {"w": 72, "h": 52, "area": 0.28},
+}
 
 
 def head_point(dx: float) -> tuple[float, float]:
@@ -477,7 +497,7 @@ def gap_profiles(mask: Image.Image) -> tuple[list, list]:
 
 
 def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str, bool]]:
-    """head-fit.md 5번 검사 1~10."""
+    """head-fit.md 5번 검사 1~12 (11은 `indigoRange`가 있는 접은 수건만)."""
     how = info["fit"]
     mask = alpha_mask(layer)
     g = unit_grid(mask)
@@ -569,8 +589,8 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
         out.append((f"기울기 {rot}° ({BAND_TILT[0]}~{BAND_TILT[1]})", BAND_TILT[0] <= rot <= BAND_TILT[1]))
     elif how == "overlay":
         vis = item.get("visibleTilt", rot)
-        out.append((f"보이는 기울기 {vis}° (rotate {rot}°, {OVERLAY_TILT[0]}~{OVERLAY_TILT[1]})",
-                    OVERLAY_TILT[0] <= vis <= OVERLAY_TILT[1]))
+        t_lo, t_hi = item.get("tiltRange", OVERLAY_TILT)
+        out.append((f"보이는 기울기 {vis}° (rotate {rot}°, {t_lo}~{t_hi})", t_lo <= vis <= t_hi))
     else:
         t = tangent_deg(item.get("dx", 0))
         diff = abs(rot - t)
@@ -581,12 +601,159 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
         inside = sum(1 for y in range(360) for c in range(360) if g[y][c] and body[y][c])
         total = sum(1 for y in range(360) for c in range(360) if g[y][c])
         ratio = inside / total if total else 0
-        out.append((f"머리와 겹침 {ratio:.0%} (40~60%)", OVERLAY_OVERLAP[0] <= ratio <= OVERLAY_OVERLAP[1]))
+        o_lo, o_hi = (v / 100 for v in item["overlapRange"]) if item.get("overlapRange") else OVERLAY_OVERLAP
+        out.append((f"머리와 겹침 {ratio:.0%} ({o_lo:.0%}~{o_hi:.0%})", o_lo <= ratio <= o_hi))
+        if item.get("indigoRange"):
+            # 접은 수건: 아랫변 가운데 깊이 D_c (1.3의 overlay tenugui 24~30)
+            cx = round(info["contact_x"]) + 30
+            ys = [y for y in range(360) if g[y][cx]]
+            dc = ys[-1] - HEAD_APEX_Y if ys else None
+            lo, hi = item.get("depthRange", (24, 30))
+            out.append((f"아랫변 가운데 D_c {dc} ({lo}~{hi}, x {cx - 30})", dc is not None and lo <= dc <= hi))
 
     face = [y for y in range(360) for c in range(FACE_BAND[0] + 30, FACE_BAND[1] + 31) if g[y][c]]
     low = max(face) + 1 if face else 0
     out.append((f"얼굴 띠 가장 낮은 y {low} (144 이하)", low <= FACE_BAND[2]))
+    if item.get("indigoRange"):
+        out += check_towel(item, layer)
+    out += check_size(item, layer, info)
     return out
+
+
+def check_towel(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
+    """검사 11 (head-fit.md 5번, 3.5.1): 접은 수건의 아래 두 모서리와 양 끝 남색 띠."""
+    mask = alpha_mask(layer)
+    g = unit_grid(mask)
+    inner = unit_grid(body_inner())
+    pts = [(c - 30, y) for y in range(360) for c in range(360) if g[y][c]]
+    out: list[tuple[str, bool]] = []
+    # (가) 아래 모서리: 왼쪽 아래는 y − x, 오른쪽 아래는 y + x가 가장 큰 점 (둥근 모서리의 45° 자리).
+    # 그 행에서 몸 외곽선 안쪽 가장자리(본체 마스크를 6 깎은 것)까지의 가로 거리. 양수면 안쪽.
+    ins = []
+    for left in (True, False):
+        x, y = max(pts, key=(lambda p: p[1] - p[0]) if left else (lambda p: p[1] + p[0]))
+        row = [c - 30 for c in range(360) if inner[y][c]]
+        if not row:
+            ins.append((None, x, y))
+            continue
+        ins.append(((x - row[0]) if left else (row[-1] - x), x, y))
+    text = " · ".join(f"{'왼쪽' if i == 0 else '오른쪽'} ({x}, {y}) {d if d is not None else '머리 밖'}"
+                      for i, (d, x, y) in enumerate(ins))
+    ok = all(d is not None and d >= TOWEL_CORNER_IN for d, _, _ in ins)
+    out.append((f"아래 모서리 안쪽 거리 {text} ({TOWEL_CORNER_IN} 이상)", ok))
+
+    # (나) 남색: 외곽선 고리 안쪽 채움 중 INDIGO 계열 비율, 남색 덩어리 수와 각각의 가장 좁은 행 폭
+    fill = erode(mask, OUTLINE)
+    indigo = Image.new("L", layer.size)
+    data = []
+    for (r, g_, b, a), f in zip(layer.get_flattened_data(), fill.get_flattened_data()):
+        hit = 0
+        if a >= 128 and f:
+            h, s, v = colorsys.rgb_to_hsv(r / 255, g_ / 255, b / 255)
+            hit = 255 if INDIGO_HUE[0] <= h * 360 <= INDIGO_HUE[1] and v <= INDIGO_VALUE and s >= 0.2 else 0
+        data.append(hit)
+    indigo.putdata(data)
+    n_fill, n_ind = count(fill), count(indigo)
+    ratio = n_ind / n_fill if n_fill else 0
+    lo, hi = item["indigoRange"]
+    out.append((f"남색 면적 {ratio:.0%} ({lo}~{hi}%)", lo / 100 <= ratio <= hi / 100))
+    blobs = components(unit_grid(indigo), min_size=40)
+    widths = []
+    for blob in sorted(blobs, key=lambda b: min(x for x, _ in b)):
+        rows: dict[int, list[int]] = {}
+        for x, y in blob:
+            rows.setdefault(y, []).append(x)
+        ys = sorted(rows)
+        # 위·아래 끝 20%는 둥근 모서리와 외곽선 고리에 깎이므로 뺀다
+        cut = max(1, round(len(ys) * 0.2))
+        mid = ys[cut:-cut] or ys
+        widths.append(min(max(rows[y]) - min(rows[y]) + 1 for y in mid))
+    ok = len(blobs) == 2 and all(w >= TOWEL_STRIPE_MIN for w in widths)
+    out.append((f"남색 띠 {len(blobs)}개, 가장 좁은 행 폭 {'·'.join(str(w) for w in widths) or '-'} "
+                f"(2개, 각 {TOWEL_STRIPE_MIN} 이상)", ok))
+    return out
+
+
+def components(grid: list[list[bool]], min_size: int = 1) -> list[list[tuple[int, int]]]:
+    """360 단위 격자의 이어진 덩어리 (4방향). 각 덩어리는 (x, y) 목록(x는 360 좌표)."""
+    seen = set()
+    blobs = []
+    for y in range(360):
+        for c in range(360):
+            if not grid[y][c] or (c, y) in seen:
+                continue
+            stack, blob = [(c, y)], []
+            seen.add((c, y))
+            while stack:
+                cc, yy = stack.pop()
+                blob.append((cc - 30, yy))
+                for nc, ny in ((cc - 1, yy), (cc + 1, yy), (cc, yy - 1), (cc, yy + 1)):
+                    if 0 <= nc < 360 and 0 <= ny < 360 and grid[ny][nc] and (nc, ny) not in seen:
+                        seen.add((nc, ny))
+                        stack.append((nc, ny))
+            if len(blob) >= min_size:
+                blobs.append(blob)
+    return blobs
+
+
+def size_numbers(layer: Image.Image, info: dict | None = None, item: dict | None = None) -> dict:
+    """보이는 크기 (head-fit.md 1.9): 보이는 상자, 폭 %, 80pt 환산, 면적 %. band·수건은 가운데 열 굵기, band는 매듭 폭도."""
+    mask = alpha_mask(layer)
+    bbox = mask.getbbox()
+    w, h = (bbox[2] - bbox[0]) / SCALE, (bbox[3] - bbox[1]) / SCALE
+    out = {"w": w, "h": h, "widthPct": w / BODY_WIDTH, "area": count(mask) / chef_hat_area(),
+           "pt80": (w * PT80, h * PT80)}
+    if info is None or item is None:
+        return out
+    g = unit_grid(mask)
+    how = info.get("fit")
+    cls = item.get("sizeClass", SIZE_CLASS.get(how))
+    if cls in ("band", "towel"):
+        cx = round(info["contact_x"]) if cls == "band" else round((bbox[0] + bbox[2]) / 2 / SCALE) - 30
+        ys = [y for y in range(360) if g[y][cx + 30]]
+        out["thick"] = (ys[-1] - ys[0] + 1) if ys else 0
+    if cls == "band" and ys:
+        # 매듭: 띠 가운데 줄(기울기를 따라)을 지나면서 띠보다 4 넘게 두꺼운 열이 처음 이어지는 구간의 폭.
+        # 오른쪽 꼬리는 띠 가운데 줄 위로 떠 있어 빠진다.
+        mid0, slope = (ys[0] + ys[-1]) / 2, math.tan(math.radians(item.get("rotate", 0)))
+        run, started = 0, False
+        for x in range(cx, 237):
+            col = [y for y in range(360) if g[y][x + 30]]
+            yc = round(mid0 + (x - cx) * slope)
+            thick = len(col) > out["thick"] + 4 and 0 <= yc < 360 and g[yc][x + 30]
+            if thick:
+                run, started = run + 1, True
+            elif started:
+                break
+        out["knot"] = run
+    return out
+
+
+def check_size(item: dict, layer: Image.Image, info: dict) -> list[tuple[str, bool]]:
+    """검사 12 (head-fit.md 1.9.3): 맞춤 방식별 보이는 크기 하한."""
+    cls = item.get("sizeClass", SIZE_CLASS.get(info.get("fit")))
+    need = SIZE_MIN.get(cls)
+    if not need:
+        return []
+    s = size_numbers(layer, info, item)
+    parts = [f"크기 {s['w']:.0f}×{s['h']:.0f} ({s['widthPct']:.0%}) 80pt {s['pt80'][0]:.1f}×{s['pt80'][1]:.1f}pt 면적 {s['area']:.0%}"]
+    ok = s["area"] >= need["area"]
+    lim = [f"면적 {need['area']:.0%}"]
+    if "w" in need:
+        ok = ok and s["w"] >= need["w"]
+        lim.append(f"폭 {need['w']}")
+    if "h" in need:
+        ok = ok and s["h"] >= need["h"]
+        lim.append(f"높이 {need['h']}")
+    if "thick" in need:
+        parts.append(f"{'띠 굵기' if cls == 'band' else '두께'} {s.get('thick', 0)}")
+        ok = ok and s.get("thick", 0) >= need["thick"]
+        lim.append(f"{'굵기' if cls == 'band' else '두께'} {need['thick']}")
+    if "knot" in need:
+        parts.append(f"매듭 폭 {s.get('knot', 0)}")
+        ok = ok and s.get("knot", 0) >= need["knot"]
+        lim.append(f"매듭 {need['knot']}")
+    return [(f"{' / '.join(parts)} ({cls} 하한: {', '.join(lim)} 이상)", ok)]
 
 
 def place_top(src: Image.Image, item: dict) -> Image.Image:
@@ -890,7 +1057,7 @@ def check_top(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
     limit_w, limit_h = TOP_BOX[kind]
     box_text = (f"{(bbox[2] - bbox[0]) / SCALE:.0f}×{(bbox[3] - bbox[1]) / SCALE:.0f} "
                 f"x {bbox[0] / SCALE - 30:.0f}~{bbox[2] / SCALE - 30:.0f} y {bbox[1] / SCALE:.0f}~{bbox[3] / SCALE:.0f}")
-    return [
+    result = [
         (f"자리 {box_text}", True),
         (f"범위 밖 {out}px", out == 0),
         (f"상자 {w}×{h} (상한 {limit_w}×{limit_h})", w <= limit_w and h <= limit_h),
@@ -898,6 +1065,10 @@ def check_top(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
         (f"채움 색 {colors} [{desc}]", colors <= TOP_COLORS),
         (f"덩어리 {n}", n == 1),
     ]
+    if kind == "topping":
+        top = bbox[1] / SCALE
+        result.append((f"위 끝 y {top:.0f} ({TOPPING_TOP_Y} 이상)", top >= TOPPING_TOP_Y))
+    return result
 
 
 def check_filling(item: dict, layer: Image.Image) -> list[tuple[str, bool]]:
