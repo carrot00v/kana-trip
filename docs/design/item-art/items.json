@@ -276,7 +276,7 @@
      ]
     ]
    ],
-   "prompt": "One straight piece of thick twisted cloth rope lying horizontally, drawn flat in 2D: dark indigo blue and white strands twisted together like a candy cane stripe, about five times as wide as it is tall, very slightly curved like a wide smile, the middle a little lower than the ends. The left end is cut off straight. At the right end there is one big round knot, clearly thicker than the rope. Two short wide flat tails come out of the top of the knot and spread apart toward the right: one tail slants up and to the right, the other points out to the right almost sideways, and both tips droop slightly. The tails do not stand straight up. It is an open strip with two separate ends, not a circle, not a ring, not a loop, no hole in the middle, no perspective.",
+   "prompt": "An open straight strip with two separate ends, not a circle, not a ring, not a loop, not bent back like a hook, no hole in the middle, no perspective. One straight piece of thick twisted cloth rope lying horizontally, drawn flat in 2D: dark indigo blue and white strands twisted together like a candy cane stripe, about five times as wide as it is tall, very slightly curved like a wide smile, the middle a little lower than the ends. The left end is cut off straight. At the right end there is one big round knot, clearly thicker than the rope. Two short wide flat tails come out of the top of the knot and spread apart toward the right: one tail slants up and to the right, the other points out to the right almost sideways, and both tips droop slightly. The tails do not stand straight up.",
    "palette": "Use only two colors: dark indigo blue and warm off-white rice white. No other colors at all.",
    "erase": [
     [
@@ -340,21 +340,33 @@
    "nameKo": "머리에 얹은 수건",
    "scene": "onsen 온천",
    "kind": "hat",
-   "fit": "carve",
-   "dx": -2,
-   "rotate": -2,
+   "fit": "overlay",
+   "rotate": -4,
    "box": [
-    100,
-    52
+    88,
+    40
    ],
-   "press": "auto",
-   "contactSpan": 0.9,
-   "prompt": "A small folded cotton hand towel drawn completely flat in 2D, seen straight from the front: one plump rounded rectangle about two and a half times as wide as it is tall, with softly rounded corners, a straight flat bottom edge and a straight flat top edge. It is made of three upright sections side by side: a wide dark indigo blue section at the left end, a plain white section in the middle, and a wide dark indigo blue section at the right end. Each indigo section is about a quarter of the width and runs the full height from the top edge to the bottom edge. Thick even dark outline. No perspective, no top surface, no shadow, no puffy dome, no loose cloth, nothing hanging down. Only the towel.",
+   "prompt": "A small folded cotton hand towel drawn completely flat in 2D, seen straight from the front: one plump rounded rectangle about two and a half times as wide as it is tall, with softly rounded corners, a straight flat bottom edge and a straight flat top edge. Like a white towel whose two short ends were dipped in dark indigo dye. It is made of three upright sections side by side: a wide dark indigo blue section at the left end, a plain white section in the middle, and a wide dark indigo blue section at the right end. Each indigo section is about a quarter of the width and runs the full height from the top edge to the bottom edge. Thick even dark outline. No perspective, no top surface, no shadow, no puffy dome, no loose cloth, nothing hanging down. Only the towel.",
    "palette": "Use only two fill colors: warm off-white and dark indigo blue. No stripes of any other color, no other colors at all.",
-   "deRange": [
-    12,
-    24
-   ]
+   "center": [
+    146,
+    117
+   ],
+   "visibleTilt": -4,
+   "overlapRange": [
+    45,
+    65
+   ],
+   "tiltRange": [
+    -8,
+    -2
+   ],
+   "indigoRange": [
+    35,
+    50
+   ],
+   "sizeClass": "towel",
+   "squash": true
   },
   {
    "id": "manjuu",
