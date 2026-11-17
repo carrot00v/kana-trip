@@ -369,32 +369,31 @@
    "scene": "onsen 온천",
    "kind": "hat",
    "fit": "overlay",
-   "rotate": -4,
+   "rotate": -6,
    "box": [
-    88,
+    90,
     40
    ],
-   "prompt": "A small folded cotton hand towel drawn completely flat in 2D, seen straight from the front: one plump rounded rectangle about two and a half times as wide as it is tall, with softly rounded corners, a straight flat bottom edge and a straight flat top edge. Like a white towel whose two short ends were dipped in dark indigo dye. It is made of three upright sections side by side: a wide dark indigo blue section at the left end, a plain white section in the middle, and a wide dark indigo blue section at the right end. Each indigo section is about a quarter of the width and runs the full height from the top edge to the bottom edge. Thick even dark outline. No perspective, no top surface, no shadow, no puffy dome, no loose cloth, nothing hanging down. Only the towel.",
-   "palette": "Use only two fill colors: warm off-white and dark indigo blue. No stripes of any other color, no other colors at all.",
+   "prompt": "A neatly folded Japanese cotton hand towel, a tenugui, drawn flat in 2D and seen straight from the front. It is a long, low, soft rounded rectangle, clearly wider than it is tall, with a straight level top edge, a straight level bottom edge and gently rounded corners. The towel is plain warm white. Two dark indigo blue stripes run straight across the whole towel from the left end to the right end, parallel to the top and bottom edges. Each stripe is two to three times as thick as the outline, and there is white cloth above the upper stripe, between the two stripes and below the lower stripe.",
+   "palette": "Use only two fill colors: the towel is warm off-white, and dark indigo blue is used only for the two stripes.",
    "center": [
     146,
-    117
+    118
    ],
-   "visibleTilt": -4,
+   "visibleTilt": -6,
    "overlapRange": [
     45,
-    65
+    70
    ],
    "tiltRange": [
     -8,
     -2
    ],
    "indigoRange": [
-    35,
-    50
+    25,
+    45
    ],
-   "sizeClass": "towel",
-   "squash": true
+   "sizeClass": "towel"
   },
   {
    "id": "manjuu",
