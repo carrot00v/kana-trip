@@ -11,51 +11,87 @@ enum HomeRoute: Hashable {
     case license(LicenseText)
 }
 
-/// H 홈(장면 목록).
+/// 칸 카드 시트에 띄울 칸.
+private struct NodeCardRoute: Identifiable {
+    let sessionID: String
+    let state: MapNodeState
+
+    var id: String { sessionID }
+}
+
+/// H 홈 = 지도 (docs/design/home-map.md). 위: 인라인 바(가운데 진행률, 오른쪽 메뉴). 가운데: 지도.
+/// 아래 고정 72pt: [꾸미기 입구][시작 버튼]. 세션을 닫으면 어디서 열었든 지도로 돌아와 연출한다 (3.4, 4번).
 struct HomeView: View {
     @Environment(ProgressStore.self) private var store
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var path: [HomeRoute] = []
     @State private var route: SessionRoute?
+    /// 세션 덮개가 떠 있는 동안(닫히는 애니메이션이 끝날 때까지) true.
+    @State private var coverActive = false
+    @State private var card: NodeCardRoute?
+    @State private var pendingChoice: NodeCardSheet.Choice?
     @State private var showsComingSoon = false
-    @Environment(\.dynamicTypeSize) private var typeSize
+    @State private var visibleTick = 0
+    @State private var prepareTick = 0
+    @State private var model: MapScreenModel? = HomeView.makeModel()
     #if DEBUG
     @State private var showsSpike = false
     #endif
 
     private let library = ContentLibrary.shared
 
+    private static func makeModel() -> MapScreenModel? {
+        guard let definition = MapDefinition.bundled, !definition.regions.isEmpty else { return nil }
+        #if DEBUG
+        if let shown = MapDebug.shown {
+            return MapScreenModel(definition: definition, shownStore: MapShownStore(override: .some(shown)))
+        }
+        #endif
+        return MapScreenModel(definition: definition, shownStore: MapShownStore())
+    }
+
     var body: some View {
         @Bindable var store = store
         NavigationStack(path: $path) {
-            List {
-                GiriListBubble(text: giriLine)
-                Section {
-                    giriRow
-                        .listRowBackground(Color.cardBackground)
-                }
-                Section {
-                    ForEach(library.scenes) { scene in
-                        row(scene)
-                            .listRowBackground(Color.cardBackground)
-                    }
-                } header: {
-                    Text(library.sectionTitle)
-                        .foregroundStyle(Color.inkSecondary)
-                        .textCase(nil)
+            Group {
+                if let model, let current = store.mapCurrentNodeID(route: model.route) {
+                    MapView(
+                        model: model,
+                        currentNodeID: current,
+                        liveBubble: giriLine,
+                        visibleTick: visibleTick,
+                        prepareTick: prepareTick,
+                        onTapSession: openCard,
+                        onTapScene: openScene,
+                        announce: announce
+                    )
+                    .safeAreaInset(edge: .bottom, spacing: 0) { dock(model: model, current: current) }
+                } else {
+                    Color.appBackground
                 }
             }
-            .listStyle(.insetGrouped)
-            .scrollContentBackground(.hidden)
             .background(Color.appBackground)
-            .navigationTitle(L.appTitle)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(L.mapTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(MapPalette.ground, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    let done = library.scenes.count { store.isSceneCompleted($0) }
+                    Text(L.regionProgress(script: library.sectionTitle, done: done, total: library.scenes.count))
+                        .font(.headline.monospacedDigit())
+                        .foregroundStyle(Color.ink)
+                        .accessibilityLabel(L.regionProgressLabel(script: library.sectionTitle, done: done, total: library.scenes.count))
+                        .accessibilityAddTraits(.isHeader)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Toggle(L.soundToggle, isOn: $store.soundOn)
                         Button(L.about, systemImage: "info.circle") { path.append(.about) }
                         #if DEBUG
                         Button(L.devSpike) { showsSpike = true }
+                        Button("개발용: 지금 칸 끝내기") { debugCompleteCurrent() }
                         #endif
                     } label: {
                         Image(systemName: "ellipsis.circle")
@@ -64,31 +100,13 @@ struct HomeView: View {
                     .accessibilityLabel(L.more)
                 }
             }
-            .safeAreaInset(edge: .bottom) {
-                // 기리 줄 + 주 버튼 (giri-companion.md 3.2). 주 버튼이 숨는 상태에도 기리 줄은 남는다.
-                GiriBottomDock(text: giriLine) {
-                    if let target = nextTarget {
-                        PrimaryButton(
-                            title: L.homeStart(
-                                scene: target.scene.name,
-                                step: L.sessionName(target.session),
-                                resume: store.isInProgress(target.session)
-                            )
-                        ) {
-                            // 세션을 닫으면 장면 진입이 아래에 깔려 있도록 먼저 push한다.
-                            path = [.scene(target.scene.id)]
-                            route = SessionRoute(sessionID: target.session.id)
-                        }
-                    }
-                }
-            }
             .navigationDestination(for: HomeRoute.self) { destination in
                 switch destination {
                 case .scene(let sceneID):
                     if let scene = library.scene(id: sceneID) {
                         SceneDetailView(
                             scene: scene,
-                            onStart: { route = SessionRoute(sessionID: $0.id) },
+                            onStart: startSession,
                             onBackToList: { path = [] }
                         )
                     }
@@ -103,18 +121,22 @@ struct HomeView: View {
             .alert(L.comingSoon, isPresented: $showsComingSoon) {
                 Button(L.ok, role: .cancel) {}
             }
+            .sheet(item: $card, onDismiss: cardDismissed) { card in
+                if let session = library.session(id: card.sessionID) {
+                    NodeCardSheet(session: session, state: card.state) { pendingChoice = $0 }
+                        .appStyle()
+                }
+            }
         }
-        .fullScreenCover(item: $route) { route in
+        .fullScreenCover(item: $route, onDismiss: coverDismissed) { route in
             if let session = library.session(id: route.sessionID) {
                 SessionView(
                     initialSession: session,
-                    onClose: { self.route = nil },
-                    onBackToList: {
-                        path = []
-                        self.route = nil
-                    },
+                    onClose: closeToMap,
+                    onBackToList: closeToMap,
                     onCustomize: {
-                        // 덮개를 닫고 장면 진입은 쌓지 않은 채 홈 위에 꾸미기를 띄운다.
+                        // 덮개를 닫고 지도 위에 꾸미기를 띄운다. K에서 뒤로 가면 지도가 보이고 그때 연출한다 (3.4).
+                        prepareTick += 1
                         self.route = nil
                         path = [.customize]
                     }
@@ -122,7 +144,21 @@ struct HomeView: View {
                 .appStyle()
             }
         }
+        .onChange(of: path) { _, newPath in
+            // K·S에서 뒤로 와 지도가 보이게 됨. 덮개가 닫히는 중이면 onDismiss가 맡는다.
+            if newPath.isEmpty, !coverActive { visibleTick += 1 }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            // 연출 도중 백그라운드로 가면 끝 상태로 저장 (4.5).
+            if phase == .background { model?.skip() }
+        }
         #if DEBUG
+        .onAppear {
+            if let id = MapDebug.card, let session = library.session(id: id), let model {
+                let current = store.mapCurrentNodeID(route: model.route) ?? ""
+                openCard(session, model.route.state(ofSession: id, display: model.display(current: current)))
+            }
+        }
         .fullScreenCover(isPresented: $showsSpike) {
             VStack(spacing: 0) {
                 HStack {
@@ -139,204 +175,123 @@ struct HomeView: View {
         #endif
     }
 
-    // MARK: - 기리 행
+    // MARK: 문구
 
     /// 기리가 권하는 말 (giri-companion.md 3.11의 H).
     private var giriLine: String {
         GiriSpeech.home(store.giriHomeTurn(in: library))
     }
 
-    /// 목록 맨 위의 꾸미기 행 (reward-flow.md 4번). 기리는 아래 고정 영역으로 옮겨 이 행에는 그림이 없다 (giri-companion.md 3.2).
-    private var giriRow: some View {
-        let canBuy = store.canBuyAnyItem
-        return Button {
-            path.append(.customize)
-        } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(L.customize)
-                        .font(.headline)
-                        .foregroundStyle(Color.ink)
-                    Text(L.coinsBalance(store.rewards.coins))
-                        .font(.subheadline.monospacedDigit())
-                        .foregroundStyle(Color.inkSecondary)
-                    if canBuy {
-                        HStack(spacing: 4) {
-                            Image(systemName: "yensign.circle.fill")
-                                .foregroundStyle(Color.highlightStrong)
-                            Text(L.canBuyItem)
-                                .foregroundStyle(Color.ink)
-                        }
-                        .font(.footnote)
-                    }
-                }
-                Spacer(minLength: 0)
-                Image(systemName: "chevron.right")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(Color.inkSecondary)
-            }
-            .padding(.vertical, 8)
-            .frame(minHeight: 56)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(L.customizeRowLabel(balance: store.rewards.coins, canBuy: canBuy))
-        .accessibilityAddTraits(.isButton)
-    }
-
-    // MARK: - 장면 상태
-
-    /// 장면 1은 처음부터 열려 있고, 그 뒤 장면은 앞 장면의 두 단계를 끝내면 열린다.
-    private func status(_ scene: TripScene) -> SceneRowStatus {
-        if store.isSceneCompleted(scene) { return .completed }
-        return store.isSceneUnlocked(scene) ? .open : .locked
-    }
-
-    /// 아래 주 버튼이 시작할 장면과 세션. 열린 장면의 내용이 아직 없으면 버튼을 숨긴다.
-    private var nextTarget: (scene: TripScene, session: TripSession)? {
+    private var target: (scene: TripScene, session: TripSession)? {
         store.homeTarget(in: library)
     }
 
-    // MARK: - 장면 행 (scene-flow.md 5번, scene-art/brief.md 2번)
+    private func longTitle(_ target: (scene: TripScene, session: TripSession)) -> String {
+        L.homeStart(scene: target.scene.name, step: L.sessionName(target.session), resume: store.isInProgress(target.session))
+    }
 
-    @ViewBuilder
-    private func row(_ scene: TripScene) -> some View {
-        let status = status(scene)
-        let done = store.completedSessionCount(scene)
-        let total = library.sessions(in: scene).count
-        Button {
-            if scene.hasContent {
-                path.append(.scene(scene.id))
-            } else {
-                showsComingSoon = true
+    private var liveLabels: MapLabels {
+        MapLabels(bubble: giriLine, buttonTitle: target.map(longTitle))
+    }
+
+    // MARK: 아래 고정 영역 (5.1)
+
+    private func dock(model: MapScreenModel, current: String) -> some View {
+        let live = target
+        let long = model.buttonTitle(live: live.map(longTitle))
+        let short = live.map { L.stepAction(L.sessionName($0.session), resume: store.isInProgress($0.session)) }
+        // 큰 글자 크기: 말풍선을 아래 고정 영역 카드로. 연출을 기다리는 동안은 붙잡은 문구.
+        let card = model.bubbleText(current: current, live: giriLine) ?? model.frozenLabels?.bubble ?? giriLine
+        return MapDock(
+            metrics: model.metrics,
+            longTitle: long,
+            shortTitle: model.frozenLabels == nil ? short : nil,
+            bubbleCard: card,
+            coins: store.rewards.coins,
+            canBuy: store.canBuyAnyItem,
+            onCustomize: {
+                model.skip()
+                path.append(.customize)
+            },
+            onStart: {
+                // 연출 도중 첫 탭은 연출을 끝 상태로 만들기만 한다 (4.5).
+                if model.skip() { return }
+                guard let live else { return }
+                startSession(live.session)
             }
-        } label: {
-            HStack(spacing: 12) {
-                SceneThumbnail(scene: scene, status: status)
-                    .accessibilityHidden(true)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("\(scene.order)  \(scene.name)")
-                        .font(.headline)
-                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
-                        .lineLimit(1)
-                    stepKanaLine(scene)
-                        .foregroundStyle(status == .locked ? Color.inkSecondary : Color.ink)
-                }
-                // 글자 줄이 오른쪽 "0/3 ›"보다 먼저 자리를 차지한다 (scene-flow.md 5번 폭 확인).
-                .layoutPriority(1)
-
-                Spacer(minLength: 0)
-
-                if status != .locked {
-                    Text(status == .completed ? L.done : "\(done)/\(total)")
-                        .font(.footnote.monospacedDigit())
-                        .foregroundStyle(Color.inkSecondary)
-                    Image(systemName: "chevron.right")
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(Color.inkSecondary)
-                        .accessibilityHidden(true)
-                }
-            }
-            .frame(minHeight: 52)
-            .padding(.vertical, 12)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        // 잠긴 행은 반응하지 않는다. `.disabled`는 행 전체를 흐리게 하므로 쓰지 않는다(그림의 불투명도는 낮추지 않는다, brief.md 2.2).
-        .allowsHitTesting(status != .locked)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(
-            status == .locked
-                ? L.sceneRowLocked(order: scene.order, name: scene.name)
-                : L.sceneRowLabel(order: scene.order, name: scene.name, steps: scene.steps.map { ($0.name, $0.kana) }, done: done, total: total)
         )
-        .accessibilityAddTraits(status == .locked ? [] : .isButton)
     }
 
-    /// 새 글자를 단계별로 나눠 놓는다: "す し · い か た こ". 글자 20pt, 가운뎃점 좌우 8pt.
-    private func stepKanaLine(_ scene: TripScene) -> some View {
-        HStack(spacing: 8) {
-            ForEach(Array(scene.steps.enumerated()), id: \.offset) { index, step in
-                if index > 0 {
-                    Text("·").font(.system(size: 20)).foregroundStyle(Color.inkSecondary)
-                }
-                KanaText(text: step.kana.joined(separator: " "), size: 20)
-            }
+    // MARK: 세션 열고 닫기 (3.1, 3.4)
+
+    private func startSession(_ session: TripSession) {
+        model?.freeze(liveLabels)
+        coverActive = true
+        route = SessionRoute(sessionID: session.id)
+    }
+
+    /// 세션을 닫으면 지도로. 덮개가 내려가기 전에 보여 준 칸을 쉼 자리에 두고 스택을 비운다 (4.2).
+    private func closeToMap() {
+        prepareTick += 1
+        path = []
+        route = nil
+    }
+
+    private func coverDismissed() {
+        coverActive = false
+        if path.isEmpty { visibleTick += 1 }
+    }
+
+    // MARK: 칸과 건물 (3.3)
+
+    private func openCard(_ session: TripSession, _ state: MapNodeState) {
+        guard library.scene(of: session)?.hasContent == true else {
+            showsComingSoon = true
+            return
         }
-        .lineLimit(1)
-        .minimumScaleFactor(0.8)
-    }
-}
-
-enum SceneRowStatus {
-    case locked, open, completed
-}
-
-/// 홈 장면 행의 장면 그림 52×52pt와 상태 배지 (scene-art/brief.md 2번).
-/// 에셋이 없으면 대체 그림, 그것도 없으면 SF Symbol 상태 아이콘을 그린다. 큰 글자 크기에서는 그림을 숨긴다.
-struct SceneThumbnail: View {
-    let scene: TripScene
-    let status: SceneRowStatus
-
-    @Environment(\.dynamicTypeSize) private var typeSize
-
-    static let side: CGFloat = 52
-    static let badge: CGFloat = 22
-
-    private var image: UIImage? {
-        UIImage(named: scene.thumbnailName) ?? UIImage(named: TripScene.placeholderThumbnailName)
+        card = NodeCardRoute(sessionID: session.id, state: state)
     }
 
-    var body: some View {
-        if !typeSize.isAccessibilitySize, let image {
-            ZStack(alignment: .topLeading) {
-                Image(uiImage: image)
-                    .resizable()
-                    .interpolation(.high)
-                    .frame(width: Self.side, height: Self.side)
-                    .saturation(status == .locked ? 0 : 1)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 12).strokeBorder(Color.outline, lineWidth: AppStyle.outlineWidth)
-                    }
-                if let badge {
-                    Image(systemName: badge.symbol)
-                        .font(.system(size: 13, weight: .semibold))
-                        .foregroundStyle(badge.color)
-                        .frame(width: Self.badge, height: Self.badge)
-                        .background(Color.cardBackground, in: Circle())
-                        // 원의 중심을 그림 오른쪽 아래 꼭짓점에서 왼쪽과 위로 7pt에 둔다.
-                        .offset(x: Self.side - 7 - Self.badge / 2, y: Self.side - 7 - Self.badge / 2)
-                }
+    private func cardDismissed() {
+        guard let choice = pendingChoice else { return }
+        pendingChoice = nil
+        switch choice {
+        case .session(let session): startSession(session)
+        case .sceneWords(let sceneID): path.append(.scene(sceneID))
+        }
+    }
+
+    private func openScene(_ scene: TripScene) {
+        guard scene.hasContent else {
+            showsComingSoon = true
+            return
+        }
+        path.append(.scene(scene.id))
+    }
+
+    // MARK: VoiceOver 알림 (4.5)
+
+    private func announce(_ current: String) {
+        let text: String
+        if let session = library.session(id: current), let scene = library.scene(of: session) {
+            if let step = session.step, step.index == 0, scene.order > 1 {
+                text = L.newSceneAnnouncement(scene: scene.name, step: step.name)
+            } else {
+                text = L.turnAnnouncement(scene: scene.name, session: L.sessionName(session))
             }
-            .frame(width: Self.side, height: Self.side, alignment: .topLeading)
         } else {
-            statusIcon
-                .font(.title2)
-                .frame(width: 28)
+            text = L.giriAllDone
         }
+        AccessibilityNotification.Announcement(text).post()
     }
 
-    private var badge: (symbol: String, color: Color)? {
-        switch status {
-        case .open: nil
-        case .locked: ("lock.fill", .inkSecondary)
-        case .completed: ("checkmark.circle.fill", .correct)
-        }
+    #if DEBUG
+    /// 개발용: 지금 칸의 세션을 끝낸 것으로 저장하고 돌아온 연출을 본다.
+    private func debugCompleteCurrent() {
+        guard let target else { return }
+        model?.freeze(liveLabels)
+        _ = SessionRun(session: target.session, store: store).complete()
+        visibleTick += 1
     }
-
-    @ViewBuilder
-    private var statusIcon: some View {
-        switch status {
-        case .locked:
-            Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
-        case .open:
-            Image(systemName: scene.icon ?? "lock.open.fill").foregroundStyle(Color.accent)
-        case .completed:
-            Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)
-        }
-    }
+    #endif
 }

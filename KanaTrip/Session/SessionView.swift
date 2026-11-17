@@ -12,11 +12,11 @@ struct SessionRoute: Identifiable, Hashable {
 /// C1에서 다음 세션으로 넘어갈 때도 같은 덮개 안에서 내용만 바꾼다 (2.1).
 struct SessionView: View {
     let initialSession: TripSession
-    /// 덮개를 닫고 장면 진입으로 돌아간다.
+    /// 덮개를 닫고 지도로 돌아간다. 어디서 열었든 지도다 (home-map.md 3.4). 닫기, C1 "여기까지 하기"·"지도로 돌아가기".
     let onClose: () -> Void
-    /// 덮개를 닫고 홈까지 돌아간다.
+    /// 덮개를 닫고 지도로 돌아간다(C2 "지도로 돌아가기"). 지금은 `onClose`와 같은 곳이다.
     let onBackToList: () -> Void
-    /// 덮개를 닫고 홈 위에 기리 꾸미기를 띄운다 (reward-flow.md 2.2).
+    /// 덮개를 닫고 지도 위에 기리 꾸미기를 띄운다 (reward-flow.md 2.2, home-map.md 3.4).
     let onCustomize: () -> Void
 
     @Environment(ProgressStore.self) private var store

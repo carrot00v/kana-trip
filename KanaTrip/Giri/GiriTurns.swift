@@ -13,6 +13,13 @@ extension ProgressStore {
         return (scene, session)
     }
 
+    /// 지도의 지금 칸(기리가 선 칸, docs/design/home-map.md 2.1, 4.1): 홈 주 버튼이 시작할 세션의 칸.
+    /// 모든 장면을 끝냈으면 지역 끝 표지. 다음 장면 내용이 없는 개발 빌드에서는 그 장면의 a 칸(2.4).
+    func mapCurrentNodeID(route: MapRoute, in library: ContentLibrary = .shared) -> String? {
+        if let target = homeTarget(in: library) { return target.session.id }
+        return route.currentNodeID(completed: state.completedSessionIDs)
+    }
+
     func giriHomeTurn(in library: ContentLibrary = .shared) -> GiriSpeech.HomeTurn {
         if !library.scenes.isEmpty, library.scenes.allSatisfy(isSceneCompleted) { return .allDone }
         guard let (scene, session) = homeTarget(in: library) else { return .comingSoon }
