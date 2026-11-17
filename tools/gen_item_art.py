@@ -79,6 +79,8 @@ def main() -> int:
     p.add_argument("--seed", type=int, help="첫 시드 (없으면 무작위)")
     p.add_argument("--timeout", type=int, default=1800, help="한 장 대기 시간(초). 스왑이 차면 10분을 넘기도 한다")
     p.add_argument("--list", action="store_true", help="아이템 목록만 보여 준다")
+    p.add_argument("--width", type=int, default=1024, help="캔버스 폭. 납작한 물건은 넓은 캔버스가 비율을 지키게 돕는다")
+    p.add_argument("--height", type=int, default=1024)
     a = p.parse_args()
 
     items = {i["id"]: i for i in load_items()}
@@ -103,7 +105,8 @@ def main() -> int:
             item, s = items[item_id], seed + n
             print(f"[{n + 1}/{a.count}] {item_id} seed={s}", flush=True)
             r = subprocess.run([sys.executable, str(GEN), build_prompt(item), "--name", item_id,
-                                "--seed", str(s), "--out", str(OUT), "--timeout", str(a.timeout)])
+                                "--seed", str(s), "--out", str(OUT), "--timeout", str(a.timeout),
+                                "--width", str(a.width), "--height", str(a.height)])
             if r.returncode != 0:
                 continue
             src = OUT / f"{item_id}_{s}.png"

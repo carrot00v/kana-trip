@@ -121,8 +121,14 @@ def main() -> int:
         d.text((pad, y + 60), item.get("nameKo", "")[:9], fill=INK, font=small)
         label = (item.get("kana") or "")[:1]
         if item.get("drawnBy") or (pia.SOURCE / f"{iid}.png").exists():
-            res = pia.build(item)
+            info: dict = {}
+            res = pia.build(item, info)
             new, th = res[iid], res[f"{iid}-thumb"]
+            # 보이는 크기 (head-fit.md 1.9): 360 좌표, 80pt 환산, 면적 기준값 대비
+            s = pia.size_numbers(new)
+            d.text((pad, y + 84), f"{s['w']:.0f}×{s['h']:.0f}", fill=INK, font=small)
+            d.text((pad, y + 104), f"80pt {s['pt80'][0]:.0f}×{s['pt80'][1]:.0f}pt", fill=INK, font=small)
+            d.text((pad, y + 124), f"면적 {s['area']:.0%}", fill=INK, font=small)
         else:
             # 아직 그림이 없다: 앱처럼 임시 표시를 그린다
             new = placeholder(label)
