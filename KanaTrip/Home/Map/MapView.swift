@@ -35,7 +35,9 @@ struct MapView: View {
             let display = model.display(current: currentNodeID)
             ScrollView(.vertical) {
                 ZStack(alignment: .topLeading) {
-                    LazyVStack(spacing: 0) {
+                    // 구간은 10개뿐이고 높이가 고정이라 VStack으로 쌓는다. 기리 덮개 층과 겹친 ZStack 안의
+                    // LazyVStack은 시뮬레이터에서 구간을 그리지 않았다(구현 값, home-map.md 8.1).
+                    VStack(spacing: 0) {
                         Color.clear.frame(height: layout.topMargin)
                         ForEach(region.sections.reversed()) { section in
                             sectionView(section, width: geo.size.width, display: display)

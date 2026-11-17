@@ -62,6 +62,8 @@
 | 복습 | 따로 칸이나 입구를 만들지 않는다. 복습 글자가 섞이는 종합 퀴즈 칸(완료 전)의 알약이 "종합 퀴즈 · 복습 {r}"가 된다. r = `store.quizSummary(for:).review` | PLAN.md 3번 "복습: 별도 메뉴 없이 다음 장면 종합 퀴즈에 섞는다" |
 | 엔 받기 | 칸으로 나타내지 않는다. 지금처럼 C1·C2에서 받는다 | |
 | 살 수 있는 아이템 | 지도에 그리지 않는다. 꾸미기 입구(5.2)의 엔 배지 | 리워드와 학습 칸을 섞지 않는다 |
+
+- 구현 값(2026-11-18, developer): "복습 {r}"은 **지금 차례인 종합 퀴즈 칸 하나**(그 장면의 다음 세션이 퀴즈일 때)에만 적는다. 복습 대기 목록은 다음 퀴즈 하나에 섞이므로, 완료 전인 모든 퀴즈 칸에 적으면 앞의 잠긴 퀴즈들에도 같은 숫자가 붙어 잘못 읽힌다.
 | 완료한 장면 | 건물 배지(체크) + 단어 그림 스티커 2장(2.3) | 사용자 결정 4 |
 
 ### 1.3 길의 모양과 간격
@@ -300,6 +302,7 @@ y   0 ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┃ ─ ─ ─ ─ �
 - 세션은 시트가 다 닫힌 뒤 띄운다(`onDismiss`에서 덮개). 시트와 덮개를 겹쳐 띄우지 않는다.
 - "장면 단어 전체 보기"는 시트를 닫고 그 장면의 S를 push한다.
 - 내용이 없는 장면의 칸은 카드 대신 "준비 중이에요" 알림.
+- 구현 값(2026-11-18, developer): 장면 자체가 잠긴 칸(건물이 잠김)의 카드에는 "장면 단어 전체 보기"를 두지 않는다(잠긴 건물은 S로 가지 않는 것과 맞춤). 시트 높이 216 − 48 = 168pt. 장면이 열린 장면의 잠긴 칸(예: 지금 a일 때 b)은 216pt 그대로 글자 버튼이 있다.
 
 ### 3.4 세션을 닫았을 때 돌아가는 곳
 
@@ -401,6 +404,7 @@ PLAN.md 3번과 giri-companion.md 5번의 규칙(기리 움직임 하나는 0.35
 | 연출 도중 시작 버튼 누름 | **첫 번째 탭은 연출을 끝 상태로 만들기만 한다**(문구가 새 세션으로 바뀐다). 세션은 열지 않는다. 문구가 바뀌기 전의 버튼으로 다른 세션이 열리지 않게 하기 위해서다. 연출은 1초 안팎이라 실제로 걸릴 일은 적다 |
 | 앱이 연출 도중 백그라운드로 감 | 끝 상태로 저장(`lastShownNodeID` = 지금 칸) |
 
+- 구현 값(2026-11-18, developer): 앱을 새로 열어 연출을 기다릴 때(세션을 열 때 붙잡은 문구가 없음)는 착지 전까지 말풍선을 숨긴다. 새 문구가 옛 칸에 비치지 않게 하기 위해서다. 시작 버튼은 그동안 새 세션 문구를 보인다. 연출 중에는 "지금 칸으로" 버튼을 숨긴다. 장면을 넘는 깡충의 스크롤은 다음 a 칸을 목표로 0.6초 한 번이고, 연이은 깡충에서도 장면을 넘는 구간마다 같다.
 - `lastShownNodeID`는 `UserDefaults`에 노드 id 문자열로 둔다(예: 키 `map.lastShownNodeID`). 진도 저장 형식과 별개라 진도 형식이 바뀌어도 영향이 없다. 연출이 끝나거나 건너뛰어질 때, 연출이 없을 때는 지도가 보일 때마다 지금 칸으로 갱신한다.
 - 세션 직후 앱이 종료돼 연출을 못 본 경우, 다음 실행에서 4.1의 비교로 연출을 한다.
 
@@ -423,7 +427,7 @@ PLAN.md 3번과 giri-companion.md 5번의 규칙(기리 움직임 하나는 0.35
 
 | 요소 | 값 |
 |---|---|
-| 꾸미기 입구 | `.bordered`, `.controlSize(.large)`, 56×56pt, 모서리 16pt. 안: `paintbrush.pointed.fill` 20pt 굵게 + 2pt + "꾸미기"(`.caption2` 굵게, `xxLarge`에서 멈춤). 글자·아이콘 `AccentColor`. 자리 x 16~72 |
+| 꾸미기 입구 | 구현 값: `.bordered`는 안쪽 여백 때문에 56×56에 맞출 수 없어 같은 모양(바탕 `AccentColor` 12%, 누르면 흐려짐)을 직접 그렸다. 원래 값: `.bordered`, `.controlSize(.large)`, 56×56pt, 모서리 16pt. 안: `paintbrush.pointed.fill` 20pt 굵게 + 2pt + "꾸미기"(`.caption2` 굵게, `xxLarge`에서 멈춤). 글자·아이콘 `AccentColor`. 자리 x 16~72 |
 | 살 수 있음 표시 | `store.canBuyAnyItem`일 때 입구 오른쪽 위에 `yensign.circle.fill` 18pt(`HighlightStrong`), 둘레 2pt `CardBackground` 고리. 원의 중심은 입구 오른쪽 위 꼭짓점에서 왼쪽·아래로 6pt. 숫자 배지와 빨간 점은 쓰지 않는다(reward-flow.md 4.1) |
 | 누르면 | K push(`path.append(.customize)`) |
 | 시작 버튼 | `PrimaryButton`(주 버튼 규칙 그대로), 높이 56, 폭 = 화면 폭 − 32 − 56 − 8 (375pt 279, 402pt 306, 440pt 344). 오른쪽 끝·높이·y는 다른 화면의 주 버튼과 같다 |
@@ -532,6 +536,7 @@ CLAUDE.md "그림 생성"대로 그림은 로컬 ComfyUI의 Z-Image Turbo로 만
 | 스티커 16장 | `build/word-art/word-{art}.png`(600px, `tools/place_word_art.py` 결과) 또는 `docs/design/word-art/source/word-{art}.png`. 60단어 모두 앱 에셋 `WordArt-*`가 있다(art 이름 59개, `ofuro` 공유) | 투명 아닌 픽셀의 경계 상자로 자름 → 긴 변을 150px(@3x 기준 50pt)로 → 알파를 9px(3pt) 둥글게 넓혀 `#FFFDF7`로 칠한 테두리 → 그 바깥 1.5px(0.5pt) `#4A2219` 25% 선 → 168×168px 가운데. 기울이기는 앱이 한다(그림은 똑바로) | `map_sticker_{art}`: 112px(@2x), 168px(@3x). `map.json`에 적힌 것만(16장) |
 | 지도 바탕 | 없음 | 화면 바탕색(7.3) | |
 
+- 구현 값(2026-11-18, developer): 스티커 긴 변은 150px이 아니라 **147px**(@3x). 150 + 테두리 9 × 2 + 선 1.5 × 2 = 171px이 168px 캔버스를 넘어 바깥 선이 잘리기 때문이다. 입력은 `build/word-art/word-{art}.png`, 없으면 같은 결과인 앱 에셋 `WordArt-{art}`다. `word-art/source/`의 날것은 그림 속 가나(ゆ, えき·のりかえ 표지판)가 합성되기 전이라 쓰지 않는다. 스티커 고르기의 "그림 있음"도 같은 두 곳으로 판단한다.
 - 도구: `tools/build_map_art.py`(이름은 developer가 정함), 파이썬 + Pillow. 결과는 `build/map-art/`에 플랫폼 중립 PNG로 두고 iOS 에셋 카탈로그로 복사한다.
 - `docs/design/item-art/`, `docs/design/scene-art/` 원본은 읽기만 한다.
 
@@ -827,6 +832,12 @@ PLAN.md 7번("1차는 iPhone 전용, 그림·데이터 같은 원본은 플랫�
 | `KanaTrip/Assets.xcassets` | `map_building_*` 8, `map_sticker_*` 16, `PathFill`·`PathEdge` |
 | `tools/build_map.py`, `tools/map_layout.json`, `tools/build_map_art.py` | 새 파일 |
 
+- 구현 값(2026-11-18, developer):
+  - 파일: `KanaTrip/Home/Map/`에 `MapData`(map.json·좌표), `MapProgress`(칸 상태·지금 칸·깡충 계획, SwiftUI 없음), `MapHopSequence`(연출), `MapView`, `MapSectionView`, `MapGiriLayer`, `MapDock`, `NodeCardSheet`, `MapShownStore`, `MapStyle`(지도 색 모음 `MapPalette`, 스킨이 바꿀 값을 한곳에). 도구는 `tools/build_map.py`(표준 라이브러리만, `--check`로 최신 확인), `tools/map_layout.json`, `tools/build_map_art.py`.
+  - 구간은 `LazyVStack`이 아니라 `VStack`으로 쌓는다. 기리 덮개 층과 겹친 ZStack 안의 `LazyVStack`은 시뮬레이터에서 구간을 그리지 않았다. 구간이 10개뿐이고 높이가 고정이라 문제없다.
+  - `metrics`에 `topMarginBase`(224), `edgeMargin`(40), `motion`에 `jumpScroll`(0.35)을 더했다. 앱 코드에 같은 숫자를 다시 쓰지 않기 위해서다.
+  - 큰 글자 크기에서도 시작 버튼은 0.85배 규칙으로 긴/짧은 문구를 고른다(accessibility-medium에서 긴 문구가 들어갔다).
+  - 375pt 확인은 iPhone SE 시뮬레이터 대신 DEBUG 실행 인자 `-mapDebugCanvas 375x667`(앱을 375×667 틀 안에 그림, 위 20pt는 상태 바 흉내)로 했다. 실제 SE의 안전 영역과 조금 다르다.
 - 작업량: 약 6~7일(지도 4~5일 + 연출 1~1.5일 + 도구 0.5일).
 - 끝난 상태의 기준: 402×874와 375×667 시뮬레이터에서 (1) 처음 실행, (2) 간판 세션을 닫은 직후의 깡충, (3) 스시집 종합 퀴즈 통과 뒤 지도로 돌아온 장면 완료 연출과 스시집 스티커 2장, (4) 동작 줄이기 켜짐, (5) `accessibility1` 글자 크기, (6) 다크 모드의 스크린샷.
 - 위험:

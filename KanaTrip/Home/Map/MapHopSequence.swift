@@ -139,6 +139,8 @@ final class MapScreenModel {
     private func run(from: String, to: String, hops: [MapHop], reduceMotion: Bool,
                      scroll: @escaping (MapWaypoint, Animation?) -> Void) {
         guard let fromIndex = route.ordinal(of: from), let toIndex = route.ordinal(of: to) else { return }
+        // 붙잡은 문구가 없으면(앱을 새로 열었을 때) 새 문구가 옛 칸에 비치지 않게 처음부터 숨긴다.
+        if frozenLabels == nil { bubbleHidden = true }
         isRunning = true
         finishTarget = to
         sequenceDisplay = MapDisplay(index: fromIndex)
