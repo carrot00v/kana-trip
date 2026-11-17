@@ -36,22 +36,36 @@ struct MapMetrics: Decodable {
     let lanes: [CGFloat]
     let stepGap: CGFloat
     let sceneGap: CGFloat
+    /// 단계 칸 원 지름.
     let nodeStep: CGFloat
+    /// 종합 퀴즈 칸 원 지름.
     let nodeQuiz: CGFloat
+    /// 완료·잠김 칸 원의 테 굵기.
+    let nodeRing: CGFloat
+    /// 지금 장면(열림) 건물 카드.
     let building: CGFloat
-    let buildingBadge: CGFloat
-    let kanaPill: CGFloat
-    let labelPill: CGFloat
-    let road: CGFloat
-    let roadEdge: CGFloat
+    /// 잠김·완료 건물 카드.
+    let buildingSmall: CGFloat
+    /// 칸 가장자리에서 라벨까지.
+    let labelGap: CGFloat
+    /// 건물 카드 아래 변에서 이름까지.
+    let nameGap: CGFloat
+    /// 지난 길 선 굵기.
     let progressLine: CGFloat
-    let progressDotGap: CGFloat
+    /// 앞길 선 굵기.
+    let aheadLine: CGFloat
     let giri: CGFloat
     let giriFootBelowNode: CGFloat
     let hopLift: CGFloat
+    /// 지금 칸 발판 타원 [폭, 높이].
+    let footSpot: [CGFloat]
+    /// 발판 가운데 = 칸 가운데 아래 이만큼.
+    let footSpotOffset: CGFloat
     let bubbleBandAbove: CGFloat
     let bubbleBandBelow: CGFloat
     let sticker: CGFloat
+    let stickerDx: CGFloat
+    let stickerDy: CGFloat
     /// 쉼 자리: 지금 칸이 오는 높이(지도 영역 위 끝에서 잰 비율, 1.4).
     let restAnchor: CGFloat
     let dock: CGFloat
@@ -142,12 +156,28 @@ struct MapPath: Decodable, Equatable {
     var points: [CGPoint] { d.map { CGPoint(x: $0[0], y: $0[1]) } }
 }
 
+/// 자리 = (x × 지도 폭 + dx, y). dx는 pt로, 건물에 붙여 두려고 폭에 비례하지 않게 둔다 (7.1).
 struct MapSticker: Decodable, Equatable {
     let step: String
     let art: String
     let x: CGFloat
+    let dx: CGFloat
     let y: CGFloat
     let rotate: Double
+
+    private enum CodingKeys: String, CodingKey {
+        case step, art, x, dx, y, rotate
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        step = try c.decode(String.self, forKey: .step)
+        art = try c.decode(String.self, forKey: .art)
+        x = try c.decode(CGFloat.self, forKey: .x)
+        dx = try c.decodeIfPresent(CGFloat.self, forKey: .dx) ?? 0
+        y = try c.decode(CGFloat.self, forKey: .y)
+        rotate = try c.decode(Double.self, forKey: .rotate)
+    }
 }
 
 /// 지도 폭과 지도 영역 높이가 정해졌을 때의 콘텐츠 좌표 (7.1).

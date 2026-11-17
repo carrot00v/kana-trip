@@ -164,9 +164,9 @@ struct MapView: View {
             return MapNodeInfo()
         }
         let state = model.route.state(ofSession: node.id, display: display)
-        var info = MapNodeInfo(state: state, number: session.number, kana: session.step?.kana ?? [])
+        var info = MapNodeInfo(state: state, kana: session.step?.kana ?? [])
         if session.isQuiz, state != .completed, store.nextSession(in: scene)?.id == session.id {
-            // 복습 글자는 지금 차례인 종합 퀴즈 칸에만 적는다(구현 값, home-map.md 1.2).
+            // 복습 글자 수는 지금 차례인 종합 퀴즈 칸의 VoiceOver 레이블에만 붙인다. 지도에는 적지 않는다(1.2).
             let saved = store.progress(for: session.id).quiz?.review
             info.review = saved?.count ?? store.reviewKana(for: scene).count
         }
@@ -215,8 +215,11 @@ struct MapView: View {
             let side = region.sections.lazy.flatMap(\.nodes).first { $0.id == standing }?.bubble ?? .right
             return MapGiriLayer.Bubble(text: bubbleText, side: side, nodeCenter: center)
         }()
+        // 발판은 서 있는 칸에만. 깡충하는 동안(말풍선이 숨은 동안)은 지운다.
+        let spot: CGPoint? = model.bubbleHidden ? nil : standing.flatMap { layout.center(of: $0) }
         if !centers.isEmpty {
             MapGiriLayer(
+                footSpotAt: spot,
                 metrics: metrics,
                 width: size.width,
                 height: size.height,
@@ -245,6 +248,7 @@ struct MapView: View {
                 .allowsHitTesting(false)
                 .accessibilityHidden(true)
             if (above || below) && !model.isRunning {
+                // 오른쪽(여백 16), 보이는 캡슐 36pt·누르는 영역 44pt, 테 없는 옅은 강조색 바탕 (3.2).
                 Button {
                     scroll(to: .node(anchor), layout: layout, viewport: viewport,
                            animation: reduceMotion ? nil : .easeInOut(duration: model.motion.jumpScroll))
@@ -253,15 +257,19 @@ struct MapView: View {
                         Image(systemName: above ? "arrow.up" : "arrow.down")
                         Text(L.toCurrentNode)
                     }
-                    .font(.subheadline.weight(.bold))
-                    .padding(.horizontal, 4)
-                    .frame(minHeight: 30)
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(MapPalette.softAccent)
+                    .padding(.horizontal, MapShape.jumpPadding)
+                    .frame(height: MapShape.jumpCapsule)
+                    .background(MapPalette.softAccent.opacity(MapPalette.softAccentOpacity), in: Capsule())
+                    .background(MapPalette.ground, in: Capsule())
+                    .frame(minHeight: MapShape.minTapHeight)
+                    .contentShape(Rectangle())
                 }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-                .controlSize(.large)
-                .background(MapPalette.ground, in: Capsule())
-                .padding(.bottom, 12)
+                .buttonStyle(MapPressStyle())
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, MapShape.screenMargin)
+                .padding(.bottom, 12 - (MapShape.minTapHeight - MapShape.jumpCapsule) / 2)
                 .transition(.opacity)
                 .accessibilityLabel(L.toCurrentNodeLabel)
             }

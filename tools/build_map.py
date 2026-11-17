@@ -107,17 +107,19 @@ def build(scenes_data: dict, layout: dict) -> dict:
         nxt = scenes[i + 1]["id"] if i + 1 < len(scenes) else end_id
 
         stickers = []
+        metrics = layout["metrics"]
         for key, step in (("a", steps[0]), ("b", steps[1])):
             art = pick_sticker(step, override)
             if not art:
                 continue
             spec = stk[key]
-            # A는 a 칸 반대쪽 위, B는 a 칸 쪽 아래 (2.3).
-            on_left = (not a_is_left) if spec["awayFromLaneA"] else a_is_left
+            # 건물 카드 양옆에 붙인다: A 왼쪽·8pt 아래, B 오른쪽·8pt 위 (2.3, 2026-11-18).
+            # dx는 pt라 지도 폭과 상관없이 건물에 붙어 있다.
+            side = spec["side"]
             stickers.append({
                 "step": step["id"], "art": art,
-                "x": stk["xLeft"] if on_left else stk["xRight"],
-                "y": spec["y"], "rotate": spec["rotate"],
+                "x": 0.5, "dx": side * metrics["stickerDx"],
+                "y": by + side * metrics["stickerDy"], "rotate": spec["rotate"],
             })
 
         sections.append({

@@ -3,6 +3,8 @@ import SwiftUI
 /// 지도 위 덮개 층: 지금 칸 위의 기리 96pt와 옆 말풍선 (docs/design/home-map.md 2.4).
 /// 구간들 위에 콘텐츠 전체 크기로 얹고, 기리·말풍선만 절대 좌표로 놓는다. 누르는 대상이 아니다.
 struct MapGiriLayer: View {
+    /// 지금 칸 발판을 둘 칸 가운데. nil이면 그리지 않는다(깡충 중).
+    let footSpotAt: CGPoint?
     let metrics: MapMetrics
     let width: CGFloat
     let height: CGFloat
@@ -24,6 +26,7 @@ struct MapGiriLayer: View {
     @Environment(ProgressStore.self) private var store
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.colorScheme) private var colorScheme
     @State private var breathing = false
 
     /// 기리 가운데 = 칸 가운데에서 (아래 끝이 칸 가운데 아래 giriFootBelowNode가 되게) (2.4).
@@ -33,6 +36,16 @@ struct MapGiriLayer: View {
 
     var body: some View {
         ZStack(alignment: .topLeading) {
+            // 발판 → 기리 → 말풍선 (2.5). 발판: 타원 64×20, Highlight, 가운데 = 칸 가운데 아래 8pt, 테 없음.
+            if let footSpotAt, metrics.footSpot.count == 2 {
+                Ellipse()
+                    .fill(MapPalette.footSpot.opacity(MapPalette.footSpotOpacity(colorScheme)))
+                    .frame(width: metrics.footSpot[0], height: metrics.footSpot[1])
+                    .position(x: footSpotAt.x, y: footSpotAt.y + metrics.footSpotOffset)
+                    .transition(.opacity)
+                    .accessibilityHidden(true)
+            }
+            figure
             if let bubble {
                 bubbleView(bubble)
                     .id(bubble.text)
@@ -41,7 +54,6 @@ struct MapGiriLayer: View {
                         removal: .opacity
                     ))
             }
-            figure
         }
         .frame(width: width, height: height, alignment: .topLeading)
         .allowsHitTesting(false)

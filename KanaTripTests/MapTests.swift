@@ -25,7 +25,10 @@ struct MapTests {
     @Test func bundledMapDecodes() throws {
         let map = try definition()
         #expect(map.schema == 1)
-        #expect(map.metrics.lanes == [0.24, 0.76])
+        #expect(map.metrics.lanes == [0.3, 0.7])
+        #expect(map.metrics.nodeStep == 36 && map.metrics.nodeQuiz == 44)
+        #expect(map.metrics.building == 96 && map.metrics.buildingSmall == 72 && map.metrics.sticker == 48)
+        #expect(map.metrics.footSpot == [64, 20] && map.metrics.bubbleBandAbove == 48)
         #expect(map.metrics.restAnchor == 0.6)
         #expect(map.motion.hop == 0.35)
         #expect(map.motion.maxChainSessions == 3)
@@ -36,6 +39,37 @@ struct MapTests {
         #expect(region.sections.dropFirst().dropLast().compactMap(\.scene) == library.scenes.map(\.id))
         // 지역 높이 4,384pt (1.3).
         #expect(region.sections.map(\.height).reduce(0, +) == 4384)
+    }
+
+    @Test func stickerWithoutDxDecodesAsZero() throws {
+        let json = #"{"step": "a", "art": "b", "x": 0.3, "y": 10, "rotate": 6}"#
+        let sticker = try JSONDecoder().decode(MapSticker.self, from: Data(json.utf8))
+        #expect(sticker.dx == 0)
+    }
+
+    /// 375pt 폭에서 H 권유 대사가 모두 지도 말풍선 3줄 안에 들어가는지 ("2026-11-18 시각 정리" S5·S8).
+    /// 말풍선 몸통 = 기리 쪽 변 + 12 ~ 화면 여백 16, 글 폭 = 몸통 − 안쪽 24. 두 길이 대칭이라 왼쪽 길로 잰다.
+    @Test @MainActor func homeLinesFitBubbleAt375() throws {
+        let map = try definition()
+        let width: CGFloat = 375
+        let cx = width * map.metrics.lanes[0]
+        let body = (width - 16) - (cx + map.metrics.giri / 2 + 12)
+        let textWidth = body - 24
+        var turns: [GiriSpeech.HomeTurn] = [.allDone, .comingSoon]
+        for scene in library.scenes {
+            turns.append(.first(scene: scene.name))
+            turns.append(.quiz(scene: scene.name))
+            for step in scene.steps {
+                turns.append(.newScene(scene: scene.name, step: step.name))
+                turns.append(.stepB(scene: scene.name, step: step.name))
+                turns.append(.resume(scene: scene.name, session: step.name))
+            }
+            turns.append(.resume(scene: scene.name, session: L.quizSessionName))
+        }
+        let over = turns.map(GiriSpeech.home).filter {
+            GiriSpeechRow.lineCount($0, width: textWidth, typeSize: .large) > 3
+        }
+        #expect(over.isEmpty, "375pt(글 폭 \(textWidth))에서 3줄을 넘는 대사: \(over)")
     }
 
     @Test func unknownNodeKindDecodesAsUnknown() throws {
@@ -61,8 +95,8 @@ struct MapTests {
             let quiz = try #require(byKind[.quiz]?.first)
             let building = try #require(byKind[.building]?.first)
             let left = i % 2 == 0
-            #expect(a.x == (left ? 0.24 : 0.76), "\(section.id) a 칸 길")
-            #expect(b.x == (left ? 0.76 : 0.24))
+            #expect(a.x == (left ? 0.3 : 0.7), "\(section.id) a 칸 길")
+            #expect(b.x == (left ? 0.7 : 0.3))
             #expect(quiz.x == a.x)
             #expect(building.x == 0.5 && building.y == 80 && building.front == [0.5, 40])
             #expect([a.y, b.y, quiz.y] == [200, 328, 456])
@@ -80,10 +114,12 @@ struct MapTests {
         #expect(arts == ["sushi", "ika", "tonkatsu", "hirekatsu", "udon", "kitsune", "eki", "norikae",
                          "omamori", "takoyaki", "yakitori", "sasami", "yu", "nuruyu", "youkoso", "ofuro"])
         let sushi = try #require(region.sections.first { $0.id == "sushi" })
-        #expect(sushi.stickers.map { [$0.x, $0.y] } == [[0.78, 128], [0.22, 40]])
+        // 건물 카드 양옆에 붙인다: A 왼쪽 dx −50·8pt 아래, B 오른쪽 dx +50·8pt 위. 홀짝 같음 (2.3).
+        #expect(sushi.stickers.map { [$0.x, $0.dx, $0.y] } == [[0.5, -50, 72], [0.5, 50, 88]])
         #expect(sushi.stickers.map(\.rotate) == [-6, 6])
         let tonkatsu = try #require(region.sections.first { $0.id == "tonkatsu" })
-        #expect(tonkatsu.stickers.map { [$0.x, $0.y] } == [[0.22, 128], [0.78, 40]])
+        #expect(tonkatsu.stickers.map { [$0.x, $0.dx, $0.y] } == [[0.5, -50, 72], [0.5, 50, 88]])
+        #expect(region.sections.flatMap(\.stickers).allSatisfy { $0.x == 0.5 })
     }
 
     @Test func layoutPlacesSectionsTopDown() throws {
@@ -100,7 +136,7 @@ struct MapTests {
         // 스시집 a 칸: 출발 구간 위 끝(아래에서 176) + 200.
         let sushiA = try #require(layout.center(of: "sushi-a"))
         #expect(abs(sushiA.y - (layout.contentHeight - 176 - 200)) < 0.001)
-        #expect(abs(sushiA.x - 402 * 0.24) < 0.001)
+        #expect(abs(sushiA.x - 402 * 0.3) < 0.001)
         let front = try #require(layout.front(of: "tonkatsu"))
         #expect(abs(front.y - (layout.contentHeight - 176 - 504 - 40)) < 0.001)
         // 지역 끝 표지: 맨 위 여백 + 176 − 72.
