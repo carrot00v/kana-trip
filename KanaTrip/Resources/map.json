@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "units": {"x": "fraction of map width (0-1)", "y": "pt (=dp) from section bottom, upward"},
+  "metrics": {"lanes": [0.24, 0.76], "stepGap": 128, "sceneGap": 248, "nodeStep": 56, "nodeQuiz": 64, "building": 96, "buildingBadge": 28, "kanaPill": 32, "labelPill": 28, "road": 20, "roadEdge": 2, "progressLine": 6, "progressDotGap": 12, "giri": 96, "giriFootBelowNode": 12, "hopLift": 32, "bubbleBandAbove": 56, "bubbleBandBelow": 48, "sticker": 56, "restAnchor": 0.6, "dock": 72, "dockCustomize": 56, "dockGap": 8, "topMarginBase": 224, "edgeMargin": 40},
+  "motion": {"markFade": 0.2, "bubbleOut": 0.15, "hop": 0.35, "hopScene": 0.3, "buildingOpen": 0.3, "faceSwap": 0.12, "bubbleIn": 0.25, "labelFade": 0.2, "reduceMotionFade": 0.15, "maxChainSessions": 3, "jumpScroll": 0.35},
+  "regions": [
+    {
+      "id": "hiragana", "script": "hiragana",
+      "sections": [
+        {
+          "id": "hiragana-start", "kind": "start", "height": 176, "tile": null,
+          "nodes": [
+            {"id": "hiragana-start", "kind": "start", "x": 0.5, "y": 72}
+          ],
+          "paths": [
+            {"from": "hiragana-start", "to": "sushi", "d": [[0.5, 72], [0.5, 112], [0.5, 136], [0.5, 176]]}
+          ],
+          "stickers": []
+        },
+        {
+          "id": "sushi", "kind": "scene", "scene": "sushi", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "sushi", "kind": "building", "scene": "sushi", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "sushi-a", "kind": "step", "session": "sushi-a", "x": 0.24, "y": 200, "bubble": "right"},
+            {"id": "sushi-b", "kind": "step", "session": "sushi-b", "x": 0.76, "y": 328, "bubble": "left"},
+            {"id": "sushi-quiz", "kind": "quiz", "session": "sushi-quiz", "x": 0.24, "y": 456, "bubble": "right"}
+          ],
+          "paths": [
+            {"from": "hiragana-start", "to": "sushi", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "sushi", "to": "sushi-a", "d": [[0.5, 80], [0.5, 140], [0.24, 140], [0.24, 200]]},
+            {"from": "sushi-a", "to": "sushi-b", "d": [[0.24, 200], [0.24, 264], [0.76, 264], [0.76, 328]]},
+            {"from": "sushi-b", "to": "sushi-quiz", "d": [[0.76, 328], [0.76, 392], [0.24, 392], [0.24, 456]]},
+            {"from": "sushi-quiz", "to": "tonkatsu", "d": [[0.24, 456], [0.24, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "sushi-a", "art": "sushi", "x": 0.78, "y": 128, "rotate": -6},
+            {"step": "sushi-b", "art": "ika", "x": 0.22, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "tonkatsu", "kind": "scene", "scene": "tonkatsu", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "tonkatsu", "kind": "building", "scene": "tonkatsu", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "tonkatsu-a", "kind": "step", "session": "tonkatsu-a", "x": 0.76, "y": 200, "bubble": "left"},
+            {"id": "tonkatsu-b", "kind": "step", "session": "tonkatsu-b", "x": 0.24, "y": 328, "bubble": "right"},
+            {"id": "tonkatsu-quiz", "kind": "quiz", "session": "tonkatsu-quiz", "x": 0.76, "y": 456, "bubble": "left"}
+          ],
+          "paths": [
+            {"from": "sushi-quiz", "to": "tonkatsu", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "tonkatsu", "to": "tonkatsu-a", "d": [[0.5, 80], [0.5, 140], [0.76, 140], [0.76, 200]]},
+            {"from": "tonkatsu-a", "to": "tonkatsu-b", "d": [[0.76, 200], [0.76, 264], [0.24, 264], [0.24, 328]]},
+            {"from": "tonkatsu-b", "to": "tonkatsu-quiz", "d": [[0.24, 328], [0.24, 392], [0.76, 392], [0.76, 456]]},
+            {"from": "tonkatsu-quiz", "to": "soba", "d": [[0.76, 456], [0.76, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "tonkatsu-a", "art": "tonkatsu", "x": 0.22, "y": 128, "rotate": -6},
+            {"step": "tonkatsu-b", "art": "hirekatsu", "x": 0.78, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "soba", "kind": "scene", "scene": "soba", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "soba", "kind": "building", "scene": "soba", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "soba-a", "kind": "step", "session": "soba-a", "x": 0.24, "y": 200, "bubble": "right"},
+            {"id": "soba-b", "kind": "step", "session": "soba-b", "x": 0.76, "y": 328, "bubble": "left"},
+            {"id": "soba-quiz", "kind": "quiz", "session": "soba-quiz", "x": 0.24, "y": 456, "bubble": "right"}
+          ],
+          "paths": [
+            {"from": "tonkatsu-quiz", "to": "soba", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "soba", "to": "soba-a", "d": [[0.5, 80], [0.5, 140], [0.24, 140], [0.24, 200]]},
+            {"from": "soba-a", "to": "soba-b", "d": [[0.24, 200], [0.24, 264], [0.76, 264], [0.76, 328]]},
+            {"from": "soba-b", "to": "soba-quiz", "d": [[0.76, 328], [0.76, 392], [0.24, 392], [0.24, 456]]},
+            {"from": "soba-quiz", "to": "station", "d": [[0.24, 456], [0.24, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "soba-a", "art": "udon", "x": 0.78, "y": 128, "rotate": -6},
+            {"step": "soba-b", "art": "kitsune", "x": 0.22, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "station", "kind": "scene", "scene": "station", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "station", "kind": "building", "scene": "station", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "station-a", "kind": "step", "session": "station-a", "x": 0.76, "y": 200, "bubble": "left"},
+            {"id": "station-b", "kind": "step", "session": "station-b", "x": 0.24, "y": 328, "bubble": "right"},
+            {"id": "station-quiz", "kind": "quiz", "session": "station-quiz", "x": 0.76, "y": 456, "bubble": "left"}
+          ],
+          "paths": [
+            {"from": "soba-quiz", "to": "station", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "station", "to": "station-a", "d": [[0.5, 80], [0.5, 140], [0.76, 140], [0.76, 200]]},
+            {"from": "station-a", "to": "station-b", "d": [[0.76, 200], [0.76, 264], [0.24, 264], [0.24, 328]]},
+            {"from": "station-b", "to": "station-quiz", "d": [[0.24, 328], [0.24, 392], [0.76, 392], [0.76, 456]]},
+            {"from": "station-quiz", "to": "shrine", "d": [[0.76, 456], [0.76, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "station-a", "art": "eki", "x": 0.22, "y": 128, "rotate": -6},
+            {"step": "station-b", "art": "norikae", "x": 0.78, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "shrine", "kind": "scene", "scene": "shrine", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "shrine", "kind": "building", "scene": "shrine", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "shrine-a", "kind": "step", "session": "shrine-a", "x": 0.24, "y": 200, "bubble": "right"},
+            {"id": "shrine-b", "kind": "step", "session": "shrine-b", "x": 0.76, "y": 328, "bubble": "left"},
+            {"id": "shrine-quiz", "kind": "quiz", "session": "shrine-quiz", "x": 0.24, "y": 456, "bubble": "right"}
+          ],
+          "paths": [
+            {"from": "station-quiz", "to": "shrine", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "shrine", "to": "shrine-a", "d": [[0.5, 80], [0.5, 140], [0.24, 140], [0.24, 200]]},
+            {"from": "shrine-a", "to": "shrine-b", "d": [[0.24, 200], [0.24, 264], [0.76, 264], [0.76, 328]]},
+            {"from": "shrine-b", "to": "shrine-quiz", "d": [[0.76, 328], [0.76, 392], [0.24, 392], [0.24, 456]]},
+            {"from": "shrine-quiz", "to": "izakaya", "d": [[0.24, 456], [0.24, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "shrine-a", "art": "omamori", "x": 0.78, "y": 128, "rotate": -6},
+            {"step": "shrine-b", "art": "takoyaki", "x": 0.22, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "izakaya", "kind": "scene", "scene": "izakaya", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "izakaya", "kind": "building", "scene": "izakaya", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "izakaya-a", "kind": "step", "session": "izakaya-a", "x": 0.76, "y": 200, "bubble": "left"},
+            {"id": "izakaya-b", "kind": "step", "session": "izakaya-b", "x": 0.24, "y": 328, "bubble": "right"},
+            {"id": "izakaya-quiz", "kind": "quiz", "session": "izakaya-quiz", "x": 0.76, "y": 456, "bubble": "left"}
+          ],
+          "paths": [
+            {"from": "shrine-quiz", "to": "izakaya", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "izakaya", "to": "izakaya-a", "d": [[0.5, 80], [0.5, 140], [0.76, 140], [0.76, 200]]},
+            {"from": "izakaya-a", "to": "izakaya-b", "d": [[0.76, 200], [0.76, 264], [0.24, 264], [0.24, 328]]},
+            {"from": "izakaya-b", "to": "izakaya-quiz", "d": [[0.24, 328], [0.24, 392], [0.76, 392], [0.76, 456]]},
+            {"from": "izakaya-quiz", "to": "onsen", "d": [[0.76, 456], [0.76, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "izakaya-a", "art": "yakitori", "x": 0.22, "y": 128, "rotate": -6},
+            {"step": "izakaya-b", "art": "sasami", "x": 0.78, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "onsen", "kind": "scene", "scene": "onsen", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "onsen", "kind": "building", "scene": "onsen", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "onsen-a", "kind": "step", "session": "onsen-a", "x": 0.24, "y": 200, "bubble": "right"},
+            {"id": "onsen-b", "kind": "step", "session": "onsen-b", "x": 0.76, "y": 328, "bubble": "left"},
+            {"id": "onsen-quiz", "kind": "quiz", "session": "onsen-quiz", "x": 0.24, "y": 456, "bubble": "right"}
+          ],
+          "paths": [
+            {"from": "izakaya-quiz", "to": "onsen", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "onsen", "to": "onsen-a", "d": [[0.5, 80], [0.5, 140], [0.24, 140], [0.24, 200]]},
+            {"from": "onsen-a", "to": "onsen-b", "d": [[0.24, 200], [0.24, 264], [0.76, 264], [0.76, 328]]},
+            {"from": "onsen-b", "to": "onsen-quiz", "d": [[0.76, 328], [0.76, 392], [0.24, 392], [0.24, 456]]},
+            {"from": "onsen-quiz", "to": "ryokan", "d": [[0.24, 456], [0.24, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "onsen-a", "art": "yu", "x": 0.78, "y": 128, "rotate": -6},
+            {"step": "onsen-b", "art": "nuruyu", "x": 0.22, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "ryokan", "kind": "scene", "scene": "ryokan", "height": 504, "tile": null,
+          "nodes": [
+            {"id": "ryokan", "kind": "building", "scene": "ryokan", "x": 0.5, "y": 80, "front": [0.5, 40]},
+            {"id": "ryokan-a", "kind": "step", "session": "ryokan-a", "x": 0.76, "y": 200, "bubble": "left"},
+            {"id": "ryokan-b", "kind": "step", "session": "ryokan-b", "x": 0.24, "y": 328, "bubble": "right"},
+            {"id": "ryokan-quiz", "kind": "quiz", "session": "ryokan-quiz", "x": 0.76, "y": 456, "bubble": "left"}
+          ],
+          "paths": [
+            {"from": "onsen-quiz", "to": "ryokan", "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, 80]]},
+            {"from": "ryokan", "to": "ryokan-a", "d": [[0.5, 80], [0.5, 140], [0.76, 140], [0.76, 200]]},
+            {"from": "ryokan-a", "to": "ryokan-b", "d": [[0.76, 200], [0.76, 264], [0.24, 264], [0.24, 328]]},
+            {"from": "ryokan-b", "to": "ryokan-quiz", "d": [[0.24, 328], [0.24, 392], [0.76, 392], [0.76, 456]]},
+            {"from": "ryokan-quiz", "to": "hiragana-end", "d": [[0.76, 456], [0.76, 490], [0.5, 470], [0.5, 504]]}
+          ],
+          "stickers": [
+            {"step": "ryokan-a", "art": "youkoso", "x": 0.22, "y": 128, "rotate": -6},
+            {"step": "ryokan-b", "art": "ofuro", "x": 0.78, "y": 40, "rotate": 6}
+          ]
+        },
+        {
+          "id": "hiragana-end", "kind": "gate", "height": 176, "tile": null,
+          "nodes": [
+            {"id": "hiragana-end", "kind": "gate", "x": 0.5, "y": 72, "bubble": "right"}
+          ],
+          "paths": [
+            {"from": "ryokan-quiz", "to": "hiragana-end", "d": [[0.5, 0], [0.5, 24], [0.5, 48], [0.5, 72]]}
+          ],
+          "stickers": []
+        }
+      ]
+    }
+  ]
+}
