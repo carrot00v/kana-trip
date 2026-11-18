@@ -3,6 +3,7 @@
 앱 화면에서 장면 그림이 들어갈 자리, 각 그림의 규격과 이미지 생성 요청서, 후보를 고르는 기준을 모은 문서다. 리워드 아이템 16개(모자·두건·손·배경)는 보상 브랜치의 `item-art/brief.md` 몫이라 여기서 다루지 않는다.
 
 - 개정일: 2026-11-14. 흐름 개편안 B(PLAN.md 4번)의 새 8장면 기준으로 고쳤다. 이미 생성한 후보 가운데 다시 쓸 것과 새로 만들 2장(스시집, 소바·우동집)을 정했다
+- 2026-11-19: 스시집 그림을 니기리로 바꿔 다시 생성한다(5.2)
 
 | 파일 | 내용 |
 |---|---|
@@ -132,7 +133,7 @@
 {STYLE} {PALETTE} Subject: {대상} {OBJECT} {BACKGROUND}
 ```
 
-STYLE, PALETTE, OBJECT는 모든 그림에 한 글자도 바꾸지 않는다. BACKGROUND는 `{칸색}`만 바꾼다. 여러 장의 모양이 맞는 것은 이 고정에서 나온다.
+STYLE, PALETTE, OBJECT는 모든 그림에 한 글자도 바꾸지 않는다. BACKGROUND는 `{칸색}`만 바꾼다. 여러 장의 모양이 맞는 것은 이 고정에서 나온다. 예외는 `thumb-sushi` 하나로, PALETTE 자리에 PALETTE-SUSHI를 쓴다(5.2).
 
 **STYLE**
 
@@ -165,7 +166,7 @@ The background is one flat solid {칸색} color filling the entire square edge t
 | 순서 | 장면 id | 장면 | 파일 이름 | 대상 | 칸색 | 출처 | 할 일 |
 |---|---|---|---|---|---|---|---|
 | - | - | (대체 그림) | `thumb-placeholder` | 여행 가방 | SAND | 후보 `thumb-placeholder_301~304` | 고르기 |
-| 1 | `sushi` | 스시집 | `thumb-sushi` | 접시 위 호소마키 세 개 | SKY | **새로 생성** (5.2) | 생성 4장 → 고르기 |
+| 1 | `sushi` | 스시집 | `thumb-sushi` | 남색 테두리 접시 위 참치 니기리 두 점 (2026-11-19 호소마키에서 바꿈) | SKY | `thumb-sushi-nigiri_303` (2026-11-19 사용자 결정, 5.2 판정 결과) | 넣음 |
 | 2 | `tonkatsu` | 돈카츠집 | `thumb-tonkatsu` | 가츠동 | SAND | 후보 `thumb-eatery_sign_301~306` | 고르기 → 칸색 바꿔 칠하기(7.1) |
 | 3 | `soba` | 소바·우동집 | `thumb-soba` | 대발 위 자루소바와 장국 잔 | SKY | **새로 생성** (5.2) | 생성 4장 → 고르기 |
 | 4 | `station` | 역 | `thumb-station` | 정면 통근 전철 | SAND | 후보 `thumb-station_301~304` | 고르기 |
@@ -189,19 +190,91 @@ The background is one flat solid {칸색} color filling the entire square edge t
 | `thumb-onsen` | 7 온천 | `onsen` | `thumb-onsen` | SKY → SKY | |
 | `thumb-ryokan` | 8 료칸 | `ryokan` | `thumb-ryokan` | SAND → SAND | |
 | `thumb-placeholder` | 대체 그림 | (공통) | `thumb-placeholder` | SAND → SAND | |
-| (없음) | | `sushi` | `thumb-sushi` | SKY | 새로 생성 |
+| (없음) | | `sushi` | `thumb-sushi` | SKY | 새로 생성. 2026-11-19 니기리로 다시 생성(후보 이름 `thumb-sushi-nigiri`) |
 | (없음) | | `soba` | `thumb-soba` | SKY | 새로 생성 |
 
 ### 5.2 새로 만들 그림 2장
 
 대상을 고르는 기준(전과 같음): 그 장면의 단어에 나오는 물건이거나 장면을 가장 빨리 알아보게 하는 물건, 52pt에서 알아볼 것, 리워드 아이템과 겹치지 않을 것, 글자 없이도 뜻이 살 것. 이웃한 밥집 그림(가츠동 그릇)과 실루엣이 달라야 한다.
 
-**`thumb-sushi`** (1 스시집, 칸색 `pale sky blue`)
+**`thumb-sushi`** (1 스시집, 칸색 `pale sky blue`). 2026-11-19 호소마키에서 니기리로 바꿈(사용자 결정)
 
-- 대상: 둥근 접시(남색 테두리) 위에 세워 놓은 호소마키 세 개. 단면(김 고리, 흰 밥, 주황빨강 속)이 보이게.
-- 고른 이유: 리워드 손 아이템 `sushi`(초밥 한 점, 니기리)와 배경 아이템 `noren`(노렌이 걸린 가게 앞)을 피했다. 마키 단면은 니기리와 실루엣이 다르면서 52pt에서도 "초밥"으로 바로 읽힌다. 남색 테두리 접시는 회전초밥 접시를 떠올리게 해 메뉴 단계(회전초밥)와 이어진다. 가츠동(깊은 그릇, 김 줄기)과도 실루엣이 다르다(낮고 넓은 접시, 둥근 단면 셋).
-- 피한 것: 니기리(아이템과 겹침), 노렌(아이템과 겹침, 글자 자리), 회전 레일(물건이 둘이 되고 원근이 생김), 문어·오징어 그림(52pt에서 알아보기 어렵고 얼굴이 생기기 쉬움).
-- 안 될 때의 대체 대상: 같은 접시 위의 이쿠라 군함말이 두 개(김 띠 위에 주황 알). 문장은 아래 대상 문장의 rolls 부분만 바꾼다.
+쓰이는 크기: 홈 지도 건물 카드 96pt(지금 장면)와 72pt(잠김은 흑백, 완료는 원래 색). 완료 카드 양옆에 단어 스티커 `sushi`(게타 위 참치·달걀 니기리 두 점)와 `ika`(오징어 니기리 한 점)가 48pt로 붙는다(home-map.md 2.3). 옛 홈 행의 52pt에서도 읽혀야 한다.
+
+- 대상: 둥근 납작한 접시(흰 바탕, 굵은 남색 테두리) 위에 참치 니기리 두 점. 두 점은 똑같고, 둘 다 긴 쪽이 좌우로 놓여 왼쪽과 오른쪽에 나란히, 조금 떨어져 있다. 밥은 낮고 넓은 둥근 타원 덩이(흰색, 밥알 결 없음), 그 위에 주황빨강 참치 한 장이 밥보다 조금 길게 덮여 늘어진다. 참치 아래로 흰 밥이 띠처럼 분명히 보인다. 김 띠, 와사비, 생강, 간장 종지, 젓가락 없음. 보는 각도는 정면에서 살짝 위(접시가 납작한 타원으로 보이는 정도).
+- 개수를 두 점으로 한 이유: 한 접시 두 점은 회전초밥의 기본 모양이다. 셋이면 한 점이 작아져 72pt에서 밥 띠가 흐려지고, 하나면 접시가 비어 보여 "초밥 한 접시"보다 "알 수 없는 덩이"로 읽힐 수 있다(안 될 때의 대체 대상으로 둔다).
+- 네타를 참치로 한 이유: 붉은 생선 한 장 + 흰 밥이 초밥의 가장 흔한 그림이라 한국 사용자에게도 바로 "초밥"이다. 단색이라 줄무늬(연어), 꼬리(새우), 김 띠(달걀)가 필요 없어 작게 줄여도 모양이 무너지지 않는다. 연어는 흰 줄을 그리려다 선이 늘고, 줄이 없으면 참치와 구분되지 않는다.
+- 고른 이유: 호소마키 단면(김 고리 안의 흰 밥과 속)은 한국 사용자에게 김밥으로 읽혔다(사용자 의견, 2026-11-19). 니기리는 김밥과 모양이 겹치지 않는다. 옛 문서가 니기리를 피한 이유였던 리워드 손 아이템 `sushi`는 폐지됐다(item-art/items.json에 없음). 남색 테두리 접시는 회전초밥 접시로 메뉴 단계와 이어지고, 단어 스티커 `sushi`의 나무 게타와 받침이 달라 완료 카드 옆에 붙어도 같은 그림이 셋으로 보이지 않는다. 가츠동(깊은 그릇 + 김 줄기), 자루소바(네모 대발 + 잔), 야키토리(긴 네모 접시 + 꼬치)와 실루엣이 다르다(낮은 둥근 접시 위 둥근 덩이 둘).
+- 피한 것: 게타(단어 스티커 `sushi`와 같은 받침), 여러 종류 모둠(PALETTE 문제와 같이 색이 늘어 무지개가 된다), 군함말이(김 띠가 김밥을 다시 부른다), 노렌(아이템 `noren`과 겹침, 글자 자리), 회전 레일(물건이 둘이 되고 원근이 생김).
+
+**PALETTE 예외.** 이 그림만 4.2의 PALETTE 대신 아래 PALETTE-SUSHI를 쓴다. 공통 PALETTE는 색 이름 열 개를 늘어놓아, 같은 모양을 여러 개 그리는 대상에서는 점마다 다른 색(노랑 달걀, 분홍 네타, 올리브 덩이)을 칠하게 만든다. 단어 그림(`tools/gen_word_art.py`)과 리워드 아이템(`items.json`의 `palette`)에서 같은 문제가 기록돼 있다. 선 굵기와 화풍은 STYLE이 정하므로, STYLE·OBJECT·BACKGROUND는 그대로 두면 세트의 결이 유지된다.
+
+**PALETTE-SUSHI**
+
+```
+Colors: the object uses only warm off-white, soft orange red and dark indigo blue, plus the dark chocolate brown of the outlines. Both pieces have exactly the same colors. The orange red is warm, not crimson, not pink, not pure red.
+```
+
+**대상 문장**
+
+```
+Two pieces of tuna nigiri sushi on a small round flat plate, seen from the front and slightly above. The plate is warm off-white with a thick dark indigo rim. The two pieces sit next to each other, left and right, parallel and slightly apart, both lying lengthwise from left to right. Each piece is a low, wide, rounded oblong mound of plain smooth white rice with one flat slice of raw tuna in a single solid soft orange red draped over its top; the slice is a little longer than the rice, and a clear band of white rice shows below the slice along the whole piece. The two pieces are identical. The rest of the plate is empty, and nothing under the plate.
+```
+
+문장을 이렇게 쓴 이유(모델이 틀리기 쉬운 점):
+
+| 틀리기 쉬운 점 | 문장에서 막은 방법 |
+|---|---|
+| 네타가 밥을 다 덮어 흰 밥이 안 보인다 | "a clear band of white rice shows below the slice along the whole piece" |
+| 네타 색이 점마다 다르다, 무지개 | PALETTE-SUSHI(색 세 개), "single solid", "identical", "exactly the same colors" |
+| 참치에 흰 줄(지방, 연어)이 생긴다 | "a single solid soft orange red". 줄무늬를 금지어로 적지 않는다 |
+| 와사비, 생강, 간장 종지가 딸려 온다 | "The rest of the plate is empty". 이름을 적으면 오히려 그려 넣으므로(단어 그림 2차 배치) 이름을 쓰지 않는다 |
+| 김 띠, 원기둥 모양(김밥으로 읽힘) | "low, wide, rounded oblong mound", 참치(김 띠가 없는 네타). "seaweed", "roll"을 쓰지 않는다 |
+| 생선 모양, 얼굴 | "fish"를 쓰지 않고 "slice of raw tuna"로 쓴다. 얼굴은 OBJECT가 막는다 |
+| 밥알을 하나씩 그려 질감이 된다 | "plain smooth white rice" |
+| 접시 밑 비스듬한 그림자 | "seen from the front and slightly above", "nothing under the plate"(4.1) |
+| 빵처럼 보인다 | "loaf", "bun"을 쓰지 않는다 |
+
+- 안 될 때의 대체 대상(한 점): 4장 중 3장 이상에서 두 점이 서로 겹치거나 밥 띠가 72pt에서 안 보이면, 대상 문장만 아래로 바꿔 같은 시드로 다시 뽑는다(`--name thumb-sushi-nigiri1`).
+
+```
+One large piece of tuna nigiri sushi on a small round flat plate, seen from the front and slightly above. The plate is warm off-white with a thick dark indigo rim. The piece lies lengthwise from left to right across the middle of the plate: a low, wide, rounded oblong mound of plain smooth white rice with one flat slice of raw tuna in a single solid soft orange red draped over its top; the slice is a little longer than the rice, and a clear band of white rice shows below the slice along the whole piece. The rest of the plate is empty, and nothing under the plate.
+```
+
+**`thumb-sushi` 고르는 기준.** 6.3의 1~3(틀, 그림자·바닥, 글자)을 먼저 보고, 아래를 위에서부터 본다. 하나라도 걸리면 버린다. 줄인 크기는 1024px 원본을 LANCZOS로 줄여 본다: 96pt @3x 288px, 72pt @3x 216px, 52pt @3x 156px.
+
+| 순서 | 확인 | 탈락 조건 |
+|---|---|---|
+| S1 | 얼굴 | 밥이나 참치에 눈, 입, 볼이 있다. 참치가 혀처럼 밥 사이로 나와 입처럼 보인다 |
+| S2 | 김밥 | 원기둥, 둥근 단면, 김 고리, 검은 띠, 어두운 김 면이 있다. 72pt에서 "김밥"으로 읽힐 여지가 있다 |
+| S3 | 밥과 네타 | 216px에서 두 점 모두 참치 아래 흰 밥 띠가 보이지 않는다. 참치와 밥 사이 외곽선이 끊겨 한 덩이가 된다 |
+| S4 | 개수·모양 | 두 점이 아니다. 두 점의 크기, 모양, 색이 눈에 띄게 다르다. 두 점이 겹쳐 실루엣이 한 덩이가 된다 |
+| S5 | 접시 위 | 초밥 말고 다른 것(초록 덩이, 분홍 조각, 종지, 젓가락, 잎, 장식)이 있다. 접시가 사각, 나무 판, 게타다 |
+| S6 | 네타 색 | 참치에 흰 줄, 결, 광택 줄이 있다(연어나 베이컨처럼 보임). 색이 진홍이나 분홍(색상 330°~359°)이다. 노랑(달걀), 흰색(오징어) 등 참치 아닌 네타다 |
+| S7 | 다른 음식 | 72pt에서 빵, 케이크, 떡, 소시지, 베이컨으로 읽힌다 |
+| S8 | 흑백 | 채도 0으로 바꿔 216px로 봤을 때 참치, 밥, 접시, 남색 테두리가 구분되지 않는다 |
+| S9 | 이웃 | 96pt 카드로 가츠동(`thumb-tonkatsu`) 옆에, 72pt 카드로 단어 스티커 `sushi`·`ika`(48pt) 사이에 놓았을 때 같은 그림이 반복돼 보인다(게타처럼 보이는 받침, 같은 각도) |
+
+- 통과한 후보가 여럿이면: 216px에서 흰 밥 띠가 가장 또렷한 것 → 두 점 사이 틈이 분명한 것 → 남색 테두리가 고르게 둘러진 것 순으로 고른다.
+- 4장 중 3장 이상이 같은 이유로 걸리면 대상 문장 탓이다(6.3). S3이면 "a clear band of white rice"를 "a thick band of white rice, as tall as the slice"로, S5면 마지막 문장 앞에 "Only these two pieces are on the plate."를 더해 다시 뽑는다. S4(겹침)면 위의 한 점 문장으로 바꾼다. 같은 이유로 두 번 실패하면 PM에게 알린다.
+- 고른 뒤: `source/thumb-sushi.png`·`.json`(옛 마키 303)을 새 그림으로 바꿔 넣고, 7번 2~3단계와 home-map.md 6.1의 `map_building_sushi` 내보내기를 다시 한다.
+
+**판정 결과 (2026-11-19, developer).** 고른 후보: `thumb-sushi-nigiri_303`(두 점, 시드 303). 8장 모두 S6(참치의 흰 줄)에, 두 점 4장은 S4(겹침)에도 걸렸으나 사용자가 후보를 직접 보고 303을 골랐다("303으로 넣어"). S6·S4는 이 그림에 한해 사용자 결정으로 면제한다. 1차 4장 모두 겹침이라 5.2의 한 점 문장으로 같은 시드를 다시 뽑았고(`thumb-sushi-nigiri1`), 흰 줄이 같은 이유로 두 번 나와 생성을 멈췄다. 비교 시트: `build/scene-art/sushi-nigiri-round1.png`, `sushi-nigiri1-round2.png`(git 밖).
+
+| 후보 | 판정 |
+|---|---|
+| `thumb-sushi-nigiri_301` | S6 흰 줄, S4 왼쪽 참치가 오른쪽 점을 덮음 |
+| `thumb-sushi-nigiri_302` | S6, S4. 그림이 아래로 쏠림 |
+| `thumb-sushi-nigiri_303` | S6, S4. **사용자 결정으로 채택** |
+| `thumb-sushi-nigiri_304` | S6, S4. 남색 테두리가 가는 선으로만 남음 |
+| `thumb-sushi-nigiri1_301` | S6. 접시 밑 그림자(6.3의 2) |
+| `thumb-sushi-nigiri1_302` | S6. 접시 밑 그림자, 남색 테두리 없음 |
+| `thumb-sushi-nigiri1_303` | S6 |
+| `thumb-sushi-nigiri1_304` | S6(줄과 광택). 남색 테두리 없음 |
+
+8장 모두 S1·S2·S3·S7·S8은 통과(참치 색은 330°~359° 면이 0~0.1%). 8장 모두 밥에 밥알 점과 밥 밑의 옅은 그림자가 있다. S9: 72pt 카드에서 단어 스티커 `sushi`의 참치(흰 줄, 같은 각도)와 같은 그림이 되풀이돼 보인다. 받침(접시와 게타)만 다르다.
+
+옛 대상 문장(기록, 쓰지 않음). 2026-11-19 니기리로 바꿈. 호소마키 단면이 한국 사용자에게 김밥으로 읽혔다. 이 문장으로 만든 후보가 `thumb-sushi_301~304`, 그중 303이 2026-11-14에 골라졌다.
 
 ```
 A small round flat plate seen from the front and slightly above: a warm off-white plate with a thick dark indigo rim, and on it three round thin sushi rolls standing upright side by side so that their flat cut faces show. Each roll is a ring of very dark olive seaweed around white rice with a small soft orange red center. Nothing else on the plate and nothing under the plate.
@@ -273,8 +346,11 @@ A small rounded hard-shell travel suitcase standing upright, seen from the front
 `thumb-sushi`:
 
 ```bash
-.venv/bin/python tools/gen_image.py "Flat cartoon illustration with bold clean outlines. Every shape is outlined with one thick, uniform, dark chocolate brown line (#4A2219), about three percent of the image width, with rounded line ends and rounded joins, and every outline is fully closed. Flat solid color fills only: no gradients, no texture, no shading, no highlights, no shine, no reflections, no drop shadow. Soft, rounded, chunky shapes, simple and friendly. Colors: warm off-white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, soft pink, muted olive, and the dark chocolate brown of the outlines. No bright green, no emerald, no crimson, no magenta, no pure red, no neon colors. Subject: A small round flat plate seen from the front and slightly above: a warm off-white plate with a thick dark indigo rim, and on it three round thin sushi rolls standing upright side by side so that their flat cut faces show. Each roll is a ring of very dark olive seaweed around white rice with a small soft orange red center. Nothing else on the plate and nothing under the plate. Exactly one object, centered, filling about seventy percent of the square, with an even empty margin on all sides. Seen from the front or slightly above, with almost no perspective. A bold, simple silhouette that is still easy to recognize when shown very small. The object is not a character: it has no face, no eyes, no mouth, no blush. No people, no hands, no animals. No text, no letters, no numbers, no logos, no symbols on any surface; every label, sign and panel is completely plain. The background is one flat solid pale sky blue color filling the entire square edge to edge, and nothing else: no floor, no table, no horizon line, no ground shadow, no cast shadow, no border, no frame, no rounded-square frame, no white outline around the object, no vignette." --name thumb-sushi --out docs/design/scene-art/source/candidates --seed 301 --count 4
+.venv/bin/python tools/gen_image.py "Flat cartoon illustration with bold clean outlines. Every shape is outlined with one thick, uniform, dark chocolate brown line (#4A2219), about three percent of the image width, with rounded line ends and rounded joins, and every outline is fully closed. Flat solid color fills only: no gradients, no texture, no shading, no highlights, no shine, no reflections, no drop shadow. Soft, rounded, chunky shapes, simple and friendly. Colors: the object uses only warm off-white, soft orange red and dark indigo blue, plus the dark chocolate brown of the outlines. Both pieces have exactly the same colors. The orange red is warm, not crimson, not pink, not pure red. Subject: Two pieces of tuna nigiri sushi on a small round flat plate, seen from the front and slightly above. The plate is warm off-white with a thick dark indigo rim. The two pieces sit next to each other, left and right, parallel and slightly apart, both lying lengthwise from left to right. Each piece is a low, wide, rounded oblong mound of plain smooth white rice with one flat slice of raw tuna in a single solid soft orange red draped over its top; the slice is a little longer than the rice, and a clear band of white rice shows below the slice along the whole piece. The two pieces are identical. The rest of the plate is empty, and nothing under the plate. Exactly one object, centered, filling about seventy percent of the square, with an even empty margin on all sides. Seen from the front or slightly above, with almost no perspective. A bold, simple silhouette that is still easy to recognize when shown very small. The object is not a character: it has no face, no eyes, no mouth, no blush. No people, no hands, no animals. No text, no letters, no numbers, no logos, no symbols on any surface; every label, sign and panel is completely plain. The background is one flat solid pale sky blue color filling the entire square edge to edge, and nothing else: no floor, no table, no horizon line, no ground shadow, no cast shadow, no border, no frame, no rounded-square frame, no white outline around the object, no vignette." --name thumb-sushi-nigiri --out docs/design/scene-art/source/candidates --seed 301 --count 4
 ```
+
+- 2026-11-19 니기리 판이다. 옛 마키 후보(`thumb-sushi_301~304`)를 덮어쓰지 않도록 이름을 `thumb-sushi-nigiri`로 둔다. 고른 한 장만 `source/thumb-sushi.png`로 복사한다.
+- 한 점 대체 문장(5.2)으로 다시 뽑을 때는 `Subject:` 뒤 문장과 `--name thumb-sushi-nigiri1`을 바꾸고, PALETTE-SUSHI의 "Both pieces have exactly the same colors."는 빼고 뽑는다(남겨 두면 두 점을 다시 부른다).
 
 `thumb-soba`:
 
@@ -308,11 +384,11 @@ A small rounded hard-shell travel suitcase standing upright, seen from the front
 | 4 | 얼굴 | 물건에 눈, 입, 볼이 없다 |
 | 5 | 52pt | 156px로 줄여 무엇인지 알아보인다. 외곽선이 4px 이상으로 남는다 |
 | 6 | 외곽선 닫힘 | 물건 둘레가 끊긴 곳이 없다 |
-| 7 | 색 | 초록(125°~160°)이나 분홍빨강(330°~359°) 면이 10%를 넘지 않는다. 도리이와 마키 속이 진홍이 아니다 |
+| 7 | 색 | 초록(125°~160°)이나 분홍빨강(330°~359°) 면이 10%를 넘지 않는다. 도리이와 참치(스시집)가 진홍이 아니다 |
 | 8 | 광택 | 흰 광택 점이 156px에서 보이지 않는다(작은 점은 줄이면 사라져 허용) |
 | 9 | 세트 | 이미 고른 그림 옆에 놓았을 때 선 굵기, 밝기, 물건 크기가 같은 계열이다. 이웃한 행(1·2·3 밥집)끼리 실루엣이 다르다 |
 | 10 | 흑백 | 채도 0으로 바꿨을 때(잠김) 물건과 바탕이 구분된다. 소바의 회갈색 면과 대발이 흑백에서 한 덩어리가 되지 않는지 특히 본다 |
-| 11 | 일본 고증 | 도리이, 전철, 오케, 마키, 자루소바의 모양이 다른 나라 것과 섞이지 않았다 |
+| 11 | 일본 고증 | 도리이, 전철, 오케, 니기리, 자루소바의 모양이 다른 나라 것과 섞이지 않았다 |
 
 - 4장 중 3장 이상이 같은 이유로 걸리면 시드 탓이 아니라 문장 탓이다. STYLE·PALETTE·OBJECT·BACKGROUND는 그대로 두고 대상 문장만 고쳐 다시 뽑는다(이자카야 v2가 그 예).
 - 기존 후보 가운데 위 기준에 걸리지 않는 것: eatery_sign 302·303·305·306(303은 김 줄기가 회색이라 세트를 본다), station 304, shrine 301~304, onsen 302, ryokan 301~304, placeholder 302~304. 이자카야는 v2로 다시 뽑은 뒤 고른다. 이 목록은 비교 시트로 1차로 거른 것이고, 원본 확대 확인은 고를 때 한다.
@@ -323,7 +399,7 @@ A small rounded hard-shell travel suitcase standing upright, seen from the front
 
 | 그림 | 생성 | 예상 시간 |
 |---|---|---|
-| `thumb-sushi` | 4 | 15~20분 |
+| `thumb-sushi` (2026-11-19 니기리 판 `thumb-sushi-nigiri`) | 4 | 15~20분 |
 | `thumb-soba` | 4 | 15~20분 |
 | `thumb-izakaya` v2 (필요하면) | 4 | 15~20분 |
 | `thumb-tonkatsu`, `thumb-shrine` 칸색 다시 뽑기 (7.1에서 필요하면) | 각 1 (고른 시드) | 7~10분 |
@@ -365,3 +441,5 @@ A small rounded hard-shell travel suitcase standing upright, seen from the front
 - 2026-11-14: 최초 작성(개편 전 8장면 기준). 후보 38장 생성.
 - 2026-11-14: 흐름 개편안 B 반영. 장면 8개를 스시집, 돈카츠집, 소바·우동집, 역, 신사·축제, 이자카야, 온천, 료칸으로 바꾸고 칸색 순서를 다시 매겼다. 옛 후보 이름과 새 장면 id의 대응(5.1)을 적었다. 가츠동은 돈카츠집, 전철은 역, 도리이는 신사·축제로 쓰고, 자판기(거리)와 사탕 사과(축제)는 쓰지 않는다. 새로 만들 `thumb-sushi`(접시 위 호소마키)와 `thumb-soba`(자루소바)의 대상 문장과 명령을 더했다. 후보에서 본 문제(틀, 그림자, 선로)와 고르는 기준(6.2, 6.3), 칸색이 바뀐 두 장의 처리(7.1), 이자카야 v2 문장을 더했다.
 - 2026-11-14: 고른 그림을 source/thumb-{장면 id}.png로 복사(PM). sushi←thumb-sushi_303, tonkatsu←thumb-eatery_sign_305, soba←thumb-soba_301, station←thumb-station_304, shrine←thumb-shrine_304, izakaya←thumb-izakaya-v2_304(옅은 그림자 남음), onsen←thumb-onsen_302, ryokan←thumb-ryokan_304, placeholder←thumb-placeholder_302. 7번 2~3단계(칸색 칠하기, 에셋 카탈로그)는 developer
+- 2026-11-19: `thumb-sushi`를 호소마키에서 참치 니기리 두 점(남색 테두리 접시)으로 바꿨다(사용자 결정. 마키 단면이 김밥으로 읽힘). 5.2에 대상, 이유, PALETTE-SUSHI(이 그림만의 색 문장), 대상 문장, 한 점 대체 문장, 고르는 기준 S1~S9를 적고 옛 마키 문장은 기록으로 남겼다. 6.1 명령의 후보 이름을 `thumb-sushi-nigiri`로 바꿨다. 5번·5.1 표, 4.2 예외, 6.3의 7·11번, 6.4를 맞췄다.
+- 2026-11-19: 니기리 후보 8장(`thumb-sushi-nigiri_301~304`, 한 점 `thumb-sushi-nigiri1_301~304`)을 뽑았다. 모두 S6에 걸렸으나 사용자가 `thumb-sushi-nigiri_303`을 골라 `source/thumb-sushi.png`·`.json`으로 바꿔 넣고 `SceneThumb-sushi`, `map_building_sushi`를 다시 내보냈다(developer). 판정은 5.2 "판정 결과"
