@@ -61,7 +61,8 @@ struct StepDoneView: View {
                 }
                 .buttonStyle(.plain)
             } else {
-                PrimaryButton(title: L.backToScene, action: onClose)
+                // 세션을 닫으면 늘 지도로 돌아간다 (home-map.md 3.4).
+                PrimaryButton(title: L.backToSceneList, action: onClose)
             }
         }
         .sensoryFeedback(.success, trigger: appearTick)

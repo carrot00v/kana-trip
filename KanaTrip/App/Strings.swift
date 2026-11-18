@@ -16,6 +16,58 @@ enum L {
         "\(scene) · \(stepAction(step, resume: resume))"
     }
 
+    // MARK: 지도 홈 (docs/design/home-map.md 9.4)
+    /// 바의 뒤로 버튼(S·K에서 "‹ 지도").
+    static let mapTitle = "지도"
+    static func regionProgress(script: String, done: Int, total: Int) -> String { "\(script) \(done)/\(total)" }
+    static func regionProgressLabel(script: String, done: Int, total: Int) -> String {
+        "\(script), \(total)장면 중 \(done)장면 완료"
+    }
+    static let mapLabel = "여행 지도"
+    static func regionStart(_ script: String) -> String { "\(script) 여행" }
+    static func regionStartLabel(_ script: String) -> String { "\(script) 여행 출발" }
+    static let katakanaComingSoon = "가타카나 여행 · 준비 중"
+    static let katakanaComingSoonLabel = "가타카나 여행, 준비 중"
+    static func quizPill(review: Int) -> String { review > 0 ? "\(quizSessionName) · 복습 \(review)" : quizSessionName }
+    static func buildingPill(order: Int, name: String) -> String { "\(order) \(name)" }
+    static let toCurrentNode = "지금 칸으로"
+    static let toCurrentNodeLabel = "지금 칸으로 이동"
+    static let customizeShort = "꾸미기"
+
+    // 칸 카드 (3.3)
+    static func nodeCardTitle(scene: String, session: String) -> String { "\(scene) · \(session)" }
+    static let nodeMyTurn = "할 차례예요"
+    static let nodeResume = "하던 데부터 이어서 해요"
+    static let nodeDone = "끝냈어요"
+    static func nodeLocked(previous: String) -> String { "\(previous)\(hasFinalConsonant(previous) ? "을" : "를") 끝내면 열려요" }
+    static let goalWordsTitle = "읽게 되는 단어"
+    static let start = "시작"
+    static let resume = "이어서 하기"
+    static let redo = "다시 하기"
+    static let allSceneWords = "장면 단어 전체 보기"
+
+    // 알림 (4.5)
+    static func turnAnnouncement(scene: String, session: String) -> String { "\(scene) \(session) 차례예요" }
+    static func newSceneAnnouncement(scene: String, step: String) -> String {
+        "다음 여행지는 \(scene)\(copula(scene)). \(step) 차례예요"
+    }
+
+    // VoiceOver (9.3)
+    static func stepNodeLabel(order: Int, scene: String, step: String, kana: [String], status: String) -> AttributedString {
+        var japanese = AttributedString(kana.joined(separator: " "))
+        japanese.languageIdentifier = "ja"
+        return AttributedString("\(order)번 \(scene) \(step), ") + japanese + AttributedString(", \(status)")
+    }
+    static func quizNodeLabel(order: Int, scene: String, review: Int, status: String) -> String {
+        "\(order)번 \(scene) \(quizSessionName)" + (review > 0 ? ", 복습 \(review)자" : "") + ", \(status)"
+    }
+    static let nodeStatusMyTurn = "지금 할 차례"
+    static let nodeStatusResume = "하던 중"
+    static func nodeStatusLocked(previous: String) -> String { "\(locked), \(nodeLocked(previous: previous))" }
+    static func buildingLabel(order: Int, name: String, status: String) -> String { "\(order)번 \(name), \(status)" }
+    static let buildingInProgress = "진행 중"
+    static let buildingSeeWords = "장면 단어 보기"
+
     // MARK: 장면 진입
     static func learnedCount(_ learned: Int, of total: Int) -> String { "배운 글자 \(learned) / \(total)" }
     static let canRead = "읽을 수 있어요"
@@ -26,7 +78,8 @@ enum L {
         "\(step) \(resume ? "이어서 하기" : "시작")"
     }
 
-    static let backToSceneList = "장면 목록으로"
+    /// C1·C2·S에서 지도로 돌아가는 버튼. 세션을 닫으면 늘 지도로 돌아간다 (home-map.md 3.4).
+    static let backToSceneList = "지도로 돌아가기"
 
     /// 세션의 이름: 단계 이름(간판, 메뉴) 또는 "종합 퀴즈".
     static func sessionName(_ session: TripSession) -> String {
@@ -131,7 +184,6 @@ enum L {
     static let nowReadable = "이제 읽을 수 있는 단어"
     static func readableWords(_ scene: String) -> String { "이제 읽을 수 있는 \(scene) 단어" }
     static let stopHere = "여기까지 하기"
-    static let backToScene = "장면으로 돌아가기"
     static func sceneDone(_ scene: String) -> String { "\(scene) 장면 완료" }
     static func sceneSummary(_ n: Int) -> String { "히라가나 \(n)자를 읽고 쓸 수 있어요" }
     static func nextSceneOpened(_ scene: String) -> String {

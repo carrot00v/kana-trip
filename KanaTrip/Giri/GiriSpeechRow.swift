@@ -214,13 +214,21 @@ struct GiriSpeechRow: View {
 /// 말풍선 몸통(모서리 14pt)과 왼쪽 꼬리(밑변 14pt, 길이 8pt)를 한 경로로 (2.1).
 /// 꼬리는 세로 가운데에 두되 위·아래 끝에서 16pt 안쪽으로 제한한다.
 /// 걸침 배치(QC)는 `tailFromTop`으로 말풍선 위 끝에서 잰 꼬리 높이를 준다 (2.4.3).
+/// 지도의 왼쪽 말풍선은 `tailOnRight`로 좌우를 뒤집어 꼬리를 오른쪽 변에 붙인다 (home-map.md 2.4).
 struct BubbleShape: Shape {
     var tailWidth: CGFloat = 8
     var radius: CGFloat = 14
     var tailBase: CGFloat = 14
     var tailFromTop: CGFloat? = nil
+    var tailOnRight = false
 
     func path(in rect: CGRect) -> Path {
+        let path = leftTailPath(in: rect)
+        guard tailOnRight else { return path }
+        return path.applying(CGAffineTransform(translationX: rect.minX + rect.maxX, y: 0).scaledBy(x: -1, y: 1))
+    }
+
+    private func leftTailPath(in rect: CGRect) -> Path {
         let body = CGRect(x: rect.minX + tailWidth, y: rect.minY, width: rect.width - tailWidth, height: rect.height)
         let r = min(radius, body.height / 2)
         var p = Path()
@@ -390,7 +398,59 @@ final class WordWrapLabel: UILabel {
     }
 }
 
-/// H·S의 아래 고정 영역: 기리 줄(96pt) + 주 버튼 (giri-companion.md 3.2, 3.3).
+/// 지도 위 기리 옆 말풍선 (home-map.md 2.4). 기리는 따로 그리고(지도 덮개 층) 이 부품은 말풍선만 그린다.
+/// 꼬리는 기리 쪽 변에 붙고, 높이는 말풍선 위 끝에서 잰 `tailFromTop`(기리 입 높이).
+/// 폭은 글에 맞추되 최소 88pt(꼬리 제외). 줄은 `GiriSpeechRow`와 같이 띄어쓰기에서만 바꾼다.
+struct GiriSideBubble: View {
+    let text: String
+    let tailOnRight: Bool
+    let tailFromTop: CGFloat
+    var maxLines = 3
+
+    static let tailWidth: CGFloat = 8
+
+    var body: some View {
+        let tail = Self.tailWidth
+        BubbleLabel(text: text, maxLines: maxLines)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.vertical, 10)
+            .padding(.leading, 12 + (tailOnRight ? 0 : tail))
+            .padding(.trailing, 12 + (tailOnRight ? tail : 0))
+            .frame(minWidth: 88 + tail, minHeight: GiriSpeechRow.bubbleHeight(lines: 1), alignment: .leading)
+            .background {
+                BubbleShape(tailWidth: tail, tailFromTop: tailFromTop, tailOnRight: tailOnRight)
+                    .fill(Color.cardBackground)
+                BubbleShape(tailWidth: tail, tailFromTop: tailFromTop, tailOnRight: tailOnRight)
+                    .stroke(Color.outline, style: StrokeStyle(lineWidth: AppStyle.outlineWidth, lineJoin: .round))
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text(GiriBubbleText.attributed(text)))
+            .accessibilityAddTraits(.isStaticText)
+    }
+}
+
+/// 꼬리 없는 전체 폭 말풍선 카드. 큰 글자 크기(accessibility1 이상)에서 지도 아래 고정 영역에 둔다 (home-map.md 5.1).
+struct GiriBubbleCard: View {
+    let text: String
+
+    var body: some View {
+        BubbleLabel(text: text, maxLines: nil)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(Color.outline, lineWidth: AppStyle.outlineWidth)
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(Text(GiriBubbleText.attributed(text)))
+            .accessibilityAddTraits(.isStaticText)
+    }
+}
+
+/// S의 아래 고정 영역: 기리 줄(96pt) + 주 버튼 (giri-companion.md 3.3). 홈은 지도로 바뀌어 쓰지 않는다 (home-map.md 5.3).
 /// 위 8 + 기리 줄 96 + 간격 8 + 주 버튼 + 아래 8 = 176pt. 바탕을 칠해 목록이 비쳐 보이지 않게 한다.
 /// 말풍선은 최대 3줄. 큰 글자 크기(xLarge ~ xxxLarge)에서 3줄이 96pt를 넘으면 줄 높이가 늘고, 넘치는 문구는 잘린다 (6.2).
 /// 큰 글자 크기에서는 기리 줄을 빼고(목록 맨 위 `GiriListBubble`로 옮김) 주 버튼만 남는다 (6.2).
@@ -415,7 +475,7 @@ struct GiriBottomDock<Button: View>: View {
     }
 }
 
-/// 큰 글자 크기의 H·S: 목록 맨 위 섹션에 두는 말풍선 카드 (giri-companion.md 6.2).
+/// 큰 글자 크기의 S: 목록 맨 위 섹션에 두는 말풍선 카드 (giri-companion.md 6.2). 홈(지도)은 `GiriBubbleCard`를 쓴다.
 /// 보통 크기에서는 아무것도 그리지 않는다.
 struct GiriListBubble: View {
     let text: String
