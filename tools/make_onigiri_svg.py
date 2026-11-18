@@ -173,27 +173,6 @@ def hat(clip=True):
   </g>'''
 
 
-def hat_icon():
-    """2026-11-17 전의 요리사 모자. 앱 아이콘(make_app_icon.py)만 쓴다. 아이콘을 새 모자로 맞출지는 PM 결정 대기
-    (head-fit.md 3.1)."""
-    puffs = [(112, 72, 30), (150, 54, 36), (188, 72, 30)]
-    rect = (98, 70, 104, 36)
-    outline = "".join(f'<circle cx="{x}" cy="{y}" r="{r}"/>' for x, y, r in puffs)
-    outline += f'<rect x="{rect[0]}" y="{rect[1]}" width="{rect[2]}" height="{rect[3]}"/>'
-    return f'''
-  <!-- 요리사 모자: 살짝 기울인다 -->
-  <g transform="rotate(-5 150 110)">
-    <g fill="{LINE}" stroke="{LINE}" stroke-width="{SW * 2}" stroke-linejoin="round">{outline}</g>
-    <g fill="{RICE}">{outline}</g>
-    <path d="M100 66 Q106 56 118 54" fill="none" stroke="{GRAIN}" stroke-width="4" stroke-linecap="round"/>
-    <!-- 모자 앞의 오니기리 표시 -->
-    <path d="M150 62 Q153 62 167 86 Q168 90 164 90 L136 90 Q132 90 133 86 Q147 62 150 62Z" fill="{RICE}" stroke="{LINE}" stroke-width="4.5" stroke-linejoin="round"/>
-    <rect x="145" y="77" width="10" height="13" fill="{NORI}"/>
-    <!-- 모자 띠 -->
-    <rect x="94" y="100" width="112" height="18" rx="5" fill="{RED}" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>
-  </g>'''
-
-
 def scarf():
     return f'''
   <!-- 두건: 오른쪽이 올라가게 비스듬히 -->

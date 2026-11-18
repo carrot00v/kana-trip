@@ -1,6 +1,7 @@
 """앱 아이콘을 만든다. 기리의 기본 표정을 단색 바탕 위에 크게 둔다.
 
-캐릭터 부품은 make_onigiri_svg.py의 함수를 그대로 쓴다. 그림자와 다리는 작은 크기에서
+캐릭터 부품은 make_onigiri_svg.py의 함수를 그대로 쓴다. 모자도 앱 안 기리와 같은 hat()이다
+(docs/design/item-art/head-fit.md 3.1, 2026-11-19 이슈 #5로 아이콘을 새 모자로 맞춤). 그림자와 다리는 작은 크기에서
 지저분해 보여서 뺐다. 글자는 넣지 않는다. 모서리는 둥글리지 않는다(iOS가 마스크한다).
 
 실행: python3 tools/make_app_icon.py
@@ -14,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from make_onigiri_svg import arms, body_clip_def, body_layers, body_path, cheeks, face, hat_icon, scarf  # noqa: E402
+from make_onigiri_svg import arms, body_clip_def, body_layers, body_path, cheeks, face, hat, scarf  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 SVG_OUT = ROOT / "docs/design/character/app-icon.svg"
@@ -23,10 +24,12 @@ CONVERTER = Path(__file__).resolve().parent / "svg_to_png.swift"
 
 SIZE = 1024
 BG = "#F6B92B"   # 노랑 강조(Highlight). 크림 바탕은 흰 밥과 구분이 외곽선뿐이라 작은 크기에서 흐려진다
-SCALE = 2.9      # 캐릭터 좌표 1 = 아이콘 2.9px. 몸통 폭 약 248 → 약 720px(70%)
+SCALE = 3.0      # 캐릭터 좌표 1 = 아이콘 3px. 몸통 폭 약 248 → 약 744px(73%)
 CENTER_X = 150   # 캐릭터 몸통의 가운데
-TOP_Y = 12       # 캐릭터의 맨 위(모자 외곽선)
-TOP_MARGIN = 52  # 아이콘 위쪽 여백(px)
+TOP_Y = 23.7     # 캐릭터의 맨 위(새 모자 hat()의 가운데 구름 외곽선)
+TOP_MARGIN = 57  # 아이콘 위쪽 여백(px). 그린 범위가 y 56~968이 되어 위아래 여백이 약 56으로 같다
+# 2026-11-19 새 모자로 바꿀 때: 새 모자는 옛 모자보다 위 끝이 약 12 낮다. 옛 값(2.9배, 위 끝 12, 여백 52)이면
+# 위 여백 86, 아래 58로 위가 비어 보여서 3.0배로 키우고 위아래 여백을 맞췄다.
 
 
 def icon_svg(bg=BG, scale=SCALE):
@@ -45,7 +48,7 @@ def icon_svg(bg=BG, scale=SCALE):
   <!-- 몸통 -->
   {body_layers(body)}
 {scarf()}
-{hat_icon()}
+{hat()}
 {cheeks()}
 {face("default")}
   </g>

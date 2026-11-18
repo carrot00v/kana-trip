@@ -3,7 +3,7 @@
     <clipPath id="bodyClip"><path d="M207.2 138.3 Q217.3 144.9 221.0 156.3 Q231.9 162.3 234.8 174.4 Q243.8 181.8 248.6 192.4 Q259.3 198.6 262.3 210.6 Q270.8 219.2 271.5 231.3 Q275.5 242.3 273.9 253.8 Q276.7 266.0 269.2 276.0 Q266.5 287.5 257.8 295.5 Q251.6 305.6 240.9 310.6 Q232.6 320.0 220.1 319.7 Q209.2 323.6 197.6 322.0 Q186.2 326.2 174.9 322.0 Q163.5 326.9 152.1 322.0 Q140.8 324.6 129.4 322.0 Q118.0 327.0 106.6 322.0 Q95.1 325.4 84.0 320.6 Q72.4 319.4 62.8 312.8 Q50.5 310.0 45.0 298.7 Q36.0 291.1 32.5 279.9 Q26.0 269.9 26.5 258.0 Q21.7 246.5 27.5 235.4 Q29.0 223.9 35.5 214.2 Q38.5 202.4 48.8 195.8 Q52.0 183.9 62.6 177.8 Q67.4 167.1 76.4 159.7 Q79.2 147.5 90.2 141.6 Q95.2 130.8 105.8 125.2 Q114.2 117.0 125.6 114.2 Q135.8 106.8 147.9 110.0 Q159.5 108.4 170.3 112.9 Q182.2 114.3 190.8 122.7 Q202.5 126.7 207.2 138.3Z"/></clipPath>
   </defs>
   <rect width="1024" height="1024" fill="#F6B92B"/>
-  <g transform="translate(77.0 17.2) scale(2.9)">
+  <g transform="translate(62.0 -14.1) scale(3.0)">
   <!-- 팔 -->
   <path d="M36 266 L22 284" stroke="#4A2219" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M36 266 L22 284" stroke="#FFFDF7" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M264 266 L278 284" stroke="#4A2219" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M264 266 L278 284" stroke="#FFFDF7" stroke-width="12" stroke-linecap="round" fill="none"/>
 
@@ -21,21 +21,27 @@
   <path d="M52 246 L40 292 L70 262Z" fill="#E2533F" stroke="#4A2219" stroke-width="6" stroke-linejoin="round"/>
   <circle cx="48" cy="242" r="13" fill="#E2533F" stroke="#4A2219" stroke-width="6"/>
 
-  <!-- 요리사 모자: 살짝 기울인다 -->
-  <g transform="rotate(-5 150 110)">
-    <g fill="#4A2219" stroke="#4A2219" stroke-width="12" stroke-linejoin="round"><circle cx="112" cy="72" r="30"/><circle cx="150" cy="54" r="36"/><circle cx="188" cy="72" r="30"/><rect x="98" y="70" width="104" height="36"/></g>
-    <g fill="#FFFDF7"><circle cx="112" cy="72" r="30"/><circle cx="150" cy="54" r="36"/><circle cx="188" cy="72" r="30"/><rect x="98" y="70" width="104" height="36"/></g>
-    <path d="M100 66 Q106 56 118 54" fill="none" stroke="#EFE3CC" stroke-width="4" stroke-linecap="round"/>
+  <!-- 요리사 모자: 띠가 머리를 가로지르고 머리 안쪽에서 잘린다 (head-fit.md 3.1) -->
+  <defs><clipPath id="headInner"><path d="M204.8 140.1 Q214.7 146.5 218.3 157.7 Q229.0 163.4 231.7 175.3 Q240.5 182.5 245.2 192.9 Q255.7 198.8 258.6 210.5 Q267.2 218.6 268.1 230.4 Q272.3 240.9 271.0 252.2 Q274.1 264.1 266.7 273.9 Q264.3 285.2 255.9 293.1 Q250.0 303.0 239.5 307.9 Q231.6 317.2 219.4 316.8 Q208.7 320.7 197.4 319.0 Q186.3 323.2 175.3 319.0 Q164.2 323.9 153.1 319.0 Q142.0 321.6 131.0 319.0 Q119.9 324.0 108.8 319.0 Q97.6 322.6 86.7 318.1 Q75.3 317.3 65.8 311.0 Q53.8 308.7 48.2 297.8 Q39.3 290.5 35.7 279.6 Q29.1 270.0 29.5 258.4 Q24.7 247.2 30.4 236.4 Q31.7 225.1 38.1 215.7 Q41.0 204.2 51.1 197.8 Q54.1 186.2 64.5 180.2 Q69.1 169.8 78.0 162.6 Q80.6 150.7 91.4 145.0 Q96.0 134.3 106.2 128.7 Q114.2 120.5 125.3 117.6 Q135.0 110.0 146.9 113.1 Q158.2 111.3 168.8 115.6 Q180.4 116.8 188.8 124.9 Q200.3 128.8 204.8 140.1Z"/></clipPath></defs>
+  <g transform="translate(-8 0) rotate(-6 150 138)">
+    <g fill="#4A2219" stroke="#4A2219" stroke-width="12" stroke-linejoin="round"><circle cx="114" cy="72" r="26"/><circle cx="150" cy="58" r="29"/><circle cx="186" cy="72" r="26"/><polygon points="100.4,76 199.6,76 176,128 124,128"/></g>
+    <g fill="#FFFDF7"><circle cx="114" cy="72" r="26"/><circle cx="150" cy="58" r="29"/><circle cx="186" cy="72" r="26"/><polygon points="100.4,76 199.6,76 176,128 124,128"/></g>
+    <path d="M104 68 Q109 58 120 56" fill="none" stroke="#EFE3CC" stroke-width="4" stroke-linecap="round"/>
     <!-- 모자 앞의 오니기리 표시 -->
-    <path d="M150 62 Q153 62 167 86 Q168 90 164 90 L136 90 Q132 90 133 86 Q147 62 150 62Z" fill="#FFFDF7" stroke="#4A2219" stroke-width="4.5" stroke-linejoin="round"/>
-    <rect x="145" y="77" width="10" height="13" fill="#34402F"/>
-    <!-- 모자 띠 -->
-    <rect x="94" y="100" width="112" height="18" rx="5" fill="#E2533F" stroke="#4A2219" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M150 84 Q153 84 167 108 Q168 112 164 112 L136 112 Q132 112 133 108 Q147 84 150 84Z" fill="#FFFDF7" stroke="#4A2219" stroke-width="4.5" stroke-linejoin="round"/>
+    <rect x="145" y="99" width="10" height="13" fill="#34402F"/>
+  </g>
+  <!-- 모자 띠: clipPath는 기리 좌표(변환 바깥)에 건다. 문서의 86~214보다 양쪽 6 길게 그려 오른쪽 끝도 외곽선 밖 4 이상 나간다 -->
+  <g clip-path="url(#headInner)">
+    <g transform="translate(-8 0) rotate(-6 150 138)">
+      <path d="M80 131 Q150 145 220 131 L220 113 Q150 127 80 113Z" fill="#E2533F" stroke="#4A2219" stroke-width="6" stroke-linejoin="round"/>
+    </g>
   </g>
 
   <!-- 볼 -->
   <ellipse cx="94" cy="190" rx="15" ry="10" fill="#F5A7A0"/>
   <ellipse cx="206" cy="190" rx="15" ry="10" fill="#F5A7A0"/>
+
   <!-- 얼굴 -->
   <ellipse cx="114" cy="170" rx="7" ry="10" fill="#4A2219"/>
   <ellipse cx="186" cy="170" rx="7" ry="10" fill="#4A2219"/>
