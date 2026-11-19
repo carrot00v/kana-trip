@@ -71,7 +71,7 @@
    ],
    "press": "auto",
    "contactSpan": 1.0,
-   "prompt": "One slice of Japanese tamagoyaki (sweet rolled omelette) drawn completely flat in 2D, seen from the side: a long soft yellow strip of even thickness, about three times as wide as it is tall, bent into a shallow arch like a wide frown, the middle higher than both ends, so its bottom edge is clearly curved upward (concave), as if draped on top of a ball (do not draw the ball). One narrow dark seaweed band wrapped around its middle from top to bottom. Flat solid colors with no gradient, no 3D end face, no spiral, no shadow. Only the omelette strip and the seaweed band."
+   "prompt": "One soft slice of yellow sweet egg omelette lying draped over the top of a ball (do not draw the ball), drawn completely flat in 2D, seen from the side: a long soft yellow strip of even thickness, about three times as wide as it is tall, bent into an arch like a wide frown, both ends drooping down lower than the middle, so its bottom edge is clearly curved upward (concave) with empty space under the middle. One narrow dark seaweed band wrapped around its middle from top to bottom. Flat solid colors with no gradient. Only the egg strip and the seaweed band, floating alone."
   },
   {
    "id": "tonkatsu_slice",
@@ -89,7 +89,7 @@
    ],
    "press": "auto",
    "contactSpan": 0.8,
-   "prompt": "One cut slice of tonkatsu (breaded fried pork cutlet) drawn completely flat in 2D, shaped like a wide rainbow arch: a long curved strip about three times as wide as it is tall, bent like an upside-down U that is very shallow, both ends lower than the middle, the top edge and the bottom edge are parallel curves, so the bottom edge arches upward in the middle with empty space under it. A thick golden brown crispy crust border all around with a bumpy, softly wavy outline, and a pale cream pork meat center. Plain meat with no dots, no marks, no face. Flat fills, no 3D side, no white sticker border, nothing under it."
+   "prompt": "One long strip of tonkatsu (breaded fried pork cutlet) lying draped over the top of a ball (do not draw the ball), drawn completely flat in 2D, seen from the side: a long golden brown crispy strip of even thickness, about three times as wide as it is tall, bent into an arch like a wide frown, both ends drooping down lower than the middle, so its bottom edge is clearly curved upward (concave) with empty space under the middle. A bumpy crispy outline and a thin pale cream pork line along the middle. Flat solid colors with no gradient. Only the one strip, floating alone."
   },
   {
    "id": "chikuwa",
@@ -412,7 +412,7 @@
    "press": "auto",
    "contactSpan": 0.8,
    "carveInset": 4,
-   "prompt": "One small Japanese steamed bun (onsen manju) drawn completely flat in 2D, front view: one plain soft bun in a single flat warm wood brown color, shaped like a soft cushion slumped over the top of a ball (do not draw the ball): a rounded top, about one and a half times as wide as it is tall, and the bottom edge clearly curved upward in the middle (concave), with both lower corners drooping a little lower than the middle. Smooth surface with nothing on top: no cream, no icing, no white cap, no stamp, no mark, no highlight, no gradient. Only the one bun."
+   "prompt": "One small Japanese onsen manju (a round sweet bun) drawn completely flat in 2D, front view: a soft rounded dome in one flat warm wood brown color, about one and a half times as wide as it is tall, its bottom edge bent into a shallow arch like a wide frown, clearly curved upward (concave) in the middle with both lower corners a little lower than the middle, as if resting on top of a ball (do not draw the ball). Plain smooth surface in a single flat color. Only the one bun."
   },
   {
    "id": "umeboshi",
