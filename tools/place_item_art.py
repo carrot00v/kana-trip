@@ -20,6 +20,8 @@
 3. 검사해 출력한다. 머리: 2.1.3 범위 밖 픽셀, 기본 모자 대비 면적, 채움 색 수(근사), 떨어진 조각 수, 금지 색.
    속재료: 2.3.2 범위 밖 픽셀, 보이는 면적(모자 대비), 보이는 비율(뒤), 빨강 계열이면 보이는 부분 아래 끝 y, 채움 색 수,
    떨어진 조각 수, 금지 색. 기준을 넘으면 줄 끝에 "← 확인"을 붙이고 종료 코드 1을 돌려준다(에셋은 쓴다).
+   아이템의 `waive` {"reason": 사유, "checks": [검사 줄 머리말, ...]}에 든 검사는 넘어도 "← 면제: 사유"로 적고
+   종료 코드에 넣지 않는다(사용자가 정한 아이템만. 다른 아이템과 다른 검사는 그대로 돈다).
 
 필요: Pillow (tools/requirements.txt). 기본 모자 면적과 몸 마스크는 make_onigiri_svg.py의 그림을
 tools/svg_to_png.swift(macOS AppKit)로 그려 센다.
@@ -1239,11 +1241,18 @@ def main() -> int:
             checks = check_top(item, results[iid]) + checks
         elif item["slot"] == "filling":
             checks = check_filling(item, results[iid]) + checks
-        bad = [text for text, ok in checks if not ok]
+        waive = item.get("waive") or {}
+        waived = lambda text: any(text.startswith(k) for k in waive.get("checks", []))  # noqa: E731
+        bad = [text for text, ok in checks if not ok and not waived(text)]
         failed = failed or bool(bad)
         print(f"{iid:15} {item['slot']:10} " + ("검사만" if check_only else "→ " + ", ".join(ios_name(f) for f in results)))
         for text, ok in checks:
-            print(f"    {text}" + ("" if ok else "  ← 확인"))
+            if ok:
+                print(f"    {text}" + ("  (면제 표시가 있지만 통과)" if waived(text) else ""))
+            elif waived(text):
+                print(f"    {text}  ← 면제: {waive.get('reason', '사유 없음')}")
+            else:
+                print(f"    {text}  ← 확인")
     return 1 if failed else 0
 
 
