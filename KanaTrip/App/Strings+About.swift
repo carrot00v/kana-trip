@@ -2,9 +2,10 @@ import Foundation
 
 /// 앱 정보 화면의 문구 (홈 "더 보기" 메뉴 → 앱 정보).
 /// 크레딧과 라이선스 표기는 권리자가 정한 문구를 그대로 쓴다. 고치기 전에 출처 문서를 확인한다.
-/// - 발음 소리: 단어는 docs/research/voicevox-terms.md "추가 조사: 春日部つむぎ" (크레딧 `VOICEVOX:春日部つむぎ`,
-///   목소리를 직접 녹음했거나 자체 제작한 것처럼 쓰지 않는다). 글자는 Qwen3-TTS(Apache 2.0)로 만들었다
-///   (docs/research/qwen-tts.md. 표기 의무는 없지만 출처를 밝힌다, docs/design/voice/README.md "최종 적용 3").
+/// - 발음 소리: 글자와 단어는 Qwen3-TTS(Apache 2.0)로 만들었다(docs/research/qwen-tts.md. 표기 의무는 없지만
+///   출처를 밝힌다, docs/design/voice/README.md "최종 적용 3"·"최종 적용 4"). 확인을 통과하지 못한 단어 일부는
+///   VOICEVOX 春日部つむぎ 소리를 그대로 쓴다(docs/research/voicevox-terms.md "추가 조사: 春日部つむぎ",
+///   크레딧 `VOICEVOX:春日部つむぎ`, 목소리를 직접 녹음했거나 자체 제작한 것처럼 쓰지 않는다).
 ///   노래 합성 글자를 쓰던 때의 `VOICEVOX:波音リツ`(가창 교사) 줄은 2026-11-17에 뺐다.
 /// - 획 데이터: KanjiVG (CC BY-SA 3.0, Ulrich Apel), tools/build_kana_strokes.py
 /// - 움직임: lottie-ios (Apache License 2.0), 라이선스 전문은 Resources/Licenses/lottie-ios-LICENSE.txt
@@ -15,12 +16,12 @@ extension L {
     static let aboutVoiceHeader = "발음 소리"
     /// VOICEVOX 春日部つむぎ 약관의 크레딧 표기 예 그대로. 이 문자열은 바꾸지 않는다(voice_index.json의 credit과 같다).
     static let voiceCredit = "VOICEVOX:春日部つむぎ"
-    /// 글자 하나 발음은 Qwen3-TTS(Alibaba Cloud Qwen 팀, Apache 2.0)의 프리셋 화자로 만들었다.
-    static let kanaVoiceCredit = "Qwen3-TTS (Apache 2.0)"
-    /// 정보 화면에 보이는 두 줄. 단어(春日部つむぎ)와 글자(Qwen3-TTS)를 나눠 적는다.
+    /// 글자와 단어 발음은 Qwen3-TTS(Alibaba Cloud Qwen 팀, Apache 2.0)의 프리셋 화자로 만들었다(2026-11-21부터 단어도).
+    static let qwenVoiceCredit = "Qwen3-TTS (Apache 2.0)"
+    /// 정보 화면에 보이는 두 줄. VOICEVOX 표기 줄은 지우지 않는다(지울지는 사용자 결정, 2026-11-21).
     static let voiceCreditLine = "音声: \(voiceCredit)"
-    static let kanaVoiceCreditLine = "글자 발음: \(kanaVoiceCredit)"
-    static let voiceCreditNote = "단어 발음에는 VOICEVOX의 春日部つむぎ 음성을, 글자 하나 발음에는 Qwen3-TTS 음성을 썼어요"
+    static let qwenVoiceCreditLine = "글자·단어 발음: \(qwenVoiceCredit)"
+    static let voiceCreditNote = "글자와 단어 발음은 Qwen3-TTS 음성으로 만들었어요. 단어 일부에는 VOICEVOX의 春日部つむぎ 음성을 썼어요"
 
     static let aboutStrokeHeader = "획 데이터"
     static let kanjiVG = "KanjiVG"

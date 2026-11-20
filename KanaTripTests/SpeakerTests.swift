@@ -62,7 +62,7 @@ struct SpeakerTests {
     }
 }
 
-// 번들 음성(VOICEVOX 春日部つむぎ)과 재생 순서.
+// 번들 음성(Qwen3-TTS Serena, 일부 단어는 VOICEVOX 春日部つむぎ)과 재생 순서.
 
 @Suite("번들 발음 소리")
 struct BundledVoiceTests {
@@ -142,12 +142,12 @@ struct BundledVoiceTests {
         #expect(L.voiceCredit == "VOICEVOX:春日部つむぎ")
     }
 
-    /// 정보 화면의 두 줄: 단어 목소리(春日部つむぎ)와 글자 목소리(Qwen3-TTS).
+    /// 정보 화면의 두 줄: VOICEVOX 표기(일부 단어)와 글자·단어 목소리(Qwen3-TTS).
     /// 기존 표기 `VOICEVOX:春日部つむぎ`는 그대로 들어 있어야 하고, 노래 합성 가창 교사(波音リツ)는 더 적지 않는다.
     @Test func creditLinesNameBothVoices() {
         #expect(L.voiceCreditLine == "音声: VOICEVOX:春日部つむぎ")
         #expect(L.voiceCreditLine.contains(L.voiceCredit))
-        #expect(L.kanaVoiceCreditLine == "글자 발음: Qwen3-TTS (Apache 2.0)")
+        #expect(L.qwenVoiceCreditLine == "글자·단어 발음: Qwen3-TTS (Apache 2.0)")
         #expect(L.voiceCreditNote.contains("春日部つむぎ") && L.voiceCreditNote.contains("Qwen3-TTS"))
         #expect(!L.voiceCreditNote.contains("波音リツ"))
     }

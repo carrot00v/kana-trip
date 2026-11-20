@@ -22,7 +22,7 @@ struct AboutView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(KanaText.japanese(L.voiceCreditLine))
                         .font(.headline)
-                    Text(L.kanaVoiceCreditLine)
+                    Text(L.qwenVoiceCreditLine)
                         .font(.headline)
                     Text(note(L.voiceCreditNote))
                         .font(.subheadline)

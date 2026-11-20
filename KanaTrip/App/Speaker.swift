@@ -11,7 +11,8 @@ enum SpeechKind {
 }
 
 /// 앱에 넣은 발음 소리 목록 (`Resources/Voice/voice_index.json`). 미리 합성한 m4a 파일의 이름을 글자·단어 표기로 찾는다.
-/// 단어는 VOICEVOX 春日部つむぎ(`tools/gen_voice.py final`), 글자는 Qwen3-TTS(`tools/gen_voice_qwen.py final`)로 만들었다.
+/// 글자(`tools/gen_voice_qwen.py final`)와 단어(`tools/gen_voice_qwen.py words`)는 Qwen3-TTS Serena로 만들었다.
+/// 확인을 통과하지 못한 단어 일부는 VOICEVOX 春日部つむぎ(`tools/gen_voice.py final`) 소리를 그대로 쓴다.
 /// 목록에 없는 글자·단어는 기기 내장 음성으로 읽는다.
 struct VoiceIndex: Decodable {
     /// 크레딧 문구 (`VOICEVOX:春日部つむぎ`). 정보 화면에 그대로 쓴다.
@@ -142,7 +143,7 @@ enum SpeechStyle {
 /// 글자나 단어를 읽는다. 켜짐 여부는 부르는 쪽(`ProgressStore.soundOn`)에서 확인한다.
 /// 번들 음성 파일이 있으면 `AVAudioPlayer`로, 없으면 기기 내장 일본어 음성으로 읽는다.
 /// 다시 누르면 하던 소리를 끊고 처음부터 읽는다. 읽기를 시작한 화면이 사라지면 멈춘다.
-/// 음성 파일은 앱 안에서 재생만 한다. 앱 밖으로 내보내는 기능(공유, 저장)은 두지 않는다(VOICEVOX 春日部つむぎ 약관).
+/// 음성 파일은 앱 안에서 재생만 한다. 앱 밖으로 내보내는 기능(공유, 저장)은 두지 않는다(VOICEVOX 春日部つむぎ 약관, Qwen 소리도 같게).
 final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
     static let shared = Speaker()
 
@@ -227,6 +228,9 @@ final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegat
                 Self.log.error("음성 파일 재생을 시작하지 못함")
                 self.player = nil
                 self.deactivateSession()
+            } else {
+                // 어떤 번들 파일을 재생했는지 확인용(시뮬레이터 로그로 재생 여부를 본다)
+                Self.log.info("음성 파일 재생: \(player.url?.lastPathComponent ?? "-", privacy: .public) \(player.duration, format: .fixed(precision: 2))초")
             }
         }
     }

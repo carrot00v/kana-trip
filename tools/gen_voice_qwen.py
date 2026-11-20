@@ -14,6 +14,8 @@ VOICEVOX용 tools/gen_voice.py와 따로 둔다. 앱 파일(KanaTrip/Resources/V
     .venv-tts/bin/python -I tools/gen_voice_qwen.py round6 --takes 2 --letters あ,は   # 일부만
     .venv-tts/bin/python -I tools/gen_voice_qwen.py probe7          # 7차: 지시문 언어·화자별 문장 톤 지표 (build/voice7)
     .venv-tts/bin/python -I tools/gen_voice_qwen.py round7          # 7차: 톤 변형 T0~T4 (docs/design/voice/samples7)
+    .venv-tts/bin/python -I tools/gen_voice_qwen.py final           # 최종 적용 3: 앱 글자 58자
+    .venv-tts/bin/python -I tools/gen_voice_qwen.py words           # 최종 적용 4: 앱 단어 60개(Whisper 확인, 5번까지 다시)
 
 모델 mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16 은 첫 실행 때 ~/.cache/huggingface/hub/에 받아진다(4.5GB).
 측정은 numpy로 한다. 정의는 gen_voice.py의 measure4와 맞췄다(소리 구간 -45 dBFS, 10ms 창, F0는 정규화 자기상관).
@@ -947,10 +949,230 @@ def cmd_words8(select_only: bool = False) -> None:
                                                       ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 
+# ---------------------------------------------------------------- 최종 적용 4: 단어 60개를 글자와 같은 Serena로
+
+WORDS = {
+    # 사용자 결정(이슈 #6, 2026-11-21): 단어 소리도 글자와 같은 목소리로 맞춘다.
+    # 합성은 samples8과 같다(Serena, en1, temperature 0.5, 상한 60토큰, 입력 「{읽기}。」, 시드 3000 x take + 읽기 글자 수).
+    # 뒤처리는 글자(final_post)와 같다: 앞 0.025초·뒤 0.10초 무음, 앞 3ms·뒤 10ms 페이드, RMS -20 dBFS, 피크 -1 dBFS.
+    "first": "docs/design/voice/verify/words.json",   # samples8에서 Whisper로 고른 take를 첫 후보로 다시 만든다
+    "retries": 5,          # 첫 후보가 통과하지 못하면 이만큼 더 만든다(아래 RETRY 순서)
+    "retry_take0": 101,    # 새 시드는 take 101부터(build/voice8의 1~20과 겹치지 않게)
+    "slow_s_per_mora": 0.33,  # 2모라 이상 단어에서 소리 길이 / 모라가 이보다 길면 다시 만든다
+    "clip": 0.99,         # 원본(뒤처리 전) 표본이 이 값 이상이면 클리핑으로 본다
+    "ratio": (0.6, 1.6),   # VOICEVOX 단어(앱에서 쓰던 것) 소리 길이 대비. 벗어나면 귀로 확인 목록에 올린다(통과 조건은 아님)
+    "wav_dir": "docs/design/voice/final/wordQ",
+    "vv_wav_dir": "docs/design/voice/final/word",  # VOICEVOX 단어 wav(기록·selftest 기준, 그대로 둔다)
+    "takes_dir": "build/voice_words/takes",
+    "measurements": "docs/design/voice/final/measurements-qwen-words.json",
+    "preview": "docs/design/voice/final/preview-words-qwen.wav",
+}
+# 다시 만들 때의 순서: (표기, 로마자 힌트). 표기 hira = 히라가나 그대로, kata = 가타카나(글자 た·ぷ에서 쓴 방법).
+# 로마자 힌트는 지시문 끝에 읽기를 영어로 덧붙인다(톤 지시는 그대로).
+RETRY = [("hira", False), ("kata", False), ("hira", True), ("hira", False), ("kata", False)]
+
+
+def word_entries() -> list[tuple[str, str, str]]:
+    vcfg = json.loads((ROOT / "tools/voice.json").read_text(encoding="utf-8"))["final"]
+    scenes = json.loads((ROOT / vcfg["scenes"]).read_text(encoding="utf-8"))
+    index = json.loads((ROOT / FINAL["app_dir"] / "voice_index.json").read_text(encoding="utf-8"))
+    out = []
+    for scene in scenes["scenes"]:
+        for step in scene["steps"]:
+            for w in step["words"]:
+                reading = "".join(vcfg["kanji_readings"][u["kana"]] if u.get("kanji") else u["kana"]
+                                  for u in w["units"])
+                out.append((w["text"], reading, index["word"][w["text"]]))
+    return out
+
+
+def hira_to_kata(s: str) -> str:
+    return "".join(chr(ord(c) + 0x60) if "ぁ" <= c <= "ゖ" else c for c in s)
+
+
+def f0_contour(y: np.ndarray, parts: int) -> dict:
+    """액센트 관찰용. 소리 구간의 주기 창 F0를 반음(소리 전체 중앙값 기준)으로 바꿔
+    소리 구간을 parts 등분한 칸마다 중앙값을 낸다(모라 경계를 모르므로 거친 근사). 20ms 간격 곡선도 함께."""
+    f = CFG["f0"]
+    vs, ve = voiced_bounds(y, CFG["measure"]["silence_dbfs"])
+    tr = [(t, fr) for t, fr, c in f0_track(y, f) if fr and c >= f["periodic_nacf"] and vs / SR <= t <= ve / SR]
+    if len(tr) < 3:
+        return {"slices_st": None, "curve": []}
+    med = st.median(fr for _, fr in tr)
+    t0, t1 = vs / SR, ve / SR
+    slices = []
+    for i in range(parts):
+        a, b = t0 + (t1 - t0) * i / parts, t0 + (t1 - t0) * (i + 1) / parts
+        xs = [12 * math.log2(fr / med) for t, fr in tr if a <= t < b]
+        slices.append(round(st.median(xs), 1) if xs else None)
+    curve = [(round(t - t0, 2), round(12 * math.log2(fr / med), 1)) for t, fr in tr[::2]]
+    return {"f0_median": round(med), "slices_st": slices, "curve": curve}
+
+
+def cmd_words(select_only: bool = False) -> None:
+    """단어 60개를 Serena로 만들어 앱의 word_*.m4a를 바꾼다. 단어마다:
+    1) samples8에서 Whisper로 고른 take를 같은 시드로 다시 합성해 글자와 같은 뒤처리를 한다.
+    2) 확인: Whisper 받아쓰기(verify_voice.check_word), 길이(모라 x 0.08초 이상, 모라 x 0.25 + 0.35초 이하),
+       0.15초 넘는 쉼(っ 없는 단어), 무음, 원본 클리핑. 하나라도 걸리면 RETRY 순서로 5번까지 다시 만든다.
+    3) 5번 모두 걸리면 그 단어는 VOICEVOX 소리를 그대로 둔다."""
+    import subprocess
+    import sys
+    sys.path.insert(0, str(ROOT / "tools"))  # -I로 실행하면 스크립트 폴더가 sys.path에 없다
+    import verify_voice as vv  # Whisper(mlx-whisper) 받아쓰기
+    app_dir = ROOT / FINAL["app_dir"]
+    tdir = ROOT / WORDS["takes_dir"]
+    wav_dir = ROOT / WORDS["wav_dir"]
+    first = {r["file"]: r["take"] for r in json.loads((ROOT / WORDS["first"]).read_text(encoding="utf-8"))["words"]}
+    ins = TONE["instructs"]["en1"]
+    small = set("ゃゅょぁぃぅぇぉ")
+    rec = vv.Recognizer()
+    table = vv.word_table()
+    model = None
+    if not select_only:
+        model, _ = load()
+        check_speaker(model, FINAL["speaker"])
+        synth(model, "あ。", None, 0, 40, FINAL["speaker"])
+    t_start = time.perf_counter()
+
+    def attempt(name: str, reading: str, take: int, form: str, hint: bool) -> dict:
+        text = (hira_to_kata(reading) if form == "kata" else reading) + "。"
+        romaji = name.removeprefix("word_").replace("_", " ")
+        instruct = ins + (f" The word is pronounced '{romaji}'." if hint else "")
+        key = f"{name}_{take}{'_k' if form == 'kata' else ''}{'_r' if hint else ''}"
+        raw_path, path = tdir / f"{key}_raw.wav", tdir / f"{key}.wav"
+        if select_only and raw_path.exists():
+            raw, _ = sf.read(raw_path, dtype="float64")
+            gen_s = None
+        else:
+            raw, gen_s = synth(model, text, instruct, 3000 * take + len(reading), CFG["word_max_tokens"],
+                               FINAL["speaker"])
+            write(raw_path, raw)
+        y = final_post(raw)
+        write(path, y)
+        m = measure(y)
+        moras = sum(1 for c in reading if c not in small)
+        pauses = len(segments(y, CFG["split"]["seg_dbfs"], 0.15, 0.03)) - 1
+        clip_n = int(np.sum(np.abs(raw) >= WORDS["clip"]))
+        fails = []
+        if m["voiced"] > 0.25 * moras + 0.35:
+            fails.append("long")
+        if m["voiced"] < 0.08 * moras:
+            fails.append("short")
+        # 모라당 길이가 60개 중앙값(첫 실행 0.207초)의 약 1.6배를 넘으면 늘어지거나 말이 붙은 것으로 본다.
+        # 한 모라 단어(ゆ)는 혼자 읽어 길어지는 것이 자연스러워 뺀다.
+        if moras >= 2 and m["voiced"] / moras > WORDS["slow_s_per_mora"]:
+            fails.append("slow")
+        if pauses > 0 and "っ" not in reading:
+            fails.append("pause")
+        if "silent" in m["flags"] or m["voiced"] == 0:
+            fails.append("silent")
+        if clip_n:
+            fails.append("clip")
+        v = vv.check_word(rec, y, reading, table)
+        if not v["ok"]:
+            fails.append("whisper")
+        return {"take": take, "form": form, "romaji_hint": hint, "text": text, "key": key,
+                "gen_s": round(gen_s, 2) if gen_s else None, "raw_s": round(len(raw) / SR, 3),
+                "raw_peak": round(float(np.max(np.abs(raw))), 3), "clip_samples": clip_n,
+                "voiced": m["voiced"], "duration": m["duration"], "rms_dbfs": m["rms_dbfs"],
+                "peak_dbfs": m["peak_dbfs"], "pauses": pauses, "f0": m["f0"], "moras": moras,
+                "whisper": v["text"], "whisper_norm": v["norm"], "whisper_how": v["how"],
+                "no_speech": v["no_speech"], "avg_logprob": v["avg_logprob"], "fails": fails}
+
+    rows = []
+    for text, reading, name in word_entries():
+        tries = [attempt(name, reading, first[name], "hira", False)]
+        for i, (form, hint) in enumerate(RETRY[:WORDS["retries"]]):
+            if not tries[-1]["fails"]:
+                break
+            tries.append(attempt(name, reading, WORDS["retry_take0"] + i, form, hint))
+        ok = [t for t in tries if not t["fails"]]
+        vv_y, _ = sf.read(ROOT / WORDS["vv_wav_dir"] / f"{name}.wav", dtype="float64")
+        vv_voiced = measure(vv_y)["voiced"]
+        row = {"word": text, "reading": reading, "file": name, "vv_voiced": vv_voiced,
+               "retries": len(tries) - 1, "tries": tries}
+        if ok:
+            pick = ok[0]
+            y, _ = sf.read(tdir / f"{pick['key']}.wav", dtype="float64")
+            write(wav_dir / f"{name}.wav", y)
+            dst = app_dir / f"{name}.m4a"
+            subprocess.run(["afconvert", "-f", "m4af", "-d", "aac", "-b", str(FINAL["aac_bitrate"]), "-c", "1",
+                            str(wav_dir / f"{name}.wav"), str(dst)], check=True)
+            back = tdir / "_decoded.wav"
+            subprocess.run(["afconvert", "-f", "WAVE", "-d", "LEI16", str(dst), str(back)], check=True)
+            yb, _ = sf.read(back, dtype="float64")
+            back.unlink()
+            mb = measure(yb)
+            vb = vv.check_word(rec, yb, reading, table)  # 앱에 들어가는 m4a를 다시 받아쓴다
+            ratio = round(pick["voiced"] / vv_voiced, 2) if vv_voiced else None
+            notes = []
+            if ratio and not WORDS["ratio"][0] <= ratio <= WORDS["ratio"][1]:
+                notes.append(f"length_ratio_{ratio}")
+            if "ー" in pick["whisper"]:
+                notes.append("whisper_long_mark")
+            if "?" in pick["whisper"] or "？" in pick["whisper"]:
+                notes.append("whisper_question")
+            if pick["form"] != "hira" or pick["romaji_hint"]:
+                notes.append(f"input_{pick['form']}{'_romaji' if pick['romaji_hint'] else ''}")
+            row.update(result="qwen", pick=pick["key"], voiced=pick["voiced"], ratio_to_vv=ratio, notes=notes,
+                       m4a_bytes=dst.stat().st_size, m4a_duration=mb["duration"], m4a_voiced=mb["voiced"],
+                       m4a_rms_dbfs=mb["rms_dbfs"], m4a_peak_dbfs=mb["peak_dbfs"], m4a_whisper=vb["text"],
+                       m4a_whisper_ok=vb["ok"])
+        else:
+            row.update(result="voicevox_kept", pick=None)
+            (wav_dir / f"{name}.wav").unlink(missing_ok=True)
+            # 앱 m4a는 이 실행에서 건드리지 않는다. 앞선 실행이 Serena로 바꿔 놓았다면 저장소의 VOICEVOX 파일로 되돌린다:
+            print(f"  {name}: VOICEVOX 유지. 필요하면 git checkout HEAD -- {FINAL['app_dir']}/{name}.m4a", flush=True)
+        rows.append(row)
+        print(f"{text}: {row['result']} retries {row['retries']} "
+              f"{[(t['key'], t['whisper'], t['voiced'], t['fails']) for t in tries]} {row.get('notes', '')}",
+              flush=True)
+
+    # 액센트 관찰(とんかつ·おかわり는 VOICEVOX에서 액센트를 손으로 고쳤다)
+    accent = {}
+    for name, parts in (("word_tonkatsu", 4), ("word_okawari", 4)):
+        r = next(x for x in rows if x["file"] == name)
+        vv_y, _ = sf.read(ROOT / WORDS["vv_wav_dir"] / f"{name}.wav", dtype="float64")
+        accent[name] = {"voicevox": f0_contour(vv_y, parts)}
+        if r["result"] == "qwen":
+            qy, _ = sf.read(wav_dir / f"{name}.wav", dtype="float64")
+            accent[name]["qwen"] = f0_contour(qy, parts)
+        print(name, json.dumps({k: v["slices_st"] for k, v in accent[name].items()}), flush=True)
+
+    kept = [r["word"] for r in rows if r["result"] != "qwen"]
+    write(ROOT / WORDS["preview"], concat([wav_dir / f"{r['file']}.wav" for r in rows if r["result"] == "qwen"],
+                                          CFG["preview_gap_s"]))
+    summary = {"model": CFG["model"], "speaker": FINAL["speaker"], "instruct": ins,
+               "temperature": CFG["temperature"], "max_tokens": CFG["word_max_tokens"],
+               "post": {k: FINAL[k] for k in ("lead_s", "tail_s", "fade_in_s", "fade_out_s")} | {
+                   "rms_dbfs": CFG["post"]["rms_dbfs"], "peak_dbfs": CFG["post"]["peak_dbfs"]},
+               "retry_order": RETRY[:WORDS["retries"]], "whisper": vv.MODEL, "generated": time.strftime("%Y-%m-%d"),
+               "first_pass": sum(1 for r in rows if r["retries"] == 0 and r["result"] == "qwen"),
+               "qwen": sum(1 for r in rows if r["result"] == "qwen"), "voicevox_kept": kept,
+               "m4a_whisper_ok": sum(1 for r in rows if r.get("m4a_whisper_ok")),
+               "whisper_calls": rec.calls, "wall_s": round(time.perf_counter() - t_start),
+               "accent": accent, "words": rows}
+    (ROOT / WORDS["measurements"]).write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
+                                              encoding="utf-8")
+    index_path = app_dir / "voice_index.json"
+    index = json.loads(index_path.read_text(encoding="utf-8"))
+    index["generated"] = time.strftime("%Y-%m-%d")
+    index["comment"] = ("글자 m4a는 tools/gen_voice_qwen.py final, 단어 m4a는 tools/gen_voice_qwen.py words"
+                        "(둘 다 Qwen3-TTS Serena)가 만든다."
+                        + (f" 단어 중 {'·'.join(kept)}는 Serena로 확인을 통과하지 못해 tools/gen_voice.py final"
+                           "(VOICEVOX 春日部つむぎ) 소리를 그대로 쓴다." if kept else "")
+                        + " 값은 번들 안 m4a 파일 이름(확장자 제외).")
+    index_path.write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(json.dumps({k: summary[k] for k in ("first_pass", "qwen", "voicevox_kept", "m4a_whisper_ok", "wall_s")},
+                     ensure_ascii=False))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("speakers")
+    wf = sub.add_parser("words")
+    wf.add_argument("--select-only", action="store_true", help="만든 원본(build/voice_words)에서 다시 확인·고르기만")
     fin = sub.add_parser("final")
     fin.add_argument("--select-only", action="store_true", help="만든 후보(build/voice_final)에서 다시 고르기만")
     w8 = sub.add_parser("words8")
@@ -973,6 +1195,8 @@ def main() -> None:
         cmd_final(a.select_only)
     elif a.cmd == "words8":
         cmd_words8(a.select_only)
+    elif a.cmd == "words":
+        cmd_words(a.select_only)
     elif a.cmd == "probe7":
         cmd_probe7()
     elif a.cmd == "round7":
