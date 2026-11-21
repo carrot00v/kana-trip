@@ -121,6 +121,7 @@ struct CustomizeView: View {
     }
 
     private func preview(side: CGFloat) -> some View {
+        // 머리·속재료·밥이 바뀌면 기리가 눌렸다 펴지는 `dress` 마커(giri-companion.md 5.2.8). 0.2초 페이드는 기리 뒤 그림(배경)에만 남는다.
         GiriView(pose: .normal, outfit: previewOutfit, side: side, showsBackground: true)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: previewOutfit)
             .background(Color.cardBackground)

@@ -20,10 +20,9 @@ struct GiriSpeechRow: View {
     var hangs = false
     /// xLarge ~ xxxLarge 글자 크기에서 줄 수 제한을 풀지(내용 영역이 스크롤되는 L1, W, QI, C1, C2, 6.2).
     var expandsAtLargeType = false
-    /// 숨쉬기(반복 움직임). 쓰기 화면, 움직이는 장면 그림이 있는 화면에서는 끈다 (5.2, 5.3).
+    /// 숨쉬기(반복 움직임 `idle_*`). 쓰기 화면, 움직이는 장면 그림이 있는 화면에서는 끈다 (5.2, 5.3).
+    /// 깡충·팔 올리기·반응은 표정이 바뀔 때 `GiriView`가 마커를 고른다 (5.8).
     var breathes = true
-    /// 값이 커질 때마다 깡충 뛴다(정답, 글자 완성). 작아질 때(다음 문항으로 돌아감)는 뛰지 않는다.
-    var hop = 0
     /// 큰 글자 크기에서도 줄 수 제한을 둘지(쓰기 화면 L2, QC는 캔버스 자리를 지킨다, 6.2).
     var limitsLinesAtLargeType = false
     /// 말풍선이 처음 뜨기까지 기다리는 시간(C1·C2는 기리 등장 0.15초 뒤, 5.2).
@@ -36,9 +35,9 @@ struct GiriSpeechRow: View {
     @Environment(ProgressStore.self) private var store
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var breathing = false
     @State private var bubbleShown = true
-    @State private var hops = 0
+    /// 말풍선이 뜨는 0.25초 동안 숨쉬기를 그 자리에서 멈춘다 (5.8).
+    @State private var holdsIdle = false
     @AccessibilityFocusState private var focused: Bool
 
     /// 말풍선 높이 = 20n + 20pt (2.1). 글자 크기가 바뀌면 줄 높이 = 20 × 글자 pt ÷ 15 (6.2).
@@ -133,9 +132,6 @@ struct GiriSpeechRow: View {
         max(size, reservedHeight ?? 0)
     }
 
-    /// 숨쉬기: 기리 크기와 상관없이 진폭 1.5pt (5.2).
-    private var breathScale: CGFloat { 1 + 1.5 / size }
-
     // MARK: 기리
 
     private var figure: some View {
@@ -143,31 +139,19 @@ struct GiriSpeechRow: View {
             if let customFigure {
                 customFigure.frame(width: size, height: size)
             } else {
-                GiriView(pose: pose, outfit: store.giriOutfit, side: size)
+                // 숨쉬기 진폭은 기리 크기에 비례한다(96pt에서 1.5pt, 5.2.1).
+                GiriView(pose: pose, outfit: store.giriOutfit, side: size, breathes: breathes, holdsIdle: holdsIdle)
             }
         }
-            // 반복 애니메이션은 크기에만 건다. 바깥 배치 변화(자리 이동)까지 반복되지 않게 범위를 좁힌다.
-            .animation(breathing ? .easeInOut(duration: 1.6).repeatForever(autoreverses: true) : .default) { content in
-                content.scaleEffect(x: 1, y: breathing ? breathScale : 1, anchor: .bottom)
+        .onChange(of: text) { _, new in
+            guard new != nil, breathes, !reduceMotion else { return }
+            holdsIdle = true
+            Task {
+                try? await Task.sleep(for: .milliseconds(250))
+                holdsIdle = false
             }
-            .keyframeAnimator(initialValue: 0.0, trigger: hops) { content, y in
-                content.offset(y: y)
-            } keyframes: { _ in
-                // 깡충: 기리 크기의 0.1배 (96pt에서 10pt, 5.2).
-                CubicKeyframe(-0.1 * size, duration: 0.12)
-                CubicKeyframe(0, duration: 0.18)
-            }
-            .onChange(of: hop) { old, new in
-                if new > old, !reduceMotion { hops += 1 }
-            }
-            .onAppear { updateBreathing() }
-            .onChange(of: breathes) { _, _ in updateBreathing() }
-            .onChange(of: reduceMotion) { _, _ in updateBreathing() }
-            .accessibilityHidden(true)
-    }
-
-    private func updateBreathing() {
-        breathing = breathes && !reduceMotion
+        }
+        .accessibilityHidden(true)
     }
 
     // MARK: 말풍선

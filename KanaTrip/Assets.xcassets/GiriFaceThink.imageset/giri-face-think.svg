@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
-
-  <!-- 얼굴 -->
-  <ellipse cx="118" cy="167" rx="6" ry="9" fill="#4A2219"/>
-  <ellipse cx="190" cy="167" rx="6" ry="9" fill="#4A2219"/>
-  <path d="M145 191 Q152 187 160 189" fill="none" stroke="#4A2219" stroke-width="5.5" stroke-linecap="round"/>
-</svg>

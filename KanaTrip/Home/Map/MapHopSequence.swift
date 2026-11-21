@@ -23,6 +23,8 @@ final class MapScreenModel {
     /// `giriPath`의 몇 번째 자리까지 왔는지(실수). 깡충 한 번이 1씩 움직인다.
     private(set) var giriProgress: Double = 0
     private(set) var giriPose: GiriPose = .talk
+    /// 기리 Lottie의 칸 이동 깡충·착지 요청. 칸마다 `hop_move`, 착지 때 `lower` (giri-companion.md 5.8).
+    private(set) var giriMotion: GiriMotionRequest?
     private(set) var giriOpacity: Double = 1
     private(set) var bubbleHidden = false
     /// 세션을 열 때 붙잡은 문구. 착지할 때 놓는다.
@@ -171,8 +173,8 @@ final class MapScreenModel {
         withAnimation(.easeOut(duration: motion.bubbleOut)) { bubbleHidden = true }
         guard await pause(motion.markFade) else { return }
 
-        // 3 깡충. 표정은 처음에 웃음.
-        withAnimation(.easeInOut(duration: motion.faceSwap)) { giriPose = .happy }
+        // 3 깡충. 표정은 처음 깡충의 첫 프레임에 웃음으로 바뀐다(교차 페이드 없음, giri-companion.md 5.8).
+        giriPose = .happy
         var i = 0
         while i < hops.count {
             let hop = hops[i]
@@ -184,13 +186,16 @@ final class MapScreenModel {
                 }
                 scroll(landing, .easeInOut(duration: motion.hopScene * 2))
                 let start = Double(i)
+                requestGiri(.hopMove(duration: motion.hopScene))
                 withAnimation(.easeInOut(duration: motion.hopScene)) { giriProgress = start + 1 }
                 guard await pause(motion.hopScene) else { return }
+                requestGiri(.hopMove(duration: motion.hopScene))
                 withAnimation(.easeInOut(duration: motion.hopScene)) { giriProgress = start + 2 }
                 guard await pause(motion.hopScene) else { return }
                 i += 2
             } else {
                 scroll(hop.to, .easeInOut(duration: motion.hop))
+                requestGiri(.hopMove(duration: motion.hop))
                 let next = Double(i + 1)
                 withAnimation(.easeInOut(duration: motion.hop)) { giriProgress = next }
                 guard await pause(motion.hop) else { return }
@@ -198,8 +203,9 @@ final class MapScreenModel {
             }
         }
 
-        // 4 착지: 표정 말하기, 새 칸 지금 모양, 시작 버튼 문구, 새 말풍선.
-        withAnimation(.easeInOut(duration: motion.faceSwap)) { giriPose = .talk }
+        // 4 착지: 표정 말하기와 팔 내리기(`lower`), 새 칸 지금 모양, 시작 버튼 문구, 새 말풍선.
+        giriPose = .talk
+        requestGiri(.lower)
         withAnimation(.easeInOut(duration: motion.labelFade)) {
             sequenceDisplay?.currentIndex = toIndex
             sequenceDisplay?.buildingOpenIndex = toIndex
@@ -224,6 +230,10 @@ final class MapScreenModel {
         withAnimation(.easeIn(duration: motion.reduceMotionFade)) { giriOpacity = 1 }
         guard await pause(motion.reduceMotionFade) else { return }
         finish(at: to)
+    }
+
+    private func requestGiri(_ motion: GiriMotionRequest.Motion) {
+        giriMotion = GiriMotionRequest(motion: motion, token: (giriMotion?.token ?? 0) + 1)
     }
 
     private func finish(at nodeID: String) {

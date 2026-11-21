@@ -226,6 +226,7 @@ struct MapView: View {
                 nodeCenters: centers,
                 progress: model.giriProgress,
                 pose: model.giriPose,
+                motion: model.giriMotion,
                 opacity: model.giriOpacity,
                 isHopping: model.isRunning,
                 bubble: bubble

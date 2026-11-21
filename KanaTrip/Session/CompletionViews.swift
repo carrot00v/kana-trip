@@ -286,7 +286,8 @@ private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View 
 }
 
 /// 완료 화면의 웃는 캐릭터와 체크 배지. 장식이라 VoiceOver에서 읽지 않는다.
-/// 나타날 때 한 번 커지며 나온다. "동작 줄이기"가 켜져 있으면 처음부터 제 크기다 (visual-rules.md 6.2, 7.2).
+/// 나타날 때 한 번 나온다: 크기와 팔은 Lottie `appear` 마커, 불투명도는 SwiftUI 0 → 1(0.2초 easeOut) (giri-companion.md 5.2.7).
+/// "동작 줄이기"가 켜져 있으면 처음부터 제 모습이다 (visual-rules.md 6.2, 7.2).
 private struct CelebrationCharacter: View {
     let side: CGFloat
 
@@ -302,7 +303,7 @@ private struct CelebrationCharacter: View {
 
     var body: some View {
         let shown = appeared || reduceMotion
-        GiriView(pose: .happy, outfit: store.giriOutfit, side: side)
+        GiriView(pose: .happy, outfit: store.giriOutfit, side: side, entrance: true)
             .overlay {
                 Image(systemName: "checkmark.circle.fill")
                     .resizable()
@@ -312,12 +313,11 @@ private struct CelebrationCharacter: View {
                     .background(SkinColor.background, in: Circle())
                     .position(x: side - Self.badgeInset, y: side - Self.badgeInset)
             }
-            .scaleEffect(shown ? 1 : 0.85)
             .opacity(shown ? 1 : 0)
             .accessibilityHidden(true)
             .onAppear {
                 guard !reduceMotion else { return }
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) { appeared = true }
+                withAnimation(.easeOut(duration: 0.2)) { appeared = true }
             }
     }
 }
