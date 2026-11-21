@@ -10,27 +10,28 @@ struct MapNodeInfo {
     var accessibilityLabel = AttributedString()
 }
 
-struct MapBuildingInfo {
-    var state: MapBuildingState = .locked
+struct MapBandInfo {
+    var state: MapBandState = .locked
     var order = 0
     var name = ""
+    /// 장면의 새 글자 전부.
+    var kana: [String] = []
     var icon: String?
     var accessibilityLabel = ""
 }
 
-/// 지도 구간 하나 (docs/design/home-map.md 1.3, 2.1~2.5, "2026-11-18 시각 정리" S4·S7).
-/// 그리는 순서(2.5): 앞길 선 → 지난 길 선 → 칸 원 → 건물 카드 → 스티커 → 건물 이름(가림 캡슐) → 칸 라벨.
-/// 발판·기리·말풍선은 구간을 넘어 뛰므로 지도 위 덮개 층(MapGiriLayer)이 그린다.
+/// 지도 구간 하나 (docs/design/home-map.md "2026-11-21 재구성안" 안 A, R2.3).
+/// 그리는 순서: 점선 → 세션 칸(캡슐) → 장면 띠 → 스티커 → 출발·끝 표지.
+/// 기리·말풍선은 구간을 넘어 뛰므로 지도 위 덮개 층(MapGiriLayer)이 그린다.
 struct MapSectionView: View {
     let section: MapSection
     let width: CGFloat
     let metrics: MapMetrics
-    let isPassed: (MapPath) -> Bool
     let node: (MapNode) -> MapNodeInfo
-    let building: (MapNode) -> MapBuildingInfo
+    let band: (MapNode) -> MapBandInfo
     let showsStickers: Bool
     let onTapNode: (MapNode) -> Void
-    let onTapBuilding: (MapNode) -> Void
+    let onTapBand: (MapNode) -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -39,131 +40,89 @@ struct MapSectionView: View {
     }
 
     private var sessionNodes: [MapNode] { section.nodes.filter(\.isSession) }
-    private var buildingNodes: [MapNode] { section.nodes.filter { $0.kind == .building } }
+    private var bandNodes: [MapNode] { section.nodes.filter { $0.kind == .band } }
     private var markerNodes: [MapNode] { section.nodes.filter { $0.kind == .start || $0.kind == .gate } }
+    private var nodeWidth: CGFloat { metrics.nodeWidth(in: width) }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            lines
-            ForEach(sessionNodes) { node in sessionCircle(node, info: self.node(node)) }
-            ForEach(buildingNodes) { node in buildingCard(node, info: building(node)) }
+            dots
+            ForEach(sessionNodes) { node in capsule(node, info: self.node(node)) }
+            ForEach(bandNodes) { node in bandRow(node, info: band(node)) }
             if showsStickers { stickers }
-            ForEach(buildingNodes) { node in buildingName(node, info: building(node)) }
             ForEach(markerNodes) { node in markerName(node) }
-            ForEach(sessionNodes) { node in sessionLabel(node, info: self.node(node)) }
         }
         .frame(width: width, height: section.height, alignment: .topLeading)
     }
 
-    // MARK: 길: 선 하나 (2.5)
+    // MARK: 점선 (R2.3): 지름 4pt 점, 점 가운데 사이 12pt, `PathEdge`. 지난 길·앞길을 나누지 않는다.
 
-    private func curve(_ path: MapPath) -> Path {
-        var p = Path()
-        let pts = path.points.map { point($0.x, $0.y) }
-        guard pts.count == 4 else { return p }
-        p.move(to: pts[0])
-        p.addCurve(to: pts[3], control1: pts[1], control2: pts[2])
-        return p
-    }
-
-    /// 앞길 4pt `PathEdge`를 먼저, 지난 길 6pt `InkSecondary`를 위에. 조각마다 하나로 칠하고 바뀔 때는 교차 페이드.
-    private var lines: some View {
-        ZStack {
-            ForEach(Array(section.paths.enumerated()), id: \.offset) { _, path in
-                curve(path)
-                    .stroke(MapPalette.ahead, style: StrokeStyle(lineWidth: metrics.aheadLine, lineCap: .round, lineJoin: .round))
-                    .opacity(isPassed(path) ? 0 : 1)
-            }
-            ForEach(Array(section.paths.enumerated()), id: \.offset) { _, path in
-                curve(path)
-                    .stroke(MapPalette.passed, style: StrokeStyle(lineWidth: metrics.progressLine, lineCap: .round, lineJoin: .round))
-                    .opacity(isPassed(path) ? 1 : 0)
+    private var dots: some View {
+        Path { p in
+            for path in section.paths {
+                let pts = path.points
+                guard pts.count == 2 else { continue }
+                for c in Self.dotCenters(from: point(pts[0].x, pts[0].y), to: point(pts[1].x, pts[1].y),
+                                         spacing: metrics.dotSpacing) {
+                    p.addEllipse(in: CGRect(x: c.x - metrics.dot / 2, y: c.y - metrics.dot / 2,
+                                            width: metrics.dot, height: metrics.dot))
+                }
             }
         }
+        .fill(MapPalette.ahead)
+        .allowsHitTesting(false)
         .accessibilityHidden(true)
     }
 
-    // MARK: 칸 (2.1)
-
-    private func diameter(_ node: MapNode) -> CGFloat {
-        node.kind == .quiz ? metrics.nodeQuiz : metrics.nodeStep
+    /// 조각 안에 spacing 간격으로 놓고 남는 길이를 양끝에 반씩 둔다. 조각이 spacing보다 짧으면 가운데 한 점.
+    static func dotCenters(from a: CGPoint, to b: CGPoint, spacing: CGFloat) -> [CGPoint] {
+        let length = hypot(b.x - a.x, b.y - a.y)
+        guard length > 0 else { return [a] }
+        let count = Int((length / spacing).rounded(.down)) + 1
+        let used = CGFloat(count - 1) * spacing
+        let start = (length - used) / 2
+        return (0..<count).map { i in
+            let t = (start + CGFloat(i) * spacing) / length
+            return CGPoint(x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t)
+        }
     }
 
-    /// 원(지금 칸은 원 없이 누르는 영역만). 이 버튼이 VoiceOver 레이블을 가진다. 라벨은 따로 그리고 같은 동작을 건다.
-    private func sessionCircle(_ node: MapNode, info: MapNodeInfo) -> some View {
-        let d = diameter(node)
-        let hit = info.state == .current ? MapShape.currentTapArea : max(d, MapShape.minTapHeight)
-        return Button {
+    // MARK: 세션 칸 (R2.3)
+
+    private func capsule(_ node: MapNode, info: MapNodeInfo) -> some View {
+        Button {
             onTapNode(node)
         } label: {
-            ZStack {
-                MapNodeCircle(state: info.state, diameter: d, isQuiz: node.kind == .quiz, ring: metrics.nodeRing)
-            }
-            .frame(width: hit, height: hit)
-            .contentShape(Rectangle())
+            MapNodeCapsule(state: info.state, kana: info.kana, isQuiz: node.kind == .quiz,
+                           width: nodeWidth, height: metrics.nodeHeight, ring: metrics.nodeRing)
+                .contentShape(Capsule())
         }
         .buttonStyle(MapPressStyle())
         .position(point(node.x, node.y))
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: info.state)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(info.accessibilityLabel))
         .accessibilityAddTraits(.isButton)
     }
 
-    /// 테두리 없는 라벨: 칸의 지도 가운데 쪽 옆, 칸 가장자리에서 8pt, 세로 가운데 맞춤. 지금 칸은 숨김 (2.1).
-    @ViewBuilder
-    private func sessionLabel(_ node: MapNode, info: MapNodeInfo) -> some View {
-        let d = diameter(node)
-        let center = point(node.x, node.y)
-        let toRight = node.x < 0.5
-        let anchorX = center.x + (toRight ? 1 : -1) * (d / 2 + metrics.labelGap)
-        Color.clear
-            .frame(width: 0, height: 0)
-            .overlay(alignment: toRight ? .leading : .trailing) {
-                label(node, info: info)
-                    .fixedSize()
-                    .frame(minHeight: MapShape.minTapHeight)
-                    .contentShape(Rectangle())
-                    .onTapGesture { onTapNode(node) }
-                    .opacity(info.state == .current ? 0 : 1)
-                    .allowsHitTesting(info.state != .current)
-                    .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: info.state)
-            }
-            .position(x: anchorX, y: center.y)
-            .accessibilityHidden(true)
-    }
+    // MARK: 장면 띠 (R2.3)
 
-    @ViewBuilder
-    private func label(_ node: MapNode, info: MapNodeInfo) -> some View {
-        if node.kind == .quiz {
-            Text(L.quizSessionName)
-                .font(.footnote)
-                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                .foregroundStyle(MapPalette.quietInk)
-        } else {
-            HStack(spacing: MapShape.kanaLabelSpacing) {
-                ForEach(Array(info.kana.enumerated()), id: \.offset) { _, char in
-                    Text(KanaText.japanese(char))
-                        .font(.system(size: MapShape.kanaLabelSize))
-                }
-            }
-            .environment(\.locale, Locale(identifier: "ja"))
-            .foregroundStyle(MapPalette.quietInk)
-        }
-    }
-
-    // MARK: 건물 (2.2)
-
-    private func buildingSide(_ state: MapBuildingState) -> CGFloat {
-        state == .open ? metrics.building : metrics.buildingSmall
-    }
-
-    private func buildingCard(_ node: MapNode, info: MapBuildingInfo) -> some View {
-        let side = buildingSide(info.state)
+    private func bandRow(_ node: MapNode, info: MapBandInfo) -> some View {
+        let inner = width - metrics.bandInset * 2
+        // 글자는 그림 오른쪽 12pt부터, 스티커 두 칸(+ 간격) 앞까지.
+        let stickerArea = metrics.sticker * 2 + metrics.stickerGap + MapShape.bandStickerClear
+        let textWidth = max(0, inner - metrics.bandArt - MapShape.bandTextGap - stickerArea)
         return Button {
-            onTapBuilding(node)
+            onTapBand(node)
         } label: {
-            MapBuildingCard(sceneID: node.scene ?? node.id, icon: info.icon, state: info.state, side: side)
-                .contentShape(Rectangle())
+            HStack(spacing: MapShape.bandTextGap) {
+                MapBandArt(sceneID: node.scene ?? node.id, icon: info.icon, state: info.state, side: metrics.bandArt)
+                MapBandText(info: info)
+                    .frame(width: textWidth, alignment: .leading)
+                Spacer(minLength: 0)
+            }
+            .frame(width: inner, height: metrics.band, alignment: .leading)
+            .contentShape(Rectangle())
         }
         .buttonStyle(MapPressStyle())
         .allowsHitTesting(info.state != .locked)
@@ -174,39 +133,25 @@ struct MapSectionView: View {
         .accessibilityAddTraits(info.state == .locked ? [] : .isButton)
     }
 
-    /// 이름: 카드 아래 변에서 6pt, 가림 캡슐로 x 0.5의 길 선을 끊는다. 앞에 상태 아이콘 (2.2).
-    private func buildingName(_ node: MapNode, info: MapBuildingInfo) -> some View {
-        let side = buildingSide(info.state)
-        let center = point(node.x, node.y)
-        let y = center.y + side / 2 + metrics.nameGap + MapShape.nameCapsuleHeight / 2
-        let icon: (String, Color)? = switch info.state {
-        case .locked: ("lock.fill", MapPalette.quietInk)
-        case .completed: ("checkmark.circle.fill", MapPalette.done)
-        case .open: nil
-        }
-        return MapNameTag(text: L.buildingPill(order: info.order, name: info.name), icon: icon,
-                          bold: info.state != .locked, quiet: info.state == .locked)
-            .contentShape(Rectangle())
-            .onTapGesture { if info.state != .locked { onTapBuilding(node) } }
-            .position(x: center.x, y: y)
-            .animation(reduceMotion ? nil : .easeInOut(duration: 0.3), value: info.state)
-            .accessibilityHidden(true)
-    }
-
-    /// 출발·끝 표지: 건물 이름과 같은 모양, 글자 `InkSecondary` (1.1).
+    /// 출발·끝 표지: 글자만 (R2.3).
     private func markerName(_ node: MapNode) -> some View {
         let isStart = node.kind == .start
         let text = isStart ? L.regionStart(ContentLibrary.shared.sectionTitle) : L.katakanaComingSoon
-        return MapNameTag(text: text, icon: nil, bold: true, quiet: true)
+        return Text(text)
+            .font(.footnote.weight(.bold))
+            .foregroundStyle(MapPalette.quietInk)
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+            .lineLimit(1)
+            .fixedSize()
             .position(point(node.x, node.y))
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(isStart ? L.regionStartLabel(ContentLibrary.shared.sectionTitle) : L.katakanaComingSoonLabel)
     }
 
-    // MARK: 스티커 (2.3): 건물 카드 양옆, 카드 위 층
+    // MARK: 스티커 (R2.3): 띠 오른쪽 끝의 정해진 두 칸
 
     private var stickers: some View {
-        ForEach(section.stickers, id: \.step) { sticker in
+        ForEach(section.stickers, id: \.slot) { sticker in
             let name = "map_sticker_\(sticker.art)"
             // 에셋이 없으면 그 자리를 그리지 않는다. 대체 그림을 두지 않는다.
             if UIImage(named: name) != nil {
@@ -220,6 +165,7 @@ struct MapSectionView: View {
                     .allowsHitTesting(false)
                     .accessibilityHidden(true)
                     .accessibilityIgnoresInvertColors(true)
+                    .transition(reduceMotion ? .identity : .scale(scale: 0.85).combined(with: .opacity))
             }
         }
     }
@@ -232,80 +178,129 @@ struct MapPressStyle: ButtonStyle {
     }
 }
 
-/// 세션 칸의 원 (2.1). 잠김: 연한 테 + 자물쇠. 완료: 보조 색 테 + 체크. 지금: 그리지 않는다(발판과 기리가 대신한다).
-struct MapNodeCircle: View {
+/// 세션 칸 캡슐 (R2.3). 지금: 노랑 채움 + 굵은 가나, 아이콘 없음. 완료: 카드 바탕 + 보조 색 테 + 체크.
+/// 잠김: 바탕색 + `PathEdge` 테 + 자물쇠, 글자 보조 색.
+struct MapNodeCapsule: View {
     let state: MapNodeState
-    let diameter: CGFloat
+    let kana: [String]
     let isQuiz: Bool
+    let width: CGFloat
+    let height: CGFloat
     let ring: CGFloat
 
     var body: some View {
-        ZStack {
-            switch state {
-            case .locked:
-                Circle().fill(MapPalette.card)
-                Circle().strokeBorder(MapPalette.ahead, lineWidth: ring)
-                Image(systemName: "lock.fill")
-                    .font(.system(size: MapShape.lockSymbol))
-                    .foregroundStyle(MapPalette.quietInk)
-            case .current:
-                Color.clear
-            case .completed:
-                Circle().fill(MapPalette.card)
-                Circle().strokeBorder(MapPalette.passed, lineWidth: ring)
-                Image(systemName: "checkmark")
-                    .font(.system(size: isQuiz ? MapShape.checkQuiz : MapShape.checkStep, weight: .bold))
-                    .foregroundStyle(MapPalette.done)
+        HStack(spacing: MapShape.nodeIconGap) {
+            if let icon {
+                Image(systemName: icon.name)
+                    .font(.system(size: MapShape.nodeIcon, weight: .semibold))
+                    .foregroundStyle(icon.color)
             }
+            label
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
-        .frame(width: diameter, height: diameter)
+        .padding(.horizontal, MapShape.nodePadding)
+        .frame(width: width, height: height)
+        .background { background }
         .transition(.opacity)
         .id(state)
     }
-}
 
-/// 건물 이름·출발·끝 표지: 테두리 없는 `.footnote` 글자 + 바탕색 가림 캡슐 (2.2).
-struct MapNameTag: View {
-    let text: String
-    let icon: (String, Color)?
-    let bold: Bool
-    let quiet: Bool
-
-    var body: some View {
-        HStack(spacing: MapShape.nameIconGap) {
-            if let icon {
-                Image(systemName: icon.0).foregroundStyle(icon.1)
-            }
-            Text(text)
-                .foregroundStyle(quiet ? MapPalette.quietInk : MapPalette.ink)
+    private var icon: (name: String, color: Color)? {
+        switch state {
+        case .locked: ("lock.fill", MapPalette.quietInk)
+        case .completed: ("checkmark.circle.fill", MapPalette.done)
+        case .current: nil
         }
-        .font(.footnote.weight(bold ? .bold : .regular))
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-        .lineLimit(1)
-        .padding(.horizontal, MapShape.nameCapsulePadding)
-        .frame(minHeight: MapShape.nameCapsuleHeight)
-        .background(MapPalette.ground, in: Capsule())
-        .fixedSize()
+    }
+
+    private var textColor: Color {
+        switch state {
+        case .locked: MapPalette.quietInk
+        case .completed: MapPalette.ink
+        case .current: MapPalette.onCurrent
+        }
+    }
+
+    @ViewBuilder
+    private var label: some View {
+        if isQuiz {
+            Text(L.quizSessionName)
+                .font(.headline.weight(state == .current ? .bold : .regular))
+                .dynamicTypeSize(...DynamicTypeSize.xLarge)
+                .foregroundStyle(textColor)
+        } else {
+            Text(KanaText.japanese(kana.joined()))
+                .font(.system(size: MapShape.nodeKanaSize, weight: state == .current ? .bold : .regular))
+                .tracking(MapShape.nodeKanaSpacing)
+                .environment(\.locale, Locale(identifier: "ja"))
+                .foregroundStyle(textColor)
+        }
+    }
+
+    @ViewBuilder
+    private var background: some View {
+        switch state {
+        case .current:
+            Capsule().fill(MapPalette.current)
+        case .completed:
+            Capsule().fill(MapPalette.card)
+            Capsule().strokeBorder(MapPalette.passed, lineWidth: ring)
+        case .locked:
+            Capsule().fill(MapPalette.ground)
+            Capsule().strokeBorder(MapPalette.ahead, lineWidth: ring)
+        }
     }
 }
 
-/// 건물 카드 (2.2). 열림 96pt + `Outline` 2pt, 잠김·완료 72pt 테 없음(잠김은 흑백).
+/// 장면 띠의 두 줄 글자 (R2.3): "{상태 아이콘} {순서} {장면}" + 그 장면의 새 글자.
+struct MapBandText: View {
+    let info: MapBandInfo
+
+    var body: some View {
+        let icon: (String, Color)? = switch info.state {
+        case .locked: ("lock.fill", MapPalette.quietInk)
+        case .completed: ("checkmark.circle.fill", MapPalette.done)
+        case .open: nil
+        }
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: MapShape.nameIconGap) {
+                if let icon {
+                    Image(systemName: icon.0).foregroundStyle(icon.1)
+                }
+                Text(L.buildingPill(order: info.order, name: info.name))
+                    .fontWeight(info.state == .locked ? .regular : .bold)
+                    .foregroundStyle(info.state == .locked ? MapPalette.quietInk : MapPalette.ink)
+            }
+            .font(.headline)
+            .dynamicTypeSize(...DynamicTypeSize.xxLarge)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+            Text(KanaText.japanese(info.kana.joined()))
+                .font(.system(size: MapShape.bandKanaSize))
+                .tracking(MapShape.bandKanaSpacing)
+                .environment(\.locale, Locale(identifier: "ja"))
+                .foregroundStyle(MapPalette.quietInk)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+        }
+    }
+}
+
+/// 장면 띠 그림 72pt (R2.3). 지금 장면은 `Outline` 2pt, 잠김은 흑백.
 /// 그림 `map_building_{id}` → `SceneThumb-{id}` → 장면 아이콘 순으로 찾는다.
-struct MapBuildingCard: View {
+struct MapBandArt: View {
     let sceneID: String
     let icon: String?
-    let state: MapBuildingState
+    let state: MapBandState
     let side: CGFloat
 
     private var image: UIImage? {
         UIImage(named: "map_building_\(sceneID)") ?? UIImage(named: "SceneThumb-\(sceneID)")
     }
 
-    private var isOpen: Bool { state == .open }
-
     var body: some View {
-        let shape = RoundedRectangle(cornerRadius: isOpen ? MapShape.buildingCorner : MapShape.buildingSmallCorner,
-                                     style: .continuous)
+        let shape = RoundedRectangle(cornerRadius: MapShape.bandArtCorner, style: .continuous)
         Group {
             if let image {
                 Image(uiImage: image)
@@ -316,7 +311,7 @@ struct MapBuildingCard: View {
                 ZStack {
                     MapPalette.card
                     Image(systemName: icon ?? "building.2.fill")
-                        .font(.system(size: isOpen ? 40 : 30))
+                        .font(.system(size: 30))
                         .foregroundStyle(state == .locked ? MapPalette.quietInk : MapPalette.ink)
                 }
             }
@@ -325,7 +320,7 @@ struct MapBuildingCard: View {
         .clipShape(shape)
         .overlay {
             shape.strokeBorder(MapPalette.outline, lineWidth: MapShape.outlineWidth)
-                .opacity(isOpen ? 1 : 0)
+                .opacity(state == .open ? 1 : 0)
         }
         .accessibilityIgnoresInvertColors(true)
     }

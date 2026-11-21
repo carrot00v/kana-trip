@@ -77,14 +77,7 @@ struct HomeView: View {
             .toolbarBackground(MapPalette.ground, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    let done = library.scenes.count { store.isSceneCompleted($0) }
-                    Text(L.regionProgress(script: library.sectionTitle, done: done, total: library.scenes.count))
-                        .font(.headline.monospacedDigit())
-                        .foregroundStyle(Color.ink)
-                        .accessibilityLabel(L.regionProgressLabel(script: library.sectionTitle, done: done, total: library.scenes.count))
-                        .accessibilityAddTraits(.isHeader)
-                }
+                ToolbarItem(placement: .principal) { barTitle }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Toggle(L.soundToggle, isOn: $store.soundOn)
@@ -178,9 +171,32 @@ struct HomeView: View {
 
     // MARK: 문구
 
-    /// 기리가 권하는 말 (giri-companion.md 3.11의 H).
+    /// 기리가 권하는 한 줄 (home-map.md "2026-11-21 재구성안" R2.5, giri-companion.md 3.11 H를 대신).
     private var giriLine: String {
-        GiriSpeech.home(store.giriHomeTurn(in: library))
+        GiriSpeech.homeLine(store.giriHomeTurn(in: library))
+    }
+
+    /// 바 가운데 두 줄 (R2.3): 1줄 "{순서} {지금 장면}"(스크롤과 상관없이 늘 지금 장면), 2줄 "히라가나 {k}/8".
+    /// 모두 끝내면 1줄 "히라가나 여행 완료".
+    private var barTitle: some View {
+        let done = library.scenes.count { store.isSceneCompleted($0) }
+        let total = library.scenes.count
+        let script = library.sectionTitle
+        let scene = library.scenes.first { !store.isSceneCompleted($0) }
+        let title = scene.map { L.mapSceneTitle(order: $0.order, name: $0.name) } ?? L.regionDone(script)
+        return VStack(spacing: 0) {
+            Text(title)
+                .font(.headline)
+                .foregroundStyle(Color.ink)
+            Text(L.regionProgress(script: script, done: done, total: total))
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(Color.inkSecondary)
+        }
+        .dynamicTypeSize(...DynamicTypeSize.xxLarge)
+        .lineLimit(1)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(title), \(L.regionProgressLabel(script: script, done: done, total: total))")
+        .accessibilityAddTraits(.isHeader)
     }
 
     private var target: (scene: TripScene, session: TripSession)? {

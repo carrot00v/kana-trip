@@ -1,33 +1,32 @@
 {
-  "_comment": "지도 배치 값 (docs/design/home-map.md 1.3, 2.3, 7.1, '2026-11-18 시각 정리' S7). tools/build_map.py가 읽어 KanaTrip/Resources/map.json을 만든다. 수치는 pt(=dp), x는 지도 폭에 대한 비율.",
+  "_comment": "지도 배치 값 (docs/design/home-map.md '2026-11-21 재구성안' 안 A, R2.3). tools/build_map.py가 읽어 KanaTrip/Resources/map.json을 만든다. 수치는 pt(=dp), x는 지도 폭에 대한 비율.",
   "metrics": {
-    "lanes": [0.3, 0.7],
-    "stepGap": 128,
-    "sceneGap": 248,
-    "nodeStep": 36,
-    "nodeQuiz": 44,
+    "columns": { "a": 0.4, "b": 0.52, "quiz": 0.46 },
+    "stepGap": 132,
+    "nodeWidth": 152,
+    "nodeWidthRatio": 0.38,
+    "nodeHeight": 52,
     "nodeRing": 1.5,
-    "building": 96,
-    "buildingSmall": 72,
-    "labelGap": 8,
-    "nameGap": 6,
-    "progressLine": 6,
-    "aheadLine": 4,
-    "giri": 96,
-    "giriFootBelowNode": 12,
-    "hopLift": 32,
-    "footSpot": [64, 20],
-    "footSpotOffset": 8,
-    "bubbleBandAbove": 48,
-    "bubbleBandBelow": 48,
+    "band": 96,
+    "bandArt": 72,
+    "bandInset": 16,
+    "dot": 4,
+    "dotSpacing": 12,
+    "dotGap": 6,
+    "giri": 72,
+    "giriGap": 8,
+    "giriFootBelowNode": 30,
+    "hopLift": 24,
+    "bubbleHeight": 40,
+    "bubbleAboveGiri": 10,
     "sticker": 48,
-    "stickerDx": 50,
-    "stickerDy": 8,
-    "restAnchor": 0.6,
+    "stickerGap": 8,
+    "restAnchor": 0.7,
     "dock": 72,
     "dockCustomize": 56,
     "dockGap": 8,
-    "topMarginBase": 224,
+    "jumpButton": 44,
+    "topMarginBase": 378,
     "edgeMargin": 40
   },
   "motion": {
@@ -35,7 +34,8 @@
     "bubbleOut": 0.15,
     "hop": 0.35,
     "hopScene": 0.3,
-    "buildingOpen": 0.3,
+    "bandOpen": 0.3,
+    "stickerIn": 0.2,
     "faceSwap": 0.12,
     "bubbleIn": 0.25,
     "labelFade": 0.2,
@@ -44,21 +44,23 @@
     "jumpScroll": 0.35
   },
   "sections": {
-    "start": { "height": 176, "nodeY": 72 },
+    "start": { "height": 96, "nodeY": 48 },
     "scene": {
-      "height": 504,
-      "building": 80,
-      "front": 40,
-      "stepA": 200,
-      "stepB": 328,
-      "quiz": 456
+      "height": 514,
+      "stepA": 48,
+      "stepB": 180,
+      "quiz": 312,
+      "bandBottom": 418
     },
     "gate": { "height": 176, "nodeY": 72 }
   },
   "stickers": {
-    "_comment": "건물 카드 양옆에 붙인다(2.3). A(단계 a)는 왼쪽 dx −stickerDx, 건물보다 stickerDy 아래. B(단계 b)는 오른쪽 dx +stickerDx, stickerDy 위. 홀수·짝수 장면 같음.",
-    "a": { "side": -1, "rotate": -6 },
-    "b": { "side": 1, "rotate": 6 }
+    "_comment": "장면 띠 오른쪽 끝의 두 칸 (R2.3). B는 오른쪽 변이 W−16, A는 B 왼쪽 stickerGap. x는 1(오른쪽 끝)에 dx(pt)를 더한다. 한 장뿐이면 B 자리. 고르기는 단계 a·b에서 한 장씩(2.3, 그대로).",
+    "a": { "rotate": -6 },
+    "b": { "rotate": 6 }
   },
-  "stickerOverride": {}
+  "stickerOverride": {
+    "_comment": "장면 id → 붙일 그림 목록(A, B 순, 한 장이면 B). 빈 목록이면 붙이지 않는다. 2026-11-21 사용자 지시(이슈 #8): 스시집은 장면 그림이 단어 그림 すし가 되어 스티커를 붙이지 않는다.",
+    "sushi": []
+  }
 }

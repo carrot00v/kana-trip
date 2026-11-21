@@ -30,7 +30,9 @@ enum L {
     static let katakanaComingSoonLabel = "가타카나 여행, 준비 중"
     static func quizPill(review: Int) -> String { review > 0 ? "\(quizSessionName) · 복습 \(review)" : quizSessionName }
     static func buildingPill(order: Int, name: String) -> String { "\(order) \(name)" }
-    static let toCurrentNode = "지금 칸으로"
+    /// 바 1줄: 지금 장면 (home-map.md R2.3). 모두 끝내면 "{지역} 여행 완료".
+    static func mapSceneTitle(order: Int, name: String) -> String { "\(order) \(name)" }
+    static func regionDone(_ script: String) -> String { "\(script) 여행 완료" }
     static let toCurrentNodeLabel = "지금 칸으로 이동"
     static let customizeShort = "꾸미기"
 
@@ -279,6 +281,12 @@ enum L {
     static func giriHomeQuiz(_ scene: String) -> String { "\(scene)에서 읽은 걸 같이 확인해 봐요" }
     /// `session`은 단계 이름 또는 "종합 퀴즈".
     static func giriHomeResume(scene: String, session: String) -> String { "\(sceneStep(scene, session)) 하던 데부터 이어서 해요" }
+    // H 홈 지도의 한 줄 대사 (home-map.md "2026-11-21 재구성안" R2.5). 장면·단계 이름은 바와 시작 버튼이 말하므로 줄였다.
+    static func giriHomeLineFirst(_ scene: String) -> String { "첫 여행지는 \(scene)\(copula(scene))" }
+    static func giriHomeLineNewScene(_ scene: String) -> String { "다음 여행지는 \(scene)\(copula(scene))" }
+    static func giriHomeLineStepB(_ step: String) -> String { "\(step) 읽으러 가요" }
+    static let giriHomeLineQuiz = "읽은 걸 같이 확인해 봐요"
+    static let giriHomeLineResume = "하던 데부터 이어서 해요"
     /// 장면 이름 뒤에 단계 이름을 붙인다. 단계 이름에 장면 이름의 낱말이 들어 있으면 장면 이름을 뺀다
     /// ("신사·축제 축제 노점" → "축제 노점", "신사·축제 신사" → "신사"). giri-companion.md 3.11.
     static func sceneStep(_ scene: String, _ step: String) -> String {

@@ -398,37 +398,6 @@ final class WordWrapLabel: UILabel {
     }
 }
 
-/// 지도 위 기리 옆 말풍선 (home-map.md 2.4). 기리는 따로 그리고(지도 덮개 층) 이 부품은 말풍선만 그린다.
-/// 꼬리는 기리 쪽 변에 붙고, 높이는 말풍선 위 끝에서 잰 `tailFromTop`(기리 입 높이).
-/// 폭은 글에 맞추되 최소 88pt(꼬리 제외). 줄은 `GiriSpeechRow`와 같이 띄어쓰기에서만 바꾼다.
-struct GiriSideBubble: View {
-    let text: String
-    let tailOnRight: Bool
-    let tailFromTop: CGFloat
-    var maxLines = 3
-
-    static let tailWidth: CGFloat = 8
-
-    var body: some View {
-        let tail = Self.tailWidth
-        BubbleLabel(text: text, maxLines: maxLines)
-            .fixedSize(horizontal: false, vertical: true)
-            .padding(.vertical, 10)
-            .padding(.leading, 12 + (tailOnRight ? 0 : tail))
-            .padding(.trailing, 12 + (tailOnRight ? tail : 0))
-            .frame(minWidth: 88 + tail, minHeight: GiriSpeechRow.bubbleHeight(lines: 1), alignment: .leading)
-            .background {
-                BubbleShape(tailWidth: tail, tailFromTop: tailFromTop, tailOnRight: tailOnRight)
-                    .fill(Color.cardBackground)
-                BubbleShape(tailWidth: tail, tailFromTop: tailFromTop, tailOnRight: tailOnRight)
-                    .stroke(Color.outline, style: StrokeStyle(lineWidth: AppStyle.outlineWidth, lineJoin: .round))
-            }
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(Text(GiriBubbleText.attributed(text)))
-            .accessibilityAddTraits(.isStaticText)
-    }
-}
-
 /// 꼬리 없는 전체 폭 말풍선 카드. 큰 글자 크기(accessibility1 이상)에서 지도 아래 고정 영역에 둔다 (home-map.md 5.1).
 struct GiriBubbleCard: View {
     let text: String
