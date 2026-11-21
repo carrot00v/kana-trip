@@ -34,7 +34,7 @@ struct SessionView: View {
             if let run, let stage {
                 content(run, stage)
             } else {
-                Color.appBackground
+                Color.clear.skinBackground(SkinPolicy.learningLevel)
             }
         }
         .fadeOnChange(of: "\(run?.session.id ?? "")-\(String(describing: stage))")
@@ -95,6 +95,7 @@ struct QuizIntroView: View {
         let parts = quiz?.parts ?? []
         SessionScaffold(
             progress: .quiz(partIndex: 0, partCount: parts.count, done: 0, total: parts.first?.items.count ?? 0, partName: nil),
+            level: .medium,
             onClose: onClose
         ) {
             ScrollView {

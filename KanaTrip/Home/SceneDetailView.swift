@@ -39,7 +39,6 @@ struct SceneDetailView: View {
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
-            .background(Color.appBackground)
             .listSectionSpacing(16)
             .contentMargins(.top, 8, for: .scrollContent)
             .task {
@@ -68,6 +67,7 @@ struct SceneDetailView: View {
                 }
             }
         }
+        .skinBackground(.medium)
     }
 
     // MARK: - 세션 행 (6.1, 6.2)
@@ -101,7 +101,7 @@ struct SceneDetailView: View {
                 Group {
                     switch status {
                     case .ready, .inProgress:
-                        Image(systemName: "\(session.number).circle.fill").foregroundStyle(Color.accent)
+                        Image(systemName: "\(session.number).circle.fill").foregroundStyle(SkinColor.accent)
                     case .locked:
                         Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
                     case .completed:

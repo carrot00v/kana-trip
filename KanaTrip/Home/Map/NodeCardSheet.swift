@@ -61,7 +61,7 @@ struct NodeCardSheet: View {
                     } label: {
                         Text(L.allSceneWords)
                             .font(.headline)
-                            .foregroundStyle(Color.accent)
+                            .foregroundStyle(SkinColor.accent)
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .contentShape(Rectangle())
                     }
@@ -74,10 +74,10 @@ struct NodeCardSheet: View {
             .padding(.bottom, 8)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .background(Color.appBackground)
+        .skinBackground(.sheet)
         .presentationDetents(typeSize >= .xLarge ? [.medium] : [.height(Self.height(state: state, sceneOpen: sceneOpen))])
         .presentationDragIndicator(.visible)
-        .presentationBackground(Color.appBackground)
+        .presentationBackground(SkinColor.background)
     }
 
     private func kana(_ scene: TripScene?) -> [String] {
@@ -103,7 +103,7 @@ struct NodeCardSheet: View {
         HStack(spacing: 6) {
             switch state {
             case .current:
-                Image(systemName: turnSymbol).foregroundStyle(Color.accent)
+                Image(systemName: turnSymbol).foregroundStyle(SkinColor.accent)
                 Text(isInProgress ? L.nodeResume : L.nodeMyTurn)
             case .completed:
                 Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)

@@ -60,7 +60,7 @@ struct LearnSessionView: View {
                 .dynamicTypeSize(...DynamicTypeSize.accessibility1)
             }
         } else {
-            Color.appBackground
+            Color.clear.skinBackground(SkinPolicy.learningLevel)
         }
     }
 

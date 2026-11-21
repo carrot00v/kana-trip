@@ -64,7 +64,7 @@ struct CustomizeView: View {
                 }
             }
         }
-        .background(Color.appBackground)
+        .skinBackground(.strong)
         .navigationTitle(L.customize)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -222,14 +222,14 @@ struct CustomizeView: View {
         .frame(maxWidth: .infinity, minHeight: Self.slotLabelHeight)
         Group {
             if selected {
-                Button { select(slot) } label: { label.foregroundStyle(Color.accentForeground) }
+                Button { select(slot) } label: { label.foregroundStyle(SkinColor.accentForeground) }
                     .buttonStyle(.borderedProminent)
             } else {
                 Button { select(slot) } label: { label }
                     .buttonStyle(.bordered)
             }
         }
-        .tint(Color.accent)
+        .tint(SkinColor.accent)
         .controlSize(.regular)
         .accessibilityLabel(L.slotName(slot))
         .accessibilityValue(hasBuyable ? L.canBuyInSlot : "")
@@ -365,9 +365,9 @@ struct CustomizeView: View {
             .overlay {
                 let shape = RoundedRectangle(cornerRadius: 12)
                 if wearing {
-                    shape.strokeBorder(Color.accent, lineWidth: AppStyle.verdictOutlineWidth)
+                    shape.strokeBorder(SkinColor.accent, lineWidth: AppStyle.verdictOutlineWidth)
                 } else if trying {
-                    shape.strokeBorder(Color.accent, style: StrokeStyle(lineWidth: AppStyle.outlineWidth, dash: [6, 4]))
+                    shape.strokeBorder(SkinColor.accent, style: StrokeStyle(lineWidth: AppStyle.outlineWidth, dash: [6, 4]))
                 } else {
                     shape.strokeBorder(Color.outline, lineWidth: AppStyle.outlineWidth)
                 }
@@ -376,7 +376,7 @@ struct CustomizeView: View {
                 if wearing {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 20))
-                        .foregroundStyle(Color.accent)
+                        .foregroundStyle(SkinColor.accent)
                         .background(Color.cardBackground, in: Circle().inset(by: -2))
                         // 배지 중심을 칸 꼭짓점에서 안쪽 14pt에 둔다.
                         .frame(width: 20, height: 20)

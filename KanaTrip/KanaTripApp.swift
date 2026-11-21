@@ -9,8 +9,23 @@ struct KanaTripApp: App {
     }
 
     private static func makeStore() -> ProgressStore {
+        let store = makeProgressStore()
+        // 스킨은 저장된 착용 상태에서 나온다 (app-skin.md 8.2).
+        SkinStore.shared.progress = store
+        return store
+    }
+
+    private static func makeProgressStore() -> ProgressStore {
         #if DEBUG
-        if let n = MapDebug.completedCount { return MapDebugProgress.store(completed: n) }
+        if let n = MapDebug.completedCount {
+            let store = MapDebugProgress.store(completed: n)
+            // 메모리 진도에서는 스킨 아이템을 가진 채 입힌다. 꾸미기 화면에서 다른 칸을 눌러 볼 수 있다.
+            if let id = SkinDebug.skinID, let itemID = SkinCatalog.shared.skin(id: id)?.itemID {
+                store.debugOwnAndEquip(itemID)
+            }
+            return store
+        }
+        if let id = SkinDebug.skinID { SkinStore.shared.debugSkinID = id }
         #endif
         return ProgressStore()
     }

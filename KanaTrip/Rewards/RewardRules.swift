@@ -142,9 +142,19 @@ enum RewardRules {
         }
     }
 
-    /// 네 슬롯을 기본 차림(요리사 모자, 속재료 없음, 흰 밥, 배경 없음)으로 되돌린다.
+    /// "기본 차림으로"가 되돌리는 슬롯. 권장안(app-skin.md 5.5)대로면 스킨은 빠진다.
+    static var outfitSlots: [RewardSlot] {
+        RewardSlot.allCases.filter { !(SkinPolicy.resetOutfitKeepsSkin && $0 == SkinPolicy.slot) }
+    }
+
+    /// 차림 슬롯을 기본 차림(요리사 모자, 속재료 없음, 흰 밥)으로 되돌린다. 스킨은 `outfitSlots`에 없으면 그대로 둔다.
     static func resetOutfit(state: inout RewardState, catalog: RewardCatalog) {
-        state.equipped = catalog.defaultOutfit
+        let kept = RewardSlot.allCases.filter { !outfitSlots.contains($0) }
+        var equipped = catalog.defaultOutfit
+        for slot in kept {
+            equipped[slot.rawValue] = state.equipped[slot.rawValue]
+        }
+        state.equipped = equipped
     }
 
     /// 불러온 리워드 상태를 아이템 목록에 맞춘다 (reward-system.md 6.4). 환불·이전은 하지 않는다.

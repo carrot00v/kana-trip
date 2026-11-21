@@ -77,7 +77,7 @@ struct MapView: View {
                 scroll(to: .node(model.anchorNodeID(current: currentNodeID)), layout: layout, viewport: geo.size.height, animation: nil)
             }
         }
-        .background(MapPalette.ground)
+        .background(MapPalette.groundLayer)
     }
 
     // MARK: 스크롤

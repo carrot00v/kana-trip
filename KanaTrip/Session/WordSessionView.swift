@@ -58,7 +58,7 @@ struct WordSessionView: View {
             .onAppear { if debugWord != nil { revealed = true } }
             #endif
         } else {
-            Color.appBackground
+            Color.clear.skinBackground(SkinPolicy.learningLevel)
         }
     }
 

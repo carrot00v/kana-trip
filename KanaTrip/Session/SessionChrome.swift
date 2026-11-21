@@ -77,7 +77,7 @@ private struct SegmentBar: View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 Capsule().fill(Color.inkSecondary.opacity(0.2))
-                Capsule().fill(Color.accent)
+                Capsule().fill(SkinColor.accent)
                     .frame(width: geo.size.width * fill)
             }
         }
@@ -89,6 +89,8 @@ private struct SegmentBar: View {
 /// 세션 화면의 공통 배치: 상단 바, 내용, 아래 버튼 영역.
 struct SessionScaffold<Content: View, Bottom: View>: View {
     let progress: PartProgress
+    /// 스킨 강도 (app-skin.md 4.1). 학습·퀴즈 화면은 권장안 값, QI 안내는 `.medium`.
+    var level: SkinLevel = SkinPolicy.learningLevel
     let onClose: () -> Void
     @ViewBuilder let content: Content
     @ViewBuilder let bottom: Bottom
@@ -99,8 +101,9 @@ struct SessionScaffold<Content: View, Bottom: View>: View {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             BottomBar { bottom }
+                .skinFixedBottom()
         }
-        .background(Color.appBackground)
+        .skinBackground(level)
     }
 }
 
@@ -129,11 +132,11 @@ struct PrimaryButton: View {
                 .minimumScaleFactor(0.8)
                 .frame(maxWidth: .infinity, minHeight: ButtonMetrics.labelHeight)
                 // `.borderedProminent`는 다크에서도 글자를 흰색으로 그려 크림색 강조색 위에서 보이지 않는다.
-                .foregroundStyle(Color.accentForeground)
+                .foregroundStyle(SkinColor.accentForeground)
         }
         .buttonStyle(.borderedProminent)
         .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
-        .tint(Color.accent)
+        .tint(SkinColor.accent)
         .controlSize(.large)
         .disabled(!enabled)
     }
@@ -155,7 +158,7 @@ struct SecondaryButton: View {
         }
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
-        .tint(Color.accent)
+        .tint(SkinColor.accent)
         .controlSize(.large)
         .disabled(!enabled)
     }

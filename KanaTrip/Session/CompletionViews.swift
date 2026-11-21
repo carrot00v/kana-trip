@@ -17,7 +17,7 @@ struct StepDoneView: View {
     var body: some View {
         let library = ContentLibrary.shared
         let next = run.isReplay ? nil : library.session(after: run.session)
-        CompletionLayout(giriLine: giriLine) {
+        CompletionLayout(giriLine: giriLine, level: .medium) {
             Text(title).font(.title2.bold())
             Text(summary).font(.body).foregroundStyle(Color.inkSecondary)
         } detail: {
@@ -54,7 +54,7 @@ struct StepDoneView: View {
                 Button(action: onClose) {
                     Text(L.stopHere)
                         .font(.headline)
-                        .foregroundStyle(Color.accent)
+                        .foregroundStyle(SkinColor.accent)
                         .padding(.horizontal, 16)
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
@@ -113,7 +113,7 @@ struct SceneDoneView: View {
         // 살 수 있는 아이템이 있거나 이번에 아이템을 받았을 때만 "기리 꾸미기"를 둔다.
         let showsCustomize = store.canBuyAnyItem || !grant.grantedItemIDs.isEmpty
         let giriLine = GiriSpeech.completion(.scene(scene: scene.name, hadWrong: !quizWrong.isEmpty, isLastScene: next == nil))
-        CompletionLayout(giriLine: giriLine) {
+        CompletionLayout(giriLine: giriLine, level: .strong) {
             Text(L.sceneDone(scene.name)).font(.title2.bold())
             Text(L.sceneSummary(scene.kana.count)).font(.body).foregroundStyle(Color.inkSecondary)
             // 틀린 글자 줄 (scene-flow.md 14번). 다음 장면이 있으면 그 퀴즈에 다시 나온다.
@@ -139,7 +139,7 @@ struct SceneDoneView: View {
                 Button(action: onCustomize) {
                     Text(L.customize)
                         .font(.headline)
-                        .foregroundStyle(Color.accent)
+                        .foregroundStyle(SkinColor.accent)
                         .padding(.horizontal, 16)
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
@@ -221,6 +221,8 @@ private struct GoalWordsBlock: View {
 private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View {
     /// 기리 말풍선 (3.11의 C1, C2).
     let giriLine: String
+    /// 스킨 강도: C1 중, C2 강 (app-skin.md 4.1).
+    let level: SkinLevel
     @ViewBuilder let texts: Texts
     @ViewBuilder let detail: Detail
     @ViewBuilder let buttons: Buttons
@@ -255,8 +257,9 @@ private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View 
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
                 .padding(.bottom, 8)
+                .skinFixedBottom()
         }
-        .background(Color.appBackground)
+        .skinBackground(level)
     }
 
     /// 기리는 왼쪽(여백 16pt), 말풍선은 오른쪽. 말풍선은 등장 0.15초 뒤 뜬다 (giri-companion.md 3.9, 5.2).
@@ -299,7 +302,7 @@ private struct CelebrationCharacter: View {
                     .frame(width: Self.badgeSize, height: Self.badgeSize)
                     .foregroundStyle(Color.correct)
                     .padding(Self.badgeRing)
-                    .background(Color.appBackground, in: Circle())
+                    .background(SkinColor.background, in: Circle())
                     .position(x: side - Self.badgeInset, y: side - Self.badgeInset)
             }
             .scaleEffect(shown ? 1 : 0.85)
