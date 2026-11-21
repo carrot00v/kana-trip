@@ -7,6 +7,7 @@
 - 기준 문서: `PLAN.md` 3번, `.claude/agents/designer.md`, `KanaTrip/Writing/WritingCanvas.swift`, `tools/make_onigiri_svg.py`(캐릭터 색 값)
 - 함께 보는 문서: [scene-flow.md](scene-flow.md) (화면별 배치와 상태), [reward-flow.md](reward-flow.md) (기리 꾸미기 화면과 아이템 그림 규격), [character/](character/) (캐릭터 SVG)
 - 2026-11-21 확정: 배경 아이템은 앱 전체 스킨이다([app-skin.md](app-skin.md), 이슈 #7). 1.1의 `AppBackground`·`AccentColor`·`AccentForeground`는 **기본 스킨의 값**이고, 다른 스킨의 값, `AppBackgroundQuiet`·`PatternInk`·`PathEdge`, 화면별 적용 범위, 강조색과 판정색의 거리 기준은 app-skin.md가 정한다. 나머지 토큰은 모든 스킨에서 이 문서의 값 그대로다
+- 2026-11-21 색상 선택 개정: 강조색을 면 `AccentColor`(주 버튼·고른 슬롯 탭)와 글자·선 `AccentText`(보조 버튼, 글자 버튼, 진행 막대, 번호 원, 쓰는 중 외곽선 등)로 나눴고, 무늬는 없어졌으며, 기본 스킨 라이트의 `AppBackgroundQuiet`는 `#FBF2E1`이다. 1.1의 `AccentColor` 쓰임과 8.4의 무늬 문장은 [app-skin.md](app-skin.md) 1.1·2.1이 앞선다(본문은 다음 작업 때 고친다)
 
 SwiftUI 기본 컴포넌트, 시스템 글꼴, SF Symbols를 쓴다. 색은 시스템 색 대신 에셋 카탈로그의 Color Set(1.1)을 쓰고, 라이트·다크 값은 Color Set에 함께 넣는다. 외부 글꼴과 외부 패키지는 쓰지 않는다. 그림은 캐릭터 레이어 SVG와 아이템 SVG만 쓴다(7.2, [reward-flow.md](reward-flow.md) 8번).
 

@@ -5,6 +5,7 @@
 - 개정: 2026-11-16 슬롯이 모자·두건·손·배경 4개에서 **머리·속재료·밥·배경 4개**로 바뀌었다(PLAN.md 3번 "기리 꾸미기", 같은 날 거친 머리·배경 2슬롯 안을 사용자가 "추천안대로" 확정한 4종류 안으로 바꿈). 손 소품과 두건 자리 천은 없고, 빨간 두건과 김은 고정 차림, 요리사 모자는 머리 슬롯, 흰 밥은 밥 슬롯의 기본 아이템이다. 바뀐 점은 3.0, 탭 규격은 3.2, 레이어는 8.1, 그림 기준은 item-art/brief.md 2.0~2.6. 아이템 목록은 item-art/brief.md 5번(reward-system.md 4.2와 같음)
 - 기준 문서: `docs/content/reward-system.md` 전체, `PLAN.md` 3번, [visual-rules.md](visual-rules.md) 전체, [scene-flow.md](scene-flow.md) 4번·11번·12번·14번, `docs/design/character/*.svg`, `tools/make_onigiri_svg.py`, `KanaTrip/Home/HomeView.swift`, `KanaTrip/Session/CompletionViews.swift`
 - 2026-11-21 확정: "배경" 아이템은 앱 전체 스킨이다([app-skin.md](app-skin.md), 이슈 #7). 네 번째 탭 이름은 **"스킨"**, "없음" 칸은 **"기본" 칸**이다. 스킨 탭의 칸 모습(스킨 썸네일), 누를 때의 동작(K 화면 전체가 그 스킨으로 바뀜), 안내 줄 문구는 app-skin.md 5.2·5.3이 이 문서보다 앞선다. 저장 키는 `background` 그대로다. 이 문서에서 "배경 슬롯"은 데이터 슬롯 이름, 화면 문구는 "스킨"이다
+- 2026-11-21 색상 선택 개정: 스킨은 색상(바탕색 + 강조색)만 바꾸고, 스킨 탭은 색 견본 52pt 5열이다. 이 문서의 스킨 썸네일·가나 이름·기리 뒤 그림·안내 줄 문구·C2 묶음·VoiceOver 가운데 스킨에 관한 것은 [app-skin.md](app-skin.md) 5.2~5.4가 앞선다(본문은 다음 작업 때 고친다, app-skin.md 8.7)
 - `scene-flow.md`와 `visual-rules.md`에는 바뀐 규칙과 수치만 반영하고 자세한 것은 이 문서의 절 번호로 가리켰다. 반영한 곳은 12번 절에 있다
 
 새 화면 기호: **K 기리 꾸미기**. 나머지 기호(H, S, C1, C2 등)는 scene-flow.md 1번과 같다.
