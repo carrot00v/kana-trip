@@ -14,9 +14,8 @@ enum SpeechKind {
 /// 글자(`tools/gen_voice_qwen.py final`)와 단어(`tools/gen_voice_qwen.py words`)는 Qwen3-TTS Serena로 만들었다.
 /// たこ만 `words-extra`로 다시 만들었다. 2026-11-21부터 번들에 VOICEVOX로 만든 소리는 없다.
 /// 목록에 없는 글자·단어는 기기 내장 음성으로 읽는다.
+/// 예전에는 VOICEVOX 크레딧(`credit`)도 들어 있었으나 2026-11-21 사용자 결정으로 표기를 지우며 뺐다(정보 화면 문구는 `L`에 있다).
 struct VoiceIndex: Decodable {
-    /// 크레딧 문구 (`VOICEVOX:春日部つむぎ`). 정보 화면에 그대로 쓴다.
-    let credit: String
     /// 글자 → 파일 이름(확장자 제외).
     let kana: [String: String]
     /// 단어 표기(かつ丼처럼 한자가 붙은 그대로) → 파일 이름.
@@ -143,7 +142,7 @@ enum SpeechStyle {
 /// 글자나 단어를 읽는다. 켜짐 여부는 부르는 쪽(`ProgressStore.soundOn`)에서 확인한다.
 /// 번들 음성 파일이 있으면 `AVAudioPlayer`로, 없으면 기기 내장 일본어 음성으로 읽는다.
 /// 다시 누르면 하던 소리를 끊고 처음부터 읽는다. 읽기를 시작한 화면이 사라지면 멈춘다.
-/// 음성 파일은 앱 안에서 재생만 한다. 앱 밖으로 내보내는 기능(공유, 저장)은 두지 않는다(VOICEVOX 春日部つむぎ 약관, Qwen 소리도 같게).
+/// 음성 파일은 앱 안에서 재생만 한다. 앱 밖으로 내보내는 기능(공유, 저장)은 두지 않는다(VOICEVOX를 쓰던 때 약관에서 온 규칙이고, Qwen 소리도 같게 지킨다).
 final class Speaker: NSObject, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
     static let shared = Speaker()
 

@@ -1293,7 +1293,9 @@ def cmd_final(cfg: dict, synth: Synthesizer, kana_only: bool = False) -> None:
 
     index = {
         "comment": "tools/gen_voice.py final이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).",
-        "credit": fc["voice"]["credit"], "generated": fc["generated"],
+        # credit은 쓰지 않는다: 2026-11-21 사용자 결정으로 앱의 VOICEVOX 표기를 지웠다(이슈 #6).
+        # 이 도구로 VOICEVOX 소리를 다시 번들에 넣으려면 정보 화면 표기부터 사용자에게 확인한다.
+        "generated": fc["generated"],
         "kana": kana_index, "word": word_index,
         "silentKana": silent, "missingKana": missing_kana, "missingWords": missing_words,
     }

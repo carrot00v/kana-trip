@@ -873,8 +873,9 @@ def cmd_final(select_only: bool) -> None:
     (ROOT / FINAL["measurements"]).write_text(json.dumps(summary, ensure_ascii=False, indent=1) + "\n",
                                               encoding="utf-8")
     index["generated"] = time.strftime("%Y-%m-%d")
-    index["comment"] = ("글자 m4a는 tools/gen_voice_qwen.py final(Qwen3-TTS Serena), 단어 m4a는 tools/gen_voice.py final"
-                        "(VOICEVOX 春日部つむぎ)이 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).")
+    index.pop("credit", None)  # 2026-11-21 VOICEVOX 표기 삭제(이슈 #6). 크레딧 항목을 되살리지 않는다.
+    index["comment"] = ("글자 m4a는 tools/gen_voice_qwen.py final, 단어 m4a는 tools/gen_voice_qwen.py words"
+                        "(둘 다 Qwen3-TTS Serena)가 만든다. 값은 번들 안 m4a 파일 이름(확장자 제외).")
     (app_dir / "voice_index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n",
                                               encoding="utf-8")
     print("f0 center", info["f0_center"], "vowel refs", info["vowel_refs"], "self", info["vowel_self_check"])
@@ -1112,6 +1113,7 @@ def write_word_index(kept: list[str], extra: str = "") -> None:
     index_path = ROOT / FINAL["app_dir"] / "voice_index.json"
     index = json.loads(index_path.read_text(encoding="utf-8"))
     index["generated"] = time.strftime("%Y-%m-%d")
+    index.pop("credit", None)  # 2026-11-21 VOICEVOX 표기 삭제(이슈 #6). 크레딧 항목을 되살리지 않는다.
     index["comment"] = ("글자 m4a는 tools/gen_voice_qwen.py final, 단어 m4a는 tools/gen_voice_qwen.py words"
                         "(둘 다 Qwen3-TTS Serena)가 만든다." + extra
                         + (f" 단어 중 {'·'.join(kept)}는 Serena로 확인을 통과하지 못해 tools/gen_voice.py final"

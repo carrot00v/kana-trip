@@ -136,27 +136,28 @@ struct BundledVoiceTests {
         }
     }
 
-    /// 크레딧 문구는 정보 화면의 문구와 같다.
-    @Test func creditMatchesAboutScreen() throws {
-        #expect(try index().credit == L.voiceCredit)
-        #expect(L.voiceCredit == "VOICEVOX:春日部つむぎ")
+    /// 번들 소리 목록에는 크레딧 항목이 없다(2026-11-21 VOICEVOX 표기 삭제, 이슈 #6). 도구가 되살리지 않았는지 본다.
+    @Test func bundledIndexHasNoCredit() throws {
+        let url = try #require(Bundle.main.url(forResource: VoiceIndex.resourceName, withExtension: "json")
+            ?? Bundle.main.url(forResource: VoiceIndex.resourceName, withExtension: "json", subdirectory: "Voice"))
+        let object = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any]
+        #expect(object?["credit"] == nil)
     }
 
-    /// 정보 화면의 두 줄: VOICEVOX 표기(번들에 VOICEVOX 소리는 없지만 지울지는 사용자 결정)와 글자·단어 목소리(Qwen3-TTS).
-    /// 기존 표기 `VOICEVOX:春日部つむぎ`는 그대로 들어 있어야 하고, 노래 합성 가창 교사(波音リツ)는 더 적지 않는다.
-    @Test func creditLinesNameBothVoices() {
-        #expect(L.voiceCreditLine == "音声: VOICEVOX:春日部つむぎ")
-        #expect(L.voiceCreditLine.contains(L.voiceCredit))
+    /// 정보 화면의 발음 소리 표기는 Qwen3-TTS 하나다. 번들에 없는 VOICEVOX 목소리는 적지 않는다.
+    @Test func creditLinesNameOnlyQwen() {
         #expect(L.qwenVoiceCreditLine == "글자·단어 발음: Qwen3-TTS (Apache 2.0)")
-        #expect(L.voiceCreditNote.contains("春日部つむぎ") && L.voiceCreditNote.contains("Qwen3-TTS"))
-        #expect(!L.voiceCreditNote.contains("波音リツ"))
+        #expect(L.voiceCreditNote == "글자와 단어 발음은 Qwen3-TTS 음성으로 만들었어요")
+        for text in [L.qwenVoiceCreditLine, L.voiceCreditNote] {
+            #expect(!text.contains("VOICEVOX") && !text.contains("つむぎ") && !text.contains("波音リツ"))
+        }
     }
 
     // MARK: 무엇으로 읽을지
 
     private func sampleIndex() throws -> VoiceIndex {
         let json = """
-        {"credit": "VOICEVOX:春日部つむぎ", "kana": {"す": "kana_su", "あ": "kana_a"},
+        {"kana": {"す": "kana_su", "あ": "kana_a"},
          "word": {"すし": "word_sushi", "かつ丼": "word_katsudon"},
          "silentKana": ["っ"], "missingKana": ["あ"], "missingWords": []}
         """

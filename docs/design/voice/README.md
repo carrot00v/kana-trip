@@ -1480,6 +1480,7 @@ HF_HUB_OFFLINE=1 .venv-tts/bin/python -I tools/gen_voice_qwen.py words-extra   #
 
 - **번들에 VOICEVOX로 만든 소리는 하나도 없다.** 남은 VOICEVOX 흔적은 글자뿐이다: 정보 화면의 `音声: VOICEVOX:春日部つむぎ` 줄, 설명 문장 "단어 일부에는 VOICEVOX의 春日部つむぎ 음성을 썼어요"(이제 사실과 다르다), `voice_index.json`의 `credit`, 이를 확인하는 단위 테스트. 지울지는 사용자 결정이라 그대로 두었다.
 - 파일이 없는 글자·단어를 읽는 기기 내장 음성(`AVSpeechSynthesizer`)은 VOICEVOX와 관계없다.
+- 2026-11-21 사용자 결정으로 VOICEVOX 표기 삭제(번들에 VOICEVOX 소리 없음, 이슈 #6). 정보 화면은 `글자·단어 발음: Qwen3-TTS (Apache 2.0)`와 설명 한 줄만 남기고, `voice_index.json`의 `credit`도 지웠다.
 
 ### 확인하지 못한 것 (최종 적용 5)
 
