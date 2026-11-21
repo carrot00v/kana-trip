@@ -7,7 +7,7 @@ struct MapLabels: Equatable {
 }
 
 /// 지도 화면 상태와 돌아왔을 때의 연출 (docs/design/home-map.md 4번).
-/// 순서: 칸 완료 표시(0.2) → 기리 깡충(0.35, 장면을 넘으면 0.3 × 2) → 착지(표정·말풍선·새 칸·시작 버튼 문구, 0.25) → 보여 준 칸 저장.
+/// 순서: 칸 완료 표시(0.2) → 기리 깡충(0.35, 장면을 넘으면 0.3 × 2로 끝낸 장면 띠를 거침) → 착지(표정·말풍선·새 칸·시작 버튼 문구, 0.25) → 보여 준 칸 저장.
 @MainActor
 @Observable
 final class MapScreenModel {
@@ -177,15 +177,17 @@ final class MapScreenModel {
         while i < hops.count {
             let hop = hops[i]
             if hop.kind == .scene, case .front = hop.to, i + 1 < hops.count {
-                // 장면 완료: 건물 열림과 깡충 ①을 같이, 이어서 깡충 ②. 스크롤은 a 칸까지 한 번 (4.4).
+                // 장면 완료 (R2.4): 깡충 ① 퀴즈 칸 옆 → 끝낸 장면 띠. 내려앉으면 띠에 체크와 스티커가 붙고,
+                // 같은 때 다음 장면 띠가 열리며 깡충 ② 띠 → 다음 a 칸 옆. 스크롤은 a 칸까지 한 번.
                 let landing = hops[i + 1].to
-                if case .node(let id) = landing, let open = route.ordinal(of: id) {
-                    withAnimation(.easeInOut(duration: motion.buildingOpen)) { sequenceDisplay?.buildingOpenIndex = open }
-                }
                 scroll(landing, .easeInOut(duration: motion.hopScene * 2))
                 let start = Double(i)
                 withAnimation(.easeInOut(duration: motion.hopScene)) { giriProgress = start + 1 }
                 guard await pause(motion.hopScene) else { return }
+                withAnimation(.easeOut(duration: motion.stickerIn)) { sequenceDisplay?.bandDoneIndex = toIndex }
+                if case .node(let id) = landing, let open = route.ordinal(of: id) {
+                    withAnimation(.easeInOut(duration: motion.bandOpen)) { sequenceDisplay?.bandOpenIndex = open }
+                }
                 withAnimation(.easeInOut(duration: motion.hopScene)) { giriProgress = start + 2 }
                 guard await pause(motion.hopScene) else { return }
                 i += 2
@@ -202,7 +204,8 @@ final class MapScreenModel {
         withAnimation(.easeInOut(duration: motion.faceSwap)) { giriPose = .talk }
         withAnimation(.easeInOut(duration: motion.labelFade)) {
             sequenceDisplay?.currentIndex = toIndex
-            sequenceDisplay?.buildingOpenIndex = toIndex
+            sequenceDisplay?.bandOpenIndex = toIndex
+            sequenceDisplay?.bandDoneIndex = toIndex
             frozenLabels = nil
         }
         withAnimation(.spring(response: motion.bubbleIn, dampingFraction: 0.85)) { bubbleHidden = false }

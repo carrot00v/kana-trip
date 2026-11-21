@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// 홈 지도: 세로로 스크롤되는 여행 길 (docs/design/home-map.md 1~4번).
+/// 홈 지도: 세로로 스크롤되는 여행 길 (docs/design/home-map.md 1~4번, "2026-11-21 재구성안" 안 A).
 /// 구간을 위에서 아래로(데이터의 역순) 쌓고, 그 위에 기리 덮개 층을 얹는다. 아래 고정 영역은 바깥(HomeView)에 있다.
 struct MapView: View {
     let model: MapScreenModel
@@ -42,6 +42,7 @@ struct MapView: View {
                         ForEach(region.sections.reversed()) { section in
                             sectionView(section, width: geo.size.width, display: display)
                         }
+                        Color.clear.frame(height: layout.bottomMargin)
                     }
                     giriLayer(layout: layout, size: CGSize(width: geo.size.width, height: layout.contentHeight))
                 }
@@ -135,22 +136,21 @@ struct MapView: View {
     private func sectionView(_ section: MapSection, width: CGFloat, display: MapDisplay) -> some View {
         let completed = store.state.completedSessionIDs
         let route = model.route
-        let buildingState = section.nodes.first { $0.kind == .building }
-            .map { route.state(ofBuilding: $0.id, display: display, completed: completed) }
+        let bandState = section.nodes.first { $0.kind == .band }
+            .map { route.state(ofBand: $0.id, display: display, completed: completed) }
         return MapSectionView(
             section: section,
             width: width,
             metrics: metrics,
-            isPassed: { route.isPassed($0, display: display) },
             node: { nodeInfo($0, display: display) },
-            building: { buildingInfo($0, state: route.state(ofBuilding: $0.id, display: display, completed: completed)) },
-            showsStickers: buildingState == .completed,
+            band: { bandInfo($0, state: route.state(ofBand: $0.id, display: display, completed: completed)) },
+            showsStickers: bandState == .completed,
             onTapNode: { node in
                 model.skip()
                 guard let session = library.session(id: node.session ?? node.id) else { return }
                 onTapSession(session, route.state(ofSession: node.id, display: model.display(current: currentNodeID)))
             },
-            onTapBuilding: { node in
+            onTapBand: { node in
                 model.skip()
                 guard let scene = library.scene(id: node.scene ?? node.id) else { return }
                 onTapScene(scene)
@@ -184,24 +184,33 @@ struct MapView: View {
         return info
     }
 
-    private func buildingInfo(_ node: MapNode, state: MapBuildingState) -> MapBuildingInfo {
-        guard let scene = library.scene(id: node.scene ?? node.id) else { return MapBuildingInfo() }
+    private func bandInfo(_ node: MapNode, state: MapBandState) -> MapBandInfo {
+        guard let scene = library.scene(id: node.scene ?? node.id) else { return MapBandInfo() }
         let label: String
         switch state {
         case .locked: label = L.buildingLabel(order: scene.order, name: scene.name, status: L.locked)
         case .open: label = L.buildingLabel(order: scene.order, name: scene.name, status: "\(L.buildingInProgress), \(L.buildingSeeWords)")
         case .completed: label = L.buildingLabel(order: scene.order, name: scene.name, status: "\(L.done), \(L.buildingSeeWords)")
         }
-        return MapBuildingInfo(state: state, order: scene.order, name: scene.name, icon: scene.icon, accessibilityLabel: label)
+        return MapBandInfo(state: state, order: scene.order, name: scene.name, kana: scene.kana, icon: scene.icon,
+                           accessibilityLabel: label)
     }
 
     // MARK: 기리
+
+    /// 기리 가운데: 칸이면 칸 오른쪽 옆, 장면 띠면 띠 가운데 (R2.3, R2.4).
+    private func giriCenter(_ waypoint: MapWaypoint, layout: MapLayout) -> CGPoint? {
+        switch waypoint {
+        case .node(let id): layout.giriCenter(atNode: id)
+        case .front(let id): layout.front(of: id)
+        }
+    }
 
     @ViewBuilder
     private func giriLayer(layout: MapLayout, size: CGSize) -> some View {
         let anchor = model.anchorNodeID(current: currentNodeID)
         let path = model.giriPath.isEmpty ? [MapWaypoint.node(anchor)] : model.giriPath
-        let centers = path.compactMap { point($0, layout: layout) }
+        let centers = path.compactMap { giriCenter($0, layout: layout) }
         // 말풍선은 서 있는 칸에: 연출 중이면 지금까지 온 자리, 아니면 기준 칸.
         let standing: String? = {
             guard model.isRunning else { return anchor }
@@ -211,19 +220,15 @@ struct MapView: View {
         }()
         let bubbleText = typeSize.isAccessibilitySize ? nil : model.bubbleText(current: currentNodeID, live: liveBubble)
         let bubble: MapGiriLayer.Bubble? = {
-            guard let bubbleText, let standing, let center = layout.center(of: standing) else { return nil }
-            let side = region.sections.lazy.flatMap(\.nodes).first { $0.id == standing }?.bubble ?? .right
-            return MapGiriLayer.Bubble(text: bubbleText, side: side, nodeCenter: center)
+            guard let bubbleText, let standing, let center = layout.giriCenter(atNode: standing) else { return nil }
+            return MapGiriLayer.Bubble(text: bubbleText, giriCenter: center)
         }()
-        // 발판은 서 있는 칸에만. 깡충하는 동안(말풍선이 숨은 동안)은 지운다.
-        let spot: CGPoint? = model.bubbleHidden ? nil : standing.flatMap { layout.center(of: $0) }
         if !centers.isEmpty {
             MapGiriLayer(
-                footSpotAt: spot,
                 metrics: metrics,
                 width: size.width,
                 height: size.height,
-                nodeCenters: centers,
+                giriCenters: centers,
                 progress: model.giriProgress,
                 pose: model.giriPose,
                 opacity: model.giriOpacity,
@@ -248,28 +253,23 @@ struct MapView: View {
                 .allowsHitTesting(false)
                 .accessibilityHidden(true)
             if (above || below) && !model.isRunning {
-                // 오른쪽(여백 16), 보이는 캡슐 36pt·누르는 영역 44pt, 테 없는 옅은 강조색 바탕 (3.2).
+                // 44pt 원 버튼, 아이콘만, 테 없는 옅은 강조색 바탕. 오른쪽 여백 16, 아래 고정 영역 위 12 (R2.3).
                 Button {
                     scroll(to: .node(anchor), layout: layout, viewport: viewport,
                            animation: reduceMotion ? nil : .easeInOut(duration: model.motion.jumpScroll))
                 } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: above ? "arrow.up" : "arrow.down")
-                        Text(L.toCurrentNode)
-                    }
-                    .font(.footnote.weight(.bold))
-                    .foregroundStyle(MapPalette.softAccent)
-                    .padding(.horizontal, MapShape.jumpPadding)
-                    .frame(height: MapShape.jumpCapsule)
-                    .background(MapPalette.softAccent.opacity(MapPalette.softAccentOpacity), in: Capsule())
-                    .background(MapPalette.ground, in: Capsule())
-                    .frame(minHeight: MapShape.minTapHeight)
-                    .contentShape(Rectangle())
+                    Image(systemName: above ? "arrow.up" : "arrow.down")
+                        .font(.system(size: MapShape.jumpIcon, weight: .bold))
+                        .foregroundStyle(MapPalette.softAccent)
+                        .frame(width: metrics.jumpButton, height: metrics.jumpButton)
+                        .background(MapPalette.softAccent.opacity(MapPalette.softAccentOpacity), in: Circle())
+                        .background(MapPalette.ground, in: Circle())
+                        .contentShape(Circle())
                 }
                 .buttonStyle(MapPressStyle())
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing, MapShape.screenMargin)
-                .padding(.bottom, 12 - (MapShape.minTapHeight - MapShape.jumpCapsule) / 2)
+                .padding(.bottom, MapShape.jumpBottom)
                 .transition(.opacity)
                 .accessibilityLabel(L.toCurrentNodeLabel)
             }

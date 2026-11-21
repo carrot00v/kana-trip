@@ -134,6 +134,19 @@ enum GiriSpeech {
         }
     }
 
+    /// 홈 지도 기리의 한 줄 대사 (home-map.md R2.5). 지도 말풍선과 큰 글자 크기의 아래 카드, VoiceOver가 쓴다.
+    static func homeLine(_ turn: HomeTurn) -> String {
+        switch turn {
+        case .first(let scene): L.giriHomeLineFirst(scene)
+        case .newScene(let scene, _): L.giriHomeLineNewScene(scene)
+        case .stepB(_, let step): L.giriHomeLineStepB(step)
+        case .quiz: L.giriHomeLineQuiz
+        case .resume: L.giriHomeLineResume
+        case .allDone: L.giriAllDone
+        case .comingSoon: L.giriComingSoon
+        }
+    }
+
     // MARK: 장면 진입 (S)
 
     enum SceneTurn: Equatable {

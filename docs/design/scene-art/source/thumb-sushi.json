@@ -1,9 +1,8 @@
 {
-  "prompt": "Flat cartoon illustration with bold clean outlines. Every shape is outlined with one thick, uniform, dark chocolate brown line (#4A2219), about three percent of the image width, with rounded line ends and rounded joins, and every outline is fully closed. Flat solid color fills only: no gradients, no texture, no shading, no highlights, no shine, no reflections, no drop shadow. Soft, rounded, chunky shapes, simple and friendly. Colors: the object uses only warm off-white, soft orange red and dark indigo blue, plus the dark chocolate brown of the outlines. Both pieces have exactly the same colors. The orange red is warm, not crimson, not pink, not pure red. Subject: Two pieces of tuna nigiri sushi on a small round flat plate, seen from the front and slightly above. The plate is warm off-white with a thick dark indigo rim. The two pieces sit next to each other, left and right, parallel and slightly apart, both lying lengthwise from left to right. Each piece is a low, wide, rounded oblong mound of plain smooth white rice with one flat slice of raw tuna in a single solid soft orange red draped over its top; the slice is a little longer than the rice, and a clear band of white rice shows below the slice along the whole piece. The two pieces are identical. The rest of the plate is empty, and nothing under the plate. Exactly one object, centered, filling about seventy percent of the square, with an even empty margin on all sides. Seen from the front or slightly above, with almost no perspective. A bold, simple silhouette that is still easy to recognize when shown very small. The object is not a character: it has no face, no eyes, no mouth, no blush. No people, no hands, no animals. No text, no letters, no numbers, no logos, no symbols on any surface; every label, sign and panel is completely plain. The background is one flat solid pale sky blue color filling the entire square edge to edge, and nothing else: no floor, no table, no horizon line, no ground shadow, no cast shadow, no border, no frame, no rounded-square frame, no white outline around the object, no vignette.",
-  "seed": 303,
-  "width": 1024,
-  "height": 1024,
-  "steps": 8,
-  "shift": 3.0,
-  "model": "z_image_turbo_bf16"
+  "derivedFrom": "docs/design/word-art/source/word-sushi.png",
+  "tool": "tools/compose_scene_thumb.py sushi sushi",
+  "fill": 0.7,
+  "background": "#CFE6F2",
+  "date": "2026-11-21",
+  "note": "사용자 지시(이슈 #8)로 참치 니기리 접시(thumb-sushi-nigiri.png, 시드 303)에서 단어 그림 すし(타마고·연어가 나무 받침에 놓인 그림)로 교체. 새로 생성하지 않음"
 }

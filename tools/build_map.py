@@ -6,7 +6,7 @@
 
 입력
 - KanaTrip/Resources/hiragana_scenes.json: 장면 순서, 단계 id, 단어의 그림 이름(`art`).
-- tools/map_layout.json: 1.3의 수치(metrics, motion, 구간 높이, 칸 y), 스티커 자리, `stickerOverride`.
+- tools/map_layout.json: 재구성안 A(R2.3)의 수치(metrics, motion, 구간 높이, 칸 y), 스티커 자리, `stickerOverride`(장면 id → 그림 목록).
 - 단어 그림 원본 목록: build/word-art/word-{art}.png(place_word_art.py 결과) 또는 그와 같은 앱 에셋
   KanaTrip/Assets.xcassets/WordArt-{art}.imageset. 둘 중 하나라도 있으면 "그림 있음"으로 본다.
 
@@ -35,10 +35,8 @@ def has_art(name: str) -> bool:
     return (ASSETS / f"WordArt-{name}.imageset" / f"WordArt-{name}.png").exists()
 
 
-def pick_sticker(step: dict, override: dict) -> str | None:
+def pick_sticker(step: dict) -> str | None:
     """단계의 단어 가운데 데이터 순서로 처음 나오는, 그림이 있는 단어의 `art` (2.3)."""
-    if step["id"] in override:
-        return override[step["id"]]
     for word in step["words"]:
         art = word.get("art")
         if art and has_art(art):
@@ -46,10 +44,11 @@ def pick_sticker(step: dict, override: dict) -> str | None:
     return None
 
 
-def curve(x0, y0, x1, y1):
-    """세로로 떠나 세로로 닿는 3차 베지어. 제어점은 두 칸 y의 가운데 (1.3)."""
-    mid = (y0 + y1) / 2
-    return [[x0, y0], [x0, mid], [x1, mid], [x1, y1]]
+def scene_stickers(scene: dict, override: dict) -> list[str]:
+    """장면 띠에 붙일 그림 목록(A, B 순). `stickerOverride`에 장면이 있으면 그 목록(빈 목록이면 없음)."""
+    if scene["id"] in override:
+        return list(override[scene["id"]])
+    return [art for art in (pick_sticker(step) for step in scene["steps"][:2]) if art]
 
 
 def num(v):
@@ -68,92 +67,91 @@ def clean(obj):
 
 
 def build(scenes_data: dict, layout: dict) -> dict:
-    left, right = layout["metrics"]["lanes"]
+    m = layout["metrics"]
+    col = m["columns"]
     sec = layout["sections"]
     sc = sec["scene"]
     stk = layout["stickers"]
-    override = layout.get("stickerOverride", {})
+    override = {k: v for k, v in layout.get("stickerOverride", {}).items() if not k.startswith("_")}
     scenes = sorted(scenes_data["scenes"], key=lambda s: s["order"])
     script = scenes_data.get("script", "hiragana")
     start_id = f"{script}-start"
     end_id = f"{script}-end"
+    half = m["nodeHeight"] / 2
+    gap = m["dotGap"]
+    # 출발·끝 표지 글자 줄의 반 높이(.footnote 한 줄 약 22pt). 점선이 글자 6pt 앞에서 멈추게 한다.
+    label_half = 11
+
+    def dots(frm, to, x0, y0, x1, y1):
+        """곧은 점선 한 조각 [시작점, 끝점]. y는 `to` 칸이 든 구간 바닥에서 위로 잰 pt(앞 구간이면 음수)."""
+        return {"from": frm, "to": to, "d": [[x0, y0], [x1, y1]]}
 
     sections = []
     start_y = sec["start"]["nodeY"]
     start_h = sec["start"]["height"]
-    first_to = scenes[0]["id"] if scenes else end_id
     sections.append({
         "id": start_id, "kind": "start", "height": start_h, "tile": None,
         "nodes": [{"id": start_id, "kind": "start", "x": 0.5, "y": start_y}],
-        "paths": [{"from": start_id, "to": first_to,
-                   "d": [[0.5, start_y], [0.5, start_y + 40], [0.5, start_y + 64], [0.5, start_h]]}],
+        "paths": [],
         "stickers": [],
     })
 
-    previous = start_id
-    for i, scene in enumerate(scenes):
+    # 앞 칸의 위 끝: (id, x, 이 구간 바닥 기준 y).
+    prev = (start_id, 0.5, start_y + label_half - start_h)
+    band_bottom = sc["bandBottom"]
+    band_center = (band_bottom + sc["height"]) / 2
+    for scene in scenes:
         sid = scene["id"]
-        # 홀수 장면(1번째, 3번째 …)은 a 칸이 왼쪽 길, 짝수 장면은 오른쪽 길 (1.3).
-        lane_a = left if i % 2 == 0 else right
-        lane_b = right if i % 2 == 0 else left
-        a_is_left = lane_a < 0.5
-        bubble_a = "right" if a_is_left else "left"
-        bubble_b = "left" if a_is_left else "right"
         steps = scene["steps"]
         a_id, b_id = steps[0]["id"], steps[1]["id"]
         quiz_id = f"{sid}-quiz"
         h = sc["height"]
-        by, fy, ay, bly, qy = sc["building"], sc["front"], sc["stepA"], sc["stepB"], sc["quiz"]
-        nxt = scenes[i + 1]["id"] if i + 1 < len(scenes) else end_id
+        ay, by, qy = sc["stepA"], sc["stepB"], sc["quiz"]
+        xa, xb, xq = col["a"], col["b"], col["quiz"]
 
+        arts = scene_stickers(scene, override)[:2]
+        slots = ["b"] if len(arts) == 1 else ["a", "b"][: len(arts)]
         stickers = []
-        metrics = layout["metrics"]
-        for key, step in (("a", steps[0]), ("b", steps[1])):
-            art = pick_sticker(step, override)
-            if not art:
-                continue
-            spec = stk[key]
-            # 건물 카드 양옆에 붙인다: A 왼쪽·8pt 아래, B 오른쪽·8pt 위 (2.3, 2026-11-18).
-            # dx는 pt라 지도 폭과 상관없이 건물에 붙어 있다.
-            side = spec["side"]
-            stickers.append({
-                "step": step["id"], "art": art,
-                "x": 0.5, "dx": side * metrics["stickerDx"],
-                "y": by + side * metrics["stickerDy"], "rotate": spec["rotate"],
-            })
+        for art, slot in zip(arts, slots):
+            # 띠 오른쪽 끝: B 오른쪽 변 = W − bandInset, A = B 왼쪽 stickerGap. dx는 pt (R2.3).
+            dx_b = -(m["bandInset"] + m["sticker"] / 2)
+            dx = dx_b if slot == "b" else dx_b - m["sticker"] - m["stickerGap"]
+            stickers.append({"slot": slot, "art": art, "x": 1, "dx": dx, "y": band_center,
+                             "rotate": stk[slot]["rotate"]})
 
         sections.append({
             "id": sid, "kind": "scene", "scene": sid, "height": h, "tile": None,
             "nodes": [
-                {"id": sid, "kind": "building", "scene": sid, "x": 0.5, "y": by, "front": [0.5, fy]},
-                {"id": a_id, "kind": "step", "session": a_id, "x": lane_a, "y": ay, "bubble": bubble_a},
-                {"id": b_id, "kind": "step", "session": b_id, "x": lane_b, "y": bly, "bubble": bubble_b},
-                {"id": quiz_id, "kind": "quiz", "session": quiz_id, "x": lane_a, "y": qy, "bubble": bubble_a},
+                {"id": a_id, "kind": "step", "session": a_id, "x": xa, "y": ay},
+                {"id": b_id, "kind": "step", "session": b_id, "x": xb, "y": by},
+                {"id": quiz_id, "kind": "quiz", "session": quiz_id, "x": xq, "y": qy},
+                # 장면 띠: 세 칸 위 끝(목적지). front = 장면을 넘을 때 기리가 거치는 띠 가운데 (R2.4).
+                {"id": sid, "kind": "band", "scene": sid, "x": 0.5, "y": band_center, "front": [0.5, band_center]},
             ],
             "paths": [
-                # 구간 경계에서 길은 x 0.5로 세로로 지난다 (1.3).
-                {"from": previous, "to": sid, "d": [[0.5, 0], [0.5, 27], [0.5, 53], [0.5, by]]},
-                {"from": sid, "to": a_id, "d": [[0.5, by], [0.5, (by + ay) / 2], [lane_a, (by + ay) / 2], [lane_a, ay]]},
-                {"from": a_id, "to": b_id, "d": curve(lane_a, ay, lane_b, bly)},
-                {"from": b_id, "to": quiz_id, "d": curve(lane_b, bly, lane_a, qy)},
-                {"from": quiz_id, "to": nxt, "d": [[lane_a, qy], [lane_a, qy + 34], [0.5, qy + 14], [0.5, h]]},
+                # 칸 위 변 가운데 → 다음 칸 아래 변 가운데, 가장자리 dotGap 앞에서 멈춘다. 띠 안으로는 지나지 않는다.
+                dots(prev[0], a_id, prev[1] if prev[0] == start_id else xa, prev[2] + gap, xa, ay - half - gap),
+                dots(a_id, b_id, xa, ay + half + gap, xb, by - half - gap),
+                dots(b_id, quiz_id, xb, by + half + gap, xq, qy - half - gap),
+                dots(quiz_id, sid, xq, qy + half + gap, xq, band_bottom - gap),
             ],
             "stickers": stickers,
         })
-        previous = quiz_id
+        # 다음 구간에서 이 띠의 위 끝은 y 0.
+        prev = (sid, None, 0)
 
     end_y = sec["gate"]["nodeY"]
     sections.append({
         "id": end_id, "kind": "gate", "height": sec["gate"]["height"], "tile": None,
-        "nodes": [{"id": end_id, "kind": "gate", "x": 0.5, "y": end_y, "bubble": "right"}],
-        "paths": [{"from": previous, "to": end_id, "d": [[0.5, 0], [0.5, end_y / 3], [0.5, end_y * 2 / 3], [0.5, end_y]]}],
+        "nodes": [{"id": end_id, "kind": "gate", "x": 0.5, "y": end_y}],
+        "paths": [dots(prev[0], end_id, 0.5, gap, 0.5, end_y - label_half - gap)],
         "stickers": [],
     })
 
     return clean({
-        "schema": 1,
+        "schema": 2,
         "units": {"x": "fraction of map width (0-1)", "y": "pt (=dp) from section bottom, upward"},
-        "metrics": layout["metrics"],
+        "metrics": m,
         "motion": layout["motion"],
         "regions": [{"id": script, "script": script, "sections": sections}],
     })

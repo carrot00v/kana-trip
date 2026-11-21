@@ -13,7 +13,7 @@
   place_word_art.py가 그림 속 가나(ゆ, えき 표지판 등)를 합성한 결과라 word-art/source/의 날것보다 이것을 쓴다.
 
 처리
-- 건물 카드: LANCZOS로 192px(@2x), 288px(@3x). 정사각 그대로(모서리·테두리는 앱이 그린다).
+- 장면 띠 그림(에셋 이름은 map_building_* 그대로): LANCZOS로 144px(@2x), 216px(@3x). 정사각 그대로(모서리·테두리는 앱이 그린다).
 - 스티커(@3x 기준): 투명 아닌 픽셀의 경계 상자로 자름 → 긴 변 123px → 알파를 둥글게 9px(3pt) 넓혀 #FFFDF7로 칠한 테두리
   → 그 바깥 1.5px(0.5pt) #4A2219 25% 선 → 144×144px 가운데. @2x(96px)는 @3x 결과를 LANCZOS로 줄인다.
   긴 변은 캔버스 − 테두리 9×2 − 선 1.5×2로 정해 바깥 선이 잘리지 않게 한다
@@ -23,7 +23,7 @@
 출력
 - build/map-art/map_building_{id}@2x.png, @3x.png, build/map-art/map_sticker_{art}@2x.png, @3x.png (플랫폼 중립 PNG).
 - iOS 에셋 카탈로그 KanaTrip/Assets.xcassets/map_building_{id}.imageset, map_sticker_{art}.imageset (@2x, @3x).
-  map.json에 없는 옛 map_sticker_* 에셋은 지운다.
+  map.json에 없는 옛 map_sticker_* 에셋은 지우지 않고 목록만 알린다.
 
 필요: Pillow (tools/requirements.txt). 같은 입력이면 결과가 같다.
 """
@@ -41,7 +41,7 @@ ASSETS = ROOT / "KanaTrip" / "Assets.xcassets"
 MAP_JSON = ROOT / "KanaTrip" / "Resources" / "map.json"
 OUT = ROOT / "build" / "map-art"
 
-BUILDING_PX = {2: 192, 3: 288}
+BUILDING_PX = {2: 144, 3: 216}  # 장면 띠 그림 72pt (재구성안 A, R2.7)
 
 STICKER_CANVAS = 144  # @3x, 48pt (2026-11-18 시각 정리, 56에서 줄임)
 STICKER_LONG_SIDE = 123  # @3x, 41pt = 144 − 테두리 9×2 − 선 1.5×2
@@ -171,11 +171,11 @@ def build_stickers(arts: list[str]) -> list[str]:
             files[scale] = out
         imageset(f"map_sticker_{art}", files)
         done.append(art)
-    # map.json에서 빠진 옛 스티커 에셋을 지운다.
+    # map.json에서 빠진 옛 스티커 에셋은 지우지 않고 알리기만 한다(2026-11-21, 이슈 #8: 에셋은 남겨 둔다).
     keep = {f"map_sticker_{a}.imageset" for a in done}
-    for folder in ASSETS.glob("map_sticker_*.imageset"):
-        if folder.name not in keep:
-            shutil.rmtree(folder)
+    unused = sorted(f.name for f in ASSETS.glob("map_sticker_*.imageset") if f.name not in keep)
+    if unused:
+        print("  map.json이 쓰지 않는 스티커 에셋(지우지 않음):", " ".join(unused))
     return done
 
 

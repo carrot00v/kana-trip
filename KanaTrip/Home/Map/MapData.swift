@@ -31,59 +31,69 @@ struct MapDefinition: Decodable {
     }
 }
 
-/// 두 플랫폼이 상수 대신 읽는 수치(pt = dp). 앱 코드에 같은 숫자를 다시 쓰지 않는다 (7.1, 7.4).
+/// 두 플랫폼이 상수 대신 읽는 수치(pt = dp). 앱 코드에 같은 숫자를 다시 쓰지 않는다
+/// (home-map.md 7.1, 7.4, "2026-11-21 재구성안" R2.3).
 struct MapMetrics: Decodable {
-    let lanes: [CGFloat]
+    /// 칸 종류별 x(폭 비율): 단계 a, 단계 b, 종합 퀴즈. 모든 장면 같다.
+    let columns: [String: CGFloat]
     let stepGap: CGFloat
-    let sceneGap: CGFloat
-    /// 단계 칸 원 지름.
-    let nodeStep: CGFloat
-    /// 종합 퀴즈 칸 원 지름.
-    let nodeQuiz: CGFloat
-    /// 완료·잠김 칸 원의 테 굵기.
+    /// 세션 칸(캡슐) 폭 = min(nodeWidth, nodeWidthRatio × 지도 폭).
+    let nodeWidth: CGFloat
+    let nodeWidthRatio: CGFloat
+    let nodeHeight: CGFloat
+    /// 완료·잠김 칸의 테 굵기.
     let nodeRing: CGFloat
-    /// 지금 장면(열림) 건물 카드.
-    let building: CGFloat
-    /// 잠김·완료 건물 카드.
-    let buildingSmall: CGFloat
-    /// 칸 가장자리에서 라벨까지.
-    let labelGap: CGFloat
-    /// 건물 카드 아래 변에서 이름까지.
-    let nameGap: CGFloat
-    /// 지난 길 선 굵기.
-    let progressLine: CGFloat
-    /// 앞길 선 굵기.
-    let aheadLine: CGFloat
+    /// 장면 띠 높이.
+    let band: CGFloat
+    /// 장면 띠 왼쪽 그림 한 변.
+    let bandArt: CGFloat
+    /// 장면 띠 좌우 여백(화면 가장자리에서).
+    let bandInset: CGFloat
+    /// 점선의 점 지름, 점 가운데 사이.
+    let dot: CGFloat
+    let dotSpacing: CGFloat
+    /// 칸·띠 가장자리에서 점선이 멈추는 거리.
+    let dotGap: CGFloat
     let giri: CGFloat
+    /// 칸 오른쪽 변에서 기리 왼쪽 변까지.
+    let giriGap: CGFloat
+    /// 기리 아래 끝 = 칸 가운데 + 이 값.
     let giriFootBelowNode: CGFloat
     let hopLift: CGFloat
-    /// 지금 칸 발판 타원 [폭, 높이].
-    let footSpot: [CGFloat]
-    /// 발판 가운데 = 칸 가운데 아래 이만큼.
-    let footSpotOffset: CGFloat
-    let bubbleBandAbove: CGFloat
-    let bubbleBandBelow: CGFloat
+    /// 한 줄 말풍선 몸통 높이.
+    let bubbleHeight: CGFloat
+    /// 기리 위 끝에서 말풍선 몸통 아래 끝까지.
+    let bubbleAboveGiri: CGFloat
     let sticker: CGFloat
-    let stickerDx: CGFloat
-    let stickerDy: CGFloat
-    /// 쉼 자리: 지금 칸이 오는 높이(지도 영역 위 끝에서 잰 비율, 1.4).
+    let stickerGap: CGFloat
+    /// 쉼 자리: 지금 칸이 오는 높이(지도 영역 위 끝에서 잰 비율).
     let restAnchor: CGFloat
     let dock: CGFloat
     let dockCustomize: CGFloat
     let dockGap: CGFloat
-    /// 맨 위 여백 = max(0, 지도 영역 × restAnchor − topMarginBase) (1.3).
+    /// "지금 칸으로" 원 버튼 지름.
+    let jumpButton: CGFloat
+    /// 맨 위 여백 = max(0, 지도 영역 × restAnchor − topMarginBase). topMarginBase = 지역 위 끝에서 마지막 퀴즈 칸 가운데까지.
     let topMarginBase: CGFloat
     /// "지금 칸으로"가 나타나는 기준: 지금 칸 가운데가 지도 영역 위·아래 끝에서 이만큼 안쪽을 벗어날 때 (3.2).
     let edgeMargin: CGFloat
+
+    /// 지도 폭에서의 세션 칸 폭.
+    func nodeWidth(in width: CGFloat) -> CGFloat {
+        min(nodeWidth, (nodeWidthRatio * width).rounded(.down))
+    }
 }
 
-/// 연출 시간(초) (4번).
+/// 연출 시간(초) (4번, R2.4).
 struct MapMotion: Decodable {
     let markFade: Double
     let bubbleOut: Double
     let hop: Double
     let hopScene: Double
-    let buildingOpen: Double
+    /// 다음 장면 띠가 열리는(흑백 → 컬러) 시간.
+    let bandOpen: Double
+    /// 장면 완료 때 스티커가 나타나는 시간.
+    let stickerIn: Double
     let faceSwap: Double
     let bubbleIn: Double
     let labelFade: Double
@@ -118,17 +128,13 @@ struct MapSection: Decodable, Identifiable {
 
 struct MapNode: Decodable, Identifiable, Equatable {
     enum Kind: String, Decodable {
-        case start, building, step, quiz, gate, review
+        case start, band, step, quiz, gate, review
         /// 이 앱이 모르는 새 종류. 그리지 않는다.
         case unknown
 
         init(from decoder: Decoder) throws {
             self = Kind(rawValue: try decoder.singleValueContainer().decode(String.self)) ?? .unknown
         }
-    }
-
-    enum BubbleSide: String, Decodable {
-        case left, right
     }
 
     let id: String
@@ -139,15 +145,13 @@ struct MapNode: Decodable, Identifiable, Equatable {
     let x: CGFloat
     /// 구간 바닥에서 위로 잰 pt.
     let y: CGFloat
-    /// 건물 앞 자리 [x, y]. 장면을 넘는 깡충의 중간 착지점 (4.4).
+    /// 장면 띠의 기리 자리 [x, y](기리 가운데). 장면을 넘는 깡충의 중간 착지점 (R2.4).
     let front: [CGFloat]?
-    /// 기리가 이 칸에 섰을 때 말풍선 쪽.
-    let bubble: BubbleSide?
 
     var isSession: Bool { kind == .step || kind == .quiz }
 }
 
-/// 3차 베지어 한 조각: [시작점, 제어점 1, 제어점 2, 끝점].
+/// 곧은 점선 한 조각: [시작점, 끝점]. y는 `to` 칸이 든 구간 바닥에서 잰 값(앞 구간으로 넘어가면 음수) (R2.3).
 struct MapPath: Decodable, Equatable {
     let from: String
     let to: String
@@ -156,9 +160,10 @@ struct MapPath: Decodable, Equatable {
     var points: [CGPoint] { d.map { CGPoint(x: $0[0], y: $0[1]) } }
 }
 
-/// 자리 = (x × 지도 폭 + dx, y). dx는 pt로, 건물에 붙여 두려고 폭에 비례하지 않게 둔다 (7.1).
+/// 자리 = (x × 지도 폭 + dx, y). dx는 pt로, 띠 오른쪽 끝에 붙여 두려고 폭에 비례하지 않게 둔다 (R2.3).
 struct MapSticker: Decodable, Equatable {
-    let step: String
+    /// "a" 또는 "b"(띠 오른쪽 끝의 두 칸 가운데 어느 것).
+    let slot: String
     let art: String
     let x: CGFloat
     let dx: CGFloat
@@ -166,12 +171,12 @@ struct MapSticker: Decodable, Equatable {
     let rotate: Double
 
     private enum CodingKeys: String, CodingKey {
-        case step, art, x, dx, y, rotate
+        case slot, art, x, dx, y, rotate
     }
 
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        step = try c.decode(String.self, forKey: .step)
+        slot = try c.decode(String.self, forKey: .slot)
         art = try c.decode(String.self, forKey: .art)
         x = try c.decode(CGFloat.self, forKey: .x)
         dx = try c.decodeIfPresent(CGFloat.self, forKey: .dx) ?? 0
@@ -182,20 +187,44 @@ struct MapSticker: Decodable, Equatable {
 
 /// 지도 폭과 지도 영역 높이가 정해졌을 때의 콘텐츠 좌표 (7.1).
 /// 콘텐츠 좌표는 화면처럼 위가 0이고 아래로 커진다. 구간은 위에서 아래로(데이터의 역순) 쌓는다.
+/// 위·아래 여백은 맨 위 퀴즈 칸과 첫 칸이 쉼 자리(restAnchor)에 올 수 있게 둔다.
 struct MapLayout: Equatable {
     let width: CGFloat
     let topMargin: CGFloat
+    let bottomMargin: CGFloat
     let contentHeight: CGFloat
+    /// 세션 칸(캡슐) 폭.
+    let nodeWidth: CGFloat
+    let nodeHeight: CGFloat
     /// 구간 id → 구간 위 끝의 콘텐츠 y.
     private let sectionTop: [String: CGFloat]
     private let sectionHeight: [String: CGFloat]
     private let sectionOfNode: [String: String]
     private let nodes: [String: MapNode]
+    private let giriSize: CGFloat
+    private let giriGap: CGFloat
+    private let giriFoot: CGFloat
 
     init(region: MapRegion, metrics: MapMetrics, width: CGFloat, viewportHeight: CGFloat) {
         self.width = width
+        nodeWidth = metrics.nodeWidth(in: width)
+        nodeHeight = metrics.nodeHeight
+        giriSize = metrics.giri
+        giriGap = metrics.giriGap
+        giriFoot = metrics.giriFootBelowNode
         let margin = max(0, viewportHeight * metrics.restAnchor - metrics.topMarginBase)
         topMargin = margin
+        // 첫 세션 칸이 지역 바닥에서 얼마나 위에 있는지.
+        var firstFromBottom: CGFloat = 0
+        var below: CGFloat = 0
+        search: for section in region.sections {
+            for node in section.nodes where node.kind == .step || node.kind == .quiz {
+                firstFromBottom = below + node.y
+                break search
+            }
+            below += section.height
+        }
+        bottomMargin = max(0, viewportHeight * (1 - metrics.restAnchor) - firstFromBottom)
         var top = margin
         var tops: [String: CGFloat] = [:]
         var heights: [String: CGFloat] = [:]
@@ -210,7 +239,7 @@ struct MapLayout: Equatable {
                 all[node.id] = node
             }
         }
-        contentHeight = top
+        contentHeight = top + bottomMargin
         sectionTop = tops
         sectionHeight = heights
         sectionOfNode = owner
@@ -230,12 +259,26 @@ struct MapLayout: Equatable {
         return point(section: section, x: node.x, y: node.y)
     }
 
-    /// 건물 앞 자리의 콘텐츠 좌표. 건물이 아니면 nil.
-    func front(of buildingID: String) -> CGPoint? {
-        guard let node = nodes[buildingID], let front = node.front, front.count == 2,
-              let section = sectionOfNode[buildingID]
+    /// 세션 칸(캡슐)의 콘텐츠 사각형. 세션 칸이 아니면 nil.
+    func frame(of nodeID: String) -> CGRect? {
+        guard let node = nodes[nodeID], node.isSession, let c = center(of: nodeID) else { return nil }
+        return CGRect(x: c.x - nodeWidth / 2, y: c.y - nodeHeight / 2, width: nodeWidth, height: nodeHeight)
+    }
+
+    /// 장면 띠의 기리 자리(기리 가운데)의 콘텐츠 좌표. 띠가 아니면 nil.
+    func front(of bandID: String) -> CGPoint? {
+        guard let node = nodes[bandID], let front = node.front, front.count == 2,
+              let section = sectionOfNode[bandID]
         else { return nil }
         return point(section: section, x: front[0], y: front[1])
+    }
+
+    /// 칸에 선 기리의 가운데: 칸 오른쪽 변 + giriGap, 아래 끝 = 칸 가운데 + giriFootBelowNode (R2.3).
+    /// 지역 끝 표지도 세션 칸과 같은 폭의 자리로 본다.
+    func giriCenter(atNode nodeID: String) -> CGPoint? {
+        guard let c = center(of: nodeID) else { return nil }
+        return CGPoint(x: c.x + nodeWidth / 2 + giriGap + giriSize / 2,
+                       y: c.y + giriFoot - giriSize / 2)
     }
 
     /// 콘텐츠 y가 지도 영역의 쉼 자리(위에서 restAnchor)에 오게 하는 스크롤 위치(콘텐츠 맨 위 = 0).

@@ -166,7 +166,7 @@ The background is one flat solid {칸색} color filling the entire square edge t
 | 순서 | 장면 id | 장면 | 파일 이름 | 대상 | 칸색 | 출처 | 할 일 |
 |---|---|---|---|---|---|---|---|
 | - | - | (대체 그림) | `thumb-placeholder` | 여행 가방 | SAND | 후보 `thumb-placeholder_301~304` | 고르기 |
-| 1 | `sushi` | 스시집 | `thumb-sushi` | 남색 테두리 접시 위 참치 니기리 두 점 (2026-11-19 호소마키에서 바꿈) | SKY | `thumb-sushi-nigiri_303` (2026-11-19 사용자 결정, 5.2 판정 결과) | 넣음 |
+| 1 | `sushi` | 스시집 | `thumb-sushi` | 나무 받침(게타) 위 연어·타마고 니기리 두 점. **2026-11-21 사용자 지시로 타마고·연어 그림으로 교체**(단어 그림 `word-sushi`를 `tools/compose_scene_thumb.py`로 옮김, 새 생성 없음. 옛 참치 니기리 접시는 `source/thumb-sushi-nigiri.png`로 남김) | SKY | `word-sushi` (2026-11-21 사용자 지시, 이슈 #8) | 넣음 |
 | 2 | `tonkatsu` | 돈카츠집 | `thumb-tonkatsu` | 가츠동 | SAND | 후보 `thumb-eatery_sign_301~306` | 고르기 → 칸색 바꿔 칠하기(7.1) |
 | 3 | `soba` | 소바·우동집 | `thumb-soba` | 대발 위 자루소바와 장국 잔 | SKY | **새로 생성** (5.2) | 생성 4장 → 고르기 |
 | 4 | `station` | 역 | `thumb-station` | 정면 통근 전철 | SAND | 후보 `thumb-station_301~304` | 고르기 |
@@ -443,3 +443,4 @@ A small rounded hard-shell travel suitcase standing upright, seen from the front
 - 2026-11-14: 고른 그림을 source/thumb-{장면 id}.png로 복사(PM). sushi←thumb-sushi_303, tonkatsu←thumb-eatery_sign_305, soba←thumb-soba_301, station←thumb-station_304, shrine←thumb-shrine_304, izakaya←thumb-izakaya-v2_304(옅은 그림자 남음), onsen←thumb-onsen_302, ryokan←thumb-ryokan_304, placeholder←thumb-placeholder_302. 7번 2~3단계(칸색 칠하기, 에셋 카탈로그)는 developer
 - 2026-11-19: `thumb-sushi`를 호소마키에서 참치 니기리 두 점(남색 테두리 접시)으로 바꿨다(사용자 결정. 마키 단면이 김밥으로 읽힘). 5.2에 대상, 이유, PALETTE-SUSHI(이 그림만의 색 문장), 대상 문장, 한 점 대체 문장, 고르는 기준 S1~S9를 적고 옛 마키 문장은 기록으로 남겼다. 6.1 명령의 후보 이름을 `thumb-sushi-nigiri`로 바꿨다. 5번·5.1 표, 4.2 예외, 6.3의 7·11번, 6.4를 맞췄다.
 - 2026-11-19: 니기리 후보 8장(`thumb-sushi-nigiri_301~304`, 한 점 `thumb-sushi-nigiri1_301~304`)을 뽑았다. 모두 S6에 걸렸으나 사용자가 `thumb-sushi-nigiri_303`을 골라 `source/thumb-sushi.png`·`.json`으로 바꿔 넣고 `SceneThumb-sushi`, `map_building_sushi`를 다시 내보냈다(developer). 판정은 5.2 "판정 결과"
+- 2026-11-21: 사용자 지시(이슈 #8)로 `thumb-sushi`를 단어 그림 `word-sushi`(타마고·연어가 나무 받침에 놓인 그림)로 교체했다. 투명 원본을 70% 크기로 SKY 바탕 가운데에 놓는 `tools/compose_scene_thumb.py`를 더했고, 옛 참치 니기리(303)는 `source/thumb-sushi-nigiri.png`·`.json`으로 이름을 바꿔 남겼다. `SceneThumb-sushi`, `map_building_sushi`를 다시 내보냈다(developer)
