@@ -37,11 +37,9 @@
  "whisper": "mlx-community/whisper-large-v3-turbo",
  "generated": "2026-11-21",
  "first_pass": 57,
- "qwen": 59,
- "voicevox_kept": [
-  "たこ"
- ],
- "m4a_whisper_ok": 59,
+ "qwen": 60,
+ "voicevox_kept": [],
+ "m4a_whisper_ok": 60,
  "whisper_calls": 131,
  "wall_s": 128,
  "accent": {
@@ -772,8 +770,44 @@
      ]
     }
    ],
-   "result": "voicevox_kept",
-   "pick": null
+   "extra_tries": [
+    {
+     "take": 106,
+     "form": "hira",
+     "romaji_hint": false,
+     "text": "たこ。",
+     "key": "word_tako_106",
+     "gen_s": 0.33,
+     "raw_s": 0.48,
+     "raw_peak": 0.112,
+     "clip_samples": 0,
+     "voiced": 0.38,
+     "duration": 0.505,
+     "rms_dbfs": -20.0,
+     "peak_dbfs": -6.3,
+     "pauses": 0,
+     "f0": 244,
+     "moras": 2,
+     "whisper": "タコ",
+     "whisper_norm": "たこ",
+     "whisper_how": "kana",
+     "no_speech": 0.0,
+     "avg_logprob": -0.542,
+     "fails": []
+    }
+   ],
+   "result": "qwen",
+   "pick": "word_tako_106",
+   "voiced": 0.38,
+   "ratio_to_vv": 1.09,
+   "notes": [],
+   "m4a_bytes": 7841,
+   "m4a_duration": 0.505,
+   "m4a_voiced": 0.38,
+   "m4a_rms_dbfs": -20.0,
+   "m4a_peak_dbfs": -6.4,
+   "m4a_whisper": "タコ",
+   "m4a_whisper_ok": true
   },
   {
    "word": "いくら",
@@ -3565,5 +3599,78 @@
    "m4a_whisper": "布団",
    "m4a_whisper_ok": true
   }
- ]
+ ],
+ "checks_failed": [],
+ "extra": {
+  "plan": {
+   "word_tako": {
+    "take0": 106,
+    "plan": [
+     [
+      "hira",
+      false,
+      "。"
+     ],
+     [
+      "kata",
+      false,
+      "。"
+     ],
+     [
+      "hira",
+      false,
+      ""
+     ],
+     [
+      "kata",
+      false,
+      ""
+     ],
+     [
+      "hira",
+      true,
+      "。"
+     ],
+     [
+      "kata",
+      true,
+      ""
+     ],
+     [
+      "hira",
+      false,
+      "。"
+     ],
+     [
+      "kata",
+      false,
+      "。"
+     ],
+     [
+      "hira",
+      false,
+      ""
+     ],
+     [
+      "kata",
+      false,
+      ""
+     ],
+     [
+      "hira",
+      true,
+      "。"
+     ],
+     [
+      "kata",
+      true,
+      ""
+     ]
+    ]
+   }
+  },
+  "generated": "2026-11-21",
+  "whisper_calls": 2,
+  "wall_s": 2
+ }
 }

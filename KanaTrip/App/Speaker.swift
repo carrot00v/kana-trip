@@ -12,7 +12,7 @@ enum SpeechKind {
 
 /// 앱에 넣은 발음 소리 목록 (`Resources/Voice/voice_index.json`). 미리 합성한 m4a 파일의 이름을 글자·단어 표기로 찾는다.
 /// 글자(`tools/gen_voice_qwen.py final`)와 단어(`tools/gen_voice_qwen.py words`)는 Qwen3-TTS Serena로 만들었다.
-/// 확인을 통과하지 못한 단어 일부는 VOICEVOX 春日部つむぎ(`tools/gen_voice.py final`) 소리를 그대로 쓴다.
+/// たこ만 `words-extra`로 다시 만들었다. 2026-11-21부터 번들에 VOICEVOX로 만든 소리는 없다.
 /// 목록에 없는 글자·단어는 기기 내장 음성으로 읽는다.
 struct VoiceIndex: Decodable {
     /// 크레딧 문구 (`VOICEVOX:春日部つむぎ`). 정보 화면에 그대로 쓴다.

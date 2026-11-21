@@ -3,9 +3,9 @@ import Foundation
 /// 앱 정보 화면의 문구 (홈 "더 보기" 메뉴 → 앱 정보).
 /// 크레딧과 라이선스 표기는 권리자가 정한 문구를 그대로 쓴다. 고치기 전에 출처 문서를 확인한다.
 /// - 발음 소리: 글자와 단어는 Qwen3-TTS(Apache 2.0)로 만들었다(docs/research/qwen-tts.md. 표기 의무는 없지만
-///   출처를 밝힌다, docs/design/voice/README.md "최종 적용 3"·"최종 적용 4"). 확인을 통과하지 못한 단어 일부는
-///   VOICEVOX 春日部つむぎ 소리를 그대로 쓴다(docs/research/voicevox-terms.md "추가 조사: 春日部つむぎ",
-///   크레딧 `VOICEVOX:春日部つむぎ`, 목소리를 직접 녹음했거나 자체 제작한 것처럼 쓰지 않는다).
+///   출처를 밝힌다, docs/design/voice/README.md "최종 적용 3"·"최종 적용 4"·"최종 적용 5"). 2026-11-21 たこ까지
+///   Serena로 바꿔 번들에 VOICEVOX 소리는 없다. 그래도 아래 VOICEVOX 표기와 voiceCreditNote의 VOICEVOX 문장은
+///   지울지 사용자 결정 전까지 그대로 둔다(docs/research/voicevox-terms.md "추가 조사: 春日部つむぎ").
 ///   노래 합성 글자를 쓰던 때의 `VOICEVOX:波音リツ`(가창 교사) 줄은 2026-11-17에 뺐다.
 /// - 획 데이터: KanjiVG (CC BY-SA 3.0, Ulrich Apel), tools/build_kana_strokes.py
 /// - 움직임: lottie-ios (Apache License 2.0), 라이선스 전문은 Resources/Licenses/lottie-ios-LICENSE.txt
