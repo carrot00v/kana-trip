@@ -6,6 +6,7 @@ xcuserdata/
 docs/design/scene-art/source/candidates/
 docs/design/item-art/source/candidates/
 docs/design/word-art/source/candidates/
+docs/design/backdrop-art/source/candidates/
 .venv/
 __pycache__/
 .voicevox/
