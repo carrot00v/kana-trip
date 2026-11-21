@@ -101,7 +101,7 @@ struct SceneDetailView: View {
                 Group {
                     switch status {
                     case .ready, .inProgress:
-                        Image(systemName: "\(session.number).circle.fill").foregroundStyle(SkinColor.accent)
+                        Image(systemName: "\(session.number).circle.fill").foregroundStyle(SkinColor.accentText)
                     case .locked:
                         Image(systemName: "lock.fill").foregroundStyle(Color.inkSecondary)
                     case .completed:

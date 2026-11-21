@@ -18,7 +18,7 @@ extension Color {
     static let inkSecondary = Color("InkSecondary")
     /// 카드와 선택지의 테두리.
     static let outline = Color("Outline")
-    /// 강조 (기본 스킨 값). 스킨을 따르는 강조는 `SkinColor.accent`.
+    /// 강조 (기본 스킨 값). 스킨을 따르는 강조는 면 `SkinColor.accent`, 글자·선 `SkinColor.accentText`.
     static let accent = Color("AccentColor")
     /// 강조색 위 글자(주 버튼의 글자).
     static let accentForeground = Color("AccentForeground")

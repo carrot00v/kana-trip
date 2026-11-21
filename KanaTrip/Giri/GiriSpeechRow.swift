@@ -472,7 +472,6 @@ struct GiriBottomDock<Button: View>: View {
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .background(SkinColor.background)
-        .skinFixedBottom()
     }
 }
 

@@ -30,7 +30,7 @@ enum MapPalette {
     /// 꾸미기 입구의 엔 배지.
     static let yenBadge = Color.highlightStrong
     /// 꾸미기 입구·"지금 칸으로" 바탕(강조색 위에 불투명도). 스킨을 따른다.
-    static var softAccent: Color { SkinStore.shared.current.dynamicColor(.accentColor) }
+    static var softAccent: Color { SkinStore.shared.current.dynamicColor(.accentText) }
 
     /// 지금 칸 발판의 불투명도 (2.1). 다크는 0.45에서 탁한 올리브색으로 보여 S8의 대안 0.6을 쓴다(구현 값).
     static func footSpotOpacity(_ scheme: ColorScheme) -> Double { scheme == .dark ? 0.6 : 0.45 }

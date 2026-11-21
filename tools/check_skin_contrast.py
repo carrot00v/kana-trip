@@ -8,7 +8,7 @@ KanaTrip/Resources/skins.json을 읽어 스킨 × 모드(light, dark) × (보통
 
     python3 tools/check_skin_contrast.py            # 전체 표
     python3 tools/check_skin_contrast.py --failures # 못 넘은 줄만
-    python3 tools/check_skin_contrast.py --markdown # app-skin.md 3.7에 붙일 마크다운 표
+    python3 tools/check_skin_contrast.py --markdown # app-skin.md 3.5에 붙일 마크다운 표
 """
 
 import argparse
@@ -31,13 +31,9 @@ VERDICT_DELTA_E_MIN = 30.0
 VERDICT_HUE_MIN = 30.0
 VERDICT_CHROMA_FOR_HUE = 30.0
 HINT_DELTA_E_MIN = 20.0
-# 설계 값 그대로 두고 기준만 못 넘는 조합 (app-skin.md 3.7 구현 메모). 결과에 "예외"로 찍고 종료 코드에 넣지 않는다.
-# 여기에 없는 조합이 실패하면 검사가 실패한다. 설계에서 값이나 기준을 고치면 이 목록에서 지운다.
-KNOWN_EXCEPTIONS = {
-    ("default", "light", "CardBackground / Quiet"): "기준 1.07은 기본 스킨 값 1.065를 올림한 값이라 기본 스킨 자신이 못 넘는다",
-    ("noren", "dark", "CardBackground / Quiet"): "1.158. 기본 스킨 다크 1.167보다 조금 낮다. 설계 확인 대기",
-    ("eki", "dark", "CardBackground / Quiet"): "1.137. 기본 스킨 다크 1.167보다 낮다. 설계 확인 대기(#171A18이면 1.160)",
-}
+# 설계 값 그대로 두고 기준만 못 넘는 조합. 결과에 "예외"로 찍고 종료 코드에 넣지 않는다.
+# 2026-11-21 색상 선택 개정에서 값을 고쳐 비웠다(app-skin.md 3.5). 구조는 남긴다: {(스킨, 모드, 조합): 이유}
+KNOWN_EXCEPTIONS = {}
 
 # 고정 토큰 / 바탕 (visual-rules.md 1.4): 글자 4.5, 글자 아닌 표시 3
 FIXED_ON_BACKGROUND = [
@@ -175,15 +171,12 @@ def check(data):
                 quiet = skin_color(skin, "AppBackgroundQuiet", mode)
                 accent = skin_color(skin, "AccentColor", mode)
                 accent_fg = skin_color(skin, "AccentForeground", mode)
-                ink = skin_color(skin, "PatternInk", mode)
-                opacity = skin["patternOpacity"][mode]
+                accent_text = skin_color(skin, "AccentText", mode)
                 card = base_color(data, "CardBackground", mode, hc)
-                # 대비 증가: 강·중 화면도 Quiet, 무늬 없음 (2.5)
+                # 대비 증가: 바탕 단계 화면도 Quiet (2.5)
                 screen_bgs = [("Quiet", quiet)]
                 if not hc:
                     screen_bgs.insert(0, ("AppBackground", bg))
-                    if skin["images"]["pattern"] and ink and opacity > 0:
-                        screen_bgs.append(("무늬 픽셀", mix(bg, ink, opacity)))
 
                 for name, color in screen_bgs:
                     lum = luminance(color)
@@ -198,16 +191,16 @@ def check(data):
                 ratio = contrast(accent_fg, accent)
                 add(sid, label, "AccentForeground / AccentColor", ratio, f">= {TEXT_MIN}", ratio >= TEXT_MIN)
 
+                # 강조 글자·선 (2.4의 4): 바탕, Quiet, 카드 위 4.5
                 for name, color in screen_bgs + [("CardBackground", card)]:
-                    ratio = contrast(accent, color)
-                    add(sid, label, f"AccentColor / {name}", ratio, f">= {NON_TEXT_MIN}", ratio >= NON_TEXT_MIN)
+                    ratio = contrast(accent_text, color)
+                    add(sid, label, f"AccentText / {name}", ratio, f">= {TEXT_MIN}", ratio >= TEXT_MIN)
 
+                # 보조 버튼 (2.4의 5): 바탕에 AccentText 15%
                 for name, color in screen_bgs:
-                    if name == "무늬 픽셀":
-                        continue
-                    secondary = mix(color, accent, SECONDARY_MIX)
-                    ratio = contrast(accent, secondary)
-                    add(sid, label, f"AccentColor / 보조 버튼 바탕({name})", ratio, f">= {TEXT_MIN}", ratio >= TEXT_MIN)
+                    secondary = mix(color, accent_text, SECONDARY_MIX)
+                    ratio = contrast(accent_text, secondary)
+                    add(sid, label, f"AccentText / 보조 버튼 바탕({name})", ratio, f">= {TEXT_MIN}", ratio >= TEXT_MIN)
 
                 for token, minimum in FIXED_ON_BACKGROUND:
                     fixed = base_color(data, token, mode, hc)
@@ -215,24 +208,26 @@ def check(data):
                         ratio = contrast(fixed, color)
                         add(sid, label, f"{token} / {name}", ratio, f">= {minimum}", ratio >= minimum)
 
-                # 강조색과 판정색·힌트색의 거리 (대비 증가와 상관없이 같은 값이지만 같이 센다)
-                for token in ("Wrong", "Correct"):
-                    other = base_color(data, token, mode, hc)
-                    de = delta_e(accent, other)
-                    add(sid, label, f"AccentColor ΔE {token}", de, f">= {VERDICT_DELTA_E_MIN}", de >= VERDICT_DELTA_E_MIN)
-                    if chroma(accent) >= VERDICT_CHROMA_FOR_HUE:
-                        dh = hue_difference(accent, other)
-                        add(sid, label, f"AccentColor 색상각 차 {token}", dh, f">= {VERDICT_HUE_MIN}°", dh >= VERDICT_HUE_MIN)
-                for token in ("HighlightStrong", "Highlight"):
-                    other = base_color(data, token, mode, hc)
-                    de = delta_e(accent, other)
-                    add(sid, label, f"AccentColor ΔE {token}", de, f">= {HINT_DELTA_E_MIN}", de >= HINT_DELTA_E_MIN)
+                # 강조색(면·글자 둘 다, 값이 같으면 한 번)과 판정색·힌트색의 거리 (2.4의 7, 8)
+                accents = [("AccentColor", accent)]
+                if accent_text != accent:
+                    accents.append(("AccentText", accent_text))
+                for aname, acolor in accents:
+                    for token in ("Wrong", "Correct"):
+                        other = base_color(data, token, mode, hc)
+                        de = delta_e(acolor, other)
+                        add(sid, label, f"{aname} ΔE {token}", de, f">= {VERDICT_DELTA_E_MIN}", de >= VERDICT_DELTA_E_MIN)
+                        if chroma(acolor) >= VERDICT_CHROMA_FOR_HUE:
+                            dh = hue_difference(acolor, other)
+                            add(sid, label, f"{aname} 색상각 차 {token}", dh, f">= {VERDICT_HUE_MIN}°", dh >= VERDICT_HUE_MIN)
+                    for token in ("HighlightStrong", "Highlight"):
+                        other = base_color(data, token, mode, hc)
+                        de = delta_e(acolor, other)
+                        add(sid, label, f"{aname} ΔE {token}", de, f">= {HINT_DELTA_E_MIN}", de >= HINT_DELTA_E_MIN)
 
                 if not hc:
-                    for name in ("AppBackground", "AppBackgroundQuiet", "PatternInk"):
+                    for name in ("AppBackground", "AppBackgroundQuiet"):
                         color = skin_color(skin, name, mode)
-                        if color is None:
-                            continue
                         h, s, _ = hsv(color)
                         add(sid, label, f"{name} HSV 색상 {to_hex(color)}", h, "금지 범위 밖", not hue_banned(color))
     return rows

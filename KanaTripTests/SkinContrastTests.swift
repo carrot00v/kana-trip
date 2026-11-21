@@ -3,7 +3,7 @@ import Testing
 import UIKit
 @testable import KanaTrip
 
-// app-skin.md 2.4의 대비·색 거리 검사. tools/check_skin_contrast.py와 같은 식과 같은 예외 목록이다.
+// app-skin.md 2.4의 대비·색 거리 검사. tools/check_skin_contrast.py와 같은 식과 같은 예외 목록(비어 있음)이다.
 // skins.json을 고치고 검사를 잊지 않게 xcodebuild test에 묻어 간다.
 
 private enum Rule {
@@ -20,12 +20,8 @@ private enum Rule {
     static let fixedOnBackground: [(SkinBaseToken, Double)] = [
         (.ink, text), (.inkSecondary, text), (.correct, nonText), (.wrong, nonText), (.highlightStrong, nonText), (.outline, nonText),
     ]
-    /// tools/check_skin_contrast.py의 KNOWN_EXCEPTIONS와 같다 (app-skin.md 3.7 구현 메모).
-    static let knownExceptions: Set<String> = [
-        "default/light/CardBackground / Quiet",
-        "noren/dark/CardBackground / Quiet",
-        "eki/dark/CardBackground / Quiet",
-    ]
+    /// tools/check_skin_contrast.py의 KNOWN_EXCEPTIONS와 같다. 2026-11-21 색상 선택 개정에서 비웠다(app-skin.md 3.5).
+    static let knownExceptions: Set<String> = []
 }
 
 private struct Failure: CustomStringConvertible {
@@ -54,14 +50,11 @@ private func checkAll(_ catalog: SkinCatalog) -> (failures: [Failure], exception
                 let quiet = skin.rgb(.appBackgroundQuiet, mode: mode)
                 let accent = skin.rgb(.accentColor, mode: mode)
                 let accentFg = skin.rgb(.accentForeground, mode: mode)
+                let accentText = skin.rgb(.accentText, mode: mode)
                 let card = base(.cardBackground)
+                // 대비 증가: 바탕 단계 화면도 Quiet (2.5)
                 var screens: [(String, SkinRGB)] = [("Quiet", quiet)]
-                if !hc {
-                    screens.insert(("AppBackground", bg), at: 0)
-                    if skin.pattern != nil, let ink = skin.color(.patternInk, mode), skin.patternOpacity(mode) > 0 {
-                        screens.append(("무늬 픽셀", bg.mixed(with: ink, amount: skin.patternOpacity(mode))))
-                    }
-                }
+                if !hc { screens.insert(("AppBackground", bg), at: 0) }
                 for (name, color) in screens {
                     let l = color.luminance
                     if mode == .light {
@@ -74,13 +67,14 @@ private func checkAll(_ catalog: SkinCatalog) -> (failures: [Failure], exception
                 check("CardBackground / Quiet", cq, cq >= Rule.cardQuietMin[mode]!, ">= \(Rule.cardQuietMin[mode]!)")
                 let fg = accentFg.contrast(accent)
                 check("AccentForeground / AccentColor", fg, fg >= Rule.text, ">= 4.5")
+                // 강조 글자·선 (2.4의 4, 5)
                 for (name, color) in screens + [("CardBackground", card)] {
-                    let r = accent.contrast(color)
-                    check("AccentColor / \(name)", r, r >= Rule.nonText, ">= 3")
+                    let r = accentText.contrast(color)
+                    check("AccentText / \(name)", r, r >= Rule.text, ">= 4.5")
                 }
-                for (name, color) in screens where name != "무늬 픽셀" {
-                    let r = accent.contrast(color.mixed(with: accent, amount: Rule.secondaryMix))
-                    check("AccentColor / 보조 버튼 바탕(\(name))", r, r >= Rule.text, ">= 4.5")
+                for (name, color) in screens {
+                    let r = accentText.contrast(color.mixed(with: accentText, amount: Rule.secondaryMix))
+                    check("AccentText / 보조 버튼 바탕(\(name))", r, r >= Rule.text, ">= 4.5")
                 }
                 for (token, minimum) in Rule.fixedOnBackground {
                     for (name, color) in screens {
@@ -88,20 +82,25 @@ private func checkAll(_ catalog: SkinCatalog) -> (failures: [Failure], exception
                         check("\(token.rawValue) / \(name)", r, r >= minimum, ">= \(minimum)")
                     }
                 }
-                for token in [SkinBaseToken.wrong, .correct] {
-                    let de = accent.deltaE(base(token))
-                    check("AccentColor ΔE \(token.rawValue)", de, de >= Rule.verdictDeltaE, ">= 30")
-                    if accent.chroma >= Rule.verdictChromaForHue {
-                        let dh = accent.hueDifference(base(token))
-                        check("AccentColor 색상각 차 \(token.rawValue)", dh, dh >= Rule.verdictHue, ">= 30°")
+                // 면·글자 둘 다 판정색·힌트색과 거리 (2.4의 7, 8). 값이 같으면 한 번.
+                var accents: [(String, SkinRGB)] = [("AccentColor", accent)]
+                if accentText != accent { accents.append(("AccentText", accentText)) }
+                for (aname, a) in accents {
+                    for token in [SkinBaseToken.wrong, .correct] {
+                        let de = a.deltaE(base(token))
+                        check("\(aname) ΔE \(token.rawValue)", de, de >= Rule.verdictDeltaE, ">= 30")
+                        if a.chroma >= Rule.verdictChromaForHue {
+                            let dh = a.hueDifference(base(token))
+                            check("\(aname) 색상각 차 \(token.rawValue)", dh, dh >= Rule.verdictHue, ">= 30°")
+                        }
+                    }
+                    for token in [SkinBaseToken.highlightStrong, .highlight] {
+                        let de = a.deltaE(base(token))
+                        check("\(aname) ΔE \(token.rawValue)", de, de >= Rule.hintDeltaE, ">= 20")
                     }
                 }
-                for token in [SkinBaseToken.highlightStrong, .highlight] {
-                    let de = accent.deltaE(base(token))
-                    check("AccentColor ΔE \(token.rawValue)", de, de >= Rule.hintDeltaE, ">= 20")
-                }
                 if !hc {
-                    for token in [SkinToken.appBackground, .appBackgroundQuiet, .patternInk] {
+                    for token in [SkinToken.appBackground, .appBackgroundQuiet] {
                         guard let color = skin.color(token, mode) else { continue }
                         let (h, sat, _) = color.hsv
                         let banned = sat > 0 && ((125...160).contains(h) && sat >= 0.25 || (330..<360).contains(h))
@@ -133,27 +132,36 @@ private func sameByte(_ a: SkinRGB, _ b: SkinRGB) -> Bool { a.description == b.d
 struct SkinContrastTests {
     let catalog = SkinCatalog.bundled(bundle: Bundle(for: ProgressStore.self))
 
-    @Test func bundledFileHasFiveSkinsInOrder() {
-        #expect(catalog.schemaVersion == 1)
-        #expect(catalog.skins.map(\.id) == ["default", "noren", "eki", "torii", "yu"])
+    @Test func bundledFileHasFiveColorsInOrder() {
+        #expect(catalog.schemaVersion == 2)
+        #expect(catalog.skins.map(\.id) == ["default", "blue", "teal", "orange", "purple"])
+        #expect(catalog.skins.map(\.nameKo) == ["기본", "파랑", "청록", "주황", "보라"])
         #expect(catalog.dropped.isEmpty)
         #expect(catalog.skins.map(\.itemID) == [nil, "noren", "eki", "torii", "yu"])
-        #expect(catalog.patternScale(.strong) == 1)
-        #expect(catalog.patternScale(.medium) == 0.5)
-        #expect(catalog.patternScale(.quiet) == 0)
-        #expect(catalog.patternScale(.sheet) == 0)
         #expect(catalog.skinCrossfade == 0.3)
-        #expect(catalog.defaultSkin.pattern == nil)
-        #expect(catalog.skins.dropFirst().allSatisfy { $0.pattern != nil && $0.giriBackdrop == "Item-\($0.itemID ?? "")" })
     }
 
-    /// 무늬 타일과 기리 뒤 그림 에셋이 번들에 있다 (3.4). 무늬 타일은 tools/make_skin_patterns.py가 만든다.
-    @Test func skinImagesExistInBundle() {
-        let bundle = Bundle(for: ProgressStore.self)
+    /// 면(AccentColor)과 글자·선(AccentText)은 주황 라이트만 다르다. 다크는 글자 = 면, 면 위 글자 = 바탕 (2.1, 2.3).
+    @Test func accentTextSplitsOnlyForOrangeLight() throws {
         for skin in catalog.skins {
-            for name in [skin.pattern, skin.giriBackdrop].compactMap({ $0 }) {
-                #expect(UIImage(named: name, in: bundle, compatibleWith: nil) != nil, "\(name)")
-            }
+            let sameLight = skin.rgb(.accentText, mode: .light) == skin.rgb(.accentColor, mode: .light)
+            #expect(sameLight == (skin.id != "orange"), "\(skin.id)")
+            #expect(skin.rgb(.accentText, mode: .dark) == skin.rgb(.accentColor, mode: .dark), "\(skin.id)")
+            #expect(skin.rgb(.accentForeground, mode: .dark) == skin.rgb(.appBackground, mode: .dark), "\(skin.id)")
+        }
+        let orange = try #require(catalog.skin(id: "orange"))
+        #expect(orange.rgb(.accentColor, mode: .light).description == "#F57F20")
+        #expect(orange.rgb(.accentForeground, mode: .light).description == "#4A2219")
+        #expect(orange.rgb(.accentText, mode: .light).description == "#8A4208")
+    }
+
+    /// 스킨에서 뺀 무늬 타일과 기리 뒤 그림은 B가 정해질 때까지 번들에 남긴다 (6번).
+    @Test func removedSkinImagesStayInBundleUntilBackdropDecision() {
+        let bundle = Bundle(for: ProgressStore.self)
+        let names = ["seigaiha", "tenji", "asanoha", "tatewaku"].map { "skin-pattern-\($0)" }
+            + ["noren", "eki", "torii", "yu"].map { "Item-\($0)" }
+        for name in names {
+            #expect(UIImage(named: name, in: bundle, compatibleWith: nil) != nil, "\(name)")
         }
     }
 
@@ -173,27 +181,32 @@ struct SkinContrastTests {
         #expect(seen == Rule.knownExceptions)
     }
 
-    /// 이슈 #7에서 정한 두 조합 (3.6): とりい 주황과 오답 빨강, えき 청록과 맞음 초록.
-    @Test func toriiOrangeAndEkiTealKeepDistanceFromVerdictColors() throws {
-        let torii = try #require(catalog.skin(id: "torii")), eki = try #require(catalog.skin(id: "eki"))
+    /// 이슈 #7에서 정한 두 조합 (3.3, 3.4): 주황과 오답 빨강, 청록과 맞음 초록.
+    @Test func orangeAndTealKeepDistanceFromVerdictColors() throws {
+        let orange = try #require(catalog.skin(id: "orange")), teal = try #require(catalog.skin(id: "teal"))
         let wrong = try #require(catalog.base[.wrong]), correct = try #require(catalog.base[.correct])
         for mode in SkinMode.allCases {
-            let orange = torii.rgb(.accentColor, mode: mode)
-            #expect(orange.deltaE(wrong.value(mode)) >= 30)
-            #expect(orange.hueDifference(wrong.value(mode)) >= 30)
-            let teal = eki.rgb(.accentColor, mode: mode)
-            #expect(teal.deltaE(correct.value(mode)) >= 30)
-            // 노랑-파랑 축(b*)의 부호가 반대다 (3.6).
-            #expect(teal.lab.b < 0 && correct.value(mode).lab.b > 0)
+            for token in [SkinToken.accentColor, .accentText] {
+                let o = orange.rgb(token, mode: mode)
+                #expect(o.deltaE(wrong.value(mode)) >= 30)
+                #expect(o.hueDifference(wrong.value(mode)) >= 30)
+                let t = teal.rgb(token, mode: mode)
+                #expect(t.deltaE(correct.value(mode)) >= 30)
+                // 노랑-파랑 축(b*)의 부호가 반대다 (3.4).
+                #expect(t.lab.b < 0 && correct.value(mode).lab.b > 0)
+            }
         }
-        #expect(abs(torii.rgb(.accentColor, mode: .light).deltaE(wrong.light) - 38.1) < 0.2)
-        #expect(abs(eki.rgb(.accentColor, mode: .light).deltaE(correct.light) - 43.0) < 0.2)
+        // 설계 문서의 손 계산 값 (3.3, 3.4)
+        #expect(abs(orange.rgb(.accentColor, mode: .light).deltaE(wrong.light) - 53.3) < 0.5)
+        #expect(abs(orange.rgb(.accentText, mode: .light).deltaE(wrong.light) - 38.2) < 0.5)
+        #expect(abs(teal.rgb(.accentColor, mode: .light).deltaE(correct.light) - 43.0) < 0.2)
+        #expect(abs(teal.rgb(.accentColor, mode: .dark).deltaE(correct.dark) - 42.1) < 0.5)
     }
 
     /// 에셋 카탈로그의 Color Set은 기본 스킨 값과 고정 토큰 값이어야 한다 (7.3).
     @Test func assetColorSetsMatchDefaultSkinAndBase() throws {
         let skin = catalog.defaultSkin
-        for token in [SkinToken.appBackground, .accentColor, .accentForeground, .pathEdge] {
+        for token in SkinToken.allCases {
             for mode in SkinMode.allCases {
                 let asset = try #require(assetRGB(token.rawValue, mode))
                 #expect(sameByte(asset, skin.rgb(token, mode: mode)), "\(token.rawValue) \(mode)")
@@ -210,22 +223,14 @@ struct SkinContrastTests {
         }
     }
 
-    /// 강도 단계와 대비 증가의 바탕·무늬 (4.1, 2.5).
-    @Test func levelsPickBackgroundAndPatternOpacity() throws {
-        let noren = try #require(catalog.skin(id: "noren"))
+    /// 강도 단계와 대비 증가의 바탕 (4.1, 2.5).
+    @Test func levelsPickBackground() {
         #expect(Skin.backgroundToken(.strong, highContrast: false) == .appBackground)
         #expect(Skin.backgroundToken(.medium, highContrast: false) == .appBackground)
         #expect(Skin.backgroundToken(.quiet, highContrast: false) == .appBackgroundQuiet)
         #expect(Skin.backgroundToken(.sheet, highContrast: false) == .appBackground)
         #expect(Skin.backgroundToken(.strong, highContrast: true) == .appBackgroundQuiet)
         #expect(Skin.backgroundToken(.medium, highContrast: true) == .appBackgroundQuiet)
-        #expect(noren.patternOpacity(.light, level: .strong, highContrast: false, catalog: catalog) == 0.06)
-        #expect(noren.patternOpacity(.light, level: .medium, highContrast: false, catalog: catalog) == 0.03)
-        #expect(noren.patternOpacity(.dark, level: .strong, highContrast: false, catalog: catalog) == 0.05)
-        #expect(noren.patternOpacity(.light, level: .quiet, highContrast: false, catalog: catalog) == 0)
-        #expect(noren.patternOpacity(.light, level: .sheet, highContrast: false, catalog: catalog) == 0)
-        #expect(noren.patternOpacity(.light, level: .strong, highContrast: true, catalog: catalog) == 0)
-        #expect(catalog.defaultSkin.patternOpacity(.light, level: .strong, highContrast: false, catalog: catalog) == 0)
     }
 
     /// 강조색 밖의 고정 토큰은 모든 스킨에서 같다: 스킨은 고정 토큰을 갖지 않는다 (1.2).
@@ -239,31 +244,29 @@ struct SkinContrastTests {
 
 // MARK: - 읽기 규칙 (7.3)
 
-private func json(_ skins: String, version: Int = 1, base: String? = nil) -> Data {
+private func json(_ skins: String, version: Int = 2, base: String? = nil) -> Data {
     let baseJSON = base ?? SkinBaseToken.allCases.map { "\"\($0.rawValue)\": {\"light\": \"#FFFFFF\", \"dark\": \"#000000\"}" }
         .joined(separator: ", ")
     return Data("""
-    {"schemaVersion": \(version), "levels": {"strong": {"patternScale": 1.0}, "medium": {"patternScale": 0.5},
-     "quiet": {"patternScale": 0.0}, "sheet": {"patternScale": 0.0}}, "motion": {"skinCrossfade": 0.3},
-     "base": {\(baseJSON)}, "skins": [\(skins)], "futureKey": 1}
+    {"schemaVersion": \(version), "levels": {"strong": {"background": "AppBackground"}},
+     "motion": {"skinCrossfade": 0.3}, "base": {\(baseJSON)}, "skins": [\(skins)], "futureKey": 1}
     """.utf8)
 }
 
-private func skinJSON(_ id: String, itemID: String? = nil, pattern: String? = "p", dropKey: String? = nil, patternInk: String = "{\"light\": \"#112233\", \"dark\": \"#445566\"}") -> String {
+private func skinJSON(_ id: String, itemID: String? = nil, dropKey: String? = nil, accentText: String = "{\"light\": \"#4A2219\", \"dark\": \"#F7EEDF\"}", nameKo: String? = nil) -> String {
     var colors = [
         "\"AppBackground\": {\"light\": \"#FDF5E6\", \"dark\": \"#1F1714\"}",
-        "\"AppBackgroundQuiet\": {\"light\": \"#FDF5E6\", \"dark\": \"#1F1714\"}",
+        "\"AppBackgroundQuiet\": {\"light\": \"#FBF2E1\", \"dark\": \"#1F1714\"}",
         "\"AccentColor\": {\"light\": \"#4A2219\", \"dark\": \"#F7EEDF\"}",
         "\"AccentForeground\": {\"light\": \"#FFFDF7\", \"dark\": \"#1F1714\"}",
-        "\"PatternInk\": \(patternInk)",
+        "\"AccentText\": \(accentText)",
         "\"PathEdge\": {\"light\": \"#E6D6BC\", \"dark\": \"#4A3A32\"}",
     ]
     if let dropKey { colors.removeAll { $0.hasPrefix("\"\(dropKey)\"") } }
     let item = itemID.map { "\"\($0)\"" } ?? "null"
-    let p = pattern.map { "\"\($0)\"" } ?? "null"
     return """
-    {"id": "\(id)", "itemID": \(item), "nameKo": "\(id)", "colors": {\(colors.joined(separator: ", "))},
-     "patternOpacity": {"light": 0.06, "dark": 0.05}, "images": {"pattern": \(p), "giriBackdrop": null}, "unknown": true}
+    {"id": "\(id)", "itemID": \(item), "nameKo": "\(nameKo ?? id)", "colors": {\(colors.joined(separator: ", "))},
+     "unknown": true, "images": {"pattern": "old"}}
     """
 }
 
@@ -271,26 +274,29 @@ private func skinJSON(_ id: String, itemID: String? = nil, pattern: String? = "p
 struct SkinCatalogReadingTests {
     @Test func skinMissingRequiredValueIsDroppedOthersKept() throws {
         let data = json([
-            skinJSON("default", pattern: nil, patternInk: "null"),
+            skinJSON("default"),
             skinJSON("a", itemID: "a"),
             skinJSON("b", itemID: "b", dropKey: "PathEdge"),
-            skinJSON("c", itemID: "c", patternInk: "{\"light\": \"#112233\"}"),
-            skinJSON("d", itemID: "d", patternInk: "null"),
+            skinJSON("c", itemID: "c", accentText: "{\"light\": \"#112233\"}"),
+            skinJSON("d", itemID: "d", dropKey: "AccentText"),
+            skinJSON("e", itemID: "e", nameKo: ""),
         ].joined(separator: ","))
         let catalog = try #require(SkinCatalog(data: data))
         #expect(catalog.skins.map(\.id) == ["default", "a"])
-        #expect(catalog.dropped == ["b", "c", "d"])
-        // 버린 스킨의 아이템을 입은 사용자는 기본 스킨으로 그린다.
+        #expect(catalog.dropped == ["b", "c", "d", "e"])
+        // 버린 색의 아이템을 쓰던 사용자는 기본 색으로 그린다.
         #expect(catalog.skin(itemID: "b").isDefault)
         #expect(catalog.skin(itemID: "a").id == "a")
     }
 
-    @Test func newerSchemaOrMissingDefaultIsRejected() {
-        #expect(SkinCatalog(data: json(skinJSON("default", pattern: nil, patternInk: "null"), version: 2)) == nil)
+    /// 앱이 아는 버전은 2뿐이다. 1(옛 무늬 스킨)과 3 이상은 파일 전체를 버린다 (7.3).
+    @Test func otherSchemaOrMissingDefaultIsRejected() {
+        #expect(SkinCatalog(data: json(skinJSON("default"))) != nil)
+        #expect(SkinCatalog(data: json(skinJSON("default"), version: 1)) == nil)
+        #expect(SkinCatalog(data: json(skinJSON("default"), version: 3)) == nil)
         #expect(SkinCatalog(data: json(skinJSON("a", itemID: "a"))) == nil)
         // 기본 스킨은 꼭 첫 번째에 있어야 한다.
-        #expect(SkinCatalog(data: json([skinJSON("a", itemID: "a"), skinJSON("default", pattern: nil, patternInk: "null")]
-            .joined(separator: ","))) == nil)
+        #expect(SkinCatalog(data: json([skinJSON("a", itemID: "a"), skinJSON("default")].joined(separator: ","))) == nil)
         #expect(SkinCatalog(data: Data("not json".utf8)) == nil)
     }
 
@@ -298,6 +304,15 @@ struct SkinCatalogReadingTests {
         let fallback = SkinCatalog.bundled(bundle: Bundle(for: SkinTestStorage.self))
         #expect(fallback.skins.map(\.id) == ["default"])
         #expect(fallback.defaultSkin.rgb(.accentColor, mode: .light).description == "#4A2219")
+        #expect(fallback.defaultSkin.rgb(.accentText, mode: .light).description == "#4A2219")
+        #expect(fallback.defaultSkin.rgb(.appBackgroundQuiet, mode: .light).description == "#FBF2E1")
+        // 대체 값은 번들 파일의 기본 색과 같다.
+        let bundled = SkinCatalog.bundled(bundle: Bundle(for: ProgressStore.self)).defaultSkin
+        for token in SkinToken.allCases {
+            for mode in SkinMode.allCases {
+                #expect(fallback.defaultSkin.rgb(token, mode: mode) == bundled.rgb(token, mode: mode), "\(token) \(mode)")
+            }
+        }
     }
 }
 
@@ -345,7 +360,7 @@ struct SkinStoreTests {
          "equipped": {"top": "chef_hat", "rice": "plain_rice", "background": "noren"}}
         """)
         #expect(s.rewards.equippedID(.background) == "noren")
-        #expect(skin(s).id == "noren")
+        #expect(skin(s).id == "blue")
         #expect(s.rewards.version == RewardState.currentVersion)
     }
 
@@ -355,7 +370,7 @@ struct SkinStoreTests {
         {"coins": 0, "paid": ["scene/shrine"], "owned": ["torii"],
          "equipped": {"hat": "chef_hat", "scarf": "red_scarf", "background": "torii"}}
         """)
-        #expect(skin(s).id == "torii")
+        #expect(skin(s).id == "orange")
     }
 
     /// 산 뒤 쓰지 않는 사용자, 갖지 않은 아이템을 입은 저장, 목록에 없는 id는 기본 스킨.
@@ -381,9 +396,9 @@ struct SkinStoreTests {
         """)
         let skins = SkinStore(catalog: catalog)
         skins.progress = s
-        #expect(skins.current.id == "noren")
+        #expect(skins.current.id == "blue")
         s.equip(try #require(s.rewardCatalog.item(id: "eki")))
-        #expect(skins.current.id == "eki")
+        #expect(skins.current.id == "teal")
         s.clearSlot(.background)
         #expect(s.rewards.equipped["background"] == nil)
         #expect(skins.current.isDefault)
@@ -399,7 +414,7 @@ struct SkinStoreTests {
         #expect(s.rewards.equippedID(.top) == "chef_hat")
         #expect(s.rewards.isDefaultOutfit == SkinPolicy.resetOutfitKeepsSkin)
         #expect((s.rewards.equippedID(.background) == "noren") == SkinPolicy.resetOutfitKeepsSkin)
-        #expect(skin(s).id == (SkinPolicy.resetOutfitKeepsSkin ? "noren" : "default"))
+        #expect(skin(s).id == (SkinPolicy.resetOutfitKeepsSkin ? "blue" : "default"))
     }
 
     /// 디버그 스킨은 저장 상태보다 앞선다(메모리에서만, 8.3).
@@ -407,9 +422,12 @@ struct SkinStoreTests {
         let s = ProgressStore(storage: SkinTestStorage())
         let skins = SkinStore(catalog: catalog)
         skins.progress = s
-        skins.debugSkinID = "yu"
-        #expect(skins.current.id == "yu")
+        skins.debugSkinID = "purple"
+        #expect(skins.current.id == "purple")
         #expect(s.rewards.equipped["background"] == nil)
+        // 아이템 id도 받는다(`-skinDebug torii` = `-skinDebug orange`, 8.3).
+        skins.debugSkinID = "torii"
+        #expect(skins.current.id == "orange")
         skins.debugSkinID = "nope"
         #expect(skins.current.isDefault)
     }

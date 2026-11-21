@@ -77,7 +77,7 @@ private struct SegmentBar: View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 Capsule().fill(Color.inkSecondary.opacity(0.2))
-                Capsule().fill(SkinColor.accent)
+                Capsule().fill(SkinColor.accentText)
                     .frame(width: geo.size.width * fill)
             }
         }
@@ -101,7 +101,6 @@ struct SessionScaffold<Content: View, Bottom: View>: View {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             BottomBar { bottom }
-                .skinFixedBottom()
         }
         .skinBackground(level)
     }
@@ -155,10 +154,12 @@ struct SecondaryButton: View {
                 .minimumScaleFactor(0.8)
                 .frame(width: ButtonMetrics.secondaryLabelWidth)
                 .frame(minHeight: ButtonMetrics.labelHeight)
+                // 앱 루트의 `.foregroundStyle(Ink, …)`가 `.bordered`의 tint 글자색을 덮으므로 글자색을 직접 준다 (app-skin.md 1.1).
+                .foregroundStyle(SkinColor.accentText)
         }
         .buttonStyle(.bordered)
         .buttonBorderShape(.roundedRectangle(radius: ButtonMetrics.cornerRadius))
-        .tint(SkinColor.accent)
+        .tint(SkinColor.accentText)
         .controlSize(.large)
         .disabled(!enabled)
     }

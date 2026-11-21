@@ -1,11 +1,11 @@
 {
-  "schemaVersion": 1,
-  "_comment": "앱 스킨 (docs/design/app-skin.md). 색은 #RRGGBB, 라이트·다크 둘 다 필수. 그림은 확장자 없는 에셋 이름. 스킨 순서 = 꾸미기 화면 칸 순서.",
+  "schemaVersion": 2,
+  "_comment": "앱 스킨 = 색상 (docs/design/app-skin.md). 색은 #RRGGBB, 라이트·다크 둘 다 필수. 스킨 순서 = 꾸미기 화면 견본 순서. nameKo는 화면에 쓰는 색 이름. AccentColor는 면, AccentText는 글자·선.",
   "levels": {
-    "strong": { "background": "AppBackground",      "patternScale": 1.0 },
-    "medium": { "background": "AppBackground",      "patternScale": 0.5 },
-    "quiet":  { "background": "AppBackgroundQuiet", "patternScale": 0.0 },
-    "sheet":  { "background": "AppBackground",      "patternScale": 0.0 }
+    "strong": { "background": "AppBackground" },
+    "medium": { "background": "AppBackground" },
+    "quiet":  { "background": "AppBackgroundQuiet" },
+    "sheet":  { "background": "AppBackground" }
   },
   "motion": { "skinCrossfade": 0.3 },
   "base": {
@@ -28,74 +28,64 @@
       "nameKo": "기본",
       "colors": {
         "AppBackground":      { "light": "#FDF5E6", "dark": "#1F1714" },
-        "AppBackgroundQuiet": { "light": "#FDF5E6", "dark": "#1F1714" },
+        "AppBackgroundQuiet": { "light": "#FBF2E1", "dark": "#1F1714" },
         "AccentColor":        { "light": "#4A2219", "dark": "#F7EEDF" },
         "AccentForeground":   { "light": "#FFFDF7", "dark": "#1F1714" },
-        "PatternInk":         null,
+        "AccentText":         { "light": "#4A2219", "dark": "#F7EEDF" },
         "PathEdge":           { "light": "#E6D6BC", "dark": "#4A3A32" }
-      },
-      "patternOpacity": { "light": 0, "dark": 0 },
-      "images": { "pattern": null, "giriBackdrop": null }
+      }
     },
     {
-      "id": "noren",
+      "id": "blue",
       "itemID": "noren",
-      "nameKo": "쪽빛 노렌",
+      "nameKo": "파랑",
       "colors": {
-        "AppBackground":      { "light": "#E3E9F4", "dark": "#151A24" },
-        "AppBackgroundQuiet": { "light": "#EEF1F6", "dark": "#1A191C" },
-        "AccentColor":        { "light": "#2F4A7A", "dark": "#B4C3E6" },
-        "AccentForeground":   { "light": "#FFFDF7", "dark": "#151A24" },
-        "PatternInk":         { "light": "#2F4A7A", "dark": "#B4C3E6" },
-        "PathEdge":           { "light": "#B9C5DD", "dark": "#3A4560" }
-      },
-      "patternOpacity": { "light": 0.06, "dark": 0.05 },
-      "images": { "pattern": "skin-pattern-seigaiha", "giriBackdrop": "Item-noren" }
+        "AppBackground":      { "light": "#E3E9F4", "dark": "#121B2E" },
+        "AppBackgroundQuiet": { "light": "#EEF1F6", "dark": "#131824" },
+        "AccentColor":        { "light": "#2F4A7A", "dark": "#6FB8FF" },
+        "AccentForeground":   { "light": "#FFFDF7", "dark": "#121B2E" },
+        "AccentText":         { "light": "#2F4A7A", "dark": "#6FB8FF" },
+        "PathEdge":           { "light": "#B9C5DD", "dark": "#34405C" }
+      }
     },
     {
-      "id": "eki",
+      "id": "teal",
       "itemID": "eki",
-      "nameKo": "하늘 승강장",
+      "nameKo": "청록",
       "colors": {
-        "AppBackground":      { "light": "#DCEFF4", "dark": "#12201F" },
-        "AppBackgroundQuiet": { "light": "#EBF5F7", "dark": "#191C1A" },
-        "AccentColor":        { "light": "#1D5E6E", "dark": "#9ED3DE" },
-        "AccentForeground":   { "light": "#FFFDF7", "dark": "#12201F" },
-        "PatternInk":         { "light": "#1D5E6E", "dark": "#9ED3DE" },
-        "PathEdge":           { "light": "#C9B48E", "dark": "#3A5552" }
-      },
-      "patternOpacity": { "light": 0.06, "dark": 0.05 },
-      "images": { "pattern": "skin-pattern-tenji", "giriBackdrop": "Item-eki" }
+        "AppBackground":      { "light": "#DCEFF4", "dark": "#0E2224" },
+        "AppBackgroundQuiet": { "light": "#EBF5F7", "dark": "#101A1B" },
+        "AccentColor":        { "light": "#1D5E6E", "dark": "#5CC8D6" },
+        "AccentForeground":   { "light": "#FFFDF7", "dark": "#0E2224" },
+        "AccentText":         { "light": "#1D5E6E", "dark": "#5CC8D6" },
+        "PathEdge":           { "light": "#A9CDD5", "dark": "#2B4B4F" }
+      }
     },
     {
-      "id": "torii",
+      "id": "orange",
       "itemID": "torii",
-      "nameKo": "주황 참배길",
+      "nameKo": "주황",
       "colors": {
-        "AppBackground":      { "light": "#F8E6DA", "dark": "#24150F" },
-        "AppBackgroundQuiet": { "light": "#FBF0E8", "dark": "#221612" },
-        "AccentColor":        { "light": "#8A4208", "dark": "#F5A05A" },
-        "AccentForeground":   { "light": "#FFFDF7", "dark": "#24150F" },
-        "PatternInk":         { "light": "#8A4208", "dark": "#F5A05A" },
-        "PathEdge":           { "light": "#C9C3BA", "dark": "#4A403C" }
-      },
-      "patternOpacity": { "light": 0.06, "dark": 0.05 },
-      "images": { "pattern": "skin-pattern-asanoha", "giriBackdrop": "Item-torii" }
+        "AppBackground":      { "light": "#F8E6DA", "dark": "#2A170C" },
+        "AppBackgroundQuiet": { "light": "#FBF0E8", "dark": "#22150A" },
+        "AccentColor":        { "light": "#F57F20", "dark": "#FF9A3D" },
+        "AccentForeground":   { "light": "#4A2219", "dark": "#2A170C" },
+        "AccentText":         { "light": "#8A4208", "dark": "#FF9A3D" },
+        "PathEdge":           { "light": "#EDC09A", "dark": "#5A3A22" }
+      }
     },
     {
-      "id": "yu",
+      "id": "purple",
       "itemID": "yu",
-      "nameKo": "등나무 목욕탕",
+      "nameKo": "보라",
       "colors": {
-        "AppBackground":      { "light": "#ECE6F2", "dark": "#1C1626" },
-        "AppBackgroundQuiet": { "light": "#F3F0F6", "dark": "#1E171D" },
-        "AccentColor":        { "light": "#5B4482", "dark": "#CDBDE8" },
-        "AccentForeground":   { "light": "#FFFDF7", "dark": "#1C1626" },
-        "PatternInk":         { "light": "#5B4482", "dark": "#CDBDE8" },
-        "PathEdge":           { "light": "#D9B48A", "dark": "#4D3B2E" }
-      },
-      "patternOpacity": { "light": 0.06, "dark": 0.05 },
-      "images": { "pattern": "skin-pattern-tatewaku", "giriBackdrop": "Item-yu" }
+        "AppBackground":      { "light": "#ECE6F2", "dark": "#1E1430" },
+        "AppBackgroundQuiet": { "light": "#F3F0F6", "dark": "#1A1522" },
+        "AccentColor":        { "light": "#5B4482", "dark": "#C49AF0" },
+        "AccentForeground":   { "light": "#FFFDF7", "dark": "#1E1430" },
+        "AccentText":         { "light": "#5B4482", "dark": "#C49AF0" },
+        "PathEdge":           { "light": "#CDBFE0", "dark": "#43385A" }
+      }
     }
   ]
 }

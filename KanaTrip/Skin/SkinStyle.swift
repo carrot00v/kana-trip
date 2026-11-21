@@ -4,7 +4,7 @@ import UIKit
 // 스킨을 화면에 거는 곳 (docs/design/app-skin.md 4.1, 8.3).
 // - 환경값 `\.skin`(지금 스킨)과 `\.skinLevel`(화면 강도)
 // - `SkinColor`: 환경값을 보고 색을 고르는 ShapeStyle. 강조색과 바탕은 코드에서 이것만 쓴다.
-// - `.skinBackground(_:)`: 화면 뿌리에 하나 붙여 바탕색·무늬·강도를 맡긴다.
+// - `.skinBackground(_:)`: 화면 뿌리에 하나 붙여 바탕색과 강도를 맡긴다. 스킨은 색만 바꾼다(2026-11-21 색상 선택 개정, 무늬 없음).
 // - `SkinStore`: 저장된 착용 상태(`RewardState`)에서 지금 스킨을 낸다. K의 미리 보기는 K 뿌리의 환경값만 덮는다(5.3).
 
 extension EnvironmentValues {
@@ -24,16 +24,8 @@ extension SkinRGB {
 }
 
 extension SkinToken {
-    /// 같은 값을 가진 에셋 카탈로그 Color Set (기본 스킨 값, 7.3). `AppBackgroundQuiet`는 기본 스킨에서 `AppBackground`와 같다.
-    var assetName: String? {
-        switch self {
-        case .appBackground, .appBackgroundQuiet: "AppBackground"
-        case .accentColor: "AccentColor"
-        case .accentForeground: "AccentForeground"
-        case .pathEdge: "PathEdge"
-        case .patternInk: nil
-        }
-    }
+    /// 같은 값을 가진 에셋 카탈로그 Color Set (기본 스킨 값, 7.3). 토큰 이름과 같다.
+    var assetName: String { rawValue }
 }
 
 extension Skin {
@@ -41,7 +33,7 @@ extension Skin {
     /// 값은 같지만(SkinContrastTests가 비교) 툴바 같은 곳에서 sRGB 성분으로 만든 Color가 1~10 단위 다르게 합성되는 것을 봤다.
     /// 기본 스킨에서 스킨 도입 전과 픽셀이 같도록 에셋을 쓴다 (app-skin.md 8.4의 3).
     func paint(_ token: SkinToken, mode: SkinMode) -> Color {
-        if isDefault, let name = token.assetName { return Color(name) }
+        if isDefault { return Color(token.assetName) }
         return rgb(token, mode: mode).color
     }
 
@@ -56,14 +48,13 @@ extension Skin {
 
     /// 화면 설정(다크, 대비 증가)을 따라 바뀌는 Color. 환경값이 닿지 않는 곳(지도 팔레트)에 쓴다.
     func dynamicColor(_ token: SkinToken) -> Color {
-        if isDefault, let name = token.assetName { return Color(name) }
+        if isDefault { return Color(token.assetName) }
         let light = rgb(token, mode: .light).uiColor, dark = rgb(token, mode: .dark).uiColor
         return Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? dark : light })
     }
 
     /// 단계 바탕의 Color. 대비 증가면 강·중 단계도 `AppBackgroundQuiet`.
     func dynamicBackground(level: SkinLevel) -> Color {
-        if isDefault { return Color("AppBackground") }
         func pick(_ traits: UITraitCollection) -> UIColor {
             let mode: SkinMode = traits.userInterfaceStyle == .dark ? .dark : .light
             return background(level: level, mode: mode, highContrast: traits.accessibilityContrast == .high).uiColor
@@ -79,7 +70,8 @@ struct SkinColor: ShapeStyle {
         case background
         case accent
         case accentForeground
-        case patternInk
+        /// 강조 글자·선 (1.1). 면이 아닌 강조는 모두 이것이다.
+        case accentText
         case pathEdge
     }
 
@@ -88,7 +80,7 @@ struct SkinColor: ShapeStyle {
     static let background = SkinColor(role: .background)
     static let accent = SkinColor(role: .accent)
     static let accentForeground = SkinColor(role: .accentForeground)
-    static let patternInk = SkinColor(role: .patternInk)
+    static let accentText = SkinColor(role: .accentText)
     static let pathEdge = SkinColor(role: .pathEdge)
 
     func resolve(in environment: EnvironmentValues) -> Color {
@@ -102,7 +94,7 @@ struct SkinColor: ShapeStyle {
             Skin.backgroundToken(environment.skinLevel, highContrast: environment.colorSchemeContrast == .increased)
         case .accent: .accentColor
         case .accentForeground: .accentForeground
-        case .patternInk: .patternInk
+        case .accentText: .accentText
         case .pathEdge: .pathEdge
         }
     }
@@ -117,7 +109,7 @@ final class SkinStore {
     static let shared = SkinStore()
 
     var progress: ProgressStore?
-    /// `-skinDebug <id>`: 저장 상태와 상관없이 메모리에서만 쓰는 스킨 (8.3). DEBUG 빌드 전용.
+    /// `-skinDebug <id>`: 저장 상태와 상관없이 메모리에서만 쓰는 스킨 (8.3). 색 id나 아이템 id. DEBUG 빌드 전용.
     var debugSkinID: String?
 
     @ObservationIgnored let catalog: SkinCatalog
@@ -127,7 +119,7 @@ final class SkinStore {
     }
 
     var current: Skin {
-        if let id = debugSkinID, let skin = catalog.skin(id: id) { return skin }
+        if let id = debugSkinID, let skin = catalog.skin(idOrItemID: id) { return skin }
         guard let rewards = progress?.rewards else { return catalog.defaultSkin }
         return catalog.skin(for: rewards)
     }
@@ -148,18 +140,12 @@ enum SkinDebug {
 // MARK: - 바탕
 
 extension View {
-    /// 화면 뿌리에 붙인다: 단계 바탕색, 무늬(강·중), `skinLevel` 내려 주기 (4.1).
+    /// 화면 뿌리에 붙인다: 단계 바탕색, `skinLevel` 내려 주기 (4.1).
     func skinBackground(_ level: SkinLevel) -> some View {
         modifier(SkinBackgroundModifier(level: level))
     }
 
-    /// 강·중 화면의 아래 고정 영역 (1.3): 무늬를 가리는 단색 바탕과 위 16pt 그라데이션.
-    /// 무늬가 보이지 않는 화면(기본 스킨, 약 단계, 대비 증가)에서는 아무것도 그리지 않는다.
-    func skinFixedBottom() -> some View {
-        modifier(SkinFixedBottomModifier())
-    }
-
-    /// 앱 루트: 저장된 스킨을 환경값으로 내리고 강조색을 `tint`로 건다 (8.3).
+    /// 앱 루트: 저장된 스킨을 환경값으로 내리고 강조 글자·선 색을 `tint`로 건다 (1.1, 8.3).
     func skinRoot() -> some View {
         modifier(SkinRootModifier())
     }
@@ -171,7 +157,7 @@ private struct SkinRootModifier: ViewModifier {
         // tint는 Color로 준다. 툴바(UIKit 바 버튼)가 사용자 ShapeStyle tint를 다르게 합성했다.
         content
             .environment(\.skin, skin)
-            .tint(skin.dynamicColor(.accentColor))
+            .tint(skin.dynamicColor(.accentText))
     }
 }
 
@@ -188,79 +174,17 @@ private struct SkinBackgroundModifier: ViewModifier {
     }
 }
 
-/// 바탕색 + 무늬 층. 무늬는 화면에 고정되고 내용과 함께 스크롤되지 않는다.
+/// 단계 바탕색 한 장. 무늬 층은 2026-11-21 색상 선택 개정에서 뺐다(6번. 무늬 에셋은 B가 정해질 때까지 남긴다).
 struct SkinBackdrop: View {
     let level: SkinLevel
-    /// 무늬 타일 크기 배율 (스킨 썸네일 띠는 0.5, 5.2).
-    var tileScale: CGFloat = 1
 
     @Environment(\.skin) private var skin
     @Environment(\.colorScheme) private var scheme
     @Environment(\.colorSchemeContrast) private var contrast
 
     var body: some View {
-        let mode = SkinMode(scheme)
-        let highContrast = contrast == .increased
-        let opacity = skin.patternOpacity(mode, level: level, highContrast: highContrast, catalog: SkinCatalog.shared)
-        ZStack(alignment: .topLeading) {
-            Rectangle().fill(skin.paint(Skin.backgroundToken(level, highContrast: highContrast), mode: mode))
-            if opacity > 0, let pattern = skin.pattern {
-                SkinPatternLayer(asset: pattern, ink: skin.rgb(.patternInk, mode: mode).color, tileScale: tileScale)
-                    .opacity(opacity)
-                    .id(skin.id)
-                    .transition(.opacity)
-            }
-        }
-        .accessibilityHidden(true)
-    }
-}
-
-/// 이어 붙는 무늬 타일 (6.3). 타일 원점은 이 층의 왼쪽 위다.
-struct SkinPatternLayer: View {
-    let asset: String
-    let ink: Color
-    var tileScale: CGFloat = 1
-
-    var body: some View {
-        if UIImage(named: asset) != nil, tileScale > 0 {
-            GeometryReader { geo in
-                Image(asset)
-                    .renderingMode(.template)
-                    .resizable(resizingMode: .tile)
-                    .foregroundStyle(ink)
-                    .frame(width: geo.size.width / tileScale, height: geo.size.height / tileScale, alignment: .topLeading)
-                    .scaleEffect(tileScale, anchor: .topLeading)
-            }
-            .allowsHitTesting(false)
-        }
-    }
-}
-
-private struct SkinFixedBottomModifier: ViewModifier {
-    @Environment(\.skin) private var skin
-    @Environment(\.skinLevel) private var level
-    @Environment(\.colorScheme) private var scheme
-    @Environment(\.colorSchemeContrast) private var contrast
-
-    /// 무늬에서 단색으로 이어지는 높이 (1.3).
-    static let fade: CGFloat = 16
-
-    func body(content: Content) -> some View {
-        let opacity = skin.patternOpacity(SkinMode(scheme), level: level, highContrast: contrast == .increased,
-                                          catalog: SkinCatalog.shared)
-        content.background(alignment: .top) {
-            if opacity > 0 {
-                Rectangle()
-                    .fill(SkinColor.background)
-                    .ignoresSafeArea(edges: .bottom)
-                    .overlay(alignment: .top) {
-                        Rectangle()
-                            .fill(SkinColor.background)
-                            .mask(LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom))
-                            .frame(height: Self.fade)
-                            .offset(y: -Self.fade)
-                    }
-            }
-        }
+        Rectangle()
+            .fill(skin.paint(Skin.backgroundToken(level, highContrast: contrast == .increased), mode: SkinMode(scheme)))
+            .accessibilityHidden(true)
     }
 }
