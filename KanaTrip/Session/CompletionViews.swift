@@ -54,7 +54,7 @@ struct StepDoneView: View {
                 Button(action: onClose) {
                     Text(L.stopHere)
                         .font(.headline)
-                        .foregroundStyle(SkinColor.accent)
+                        .foregroundStyle(SkinColor.accentText)
                         .padding(.horizontal, 16)
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
@@ -139,7 +139,7 @@ struct SceneDoneView: View {
                 Button(action: onCustomize) {
                     Text(L.customize)
                         .font(.headline)
-                        .foregroundStyle(SkinColor.accent)
+                        .foregroundStyle(SkinColor.accentText)
                         .padding(.horizontal, 16)
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
@@ -175,15 +175,26 @@ struct SceneDoneView: View {
                             VStack(spacing: 2) {
                                 Group {
                                     if item.slot == SkinPolicy.slot {
-                                        // 스킨 아이템은 스킨 썸네일 44pt판 (app-skin.md 4.5, 5.2).
-                                        SkinThumbnail(skin: SkinCatalog.shared.skin(itemID: item.id), size: 44)
+                                        // 색 아이템은 44pt 칸 가운데 견본 30pt (app-skin.md 5.4).
+                                        SkinSwatch(skin: SkinCatalog.shared.skin(itemID: item.id), size: 30)
+                                            .frame(width: 44, height: 44)
                                     } else {
                                         ItemThumbnail(item: item, size: 44)
                                     }
                                 }
                                 .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
                                 .cardOutline(cornerRadius: 10)
-                                ItemNameRuby(item: item, learned: learned)
+                                if item.slot == SkinPolicy.slot {
+                                    // 발음 표기 줄은 비우고 "{색 이름} 색" (5.4).
+                                    VStack(spacing: 0) {
+                                        Color.clear.frame(height: 12)
+                                        Text(L.skinColorName(SkinCatalog.shared.skin(itemID: item.id).nameKo))
+                                            .font(.system(size: 15))
+                                            .frame(height: 20)
+                                    }
+                                } else {
+                                    ItemNameRuby(item: item, learned: learned)
+                                }
                             }
                         }
                     }
@@ -197,7 +208,11 @@ struct SceneDoneView: View {
 
     private func itemsLabel(header: String, items: [RewardItem]) -> AttributedString {
         items.reduce(AttributedString(header)) { label, item in
-            label + AttributedString(", ") + KanaText.japanese(item.kana ?? "") + AttributedString(" \(item.nameKo)")
+            if item.slot == SkinPolicy.slot {
+                // 색 아이템은 "{색 이름} 색" (app-skin.md 5.4).
+                return label + AttributedString(", " + L.skinColorName(SkinCatalog.shared.skin(itemID: item.id).nameKo))
+            }
+            return label + AttributedString(", ") + KanaText.japanese(item.kana ?? "") + AttributedString(" \(item.nameKo)")
         }
     }
 }
@@ -264,7 +279,6 @@ private struct CompletionLayout<Texts: View, Detail: View, Buttons: View>: View 
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
                 .padding(.bottom, 8)
-                .skinFixedBottom()
         }
         .skinBackground(level)
     }

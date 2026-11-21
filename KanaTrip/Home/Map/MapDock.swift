@@ -76,9 +76,9 @@ struct MapDock: View {
                         .minimumScaleFactor(0.8)
                 }
             }
-            .foregroundStyle(SkinColor.accent)
+            .foregroundStyle(SkinColor.accentText)
             .frame(width: side, height: side)
-            .background(SkinColor.accent.opacity(0.12), in: shape)
+            .background(SkinColor.accentText.opacity(0.12), in: shape)
             .contentShape(shape)
         }
         .buttonStyle(MapPressStyle())

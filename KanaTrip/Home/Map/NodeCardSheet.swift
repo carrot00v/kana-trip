@@ -61,7 +61,7 @@ struct NodeCardSheet: View {
                     } label: {
                         Text(L.allSceneWords)
                             .font(.headline)
-                            .foregroundStyle(SkinColor.accent)
+                            .foregroundStyle(SkinColor.accentText)
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .contentShape(Rectangle())
                     }
@@ -103,7 +103,7 @@ struct NodeCardSheet: View {
         HStack(spacing: 6) {
             switch state {
             case .current:
-                Image(systemName: turnSymbol).foregroundStyle(SkinColor.accent)
+                Image(systemName: turnSymbol).foregroundStyle(SkinColor.accentText)
                 Text(isInProgress ? L.nodeResume : L.nodeMyTurn)
             case .completed:
                 Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.correct)

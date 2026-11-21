@@ -1,5 +1,5 @@
 {
-  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2, 7번). 꾸미기 종류는 top(머리)·filling(속재료)·rice(밥)·background(앱 스킨. 아이템 id로 skins.json의 스킨을 찾는다. 키가 없으면 기본 스킨) 4개(2026-11-16, 스킨 2026-11-21). 기본 차림은 chef_hat + plain_rice. 히라가나 16개, 장면 순서. 장면의 종합 퀴즈를 처음 통과하면 그 장면의 두 아이템이 열린다. layer는 속재료만: back(본체 뒤, 기본) 또는 front(본체 앞). 요음(しゃ, じゅ)은 한 칸으로 묶고, 앞 글자를 배웠으면 읽을 수 있는 칸으로 센다(PLAN.md 8번 임시 규칙). 한자 칸은 kanji: true. 밥 색·무늬는 tools/make_onigiri_svg.py의 RICES에만 둔다.",
+  "_comment": "리워드 아이템 (docs/content/reward-system.md 1.4, 4.2, 7번). 꾸미기 종류는 top(머리)·filling(속재료)·rice(밥)·background(앱 색. 아이템 id로 skins.json의 색을 찾는다. 키가 없으면 기본 색) 4개(2026-11-16, 스킨 2026-11-21). 기본 차림은 chef_hat + plain_rice. 히라가나 16개, 장면 순서. 장면의 종합 퀴즈를 처음 통과하면 그 장면의 두 아이템이 열린다. layer는 속재료만: back(본체 뒤, 기본) 또는 front(본체 앞). 요음(しゃ, じゅ)은 한 칸으로 묶고, 앞 글자를 배웠으면 읽을 수 있는 칸으로 센다(PLAN.md 8번 임시 규칙). 한자 칸은 kanji: true. 밥 색·무늬는 tools/make_onigiri_svg.py의 RICES에만 둔다.",
   "items": [
     {
       "id": "chef_hat",

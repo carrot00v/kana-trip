@@ -89,7 +89,7 @@ struct HomeView: View {
                     } label: {
                         Image(systemName: "ellipsis.circle")
                             // 툴바 안에서는 사용자 ShapeStyle이 다르게 합성되어 Color로 준다(홈은 늘 저장된 스킨).
-                            .foregroundStyle(SkinStore.shared.current.dynamicColor(.accentColor))
+                            .foregroundStyle(SkinStore.shared.current.dynamicColor(.accentText))
                     }
                     .accessibilityLabel(L.more)
                 }

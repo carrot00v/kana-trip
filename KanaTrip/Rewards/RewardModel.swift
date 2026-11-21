@@ -12,8 +12,8 @@ enum RewardSlot: String, Codable, CaseIterable {
     case filling
     /// 몸(밥)의 색과 무늬. 기본은 흰 밥이고 비울 수 없다.
     case rice
-    /// 앱 스킨. 아이템 id로 skins.json의 스킨을 찾는다. 키가 없으면 기본 스킨 (app-skin.md 8.1).
-    /// 아이템 그림은 꾸미기 화면 미리보기의 기리 뒤에만 그린다. 저장 키 `background`는 그대로 둔다.
+    /// 앱 색. 아이템 id로 skins.json의 색을 찾는다. 키가 없으면 기본 색 (app-skin.md 8.1).
+    /// 2026-11-21 색상 선택 개정부터 아이템 그림은 그리지 않는다(B 결정 전). 저장 키 `background`는 그대로 둔다.
     case background
 
     /// 기본 차림의 아이템 (reward-system.md 1.4). 없으면 기본이 빈 슬롯이다.

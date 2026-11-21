@@ -16,11 +16,11 @@ enum SkinPolicy {
 
 /// 화면의 스킨 강도 (app-skin.md 4.1).
 enum SkinLevel: String, CaseIterable, Sendable {
-    /// H, K, C2. 바탕 + 무늬 × 1.
+    /// H, K, C2. `AppBackground`.
     case strong
-    /// S, C1, QI, I. 바탕 + 무늬 × 0.5.
+    /// S, C1, QI, I. `AppBackground`. 무늬가 빠져(2026-11-21) 강과 같지만, B(배경 활용안)를 위해 나눠 둔다(4.1).
     case medium
-    /// L1, L2, W, QA, QD, QC. 옅은 바탕, 무늬 없음.
+    /// L1, L2, W, QA, QD, QC. 옅은 바탕 `AppBackgroundQuiet`.
     case quiet
     /// `.sheet`. 바탕 단색.
     case sheet
@@ -32,7 +32,8 @@ enum SkinToken: String, CaseIterable, Sendable {
     case appBackgroundQuiet = "AppBackgroundQuiet"
     case accentColor = "AccentColor"
     case accentForeground = "AccentForeground"
-    case patternInk = "PatternInk"
+    /// 강조 글자·선(진행 막대, 보조 버튼, 글자 버튼, 링크, 번호 원 등). 면은 `accentColor` (1.1).
+    case accentText = "AccentText"
     case pathEdge = "PathEdge"
 }
 
@@ -169,24 +170,14 @@ struct Skin: Identifiable, Equatable, Sendable {
     let id: String
     /// 이 스킨을 여는 리워드 아이템 id. 기본 스킨은 nil.
     let itemID: String?
-    /// 검사 출력과 디버그용 이름. 화면에는 쓰지 않는다.
+    /// 화면에 쓰는 색 이름(기본, 파랑, 청록, 주황, 보라. 3.1).
     let nameKo: String
     let colors: [SkinToken: SkinColorPair]
-    let patternOpacityLight: Double
-    let patternOpacityDark: Double
-    /// 무늬 타일 에셋 이름. nil이면 무늬가 없다.
-    let pattern: String?
-    /// K 미리보기의 기리 뒤 그림 에셋 이름.
-    let giriBackdrop: String?
 
     var isDefault: Bool { id == Self.defaultID }
 
     func color(_ token: SkinToken, _ mode: SkinMode) -> SkinRGB? {
         colors[token]?.value(mode)
-    }
-
-    func patternOpacity(_ mode: SkinMode) -> Double {
-        mode == .light ? patternOpacityLight : patternOpacityDark
     }
 
     /// 단계에 맞는 바탕 토큰 (4.1). 대비 증가면 강·중 화면도 `AppBackgroundQuiet`(2.5).
@@ -197,22 +188,14 @@ struct Skin: Identifiable, Equatable, Sendable {
         case .sheet: .appBackground
         }
     }
-
-    /// 단계와 설정에 맞는 무늬 불투명도. 무늬가 없거나 대비 증가면 0.
-    func patternOpacity(_ mode: SkinMode, level: SkinLevel, highContrast: Bool, catalog: SkinCatalog) -> Double {
-        guard pattern != nil, colors[.patternInk] != nil, !highContrast else { return 0 }
-        return patternOpacity(mode) * catalog.patternScale(level)
-    }
 }
 
 /// `skins.json` 전체 (7.2, 7.3).
 struct SkinCatalog: Sendable {
     /// 앱이 아는 스키마 버전.
-    static let supportedSchemaVersion = 1
+    static let supportedSchemaVersion = 2
 
     let schemaVersion: Int
-    /// 단계별 무늬 배율.
-    let patternScales: [SkinLevel: Double]
     /// 스킨을 바꿀 때의 교차 페이드(초).
     let skinCrossfade: Double
     let base: [SkinBaseToken: SkinColorPair]
@@ -223,9 +206,12 @@ struct SkinCatalog: Sendable {
 
     var defaultSkin: Skin { skins.first { $0.isDefault } ?? Self.fallbackDefault }
 
-    func patternScale(_ level: SkinLevel) -> Double { patternScales[level] ?? 0 }
-
     func skin(id: String) -> Skin? { skins.first { $0.id == id } }
+
+    /// 색 id 또는 아이템 id로 찾는다(`-skinDebug orange`와 `-skinDebug torii`가 같다, 8.3).
+    func skin(idOrItemID key: String) -> Skin? {
+        skin(id: key) ?? skins.first { $0.itemID == key }
+    }
 
     /// 아이템 id로 찾는다. 없거나 nil이면 기본 스킨.
     func skin(itemID: String?) -> Skin {
@@ -238,7 +224,7 @@ struct SkinCatalog: Sendable {
         skin(itemID: rewards.equippedID(SkinPolicy.slot))
     }
 
-    /// 스킨 칸 순서: 기본 → 아이템 순서 (5.2). 데이터 순서가 그 순서다.
+    /// 견본 순서: 기본 → 장면 순서 (3.1, 5.2). 데이터 순서가 그 순서다.
     var orderedSkins: [Skin] { skins }
 
     // MARK: - 읽기
@@ -260,10 +246,10 @@ struct SkinCatalog: Sendable {
 
     private static var isRunningTests: Bool { NSClassFromString("XCTestCase") != nil }
 
-    /// 파일 전체를 못 쓰면 nil (스키마 버전이 크거나, 기본 스킨이 없거나, 고정 토큰이 빠짐).
+    /// 파일 전체를 못 쓰면 nil (스키마 버전이 2가 아니거나, 기본 스킨이 없거나, 고정 토큰이 빠짐. 7.3).
     init?(data: Data) {
         guard let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
-              let version = root["schemaVersion"] as? Int, version <= Self.supportedSchemaVersion,
+              let version = root["schemaVersion"] as? Int, version == Self.supportedSchemaVersion,
               let baseObject = root["base"] as? [String: Any],
               let skinArray = root["skins"] as? [[String: Any]]
         else { return nil }
@@ -274,12 +260,6 @@ struct SkinCatalog: Sendable {
             base[token] = pair
         }
 
-        var scales: [SkinLevel: Double] = [:]
-        let levels = root["levels"] as? [String: Any] ?? [:]
-        for level in SkinLevel.allCases {
-            let scale = (levels[level.rawValue] as? [String: Any])?["patternScale"] as? Double
-            scales[level] = scale ?? Self.fallbackScales[level]
-        }
         let crossfade = ((root["motion"] as? [String: Any])?["skinCrossfade"] as? Double) ?? 0.3
 
         var skins: [Skin] = []
@@ -295,17 +275,15 @@ struct SkinCatalog: Sendable {
         guard skins.first?.isDefault == true else { return nil }
 
         self.schemaVersion = version
-        self.patternScales = scales
         self.skinCrossfade = crossfade
         self.base = base
         self.skins = skins
         self.dropped = dropped
     }
 
-    init(schemaVersion: Int, patternScales: [SkinLevel: Double], skinCrossfade: Double,
+    init(schemaVersion: Int, skinCrossfade: Double,
          base: [SkinBaseToken: SkinColorPair], skins: [Skin], dropped: [String] = []) {
         self.schemaVersion = schemaVersion
-        self.patternScales = patternScales
         self.skinCrossfade = skinCrossfade
         self.base = base
         self.skins = skins
@@ -327,46 +305,21 @@ struct SkinCatalog: Sendable {
         return pair
     }
 
-    /// 스킨 하나. 필수 값이 빠졌으면 nil (7.3).
+    /// 스킨 하나. 필수 값(`id`, `nameKo`, 여섯 토큰의 light·dark)이 빠졌으면 nil (7.3). 모르는 키는 무시한다.
     private static func skin(_ object: [String: Any]) -> Skin? {
         guard let id = object["id"] as? String, !id.isEmpty,
-              let nameKo = object["nameKo"] as? String,
-              let colorObject = object["colors"] as? [String: Any],
-              let opacity = object["patternOpacity"] as? [String: Any],
-              let opacityLight = (opacity["light"] as? NSNumber)?.doubleValue,
-              let opacityDark = (opacity["dark"] as? NSNumber)?.doubleValue,
-              let images = object["images"] as? [String: Any],
-              images.keys.contains("pattern"), images.keys.contains("giriBackdrop")
+              let nameKo = object["nameKo"] as? String, !nameKo.isEmpty,
+              let colorObject = object["colors"] as? [String: Any]
         else { return nil }
-        let isDefault = id == Skin.defaultID
         var colors: [SkinToken: SkinColorPair] = [:]
         for token in SkinToken.allCases {
-            guard colorObject.keys.contains(token.rawValue) else { return nil }
-            if let pair = pair(colorObject[token.rawValue]) {
-                colors[token] = pair
-            } else if !(token == .patternInk && isDefault && colorObject[token.rawValue] is NSNull) {
-                // 기본 스킨만 PatternInk가 null일 수 있다.
-                return nil
-            }
+            guard let pair = pair(colorObject[token.rawValue]) else { return nil }
+            colors[token] = pair
         }
-        let pattern = images["pattern"] as? String
-        // 무늬가 있는데 무늬 색이 없으면 그릴 수 없다.
-        if pattern != nil, colors[.patternInk] == nil { return nil }
-        return Skin(
-            id: id,
-            itemID: object["itemID"] as? String,
-            nameKo: nameKo,
-            colors: colors,
-            patternOpacityLight: opacityLight,
-            patternOpacityDark: opacityDark,
-            pattern: pattern,
-            giriBackdrop: images["giriBackdrop"] as? String
-        )
+        return Skin(id: id, itemID: object["itemID"] as? String, nameKo: nameKo, colors: colors)
     }
 
     // MARK: - 파일을 못 읽을 때 (에셋 카탈로그의 Color Set과 같은 값)
-
-    private static let fallbackScales: [SkinLevel: Double] = [.strong: 1, .medium: 0.5, .quiet: 0, .sheet: 0]
 
     private static func hex(_ light: String, _ dark: String) -> SkinColorPair {
         SkinColorPair(light: SkinRGB(hex: light)!, dark: SkinRGB(hex: dark)!)
@@ -378,20 +331,16 @@ struct SkinCatalog: Sendable {
         nameKo: "기본",
         colors: [
             .appBackground: hex("#FDF5E6", "#1F1714"),
-            .appBackgroundQuiet: hex("#FDF5E6", "#1F1714"),
+            .appBackgroundQuiet: hex("#FBF2E1", "#1F1714"),
             .accentColor: hex("#4A2219", "#F7EEDF"),
             .accentForeground: hex("#FFFDF7", "#1F1714"),
+            .accentText: hex("#4A2219", "#F7EEDF"),
             .pathEdge: hex("#E6D6BC", "#4A3A32"),
-        ],
-        patternOpacityLight: 0,
-        patternOpacityDark: 0,
-        pattern: nil,
-        giriBackdrop: nil
+        ]
     )
 
     static let fallback = SkinCatalog(
         schemaVersion: supportedSchemaVersion,
-        patternScales: fallbackScales,
         skinCrossfade: 0.3,
         base: [:],
         skins: [fallbackDefault]
