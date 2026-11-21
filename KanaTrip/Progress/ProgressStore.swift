@@ -111,7 +111,8 @@ final class ProgressStore {
     init(
         storage: ProgressStorage = FileProgressStorage(),
         library: ContentLibrary = .shared,
-        rewardCatalog: RewardCatalog? = nil
+        rewardCatalog: RewardCatalog? = nil,
+        skins: SkinCatalog = .shared
     ) {
         self.storage = storage
         self.library = library
@@ -121,6 +122,8 @@ final class ProgressStore {
         self.rewardCatalog = catalog
         let loaded = storage.load()
         var state = Self.migrated(loaded)
+        // 옛 색 저장(equipped["background"] = 아이템 id)을 `skin`(색 id)으로 옮긴다. sanitized 전에 (app-skin.md 개정 2).
+        skins.migrateSkin(&state.rewards)
         // 완료했는데 지급하지 않은 지점에 지급하고, 목록에 없는 아이템과 옛 슬롯 키를 버린다 (reward-system.md 6.2, 6.4).
         _ = RewardRules.settle(completedSessions: state.completedSessionIDs, state: &state.rewards, catalog: catalog)
         state.rewards = RewardRules.sanitized(state.rewards, catalog: catalog)
@@ -265,16 +268,24 @@ final class ProgressStore {
         commit(next)
     }
 
-    #if DEBUG
-    /// `-skinDebug`(메모리 진도 실행)용: 아이템을 가진 것으로 하고 입힌다. 장면 열림·엔은 건드리지 않는다.
-    func debugOwnAndEquip(_ itemID: String) {
-        guard let item = rewardCatalog.item(id: itemID) else { return }
+    /// 앱 색을 쓴다. 기본이면 nil (app-skin.md 5.3).
+    func setSkin(_ skinID: String?) {
         var next = state
-        if !next.rewards.owned.contains(itemID) { next.rewards.owned.append(itemID) }
-        next.rewards.equipped[item.slot.rawValue] = itemID
+        RewardRules.setSkin(skinID, state: &next.rewards)
         commit(next)
     }
-    #endif
+
+    /// 홈 바탕을 쓴다. nil이면 없음 (home-backdrop.md 4.3).
+    func setBackdrop(_ backdropID: String?) {
+        var next = state
+        RewardRules.setBackdrop(backdropID, state: &next.rewards)
+        commit(next)
+    }
+
+    /// 끝낸 장면 id (`paid`의 `scene/{id}`. 진도 초기화에도 남는다). 홈 바탕 열림 판단에 쓴다 (home-backdrop.md 3).
+    var unlockedSceneIDs: Set<String> {
+        Set(rewardCatalog.sceneSessions.map(\.sceneID).filter { state.rewards.paid.contains(RewardRules.sceneUnlockKey($0)) })
+    }
 
     // MARK: - 쓰기 (SessionRun이 부른다)
 

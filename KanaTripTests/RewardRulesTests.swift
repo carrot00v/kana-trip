@@ -313,14 +313,17 @@ struct RewardDataTests {
         #expect(catalog.items(in: .rice).map(\.id) == ["plain_rice", "goma", "yakionigiri"])
     }
 
-    /// 장면마다 아이템 2개, 장면 안에서 슬롯이 겹치지 않는다. 모든 아이템은 앱의 장면에 묶인다 (reward-system.md "개편안 B 반영").
+    /// 데이터에는 장면마다 아이템 2개, 장면 안에서 슬롯이 겹치지 않는다. 모든 아이템은 앱의 장면에 묶인다 (reward-system.md "개편안 B 반영").
+    /// 색 아이템 4개를 팔지 않는 동안(app-skin.md 개정 2 Q1 임시 동작) 장면 1·4·5·7에서 열리는 아이템은 1개다.
     @Test func everySceneHasTwoItemsInDifferentSlots() {
         let scenes = ContentLibrary.shared.scenes
         #expect(Set(catalog.items.compactMap(\.sceneID)) == Set(scenes.map(\.id)))
         for scene in scenes {
-            let items = catalog.items(forScene: scene.id)
+            let items = catalog.items.filter { $0.sceneID == scene.id }
             #expect(items.count == 2, "\(scene.name)의 아이템 \(items.count)개")
             #expect(Set(items.map(\.slot)).count == items.count, "\(scene.name)의 아이템이 같은 슬롯")
+            let sold = catalog.items(forScene: scene.id)
+            #expect(sold.count == (SkinPolicy.sellsColorItems ? 2 : items.count { $0.slot != .background }))
         }
     }
 
@@ -418,8 +421,10 @@ struct RewardStorageTests {
         #expect(store.rewards.paid.count == 8)
         #expect(store.rewards.owned == ["noren"])
         #expect(store.rewards.version == RewardState.currentVersion)
-        #expect(store.rewards.equipped == ["top": "chef_hat", "rice": "plain_rice", "background": "noren"])
-        #expect(store.giriOutfit == GiriOutfit(background: "noren"))
+        // 색은 아이템 슬롯에서 `skin`으로 옮겨졌다 (app-skin.md 개정 2).
+        #expect(store.rewards.equipped == ["top": "chef_hat", "rice": "plain_rice"])
+        #expect(store.rewards.skin == "blue")
+        #expect(store.giriOutfit == GiriOutfit())
         // 고친 상태를 바로 저장해 옛 키가 남지 않는다.
         #expect(storage.saved?.rewards.equipped["hand"] == nil)
         #expect(storage.saved?.rewards.version == RewardState.currentVersion)

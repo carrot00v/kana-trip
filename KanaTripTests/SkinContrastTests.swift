@@ -155,22 +155,22 @@ struct SkinContrastTests {
         #expect(orange.rgb(.accentText, mode: .light).description == "#8A4208")
     }
 
-    /// 스킨에서 뺀 무늬 타일과 기리 뒤 그림은 B가 정해질 때까지 번들에 남긴다 (6번).
-    @Test func removedSkinImagesStayInBundleUntilBackdropDecision() {
+    /// 무늬 타일은 지웠고(개정 2, 6번), 기리 뒤 그림 4장은 Q1이 정해질 때까지 번들에 남긴다.
+    @Test func patternTilesRemovedItemArtKeptUntilQ1() {
         let bundle = Bundle(for: ProgressStore.self)
-        let names = ["seigaiha", "tenji", "asanoha", "tatewaku"].map { "skin-pattern-\($0)" }
-            + ["noren", "eki", "torii", "yu"].map { "Item-\($0)" }
-        for name in names {
+        for name in ["seigaiha", "tenji", "asanoha", "tatewaku"].map({ "skin-pattern-\($0)" }) {
+            #expect(UIImage(named: name, in: bundle, compatibleWith: nil) == nil, "\(name)")
+        }
+        for name in ["noren", "eki", "torii", "yu"].map({ "Item-\($0)" }) {
             #expect(UIImage(named: name, in: bundle, compatibleWith: nil) != nil, "\(name)")
         }
     }
 
-    /// 스킨 아이템은 rewards.json의 배경 슬롯 아이템과 하나씩 맞는다 (3.1).
-    @Test func everySkinItemIsABackgroundRewardItem() {
+    /// `itemID`는 옛 저장을 옮길 때만 읽는다. rewards.json의 배경 슬롯 아이템과 하나씩 맞는다 (개정 2, 7번).
+    @Test func everySkinItemIDIsABackgroundRewardItem() {
         let rewards = ProgressStore(storage: SkinTestStorage()).rewardCatalog
-        let backgroundIDs = rewards.items(in: .background).map(\.id)
+        let backgroundIDs = rewards.items.filter { $0.slot == .background }.map(\.id)
         #expect(catalog.skins.compactMap(\.itemID) == backgroundIDs)
-        #expect(rewards.items(in: .background).allSatisfy { $0.price == 300 })
     }
 
     @Test func allSkinsPassContrastAndDistanceRules() {
@@ -353,18 +353,29 @@ struct SkinStoreTests {
         #expect(skin(s).isDefault)
     }
 
-    /// 배경 아이템을 사서 쓰던 사용자(리워드 버전 2)는 업데이트 뒤 그 스킨이다. 저장 형식 이행은 없다.
-    @Test func existingBackgroundUserGetsThatSkin() {
-        let s = store(rewards: """
-        {"version": 2, "coins": 0, "paid": ["scene/sushi"], "owned": ["noren"],
-         "equipped": {"top": "chef_hat", "rice": "plain_rice", "background": "noren"}}
-        """)
-        #expect(s.rewards.equippedID(.background) == "noren")
-        #expect(skin(s).id == "blue")
-        #expect(s.rewards.version == RewardState.currentVersion)
+    /// 옛 저장(배경 아이템을 쓰던 사용자, 리워드 버전 2)을 읽으면 그 색이고, 다시 저장하면 `skin`에 색 id가 있다 (개정 2 저장 이전).
+    @Test func existingBackgroundUserIsMigratedToSkinID() throws {
+        let storage = SkinTestStorage()
+        storage.raw = Data("""
+        {"version": \(ProgressState.currentVersion), "sessions": {},
+         "rewards": {"version": 2, "coins": 0, "paid": ["scene/shrine"], "owned": ["torii"],
+                     "equipped": {"top": "chef_hat", "rice": "plain_rice", "background": "torii"}}}
+        """.utf8)
+        let s = ProgressStore(storage: storage)
+        #expect(skin(s).id == "orange")
+        #expect(s.rewards.skin == "orange")
+        // 색은 아이템 슬롯이 아니다. owned와 엔은 그대로 (Q2).
+        #expect(s.rewards.equipped["background"] == nil)
+        #expect(s.rewards.owned == ["torii"])
+        let saved = try #require(storage.saved)
+        #expect(saved.rewards.skin == "orange")
+        let data = try JSONEncoder().encode(saved)
+        #expect(String(decoding: data, as: UTF8.self).contains("\"skin\":\"orange\""))
+        // 다시 읽어도 같다.
+        #expect(skin(ProgressStore(storage: storage)).id == "orange")
     }
 
-    /// 꾸미기 개편 전 저장(리워드 버전 없음 = 1)에서 배경을 쓰던 사용자도 그 스킨으로 이어진다.
+    /// 꾸미기 개편 전 저장(리워드 버전 없음 = 1)에서 배경을 쓰던 사용자도 그 색으로 옮긴다.
     @Test func oldVersionBackgroundUserGetsThatSkin() {
         let s = store(rewards: """
         {"coins": 0, "paid": ["scene/shrine"], "owned": ["torii"],
@@ -373,48 +384,64 @@ struct SkinStoreTests {
         #expect(skin(s).id == "orange")
     }
 
-    /// 산 뒤 쓰지 않는 사용자, 갖지 않은 아이템을 입은 저장, 목록에 없는 id는 기본 스킨.
-    @Test func notWearingOrInvalidMeansDefault() {
-        let owned = store(rewards: """
-        {"version": 2, "owned": ["eki"], "equipped": {"top": "chef_hat", "rice": "plain_rice"}}
+    /// `skin` 키가 있으면 옛 값보다 앞선다. 목록에 없는 색 id는 기본으로 그리되 지우지 않는다.
+    @Test func skinKeyWinsAndUnknownIsKept() {
+        let both = store(rewards: """
+        {"version": 2, "skin": "purple", "owned": [], "equipped": {"top": "chef_hat", "rice": "plain_rice", "background": "noren"}}
         """)
-        #expect(skin(owned).isDefault)
-        let notOwned = store(rewards: """
-        {"version": 2, "owned": [], "equipped": {"top": "chef_hat", "rice": "plain_rice", "background": "yu"}}
-        """)
-        #expect(skin(notOwned).isDefault)
+        #expect(skin(both).id == "purple")
         let unknown = store(rewards: """
-        {"version": 2, "owned": ["ghost"], "equipped": {"background": "ghost"}}
+        {"version": 2, "skin": "ghost", "owned": []}
         """)
         #expect(skin(unknown).isDefault)
+        #expect(unknown.rewards.skin == "ghost")
+        let unknownItem = store(rewards: """
+        {"version": 2, "owned": ["ghost"], "equipped": {"background": "ghost"}}
+        """)
+        #expect(skin(unknownItem).isDefault)
+        #expect(unknownItem.rewards.skin == nil)
     }
 
-    /// 쓰는 스킨을 바꾸면 곧바로 그 스킨이고, 기본 칸(슬롯 비우기)은 키를 지운다 (5.3).
-    @Test func equipAndClearChangeSkin() throws {
-        let s = store(rewards: """
-        {"version": 2, "owned": ["noren", "eki"], "equipped": {"top": "chef_hat", "rice": "plain_rice", "background": "noren"}}
-        """)
+    /// 새 사용자도 아무 장면 없이 다섯 색을 모두 쓸 수 있다. 기본을 고르면 키를 지운다 (5.3).
+    @Test func anyColorCanBeUsedWithoutScenes() {
+        let s = ProgressStore(storage: SkinTestStorage())
         let skins = SkinStore(catalog: catalog)
         skins.progress = s
-        #expect(skins.current.id == "blue")
-        s.equip(try #require(s.rewardCatalog.item(id: "eki")))
-        #expect(skins.current.id == "teal")
-        s.clearSlot(.background)
-        #expect(s.rewards.equipped["background"] == nil)
+        for color in catalog.orderedSkins {
+            s.setSkin(color.isDefault ? nil : color.id)
+            #expect(skins.current.id == color.id)
+        }
+        s.setSkin("blue")
+        s.setSkin(Skin.defaultID)
+        #expect(s.rewards.skin == nil)
         #expect(skins.current.isDefault)
+        #expect(s.rewards.coins == 0)
     }
 
-    /// "기본 차림으로"는 스킨을 건드리지 않고, 스킨만 바뀐 상태는 기본 차림이다 (5.5, 권장안).
+    /// 색 아이템은 팔지 않는다(Q1 결정 전 임시 동작): 장면 1을 끝내도 열린 아이템·살 수 있음에 색이 없다.
+    @Test func colorItemsAreNotSoldBeforeQ1() {
+        let s = store(rewards: """
+        {"version": 2, "coins": 900, "paid": [], "owned": []}
+        """, sessions: "\"sushi-a\": \(done), \"sushi-b\": \(done), \"sushi-quiz\": \(done)")
+        #expect(!SkinPolicy.sellsColorItems)
+        let catalog = s.rewardCatalog
+        #expect(catalog.items(forScene: "sushi").allSatisfy { $0.slot != .background })
+        #expect(catalog.items(in: .background).isEmpty)
+        #expect(RewardRules.buyableItems(state: s.rewards, catalog: catalog).allSatisfy { $0.slot != .background })
+        // 데이터에는 남아 있다(옛 owned를 지우지 않으려고).
+        #expect(catalog.item(id: "noren") != nil)
+    }
+
+    /// "기본 차림으로"는 색을 건드리지 않고, 색만 바뀐 상태는 기본 차림이다 (5.5, 권장안).
     @Test func resetOutfitKeepsSkin() {
         let s = store(rewards: """
-        {"version": 2, "owned": ["noren", "tamago"], "equipped": {"top": "tamago", "rice": "plain_rice", "background": "noren"}}
+        {"version": 2, "skin": "blue", "owned": ["tamago"], "equipped": {"top": "tamago", "rice": "plain_rice"}}
         """, sessions: "\"sushi-a\": \(done), \"sushi-b\": \(done), \"sushi-quiz\": \(done)")
         #expect(!s.rewards.isDefaultOutfit)
         s.resetOutfit()
         #expect(s.rewards.equippedID(.top) == "chef_hat")
-        #expect(s.rewards.isDefaultOutfit == SkinPolicy.resetOutfitKeepsSkin)
-        #expect((s.rewards.equippedID(.background) == "noren") == SkinPolicy.resetOutfitKeepsSkin)
-        #expect(skin(s).id == (SkinPolicy.resetOutfitKeepsSkin ? "blue" : "default"))
+        #expect(s.rewards.isDefaultOutfit)
+        #expect(skin(s).id == "blue")
     }
 
     /// 디버그 스킨은 저장 상태보다 앞선다(메모리에서만, 8.3).
@@ -424,7 +451,7 @@ struct SkinStoreTests {
         skins.progress = s
         skins.debugSkinID = "purple"
         #expect(skins.current.id == "purple")
-        #expect(s.rewards.equipped["background"] == nil)
+        #expect(s.rewards.skin == nil)
         // 아이템 id도 받는다(`-skinDebug torii` = `-skinDebug orange`, 8.3).
         skins.debugSkinID = "torii"
         #expect(skins.current.id == "orange")

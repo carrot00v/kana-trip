@@ -9,9 +9,15 @@ enum SkinPolicy {
     static let resetOutfitKeepsSkin = true
     /// 9.2의 2: 학습·퀴즈 화면(L1, L2, W, QA, QD, QC)의 스킨 강도(4.1).
     static let learningLevel: SkinLevel = .quiet
-    /// 9.2의 5: 스킨을 저장하는 슬롯. 저장 키는 `background` 그대로다(8.1).
+    /// K의 "스킨" 탭 자리. 개정 2부터 탭 자리로만 쓴다(저장은 `RewardState.skin`·`backdrop`).
     static let slot: RewardSlot = .background
-    // 9.2의 3(스킨 수)은 skins.json, 6(값 300엔)은 rewards.json, 4(스킨별 앱 아이콘 없음)는 코드가 없다.
+    /// 개정 2의 Q1(색을 열던 아이템 4개): 결정 전 임시 동작은 "가. 팔지 않는다".
+    /// true로 바꾸면 rewards.json의 `slot: background` 아이템이 다시 열림·살 수 있음·C2·16장면 지급에 들어온다
+    /// (그때 K 격자에 칸을 어떻게 둘지는 Q1 결정에 따라 따로 정한다).
+    static let sellsColorItems = false
+    /// `RewardCatalog.retiredSlots`에 넣는 값.
+    static var retiredSlots: Set<RewardSlot> { sellsColorItems ? [] : [slot] }
+    // 9.2의 3(스킨 수)은 skins.json, 4(스킨별 앱 아이콘 없음)는 코드가 없다.
 }
 
 /// 화면의 스킨 강도 (app-skin.md 4.1).
@@ -219,9 +225,25 @@ struct SkinCatalog: Sendable {
         return skins.first { $0.itemID == itemID } ?? defaultSkin
     }
 
-    /// 저장 상태가 쓰는 스킨 (8.2). 슬롯 키가 없으면 기본 스킨.
+    /// 저장 상태가 쓰는 스킨 (개정 2): `rewards.skin`(색 id). 없거나 목록에 없으면 기본 스킨.
     func skin(for rewards: RewardState) -> Skin {
-        skin(itemID: rewards.equippedID(SkinPolicy.slot))
+        rewards.skin.flatMap(skin(id:)) ?? defaultSkin
+    }
+
+    /// 개정 2 "저장 이전"(한 번): `skin`이 없고 `equipped["background"]`가 색을 열던 아이템 id면 그 색 id를 `skin`에 옮긴다.
+    /// 색을 팔지 않는 동안(`SkinPolicy.sellsColorItems == false`)은 `equipped["background"]`를 지운다(이제 아이템 슬롯이 아니다).
+    /// `owned`와 엔은 건드리지 않는다(Q2). `RewardRules.sanitized` **전에** 부른다.
+    /// - Returns: 상태를 바꿨으면 true.
+    @discardableResult
+    func migrateSkin(_ rewards: inout RewardState) -> Bool {
+        let before = rewards
+        let key = SkinPolicy.slot.rawValue
+        if rewards.skin == nil, let itemID = rewards.equipped[key], !itemID.isEmpty,
+           let skin = skins.first(where: { $0.itemID == itemID }), !skin.isDefault {
+            rewards.skin = skin.id
+        }
+        if !SkinPolicy.sellsColorItems { rewards.equipped[key] = nil }
+        return rewards != before
     }
 
     /// 견본 순서: 기본 → 장면 순서 (3.1, 5.2). 데이터 순서가 그 순서다.

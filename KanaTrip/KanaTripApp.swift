@@ -19,14 +19,13 @@ struct KanaTripApp: App {
         #if DEBUG
         if let n = MapDebug.completedCount {
             let store = MapDebugProgress.store(completed: n)
-            // 메모리 진도에서는 스킨 아이템을 가진 채 입힌다. 꾸미기 화면에서 다른 칸을 눌러 볼 수 있다.
-            if let id = SkinDebug.skinID, let itemID = SkinCatalog.shared.skin(idOrItemID: id)?.itemID {
-                store.debugOwnAndEquip(itemID)
+            // 메모리 진도에서는 그 색을 저장 상태에 쓴다. 꾸미기 화면에서 다른 칸을 눌러 볼 수 있다.
+            if let id = SkinDebug.skinID, let skin = SkinCatalog.shared.skin(idOrItemID: id) {
+                store.setSkin(skin.id)
             }
             return store
         }
-        if let id = SkinDebug.skinID { SkinStore.shared.debugSkinID = id }
-        #endif
+        if let id = SkinDebug.skinID { SkinStore.shared.debugSkinID = id }        #endif
         return ProgressStore()
     }
 
