@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "_comment": "홈 바탕 (docs/design/home-backdrop.md). 순서 = 장면 순서 = K 칸 순서. 에셋은 Backdrop-{id}, BackdropThumb-{id}. opacity는 tools/make_backdrop_art.py가 계산해 쓴다. unlock: sceneComplete(장면을 처음 끝내면 열림, D1 가) 또는 all(처음부터 모두 열림, D1 나).",
+  "unlock": "sceneComplete",
+  "layout": {
+    "stripAspect": 2.0,
+    "fadeTop": 16,
+    "haloWidth": 2,
+    "artMatInset": 4,
+    "artMatCorner": 16,
+    "dotHaloDiameter": 8
+  },
+  "blend": {
+    "light": "multiply",
+    "dark": "screen"
+  },
+  "limits": {
+    "lightMinLuminance": 0.55,
+    "lightPercentile": 0.1,
+    "darkMaxLuminance": 0.045,
+    "darkPercentile": 99.9,
+    "lightOpacity": {
+      "min": 0.2,
+      "max": 0.4
+    },
+    "darkOpacity": {
+      "min": 0.06,
+      "max": 0.25
+    }
+  },
+  "backdrops": [
+    {"id": "sushi", "sceneID": "sushi", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "tonkatsu", "sceneID": "tonkatsu", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "soba", "sceneID": "soba", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "station", "sceneID": "station", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "shrine", "sceneID": "shrine", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "izakaya", "sceneID": "izakaya", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "onsen", "sceneID": "onsen", "opacity": {"light": 0.0, "dark": 0.0}},
+    {"id": "ryokan", "sceneID": "ryokan", "opacity": {"light": 0.0, "dark": 0.0}}
+  ]
+}

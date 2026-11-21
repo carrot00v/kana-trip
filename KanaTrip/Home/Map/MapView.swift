@@ -20,6 +20,7 @@ struct MapView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.colorSchemeContrast) private var contrast
 
     @State private var position = ScrollPosition(idType: String.self)
     @State private var visibleTop: CGFloat = 0
@@ -78,7 +79,9 @@ struct MapView: View {
                 scroll(to: .node(model.anchorNodeID(current: currentNodeID)), layout: layout, viewport: geo.size.height, animation: nil)
             }
         }
-        .background(MapPalette.groundLayer)
+        // 바탕색 + 홈 바탕 풍경(고정 띠) + 위 씻김 (home-backdrop.md 2.1). 풍경이 있을 때만 지도 요소에 바탕색 테 (2.4).
+        .background(MapBackdropLayer(backdrop: MapPalette.backdrop))
+        .environment(\.mapHalo, MapPalette.backdrop != nil && contrast != .increased)
     }
 
     // MARK: 스크롤

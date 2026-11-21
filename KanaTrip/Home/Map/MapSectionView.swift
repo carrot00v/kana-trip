@@ -57,21 +57,29 @@ struct MapSectionView: View {
 
     // MARK: 점선 (R2.3): 지름 4pt 점, 점 가운데 사이 12pt, `PathEdge`. 지난 길·앞길을 나누지 않는다.
 
+    @Environment(\.mapHalo) private var halo
+
     private var dots: some View {
+        ZStack(alignment: .topLeading) {
+            // 점 테: 점 밑에 지름 8 바탕색 원 (home-backdrop.md 2.4). 풍경을 쓰는 동안에만.
+            if halo { dotPath(diameter: SkinStore.shared.backdrops.layout.dotHaloDiameter).fill(MapPalette.ground) }
+            dotPath(diameter: metrics.dot).fill(MapPalette.ahead)
+        }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    private func dotPath(diameter: CGFloat) -> Path {
         Path { p in
             for path in section.paths {
                 let pts = path.points
                 guard pts.count == 2 else { continue }
                 for c in Self.dotCenters(from: point(pts[0].x, pts[0].y), to: point(pts[1].x, pts[1].y),
                                          spacing: metrics.dotSpacing) {
-                    p.addEllipse(in: CGRect(x: c.x - metrics.dot / 2, y: c.y - metrics.dot / 2,
-                                            width: metrics.dot, height: metrics.dot))
+                    p.addEllipse(in: CGRect(x: c.x - diameter / 2, y: c.y - diameter / 2, width: diameter, height: diameter))
                 }
             }
         }
-        .fill(MapPalette.ahead)
-        .allowsHitTesting(false)
-        .accessibilityHidden(true)
     }
 
     /// 조각 안에 spacing 간격으로 놓고 남는 길이를 양끝에 반씩 둔다. 조각이 spacing보다 짧으면 가운데 한 점.
@@ -118,6 +126,7 @@ struct MapSectionView: View {
             HStack(spacing: MapShape.bandTextGap) {
                 MapBandArt(sceneID: node.scene ?? node.id, icon: info.icon, state: info.state, side: metrics.bandArt)
                 MapBandText(info: info)
+                    .mapHalo()
                     .frame(width: textWidth, alignment: .leading)
                 Spacer(minLength: 0)
             }
@@ -143,6 +152,7 @@ struct MapSectionView: View {
             .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             .lineLimit(1)
             .fixedSize()
+            .mapHalo()
             .position(point(node.x, node.y))
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(isStart ? L.regionStartLabel(ContentLibrary.shared.sectionTitle) : L.katakanaComingSoonLabel)
@@ -187,6 +197,8 @@ struct MapNodeCapsule: View {
     let width: CGFloat
     let height: CGFloat
     let ring: CGFloat
+
+    @Environment(\.mapHalo) private var halo
 
     var body: some View {
         HStack(spacing: MapShape.nodeIconGap) {
@@ -240,6 +252,11 @@ struct MapNodeCapsule: View {
 
     @ViewBuilder
     private var background: some View {
+        // 칸 테: 사방 2pt 키운 캡슐을 바탕색으로 칸 밑에 (home-backdrop.md 2.4). 풍경을 쓰는 동안에만.
+        if halo {
+            let w = SkinStore.shared.backdrops.layout.haloWidth
+            Capsule().fill(MapPalette.ground).padding(-w)
+        }
         switch state {
         case .current:
             Capsule().fill(MapPalette.current)
@@ -295,6 +312,8 @@ struct MapBandArt: View {
     let state: MapBandState
     let side: CGFloat
 
+    @Environment(\.mapHalo) private var halo
+
     private var image: UIImage? {
         UIImage(named: "map_building_\(sceneID)") ?? UIImage(named: "SceneThumb-\(sceneID)")
     }
@@ -321,6 +340,15 @@ struct MapBandArt: View {
         .overlay {
             shape.strokeBorder(MapPalette.outline, lineWidth: MapShape.outlineWidth)
                 .opacity(state == .open ? 1 : 0)
+        }
+        .background {
+            // 받침: 그림 밑에 바탕색 둥근 사각(둘레 4pt, 모서리 16) (home-backdrop.md 2.4). 풍경을 쓰는 동안에만.
+            if halo {
+                let l = SkinStore.shared.backdrops.layout
+                RoundedRectangle(cornerRadius: l.artMatCorner, style: .continuous)
+                    .fill(MapPalette.ground)
+                    .padding(-l.artMatInset)
+            }
         }
         .accessibilityIgnoresInvertColors(true)
     }

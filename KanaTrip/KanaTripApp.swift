@@ -23,9 +23,16 @@ struct KanaTripApp: App {
             if let id = SkinDebug.skinID, let skin = SkinCatalog.shared.skin(idOrItemID: id) {
                 store.setSkin(skin.id)
             }
+            // 메모리 진도에서는 풍경도 저장 상태에 쓴다(K에서 쓰는 중으로 보인다). 열림과 상관없이 홈에 깔리게 디버그 값도 둔다.
+            if let id = BackdropDebug.backdropID {
+                store.setBackdrop(id)
+                SkinStore.shared.debugBackdropID = id
+            }
             return store
         }
-        if let id = SkinDebug.skinID { SkinStore.shared.debugSkinID = id }        #endif
+        if let id = SkinDebug.skinID { SkinStore.shared.debugSkinID = id }
+        if let id = BackdropDebug.backdropID { SkinStore.shared.debugBackdropID = id }
+        #endif
         return ProgressStore()
     }
 
@@ -35,6 +42,8 @@ struct KanaTripApp: App {
                 #if DEBUG
                 if let index = DebugLaunch.wordIndex {
                     DebugWordPreview(index: index).appStyle()
+                } else if let sceneID = DebugSceneDone.sceneID {
+                    DebugSceneDonePreview(sceneID: sceneID).appStyle()
                 } else if let canvas = MapDebug.canvas {
                     // 작은 화면 확인: 상태 바 20pt를 흉내 낸 띠 아래에 W×H 틀로 그린다.
                     VStack(spacing: 0) {

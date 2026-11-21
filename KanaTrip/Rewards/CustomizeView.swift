@@ -8,6 +8,7 @@ struct CustomizeView: View {
     @Environment(ProgressStore.self) private var store
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.colorSchemeContrast) private var contrast
 
     @State private var slot: RewardSlot = .top
     @State private var didPickSlot = false
@@ -165,13 +166,13 @@ struct CustomizeView: View {
                 .padding(.top, 12)
             if typeSize.isAccessibilitySize {
                 Group {
-                    if isSkinSlot { swatchGrid(columns: 3) } else { grid(columns: columns) }
+                    if isSkinSlot { skinTab(swatchColumns: 3, backdropColumns: 2) } else { grid(columns: columns) }
                 }
                 .padding(.top, 12)
             } else {
                 ScrollViewReader { proxy in
                     ScrollView {
-                        if isSkinSlot { swatchGrid(columns: 5) } else { grid(columns: columns) }
+                        if isSkinSlot { skinTab(swatchColumns: 5, backdropColumns: 3) } else { grid(columns: columns) }
                     }
                     .onAppear {
                         // 고른 탭에 살 수 있는 아이템이 있으면 그 칸이 다 보이게 시작한다 (3.6). 처음 2행 안이면 그대로다.
@@ -376,6 +377,156 @@ struct CustomizeView: View {
         )
     }
 
+    // MARK: - 스킨 탭: "앱 색" 줄 + "홈 바탕" 줄 (app-skin.md 5.2, home-backdrop.md 4.1)
+
+    private var backdrops: BackdropCatalog { SkinStore.shared.backdrops }
+
+    /// 홈 바탕 그림이 하나도 없으면 두 섹션 머리와 홈 바탕 격자를 숨긴다(지금 모습, 6.1).
+    @ViewBuilder
+    private func skinTab(swatchColumns: Int, backdropColumns: Int) -> some View {
+        if backdrops.isEmpty {
+            swatchGrid(columns: swatchColumns)
+        } else {
+            VStack(alignment: .leading, spacing: 0) {
+                sectionHeader(L.appColorSection)
+                    .padding(.top, 12)
+                swatchGrid(columns: swatchColumns)
+                    .padding(.top, 8)
+                    .padding(.bottom, -8)
+                sectionHeader(L.homeBackdropSection)
+                    .padding(.top, 20)
+                backdropGrid(columns: backdropColumns)
+                    .padding(.top, 8)
+            }
+        }
+    }
+
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.footnote.weight(.semibold))
+            .foregroundStyle(Color.inkSecondary)
+            .frame(minHeight: 18)
+            .padding(.leading, 16)
+            .accessibilityAddTraits(.isHeader)
+    }
+
+    // MARK: - 홈 바탕 칸 (home-backdrop.md 4.2~4.4)
+
+    private enum BackdropState { case using, unlocked, locked }
+
+    private func backdropState(_ backdrop: Backdrop) -> BackdropState {
+        if !backdrops.isUnlocked(backdrop, rewards: rewards) { return .locked }
+        return rewards.backdrop == backdrop.id ? .using : .unlocked
+    }
+
+    /// "없음"이 쓰는 중인지: 저장 값이 없거나, 쓸 수 없는 값(목록에 없음·잠김)이라 홈이 풍경 없이 그려질 때.
+    private var backdropNoneUsing: Bool { backdrops.current(for: rewards) == nil }
+
+    private func backdropSceneName(_ backdrop: Backdrop) -> String {
+        ContentLibrary.shared.scene(id: backdrop.sceneID)?.name ?? backdrop.id
+    }
+
+    private func backdropGrid(columns: Int) -> some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: columns), spacing: 8) {
+            backdropNoneCell
+            ForEach(backdrops.backdrops) { backdrop in
+                backdropCell(backdrop)
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 8)
+    }
+
+    private var backdropNoneCell: some View {
+        let using = backdropNoneUsing
+        return cellFrame(wearing: using, trying: false, thumbWidth: 100) {
+            Image(systemName: "circle.slash")
+                .font(.system(size: 28))
+                .foregroundStyle(Color.inkSecondary)
+        } name: {
+            VStack(spacing: 0) {
+                Color.clear.frame(height: 12)
+                Text(L.none).font(.system(size: 15)).frame(height: 20)
+            }
+        } status: {
+            if using { wearingStatus }
+        } action: {
+            tapBackdropNone()
+        }
+        .accessibilityLabel(L.backdropNoneLabel)
+        .accessibilityValue(using ? L.wearing : "")
+        .accessibilityAddTraits(using ? .isSelected : [])
+    }
+
+    private func backdropCell(_ backdrop: Backdrop) -> some View {
+        let state = backdropState(backdrop)
+        let scene = backdropSceneName(backdrop)
+        return cellFrame(wearing: state == .using, trying: false, thumbWidth: 100) {
+            Image(backdrop.thumbAssetName)
+                .resizable()
+                .interpolation(.high)
+                .frame(width: 100, height: 50)
+                // 잠김은 채도 0 (홈의 잠긴 띠 그림과 같음). 불투명도는 낮추지 않는다.
+                .saturation(state == .locked ? 0 : 1)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 8).strokeBorder(Color.ink.opacity(0.15), lineWidth: 1)
+                }
+                .accessibilityHidden(true)
+        } name: {
+            VStack(spacing: 0) {
+                Color.clear.frame(height: 12)
+                Text(scene)
+                    .font(.subheadline)
+                    .foregroundStyle(state == .locked ? Color.inkSecondary : Color.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .frame(height: 20)
+            }
+        } status: {
+            switch state {
+            case .using:
+                wearingStatus
+            case .unlocked:
+                EmptyView()
+            case .locked:
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 13))
+                    .foregroundStyle(Color.inkSecondary)
+                Text(L.locked).foregroundStyle(Color.inkSecondary)
+            }
+        } action: {
+            tapBackdrop(backdrop, state: state)
+        }
+        .accessibilityLabel(L.backdropTitle(scene))
+        .accessibilityValue(state == .using ? L.wearing : state == .locked ? "\(L.locked), \(L.unlocksWith(scene: scene))" : "")
+        .accessibilityAddTraits(state == .using ? .isSelected : [])
+    }
+
+    private func tapBackdrop(_ backdrop: Backdrop, state: BackdropState) {
+        let title = L.backdropTitle(backdropSceneName(backdrop))
+        switch state {
+        case .using:
+            show(Info(kana: nil, title: title, detail: L.backdropUsing))
+        case .unlocked:
+            withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.15)) { store.setBackdrop(backdrop.id) }
+            lightTick += 1
+            show(Info(kana: nil, title: title, detail: contrast == .increased ? L.backdropHiddenByContrast : L.backdropChanged))
+        case .locked:
+            show(Info(kana: nil, title: title, detail: L.unlocksWith(scene: backdropSceneName(backdrop))))
+        }
+    }
+
+    private func tapBackdropNone() {
+        if rewards.backdrop == nil {
+            show(Info(kana: nil, title: L.none, detail: L.backdropNoneNow))
+        } else {
+            withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.15)) { store.setBackdrop(nil) }
+            lightTick += 1
+            show(Info(kana: nil, title: L.none, detail: L.backdropCleared))
+        }
+    }
+
     // MARK: - 색 견본 (app-skin.md 5.2, 개정 2)
 
     /// 견본 칸: skins.json 순서 그대로(기본 → 장면 순서). 아이템과 상관없이 모두 열려 있다.
@@ -432,6 +583,7 @@ struct CustomizeView: View {
     private func cellFrame<Thumb: View, Name: View, Status: View>(
         wearing: Bool,
         trying: Bool,
+        thumbWidth: CGFloat = 60,
         @ViewBuilder thumbnail: () -> Thumb,
         @ViewBuilder name: () -> Name,
         @ViewBuilder status: () -> Status,
@@ -440,7 +592,7 @@ struct CustomizeView: View {
         Button(action: action) {
             VStack(spacing: 0) {
                 thumbnail()
-                    .frame(width: 60, height: 60)
+                    .frame(width: thumbWidth, height: 60)
                     .padding(.top, 6)
                 name()
                     .padding(.top, 4)

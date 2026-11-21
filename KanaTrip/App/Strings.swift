@@ -262,6 +262,21 @@ enum L {
     static let skinDefaultRestored = "기본 색으로 돌아왔어요"
     static let skinEquipped = "앱 색을 바꿨어요"
     static let skinDefaultLabel = "기본 색"
+    // 홈 바탕 (home-backdrop.md 4.1~4.4, 5.2). {장면}은 장면 데이터의 name.
+    static let appColorSection = "앱 색"
+    static let homeBackdropSection = "홈 바탕"
+    static func backdropTitle(_ scene: String) -> String { "\(scene) 바탕" }
+    static let backdropChanged = "홈 바탕을 바꿨어요"
+    static let backdropUsing = "홈 바탕으로 쓰고 있어요"
+    static let backdropCleared = "홈 바탕을 비웠어요"
+    static let backdropNoneNow = "홈 바탕을 쓰지 않고 있어요"
+    static let backdropHiddenByContrast = "대비 증가를 켜 두면 홈 바탕이 보이지 않아요"
+    static let backdropNoneLabel = "홈 바탕 없음"
+    /// C2 열린 아이템 줄 머리 (5.2).
+    static func itemsAndBackdropUnlocked(_ n: Int) -> String { "새 아이템 \(n)개와 홈 바탕이 열렸어요" }
+    static let backdropUnlocked = "홈 바탕이 열렸어요"
+    static let backdropBundleName = "홈 바탕"
+    static func backdropBundleLabel(_ scene: String) -> String { "\(scene) 홈 바탕" }
     /// K 미리보기 VoiceOver 값의 마지막 항목 (5.3).
     static func skinPreviewPart(_ name: String) -> String { "스킨 \(name)" }
     static func buyQuestion(kana: String, nameKo: String, price: Int) -> String {
