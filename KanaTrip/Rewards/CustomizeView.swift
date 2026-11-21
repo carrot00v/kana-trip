@@ -1,8 +1,9 @@
 import SwiftUI
 
 /// K 기리 꾸미기 (docs/design/reward-flow.md 3번, 3.0의 2026-11-16 개편).
-/// 위: 미리보기와 안내 줄. 아래 절반: 슬롯 탭(머리·속재료·밥·배경)과 아이템 격자.
-/// 탭 하나 = 슬롯 하나 = "없음"(밥은 흰 밥) 칸 하나. 아이템이 없는 슬롯의 탭은 숨긴다.
+/// 위: 미리보기와 안내 줄. 아래 절반: 슬롯 탭(머리·속재료·밥·스킨)과 아이템 격자.
+/// 탭 하나 = 슬롯 하나 = "없음"(밥은 흰 밥, 스킨은 "기본") 칸 하나. 아이템이 없는 슬롯의 탭은 숨긴다.
+/// 스킨 탭에서 칸을 누르면 K 화면 전체가 그 스킨으로 바뀐다 (app-skin.md 5.3). 미리 보기는 K 뿌리의 환경값만 덮는다.
 struct CustomizeView: View {
     @Environment(ProgressStore.self) private var store
     @Environment(\.dynamicTypeSize) private var typeSize
@@ -47,6 +48,26 @@ struct CustomizeView: View {
 
     private var catalog: RewardCatalog { store.rewardCatalog }
     private var rewards: RewardState { store.rewards }
+    private let skins = SkinCatalog.shared
+
+    /// K 화면이 입는 스킨: 스킨 탭에서 미리 보는 아이템이 있으면 그 스킨, 아니면 저장된 스킨.
+    /// 저장된 스킨은 환경값 대신 `SkinStore`에서 바로 읽는다. 사기처럼 미리 보기를 끝내는 것과 저장이 한 번에 일어날 때
+    /// 루트 환경값이 한 박자 늦게 와서 쓰던 스킨이 잠깐 비치는 것을 막는다.
+    private var screenSkin: Skin {
+        if let trying, trying.slot == SkinPolicy.slot { return skins.skin(itemID: trying.id) }
+        return SkinStore.shared.current
+    }
+
+    /// 스킨이 바뀌는 조작을 0.3초 교차 페이드로 감싼다. "동작 줄이기"면 바로 바꾼다 (5.3).
+    private func skinChange(_ change: () -> Void) {
+        if reduceMotion {
+            change()
+        } else {
+            withAnimation(.easeInOut(duration: skins.skinCrossfade), change)
+        }
+    }
+
+    private var isSkinSlot: Bool { slot == SkinPolicy.slot }
 
     var body: some View {
         GeometryReader { geo in
@@ -65,6 +86,8 @@ struct CustomizeView: View {
             }
         }
         .skinBackground(.strong)
+        .environment(\.skin, screenSkin)
+        .tint(screenSkin.dynamicColor(.accentColor))
         .navigationTitle(L.customize)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -112,7 +135,7 @@ struct CustomizeView: View {
 
     private var previewLabel: String {
         let parts = visibleSlots.map { slot in
-            "\(L.slotName(slot)) \(rewards.equippedID(slot).flatMap(catalog.item(id:))?.nameKo ?? L.none)"
+            "\(L.slotName(slot)) \(rewards.equippedID(slot).flatMap(catalog.item(id:))?.nameKo ?? (slot == SkinPolicy.slot ? L.skinDefault : L.none))"
         }
         let head = trying.map { "\(L.tryingOnLabel) \($0.kana ?? $0.nameKo), " } ?? ""
         return head + parts.joined(separator: ", ")
@@ -276,27 +299,36 @@ struct CustomizeView: View {
         case .none:
             let wearing = rewards.equippedID(slot) == nil
             cellFrame(wearing: wearing, trying: false) {
-                Image(systemName: "circle.slash")
-                    .font(.system(size: 28))
-                    .foregroundStyle(Color.inkSecondary)
-                    .frame(width: 60, height: 60)
+                if isSkinSlot {
+                    // 스킨 탭의 "기본" 칸 (app-skin.md 5.2).
+                    SkinThumbnail(skin: skins.defaultSkin, size: 60)
+                } else {
+                    Image(systemName: "circle.slash")
+                        .font(.system(size: 28))
+                        .foregroundStyle(Color.inkSecondary)
+                        .frame(width: 60, height: 60)
+                }
             } name: {
                 VStack(spacing: 0) {
                     Color.clear.frame(height: 12)
-                    Text(L.none).font(.system(size: 15)).frame(height: 20)
+                    Text(isSkinSlot ? L.skinDefault : L.none).font(.system(size: 15)).frame(height: 20)
                 }
             } status: {
                 if wearing { wearingStatus }
             } action: {
                 tapNone()
             }
-            .accessibilityLabel(L.none)
-            .accessibilityValue(wearing ? L.wearing : L.clearSlotLabel(slot))
+            .accessibilityLabel(isSkinSlot ? L.skinDefaultLabel : L.none)
+            .accessibilityValue(wearing ? L.wearing : (isSkinSlot ? L.skinDefaultAction : L.clearSlotLabel(slot)))
         case .item(let item):
             let state = itemState(item)
             let isTrying = trying?.id == item.id
             cellFrame(wearing: state == .wearing, trying: isTrying) {
-                ItemThumbnail(item: item, size: 60, silhouette: state == .locked)
+                if item.slot == SkinPolicy.slot {
+                    SkinThumbnail(skin: skins.skin(itemID: item.id), size: 60, silhouette: state == .locked)
+                } else {
+                    ItemThumbnail(item: item, size: 60, silhouette: state == .locked)
+                }
             } name: {
                 if state == .locked {
                     VStack(spacing: 0) {
@@ -447,6 +479,9 @@ struct CustomizeView: View {
         if let item = rewards.equippedID(slot).flatMap(catalog.item(id:)) {
             return Info(kana: item.kana, title: item.nameKo, detail: L.slotWearing(slot))
         }
+        if slot == SkinPolicy.slot {
+            return Info(kana: nil, title: L.skinDefault, detail: L.skinDefaultWearing)
+        }
         return Info(kana: nil, title: L.none, detail: L.slotEmpty(slot))
     }
 
@@ -484,11 +519,16 @@ struct CustomizeView: View {
     private func select(_ newSlot: RewardSlot) {
         guard newSlot != slot || trying != nil else { return }
         slot = newSlot
-        trying = nil
+        // 스킨을 미리 보던 중이면 쓰던 스킨으로 되돌아간다 (5.3).
+        skinChange { trying = nil }
         show(nil)
     }
 
     private func tapNone() {
+        if isSkinSlot {
+            tapDefaultSkin()
+            return
+        }
         trying = nil
         if rewards.equippedID(slot) == nil {
             show(nil)
@@ -499,31 +539,48 @@ struct CustomizeView: View {
         }
     }
 
+    /// 스킨 탭의 "기본" 칸: 쓰는 중이면 안내만, 아니면 스킨 키를 지워 기본 스킨으로 (5.3).
+    private func tapDefaultSkin() {
+        if rewards.equippedID(slot) == nil {
+            skinChange { trying = nil }
+            show(Info(kana: nil, title: L.skinDefault, detail: L.wearingNow))
+        } else {
+            skinChange {
+                trying = nil
+                store.clearSlot(slot)
+            }
+            lightTick += 1
+            show(Info(kana: nil, title: L.skinDefault, detail: L.skinDefaultRestored))
+        }
+    }
+
     private func tap(_ item: RewardItem, state: ItemState) {
         switch state {
         case .wearing:
-            trying = nil
+            skinChange { trying = nil }
             show(nameInfo(item, L.wearingNow))
         case .owned:
-            trying = nil
-            store.equip(item)
+            skinChange {
+                trying = nil
+                store.equip(item)
+            }
             lightTick += 1
-            show(nameInfo(item, L.equipped))
+            show(nameInfo(item, item.slot == SkinPolicy.slot ? L.skinEquipped : L.equipped))
         case .buyable:
-            trying = item
+            skinChange { trying = item }
             show(nameInfo(item, L.tryingOn(price: item.price)))
             buying = item
         case .short(let n):
             // 같은 칸을 다시 누르면 미리 보기를 끝낸다.
             if trying?.id == item.id {
-                trying = nil
+                skinChange { trying = nil }
                 show(nil)
             } else {
-                trying = item
+                skinChange { trying = item }
                 show(nameInfo(item, L.shortOf(n)))
             }
         case .locked:
-            trying = nil
+            skinChange { trying = nil }
             let scene = sceneName(item)
             show(Info(kana: nil, title: L.lockedItemTitle(scene: scene), detail: L.unlocksWith(scene: scene)))
         }
@@ -531,10 +588,15 @@ struct CustomizeView: View {
 
     private func buy(_ item: RewardItem) {
         buying = nil
-        trying = nil
-        if store.buy(item) == .bought {
+        // 미리 본 스킨이 그대로 확정된다(미리 보던 스킨 = 새로 저장된 스킨이라 화면 색은 그대로다).
+        var result = RewardRules.PurchaseResult.locked
+        skinChange {
+            trying = nil
+            result = store.buy(item)
+        }
+        if result == .bought {
             successTick += 1
-            show(nameInfo(item, L.bought))
+            show(nameInfo(item, item.slot == SkinPolicy.slot ? L.skinBought : L.bought))
         } else {
             show(nil)
         }
@@ -542,12 +604,13 @@ struct CustomizeView: View {
 
     private func cancelBuy() {
         buying = nil
-        trying = nil
+        skinChange { trying = nil }
         show(nil)
     }
 
     private func resetOutfit() {
-        trying = nil
+        // 스킨을 미리 보던 중이면 미리 보기를 끝낸다. 저장된 스킨은 권장안대로 건드리지 않는다 (5.5).
+        skinChange { trying = nil }
         store.resetOutfit()
         lightTick += 1
         show(Info(kana: nil, title: L.defaultOutfit, detail: L.outfitReset))

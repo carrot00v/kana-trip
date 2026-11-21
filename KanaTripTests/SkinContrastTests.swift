@@ -147,6 +147,16 @@ struct SkinContrastTests {
         #expect(catalog.skins.dropFirst().allSatisfy { $0.pattern != nil && $0.giriBackdrop == "Item-\($0.itemID ?? "")" })
     }
 
+    /// 무늬 타일과 기리 뒤 그림 에셋이 번들에 있다 (3.4). 무늬 타일은 tools/make_skin_patterns.py가 만든다.
+    @Test func skinImagesExistInBundle() {
+        let bundle = Bundle(for: ProgressStore.self)
+        for skin in catalog.skins {
+            for name in [skin.pattern, skin.giriBackdrop].compactMap({ $0 }) {
+                #expect(UIImage(named: name, in: bundle, compatibleWith: nil) != nil, "\(name)")
+            }
+        }
+    }
+
     /// 스킨 아이템은 rewards.json의 배경 슬롯 아이템과 하나씩 맞는다 (3.1).
     @Test func everySkinItemIsABackgroundRewardItem() {
         let rewards = ProgressStore(storage: SkinTestStorage()).rewardCatalog

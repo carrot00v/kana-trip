@@ -173,9 +173,16 @@ struct SceneDoneView: View {
                     CenteredFlow(spacing: 16, lineSpacing: 8) {
                         ForEach(items) { item in
                             VStack(spacing: 2) {
-                                ItemThumbnail(item: item, size: 44)
-                                    .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
-                                    .cardOutline(cornerRadius: 10)
+                                Group {
+                                    if item.slot == SkinPolicy.slot {
+                                        // 스킨 아이템은 스킨 썸네일 44pt판 (app-skin.md 4.5, 5.2).
+                                        SkinThumbnail(skin: SkinCatalog.shared.skin(itemID: item.id), size: 44)
+                                    } else {
+                                        ItemThumbnail(item: item, size: 44)
+                                    }
+                                }
+                                .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
+                                .cardOutline(cornerRadius: 10)
                                 ItemNameRuby(item: item, learned: learned)
                             }
                         }
