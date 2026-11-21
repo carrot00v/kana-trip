@@ -68,10 +68,10 @@ struct HomeView: View {
                     )
                     .safeAreaInset(edge: .bottom, spacing: 0) { dock(model: model, current: current) }
                 } else {
-                    Color.appBackground
+                    Color.clear
                 }
             }
-            .background(Color.appBackground)
+            .skinBackground(.strong)
             .navigationTitle(L.mapTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(MapPalette.ground, for: .navigationBar)
@@ -95,7 +95,8 @@ struct HomeView: View {
                         #endif
                     } label: {
                         Image(systemName: "ellipsis.circle")
-                            .foregroundStyle(Color.accent)
+                            // 툴바 안에서는 사용자 ShapeStyle이 다르게 합성되어 Color로 준다(홈은 늘 저장된 스킨).
+                            .foregroundStyle(SkinStore.shared.current.dynamicColor(.accentColor))
                     }
                     .accessibilityLabel(L.more)
                 }

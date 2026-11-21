@@ -1,13 +1,17 @@
 import SwiftUI
 
 /// 지도가 쓰는 색을 한곳에 모은다 (docs/design/home-map.md 7.3, "2026-11-18 시각 정리" S3·S4).
-/// 스킨(app-skin.md)이 들어오면 "스킨이 바꿈" 줄의 값만 스킨 토큰으로 바꾼다. 지도 코드는 이 이름만 쓴다.
+/// "스킨이 바꿈" 줄은 저장된 스킨(app-skin.md 4.2, 5.1)을 따른다. 지도 코드는 이 이름만 쓴다.
+/// 홈은 K의 미리 보기와 상관없이 늘 저장된 스킨이라 환경값 대신 `SkinStore.shared`를 읽는다.
+/// 읽은 화면은 착용 상태가 바뀌면 다시 그려진다(Observation). 다크·대비 증가는 Color가 스스로 따른다.
 enum MapPalette {
     // 스킨이 바꿈
-    /// 지도 바탕, 아래 고정 영역 바탕, 건물 이름 가림 캡슐.
-    static let ground = Color.appBackground
+    /// 지도 바탕, 아래 고정 영역 바탕, 건물 이름 가림 캡슐. 대비 증가면 `AppBackgroundQuiet`(app-skin.md 2.5).
+    static var ground: Color { SkinStore.shared.current.dynamicBackground(level: .strong) }
+    /// 지도 뒤 층: 바탕색 + 화면에 고정된 무늬(강 단계 × 1, app-skin.md 4.2).
+    static var groundLayer: some View { SkinBackdrop(level: .strong).environment(\.skin, SkinStore.shared.current) }
     /// 앞길 선 4pt, 잠김 칸 테.
-    static let ahead = Color("PathEdge")
+    static var ahead: Color { SkinStore.shared.current.dynamicColor(.pathEdge) }
 
     // 고정
     /// 지난 길 선 6pt, 완료 칸 테 (2026-11-18에 AccentColor에서 바꿈).
@@ -25,8 +29,8 @@ enum MapPalette {
     static let done = Color.correct
     /// 꾸미기 입구의 엔 배지.
     static let yenBadge = Color.highlightStrong
-    /// 꾸미기 입구·"지금 칸으로" 바탕(강조색 위에 불투명도).
-    static let softAccent = Color.accent
+    /// 꾸미기 입구·"지금 칸으로" 바탕(강조색 위에 불투명도). 스킨을 따른다.
+    static var softAccent: Color { SkinStore.shared.current.dynamicColor(.accentColor) }
 
     /// 지금 칸 발판의 불투명도 (2.1). 다크는 0.45에서 탁한 올리브색으로 보여 S8의 대안 0.6을 쓴다(구현 값).
     static func footSpotOpacity(_ scheme: ColorScheme) -> Double { scheme == .dark ? 0.6 : 0.45 }

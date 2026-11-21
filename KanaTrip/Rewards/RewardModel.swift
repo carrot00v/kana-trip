@@ -12,7 +12,8 @@ enum RewardSlot: String, Codable, CaseIterable {
     case filling
     /// 몸(밥)의 색과 무늬. 기본은 흰 밥이고 비울 수 없다.
     case rice
-    /// 기리 뒤의 장소. 꾸미기 화면에서만 그린다. 기본은 없음.
+    /// 앱 스킨. 아이템 id로 skins.json의 스킨을 찾는다. 키가 없으면 기본 스킨 (app-skin.md 8.1).
+    /// 아이템 그림은 꾸미기 화면 미리보기의 기리 뒤에만 그린다. 저장 키 `background`는 그대로 둔다.
     case background
 
     /// 기본 차림의 아이템 (reward-system.md 1.4). 없으면 기본이 빈 슬롯이다.
@@ -170,9 +171,10 @@ struct RewardState: Codable, Equatable {
         return id == Self.emptyMark ? (slot.canBeEmpty ? nil : slot.defaultItemID) : id
     }
 
-    /// 네 슬롯이 모두 기본 차림인지. "기본 차림으로" 버튼을 끌 때 쓴다.
+    /// 차림 슬롯이 모두 기본 차림인지. "기본 차림으로" 버튼을 끌 때 쓴다.
+    /// 스킨은 기리의 차림이 아니라 보지 않는다 (app-skin.md 5.5, `SkinPolicy.resetOutfitKeepsSkin`).
     var isDefaultOutfit: Bool {
-        RewardSlot.allCases.allSatisfy { equippedID($0) == $0.defaultItemID }
+        RewardRules.outfitSlots.allSatisfy { equippedID($0) == $0.defaultItemID }
     }
 }
 

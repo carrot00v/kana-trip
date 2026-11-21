@@ -265,6 +265,17 @@ final class ProgressStore {
         commit(next)
     }
 
+    #if DEBUG
+    /// `-skinDebug`(메모리 진도 실행)용: 아이템을 가진 것으로 하고 입힌다. 장면 열림·엔은 건드리지 않는다.
+    func debugOwnAndEquip(_ itemID: String) {
+        guard let item = rewardCatalog.item(id: itemID) else { return }
+        var next = state
+        if !next.rewards.owned.contains(itemID) { next.rewards.owned.append(itemID) }
+        next.rewards.equipped[item.slot.rawValue] = itemID
+        commit(next)
+    }
+    #endif
+
     // MARK: - 쓰기 (SessionRun이 부른다)
 
     fileprivate func save(_ progress: SessionProgress, sessionID: String) {

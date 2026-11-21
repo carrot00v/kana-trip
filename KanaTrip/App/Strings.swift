@@ -216,7 +216,8 @@ enum L {
         case .top: "머리"
         case .filling: "속재료"
         case .rice: "밥"
-        case .background: "배경"
+        // 데이터 슬롯은 background, 화면 이름은 스킨 (app-skin.md 5.2, 이슈 #7).
+        case .background: "스킨"
         }
     }
     /// 안내 줄 "처음" 문구 (reward-flow.md 3.8). 조사는 받침 판별 없이 슬롯마다 따로 둔다.
@@ -225,7 +226,7 @@ enum L {
         case .top: "머리에 쓰고 있어요"
         case .filling: "속재료로 쓰고 있어요"
         case .rice: "이 밥으로 쓰고 있어요"
-        case .background: "배경으로 쓰고 있어요"
+        case .background: "앱 전체에 쓰고 있어요"
         }
     }
     /// 밥은 비울 수 없어 쓰지 않는다.
@@ -233,7 +234,7 @@ enum L {
         switch slot {
         case .top: "머리가 비어 있어요"
         case .filling: "속재료가 비어 있어요"
-        case .rice, .background: "배경이 비어 있어요"
+        case .rice, .background: ""
         }
     }
     static let wearingNow = "지금 쓰고 있어요"
@@ -243,7 +244,7 @@ enum L {
         switch slot {
         case .top: "머리를 비웠어요"
         case .filling: "속재료를 비웠어요"
-        case .rice, .background: "배경을 비웠어요"
+        case .rice, .background: ""
         }
     }
     static func tryingOn(price: Int) -> String { "미리 보는 중이에요 · \(yen(price))" }
@@ -252,6 +253,15 @@ enum L {
     static func unlocksWith(scene: String) -> String { "\(scene) 장면을 끝내면 열려요" }
     static let bought = "사서 바꿨어요"
     static let outfitReset = "기본 차림으로 돌아왔어요"
+
+    // 스킨 탭 (app-skin.md 5.2, 5.3). 밥과 스킨은 비어 있는 상태가 없다.
+    static let skinDefault = "기본"
+    static let skinDefaultWearing = "기본 스킨을 쓰고 있어요"
+    static let skinDefaultRestored = "기본 스킨으로 돌아왔어요"
+    static let skinEquipped = "앱 전체를 바꿨어요"
+    static let skinBought = "사서 앱 전체를 바꿨어요"
+    static let skinDefaultLabel = "기본 스킨"
+    static let skinDefaultAction = "기본 스킨으로 바꾸기"
     static func buyQuestion(kana: String, nameKo: String, price: Int) -> String {
         "\(kana)(\(nameKo))\(hasFinalConsonant(nameKo) ? "을" : "를") \(yen(price))에 살까요?"
     }
@@ -389,7 +399,10 @@ enum L {
     static let tryingOnLabel = "미리 보는 중"
     static func clearSlotLabel(_ slot: RewardSlot) -> String { "\(slotName(slot)) 비우기" }
     static let canBuyInSlot = "살 수 있는 아이템 있음"
-    static let resetOutfitHint = "머리를 요리사 모자로, 밥을 흰 밥으로 바꾸고 속재료와 배경을 비워요"
+    /// 스킨은 권장안(app-skin.md 5.5)이면 되돌리지 않는다.
+    static let resetOutfitHint = SkinPolicy.resetOutfitKeepsSkin
+        ? "머리를 요리사 모자로, 밥을 흰 밥으로 바꾸고 속재료를 비워요"
+        : "머리를 요리사 모자로, 밥을 흰 밥으로 바꾸고 속재료를 비우고 기본 스킨으로 돌려요"
 
     /// 한글 낱말이 받침으로 끝나는지. 조사를 고를 때 쓴다. 끝의 괄호·공백은 건너뛰고 마지막 한글로 본다.
     static func hasFinalConsonant(_ word: String) -> Bool {

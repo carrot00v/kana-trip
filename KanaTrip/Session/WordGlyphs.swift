@@ -38,14 +38,14 @@ struct WordGlyphs: View {
                 .foregroundStyle(Color.inkSecondary)
         case .current:
             KanaText(text: kana, size: size, weight: .bold)
-                .foregroundStyle(Color.accent)
+                .foregroundStyle(Color.ink)
                 .background(
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.highlight.opacity(AppStyle.currentGlyphHighlightOpacity))
                 )
                 .overlay(alignment: .bottom) {
                     Rectangle()
-                        .fill(Color.accent)
+                        .fill(Color.ink)
                         .frame(height: 2)
                         .offset(y: 2)
                 }

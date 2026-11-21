@@ -5,7 +5,10 @@ import UIKit
 // 색 값은 Assets.xcassets의 Color Set에 있다. 코드에서는 여기의 이름만 쓴다.
 
 extension Color {
-    /// 화면 배경.
+    // 바탕·강조색은 스킨을 따른다(app-skin.md). 화면 코드는 `SkinColor`와 `.skinBackground(_:)`를 쓴다.
+    // 아래 `appBackground`·`accent`·`accentForeground`는 기본 스킨 값(에셋 카탈로그)이고, 스킨이 닿지 않는 곳에만 남긴다.
+
+    /// 화면 배경 (기본 스킨 값).
     static let appBackground = Color("AppBackground")
     /// 카드·캔버스 배경.
     static let cardBackground = Color("CardBackground")
@@ -15,7 +18,7 @@ extension Color {
     static let inkSecondary = Color("InkSecondary")
     /// 카드와 선택지의 테두리.
     static let outline = Color("Outline")
-    /// 강조. 주 버튼 바탕, 진행 막대, 할 차례 번호 원, 지금 글자.
+    /// 강조 (기본 스킨 값). 스킨을 따르는 강조는 `SkinColor.accent`.
     static let accent = Color("AccentColor")
     /// 강조색 위 글자(주 버튼의 글자).
     static let accentForeground = Color("AccentForeground")
@@ -64,13 +67,13 @@ enum AppStyle {
 }
 
 extension View {
-    /// 앱 루트의 모양: 둥근 글꼴 디자인, 본문·보조 색, 강조색.
+    /// 앱 루트의 모양: 둥근 글꼴 디자인, 본문·보조 색, 스킨(환경값과 강조색 tint).
     /// 덮개(fullScreenCover) 안에도 다시 붙인다.
     func appStyle() -> some View {
         self
             .fontDesign(.rounded)
             .foregroundStyle(Color.ink, Color.inkSecondary)
-            .tint(Color.accent)
+            .skinRoot()
     }
 
     /// 카드와 선택지의 외곽선. 안쪽으로 그려서 칸 크기를 바꾸지 않는다.

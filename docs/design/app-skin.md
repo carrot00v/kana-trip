@@ -282,7 +282,25 @@ CIELAB(D65) 값으로 계산했다. 기준은 2.4.
 
 ### 3.7 자동 검사 결과
 
-(구현 때 `tools/check_skin_contrast.py`의 출력을 여기에 붙인다.)
+2026-11-21 (developer) `python3 tools/check_skin_contrast.py` 결과: 스킨 5 × 모드 2 × (보통 / 대비 증가) 518개 검사, **실패 0개, 알려진 예외 6개**(아래 표의 "예외", 대비 증가 판이 같은 값으로 한 번씩 더 센다). 같은 검사를 `SkinContrastTests`가 한다. 조합마다 가장 나쁜 값만 옮긴다. 전체 표는 스크립트를 돌리면 나온다.
+
+| 조합 | 기준 | 가장 나쁜 값 | 스킨·모드 | 결과 |
+|---|---|---|---|---|
+| 바탕 휘도 (라이트 / 다크) | ≥ 0.72 / ≤ 0.029 | 0.808 / 0.013 | yu light / eki dark | 통과 |
+| 무늬 픽셀 휘도 (라이트 / 다크) | ≥ 0.72 / ≤ 0.029 | 0.737 / 0.019 | yu light / eki dark | 통과 |
+| `InkSecondary` / 무늬 픽셀 | 4.5 | 4.639 | yu light | 통과 |
+| `Outline` / 무늬 픽셀 | 3 | 3.426 | eki dark | 통과 |
+| `HighlightStrong` / 무늬 픽셀 | 3 | 3.331 | yu light | 통과 |
+| `Correct` / 무늬 픽셀 | 3 | 3.795 | yu light | 통과 |
+| `AccentForeground` / `AccentColor` | 4.5 | 7.172 | eki light | 통과 |
+| `AccentColor` / 바탕·Quiet·카드·무늬 픽셀 | 3 | 5.551 | torii light (무늬 픽셀) | 통과 |
+| `AccentColor` / 보조 버튼 바탕 | 4.5 | 4.854 | torii light | 통과 |
+| `AccentColor` ΔE `Wrong` / 색상각 차 | 30 / 30° | 38.2 / 37.2° | torii light | 통과 |
+| `AccentColor` ΔE `Correct` | 30 | 43.1 | eki light | 통과 |
+| `AccentColor` ΔE `HighlightStrong` / `Highlight` | 20 | 21.3 / 29.4 | torii light / torii dark | 통과 |
+| `CardBackground` / `Quiet` 라이트 | 1.07 | **1.065** | default light | 예외 (8.8의 1) |
+| `CardBackground` / `Quiet` 다크 | 1.16 | **1.137** (eki), **1.158** (noren) | eki dark, noren dark | 예외 (8.8의 1) |
+| 바탕·무늬 넓은 면 HSV 색상 금지 범위 | 밖 | 모두 밖 | – | 통과 |
 
 ### 3.8 남는 약점
 
@@ -805,6 +823,20 @@ K는 강 단계 화면이고, **스킨 탭에서 칸을 누르면 K 화면 전�
 | F 무늬 | – | – | `docs/design/skins/patterns-preview.png` | 1 | 이음매 없음, 3배 진하게 본 것에서 선 끊김 없음 |
 
 자동 검사: `python3 tools/check_skin_contrast.py`와 `xcodebuild test`(`SkinContrastTests`)가 통과한다. `python3 tools/make_skin_patterns.py --check`가 통과한다.
+
+### 8.8 구현 메모 (2026-11-21, developer)
+
+설계 규칙은 고치지 않았다. 구현하면서 설계와 맞지 않거나 설계에 없던 값을 정한 곳만 적는다. 1은 설계 확인이 필요하다.
+
+1. **`CardBackground` / `AppBackgroundQuiet` 기준을 못 넘는 설계 값 (확인 필요).** 2.4 표의 기준(라이트 1.07, 다크 1.16)을 그대로 검사하면 세 조합이 못 넘는다. ① 기본 스킨 라이트 1.065: 기준 1.07이 기본 스킨 값을 올림한 값이라 기본 스킨 자신이 못 넘는다. ② えき 다크 `#191C1A` 1.137, ③ のれん 다크 `#1A191C` 1.158: 둘 다 기본 스킨 다크(1.167)보다 낮아 "기본 스킨보다 덜 보이면 안 된다"(2.4)는 뜻에도 어긋난다(4.4의 "모든 스킨에서 같거나 더 잘 보인다"는 다크에서는 맞지 않는다). 값은 7.2 그대로 두고, 검사 스크립트와 테스트에 **알려진 예외**로 넣어 결과에 "예외"로 찍었다(`KNOWN_EXCEPTIONS`, `Rule.knownExceptions`). 예외가 아닌 실패가 생기면 검사가 실패하고, 예외로 둔 조합이 기준을 넘게 되면 테스트가 예외 목록을 지우라고 알린다. 참고 값: えき 다크 Quiet를 `#171A18`로 하면 1.160, `#161917`이면 1.172. のれん 다크는 `#19181B`이면 1.170.
+2. **기본 스킨은 에셋 카탈로그 Color Set으로 칠한다.** 값은 같지만(`SkinContrastTests`가 비교) sRGB 성분으로 만든 Color를 툴바 안(홈 메뉴 아이콘)에 쓰면 합성 결과가 1~10 단위 달랐다. 8.4의 3 "기본 스킨 픽셀이 같음"을 지키려고 기본 스킨은 `Color("AccentColor")` 등 에셋 이름으로 칠한다(`Skin.paint`). 홈 메뉴 아이콘과 앱 루트 `tint`는 사용자 ShapeStyle 대신 `Color`를 준다.
+3. **홈 지도 바탕 층.** 4.2대로 `MapStyle.swift`의 스킨 줄만 고쳤지만, 지도 뒤를 단색으로 칠하던 `MapView`의 `.background(MapPalette.ground)` 한 줄은 무늬를 가려 `.background(MapPalette.groundLayer)`로 바꿨다(색 토큰 교체 한 줄, 배치는 그대로). `MapDock`의 꾸미기 입구 `Color.accent` 2곳도 8.3 표대로 `SkinColor.accent`로 바꿨다. 지도 안 다른 요소는 손대지 않았다. 홈은 K의 미리 보기와 상관없이 저장된 스킨이라 `MapPalette`는 환경값 대신 `SkinStore.shared`를 읽는다.
+4. **K의 저장된 스킨.** K 화면은 미리 보는 스킨이 없을 때 환경값 대신 `SkinStore.shared.current`를 바로 읽는다. 사기(미리 보기 끝 + 저장)를 한 번에 할 때 0.3초 페이드 중간 화면에 두 스킨과 다른 진한 파랑이 한 번 찍혔다. 루트 환경값이 한 박자 늦게 오는 것으로 보고 이렇게 바꿨고, 바꾼 뒤 사기를 다시 해 끝 화면은 맞는 것을 봤지만 페이드 중간 프레임은 다시 찍지 못했다.
+5. **시스템 확인 창 색.** 1.2는 확인 창 버튼을 기본 스킨 값으로 둔다고 했지만, iOS 26에서 칸에 붙인 확인 창(팝오버)의 버튼 글자는 K의 `tint`(미리 보는 스킨의 강조색)를 따랐다. 억지로 맞추지 않는다는 1.2의 방침대로 그대로 두었다.
+6. **무늬 층 구현.** `Image(...).resizable(resizingMode: .tile)`에 `PatternInk`를 칠하고 `patternOpacity × 단계 배율`을 곱한다. 스킨 썸네일 띠의 타일 × 0.5는 `scaleEffect`로 줄인다. 대비 증가면 무늬를 그리지 않고 강·중 화면 바탕을 `AppBackgroundQuiet`로 둔다(2.5).
+7. **아래 고정 영역.** `.skinFixedBottom()`이 무늬가 보이는 화면에서만 단색 + 위 16pt 그라데이션을 깐다(S의 기리 줄·주 버튼, C1·C2 버튼, QI 아래 버튼). 무늬가 없는 화면(기본 스킨, 약 단계, 대비 증가)에서는 아무것도 그리지 않아 기본 스킨 모습이 바뀌지 않는다. 홈은 지도 코드의 기존 아래 그라데이션·바탕을 그대로 쓴다.
+8. **권장안 한곳.** 9.2의 권장안 가운데 코드로 고를 것은 `SkinPolicy`(`KanaTrip/Skin/SkinModel.swift`)에 모았다: "기본 차림으로"가 스킨을 건드리지 않음(`resetOutfitKeepsSkin`), 학습·퀴즈 화면 강도(`learningLevel`), 저장 슬롯(`slot`). 스킨 수는 `skins.json`, 값 300엔은 `rewards.json`, 스킨별 앱 아이콘은 코드가 없다.
+9. **`-skinDebug <id>`.** 메모리 진도 실행(`-mapDebugCompleted N`)과 함께 쓰면 그 스킨 아이템을 메모리 상태에서 가진 채 입혀 K에서 "쓰는 중"으로 보인다. 단독으로 쓰면 저장 상태를 건드리지 않고 화면에만 쓴다.
 
 ## 9. 기존 문서와의 관계, 남은 결정
 

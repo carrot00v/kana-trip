@@ -19,7 +19,7 @@ struct QuizSessionView: View {
                 content(shown.item, partIndex: shown.partIndex, header: shown.header, quiz: quiz)
                     .id(itemSerial)
             } else {
-                Color.appBackground
+                Color.clear.skinBackground(SkinPolicy.learningLevel)
             }
         }
         .fadeOnChange(of: itemSerial)

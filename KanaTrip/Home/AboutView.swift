@@ -56,7 +56,7 @@ struct AboutView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(Color.appBackground)
+        .skinBackground(.medium)
         .navigationTitle(L.about)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -167,7 +167,7 @@ struct LicenseTextView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(16)
         }
-        .background(Color.appBackground)
+        .skinBackground(.medium)
         .navigationTitle(license.title)
         .navigationBarTitleDisplayMode(.inline)
     }
