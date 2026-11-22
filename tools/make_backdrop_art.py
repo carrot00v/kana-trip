@@ -573,6 +573,8 @@ def main() -> int:
                                       for f, m in results}, ensure_ascii=False, indent=1))
     if a.sheet:
         verdicts = json.loads(a.verdict.read_text()) if a.verdict and a.verdict.exists() else {}
+        # docs/design/backdrop-art/verdicts.json은 {장면: {시드: 판정}} 꼴이다.
+        verdicts = verdicts.get(a.scene, verdicts) if a.scene else verdicts
         candidate_sheet(results, a.scene or "", verdicts, a.sheet, skins)
         print(f"시트: {a.sheet}")
     return 0
