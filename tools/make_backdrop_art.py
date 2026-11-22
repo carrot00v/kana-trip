@@ -193,7 +193,12 @@ def fade_bottom(img: Image.Image) -> Image.Image:
 
 def process(src: Image.Image) -> tuple[Image.Image, Image.Image, float]:
     """원본 → (지운 1280×640, 에셋 띠 1320×660, 지운 비율)."""
-    cut, _, removed = remove_bg(src, 40)
+    # 바탕은 위 변(그림 위 1/8은 비어 있다, 7.3)의 중앙값으로 정한다. 네 변 중앙값은 땅 띠가 아래 변을 다 차지하면
+    # 땅 색이 되어 땅을 지우고 하늘을 남긴다(돈카츠집 302에서 봄).
+    rgb = src.convert("RGB")
+    top = [rgb.getpixel((x, y)) for x in range(0, rgb.width, 4) for y in (0, 1, 2)]
+    bg = tuple(sorted(c[i] for c in top)[len(top) // 2] for i in range(3))
+    cut, _, removed = remove_bg(src, 40, bg=bg)
     lifted = lift_dark(cut)
     strip = fade_bottom(resize(lifted, STRIP3))
     return cut, strip, removed
