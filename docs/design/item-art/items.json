@@ -292,7 +292,7 @@
     ]
    ],
    "prompt": "A Japanese twisted cloth headband, a nejiri hachimaki, laid out perfectly straight and drawn flat in 2D as one long horizontal rope with two separate ends. The rope is made of dark indigo blue and white strands twisted together, showing even diagonal stripes along its whole length. The left end of the rope simply ends with a rounded tip. At the right end the rope is tied into one round knot shaped like a small ball, about one and a half times as thick as the rope. Two short stubby ends of the same striped rope poke out of the upper right of the knot, each one shorter than the knot is wide, with softly rounded tips: one points up and to the right, the other points to the right a little lower.",
-   "palette": "Use only two colors: dark indigo blue and warm off-white. The rope, the knot and both short ends share the same indigo and white twist.",
+   "palette": "Use only two colors: dark indigo blue and warm off-white. The rope, the knot and the two hanging ends share the same indigo and white twist.",
    "erase": [
     [
      [
@@ -348,7 +348,12 @@
      "angle": 58.4,
      "radius": 0.0494
     }
-   ]
+   ],
+   "promptVariants": {
+    "S1": "One long straight piece of thick twisted cloth rope, drawn flat in 2D and held level from left to right. The rope is made of dark indigo blue and white strands twisted together, showing even diagonal stripes along its whole length, and it is equally thick from end to end. The left end of the rope stops with a plain rounded tip. The right end of the rope is tied into one plump round knot, about one and a half times as thick as the rope. Below the knot, the two loose ends of the rope hang down side by side, touching each other and slanting a little to the right, each one shorter than the knot is wide. Nothing rises above the knot.",
+    "S2": "A short straight stub of thick twisted cloth rope with a knot at its right end, drawn flat in 2D. The stub lies level from left to right, about five times as long as it is thick, and its left end is cut off straight. The rope is made of dark indigo blue and white strands twisted together, showing even diagonal stripes. At the right end the rope is tied into one plump round knot, about one and a half times as thick as the rope. From the bottom of the knot, the two loose ends of the rope hang down together side by side, slanting a little to the right, each one shorter than the knot is wide. Nothing rises above the knot.",
+    "S3": "One plump round knot tied in thick twisted cloth rope, drawn flat in 2D and seen from the front. The rope is made of dark indigo blue and white strands twisted together, showing even diagonal stripes. A short straight piece of the same rope comes out of the left side of the knot, level, and is cut off straight after a short distance. From the bottom of the knot, the two loose ends of the rope hang down together side by side, slanting a little to the right, each one shorter than the knot is wide. Nothing rises above the knot."
+   }
   },
   {
    "id": "yu",

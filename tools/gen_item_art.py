@@ -65,11 +65,15 @@ CUT_SLOTS = {"top", "filling"}
 GENERATED_SLOTS = CUT_SLOTS | {"background"}
 
 
-def build_prompt(item: dict) -> str:
+def build_prompt(item: dict, variant: str | None = None, extra: str | None = None) -> str:
     rules = BACKGROUND_RULES if item["slot"] == "background" else OBJECT_RULES
     # 색이 정해진 아이템(はちまき의 남색·흰색 등)은 items.json의 palette가 공통 색 목록을 대신한다.
     # 공통 목록을 그대로 주면 색 이름을 하나씩 다 써서 무지개 줄무늬가 나왔다(2026-11-17).
-    return f"{STYLE} {item.get('palette', PALETTE)} Subject: {item['prompt']} {rules}"
+    # variant: items.json의 promptVariants(전략 이름 → 문장)에서 고른다(head-fit.md 3.2.3.3).
+    subject = item["promptVariants"][variant] if variant else item["prompt"]
+    if extra:
+        subject = f"{subject} {extra}"
+    return f"{STYLE} {item.get('palette', PALETTE)} Subject: {subject} {rules}"
 
 
 def main() -> int:
@@ -81,6 +85,8 @@ def main() -> int:
     p.add_argument("--list", action="store_true", help="아이템 목록만 보여 준다")
     p.add_argument("--width", type=int, default=1024, help="캔버스 폭. 납작한 물건은 넓은 캔버스가 비율을 지키게 돕는다")
     p.add_argument("--height", type=int, default=1024)
+    p.add_argument("--variant", help="items.json의 promptVariants에서 쓸 전략 이름 (예: S1)")
+    p.add_argument("--extra", help="문장 끝에 덧붙일 문장 (다시 뽑기의 덧붙임 문장)")
     a = p.parse_args()
 
     items = {i["id"]: i for i in load_items()}
@@ -104,7 +110,7 @@ def main() -> int:
         for item_id in a.ids:
             item, s = items[item_id], seed + n
             print(f"[{n + 1}/{a.count}] {item_id} seed={s}", flush=True)
-            r = subprocess.run([sys.executable, str(GEN), build_prompt(item), "--name", item_id,
+            r = subprocess.run([sys.executable, str(GEN), build_prompt(item, a.variant, a.extra), "--name", item_id,
                                 "--seed", str(s), "--out", str(OUT), "--timeout", str(a.timeout),
                                 "--width", str(a.width), "--height", str(a.height)])
             if r.returncode != 0:

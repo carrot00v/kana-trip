@@ -311,38 +311,120 @@ def tail_trim_polygon(spec: dict, size: tuple[int, int]) -> list[tuple[float, fl
     return [pt(-reach, 0), pt(-reach, far), pt(reach, far), pt(reach, 0)] + arc[::-1]
 
 
-def tail_rotate(img: Image.Image, specs: list) -> Image.Image:
-    """꼬리 돌리기 `tailRotate` (head-fit.md 3.2.2 손질 2): [[다각형], [축 fx, fy], 각도]마다 다각형 안을 떼어 축을
-    중심으로 각도(SVG 부호, + 시계 방향)만큼 돌린 뒤 나머지 그림 **밑에** 다시 붙인다(매듭이 이음매를 덮는다).
-    좌표는 모두 그림 비율. 돌린 조각이 그림 밖으로 나가도 잘리지 않게 둘레를 넓혀 돌리고, 부르는 쪽이 다시 잘라 낸다."""
+def tail_rotate(img: Image.Image, tail: Image.Image, pivot: tuple[float, float], deg: float
+                ) -> tuple[Image.Image, Image.Image]:
+    """꼬리 묶음 돌리기 `tailRotate` (head-fit.md 3.2.3.4): 두 꼬리를 함께 감싼 `tail` 다각형(마스크 tail) 안을 떼어
+    축 pivot(픽셀)을 중심으로 deg도(SVG 부호, + 시계 방향) 돌린 뒤 나머지 그림 **밑에** 다시 붙인다(매듭이 이음매를 덮는다).
+    한 가닥만 따로 돌리지 않는다(3차에서 두 꼬리가 엉켰다). 돌린 조각이 그림 밖으로 나가도 잘리지 않게 둘레를 넓혀
+    돌리고, 부르는 쪽이 다시 잘라 낸다. (그림, 돌린 꼬리 마스크)를 돌려준다."""
     w, h = img.size
     pad = max(w, h) // 2
     big = Image.new("RGBA", (w + 2 * pad, h + 2 * pad))
     big.alpha_composite(img, (pad, pad))
-    for poly, pivot, deg in specs:
-        to_px = (lambda p: (pad + p[0] * w, pad + p[1] * h))
-        m = polygon_mask([poly], big.size, to_px)
-        piece = big.copy()
-        piece.putalpha(ImageChops.multiply(big.getchannel("A"), m))
-        rest = big.copy()
-        rest.putalpha(ImageChops.subtract(big.getchannel("A"), m))
-        piece = piece.rotate(-deg, resample=Image.BICUBIC, center=to_px(pivot))
-        big = Image.new("RGBA", big.size)
-        big.alpha_composite(piece)
-        big.alpha_composite(rest)
-    return big
+    m = Image.new("L", big.size)
+    m.paste(tail, (pad, pad))
+    piece = big.copy()
+    piece.putalpha(ImageChops.multiply(big.getchannel("A"), m))
+    rest = big.copy()
+    rest.putalpha(ImageChops.subtract(big.getchannel("A"), m))
+    center = (pad + pivot[0], pad + pivot[1])
+    piece = piece.rotate(-deg, resample=Image.BICUBIC, center=center)
+    m = m.rotate(-deg, resample=Image.BICUBIC, center=center)
+    big = Image.new("RGBA", big.size)
+    big.alpha_composite(piece)
+    big.alpha_composite(rest)
+    return big, m
 
 
-def retouch(img: Image.Image, item: dict) -> Image.Image:
-    """그림 손질 순서 (head-fit.md 3.2.2): erase → 꼬리 반원 자르기 → 꼬리 돌리기 → 다시 잘라 내기.
-    세 손질의 비율 좌표는 모두 손질 전 잘라 낸 그림(trim(source)) 기준이다."""
+def band_extend(img: Image.Image, spec: dict) -> Image.Image:
+    """띠 연장 `bandExtend` (head-fit.md 3.2.3.4): 곧은 띠 구간 segment [시작, 끝](그림 폭 비율)의 세로 띠를 repeat번
+    그 자리에 이어 붙여 띠를 왼쪽으로 늘린다. 구간 길이를 꼰 무늬 한 주기의 정수배로 잡으면 이음매가 줄무늬 경계에 온다.
+    같은 그림의 픽셀을 띠 축(가로) 방향으로 복사만 한다. 늘린 길이는 원래 띠 길이의 60% 이하(부르는 쪽 검사)."""
+    x0, x1 = round(spec["segment"][0] * img.width), round(spec["segment"][1] * img.width)
+    strip = img.crop((x0, 0, x1, img.height))
+    n = spec.get("repeat", 1)
+    out = Image.new("RGBA", (img.width + strip.width * n, img.height))
+    out.paste(img.crop((0, 0, x1, img.height)), (0, 0))
+    for i in range(n):
+        out.paste(strip, (x1 + i * strip.width, 0))
+    out.paste(img.crop((x1, 0, img.width, img.height)), (x1 + n * strip.width, 0))
+    return out
+
+
+def indigo_mean(img: Image.Image) -> tuple[float, float] | None:
+    """남색 픽셀(검사 11 (나)의 정의: 색상 200°~235°, 명도 0.55 이하, 채도 0.2 이상)의 평균 (색상 도, 명도)."""
+    hs, vs = [], []
+    for r, g, b, a in img.resize((img.width // 4 or 1, img.height // 4 or 1)).get_flattened_data():
+        if a < 200:
+            continue
+        h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+        if INDIGO_HUE[0] <= h * 360 <= INDIGO_HUE[1] and v <= INDIGO_VALUE and s >= 0.2:
+            hs.append(h * 360)
+            vs.append(v)
+    return (sum(hs) / len(hs), sum(vs) / len(vs)) if hs else None
+
+
+def compose(spec: dict) -> tuple[Image.Image, tuple[float, float]]:
+    """두 그림 합성 `compose` (head-fit.md 3.2.3.4 합성 규칙, S3): 띠 그림(원래 매듭·꼬리를 `bandErase`로 지움) 위에
+    매듭 그림(`knotErase`로 줄기를 매듭 가장자리 바깥 4까지만 남김)을 `knotScale`배(띠 그림 픽셀 기준)로 줄이고
+    `knotRotate`도(SVG 부호) 돌려, 매듭 그림 가운데를 띠 그림의 `knotAt`(비율)에 놓는다. 픽셀을 옮기기만 한다.
+    경로는 source/ 기준. (합친 그림, (남색 색상 차, 명도 차))를 돌려준다."""
+    band = apply_erase(trim(Image.open(SOURCE / spec["band"]).convert("RGBA")), spec.get("bandErase"), retrim=False)
+    knot = apply_erase(trim(Image.open(SOURCE / spec["knot"]).convert("RGBA")), spec.get("knotErase"))
+    s = spec.get("knotScale", 1.0)
+    knot = knot.resize((max(1, round(knot.width * s)), max(1, round(knot.height * s))), Image.LANCZOS)
+    if spec.get("knotRotate"):
+        knot = trim(knot.rotate(-spec["knotRotate"], resample=Image.BICUBIC, expand=True))
+    cx, cy = spec["knotAt"][0] * band.width, spec["knotAt"][1] * band.height
+    ox, oy = round(cx - knot.width / 2), round(cy - knot.height / 2)
+    x0, y0 = min(0, ox), min(0, oy)
+    out = Image.new("RGBA", (max(band.width, ox + knot.width) - x0, max(band.height, oy + knot.height) - y0))
+    out.alpha_composite(band, (-x0, -y0))
+    out.alpha_composite(knot, (ox - x0, oy - y0))
+    ib, ik = indigo_mean(band), indigo_mean(knot)
+    diff = (abs(ib[0] - ik[0]), abs(ib[1] - ik[1])) if ib and ik else (math.inf, math.inf)
+    return trim(out), diff
+
+
+def prepare_source(src: Image.Image, item: dict) -> Image.Image:
+    """손질 앞 단계 (head-fit.md 3.2.3.4 순서): 뒤집기(`flip` "h"/"v") → 그림 돌리기(`sourceRotate`) → (S3) 합성 → 띠 연장.
+    `compose`가 있으면 src 대신 합성한 그림을 쓴다(뒤집기·돌리기는 하지 않는다)."""
+    if item.get("compose"):
+        src = compose(item["compose"])[0]
+        if item.get("bandExtend"):
+            src = band_extend(src, item["bandExtend"])
+        return trim(src)
+    flip = item.get("flip")
+    if flip == "h":
+        src = src.transpose(Image.FLIP_LEFT_RIGHT)
+    elif flip == "v":
+        src = src.transpose(Image.FLIP_TOP_BOTTOM)
+    src = trim(level(src, item))
+    if item.get("bandExtend"):
+        src = band_extend(src, item["bandExtend"])
+    return trim(src)
+
+
+def retouch(img: Image.Image, item: dict) -> tuple[Image.Image, Image.Image | None]:
+    """그림 손질 순서 (head-fit.md 3.2.3.4): erase → 꼬리 반원 자르기 → 꼬리 묶음 돌리기 → 다시 잘라 내기.
+    손질의 비율 좌표(`erase`, `tailTrim`, `tail`, `tailRotate.pivot`)는 모두 손질 전 그림(prepare_source 결과) 기준이다.
+    (그림, 꼬리 마스크)를 돌려준다. 꼬리 마스크는 `tail` 다각형(없으면 None)이고 그림과 같은 크기로 따라간다."""
     img = apply_erase(img, item.get("erase"), retrim=False)
     if item.get("tailTrim"):
         polys = [tail_trim_polygon(s, img.size) for s in item["tailTrim"]]
         img = apply_erase(img, [[(x / img.width, y / img.height) for x, y in p] for p in polys], retrim=False)
-    if item.get("tailRotate"):
-        img = tail_rotate(img, item["tailRotate"])
-    return trim(img)
+    tail = None
+    if item.get("tail"):
+        tail = polygon_mask(item["tail"], img.size, lambda p: (p[0] * img.width, p[1] * img.height))
+    rot = item.get("tailRotate")
+    if rot and tail is not None:
+        pivot = (rot["pivot"][0] * img.width, rot["pivot"][1] * img.height)
+        img, tail = tail_rotate(img, tail, pivot, rot["angle"])
+    box = img.getchannel("A").getbbox()
+    if box:
+        img = img.crop(box)
+        tail = tail.crop(box) if tail is not None else None
+    return img, tail
 
 
 def shift_down(layer: Image.Image, units: float) -> Image.Image:
@@ -438,14 +520,18 @@ def place_head(src: Image.Image, item: dict) -> tuple[Image.Image, dict]:
     kind = item.get("kind", "hat")
     how = item.get("fit")
     w, h = item.get("box", TOP_BOX[kind])
-    img = retouch(trim(src), item)
+    img, tail = retouch(prepare_source(src, item), item)
     info: dict = {"fit": how}
+    if item.get("compose"):
+        info["composeIndigo"] = compose(item["compose"])[1]
     if item.get("squash"):
         # 가로 늘림 (head-fit.md 3.5.2 정식 손질): 비율을 지키지 않고 상자에 맞춘다. 가로 배율 ÷ 세로 배율을 검사한다.
         info["squash"] = (px(w) / img.width) / (px(h) / img.height)
         img = img.resize((px(w), px(h)), Image.LANCZOS)
     else:
         img = fit(img, px(w), px(h))
+    if tail is not None:
+        tail = tail.resize(img.size, Image.BILINEAR)
     rotate = item.get("rotate", 0)
     if how == "overlay":
         anchor = anchor_px(img, item.get("anchor"), (0.5, 0.5))
@@ -460,6 +546,11 @@ def place_head(src: Image.Image, item: dict) -> tuple[Image.Image, dict]:
         raise ValueError(f"{item['id']}: 그림으로 놓을 수 없는 맞춤 방식 {how}")
     info["contact_x"] = target[0]
     layer = place_at(img, anchor, target, rotate)
+    if tail is not None:
+        # 꼬리 마스크도 같은 자리에 놓는다 (검사 12의 매듭 폭, 검사 13). 그림의 불투명 픽셀과 겹친 곳만 꼬리로 친다.
+        t = Image.new("RGBA", img.size, (0, 0, 0, 0))
+        t.putalpha(tail)
+        info["tail"] = mask_and(alpha_mask(place_at(t, anchor, target, rotate)), alpha_mask(layer))
     info["outline_before"] = outline_thickness(layer)
 
     if how in ("carve", "drape"):
@@ -685,6 +776,8 @@ def check_head_fit(item: dict, layer: Image.Image, info: dict) -> list[tuple[str
     if item.get("indigoRange"):
         out += check_towel(item, layer)
     out += check_size(item, layer, info)
+    if item.get("tailRange"):
+        out += check_tail(item, layer, info)
     return out
 
 
@@ -812,11 +905,13 @@ def size_numbers(layer: Image.Image, info: dict | None = None, item: dict | None
         out["thick"] = (ys[-1] - ys[0] + 1) if ys else 0
     if cls == "band" and ys:
         # 매듭: 띠 가운데 줄(기울기를 따라)을 지나면서 띠보다 4 넘게 두꺼운 열이 처음 이어지는 구간의 폭.
-        # 오른쪽 꼬리는 띠 가운데 줄 위로 떠 있어 빠진다.
+        # 오른쪽 꼬리는 띠 가운데 줄 위로 떠 있어 빠진다. 4차 수정(3.2.3.5): 꼬리가 매듭 아래에 붙어 열 두께를 키우므로
+        # `tail` 다각형 픽셀을 빼고 잰다.
+        gk = unit_grid(mask_sub(mask, info["tail"])) if info.get("tail") is not None else g
         mid0, slope = (ys[0] + ys[-1]) / 2, math.tan(math.radians(item.get("rotate", 0)))
         run, started = 0, False
         for x in range(cx, 237):
-            col = [y for y in range(360) if g[y][x + 30]]
+            col = [y for y in range(360) if gk[y][x + 30]]
             yc = round(mid0 + (x - cx) * slope)
             thick = len(col) > out["thick"] + 4 and 0 <= yc < 360 and g[yc][x + 30]
             if thick:
@@ -852,6 +947,54 @@ def check_size(item: dict, layer: Image.Image, info: dict) -> list[tuple[str, bo
         ok = ok and need["knot"] <= s.get("knot", 0) <= need.get("knotMax", math.inf)
         lim.append(f"매듭 {need['knot']}" + (f"~{need['knotMax']}" if "knotMax" in need else ""))
     return [(f"{' / '.join(parts)} ({cls} 하한: {', '.join(lim)} 이상)", ok)]
+
+
+TAIL_KNOT_TOL = 3                  # 검사 13: 매듭 가운데가 knotTarget에서 벗어나도 되는 거리 (각 축)
+
+
+def check_tail(item: dict, layer: Image.Image, info: dict) -> list[tuple[str, bool]]:
+    """검사 13 (head-fit.md 5번, 3.2.3.5): band 꼬리가 매듭 아래로 늘어지는지. items.json `tailRange`가 있는 아이템만.
+    매듭 가운데 = `clipExempt` 안 불투명 픽셀에서 `tail` 픽셀을 뺀 것의 무게중심. 방향은 매듭 가운데 → 가장 먼 `tail` 픽셀,
+    세로 아래 0°에서 오른쪽으로 +. 길이 = 그 거리 − 매듭 폭 ÷ 2 (매듭 폭은 검사 12와 같은 값)."""
+    rng = item["tailRange"]
+    mask = alpha_mask(layer)
+    top = mask.getbbox()[1] / SCALE
+    out = [(f"꼬리: 보이는 상자 위 끝 y {top:.0f} ({rng['topMin']} 이상)", top >= rng["topMin"])]
+    tail = info.get("tail")
+    if tail is None:
+        return out + [("꼬리: items.json `tail` 다각형 없음", False)]
+    tail = mask_and(tail, mask)
+    exempt = polygon_mask(item.get("clipExempt", []), layer.size, lambda p: (gx(p[0]), px(p[1])))
+    knot = mask_sub(mask_and(mask, exempt), tail)
+
+    def points(m: Image.Image) -> list[tuple[float, float]]:
+        grid = unit_grid(m)
+        return [(c - 30 + 0.5, y + 0.5) for y in range(360) for c in range(360) if grid[y][c]]
+
+    kp, tp = points(knot), points(tail)
+    if not kp or not tp:
+        return out + [(f"꼬리: 매듭 픽셀 {len(kp)}, 꼬리 픽셀 {len(tp)}", False)]
+    kx, ky = sum(p[0] for p in kp) / len(kp), sum(p[1] for p in kp) / len(kp)
+    t_top = min(p[1] for p in tp)
+    fx, fy = max(tp, key=lambda p: (p[0] - kx) ** 2 + (p[1] - ky) ** 2)
+    dist = math.hypot(fx - kx, fy - ky)
+    angle = math.degrees(math.atan2(fx - kx, fy - ky))       # 세로 아래 0°, 오른쪽 +
+    knot_w = size_numbers(layer, info, item).get("knot", 0)
+    length = dist - knot_w / 2
+    a_lo, a_hi = rng["angle"]
+    l_lo, l_hi = rng["length"]
+    tx, ty = item.get("knotTarget", (kx, ky))
+    out += [
+        (f"꼬리: 꼬리 위 끝 y {t_top:.0f} (매듭 가운데 y {ky:.1f} 이상)", t_top >= ky),
+        (f"꼬리: 방향 세로 아래에서 {angle:+.0f}° ({a_lo}~{a_hi}), 끝 ({fx:.0f}, {fy:.0f})", a_lo <= angle <= a_hi),
+        (f"꼬리: 길이 {dist:.1f} − 매듭 {knot_w}÷2 = {length:.1f} ({l_lo}~{l_hi})", l_lo <= length <= l_hi),
+        (f"꼬리: 매듭 가운데 ({kx:.1f}, {ky:.1f}) (목표 ({tx}, {ty}) ±{TAIL_KNOT_TOL})",
+         abs(kx - tx) <= TAIL_KNOT_TOL and abs(ky - ty) <= TAIL_KNOT_TOL),
+    ]
+    if "composeIndigo" in info:
+        dh, dv = info["composeIndigo"]
+        out.append((f"꼬리: 합성 남색 차 색상 {dh:.1f}° 명도 {dv:.3f} (8° · 0.08 이하)", dh <= 8 and dv <= 0.08))
+    return out
 
 
 def place_top(src: Image.Image, item: dict) -> Image.Image:
@@ -979,8 +1122,9 @@ def svg_item_layer(draw) -> Image.Image:
     return magenta_layer(render_svg(giri.wrap('<rect x="-30" y="0" width="360" height="360" fill="#FF00FF"/>' + draw())))
 
 
-def build(item: dict, info: dict | None = None) -> dict[str, Image.Image]:
-    """플랫폼에 묶이지 않는 결과: 파일 이름 → 그림. info를 주면 머리 맞춤 검사용 정보를 채운다."""
+def build(item: dict, info: dict | None = None, src: Image.Image | None = None) -> dict[str, Image.Image]:
+    """플랫폼에 묶이지 않는 결과: 파일 이름 → 그림. info를 주면 머리 맞춤 검사용 정보를 채운다.
+    src를 주면 source/{id}.png 대신 그 그림을 쓴다(후보를 에셋에 넣기 전에 검사할 때)."""
     slot, iid = item["slot"], item["id"]
     info = {} if info is None else info
     if item.get("drawnBy"):
@@ -991,7 +1135,7 @@ def build(item: dict, info: dict | None = None) -> dict[str, Image.Image]:
         info.update(fit=item["fit"], contact_x=cx,
                     overshoot=band_overshoot(alpha_mask(unclipped), alpha_mask(layer), cx))
         return {iid: layer, f"{iid}-thumb": crop_view(layer, THUMB_VIEW[slot])}
-    src = Image.open(SOURCE / f"{item['id']}.png").convert("RGBA")
+    src = (src or Image.open(SOURCE / f"{item['id']}.png")).convert("RGBA")
     if slot == "background":
         side = min(src.size)
         sq = src.crop(((src.width - side) // 2, (src.height - side) // 2,
