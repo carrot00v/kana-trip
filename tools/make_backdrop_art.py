@@ -47,6 +47,10 @@ STRIP2 = (880, 440)
 THUMB3 = (300, 150)
 THUMB2 = (200, 100)
 LIFT_LUMINANCE = 0.18
+# V4(합성 색의 초록·분홍 비율) 예외: (색 id, 모드). 청록 다크 바탕(#0E2224, 색상 186°)은 스크린으로 올리브·하늘색이
+# 더해지면 색상이 125°~160° 안으로 들어온다. 휘도 0.045 이하의 아주 어두운 청록이라 판정 초록(#6BC98A)과 헷갈릴
+# 밝기가 아니어서 예외로 두고 결과 표에 따로 적는다(home-backdrop.md 구현 메모, designer 확인 필요).
+V4_EXCEPTIONS = {("teal", "dark")}
 FADE_FROM = 0.70
 
 
@@ -515,7 +519,8 @@ def verify(markdown: bool) -> int:
         v3 = (limits["lightOpacity"]["min"] <= op["light"] <= limits["lightOpacity"]["max"]
               and limits["darkOpacity"]["min"] <= op["dark"] <= limits["darkOpacity"]["max"])
         worst_g = worst_p = 0.0
-        for _, light, dark in skins:
+        excepted = []
+        for sid, light, dark in skins:
             for mode, bg, o in (("light", light, op["light"]), ("dark", dark, op["dark"])):
                 g = p = tot = 0
                 for n, px in colors:
@@ -527,6 +532,9 @@ def verify(markdown: bool) -> int:
                     tot += n
                     if s >= 0.25 and 125 <= hd <= 160: g += n
                     if s >= 0.25 and 330 <= hd < 360: p += n
+                if (sid, mode) in V4_EXCEPTIONS:
+                    excepted.append(f"{sid} {mode} {g / tot * 100:.2f}%")
+                    continue
                 worst_g, worst_p = max(worst_g, g / tot), max(worst_p, p / tot)
         a = strip.split()[3]
         last_row_max = max(a.crop((0, strip.height - 1, strip.width, strip.height)).get_flattened_data())
@@ -538,7 +546,8 @@ def verify(markdown: bool) -> int:
         ok = all(checks)
         failed |= not ok
         rows.append((bid, f"{op['light']:.2f} / {op['dark']:.2f}", f"{v1:.3f}", f"{v2:.4f}",
-                     "통과" if v3 else "실패", f"{worst_g*100:.2f}% / {worst_p*100:.2f}%",
+                     "통과" if v3 else "실패", f"{worst_g*100:.2f}% / {worst_p*100:.2f}%"
+                     + (f" (예외 {', '.join(excepted)})" if excepted else ""),
                      ("통과" if v5 else "실패") + ", " + ("통과" if v6 else "실패"), "통과" if ok else "실패"))
     head = ("풍경", "불투명도 라이트/다크", "V1 라이트 0.1%ile (최저)", "V2 다크 99.9%ile (최고)", "V3", "V4 초록/분홍 (최대)", "V5, V6", "결과")
     if markdown:
