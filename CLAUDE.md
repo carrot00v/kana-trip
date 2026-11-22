@@ -32,7 +32,8 @@
 - 도구: `tools/gen_image.py`(한 장 생성), `tools/remove_bg.py`(단색 바탕을 투명으로), `tools/gen_item_art.py`(리워드 아이템 일괄 생성), `tools/place_item_art.py`(아이템 배치·썸네일·가나 합성). 이미지 도구는 안드로이드 확장을 위해 파이썬 + Pillow로 통일한다. 처음 한 번 `python3 -m venv .venv && .venv/bin/pip install -r tools/requirements.txt`로 준비하고, `.venv/bin/python`으로 실행한다.
 - 화풍 기준은 캐릭터 기리다. 그리기 전에 `docs/design/visual-rules.md`와 `docs/design/item-art/brief.md`를 읽는다.
 - 생성은 한 번에 하나씩, 오래 걸리면 백그라운드로 돌린다. 기준 Mac(M4 Pro 24GB)에서 1024px 한 장에 3.5~5분 걸린다.
-- 예외: 밥 그림과 스킨 무늬 타일(반복 기하 무늬 4장)은 이미지 모델이 아니라 스크립트로 그린다(`tools/make_onigiri_svg.py`, `tools/make_skin_patterns.py`). 이음매 없는 반복과 기리 몸과 같은 선이 필요하기 때문이다.
+- 홈 바탕 풍경은 `tools/make_backdrop_art.py`로 만든다(주문서와 검사 기준은 `docs/design/home-backdrop.md`).
+- 예외: 밥 그림은 이미지 모델이 아니라 스크립트로 그린다(`tools/make_onigiri_svg.py`). 기리 몸과 같은 선이 필요하기 때문이다.
 - 다른 모델을 받거나 클라우드 GPU·외부 API를 쓰려면 사용자에게 먼저 묻는다.
 - **로컬 환경이 없으면 그림 작업은 보류한다.** 시작 전에 `curl -s -m 2 http://127.0.0.1:8188/system_stats`가 응답하는지와 모델 파일이 있는지 본다. 하나라도 없으면 그림을 대신 만들지 않는다. 다른 방법(SVG 직접 그리기, 외부 서비스)으로 바꾸지도 않는다. 할 그림과 프롬프트 초안을 `docs/schedule.md`의 보류 작업에 올리고, 그림이 필요 없는 나머지 작업을 이어 간다.
 
