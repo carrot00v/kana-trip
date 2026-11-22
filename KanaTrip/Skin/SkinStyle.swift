@@ -111,17 +111,46 @@ final class SkinStore {
     var progress: ProgressStore?
     /// `-skinDebug <id>`: 저장 상태와 상관없이 메모리에서만 쓰는 스킨 (8.3). 색 id나 아이템 id. DEBUG 빌드 전용.
     var debugSkinID: String?
+    /// `-backdropDebug <id>`: 저장·열림과 상관없이 홈에 까는 풍경 (home-backdrop.md 6.3). DEBUG 빌드 전용.
+    var debugBackdropID: String?
 
     @ObservationIgnored let catalog: SkinCatalog
+    @ObservationIgnored let backdrops: BackdropCatalog
 
-    init(catalog: SkinCatalog = .shared) {
+    init(catalog: SkinCatalog = .shared, backdrops: BackdropCatalog = .shared) {
         self.catalog = catalog
+        self.backdrops = backdrops
     }
 
     var current: Skin {
         if let id = debugSkinID, let skin = catalog.skin(idOrItemID: id) { return skin }
         guard let rewards = progress?.rewards else { return catalog.defaultSkin }
         return catalog.skin(for: rewards)
+    }
+
+    /// 홈에 깔 풍경 (home-backdrop.md 6.2). 저장 값이 없거나, 목록에 없거나, 잠겼으면 nil.
+    var backdrop: Backdrop? {
+        if let id = debugBackdropID, let backdrop = backdrops.backdrop(id: id) { return backdrop }
+        guard let rewards = progress?.rewards else { return nil }
+        return backdrops.current(for: rewards)
+    }
+}
+
+extension BackdropCatalog {
+    static let shared: BackdropCatalog = bundled()
+
+    /// 번들의 backdrops.json. 에셋이 없는 항목은 칸을 만들지 않는다. 파일을 못 쓰면 비어 있다(풍경 없음, 6.1).
+    static func bundled(bundle: Bundle = .main) -> BackdropCatalog {
+        guard let url = bundle.url(forResource: "backdrops", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let catalog = BackdropCatalog(data: data, hasAsset: { UIImage(named: $0, in: bundle, compatibleWith: nil) != nil })
+        else { return .empty }
+        #if DEBUG
+        if BackdropDebug.unlockAll {
+            return BackdropCatalog(unlock: .all, layout: catalog.layout, limits: catalog.limits, backdrops: catalog.backdrops)
+        }
+        #endif
+        return catalog
     }
 }
 

@@ -69,7 +69,7 @@ enum RewardRules {
         if !catalog.katakanaSceneIDs.isEmpty, all.allSatisfy(completedScenes.contains), !state.paid.contains(allMilestoneKey) {
             state.paid.append(allMilestoneKey)
             // 안 산 아이템을 모두 준다. 입히지는 않는다 (reward-system.md 5.1).
-            let rest = catalog.items.filter { !$0.isDefault && !state.owned.contains($0.id) }.map(\.id)
+            let rest = catalog.saleItems.filter { !$0.isDefault && !state.owned.contains($0.id) }.map(\.id)
             state.owned += rest
             grant.grantedItemIDs += rest
         }
@@ -98,7 +98,7 @@ enum RewardRules {
 
     /// 지금 살 수 있는 아이템 (열림, 안 가짐, 잔액 ≥ 값). 저장하지 않고 계산한다 (reward-system.md 3.2).
     static func buyableItems(state: RewardState, catalog: RewardCatalog) -> [RewardItem] {
-        catalog.items.filter { isForSale($0, state: state) && canAfford($0, state: state) }
+        catalog.saleItems.filter { isForSale($0, state: state) && canAfford($0, state: state) }
     }
 
     // MARK: - 사기와 입기
@@ -140,6 +140,18 @@ enum RewardRules {
         case .filling, .background:
             state.equipped[slot.rawValue] = nil
         }
+    }
+
+    // MARK: - 앱 색과 홈 바탕 (app-skin.md 개정 2, home-backdrop.md 6.2)
+
+    /// 앱 색을 쓴다. 기본 색 id나 nil이면 키를 지운다(= 기본).
+    static func setSkin(_ skinID: String?, state: inout RewardState) {
+        state.skin = (skinID == Skin.defaultID) ? nil : skinID
+    }
+
+    /// 홈 바탕을 쓴다. nil이면 없음.
+    static func setBackdrop(_ backdropID: String?, state: inout RewardState) {
+        state.backdrop = backdropID
     }
 
     /// "기본 차림으로"가 되돌리는 슬롯. 권장안(app-skin.md 5.5)대로면 스킨은 빠진다.

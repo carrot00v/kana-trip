@@ -110,8 +110,10 @@ struct SceneDoneView: View {
         let next = library.scene(after: scene)
         let goalWords = library.goalWords(for: scene)
         let items = store.rewardCatalog.items(forScene: scene.id)
-        // 살 수 있는 아이템이 있거나 이번에 아이템을 받았을 때만 "기리 꾸미기"를 둔다.
-        let showsCustomize = store.canBuyAnyItem || !grant.grantedItemIDs.isEmpty
+        // 이번에 열린 홈 바탕 (home-backdrop.md 5.2, D3 가). 그림이 없는 장면이면 nil.
+        let backdrop = SkinStore.shared.backdrops.newlyUnlocked(bySceneCompletion: scene.id)
+        // 살 수 있는 아이템이 있거나, 이번에 아이템을 받았거나, 홈 바탕이 열렸을 때만 "기리 꾸미기"를 둔다.
+        let showsCustomize = store.canBuyAnyItem || !grant.grantedItemIDs.isEmpty || backdrop != nil
         let giriLine = GiriSpeech.completion(.scene(scene: scene.name, hadWrong: !quizWrong.isEmpty, isLastScene: next == nil))
         CompletionLayout(giriLine: giriLine, level: .strong) {
             Text(L.sceneDone(scene.name)).font(.title2.bold())
@@ -127,8 +129,8 @@ struct SceneDoneView: View {
             if !goalWords.isEmpty {
                 GoalWordsBlock(title: L.readableWords(scene.name), words: goalWords)
             }
-            if grant.coins > 0 || !items.isEmpty {
-                rewards(items: items)
+            if grant.coins > 0 || !items.isEmpty || backdrop != nil {
+                rewards(items: items, backdrop: backdrop)
             }
             if let next {
                 Text(L.nextSceneOpened(next.name)).font(.body)
@@ -152,9 +154,13 @@ struct SceneDoneView: View {
     }
 
     /// 받은 엔 줄, 마일스톤 줄, 열린 아이템 (reward-flow.md 6.2의 6번).
-    private func rewards(items: [RewardItem]) -> some View {
+    private func rewards(items: [RewardItem], backdrop: Backdrop?) -> some View {
         let learned = ContentLibrary.shared.kana(before: scene).union(scene.kana)
-        let header = grant.grantedItemIDs.isEmpty ? L.itemsUnlocked(items.count) : L.itemsGranted(grant.grantedItemIDs.count)
+        let header: String = {
+            if !grant.grantedItemIDs.isEmpty { return L.itemsGranted(grant.grantedItemIDs.count) }
+            guard backdrop != nil else { return L.itemsUnlocked(items.count) }
+            return items.isEmpty ? L.backdropUnlocked : L.itemsAndBackdropUnlocked(items.count)
+        }()
         return VStack(spacing: 0) {
             if grant.coins > 0 {
                 CoinsReceivedLine(received: grant.coins, balance: grant.balance)
@@ -165,7 +171,7 @@ struct SceneDoneView: View {
                     .foregroundStyle(Color.inkSecondary)
                     .padding(.top, 4)
             }
-            if !items.isEmpty {
+            if !items.isEmpty || backdrop != nil {
                 VStack(spacing: 8) {
                     Text(header)
                         .font(.subheadline)
@@ -173,27 +179,28 @@ struct SceneDoneView: View {
                     CenteredFlow(spacing: 16, lineSpacing: 8) {
                         ForEach(items) { item in
                             VStack(spacing: 2) {
-                                Group {
-                                    if item.slot == SkinPolicy.slot {
-                                        // 색 아이템은 44pt 칸 가운데 견본 30pt (app-skin.md 5.4).
-                                        SkinSwatch(skin: SkinCatalog.shared.skin(itemID: item.id), size: 30)
-                                            .frame(width: 44, height: 44)
-                                    } else {
-                                        ItemThumbnail(item: item, size: 44)
-                                    }
-                                }
-                                .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
-                                .cardOutline(cornerRadius: 10)
-                                if item.slot == SkinPolicy.slot {
-                                    // 발음 표기 줄은 비우고 "{색 이름} 색" (5.4).
-                                    VStack(spacing: 0) {
-                                        Color.clear.frame(height: 12)
-                                        Text(L.skinColorName(SkinCatalog.shared.skin(itemID: item.id).nameKo))
-                                            .font(.system(size: 15))
-                                            .frame(height: 20)
-                                    }
-                                } else {
-                                    ItemNameRuby(item: item, learned: learned)
+                                ItemThumbnail(item: item, size: 44)
+                                    .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
+                                    .cardOutline(cornerRadius: 10)
+                                ItemNameRuby(item: item, learned: learned)
+                            }
+                        }
+                        // 홈 바탕 묶음은 맨 끝 (home-backdrop.md 5.2): 썸네일 칸 88×44 / 2 / 발음 줄 12 비움 / "홈 바탕" 20.
+                        if let backdrop {
+                            VStack(spacing: 2) {
+                                Image(backdrop.thumbAssetName)
+                                    .resizable()
+                                    .interpolation(.high)
+                                    .frame(width: 84, height: 42)
+                                    .frame(width: 88, height: 44)
+                                    .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 10))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .cardOutline(cornerRadius: 10)
+                                VStack(spacing: 0) {
+                                    Color.clear.frame(height: 12)
+                                    Text(L.backdropBundleName)
+                                        .font(.system(size: 15))
+                                        .frame(height: 20)
                                 }
                             }
                         }
@@ -201,19 +208,17 @@ struct SceneDoneView: View {
                 }
                 .padding(.top, 8)
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text(itemsLabel(header: header, items: items)))
+                .accessibilityLabel(Text(itemsLabel(header: header, items: items, backdrop: backdrop)))
             }
         }
     }
 
-    private func itemsLabel(header: String, items: [RewardItem]) -> AttributedString {
-        items.reduce(AttributedString(header)) { label, item in
-            if item.slot == SkinPolicy.slot {
-                // 색 아이템은 "{색 이름} 색" (app-skin.md 5.4).
-                return label + AttributedString(", " + L.skinColorName(SkinCatalog.shared.skin(itemID: item.id).nameKo))
-            }
-            return label + AttributedString(", ") + KanaText.japanese(item.kana ?? "") + AttributedString(" \(item.nameKo)")
+    private func itemsLabel(header: String, items: [RewardItem], backdrop: Backdrop?) -> AttributedString {
+        let label = items.reduce(AttributedString(header)) { label, item in
+            label + AttributedString(", ") + KanaText.japanese(item.kana ?? "") + AttributedString(" \(item.nameKo)")
         }
+        guard backdrop != nil else { return label }
+        return label + AttributedString(", " + L.backdropBundleLabel(scene.name))
     }
 }
 

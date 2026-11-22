@@ -256,22 +256,29 @@ enum L {
     static let bought = "사서 바꿨어요"
     static let outfitReset = "기본 차림으로 돌아왔어요"
 
-    // 스킨 탭 (app-skin.md 5.2, 5.3. 2026-11-21 색상 선택 개정). {색 이름}은 skins.json의 nameKo.
+    // 스킨 탭 (app-skin.md 5.2, 5.3. 개정 2: 색 전부 열림). {색 이름}은 skins.json의 nameKo.
     static let skinDefault = "기본"
     static let skinDefaultWearing = "기본 색을 쓰고 있어요"
     static let skinDefaultRestored = "기본 색으로 돌아왔어요"
     static let skinEquipped = "앱 색을 바꿨어요"
-    static let skinBought = "사서 앱 색을 바꿨어요"
     static let skinDefaultLabel = "기본 색"
-    static let skinDefaultAction = "기본 색으로 바꾸기"
-    /// C2 열린 아이템 줄과 VoiceOver의 색 아이템 이름 (5.4).
-    static func skinColorName(_ name: String) -> String { "\(name) 색" }
+    // 홈 바탕 (home-backdrop.md 4.1~4.4, 5.2). {장면}은 장면 데이터의 name.
+    static let appColorSection = "앱 색"
+    static let homeBackdropSection = "홈 바탕"
+    static func backdropTitle(_ scene: String) -> String { "\(scene) 바탕" }
+    static let backdropChanged = "홈 바탕을 바꿨어요"
+    static let backdropUsing = "홈 바탕으로 쓰고 있어요"
+    static let backdropCleared = "홈 바탕을 비웠어요"
+    static let backdropNoneNow = "홈 바탕을 쓰지 않고 있어요"
+    static let backdropHiddenByContrast = "대비 증가를 켜 두면 홈 바탕이 보이지 않아요"
+    static let backdropNoneLabel = "홈 바탕 없음"
+    /// C2 열린 아이템 줄 머리 (5.2).
+    static func itemsAndBackdropUnlocked(_ n: Int) -> String { "새 아이템 \(n)개와 홈 바탕이 열렸어요" }
+    static let backdropUnlocked = "홈 바탕이 열렸어요"
+    static let backdropBundleName = "홈 바탕"
+    static func backdropBundleLabel(_ scene: String) -> String { "\(scene) 홈 바탕" }
     /// K 미리보기 VoiceOver 값의 마지막 항목 (5.3).
     static func skinPreviewPart(_ name: String) -> String { "스킨 \(name)" }
-    /// 미리 보는 견본의 VoiceOver 값 앞머리 (5.3).
-    static func tryingPrefix(_ value: String) -> String { "\(tryingOnLabel), \(value)" }
-    /// 확인 창 제목. "색을"로 받침 판별을 피한다 (5.3).
-    static func buySkinQuestion(name: String, price: Int) -> String { "\(name) 색을 \(yen(price))에 살까요?" }
     static func buyQuestion(kana: String, nameKo: String, price: Int) -> String {
         "\(kana)(\(nameKo))\(hasFinalConsonant(nameKo) ? "을" : "를") \(yen(price))에 살까요?"
     }

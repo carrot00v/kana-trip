@@ -12,8 +12,8 @@ enum RewardSlot: String, Codable, CaseIterable {
     case filling
     /// 몸(밥)의 색과 무늬. 기본은 흰 밥이고 비울 수 없다.
     case rice
-    /// 앱 색. 아이템 id로 skins.json의 색을 찾는다. 키가 없으면 기본 색 (app-skin.md 8.1).
-    /// 2026-11-21 색상 선택 개정부터 아이템 그림은 그리지 않는다(B 결정 전). 저장 키 `background`는 그대로 둔다.
+    /// K 스킨 탭(색·홈 바탕). 저장은 `RewardState.skin`·`backdrop` (app-skin.md 개정 2).
+    /// 이 슬롯의 아이템 4개(색을 열던 것)는 Q1 결정 전 임시 동작으로 팔지 않는다(`SkinPolicy.sellsColorItems`).
     case background
 
     /// 기본 차림의 아이템 (reward-system.md 1.4). 없으면 기본이 빈 슬롯이다.
@@ -145,6 +145,12 @@ struct RewardState: Codable, Equatable {
     /// 불러올 때 `RewardRules.sanitized`가 기본이 있는 슬롯(top, rice)은 키를 늘 두고, 빈 슬롯(filling, background)은 키를 지운 꼴로 맞춘다.
     var equipped: [String: String] = RewardState.defaultOutfit
 
+    /// 앱 색 id (skins.json의 `id`). nil이면 기본 색. 목록에 없는 id도 지우지 않고 기본으로 그린다 (app-skin.md 개정 2).
+    var skin: String?
+    /// 홈 바탕 풍경 id (= 장면 id, backdrops.json). nil이면 없음. 목록에 없거나 잠긴 id도 지우지 않고 없음으로 그린다
+    /// (home-backdrop.md 6.2).
+    var backdrop: String?
+
     static let defaultOutfit = ["top": "chef_hat", "rice": "plain_rice"]
     /// 비운 슬롯의 값.
     static let emptyMark = ""
@@ -152,7 +158,7 @@ struct RewardState: Codable, Equatable {
     init() {}
 
     private enum CodingKeys: String, CodingKey {
-        case version, coins, paid, owned, equipped
+        case version, coins, paid, owned, equipped, skin, backdrop
     }
 
     /// 나중에 필드를 더해도 예전 파일을 읽을 수 있게 키마다 따로 읽는다. 버전이 없으면 1(옛 슬롯)이다.
@@ -163,6 +169,8 @@ struct RewardState: Codable, Equatable {
         paid = (try? c.decodeIfPresent([String].self, forKey: .paid)) ?? []
         owned = (try? c.decodeIfPresent([String].self, forKey: .owned)) ?? []
         equipped = (try? c.decodeIfPresent([String: String].self, forKey: .equipped)) ?? RewardState.defaultOutfit
+        skin = try? c.decodeIfPresent(String.self, forKey: .skin)
+        backdrop = try? c.decodeIfPresent(String.self, forKey: .backdrop)
     }
 
     /// 그 슬롯에 입은 아이템 id. 비어 있으면 nil. 키가 없으면 그 슬롯의 기본 아이템.
@@ -172,7 +180,7 @@ struct RewardState: Codable, Equatable {
     }
 
     /// 차림 슬롯이 모두 기본 차림인지. "기본 차림으로" 버튼을 끌 때 쓴다.
-    /// 스킨은 기리의 차림이 아니라 보지 않는다 (app-skin.md 5.5, `SkinPolicy.resetOutfitKeepsSkin`).
+    /// 색(`skin`)과 홈 바탕(`backdrop`)은 기리의 차림이 아니라 보지 않는다 (app-skin.md 5.5).
     var isDefaultOutfit: Bool {
         RewardRules.outfitSlots.allSatisfy { equippedID($0) == $0.defaultItemID }
     }
@@ -240,8 +248,13 @@ struct RewardGrant: Hashable {
 
 /// 아이템 목록과 마일스톤을 따지는 장면 목록.
 struct RewardCatalog {
-    /// 데이터 순서(장면 순서) 그대로.
+    /// 데이터 순서(장면 순서) 그대로. 팔지 않는 슬롯의 아이템도 들어 있다(옛 저장의 `owned`를 지우지 않으려고).
     let items: [RewardItem]
+    /// 팔지 않는 슬롯 (app-skin.md 개정 2 "결정 전 임시 동작"). 이 슬롯의 아이템은 열림·살 수 있음·16장면 지급·K 격자·C2에서 빠진다.
+    var retiredSlots: Set<RewardSlot> = []
+
+    /// 파는 아이템 (팔지 않는 슬롯을 뺀 것). 데이터 순서.
+    var saleItems: [RewardItem] { items.filter { !retiredSlots.contains($0.slot) } }
     /// 히라가나 장면 id. 모두 끝내면 히라가나 마일스톤.
     let hiraganaSceneIDs: [String]
     /// 가타카나 장면 id. 비어 있으면(1차 버전) 전체 완료 마일스톤은 오지 않는다.
@@ -265,12 +278,14 @@ struct RewardCatalog {
         items.first { $0.id == id }
     }
 
+    /// 그 슬롯의 파는 아이템.
     func items(in slot: RewardSlot) -> [RewardItem] {
-        items.filter { $0.slot == slot }
+        saleItems.filter { $0.slot == slot }
     }
 
+    /// 그 장면을 끝내면 열리는 파는 아이템.
     func items(forScene sceneID: String) -> [RewardItem] {
-        items.filter { $0.sceneID == sceneID }
+        saleItems.filter { $0.sceneID == sceneID }
     }
 
     /// 기본 차림: 슬롯 → 기본 아이템 id (top = chef_hat, rice = plain_rice).
@@ -294,6 +309,8 @@ extension RewardCatalog {
             assertionFailure("rewards.json을 읽지 못함")
             return RewardCatalog(items: [], hiraganaSceneIDs: ids, katakanaSceneIDs: [], sceneSessions: hiraganaScenes)
         }
-        return RewardCatalog(items: file.items, hiraganaSceneIDs: ids, katakanaSceneIDs: [], sceneSessions: hiraganaScenes)
+        var catalog = RewardCatalog(items: file.items, hiraganaSceneIDs: ids, katakanaSceneIDs: [], sceneSessions: hiraganaScenes)
+        catalog.retiredSlots = SkinPolicy.retiredSlots
+        return catalog
     }
 }

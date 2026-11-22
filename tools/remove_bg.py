@@ -17,16 +17,18 @@ from statistics import median
 from PIL import Image
 
 
-def remove_bg(src: Image.Image, hard: float = 40) -> tuple[Image.Image, tuple, float]:
+def remove_bg(src: Image.Image, hard: float = 40, bg: tuple | None = None) -> tuple[Image.Image, tuple, float]:
+    """bg를 주면 그 색을 바탕으로 쓴다(땅 띠가 아래 변을 다 차지하는 풍경처럼 네 변 중앙값이 바탕이 아닐 때)."""
     soft = hard * 1.8  # 이 거리까지는 반투명으로 가장자리를 부드럽게
     img = src.convert("RGB")
     w, h = img.size
     px = list(img.get_flattened_data())
 
     # 바탕색: 네 변 픽셀의 중앙값
-    border = [px[y * w + x] for x in range(0, w, 4) for y in (0, h - 1)]
-    border += [px[y * w + x] for y in range(0, h, 4) for x in (0, w - 1)]
-    bg = tuple(median(c[i] for c in border) for i in range(3))
+    if bg is None:
+        border = [px[y * w + x] for x in range(0, w, 4) for y in (0, h - 1)]
+        border += [px[y * w + x] for y in range(0, h, 4) for x in (0, w - 1)]
+        bg = tuple(median(c[i] for c in border) for i in range(3))
 
     hard2, soft2 = hard * hard, soft * soft
     d2 = [(r - bg[0]) ** 2 + (g - bg[1]) ** 2 + (b - bg[2]) ** 2 for r, g, b in px]

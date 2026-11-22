@@ -8,8 +8,10 @@ enum MapPalette {
     // 스킨이 바꿈
     /// 지도 바탕, 아래 고정 영역 바탕, 잠긴 칸 안. 대비 증가면 `AppBackgroundQuiet`(app-skin.md 2.5).
     static var ground: Color { SkinStore.shared.current.dynamicBackground(level: .strong) }
-    /// 지도 뒤 층: 바탕색 + 화면에 고정된 무늬(강 단계 × 1, app-skin.md 4.2).
+    /// 지도 뒤 바탕색 한 장 (강 단계, app-skin.md 4.2). 풍경은 MapBackdropLayer가 그 위에 얹는다.
     static var groundLayer: some View { SkinBackdrop(level: .strong).environment(\.skin, SkinStore.shared.current) }
+    /// 홈 바탕 풍경 (home-backdrop.md). 없으면 nil. 대비 증가에서 그리지 않는 것은 그리는 쪽이 정한다.
+    static var backdrop: Backdrop? { SkinStore.shared.backdrop }
     /// 점선, 잠김 칸 테.
     static var ahead: Color { SkinStore.shared.current.dynamicColor(.pathEdge) }
 

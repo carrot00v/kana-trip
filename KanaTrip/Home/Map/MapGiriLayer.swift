@@ -72,6 +72,8 @@ struct MapLineBubble: View {
     let tailX: CGFloat
     let metrics: MapMetrics
 
+    @Environment(\.mapHalo) private var halo
+
     static let font = UIFont.preferredFont(forTextStyle: .subheadline, compatibleWith: UITraitCollection(preferredContentSizeCategory: .large))
 
     /// 말풍선 몸통 + 꼬리의 콘텐츠 사각형과 꼬리 x. 큰 글자 크기는 아래 고정 영역 카드로 옮기므로 기본 크기로 잰다.
@@ -98,6 +100,11 @@ struct MapLineBubble: View {
             .frame(maxWidth: .infinity, maxHeight: metrics.bubbleHeight)
             .frame(maxHeight: .infinity, alignment: .top)
             .background {
+                // 말풍선 테: 같은 윤곽을 바깥으로 2pt 넓혀 바탕색으로 밑에 (home-backdrop.md 2.4). 풍경을 쓰는 동안에만.
+                if halo {
+                    shape.stroke(MapPalette.ground, style: StrokeStyle(
+                        lineWidth: MapShape.outlineWidth + SkinStore.shared.backdrops.layout.haloWidth * 2, lineJoin: .round))
+                }
                 shape.fill(MapPalette.card)
                 shape.stroke(MapPalette.outline, style: StrokeStyle(lineWidth: MapShape.outlineWidth, lineJoin: .round))
             }
