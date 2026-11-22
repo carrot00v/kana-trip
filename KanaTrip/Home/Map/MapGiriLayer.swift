@@ -11,6 +11,8 @@ struct MapGiriLayer: View {
     let giriCenters: [CGPoint]
     let progress: Double
     let pose: GiriPose
+    /// 칸 이동 깡충(`hop_move`)·착지(`lower`) 요청 (giri-companion.md 5.8).
+    let motion: GiriMotionRequest?
     let opacity: Double
     let isHopping: Bool
     /// 서 있는 자리의 말풍선. nil이면 그리지 않는다(깡충 중, 큰 글자 크기).
@@ -24,7 +26,6 @@ struct MapGiriLayer: View {
 
     @Environment(ProgressStore.self) private var store
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var breathing = false
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -40,25 +41,15 @@ struct MapGiriLayer: View {
         }
         .frame(width: width, height: height, alignment: .topLeading)
         .allowsHitTesting(false)
-        .onAppear { updateBreathing() }
-        .onChange(of: isHopping) { _, _ in updateBreathing() }
-        .onChange(of: reduceMotion) { _, _ in updateBreathing() }
     }
 
     private var figure: some View {
-        GiriView(pose: pose, outfit: store.giriOutfit, side: metrics.giri)
-            // 숨쉬기: 진폭 1.5pt (giri-companion.md 5.2). 깡충하는 동안 멈춘다.
-            .animation(breathing ? .easeInOut(duration: 1.6).repeatForever(autoreverses: true) : .default) { content in
-                content.scaleEffect(x: 1, y: breathing ? 1 + 1.5 / metrics.giri : 1, anchor: .bottom)
-            }
+        // 숨쉬기(`idle_*`)는 연출하는 동안 멈춘다 (giri-companion.md 5.2).
+        GiriView(pose: pose, outfit: store.giriOutfit, side: metrics.giri, breathes: !isHopping, motion: motion)
             .frame(width: metrics.giri, height: metrics.giri)
             .modifier(MapHopEffect(progress: progress, points: giriCenters, lift: metrics.hopLift))
             .opacity(opacity)
             .accessibilityHidden(true)
-    }
-
-    private func updateBreathing() {
-        breathing = !isHopping && !reduceMotion
     }
 
     // MARK: 한 줄 말풍선 (R2.3)

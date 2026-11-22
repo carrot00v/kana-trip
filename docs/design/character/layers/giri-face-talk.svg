@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
 
   <!-- 얼굴 -->
-  <ellipse cx="114" cy="170" rx="7" ry="10" fill="#4A2219"/>
-  <ellipse cx="186" cy="170" rx="7" ry="10" fill="#4A2219"/>
-  <path d="M140 184 Q150 181 160 184 Q160 200 150 200 Q140 200 140 184Z" fill="#4A2219" stroke="#4A2219" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M143 194 Q150 189 157 194 Q155 199 150 199 Q145 199 143 194Z" fill="#EE8A8A"/>
+  <g id="eyes"><ellipse cx="114" cy="170" rx="7" ry="10" fill="#4A2219"/><ellipse cx="186" cy="170" rx="7" ry="10" fill="#4A2219"/></g>
+  <g id="mouth"><path d="M140 184 Q150 181 160 184 Q160 200 150 200 Q140 200 140 184Z" fill="#4A2219" stroke="#4A2219" stroke-width="3" stroke-linejoin="round"/><path d="M143 194 Q150 189 157 194 Q155 199 150 199 Q145 199 143 194Z" fill="#EE8A8A"/></g>
 </svg>

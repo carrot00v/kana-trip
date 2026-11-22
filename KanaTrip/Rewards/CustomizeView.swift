@@ -126,7 +126,7 @@ struct CustomizeView: View {
     }
 
     private func preview(side: CGFloat) -> some View {
-        // 기리 뒤 그림은 스킨에서 뺐다. 카드 안 기리 뒤는 CardBackground (5.2, B가 정해지면 다시 본다).
+        // 머리·속재료·밥이 바뀌면 기리가 눌렸다 펴지는 `dress` 마커(giri-companion.md 5.2.8). 기리 뒤 그림은 스킨에서 뺐다(app-skin.md 5.2).
         GiriView(pose: .normal, outfit: previewOutfit, side: side)
             .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: previewOutfit)
             .background(Color.cardBackground)

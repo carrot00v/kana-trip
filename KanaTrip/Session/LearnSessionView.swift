@@ -163,7 +163,6 @@ struct LearnSessionView: View {
                 size: giri.size,
                 maxLines: giri.lines,
                 breathes: false,
-                hop: finished ? 1 : 0,
                 limitsLinesAtLargeType: true
             )
 

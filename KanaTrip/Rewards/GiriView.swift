@@ -1,14 +1,14 @@
 import SwiftUI
 import UIKit
 
-// 기리 그리기와 아이템 그림 (docs/design/reward-flow.md 7번, 8번).
-// 기리는 360 좌표계(viewBox -30 0 360 360) 레이어 에셋을 겹쳐 그린다.
-// 레이어 순서(아래 → 위): 배경 → 속재료(뒤) → 본체(밥, 볼, 빨간 두건) → 속재료(앞) → 머리 → 얼굴 → 반짝임 (8.1).
-// 아이템 그림 에셋(`Item-{id}`, `ItemThumb-{id}`)이 있으면 그것을 쓰고, 아직 그림이 없는 아이템
-// (로컬 이미지 모델 작업이 보류된 아이템, docs/schedule.md)은 가나 이름 첫 칸을 넣은 노랑 동그라미로 임시 표시한다.
-// 그림 에셋을 넣으면 코드를 고치지 않아도 임시 표시가 그림으로 바뀐다.
+// 기리 그리기와 아이템 그림 (docs/design/reward-flow.md 7번, 8번, docs/design/giri-companion.md 4.4, 5번).
+// 기리는 Lottie 파일 `giri.lottie.json` 하나다(2026-11-21). 표정·밥·반짝임은 부위 레이어를 켜고 끄거나 색을 바꾸고,
+// 머리·속재료 아이템(`Item-{id}`)은 이미지 슬롯에 꽂는다 (GiriLottie.swift).
+// 겹치는 순서(아래 → 위): 배경 → 속재료(뒤) → 본체(밥, 볼, 빨간 두건) → 속재료(앞) → 머리 → 얼굴 → 반짝임 (8.1).
+// 아이템 그림 에셋이 없는 아이템(로컬 이미지 모델 작업이 보류된 아이템, docs/schedule.md)은 가나 이름 첫 칸을 넣은
+// 노랑 동그라미로 임시 표시한다. 그림 에셋을 넣으면 코드를 고치지 않아도 임시 표시가 그림으로 바뀐다.
 
-/// 기리의 표정과 팔 자세 (docs/design/giri-companion.md 4.1). 얼굴 레이어 5장과 팔 레이어 2장을 겹친다.
+/// 기리의 표정과 팔 자세 (docs/design/giri-companion.md 4.1). 얼굴 레이어 5개 가운데 하나와 오른팔(내림, 듦).
 enum GiriPose: Hashable {
     /// 기본. 말없이 있을 때, 꾸미기 화면.
     case normal
@@ -23,37 +23,25 @@ enum GiriPose: Hashable {
     /// 아쉬움 ("앗차"). 퀴즈 오답.
     case sorry
 
-    /// 얼굴 레이어 에셋 이름의 끝 (`GiriFace{…}`).
-    var faceSuffix: String {
+    /// Lottie 얼굴 레이어 이름의 끝 (`face_{…}`, 4.4.1).
+    var faceLayer: String {
         switch self {
-        case .normal: "Default"
-        case .happy: "Happy"
-        case .talk, .point: "Talk"
-        case .think: "Think"
-        case .sorry: "Sorry"
+        case .normal: "default"
+        case .happy: "happy"
+        case .talk, .point: "talk"
+        case .think: "think"
+        case .sorry: "sorry"
         }
     }
 
-    /// 팔을 든 자세인지. 본체 레이어를 팔 자세로 고른다 (4.1).
+    /// 오른팔을 든 자세인지. 마커 접미사 `_down`/`_up`을 고른다 (5.9.3).
     var armRaised: Bool { self == .happy || self == .point }
-
-    /// 본체 레이어 에셋 이름의 끝 (`GiriBase{…}`).
-    var baseSuffix: String { armRaised ? "Happy" : "Default" }
 
     var hasSparkles: Bool { self == .happy }
 }
 
 enum RewardArt {
-    /// 본체 레이어 에셋 이름: `GiriBase{자세}`, 흰 밥이 아니면 뒤에 `-{밥 id}` (reward-flow.md 8.1).
-    /// 그 밥의 에셋이 없으면 흰 밥 본체를 쓴다.
-    static func baseAsset(pose: GiriPose, rice: String) -> String {
-        let plain = "GiriBase\(pose.baseSuffix)"
-        guard rice != RewardSlot.rice.defaultItemID else { return plain }
-        let name = "\(plain)-\(rice)"
-        return hasAsset(name) ? name : plain
-    }
-
-    /// 기리 위에 겹치는 머리·속재료·배경 레이어. 표정과 상관없이 한 장이다.
+    /// 기리 위에 겹치는 머리·속재료·배경 그림. 표정과 상관없이 한 장이다.
     static func layerAsset(_ id: String) -> String { "Item-\(id)" }
 
     static func thumbnailAsset(_ id: String) -> String { "ItemThumb-\(id)" }
@@ -104,83 +92,64 @@ struct ItemPlaceholderMark: View {
     }
 }
 
-/// 입은 아이템을 겹친 기리. 말풍선 줄(56·64·80pt), C1·C2(120pt), K 미리보기(200~260pt)가 함께 쓴다.
+/// 입은 아이템을 단 기리. 말풍선 줄(80·96·120pt), 지도(96pt), C1·C2(120pt), K 미리보기(200~260pt)가 함께 쓴다.
 /// 장식이라 VoiceOver에서 읽지 않는다. 꾸미기 화면은 바깥에서 따로 레이블을 붙인다.
-/// 표정이 바뀌면 얼굴·본체 레이어를 0.12초 교차 페이드한다(동작 줄이기면 바로 바뀜, giri-companion.md 5.2).
+///
+/// 자리는 지금처럼 G × G이고, Lottie 뷰는 가로 7/6 G, 세로 6/5 G로 아래 끝·가로 가운데를 맞춰 겹친다(배치에 영향 없음).
+/// 깡충·머리 아이템이 위로 넘쳐 그린다 (giri-companion.md 5.6).
+/// 움직임 (5.2, 5.8): 표정이 바뀌면 마커를 고른다(내림 → 웃음 `hop`, 내림 → 손 들기 `raise`, 듦 → 내림은 0.2초 뒤 `lower`,
+/// 팔이 그대로면 `react_*`). 차림이 바뀌면 `dress`. 동작 줄이기면 정지 마커에 멈추고 모습만 바로 바뀐다.
 struct GiriView: View {
     let pose: GiriPose
     let outfit: GiriOutfit
     let side: CGFloat
     /// 배경 슬롯은 꾸미기 화면에서만 그린다 (reward-flow.md 7번).
     var showsBackground = false
+    /// 숨쉬기 반복(`idle_*`). 쓰기 화면, 단어 읽기, 움직이는 장면 그림이 있는 화면, K, C1·C2에서는 끈다 (5.2, 5.3).
+    var breathes = false
+    /// 처음 나타날 때 `appear`로 나온다 (C1, C2, 5.2.7). 불투명도는 바깥에서 건다.
+    var entrance = false
+    /// 바깥에서 거는 한 번 움직임 (지도의 칸 이동 깡충·착지).
+    var motion: GiriMotionRequest? = nil
+    /// 반복을 잠시 멈춘다 (말풍선 뜨기 동안).
+    var holdsIdle = false
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
             if showsBackground, let id = outfit.background {
-                item(id, slot: .background)
+                background(id)
                     .id("background-\(id)")
                     .transition(.opacity)
             }
-            figure(pose)
-                .id(pose)
-                .transition(.opacity)
         }
         .frame(width: side, height: side)
-        .animation(reduceMotion ? nil : .easeInOut(duration: 0.12), value: pose)
+        .overlay(alignment: .bottom) {
+            GiriLottieView(playback: GiriPlayback(look: GiriLook(pose: pose, outfit: outfit), loops: breathes,
+                                                  entrance: entrance, request: motion, reduceMotion: reduceMotion,
+                                                  holdsIdle: holdsIdle))
+                .frame(width: side * 7 / 6, height: side * 6 / 5)
+                .allowsHitTesting(false)
+        }
         .accessibilityHidden(true)
     }
 
-    /// 속재료(뒤), 본체, 속재료(앞), 머리, 얼굴, 반짝임 (reward-flow.md 8.1의 겹치는 순서).
-    private func figure(_ pose: GiriPose) -> some View {
-        ZStack {
-            if let id = outfit.filling, outfit.fillingLayer == .back {
-                item(id, slot: .filling).id("filling-\(id)").transition(.opacity)
-            }
-            let base = RewardArt.baseAsset(pose: pose, rice: outfit.rice)
-            layer(base).id(base).transition(.opacity)
-            if let id = outfit.filling, outfit.fillingLayer == .front {
-                item(id, slot: .filling).id("filling-\(id)").transition(.opacity)
-            }
-            if let id = outfit.top {
-                item(id, slot: .top).id("top-\(id)").transition(.opacity)
-            }
-            layer("GiriFace\(pose.faceSuffix)")
-            if pose.hasSparkles {
-                layer("GiriSparkles")
-            }
-        }
-    }
-
-    private func layer(_ name: String) -> some View {
-        Image(name).resizable().frame(width: side, height: side)
-    }
+    // MARK: - 배경 (K에서만)
 
     @ViewBuilder
-    private func item(_ id: String, slot: RewardSlot) -> some View {
+    private func background(_ id: String) -> some View {
         let asset = RewardArt.layerAsset(id)
         if RewardArt.hasAsset(asset) {
-            layer(asset)
-        } else if slot == .background {
-            placeholderBackground(id)
+            Image(asset).resizable().frame(width: side, height: side)
         } else {
-            placeholderMark(id, slot: slot)
+            placeholderBackground(id)
         }
     }
-
-    // MARK: - 임시 표시
 
     /// 360 좌표계의 점을 이 뷰의 점으로 옮긴다.
     private func point(_ p: CGPoint) -> CGPoint {
         CGPoint(x: (p.x + 30) / 360 * side, y: p.y / 360 * side)
-    }
-
-    private func placeholderMark(_ id: String, slot: RewardSlot) -> some View {
-        ItemPlaceholderMark(label: outfit.labels[id] ?? "?",
-                            diameter: side * RewardArt.placeholderScale(slot))
-            .position(point(RewardArt.placeholderAnchor(slot)))
-            .frame(width: side, height: side)
     }
 
     private func placeholderBackground(_ id: String) -> some View {

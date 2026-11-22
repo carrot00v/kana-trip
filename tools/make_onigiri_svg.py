@@ -2,14 +2,20 @@
 
 밥알이 뭉친 울퉁불퉁한 외곽선은 손으로 그리기 어려워서 계산으로 만든다.
 실행: python3 tools/make_onigiri_svg.py   (.venv/bin/python이면 그린 픽셀 비교까지 한다. Pillow 필요)
-산출물: docs/design/character/onigiri-{default,happy,talk,point,think,sorry}.svg, 레이어 SVG와 앱 에셋
-        docs/design/character/layers/, items/ (꾸미기용 레이어, docs/design/reward-flow.md 8.1)
-        KanaTrip/Assets.xcassets의 레이어 에셋 (GiriBase*[-{밥 id}], GiriFace*, GiriSparkles, Item-chef_hat, ItemThumb-*)
+산출물: docs/design/character/onigiri-{default,happy,talk,point,think,sorry}.svg (확인용 완성 그림)
+        docs/design/character/parts/ (Lottie 부위를 하나씩 본 확인용 SVG, docs/design/giri-companion.md 4.4, 5.9.1)
+        docs/design/character/layers/ (예전 레이어 SVG. 확인용으로만 남긴다), items/ (꾸미기 아이템, reward-flow.md 8.1)
+        docs/design/character/items/chef_hat.png (1080px, Lottie 이미지 슬롯·안드로이드용, giri-companion.md 5.7)
+        KanaTrip/Assets.xcassets의 아이템 에셋 (Item-chef_hat, ItemThumb-*)
+앱의 기리는 이 스크립트의 부위 함수로 tools/build_giri_lottie.py가 만드는 KanaTrip/Resources/giri.lottie.json이다(2026-11-21).
 
-밥 바꾸기 (docs/design/item-art/brief.md 2.4): 본체 레이어(그림자, 다리, 팔, 몸, 무늬, 김, 외곽선, 볼, 빨간 두건)를
-밥 정의 표 RICES마다 만든다. 흰 밥(plain_rice)은 접미사 없는 지금 이름(GiriBaseDefault, GiriBaseHappy)이다.
-밥 색·무늬 값은 이 표에만 둔다(rewards.json에는 넣지 않는다). 실행할 때 대비와 얼굴 금지 구역을 검사해 출력하고,
-기준을 못 넘으면 멈춘다.
+밥 바꾸기 (docs/design/item-art/brief.md 2.4): 본체(그림자, 다리, 팔, 몸, 무늬, 김, 외곽선, 볼, 빨간 두건)의 색과 무늬를
+밥 정의 표 RICES로 바꾼다. 밥 색·무늬 값은 이 표에만 둔다(rewards.json에는 넣지 않는다). 실행할 때 대비와 얼굴 금지 구역을
+검사해 출력하고, 기준을 못 넘으면 멈춘다.
+
+부위 (giri-companion.md 4.4): 본체를 shadow(), leg(), arm(), body_fill(), pattern(), body_front()로 나눈다. Lottie에는
+마스크·매트가 없어 무늬와 김은 몸 경로로 미리 잘라 낸 경로로 그린다(bodyClip을 쓰지 않는다). 부위를 이은 그림이
+bodyClip으로 그리던 예전 그림과 같은 픽셀인지 check_pixels_match()가 본다.
 """
 import math
 from pathlib import Path
@@ -129,7 +135,7 @@ def body_path():
 def stub(d, width=22, fill=RICE):
     """밥 색 막대(팔·다리)에 외곽선을 두른다. 팔·다리에는 무늬를 넣지 않는다 (brief.md 2.4.4)."""
     return (f'<path d="{d}" stroke="{LINE}" stroke-width="{width}" stroke-linecap="round" fill="none"/>'
-            f'<path d="{d}" stroke="{fill}" stroke-width="{width - 2 * SW}" stroke-linecap="round" fill="none"/>')
+            f'<path class="rice" d="{d}" stroke="{fill}" stroke-width="{width - 2 * SW}" stroke-linecap="round" fill="none"/>')
 
 
 def head_inner_path():
@@ -185,33 +191,49 @@ def scarf():
 EYE_L = f'<ellipse cx="114" cy="170" rx="7" ry="10" fill="{LINE}"/>'
 EYE_R = f'<ellipse cx="186" cy="170" rx="7" ry="10" fill="{LINE}"/>'
 
-FACES = {
-    "default": f'''
-  {EYE_L}
-  {EYE_R}
-  <path d="M140 186 Q150 196 160 186" fill="none" stroke="{LINE}" stroke-width="5.5" stroke-linecap="round"/>''',
-    "happy": f'''
-  {EYE_L}
-  <path d="M196 161 L180 170 L196 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M135 180 L165 180 Q165 207 150 207 Q135 207 135 180Z" fill="{LINE}" stroke="{LINE}" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M140 198 Q150 189 160 198 Q157 205 150 205 Q143 205 140 198Z" fill="{TONGUE}"/>''',
-    # 기리 동행 표정 (docs/design/giri-companion.md 4.2)
-    "talk": f'''
-  {EYE_L}
-  {EYE_R}
-  <path d="M140 184 Q150 181 160 184 Q160 200 150 200 Q140 200 140 184Z" fill="{LINE}" stroke="{LINE}" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M143 194 Q150 189 157 194 Q155 199 150 199 Q145 199 143 194Z" fill="{TONGUE}"/>''',
-    "think": f'''
-  <ellipse cx="118" cy="167" rx="6" ry="9" fill="{LINE}"/>
-  <ellipse cx="190" cy="167" rx="6" ry="9" fill="{LINE}"/>
-  <path d="M145 191 Q152 187 160 189" fill="none" stroke="{LINE}" stroke-width="5.5" stroke-linecap="round"/>''',
-    "sorry": f'''
-  <path d="M104 161 L120 170 L104 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M196 161 L180 170 L196 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M139 193 Q144.5 187 150 193 Q155.5 199 161 193" fill="none" stroke="{LINE}" stroke-width="5" stroke-linecap="round"/>''',
-}
+_CHEVRON_R = (f'<path d="M196 161 L180 170 L196 179" fill="none" stroke="{LINE}" stroke-width="6" '
+              f'stroke-linecap="round" stroke-linejoin="round"/>')
 
-# 확인용 완성 그림: 이름 → (얼굴, 팔, 반짝임) (giri-companion.md 4.1). 앱은 레이어를 겹쳐 그린다.
+# 표정 → (눈, 입). 앱(Lottie)은 표정마다 레이어 `face_{표정}` 하나를 켜고, 깜빡임은 눈 묶음의 크기로 한다
+# (giri-companion.md 4.4.1, 5.9.1). 눈 묶음 이름은 깜빡이는 얼굴이 `eyes`, 감은 눈(웃음의 윙크, 아쉬움)이 `eyes_fixed`.
+FACE_PARTS = {
+    "default": (
+        EYE_L + EYE_R,
+        f'<path d="M140 186 Q150 196 160 186" fill="none" stroke="{LINE}" stroke-width="5.5" stroke-linecap="round"/>'),
+    "happy": (
+        EYE_L + _CHEVRON_R,
+        f'<path d="M135 180 L165 180 Q165 207 150 207 Q135 207 135 180Z" fill="{LINE}" stroke="{LINE}" stroke-width="4" '
+        f'stroke-linejoin="round"/>'
+        f'<path d="M140 198 Q150 189 160 198 Q157 205 150 205 Q143 205 140 198Z" fill="{TONGUE}"/>'),
+    # 기리 동행 표정 (docs/design/giri-companion.md 4.2)
+    "talk": (
+        EYE_L + EYE_R,
+        f'<path d="M140 184 Q150 181 160 184 Q160 200 150 200 Q140 200 140 184Z" fill="{LINE}" stroke="{LINE}" stroke-width="3" '
+        f'stroke-linejoin="round"/>'
+        f'<path d="M143 194 Q150 189 157 194 Q155 199 150 199 Q145 199 143 194Z" fill="{TONGUE}"/>'),
+    "think": (
+        f'<ellipse cx="118" cy="167" rx="6" ry="9" fill="{LINE}"/><ellipse cx="190" cy="167" rx="6" ry="9" fill="{LINE}"/>',
+        f'<path d="M145 191 Q152 187 160 189" fill="none" stroke="{LINE}" stroke-width="5.5" stroke-linecap="round"/>'),
+    "sorry": (
+        f'<path d="M104 161 L120 170 L104 179" fill="none" stroke="{LINE}" stroke-width="6" stroke-linecap="round" '
+        f'stroke-linejoin="round"/>' + _CHEVRON_R,
+        f'<path d="M139 193 Q144.5 187 150 193 Q155.5 199 161 193" fill="none" stroke="{LINE}" stroke-width="5" '
+        f'stroke-linecap="round"/>'),
+}
+BLINKING_FACES = ("default", "talk", "think")
+# 깜빡임(눈 묶음 세로 크기)의 축. 생각 얼굴은 눈이 오른쪽 위를 본다 (4.4.1).
+EYES_PIVOT = {"think": (154, 167)}
+EYES_PIVOT_DEFAULT = (150, 170)
+
+
+def eyes_id(kind):
+    return "eyes" if kind in BLINKING_FACES else "eyes_fixed"
+
+
+FACES = {kind: f'\n  <g id="{eyes_id(kind)}">{eyes}</g>\n  <g id="mouth">{mouth}</g>'
+         for kind, (eyes, mouth) in FACE_PARTS.items()}
+
+# 확인용 완성 그림: 이름 → (얼굴, 팔 자세, 반짝임) (giri-companion.md 4.1). 앱은 Lottie 부위를 켜고 끈다.
 EXPRESSIONS = {
     "default": ("default", "default", False),
     "happy": ("happy", "happy", True),
@@ -221,15 +243,24 @@ EXPRESSIONS = {
     "sorry": ("sorry", "default", False),
 }
 
-# 팔 자세 → 팔 막대 경로. 색은 밥을 따른다.
-ARMS = {
-    "default": ["M36 266 L22 284", "M264 266 L278 284"],
-    "happy": ["M258 214 Q298 204 290 164"],
-}
+# 팔 막대 경로. 색은 밥을 따른다. 왼팔은 모든 자세에 있다 (giri-companion.md 4.4.3, 5.9.1).
+ARMS = {"l": "M36 266 L22 284", "r_down": "M264 266 L278 284", "r_up": "M258 214 Q298 204 290 164"}
+# 팔 자세 → 팔 목록. 이름은 예전 레이어 파일(giri-base-{자세}.svg)과 맞춘다. default = 오른팔 내림, happy = 오른팔 듦.
+POSES = {"default": ["l", "r_down"], "happy": ["l", "r_up"]}
+# 2026-11-21 전의 팔 자세. 웃음·손 들기에 왼팔이 없었다. 픽셀 비교의 기준(legacy_svg)에만 쓴다.
+LEGACY_POSES = {"default": ["l", "r_down"], "happy": ["r_up"]}
+# 웃음·손 들기에 새로 생긴 왼팔이 보이는 자리 (x0, y0, x1, y1). 듦 자세의 옛 그림 비교는 이 상자 밖에서만 한다 (5.9.1).
+LEFT_ARM_BOX = (8, 252, 50, 298)
+LEGS = {"l": "M128 314 L128 332", "r": "M172 314 L172 332"}
 
 
-def arms(kind, fill=RICE):
-    return "".join(stub(d, 24, fill) for d in ARMS[kind])
+def arm(key, fill=RICE):
+    return stub(ARMS[key], 24, fill)
+
+
+def arms(kind, fill=RICE, poses=None):
+    return "".join(arm(key, fill) for key in (poses or POSES)[kind])
+
 
 MARKS = f'''
   <!-- 강조 표시 -->
@@ -241,7 +272,7 @@ MARKS = f'''
 
 
 def body_clip_def(body):
-    """몸통 모양 clipPath. defs 안에 넣는다."""
+    """몸통 모양 clipPath. defs 안에 넣는다. 밥 썸네일과 픽셀 비교의 기준 그림에만 쓴다."""
     return f'<clipPath id="bodyClip"><path d="{body}"/></clipPath>'
 
 
@@ -260,12 +291,18 @@ def rice_pattern(rice):
     return "".join(ellipse(e, r["pattern_color"]) for e in r["pattern"])
 
 
+NORI_RECT = (96, 232, 108, 114)  # x, y, 폭, 높이. 외곽선 굵기 4
+NORI_STROKE = 4
+
+
 def body_layers(body, rice="plain_rice"):
-    """밥, 무늬(또는 밥알 결), 김, 몸통 외곽선. body_clip_def가 함께 있어야 한다."""
+    """밥, 무늬(또는 밥알 결), 김, 몸통 외곽선을 bodyClip으로 자른 예전 방식. body_clip_def가 함께 있어야 한다.
+    밥 썸네일과 앱 아이콘, 부위 그림의 픽셀 비교 기준이 쓴다."""
+    x, y, w, h = NORI_RECT
     return f'''<path d="{body}" fill="{RICES[rice]["fill"]}"/>
   <g clip-path="url(#bodyClip)">
     {rice_pattern(rice)}
-    <rect x="96" y="232" width="108" height="114" fill="{NORI}" stroke="{LINE}" stroke-width="4"/>
+    <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{NORI}" stroke="{LINE}" stroke-width="{NORI_STROKE}"/>
   </g>
   <path d="{body}" fill="none" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>'''
 
@@ -273,34 +310,216 @@ def body_layers(body, rice="plain_rice"):
 def cheeks(color=CHEEK):
     return f'''
   <!-- 볼 -->
-  <ellipse cx="94" cy="190" rx="15" ry="10" fill="{color}"/>
-  <ellipse cx="206" cy="190" rx="15" ry="10" fill="{color}"/>'''
+  <ellipse class="cheek" cx="94" cy="190" rx="15" ry="10" fill="{color}"/>
+  <ellipse class="cheek" cx="206" cy="190" rx="15" ry="10" fill="{color}"/>'''
 
 
 def face(kind):
-    """표정 (눈, 입). 볼은 밥마다 색이 달라 본체 레이어로 옮겼다 (giri-companion.md 4.3의 6)."""
+    """표정 (눈 묶음, 입 묶음). 볼은 밥마다 색이 달라 본체로 옮겼다 (giri-companion.md 4.3의 6)."""
     return f'''
   <!-- 얼굴 -->{FACES[kind]}'''
 
 
-def base(kind, rice="plain_rice"):
-    """본체 레이어: 그림자, 다리, 팔, 몸, 무늬, 김, 외곽선, 볼, 빨간 두건 (reward-flow.md 8.1).
-    팔은 자세마다, 몸·팔·다리 색과 무늬·볼 색은 밥마다 다르다."""
-    body = body_path()
-    fill = RICES[rice]["fill"]
+# ---- 미리 자르기 (giri-companion.md 5.9.1) ----
+# Lottie에는 clipPath가 없어(마스크·매트를 쓰지 않는다, 5.1) 몸 경로와의 교집합을 다각형으로 계산해 경로로 낸다.
+# 몸 외곽선(굵기 6)이 몸 경로 양쪽 3을 덮으므로, 자른 가장자리를 다각형으로 근사한 차이는 외곽선 아래에 숨는다.
+CLIP_STEPS = 16       # 몸 외곽선 이차 곡선 하나를 펴는 점 수
+ELLIPSE_POINTS = 128  # 잘린 무늬 타원의 다각형 점 수 (반지름 36에서 오차 0.011)
+KAPPA = 0.5522847498  # 원을 3차 곡선 넷으로 그리는 핸들 비율
+
+
+def fmt(v):
+    return f"{v:.2f}".rstrip("0").rstrip(".")
+
+
+def polygon_d(pts):
+    return "M" + " L".join(f"{fmt(x)} {fmt(y)}" for x, y in pts) + "Z"
+
+
+def ellipse_points(e, n=ELLIPSE_POINTS):
+    cx, cy, rx, ry, rot = e
+    a = math.radians(rot)
+    out = []
+    for k in range(n):
+        t = 2 * math.pi * k / n
+        u, v = rx * math.cos(t), ry * math.sin(t)
+        out.append((cx + u * math.cos(a) - v * math.sin(a), cy + u * math.sin(a) + v * math.cos(a)))
+    return out
+
+
+def ellipse_d(e):
+    """회전한 타원을 3차 곡선 넷의 경로로 (Lottie의 타원은 회전이 없다)."""
+    cx, cy, rx, ry, rot = e
+    a = math.radians(rot)
+
+    def p(u, v):
+        return cx + u * math.cos(a) - v * math.sin(a), cy + u * math.sin(a) + v * math.cos(a)
+    k = KAPPA
+    # 4분의 1 호마다 (시작 핸들, 끝 핸들, 끝 점) (타원 자신의 좌표)
+    arcs = [((rx, k * ry), (k * rx, ry), (0, ry)), ((-k * rx, ry), (-rx, k * ry), (-rx, 0)),
+            ((-rx, -k * ry), (-k * rx, -ry), (0, -ry)), ((k * rx, -ry), (rx, -k * ry), (rx, 0))]
+    d = "M{} {}".format(*map(fmt, p(rx, 0)))
+    for c1, c2, end in arcs:
+        d += " C{} {} {} {} {} {}".format(*map(fmt, (*p(*c1), *p(*c2), *p(*end))))
+    return d + "Z"
+
+
+def clip_convex(subject, window):
+    """Sutherland–Hodgman: subject 다각형(몸, 오목해도 된다)을 볼록한 window 다각형으로 자른다 = 둘의 교집합."""
+    area = sum(window[i][0] * window[(i + 1) % len(window)][1] - window[(i + 1) % len(window)][0] * window[i][1]
+               for i in range(len(window)))
+    sign = 1 if area > 0 else -1
+    out = subject
+    for i in range(len(window)):
+        a, b = window[i], window[(i + 1) % len(window)]
+
+        def side(p):
+            return sign * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]))
+
+        def cross(p, q):
+            sp, sq = side(p), side(q)
+            t = sp / (sp - sq)
+            return p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t
+        src, out = out, []
+        for j in range(len(src)):
+            p, q = src[j], src[(j + 1) % len(src)]
+            if side(q) >= 0:
+                if side(p) < 0:
+                    out.append(cross(p, q))
+                out.append(q)
+            elif side(p) >= 0:
+                out.append(cross(p, q))
+        if not out:
+            break
+    return out
+
+
+def clip_polygon():
+    pts = body_polygon(CLIP_STEPS)
+    return pts[:-1] if pts[0] == pts[-1] else pts
+
+
+def distance_outside(pts):
+    """점들이 몸 경로 밖으로 나간 가장 큰 거리 (모두 안이면 0)."""
+    poly = clip_polygon()
+    worst = 0.0
+    for x, y in pts:
+        if inside(poly, x, y):
+            continue
+        best = min(segment_distance((x, y), poly[i], poly[(i + 1) % len(poly)]) for i in range(len(poly)))
+        worst = max(worst, best)
+    return worst
+
+
+def segment_distance(p, a, b):
+    dx, dy = b[0] - a[0], b[1] - a[1]
+    L2 = dx * dx + dy * dy
+    t = 0 if L2 == 0 else max(0.0, min(1.0, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / L2))
+    return math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy)
+
+
+def grain_points(d, width=4, n=24):
+    """결 선(상대 q 한 번) 중심선 위 점들을 굵기 반만큼 사방으로 넓힌 것."""
+    import re
+    x0, y0, qx, qy, x1, y1 = (float(v) for v in re.findall(r"-?\d+\.?\d*", d))
+    cx, cy, ex, ey = x0 + qx, y0 + qy, x0 + x1, y0 + y1
+    r = width / 2
+    out = []
+    for i in range(n + 1):
+        t = i / n
+        x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t * t * ex
+        y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t * t * ey
+        out += [(x + r * math.cos(a), y + r * math.sin(a)) for a in (k * math.pi / 4 for k in range(8))]
+    return out
+
+
+def pattern(rice):
+    """몸 경로로 미리 자른 무늬 (4.4.1의 7). 흰 밥은 결 선 6개, ごま는 깨 9알, やきおにぎり는 그을림 5조각.
+    몸 경로 밖으로 외곽선 반 굵기(3)보다 덜 나가는 조각은 외곽선 아래에 숨으므로 자르지 않는다(결 선, 깨).
+    더 나가는 조각(그을림)은 몸 다각형과의 교집합 다각형으로 낸다."""
+    r = RICES[rice]
+    color = r["pattern_color"]
+    if r["pattern"] is None:
+        out = []
+        for d in GRAIN_LINES:
+            assert distance_outside(grain_points(d)) < SW / 2, f"결 선 {d}이 외곽선 밖으로 나감"
+            out.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="4" stroke-linecap="round"/>')
+        return "".join(out)
+    out = []
+    for e in r["pattern"]:
+        if distance_outside(ellipse_points(e)) < SW / 2:
+            out.append(f'<path d="{ellipse_d(e)}" fill="{color}"/>')
+        else:
+            out.append(f'<path d="{polygon_d(clip_convex(clip_polygon(), ellipse_points(e)))}" fill="{color}"/>')
+    return "".join(out)
+
+
+def rect_points(x0, y0, x1, y1):
+    return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+
+def nori():
+    """몸 경로로 미리 자른 김: 외곽선(굵기 4, 모서리 각짐) 자리를 진갈색으로, 그 안을 김 색으로."""
+    x, y, w, h = NORI_RECT
+    s = NORI_STROKE / 2
+    poly = clip_polygon()
+    outer = clip_convex(poly, rect_points(x - s, y - s, x + w + s, y + h + s))
+    inner = clip_convex(poly, rect_points(x + s, y + s, x + w - s, y + h - s))
+    return f'<path d="{polygon_d(outer)}" fill="{LINE}"/><path d="{polygon_d(inner)}" fill="{NORI}"/>'
+
+
+# ---- 부위 (giri-companion.md 4.4.1). 아래에서 위 순서 ----
+
+def shadow():
     return f'''
   <!-- 그림자 -->
-  <ellipse cx="150" cy="346" rx="90" ry="9" fill="{SHADOW}" opacity="0.8"/>
+  <ellipse cx="150" cy="346" rx="90" ry="9" fill="{SHADOW}" opacity="0.8"/>'''
+
+
+def leg(side, fill=RICE):
+    return stub(LEGS[side], 36, fill)
+
+
+def body_fill(rice="plain_rice"):
+    return f'<path class="rice" d="{body_path()}" fill="{RICES[rice]["fill"]}"/>'
+
+
+def body_front(rice="plain_rice"):
+    """미리 자른 김, 몸 외곽선, 볼 두 개, 빨간 두건 (4.4.1의 8)."""
+    return f'''
+  {nori()}
+  <path d="{body_path()}" fill="none" stroke="{LINE}" stroke-width="{SW}" stroke-linejoin="round"/>
+{cheeks(RICES[rice]["cheek"])}
+{scarf()}'''
+
+
+def base(kind, rice="plain_rice", poses=None):
+    """본체: 부위를 4.4.1 순서로 이은 것 (그림자, 다리, 팔, 몸 면, 무늬, 김·외곽선·볼·두건).
+    팔은 자세마다, 몸·팔·다리 색과 무늬·볼 색은 밥마다 다르다."""
+    fill = RICES[rice]["fill"]
+    return f'''{shadow()}
 
   <!-- 다리 -->
-  {stub("M128 314 L128 332", 36, fill)}
-  {stub("M172 314 L172 332", 36, fill)}
+  {leg("l", fill)}
+  {leg("r", fill)}
 
   <!-- 팔 -->
-  {arms(kind, fill)}
+  {arms(kind, fill, poses)}
 
   <!-- 몸통 -->
-  {body_layers(body, rice)}
+  {body_fill(rice)}
+  {pattern(rice)}
+{body_front(rice)}'''
+
+
+def clip_reference_base(kind, rice="plain_rice", poses=None):
+    """미리 자르기 전의 본체 (bodyClip). 픽셀 비교의 기준이다. body_clip_def가 함께 있어야 한다."""
+    fill = RICES[rice]["fill"]
+    return f'''{shadow()}
+  {leg("l", fill)}
+  {leg("r", fill)}
+  {arms(kind, fill, poses)}
+  {body_layers(body_path(), rice)}
 {cheeks(RICES[rice]["cheek"])}
 {scarf()}'''
 
@@ -324,15 +543,11 @@ def wrap(inner, view_box="-30 0 360 360", defs=""):
 
 
 def svg(face_kind, arm_kind=None, sparkles=None, rice="plain_rice"):
-    """완성 그림. 앱이 겹치는 레이어(본체, 머리, 얼굴, 반짝임)를 기본 차림(요리사 모자)으로 이은 것이다.
+    """완성 그림. 앱이 Lottie로 그리는 부위(본체, 머리, 얼굴, 반짝임)를 기본 차림(요리사 모자)으로 이은 것이다.
     팔과 반짝임을 주지 않으면 얼굴 이름을 따른다(default, happy)."""
     arm_kind = arm_kind or face_kind
     sparkles = (face_kind == "happy") if sparkles is None else sparkles
-    body = body_path()
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
-  <defs>
-    {body_clip_def(body)}
-  </defs>
 {base(arm_kind, rice)}
 {hat()}
 {face(face_kind)}
@@ -341,8 +556,22 @@ def svg(face_kind, arm_kind=None, sparkles=None, rice="plain_rice"):
 '''
 
 
+def clip_reference_svg(face_kind, arm_kind, sparkles, rice):
+    """svg()와 같은 그림을 bodyClip으로 그린 것 (미리 자르기 검사의 기준)."""
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
+  <defs>
+    {body_clip_def(body_path())}
+  </defs>
+{clip_reference_base(arm_kind, rice)}
+{hat()}
+{face(face_kind)}
+{MARKS if sparkles else ""}
+</svg>
+'''
+
+
 def legacy_svg(kind):
-    """2026-11-16 전의 완성 그림(볼이 얼굴 레이어, 두건이 따로 있던 순서). 그린 픽셀 비교의 기준이다."""
+    """2026-11-16 전의 완성 그림(볼이 얼굴 레이어, 두건이 따로 있던 순서, 웃음에 왼팔 없음). 그린 픽셀 비교의 기준이다."""
     body = body_path()
     old_face = cheeks() + face(kind)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 0 360 360" width="360" height="360">
@@ -352,7 +581,7 @@ def legacy_svg(kind):
   <ellipse cx="150" cy="346" rx="90" ry="9" fill="{SHADOW}" opacity="0.8"/>
   {stub("M128 314 L128 332", 36)}
   {stub("M172 314 L172 332", 36)}
-  {arms(kind)}
+  {arms(kind, poses=LEGACY_POSES)}
   {body_layers(body)}
 {scarf()}
 {hat()}
@@ -373,11 +602,8 @@ THUMB_VIEWBOX = {
 DEFAULT_ITEMS = {
     "chef_hat": ("top", hat),
 }
-
-
-def base_asset_name(kind, rice):
-    """GiriBase{자세}, 흰 밥이 아니면 뒤에 -{밥 id}."""
-    return f"GiriBase{kind.title()}" + ("" if rice == "plain_rice" else f"-{rice}")
+# Lottie 이미지 슬롯에 꽂는 아이템 그림의 한 변 (360 좌표 × 3, giri-companion.md 5.7).
+ITEM_PNG_SIDE = 1080
 
 
 def base_file_name(kind, rice):
@@ -385,27 +611,49 @@ def base_file_name(kind, rice):
 
 
 def layer_files():
-    """(문서 안 상대 경로, 에셋 이름, SVG 내용)."""
+    """확인용 레이어 SVG (문서 안 상대 경로, SVG 내용). 앱 에셋으로 넣지 않는다 (5.9.1)."""
+    files = []
+    for rice in RICES:
+        for kind in POSES:
+            files.append((base_file_name(kind, rice), wrap(base(kind, rice))))
+    for kind in FACES:
+        files.append((f"layers/giri-face-{kind}.svg", wrap(face(kind))))
+    files.append(("layers/giri-sparkles.svg", wrap(MARKS)))
+    return files
+
+
+def part_files():
+    """Lottie 부위를 하나씩 본 확인용 SVG (parts/, 5.9.1). 모두 viewBox -30 0 360 360."""
+    files = [("parts/giri-shadow.svg", shadow()),
+             ("parts/giri-leg-l.svg", leg("l")), ("parts/giri-leg-r.svg", leg("r")),
+             ("parts/giri-arm-l.svg", arm("l")), ("parts/giri-arm-r-down.svg", arm("r_down")),
+             ("parts/giri-arm-r-up.svg", arm("r_up")), ("parts/giri-body-fill.svg", body_fill())]
+    files += [(f"parts/giri-pattern-{rice}.svg", pattern(rice)) for rice in RICES]
+    files += [(f"parts/giri-body-front-{rice}.svg", body_front(rice)) for rice in RICES]
+    files += [(f"parts/giri-face-{kind}.svg", face(kind)) for kind in FACES]
+    files.append(("parts/giri-sparkles.svg", MARKS))
+    return [(rel, wrap(inner)) for rel, inner in files]
+
+
+def item_files():
+    """(문서 안 상대 경로, 에셋 이름, SVG 내용). 기본 차림 아이템과 밥 썸네일."""
     files = []
     clip = body_clip_def(body_path())
-    # 본체는 팔 자세 × 밥마다, 얼굴은 표정마다 하나 (giri-companion.md 4.3, brief.md 2.4.2)
     for rice in RICES:
-        for kind in ARMS:
-            files.append((base_file_name(kind, rice), base_asset_name(kind, rice), wrap(base(kind, rice), defs=clip)))
         files.append((f"items/{rice}-thumb.svg", f"ItemThumb-{rice}",
                       wrap(rice_thumb(rice), THUMB_VIEWBOX["rice"], defs=clip)))
-    for kind in FACES:
-        files.append((f"layers/giri-face-{kind}.svg", f"GiriFace{kind.title()}", wrap(face(kind))))
-    files.append(("layers/giri-sparkles.svg", "GiriSparkles", wrap(MARKS)))
     for item_id, (slot, draw) in DEFAULT_ITEMS.items():
         files.append((f"items/{item_id}.svg", f"Item-{item_id}", wrap(draw())))
         files.append((f"items/{item_id}-thumb.svg", f"ItemThumb-{item_id}", wrap(draw(), THUMB_VIEWBOX[slot])))
     return files
 
 
-# 2026-11-16 개편으로 쓰지 않게 된 산출물. 실행할 때 지운다.
+# 쓰지 않게 된 산출물. 실행할 때 지운다. 2026-11-16 개편, 2026-11-21 Lottie로 바꾼 뒤의 레이어 에셋(5.9.1).
 OBSOLETE_FILES = ["layers/giri-sparkles-left.svg", "items/red_scarf.svg", "items/red_scarf-thumb.svg"]
-OBSOLETE_ASSETS = ["GiriSparklesLeft", "Item-red_scarf", "ItemThumb-red_scarf"]
+OBSOLETE_ASSETS = ["GiriSparklesLeft", "Item-red_scarf", "ItemThumb-red_scarf",
+                   "GiriBaseDefault", "GiriBaseHappy", "GiriBaseDefault-goma", "GiriBaseHappy-goma",
+                   "GiriBaseDefault-yakionigiri", "GiriBaseHappy-yakionigiri",
+                   "GiriFaceDefault", "GiriFaceHappy", "GiriFaceTalk", "GiriFaceThink", "GiriFaceSorry", "GiriSparkles"]
 
 
 def write_imageset(name, filename, content):
@@ -558,47 +806,105 @@ def check_rices():
     assert not failures, "밥 검사 실패: " + ", ".join(failures)
 
 
+def svg_renderer(tmp):
+    """tools/svg_to_png.swift를 컴파일한 실행 파일 경로."""
+    import subprocess
+    exe = tmp / "svg_to_png"
+    subprocess.run(["swiftc", "-O", str(Path(__file__).resolve().parent / "svg_to_png.swift"), "-o", str(exe)],
+                   check=True)
+    return exe
+
+
+def render_png(exe, tmp, name, content, size=720, alpha=False):
+    import subprocess
+    src, out = tmp / f"{name}.svg", tmp / f"{name}.png"
+    src.write_text(content, encoding="utf-8")
+    subprocess.run([str(exe), str(src), str(out), str(size)] + (["alpha"] if alpha else []), check=True)
+    return out
+
+
 def check_pixels_match():
-    """흰 밥 기본 차림을 새 레이어 순서(볼·두건이 본체 안)로 겹친 결과가 옛 완성 그림과 같은 픽셀인지 본다.
-    볼 순서가 바뀌므로 문자열이 아니라 그린 픽셀로 비교한다 (brief.md 2.4.2의 5). Pillow가 없으면 건너뛴다."""
+    """부위를 이은 그림이 예전 그림과 같은 픽셀인지 본다 (giri-companion.md 5.9.1, brief.md 2.4.2의 5).
+    1) 옛 완성 그림(legacy_svg, bodyClip, 웃음에 왼팔 없음)과: 내림 자세는 전부, 듦 자세는 왼팔 자리(LEFT_ARM_BOX) 밖에서.
+    2) 미리 자르기: 밥 3종 × 팔 자세 2 × 그 자세의 표정을 bodyClip으로 그린 기준 그림과 전부.
+    안티에일리어싱 허용치 8을 넘는 픽셀이 0이어야 한다. Pillow가 없으면 건너뛴다."""
     try:
         from PIL import Image, ImageChops
     except ImportError:
         print("Pillow가 없어 픽셀 비교를 건너뜀 (.venv/bin/python으로 실행)")
         return
-    import subprocess
+    import tempfile
+    size = 720
+    scale = size / 360
+
+    def changed(a, b, skip=None):
+        diff = ImageChops.difference(Image.open(a).convert("RGB"), Image.open(b).convert("RGB"))
+        if skip:
+            x0, y0, x1, y1 = ((v + 30 if i % 2 == 0 else v) * scale for i, v in enumerate(skip))
+            diff.paste((0, 0, 0), (int(x0), int(y0), int(math.ceil(x1)), int(math.ceil(y1))))
+        return sum(1 for p in diff.get_flattened_data() if max(p) > 8)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        exe = svg_renderer(tmp)
+        failures = []
+        for kind in POSES:
+            new = render_png(exe, tmp, f"{kind}-new", svg(kind), size)
+            old = render_png(exe, tmp, f"{kind}-old", legacy_svg(kind), size)
+            skip = None if POSES[kind] == LEGACY_POSES[kind] else LEFT_ARM_BOX
+            n = changed(new, old, skip)
+            where = "전부" if skip is None else f"왼팔 자리 {skip} 밖"
+            print(f"픽셀 비교 옛 그림 {kind} ({where}): 다른 픽셀 {n} / {size * size}")
+            if n:
+                failures.append(f"옛 그림 {kind}")
+        for rice in RICES:
+            for name, (face_kind, arm_kind, sparkles) in EXPRESSIONS.items():
+                if name not in ("default", "happy"):
+                    continue
+                new = render_png(exe, tmp, f"{rice}-{name}-new", svg(face_kind, arm_kind, sparkles, rice), size)
+                ref = render_png(exe, tmp, f"{rice}-{name}-ref",
+                                 clip_reference_svg(face_kind, arm_kind, sparkles, rice), size)
+                n = changed(new, ref)
+                print(f"픽셀 비교 미리 자르기 {rice} {name}: 다른 픽셀 {n} / {size * size}")
+                if n:
+                    failures.append(f"미리 자르기 {rice} {name}")
+        assert not failures, "부위 그림이 기준 그림과 다름: " + ", ".join(failures)
+
+
+def write_item_pngs():
+    """기본 차림 아이템의 1080px PNG (Lottie 이미지 슬롯·안드로이드용, giri-companion.md 5.7). 투명 바탕."""
+    import shutil
     import tempfile
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
-        exe = tmp / "svg_to_png"
-        subprocess.run(["swiftc", "-O", str(Path(__file__).resolve().parent / "svg_to_png.swift"), "-o", str(exe)],
-                       check=True)
-        for kind in ARMS:
-            pngs = []
-            for name, content in (("new", svg(kind)), ("old", legacy_svg(kind))):
-                src, out = tmp / f"{kind}-{name}.svg", tmp / f"{kind}-{name}.png"
-                src.write_text(content, encoding="utf-8")
-                subprocess.run([str(exe), str(src), str(out), "720"], check=True)
-                pngs.append(Image.open(out).convert("RGB"))
-            diff = ImageChops.difference(*pngs)
-            changed = sum(1 for p in diff.get_flattened_data() if max(p) > 8)
-            print(f"픽셀 비교 {kind}: 다른 픽셀 {changed} / {720 * 720}")
-            assert changed == 0, f"{kind}: 새 레이어 순서의 그림이 옛 완성 그림과 다름"
+        exe = svg_renderer(tmp)
+        for item_id, (_, draw) in DEFAULT_ITEMS.items():
+            png = render_png(exe, tmp, item_id, wrap(draw()), ITEM_PNG_SIDE, alpha=True)
+            dest = OUT / "items" / f"{item_id}.png"
+            shutil.copyfile(png, dest)
+            print("wrote", dest)
 
 
 if __name__ == "__main__":
+    import shutil
     OUT.mkdir(parents=True, exist_ok=True)
     check_rices()
     check_pixels_match()
     for name, (face_kind, arm_kind, sparkles) in EXPRESSIONS.items():
         (OUT / f"onigiri-{name}.svg").write_text(svg(face_kind, arm_kind, sparkles), encoding="utf-8")
         print("wrote", OUT / f"onigiri-{name}.svg")
-    for rel, asset, content in layer_files():
+    for rel, content in layer_files() + part_files():
+        path = OUT / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+        print("wrote", path)
+    for rel, asset, content in item_files():
         path = OUT / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
         write_imageset(asset, path.name, content)
         print("wrote", path, "->", asset)
+    write_item_pngs()
     for rel in OBSOLETE_FILES:
         if (OUT / rel).exists():
             (OUT / rel).unlink()
@@ -606,6 +912,5 @@ if __name__ == "__main__":
     for asset in OBSOLETE_ASSETS:
         folder = ASSETS / f"{asset}.imageset"
         if folder.exists():
-            import shutil
             shutil.rmtree(folder)
             print("removed", folder)

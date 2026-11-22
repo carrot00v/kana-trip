@@ -247,7 +247,7 @@ struct ChoiceQuestionView<Problem: View>: View {
                 // 큰 글자 크기에서는 28자가 들어가는 줄 수로 고정한다: xLarge 3줄, xxLarge 이상 4줄 (6.2).
                 let lines = typeSize >= .xxLarge ? 4 : 3
                 GiriSpeechRow(pose: giriPose, text: giriText, size: 96, maxLines: lines, reservedLines: lines,
-                              hop: picked == item.answer ? 1 : 0, focusOnAppear: true)
+                              focusOnAppear: true)
                     .padding(.top, 8)
                 ScrollView {
                     problem(answered)
@@ -487,7 +487,7 @@ struct RecallWriteView: View {
         let romajiTop = showsFigure && !beside ? max(Self.giriSize, bubble) + 8 : bubble + 8
         return ZStack(alignment: .top) {
             GiriSpeechRow(pose: giriPose, text: giriText, size: Self.giriSize, maxLines: lines, reservedLines: lines,
-                          hangs: true, breathes: false, hop: finished && !guideOn ? 1 : 0,
+                          hangs: true, breathes: false,
                           limitsLinesAtLargeType: true, focusOnAppear: true)
             HStack(spacing: 4) {
                 Text(kana.romaji).font(.system(size: 48))

@@ -36,6 +36,8 @@ struct KanaTripApp: App {
                 #if DEBUG
                 if let index = DebugLaunch.wordIndex {
                     DebugWordPreview(index: index).appStyle()
+                } else if DebugGiri.enabled {
+                    DebugGiriPreview().appStyle()
                 } else if let canvas = MapDebug.canvas {
                     // 작은 화면 확인: 상태 바 20pt를 흉내 낸 띠 아래에 W×H 틀로 그린다.
                     VStack(spacing: 0) {
