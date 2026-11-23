@@ -19,6 +19,7 @@ wait는 새 코멘트가 올 때까지 기다렸다가 JSON 한 줄씩 출력하
 """
 
 import argparse
+import http.client
 import json
 import os
 import subprocess
@@ -85,7 +86,8 @@ def cmd_wait(a) -> int:
     while time.time() < deadline:
         try:
             comments = call("GET", f"{API}/issues/comments?since={s['since']}&sort=created&direction=asc&per_page=100")
-        except (urllib.error.URLError, TimeoutError) as e:
+        except (OSError, http.client.HTTPException, ValueError) as e:
+            # 연결이 중간에 끊기는 경우(RemoteDisconnected)는 URLError가 아니라 HTTPException이다.
             print(f"확인 실패, 다시 시도: {e}", file=sys.stderr, flush=True)
             time.sleep(a.interval)
             continue
