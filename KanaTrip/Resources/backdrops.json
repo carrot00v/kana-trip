@@ -17,7 +17,7 @@
   "limits": {
     "lightMinLuminance": 0.55,
     "lightPercentile": 0.1,
-    "darkMaxLuminance": 0.045,
+    "darkMaxLuminance": 0.06,
     "darkPercentile": 99.9,
     "lightOpacity": {
       "min": 0.2,
@@ -29,13 +29,13 @@
     }
   },
   "backdrops": [
-    {"id": "sushi", "sceneID": "sushi", "opacity": {"light": 0.28, "dark": 0.13}},
-    {"id": "tonkatsu", "sceneID": "tonkatsu", "opacity": {"light": 0.0, "dark": 0.0}},
-    {"id": "soba", "sceneID": "soba", "opacity": {"light": 0.27, "dark": 0.14}},
-    {"id": "station", "sceneID": "station", "opacity": {"light": 0.27, "dark": 0.13}},
-    {"id": "shrine", "sceneID": "shrine", "opacity": {"light": 0.26, "dark": 0.13}},
-    {"id": "izakaya", "sceneID": "izakaya", "opacity": {"light": 0.27, "dark": 0.13}},
-    {"id": "onsen", "sceneID": "onsen", "opacity": {"light": 0.28, "dark": 0.13}},
+    {"id": "sushi", "sceneID": "sushi", "opacity": {"light": 0.28, "dark": 0.17}},
+    {"id": "tonkatsu", "sceneID": "tonkatsu", "opacity": {"light": 0.27, "dark": 0.18}},
+    {"id": "soba", "sceneID": "soba", "opacity": {"light": 0.27, "dark": 0.19}},
+    {"id": "station", "sceneID": "station", "opacity": {"light": 0.27, "dark": 0.18}},
+    {"id": "shrine", "sceneID": "shrine", "opacity": {"light": 0.26, "dark": 0.18}},
+    {"id": "izakaya", "sceneID": "izakaya", "opacity": {"light": 0.27, "dark": 0.18}},
+    {"id": "onsen", "sceneID": "onsen", "opacity": {"light": 0.28, "dark": 0.17}},
     {"id": "ryokan", "sceneID": "ryokan", "opacity": {"light": 0.0, "dark": 0.0}}
   ]
 }

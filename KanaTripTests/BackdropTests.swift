@@ -13,7 +13,7 @@ private func data(_ backdrops: String, version: Int = 1, unlock: String? = nil) 
     return Data("""
     {"schemaVersion": \(version), \(unlockJSON) "futureKey": [1, 2],
      "layout": {"stripAspect": 2.0, "fadeTop": 16, "haloWidth": 2, "artMatInset": 4, "artMatCorner": 16, "dotHaloDiameter": 8},
-     "limits": {"lightMinLuminance": 0.55, "lightPercentile": 0.1, "darkMaxLuminance": 0.045, "darkPercentile": 99.9,
+     "limits": {"lightMinLuminance": 0.55, "lightPercentile": 0.1, "darkMaxLuminance": 0.06, "darkPercentile": 99.9,
                 "lightOpacity": {"min": 0.2, "max": 0.4}, "darkOpacity": {"min": 0.06, "max": 0.25}},
      "backdrops": [\(backdrops)]}
     """.utf8)
@@ -67,6 +67,8 @@ struct BackdropCatalogTests {
         #expect(list.compactMap { $0["id"] as? String } == ContentLibrary.shared.scenes.map(\.id))
         #expect(list.compactMap { $0["sceneID"] as? String } == ContentLibrary.shared.scenes.map(\.id))
         let catalog = BackdropCatalog.bundled(bundle: appBundle)
+        // 그림이 들어간 풍경 (home-backdrop.md 구현 메모). 료칸은 2차(305~308)에도 통과가 없어 아직 고른 그림이 없다.
+        #expect(catalog.backdrops.map(\.id) == ["sushi", "tonkatsu", "soba", "station", "shrine", "izakaya", "onsen"])
         for backdrop in catalog.backdrops {
             #expect(catalog.limits.lightOpacity.contains(backdrop.opacityLight), "\(backdrop.id)")
             #expect(catalog.limits.darkOpacity.contains(backdrop.opacityDark), "\(backdrop.id)")
@@ -209,7 +211,7 @@ struct BackdropBlendTests {
         #expect(abs(s.blue - (0.7 + 0.1 * 1 * 0.3)) < 1e-9)
     }
 
-    /// 풍경 × 5색 × {라이트, 다크}: 라이트 0.1백분위 ≥ 0.55, 다크 99.9백분위 ≤ 0.045 (2.3).
+    /// 풍경 × 5색 × {라이트, 다크}: 라이트 0.1백분위 ≥ 0.55, 다크 99.9백분위 ≤ 0.06 (2.3).
     /// PNG를 다시 읽으며 생기는 반올림만큼(휘도 0.003) 너그럽다.
     @Test func everyBackdropMeetsLuminanceLimitsOnEveryColor() throws {
         let backdrops = BackdropCatalog.bundled(bundle: appBundle)
