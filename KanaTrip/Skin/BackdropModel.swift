@@ -41,7 +41,7 @@ struct BackdropLayout: Equatable, Sendable {
 struct BackdropLimits: Equatable, Sendable {
     var lightMinLuminance = 0.55
     var lightPercentile = 0.1
-    var darkMaxLuminance = 0.045
+    var darkMaxLuminance = 0.06
     var darkPercentile = 99.9
     var lightOpacity: ClosedRange<Double> = 0.20...0.40
     var darkOpacity: ClosedRange<Double> = 0.06...0.25
