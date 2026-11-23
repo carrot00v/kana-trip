@@ -669,7 +669,7 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 | 장면 | 고름 | 라이트 / 다크 o | N8 표준편차 / 다크 최대 | 비고 |
 |---|---|---|---|---|
 | 스시집 | 302 | 0.28 / 0.13 | 0.070 / 0.038 | 301은 배 창이 눈처럼 보임(B3), 303 지붕 무늬가 글자처럼(B2), 304 땅이 지워짐 |
-| 돈카츠집 | **없음** | – | – | 1차 301~304, 2차 305~308(대상 끝에 "All lines are thin.") 모두 선이 굵다(N4 6.3~9.1%). 같은 이유로 두 번 실패(7.6) |
+| 돈카츠집 | **309 (3차, 2026-11-23)** | 0.27 / 0.18 | 0.086 / 0.055 | 1차 301~304, 2차 305~308은 모두 선이 굵다(N4 6.3~9.1%). 3차 309~312는 대상 문장을 고침(아래 "돈카츠집·료칸 다시 그리기"). 309만 통과(N4 5.3%) |
 | 소바·우동집 | 301 | 0.27 / 0.14 | 0.093 / 0.039 | 302~304는 언덕이 가로로 다 차서 N3 탈락 |
 | 역 | 306 (2차) | 0.27 / 0.13 | 0.073 / 0.037 | 1차 4장 모두 전철(B4)과 가운데 승강장(N3). 2차 문장: "railway"를 빼고 "In the middle, only a short low platform roof …, small and far away", 끝에 "All lines are thin." 306은 육교가 없다 |
 | 신사·축제 | 305 (2차) | 0.26 / 0.13 | 0.097 / 0.038 | 1차 4장 모두 도리이(B4). 2차 문장: "festival day" 빼고 "only the low roof of a small wooden shrine hall … solid wooden walls, small and far away". 풍경이 그림 양끝까지 닿지 않는다 |
@@ -682,7 +682,7 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 | 풍경 | 불투명도 라이트/다크 | V1 라이트 0.1%ile (최저) | V2 다크 99.9%ile (최고) | V3 | V4 초록/분홍 (최대) | V5, V6 | 결과 |
 |---|---|---|---|---|---|---|---|
 | sushi | 0.28 / 0.13 | 0.551 | 0.0445 | 통과 | 0.00% / 0.00% (예외 teal dark 0.14%) | 통과, 통과 | 통과 |
-| tonkatsu | 그림 없음(칸 없음) |  |  |  |  |  | – |
+| tonkatsu | 0.27 / 0.18 | 0.551 | 0.0600 | 통과 | 0.00% / 0.00% (예외 teal dark 6.83%) | 통과, 통과 | 통과 |
 | soba | 0.27 / 0.14 | 0.557 | 0.0436 | 통과 | 0.00% / 0.00% (예외 teal dark 0.01%) | 통과, 통과 | 통과 |
 | station | 0.27 / 0.13 | 0.556 | 0.0430 | 통과 | 0.00% / 0.00% (예외 teal dark 9.08%) | 통과, 통과 | 통과 |
 | shrine | 0.26 / 0.13 | 0.557 | 0.0430 | 통과 | 0.00% / 0.00% (예외 teal dark 0.34%) | 통과, 통과 | 통과 |
@@ -712,6 +712,11 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 - 라이트는 건드리지 않았다(불투명도·에셋 PNG 그대로, `build`가 같은 파일을 냈다).
 - V4 예외(청록 다크의 초록 비율)가 커졌다: 역 12.8%, 이자카야 12.4%, 온천 20.3%, 소바 29.0%, 신사 44.0%, 스시 0.14%. 휘도는 0.06 이하라 여전히 아주 어둡지만 비율이 커졌으므로 **designer 확인 필요**(위 V4 예외 항목과 같은 건).
 - 테스트: `BackdropTests`의 다크 기준은 `backdrops.json`의 `limits`를 읽으므로 자동으로 0.06을 쓴다. `BackdropLimits` 기본값과 테스트 픽스처의 0.045도 0.06으로 맞췄다.
+
+**돈카츠집·료칸 다시 그리기** (2026-11-23, developer. 이슈 #7 결정 (1))
+
+- 대상 문장은 `tools/make_backdrop_art.py`의 `SUBJECTS`로 옮겼다(`prompt {id}`가 7.3대로 조립해 출력). 고른 6장의 문장은 `source/backdrop-{id}.json`과 글자 하나 다르지 않게 맞췄다. STYLE·PALETTE·LAYOUT은 그대로다.
+- 돈카츠집 3차(시드 309~312): 1·2차 탈락 이유는 2층 가게집의 창·기와 줄 같은 작은 선(N4), 가운데로 빨려 드는 길(B6), 초록 나무(N5). 통과한 이자카야처럼 **낮은 단층 가게, 넓은 무지 벽, 무늬 없는 지붕, 길 대신 땅 띠**, 가운데는 나무 하나만, "Large simple shapes with few small details."를 더했다. 결과: 309 통과(N4 5.3%), 310 땅 띠 지워짐(B8), 311·312 선 굵음(B7). **309를 골랐다.** 약점: 문 손잡이 두 점이 원본 100%에서 눈처럼 보일 수 있다(402pt에서는 보이지 않음), 양끝의 큰 하늘색 원과 땅의 차선 점선은 옛 상점가 고증이 약하다(B10 약함). 시트 `docs/review/backdrop-tonkatsu-r2.png`, 홈 `backdrop-tonkatsu-light.png`·`-dark.png`.
 
 ## 11. 변경 기록
 

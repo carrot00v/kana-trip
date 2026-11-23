@@ -8,6 +8,7 @@
                           아래 30% 알파 줄임 → 썸네일 → 5색 × 2모드 불투명도 계산 → build/backdrop/, 에셋 카탈로그, backdrops.json.
                           고른 그림이 없는 항목은 opacity 0으로 둔다(앱이 칸을 만들지 않는다). 끝에 비교 시트를 만든다.
   verify                 V1~V6. 하나라도 못 넘으면 1로 끝난다.
+  prompt id              7.3대로 조립한 생성 프롬프트를 출력한다(대상 문장은 SUBJECTS).
   --markdown             (verify와 함께) 결과를 마크다운 표로.
 
 합성 식 (sRGB 부호화 값 0~1, 채널마다. B 바탕, A 그림, a 그림 알파, o 불투명도):
@@ -52,6 +53,76 @@ LIFT_LUMINANCE = 0.18
 # 밝기가 아니어서 예외로 두고 결과 표에 따로 적는다(home-backdrop.md 구현 메모, designer 확인 필요).
 V4_EXCEPTIONS = {("teal", "dark")}
 FADE_FROM = 0.70
+
+
+# MARK: - 프롬프트 (7.3)
+# 조립: {BACKDROP_STYLE} {PALETTE} Subject: {대상} {BACKDROP_LAYOUT}. `prompt {id}`가 조립한 문장을 출력한다.
+# 고른 6장의 대상 문장은 source/backdrop-{id}.json에 남은 그대로다(역·신사는 2차 문장).
+
+BACKDROP_STYLE = (
+    "Flat cartoon illustration with clean outlines. Every shape is outlined with one thin, uniform, dark chocolate brown line "
+    "(#4A2219), about half of one percent of the image width, with rounded line ends and rounded joins, and every outline is "
+    "fully closed. Flat solid color fills only: no gradients, no texture, no shading, no highlights, no shine, no reflections, "
+    "no drop shadow. Soft, rounded, chunky shapes, simple and friendly."
+)
+PALETTE = (
+    "Colors: warm off-white, pale cream, dark indigo blue, pale sky blue, warm wood brown, warm yellow, soft orange red, "
+    "soft pink, muted olive, and the dark chocolate brown of the outlines. No bright green, no emerald, no crimson, no magenta, "
+    "no pure red, no neon colors."
+)
+BACKDROP_LAYOUT = (
+    "A wide, calm landscape panorama seen straight from the front at eye level, like a flat stage backdrop, with almost no "
+    "perspective and no road leading into the distance. Taller shapes stand near the left and right ends of the image; the "
+    "middle third is lower, simpler and more open, with only small, distant shapes. The top eighth of the image is completely "
+    "empty. The scenery stands on one simple flat ground strip that runs along the whole bottom of the image. Behind the scenery "
+    "there is no sky: everything that is not scenery is one flat solid pale sand beige color, with no clouds, no sun, no birds, "
+    "no gradient. No people, no animals, no characters, no faces. No text, no letters, no numbers, no logos, no symbols on any "
+    "surface; every sign, curtain, lantern, awning and panel is completely plain. No border, no frame, no vignette."
+)
+SUBJECTS = {
+    "sushi": "A quiet small fishing harbor. On the left, a low wooden harbor shed with a gently sloped gray tiled roof. On the "
+             "right, a short stone breakwater with a small round off-white lighthouse. In the middle, two small wooden fishing "
+             "boats with dark indigo hulls float on a calm flat strip of pale sky blue water, and low rounded hills lie far "
+             "behind the water. The ground strip is a pale gray stone quay.",
+    # 3차(2026-11-23, 시드 309~): 1·2차(301~308)는 2층 가게집의 창·기와 줄이 외곽선을 늘려 N4 6.3~9.1%(B7), 길이 가운데로
+    # 빨려 듦(B6), 나무 초록(N5). 통과한 이자카야처럼 낮은 단층 건물, 넓은 무지 면, 길 대신 땅 띠만, 가운데는 나무 하나만.
+    "tonkatsu": "A small old shopping street seen straight from the side. On the left and on the right, low one-story wooden "
+                "shop houses stand in one flat row facing the viewer, each with a smooth plain dark gray roof, wide plain "
+                "off-white walls and one plain warm yellow fabric awning, with a small muted olive plant in a round clay pot by a door. In the "
+                "middle, only one round muted olive tree, small and far away. Large simple shapes with few small details. "
+                "The ground strip is a plain pale gray paved strip. All lines are thin.",
+    "soba": "A gentle mountain village. Rounded muted olive hills lie behind. On the left, a small thatched farmhouse with a "
+            "wooden water wheel. On the right, a few tall pine trees in muted olive. In the middle, a low field of buckwheat "
+            "with many tiny off-white flowers on muted olive stems. The ground strip is a warm wood brown dirt path.",
+    "station": "A small town platform seen from the side. In the middle, only a short low platform roof on thin gray posts, "
+               "small and far away, with a few thin overhead wire poles. On the left, a pedestrian footbridge with a plain "
+               "off-white railing. On the right, a row of rounded muted olive trees and low houses far behind. The ground "
+               "strip is a pale gray gravel bed with one straight rail. All lines are thin.",
+    "shrine": "A quiet shrine forest. Tall rounded cedar trees in muted olive stand at both ends. Between them, only the low "
+              "roof of a small wooden shrine hall with gently upturned eaves and solid wooden walls, small and far away. A "
+              "string of round soft orange red paper lanterns hangs across the middle. Two small gray stone lanterns stand on "
+              "the ground. The ground strip is pale gray gravel. All lines are thin.",
+    "izakaya": "A narrow lane of small eateries in daytime colors. Low wooden buildings with gray tiled roofs stand on the left "
+               "and on the right, with a few round soft orange red paper lanterns hanging under the eaves, plain off-white "
+               "cloth hanging in the doorways, a wooden bench and stacked wooden crates by a door. In the middle, small "
+               "distant rooftops. The ground strip is pale gray stone paving.",
+    "onsen": "A hot spring town in the hills. Rounded muted olive hills with a few small pine trees lie behind. On the left, a "
+             "wooden bathhouse with a gray tiled roof. On the right, a small arched wooden footbridge over a narrow pale sky "
+             "blue stream. In the middle, several soft wavy pale off-white steam wisps rise from the ground. The ground strip "
+             "is rounded gray rocks.",
+    # 2차(2026-11-23, 시드 305~): 1차(301~304)는 정면 대칭 여관 앞면이 창-문-창 얼굴(B3), 선 굵음(B7), 생울타리·덤불 초록(N5).
+    # 여관을 비스듬히 옆에서 본 처마·노렌·등롱 중심으로, 앞면은 같은 미닫이 칸의 줄로, 생울타리는 빼고 초록 대신 올리브.
+    "ryokan": "A traditional inn garden. On the left, the long low wooden inn is seen at an angle from the side: a deep dark "
+              "gray roof with wide overhanging eaves, a plain dark indigo noren curtain hanging under the eave, one round "
+              "off-white paper lantern on a short wooden post, and a wooden veranda in front of one long even row of plain "
+              "off-white sliding paper doors. On the right, one round trimmed pine tree in muted olive and a gray stone "
+              "lantern. In the middle, only a small calm pale sky blue pond with three flat stepping stones, small and far "
+              "away. Large simple shapes with few small details. The ground strip is pale raked gravel. All lines are thin.",
+}
+
+
+def prompt_for(bid: str) -> str:
+    return f"{BACKDROP_STYLE} {PALETTE} Subject: {SUBJECTS[bid]} {BACKDROP_LAYOUT}"
 
 
 # MARK: - 색 계산
@@ -563,7 +634,7 @@ def verify(markdown: bool) -> int:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("command", choices=["check", "build", "verify"])
+    p.add_argument("command", choices=["check", "build", "verify", "prompt"])
     p.add_argument("files", nargs="*", type=Path)
     p.add_argument("--markdown", action="store_true")
     p.add_argument("--sheet", type=Path)
@@ -571,6 +642,10 @@ def main() -> int:
     p.add_argument("--verdict", type=Path, help="눈 검사 판정 JSON {시드: {eye, fails, picked}}")
     p.add_argument("--json", type=Path, help="check 수치를 JSON으로 저장")
     a = p.parse_args()
+    if a.command == "prompt":
+        # 인자는 풍경 id 하나 (예: prompt tonkatsu). gen_image.py에 그대로 넘긴다.
+        print(prompt_for(str(a.files[0])))
+        return 0
     if a.command == "build":
         return build()
     if a.command == "verify":
