@@ -8,4 +8,5 @@ PM(메인 세션)이 관리한다. 기획 결정과 미정 항목은 [PLAN.md](.
 
 | 올린 날 | 작업 | 미룬 이유 | 다시 할 조건 | 참고 |
 |---|---|---|---|---|
+| 2026-11-25 | 돈카츠집 홈 바탕 풍경 | 309는 사용자 반려, 4차 4장(313~316)은 선 굵기(N4 7.6~10.2%)로 탈락. 같은 실패 두 번 | 이슈 #7에서 사용자가 314를 쓸지, 다시 그릴지, 비울지 고르면 | `docs/design/home-backdrop.md` 7.8, `docs/review/backdrop-tonkatsu-r4.png` |
 | 2026-11-24 | 료칸 홈 바탕 풍경 | 1·2차 후보 8장이 모두 탈락(선 굵기 N4 6% 초과, 정면이 얼굴로 읽힘). 같은 실패 두 번이라 규칙상 PM 판단 필요 | 이슈 #7에서 사용자가 방향(탈락 후보 중 고르기 / 건물을 작게 다시 그리기 / 비워 두기)을 고르면 | `docs/design/home-backdrop.md`, `docs/design/backdrop-art/verdicts.json`, `docs/review/backdrop-ryokan-r2.png` |
