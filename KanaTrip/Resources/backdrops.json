@@ -30,7 +30,7 @@
   },
   "backdrops": [
     {"id": "sushi", "sceneID": "sushi", "opacity": {"light": 0.28, "dark": 0.17}},
-    {"id": "tonkatsu", "sceneID": "tonkatsu", "opacity": {"light": 0.27, "dark": 0.18}},
+    {"id": "tonkatsu", "sceneID": "tonkatsu", "opacity": {"light": 0.0, "dark": 0.0}},
     {"id": "soba", "sceneID": "soba", "opacity": {"light": 0.27, "dark": 0.19}},
     {"id": "station", "sceneID": "station", "opacity": {"light": 0.27, "dark": 0.18}},
     {"id": "shrine", "sceneID": "shrine", "opacity": {"light": 0.26, "dark": 0.18}},

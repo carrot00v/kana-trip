@@ -68,7 +68,8 @@ struct BackdropCatalogTests {
         #expect(list.compactMap { $0["sceneID"] as? String } == ContentLibrary.shared.scenes.map(\.id))
         let catalog = BackdropCatalog.bundled(bundle: appBundle)
         // 그림이 들어간 풍경 (home-backdrop.md 구현 메모). 료칸은 2차(305~308)에도 통과가 없어 아직 고른 그림이 없다.
-        #expect(catalog.backdrops.map(\.id) == ["sushi", "tonkatsu", "soba", "station", "shrine", "izakaya", "onsen"])
+        // 돈카츠집 309(3차)는 "돈카츠집으로 읽히지 않음"(B11)으로 사용자가 반려해 뺐다(7.8).
+        #expect(catalog.backdrops.map(\.id) == ["sushi", "soba", "station", "shrine", "izakaya", "onsen"])
         for backdrop in catalog.backdrops {
             #expect(catalog.limits.lightOpacity.contains(backdrop.opacityLight), "\(backdrop.id)")
             #expect(catalog.limits.darkOpacity.contains(backdrop.opacityDark), "\(backdrop.id)")
