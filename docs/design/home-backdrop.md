@@ -453,7 +453,7 @@ iOS는 번들에서, 안드로이드는 같은 파일을 `assets/`로 복사해 
 | 순서 | id | 장면 | 풍경 (바깥 장소) | 넣지 않는 것 (장면 그림의 대상 등) | 주된 색 |
 |---|---|---|---|---|---|
 | 1 | `sushi` | 스시집 | 고요한 어항: 나무 창고, 작은 방파제와 등대, 고깃배 두 척, 옅은 물띠, 먼 낮은 언덕 | 초밥, 생선 모양, 접시, 게타, 노렌 | 옅은 하늘색 물, 남색 배, 나무색 |
-| 2 | `tonkatsu` | 돈카츠집 | 옛 상점가: 2층 나무 가게집들, 회색 기와, 무지 노랑 차양, 화분, 가운데 먼 지붕과 둥근 나무 하나 | 그릇, 음식, 젓가락, 글자 있는 간판·노렌 | 나무색, 회색, 노랑 조금 |
+| 2 | `tonkatsu` | 돈카츠집 | **돈카츠 가게 앞** (4차, 7.8): 낮은 단층 나무 식당, 무지 남색 노렌, 지붕 위 큰 돈카츠 모양 간판(변형 A) 또는 벽 진열창의 돈카츠 접시(변형 B). 1~3차의 "옛 상점가"는 어느 동네 가게로나 읽혀 버렸다 | 덮밥 그릇(깊은 그릇), 밥, 달걀, 젓가락, 김 줄기, 글자 있는 간판·노렌. **썬 돈카츠 한 접시는 넣는다**(7.8.2, PM 확인 필요) | 나무색, 황갈색(돈카츠), 남색(노렌), 회색 |
 | 3 | `soba` | 소바·우동집 | 산골 마을: 둥근 올리브 언덕, 초가집과 물레방아, 소나무, 가운데 작은 흰 꽃이 핀 메밀밭 | 면, 대발, 그릇, 잔 | 올리브, 흰 꽃, 나무색 |
 | 4 | `station` | 역 | 작은 마을 철길(옆에서 봄): 가는 기둥 위 긴 승강장 지붕, 전신주와 전선, 왼쪽 육교, 오른쪽 먼 둥근 나무와 낮은 집 | **전철**, 시계, 행선지판, 글자 | 회색, 남색 조금, 올리브 |
 | 5 | `shrine` | 신사·축제 | 축제 날 신사 숲: 양끝 키 큰 삼나무, 가운데 낮은 신사 본전 지붕, 가로로 걸린 둥근 종이 초롱 줄, 작은 돌등 둘 | **도리이**(문 이름을 프롬프트에 쓰지 않는다), 가면, 노점 음식 | 올리브, 나무색, 주황빨강 조금 |
@@ -461,7 +461,7 @@ iOS는 번들에서, 안드로이드는 같은 파일을 `assets/`로 복사해 
 | 7 | `onsen` | 온천 | 언덕 온천 마을: 둥근 올리브 언덕과 작은 소나무, 왼쪽 나무 목욕탕 건물, 오른쪽 작은 나무 다리와 개울, 가운데 땅에서 오르는 김 몇 줄기 | **목욕통**, 사람, 노렌의 ゆ | 올리브, 흰 김, 나무색 |
 | 8 | `ryokan` | 료칸 | 료칸 정원: 왼쪽 긴 나무 여관 건물과 툇마루, 오른쪽 둥글게 다듬은 소나무와 돌등, 가운데 작은 연못과 징검돌, 낮은 생울타리 | **찻주전자·찻잔**, 이불, 다다미 방 안 | 하늘색 연못, 나무색, 올리브 |
 
-- 이웃 장면끼리 가장 크게 보이는 것을 다르게 했다: 물(1), 거리(2), 밭(3), 구조물과 선(4), 숲과 초롱 줄(5), 골목(6), 언덕과 김(7), 정원과 연못(8).
+- 이웃 장면끼리 가장 크게 보이는 것을 다르게 했다: 물(1), 돈카츠 간판·접시(2, 4차), 밭(3), 구조물과 선(4), 숲과 초롱 줄(5), 골목(6), 언덕과 김(7), 정원과 연못(8).
 - 넓은 면에 쓰지 않는 색: 초록(색상 125°~160°, 채도 25% 이상)과 분홍빨강(330°~359°). scene-art/brief.md 3.1과 같다. 언덕과 나무는 **muted olive**(색상 약 75°)로 그린다.
 
 ### 7.2 규격
@@ -507,7 +507,7 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 | id | 대상 문장 |
 |---|---|
 | `sushi` | `A quiet small fishing harbor. On the left, a low wooden harbor shed with a gently sloped gray tiled roof. On the right, a short stone breakwater with a small round off-white lighthouse. In the middle, two small wooden fishing boats with dark indigo hulls float on a calm flat strip of pale sky blue water, and low rounded hills lie far behind the water. The ground strip is a pale gray stone quay.` |
-| `tonkatsu` | `A small old shopping street. On the left and on the right, low two-story wooden shop houses with dark gray tiled roofs, plain off-white walls and plain warm yellow fabric awnings, with a few potted plants by the doors. In the middle, the street opens to a few small distant roofs and one round tree. The ground strip is a pale gray paved street.` |
+| `tonkatsu` | **4차 문장은 7.8.4** (변형 A·B). 아래는 1차 문장으로 기록만 남긴다: `A small old shopping street. On the left and on the right, low two-story wooden shop houses with dark gray tiled roofs, plain off-white walls and plain warm yellow fabric awnings, with a few potted plants by the doors. In the middle, the street opens to a few small distant roofs and one round tree. The ground strip is a pale gray paved street.` |
 | `soba` | `A gentle mountain village. Rounded muted olive hills lie behind. On the left, a small thatched farmhouse with a wooden water wheel. On the right, a few tall pine trees in muted olive. In the middle, a low field of buckwheat with many tiny off-white flowers on muted olive stems. The ground strip is a warm wood brown dirt path.` |
 | `station` | `A small town railway seen from the side. A long low platform roof on thin gray posts runs across the middle, with a row of thin overhead wire poles behind it. On the left, a pedestrian footbridge with a plain off-white railing. On the right, a row of rounded muted olive trees and low houses far behind. The ground strip is a pale gray gravel track bed with one straight rail.` |
 | `shrine` | `A shrine forest on a festival day. Tall rounded cedar trees in muted olive stand at both ends. Between them, the low roof of a small wooden shrine hall with gently upturned eaves. A string of round soft orange red paper lanterns hangs across the middle. Two small gray stone lanterns stand on the ground. The ground strip is pale gray gravel.` |
@@ -560,7 +560,9 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 | B8 | 바탕 지우기 | 지운 결과(체크무늬 위)에서 풍경 가장자리에 베이지 테, 지워진 지붕·물 |
 | B9 | 세트 | 이미 고른 풍경 옆에 놓았을 때 선 굵기, 밝기, 물건 크기가 다른 계열 |
 | B10 | 고증 | 기와, 신사 지붕, 승강장, 료칸이 다른 나라 모양과 섞임 |
+| B11 | **장소 식별** (2026-11-25 추가) | 홈에 깔린 모습(`build` 뒤 기본 색 라이트 합성, 402×201pt 크기, 아래 30% 씻김 포함)을 **장면 이름을 가리고 3초** 봤을 때 그 장면으로 읽히지 않는다. 읽히게 하는 단서(7.8.1처럼 장면마다 하나 정함)가 (a) 402pt 폭에서 40pt(원본 1280에서 128px) 이상, (b) 원본 높이 0.65H(416px)보다 위에 있어 아래 30% 씻김에 묻히지 않음, (c) 다른 장면 풍경으로 바꿔 붙여도 말이 되는 물건(가게 일반, 나무, 화분)이 아님. 셋 중 하나라도 아니면 탈락. 판정자는 대상을 알고 보므로 치우친다. 그래서 고른 그림은 7.4 끝의 비교 시트로 사용자에게 **이름 없이 먼저** 보여 확인받는다 |
 
+- B11은 돈카츠집 4차(7.8)와 료칸의 다음 시도부터 쓴다. 이미 고른 6장(스시집, 소바·우동집, 역, 신사·축제, 이자카야, 온천)은 이 기준으로 다시 판정하지 않았다. 다시 볼지는 PM이 정한다.
 - 통과한 후보가 여럿이면: B4에서 가장 먼 것(장면 그림 대상의 흔적이 없음) → N3이 작은 것(가운데가 조용함) → N8 표준편차가 작은 것 순.
 - 고른 뒤 사용자에게 8장 비교 시트(`build/backdrop/sheet.png`, 기본 색 라이트·다크 합성)를 보여 확인받는다(장면 그림 때와 같음).
 
@@ -594,6 +596,99 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 | 다시 뽑기 (예상 2~3장면) | 8~12 | 약 0.5~0.8시간 |
 | 고르기, 비교 시트, 확인 | | 약 0.5~1시간 |
 | 합계 | 40~44 | **약 3~4시간** |
+
+### 7.8 돈카츠집 4차 주문 (2026-11-25, designer)
+
+이슈 #7 저장소 주인: 지금 넣은 309가 "전혀 돈카츠집 같지 않음". 이 절만 보고 `SUBJECTS["tonkatsu"]`를 고쳐 4장을 그리고 판정한다. STYLE·PALETTE·LAYOUT, 생성 크기, 7.4의 N1~N8·B1~B10은 그대로다. B11(장소 식별)을 더해 판정한다.
+
+#### 7.8.0 309가 왜 돈카츠집으로 안 읽히나
+
+- 3차 문장은 N4(진한 픽셀 6%)를 맞추려고 "낮은 단층 가게, 넓은 무지 벽, 무지 노랑 차양, 화분, 나무"만 남겼다. 이 가운데 **돈카츠와 이어지는 물건이 하나도 없다.** 노랑 차양 가게 두 채와 둥근 나무는 어느 나라 어느 동네의 가게로도 읽힌다.
+- 홈에서는 더 약해진다. 라이트 곱하기 0.27로 씻기고, 모델이 풍경을 원본 아래 40~50%에만 그려 홈에서는 띠 201pt 가운데 y 약 70~170pt의 가는 띠가 된다(구현 메모 "화면에서 본 것"). 작은 물건(화분, 문 손잡이)은 보이지 않고 **큰 덩어리의 모양과 색**만 남는다.
+- 다른 통과 장면은 큰 덩어리 하나가 장소를 말한다: 스시집은 등대와 물띠, 온천은 김 줄기와 아치 다리, 신사는 초롱 줄과 큰 삼나무. 돈카츠집에는 그런 덩어리가 없었다.
+- 7.1의 "넣지 않는 것"이 **음식 전부**를 막고 있어 돈카츠를 알릴 길이 처음부터 없었다. 이 목록은 장면 그림(가츠동 그릇)과 같은 그림이 되풀이되는 것을 막으려던 것이다(1.2, B4). 4차는 이 목록을 "덮밥 그릇과 그 부속"으로 좁힌다(7.8.2).
+
+#### 7.8.1 단서: 무엇을, 어디에, 얼마나 크게
+
+장소 단서는 **썬 돈카츠** 하나로 정한다. 황갈색 길쭉한 덩이 + 썬 단면의 세로 줄 4개 + 흰 타원 접시. 홈에서 씻겨도 남는 것은 색 덩어리와 실루엣이고, "황갈색 덩이에 세로로 썬 줄"은 돈카츠(돈가스) 말고 다른 것으로 읽히기 어렵다. 한국 사용자에게도 썬 돈가스는 익숙한 모양이다. 보조 단서는 **무지 남색 노렌**(세 폭, 글자 없음)으로, "일본 밥집"임을 알린다(노랑 차양 대신).
+
+| 항목 | 변형 A: 지붕 위 큰 돈카츠 간판 | 변형 B: 벽 진열창의 돈카츠 접시 |
+|---|---|---|
+| 현지 근거 | 일본 식당가의 입체 음식 간판(지붕 위나 처마 위에 음식 모양을 크게 올린 간판) | 식당 앞 음식 모형 진열창(쇼윈도). 학습 단어 とんかつ, ひれかつ가 메뉴 단계의 단어다 |
+| 자리 | **오른쪽 가게 지붕 위.** 오른쪽 1/3(원본 x 853~1280)이 홈에서 가장 덜 가려진다. 왼쪽 위(402pt에서 x 16~88pt, 띠 y 0~70pt)는 장면 띠 그림 72pt가 지나가는 자리라 큰 단서를 두지 않는다 | **양쪽 가게 벽, 문 옆 진열창 안 선반.** 선반 높이는 문 위쪽 절반. 원본 0.70H(448px)부터 시작하는 아래 30% 씻김보다 위에 있어야 한다 |
+| 크기 (원본 1280×640 → 402pt) | 간판 폭 ≈ 지붕 폭, 약 340~400px(107~126pt), 높이 약 120~150px(38~47pt). 돈카츠 조각 5개, 조각 하나 폭 약 60~70px(약 20pt) | 접시 하나 폭 약 180~220px(57~69pt), 가게 앞면 폭의 약 절반. 가게마다 접시 하나 |
+| 단서 바닥 높이 | 간판 아래 끝이 지붕 꼭대기. 원본 y 약 220~370px | 접시 아래 끝 원본 y ≤ 416px(0.65H) |
+| 돈카츠 색 | 겉 warm yellow + warm wood brown 사이의 황갈색 면, 썬 면 pale cream(단면 둘레만 황갈색 테) | 같음. 접시 옆에 연노랑 양배추 덩이 하나(곡선 3~4개만) |
+| 보조 | 두 가게 모두 무지 남색 노렌 | 같음 |
+| 빼는 것 | 노랑 차양, 화분, 양끝 큰 나무, 창살, 지붕 줄무늬 | 같음 |
+| 예상 강점 / 약점 | 단서가 가장 크고 가장 높아 씻김에 안 묻힌다. 간판이 너무 크면 "기괴한 지붕"이나 빵으로 읽힐 수 있다 | 현실적이고 조용하다. 단서가 A보다 작고, 모델이 선반을 아래로 내리면 씻김에 묻힌다(B11 b) |
+
+**N4(진한 픽셀 ≤ 6%)와 양립시키는 법**: 단서는 **크고 면이 넓은 물건 하나**라 둘레 길이 대비 면적이 크다. 1280×640에서 간판 하나의 외곽선(둘레 약 1,000px + 썬 줄 4개 약 500px, 굵기 6px)은 약 9,000px = 전체의 약 1.1%다. 309가 5.3%였으므로 그대로 더하면 6.4%로 넘는다. 그래서 309에 있던 작은 선을 같은 몫만큼 뺀다: 노랑 차양(물결 가장자리와 줄무늬), 화분 두 개, 양끝 큰 원 나무 두 그루, 문 손잡이, 땅의 차선 점선. 왼쪽 가게는 오른쪽보다 작고 창이 없다. 빵가루 점무늬, 양배추 채는 그리지 않는다(문장에 "smooth, no dots", "only a few curved lines"). 예상 N4 5~6%.
+
+**N3(가운데 ≤ 0.85)와 양립시키는 법**: 단서는 양끝 1/3에만 있다. 가운데는 "작고 먼 낮은 덤불 하나"뿐이다. 간판이 오른쪽을 키우므로 양옆 평균이 올라가 N3는 오히려 내려간다(309 0.38).
+
+**N2(위 1/8 ≤ 2%)**: 간판 꼭대기가 원본 y 80px보다 아래여야 한다. 모델이 풍경을 아래 절반에 그려 온 경향(구현 메모)으로 보면 여유가 있다. 넘으면 7.6의 "short"처럼 "a low wide sign"으로 고친다.
+
+**N5**: 양배추를 "pale yellow"로 쓴다. 연두로 나오면 색상 80~110° 언저리라 125° 밑이 보통이지만, 넘으면 B의 양배추를 빼고 다시 판정한다(접시와 돈카츠만으로도 단서는 선다).
+
+**양립이 안 될 때의 장면 단위 조정 (제안, PM 확인 필요)**: 4장 중 단서가 B11을 통과하고 N4만 6.0~7.0%이며 B7(선 굵기 13px 이하)과 N7(라이트 o ≥ 0.20)이 통과하는 후보가 있으면, 돈카츠집에 한해 N4 상한을 **7%**로 올려 그 후보를 쓰기를 제안한다. 근거: N4는 "선이 굵지 않고 그림이 조용함"의 대리 수치이고, 실제로 홈의 세기를 묶는 것은 V1(휘도 0.55)과 N7이다. 단서가 큰 면이라 생기는 외곽선 몫은 조용함을 크게 해치지 않는다. **이 조정은 기준 변경이라 designer가 정하지 않는다.** developer는 그런 후보가 나오면 고르지 말고 수치와 함께 PM에게 올린다.
+
+#### 7.8.2 장면 그림과 겹치지 않는가 (B4, PM 확인 필요)
+
+- 장면 그림 `thumb-tonkatsu`는 **가츠동**이다: 깊은 남색 그릇, 흰 밥, 달걀 얹은 돈카츠, 젓가락, 김 세 줄기. 4차 단서는 **얕은 흰 타원 접시 위 썬 돈카츠**(A는 간판, B는 진열 접시)라 그릇·밥·달걀·젓가락·김이 없고 실루엣이 다르다(깊은 둥근 그릇 vs 납작한 타원). 1.2의 "같은 대상 금지"에는 걸리지 않는다고 본다.
+- 그래서 7.1의 "넣지 않는 것"을 "그릇, 음식, 젓가락"에서 "**덮밥 그릇(깊은 그릇), 밥, 달걀, 젓가락, 김 줄기**"로 좁혔다. B4 판정은 이 좁힌 목록으로 한다. 가츠동처럼 보이는 그릇이 나오면 탈락이다.
+- 다만 **같은 음식이 홈에 두 번 나온다**(띠 그림의 가츠동 속 돈카츠, 바탕의 돈카츠). 또 단어 그림 `word-tonkatsu`(접시의 썬 돈카츠 + 양배추)와 리워드 머리 아이템 `tonkatsu_slice`와도 같은 음식이다. 단어 그림·아이템은 홈 바탕과 같은 화면에 나오지 않고(바탕은 홈에만), 리워드 아이템을 기리 머리에 얹으면 홈에서 기리 머리의 돈카츠와 바탕의 돈카츠가 한 화면에 보인다. 장소를 알리려면 이 겹침은 피할 수 없다고 판단했다. **0.1의 "같은 물건이 두 번 나오면 되풀이" 원칙을 돈카츠집에서 푸는 것이라 PM 확인이 필요하다.** 받아들이지 않으면 남는 단서는 노렌뿐이고, 노렌만으로는 이자카야·스시집과 구별되지 않아 B11을 넘기 어렵다.
+
+#### 7.8.3 변형과 장수
+
+| 변형 | 시드 | 장수 | 고른 이유 |
+|---|---|---|---|
+| A 지붕 위 큰 돈카츠 간판 | **313, 314** | 2 | 단서가 가장 크고 높다. 씻김·가림에 가장 강하다 |
+| B 벽 진열창의 돈카츠 접시 | **315, 316** | 2 | A가 기괴하거나 빵으로 읽히면 쓸 현실적인 대안. 단서는 작지만 조용하다 |
+
+- 1~3차가 301~312를 썼다. 4차는 **313~316**.
+- 2장씩 나눈 이유: 두 접근 가운데 어느 쪽이 모델에서 잘 나오는지 아직 모른다. 4장을 한쪽에 몰면 그 접근이 안 될 때 5차가 또 든다.
+- 7.6의 "4장 중 3장 이상 같은 이유" 규칙은 변형마다 2장 중 2장으로 읽는다. 두 변형 모두 같은 이유로 실패하면 PM에게 알린다(돈카츠집은 이미 세 번 다시 뽑았으므로 5차는 PM이 정한다).
+
+#### 7.8.4 대상 문장 (`SUBJECTS["tonkatsu"]`)
+
+변형 A로 313~314를 그리고, 문장을 변형 B로 바꿔 315~316을 그린다. 고른 뒤에는 **고른 변형의 문장을 `SUBJECTS["tonkatsu"]`에 남긴다**(`source/backdrop-tonkatsu.json`과 글자 하나 다르지 않게, 구현 메모의 규칙). 주석에는 "4차(2026-11-25, 시드 313~316), 7.8"과 변형 이름을 적는다.
+
+변형 A (313, 314):
+
+```
+A small Japanese pork cutlet restaurant street seen straight from the front. On the right, a low one-story wooden restaurant with a smooth plain dark gray roof, a wide plain off-white wall and a short plain dark indigo noren curtain of three panels over the door. On top of its roof stands one big low flat sign, as wide as the roof, shaped like a golden brown breaded pork cutlet cut into five thick slices, each slice showing a pale cream cut face, lying on a flat oval off-white plate. On the left, a smaller low one-story wooden restaurant with a smooth plain dark gray roof, a plain off-white wall with no windows and the same short plain dark indigo noren curtain. In the middle, only one low round muted olive bush, small and far away. No trees at the ends. Large simple shapes with few small details; the cutlet surface is smooth, with no dots. The ground strip is a plain pale gray paved strip. All lines are thin.
+```
+
+변형 B (315, 316):
+
+```
+A small Japanese pork cutlet restaurant street seen straight from the front. On the left and on the right, low one-story wooden restaurants with smooth plain dark gray roofs, wide plain off-white walls and short plain dark indigo noren curtains of three panels over the doors. Beside each door, a wide open display window is set high in the wall, level with the top half of the door, with one wooden shelf holding one big flat oval off-white plate, about half as wide as the shop front. On each plate lies a golden brown breaded pork cutlet cut into five thick slices, each slice showing a pale cream cut face, next to a small rounded mound of pale yellow shredded cabbage drawn with only a few curved lines. In the middle, only one low round muted olive bush, small and far away. No trees at the ends. Large simple shapes with few small details; the cutlet surface is smooth, with no dots. The ground strip is a plain pale gray paved strip. All lines are thin.
+```
+
+- 쓰지 않은 말: katsudon, rice, bowl, egg, chopsticks, steam(장면 그림의 대상과 부속. 7.3 끝의 "이름을 적으면 그려 넣는다"), awning(309의 노랑 차양이 "아무 가게"로 읽힌 원인), sign 위 글자(LAYOUT이 이미 막는다).
+- "pork cutlet restaurant"는 장소를 모델에 알리려고 넣었다. 탁자·의자 같은 실내가 나오면 B6·N3로 걸리므로 그때는 "restaurant street"를 "street of small wooden eateries"로 바꾼다.
+
+명령 (저장소 루트):
+
+```bash
+.venv/bin/python tools/gen_image.py "$(.venv/bin/python tools/make_backdrop_art.py prompt tonkatsu)" \
+  --name backdrop-tonkatsu --out docs/design/backdrop-art/source/candidates \
+  --width 1280 --height 640 --seed 313 --count 2
+# SUBJECTS["tonkatsu"]를 변형 B로 바꾼 뒤
+.venv/bin/python tools/gen_image.py "$(.venv/bin/python tools/make_backdrop_art.py prompt tonkatsu)" \
+  --name backdrop-tonkatsu --out docs/design/backdrop-art/source/candidates \
+  --width 1280 --height 640 --seed 315 --count 2
+```
+
+#### 7.8.5 판정 순서와 고르기
+
+1. `make_backdrop_art.py check`로 N1~N6. 7.4 기준 그대로(N4 6%). N4만 6~7%인 후보는 7.8.1 끝대로 표시만 해 둔다.
+2. 눈 검사 B1~B10. B4는 7.8.2의 좁힌 목록으로. 돈카츠가 빵·바나나·통나무로 보이면 B11에서 다룬다.
+3. **B11 장소 식별**: 후보마다 `build`와 같은 처리(지우기, 들어올리기, 아래 30% 씻김)를 한 뒤 기본 색 라이트 o 0.27로 합성해 402×201로 줄인 그림을 본다. 이름을 가리고 3초 안에 "돈카츠(돈가스) 가게"로 읽히는가, 단서가 128px(40pt) 이상이고 0.65H 위에 있는가.
+4. 여럿 통과하면: B11에서 단서가 더 큰 것 → 7.4 순서(B4, N3, N8).
+5. 309와 나란히 둔 비교 시트(`docs/review/backdrop-tonkatsu-r3.png`, 위 칸 원본, 아래 칸 홈 합성 + 판정)와 홈 스크린샷 `backdrop-tonkatsu-light.png`·`-dark.png`를 다시 찍는다. PM이 이슈 #7에 **장면 이름을 밝히지 않은 홈 합성본을 먼저** 올려 "어느 가게로 보이는지" 저장소 주인에게 묻는다.
+6. 통과가 없으면 309를 빼지 말고(바탕이 없는 것보다 낫다는 판단은 PM이 한다) 판정을 `verdicts.json`에 적고 PM에게 알린다.
 
 ## 8. 다른 문서와의 관계
 
@@ -725,3 +820,4 @@ A wide, calm landscape panorama seen straight from the front at eye level, like 
 - 2026-11-22 (developer): 끝에 "구현 메모"를 더함(기본값 바꾸는 곳, 검사 도구에서 정한 것, 고른 그림 6장과 돈카츠집·료칸 없음, verify 결과, 화면에서 본 것).
 - 2026-11-23 (developer): 다크 상한 0.045 → 0.06(이슈 #7 결정), 다크 불투명도 0.13~0.14 → 0.17~0.19. 0번 요약, 2.3, 2.4, 2.7, 6.1, 6.4, 10번 수치와 구현 메모 "다크 바탕 진하게".
 - 2026-11-23 (developer): 돈카츠집 3차(309~312)에서 309를 넣음, 료칸 2차(305~308)는 통과 없음. 대상 문장은 `make_backdrop_art.py` `SUBJECTS`로. 구현 메모 "돈카츠집·료칸 다시 그리기".
+- 2026-11-25 (designer): 이슈 #7 "309가 전혀 돈카츠집 같지 않음"에 따라 돈카츠집 4차 주문(7.8)을 씀. 단서를 썬 돈카츠(변형 A 지붕 위 간판 313~314, 변형 B 벽 진열창 접시 315~316)와 무지 남색 노렌으로. 7.1 돈카츠집 행(넣지 않는 것을 덮밥 그릇과 부속으로 좁힘), 7.3 표의 돈카츠집 행, 7.4에 B11(장소 식별) 추가. N4 장면 단위 완화(7%)와 같은 음식 중복 허용은 PM 확인 필요로 표시.
