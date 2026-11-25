@@ -84,13 +84,18 @@ SUBJECTS = {
              "right, a short stone breakwater with a small round off-white lighthouse. In the middle, two small wooden fishing "
              "boats with dark indigo hulls float on a calm flat strip of pale sky blue water, and low rounded hills lie far "
              "behind the water. The ground strip is a pale gray stone quay.",
-    # 3차(2026-11-23, 시드 309~): 1·2차(301~308)는 2층 가게집의 창·기와 줄이 외곽선을 늘려 N4 6.3~9.1%(B7), 길이 가운데로
-    # 빨려 듦(B6), 나무 초록(N5). 통과한 이자카야처럼 낮은 단층 건물, 넓은 무지 면, 길 대신 땅 띠만, 가운데는 나무 하나만.
-    "tonkatsu": "A small old shopping street seen straight from the side. On the left and on the right, low one-story wooden "
-                "shop houses stand in one flat row facing the viewer, each with a smooth plain dark gray roof, wide plain "
-                "off-white walls and one plain warm yellow fabric awning, with a small muted olive plant in a round clay pot by a door. In the "
-                "middle, only one round muted olive tree, small and far away. Large simple shapes with few small details. "
-                "The ground strip is a plain pale gray paved strip. All lines are thin.",
+    # 4차(2026-11-25, 시드 313~316), home-backdrop.md 7.8. 변형 B(벽 진열창의 돈카츠 접시, 315~316).
+    # 3차 309는 "옛 상점가"가 어느 동네 가게로나 읽혀 사용자가 반려(B11). 장소 단서를 썬 돈카츠와 무지 남색 노렌으로.
+    # 변형 A(지붕 위 큰 돈카츠 간판, 313~314)의 문장은 7.8.4에 있다.
+    "tonkatsu": "A small Japanese pork cutlet restaurant street seen straight from the front. On the left and on the right, "
+                "low one-story wooden restaurants with smooth plain dark gray roofs, wide plain off-white walls and short plain "
+                "dark indigo noren curtains of three panels over the doors. Beside each door, a wide open display window is set "
+                "high in the wall, level with the top half of the door, with one wooden shelf holding one big flat oval "
+                "off-white plate, about half as wide as the shop front. On each plate lies a golden brown breaded pork cutlet "
+                "cut into five thick slices, each slice showing a pale cream cut face, next to a small rounded mound of pale "
+                "yellow shredded cabbage drawn with only a few curved lines. In the middle, only one low round muted olive "
+                "bush, small and far away. No trees at the ends. Large simple shapes with few small details; the cutlet surface "
+                "is smooth, with no dots. The ground strip is a plain pale gray paved strip. All lines are thin.",
     "soba": "A gentle mountain village. Rounded muted olive hills lie behind. On the left, a small thatched farmhouse with a "
             "wooden water wheel. On the right, a few tall pine trees in muted olive. In the middle, a low field of buckwheat "
             "with many tiny off-white flowers on muted olive stems. The ground strip is a warm wood brown dirt path.",
