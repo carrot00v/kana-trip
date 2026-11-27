@@ -84,18 +84,24 @@ SUBJECTS = {
              "right, a short stone breakwater with a small round off-white lighthouse. In the middle, two small wooden fishing "
              "boats with dark indigo hulls float on a calm flat strip of pale sky blue water, and low rounded hills lie far "
              "behind the water. The ground strip is a pale gray stone quay.",
-    # 4차(2026-11-25, 시드 313~316), home-backdrop.md 7.8. 변형 B(벽 진열창의 돈카츠 접시, 315~316).
-    # 3차 309는 "옛 상점가"가 어느 동네 가게로나 읽혀 사용자가 반려(B11). 장소 단서를 썬 돈카츠와 무지 남색 노렌으로.
-    # 변형 A(지붕 위 큰 돈카츠 간판, 313~314)의 문장은 7.8.4에 있다.
-    "tonkatsu": "A small Japanese pork cutlet restaurant street seen straight from the front. On the left and on the right, "
-                "low one-story wooden restaurants with smooth plain dark gray roofs, wide plain off-white walls and short plain "
-                "dark indigo noren curtains of three panels over the doors. Beside each door, a wide open display window is set "
-                "high in the wall, level with the top half of the door, with one wooden shelf holding one big flat oval "
-                "off-white plate, about half as wide as the shop front. On each plate lies a golden brown breaded pork cutlet "
-                "cut into five thick slices, each slice showing a pale cream cut face, next to a small rounded mound of pale "
-                "yellow shredded cabbage drawn with only a few curved lines. In the middle, only one low round muted olive "
-                "bush, small and far away. No trees at the ends. Large simple shapes with few small details; the cutlet surface "
-                "is smooth, with no dots. The ground strip is a plain pale gray paved strip. All lines are thin.",
+    # 5차(2026-11-27, 시드 317~320), home-backdrop.md 7.9. 변형 B(접시 + 노렌만, 319~320).
+    # 4차 314도 사용자 반려("저게 무슨 돈가스집이야"). 가게가 아니라 카운터 위 돈카츠 접시가 주제, 노렌이 보조.
+    # 변형 A(접시 + 멀리 작은 가게, 317~318)의 문장은 7.9.4에 있다. 5차 통과 없음. 노렌이 노렌으로 나온 B를 남김.
+    "tonkatsu": "A Japanese tonkatsu restaurant entrance, shown as one big plate of sliced Japanese tonkatsu pork cutlet on "
+                "a wooden counter beside the restaurant's noren curtain. A long plain warm wood brown counter runs across "
+                "the whole width of the image; its flat front fills a little less than the lower half of the image and is "
+                "the ground strip, with no wood grain. On the left, a short plain warm wood brown beam comes in from the "
+                "left edge of the image, and from it hangs a plain medium indigo blue noren curtain of three panels with "
+                "two slits, reaching down to the counter; there is no building, no wall and no roof. On the right end of "
+                "the counter sits one big flat oval off-white plate, about one third as wide as the image. At the back of "
+                "the plate stands a tall soft rounded mound of shredded cabbage in pale cream and pale yellow, drawn as one "
+                "smooth shape with only three short curved lines. In front of the mound, the breaded pork cutlet is cut "
+                "straight across into four thick slices with square corners; the slices stand in a neat row leaning on the "
+                "cabbage, and each slice shows a large very pale pinkish off-white cut face inside a thin warm golden "
+                "yellow crust with a slightly bumpy top edge. The cutlet is flat and straight-edged, never round. In the "
+                "middle there is only the empty counter. Very few lines: no dots, no crumbs, no texture, no stripes, no "
+                "posts, no shelves. No black, dark brown or dark gray filled areas; the only dark color is the thin "
+                "outline. The outline stays equally thin around big shapes. All lines are thin.",
     "soba": "A gentle mountain village. Rounded muted olive hills lie behind. On the left, a small thatched farmhouse with a "
             "wooden water wheel. On the right, a few tall pine trees in muted olive. In the middle, a low field of buckwheat "
             "with many tiny off-white flowers on muted olive stems. The ground strip is a warm wood brown dirt path.",
